@@ -31,6 +31,8 @@ type MerchantAccountCreateRequest struct {
 	DefaultCurrency string `json:"defaultCurrency"`
 	// Must match the caller's organization when present; rejected otherwise.
 	TenantId *string `json:"tenantId,omitempty"`
+	// Connect: provision this account as a linked sub-merchant under an operator-granted platform account the caller controls (sandbox only in v1). The account is created in a fresh claimable org; the response carries `claimUrl`/`claimExpiresAt` for handing ownership to the sub-merchant.
+	PlatformMerchantAccountId *string `json:"platformMerchantAccountId,omitempty"`
 	DoingBusinessAs *string `json:"doingBusinessAs,omitempty"`
 	BusinessPhone *string `json:"businessPhone,omitempty"`
 	BusinessTaxId *string `json:"businessTaxId,omitempty"`
@@ -287,6 +289,38 @@ func (o *MerchantAccountCreateRequest) HasTenantId() bool {
 // SetTenantId gets a reference to the given string and assigns it to the TenantId field.
 func (o *MerchantAccountCreateRequest) SetTenantId(v string) {
 	o.TenantId = &v
+}
+
+// GetPlatformMerchantAccountId returns the PlatformMerchantAccountId field value if set, zero value otherwise.
+func (o *MerchantAccountCreateRequest) GetPlatformMerchantAccountId() string {
+	if o == nil || IsNil(o.PlatformMerchantAccountId) {
+		var ret string
+		return ret
+	}
+	return *o.PlatformMerchantAccountId
+}
+
+// GetPlatformMerchantAccountIdOk returns a tuple with the PlatformMerchantAccountId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MerchantAccountCreateRequest) GetPlatformMerchantAccountIdOk() (*string, bool) {
+	if o == nil || IsNil(o.PlatformMerchantAccountId) {
+		return nil, false
+	}
+	return o.PlatformMerchantAccountId, true
+}
+
+// HasPlatformMerchantAccountId returns a boolean if a field has been set.
+func (o *MerchantAccountCreateRequest) HasPlatformMerchantAccountId() bool {
+	if o != nil && !IsNil(o.PlatformMerchantAccountId) {
+		return true
+	}
+
+	return false
+}
+
+// SetPlatformMerchantAccountId gets a reference to the given string and assigns it to the PlatformMerchantAccountId field.
+func (o *MerchantAccountCreateRequest) SetPlatformMerchantAccountId(v string) {
+	o.PlatformMerchantAccountId = &v
 }
 
 // GetDoingBusinessAs returns the DoingBusinessAs field value if set, zero value otherwise.
@@ -1046,6 +1080,9 @@ func (o MerchantAccountCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["defaultCurrency"] = o.DefaultCurrency
 	if !IsNil(o.TenantId) {
 		toSerialize["tenantId"] = o.TenantId
+	}
+	if !IsNil(o.PlatformMerchantAccountId) {
+		toSerialize["platformMerchantAccountId"] = o.PlatformMerchantAccountId
 	}
 	if !IsNil(o.DoingBusinessAs) {
 		toSerialize["doingBusinessAs"] = o.DoingBusinessAs

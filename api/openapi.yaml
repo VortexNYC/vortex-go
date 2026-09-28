@@ -2869,6 +2869,241 @@ paths:
               query: { environment: "sandbox", merchantAccountId: "..." },
               body: {"paymentId":"pay_123"},
             });
+  /v1/customers:
+    get:
+      operationId: listCustomers
+      parameters:
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: externalCustomerRef
+          required: false
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: limit
+          required: false
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: cursor
+          required: false
+          schema:
+            type: string
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomerListResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: "List billing customers, optionally filtered by external ref"
+      tags:
+        - billing
+        - customers
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/customers?externalCustomerRef=...&limit=...&cursor=...&environment=sandbox&merchantAccountId=..." \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { listCustomers, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await listCustomers({
+              client: vortex,
+              query: { externalCustomerRef: "...", limit: "...", cursor: "...", environment: "sandbox", merchantAccountId: "..." },
+            });
+    post:
+      operationId: createCustomer
+      parameters:
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value:
+                  name: Acme Inc.
+                  defaultCurrency: USD
+                  externalCustomerRef: acme-org-1
+                  email: billing@example.com
+            schema:
+              $ref: "#/components/schemas/CustomerCreateRequest"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomerResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: Create a billing customer
+      tags:
+        - billing
+        - customers
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/customers?environment=sandbox&merchantAccountId=..." \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{"name":"Acme Inc.","defaultCurrency":"USD","externalCustomerRef":"acme-org-1","email":"billing@example.com"}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { createCustomer, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await createCustomer({
+              client: vortex,
+              query: { environment: "sandbox", merchantAccountId: "..." },
+              body: {"name":"Acme Inc.","defaultCurrency":"USD","externalCustomerRef":"acme-org-1","email":"billing@example.com"},
+            });
+    put:
+      operationId: ensureCustomer
+      parameters:
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value:
+                  name: Acme Inc.
+                  defaultCurrency: USD
+                  externalCustomerRef: acme-org-1
+                  email: billing@example.com
+            schema:
+              $ref: "#/components/schemas/CustomerEnsureRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomerResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary:
+        Ensure a billing customer exists — dedupes on externalCustomerRef (first)
+        or customerId
+      tags:
+        - billing
+        - customers
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/customers?environment=sandbox&merchantAccountId=..." \
+              -X PUT \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{"name":"Acme Inc.","defaultCurrency":"USD","externalCustomerRef":"acme-org-1","email":"billing@example.com"}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { ensureCustomer, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await ensureCustomer({
+              client: vortex,
+              query: { environment: "sandbox", merchantAccountId: "..." },
+              body: {"name":"Acme Inc.","defaultCurrency":"USD","externalCustomerRef":"acme-org-1","email":"billing@example.com"},
+            });
   /v1/customers/{customerId}:
     put:
       operationId: upsertCustomer
@@ -9397,6 +9632,13 @@ paths:
           schema:
             type: string
           style: form
+        - explode: true
+          in: query
+          name: scope
+          required: false
+          schema:
+            type: string
+          style: form
         - description:
             "Page size, 1-100. Omitting both limit and cursor returns the\
             \ full unpaginated list."
@@ -9448,7 +9690,7 @@ paths:
         - lang: Shell
           label: curl
           source: |-
-            curl "https://api.vortex.nyc/v1/merchant-accounts/{merchantAccountId}/settlements?environment=sandbox&merchantAccountId=..." \
+            curl "https://api.vortex.nyc/v1/merchant-accounts/{merchantAccountId}/settlements?environment=sandbox&scope=...&merchantAccountId=..." \
               -X GET \
               -H "Authorization: Bearer $VORTEX_API_KEY" \
         - lang: TypeScript
@@ -9460,7 +9702,7 @@ paths:
             const { data } = await getMerchantAccountSettlements({
               client: vortex,
               path: { merchantAccountId: "..." },
-              query: { environment: "sandbox", merchantAccountId: "..." },
+              query: { environment: "sandbox", scope: "...", merchantAccountId: "..." },
             });
   /v1/merchant-accounts/{merchantAccountId}/payouts:
     get:
@@ -11885,6 +12127,7 @@ components:
         merchantMode: merchantMode
         defaultCurrency: defaultCurrency
         tenantId: tenantId
+        platformMerchantAccountId: platformMerchantAccountId
         doingBusinessAs: doingBusinessAs
         businessPhone: businessPhone
         businessTaxId: businessTaxId
@@ -12018,6 +12261,13 @@ components:
           description:
             Must match the caller's organization when present; rejected
             otherwise.
+          type: string
+        platformMerchantAccountId:
+          description:
+            "Connect: provision this account as a linked sub-merchant under\
+            \ an operator-granted platform account the caller controls (sandbox only\
+            \ in v1). The account is created in a fresh claimable org; the response\
+            \ carries `claimUrl`/`claimExpiresAt` for handing ownership to the sub-merchant."
           type: string
         doingBusinessAs:
           type: string
@@ -12722,6 +12972,75 @@ components:
         metadata:
           additionalProperties:
             type: string
+    CustomerCreateRequest:
+      additionalProperties: false
+      example:
+        name: name
+        defaultCurrency: USD
+        customerId: customerId
+        externalCustomerRef: externalCustomerRef
+        email: email
+        metadata:
+          key: metadata
+      properties:
+        name:
+          type: string
+        defaultCurrency:
+          example: USD
+          type: string
+        customerId:
+          description: Caller-chosen Vortex customer id; omit to auto-mint.
+          type: string
+        externalCustomerRef:
+          description:
+            Merchant's own customer reference — the portable join key across
+            Vortex surfaces.
+          type: string
+        email:
+          format: email
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+      required:
+        - defaultCurrency
+        - name
+    CustomerEnsureRequest:
+      additionalProperties: false
+      anyOf: []
+      description:
+        "Ensure-upsert: at least one dedupe key (externalCustomerRef or\
+        \ customerId) is required; resolves externalCustomerRef first."
+      example:
+        name: name
+        defaultCurrency: USD
+        customerId: customerId
+        externalCustomerRef: externalCustomerRef
+        email: email
+        metadata:
+          key: metadata
+      nullable: true
+      properties:
+        name:
+          type: string
+        defaultCurrency:
+          example: USD
+          type: string
+        customerId:
+          type: string
+        externalCustomerRef:
+          type: string
+        email:
+          format: email
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+      required:
+        - defaultCurrency
+        - name
+    CustomerListResponse:
+      $ref: "#/components/schemas/ApiWriteEnvelope"
     ProductCreateRequest:
       additionalProperties: false
       example:
@@ -13055,6 +13374,7 @@ components:
         eventTypes:
           - eventTypes
           - eventTypes
+        scope: platform
       properties:
         url:
           format: uri
@@ -13067,6 +13387,14 @@ components:
           minItems: 1
           type: array
           default: null
+        scope:
+          description:
+            Delivery scope. Omit for the ordinary per-merchant scope (events
+            owned by this merchant account). `platform` is only valid on an operator-activated
+            platform account and receives events owned by its linked sub-merchants.
+          enum:
+            - platform
+          type: string
       required:
         - eventTypes
         - url

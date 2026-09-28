@@ -24,6 +24,8 @@ type WebhookEndpointCreateRequest struct {
 	Url string `json:"url"`
 	Description *string `json:"description,omitempty"`
 	EventTypes []string `json:"eventTypes"`
+	// Delivery scope. Omit for the ordinary per-merchant scope (events owned by this merchant account). `platform` is only valid on an operator-activated platform account and receives events owned by its linked sub-merchants.
+	Scope *string `json:"scope,omitempty"`
 }
 
 type _WebhookEndpointCreateRequest WebhookEndpointCreateRequest
@@ -127,6 +129,38 @@ func (o *WebhookEndpointCreateRequest) SetEventTypes(v []string) {
 	o.EventTypes = v
 }
 
+// GetScope returns the Scope field value if set, zero value otherwise.
+func (o *WebhookEndpointCreateRequest) GetScope() string {
+	if o == nil || IsNil(o.Scope) {
+		var ret string
+		return ret
+	}
+	return *o.Scope
+}
+
+// GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WebhookEndpointCreateRequest) GetScopeOk() (*string, bool) {
+	if o == nil || IsNil(o.Scope) {
+		return nil, false
+	}
+	return o.Scope, true
+}
+
+// HasScope returns a boolean if a field has been set.
+func (o *WebhookEndpointCreateRequest) HasScope() bool {
+	if o != nil && !IsNil(o.Scope) {
+		return true
+	}
+
+	return false
+}
+
+// SetScope gets a reference to the given string and assigns it to the Scope field.
+func (o *WebhookEndpointCreateRequest) SetScope(v string) {
+	o.Scope = &v
+}
+
 func (o WebhookEndpointCreateRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -142,6 +176,9 @@ func (o WebhookEndpointCreateRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["description"] = o.Description
 	}
 	toSerialize["eventTypes"] = o.EventTypes
+	if !IsNil(o.Scope) {
+		toSerialize["scope"] = o.Scope
+	}
 	return toSerialize, nil
 }
 

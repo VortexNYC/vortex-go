@@ -1181,6 +1181,7 @@ type PaymentsReadinessAPIGetMerchantAccountSettlementsRequest struct {
 	merchantAccountId string
 	environment *string
 	merchantAccountId2 *string
+	scope *string
 	limit *int32
 	cursor *string
 }
@@ -1192,6 +1193,11 @@ func (r PaymentsReadinessAPIGetMerchantAccountSettlementsRequest) Environment(en
 
 func (r PaymentsReadinessAPIGetMerchantAccountSettlementsRequest) MerchantAccountId2(merchantAccountId2 string) PaymentsReadinessAPIGetMerchantAccountSettlementsRequest {
 	r.merchantAccountId2 = &merchantAccountId2
+	return r
+}
+
+func (r PaymentsReadinessAPIGetMerchantAccountSettlementsRequest) Scope(scope string) PaymentsReadinessAPIGetMerchantAccountSettlementsRequest {
+	r.scope = &scope
 	return r
 }
 
@@ -1256,6 +1262,9 @@ func (a *PaymentsReadinessAPIService) GetMerchantAccountSettlementsExecute(r Pay
 
 	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId2, "form", "")
+	if r.scope != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "")
+	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}

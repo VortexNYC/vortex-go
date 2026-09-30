@@ -5979,6 +5979,92 @@ paths:
               query: { environment: "sandbox", merchantAccountId: "..." },
               body: {"executionMode":"execute_in_vortex","executeAt":"2026-10-15T00:00:00.000Z"},
             });
+  /v1/orders/{orderId}/amend:
+    post:
+      operationId: amendBillingOrder
+      parameters:
+        - explode: false
+          in: path
+          name: orderId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value:
+                  lines:
+                    - priceId: bprice_seats
+                      quantity: 10
+            schema:
+              $ref: "#/components/schemas/BillingOrderAmendRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BillingQuoteDetailResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary:
+        Open an amendment on an executed BillingOrder; returns its lineage-stamped
+        amendment quote
+      tags:
+        - billing
+        - quotes
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/orders/{orderId}/amend?environment=sandbox&merchantAccountId=..." \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{"lines":[{"priceId":"bprice_seats","quantity":10}]}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { amendBillingOrder, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await amendBillingOrder({
+              client: vortex,
+              path: { orderId: "..." },
+              query: { environment: "sandbox", merchantAccountId: "..." },
+              body: {"lines":[{"priceId":"bprice_seats","quantity":10}]},
+            });
   /v1/orders/{orderId}/execute:
     post:
       operationId: executeBillingOrder
@@ -14446,6 +14532,44 @@ components:
       additionalProperties: false
       properties: {}
       type: object
+    BillingOrderAmendRequest:
+      additionalProperties: false
+      example:
+        lines:
+          - priceId: priceId
+            quantity: 1
+            unitAmount: 0
+            description: description
+          - priceId: priceId
+            quantity: 1
+            unitAmount: 0
+            description: description
+        couponIds:
+          - couponIds
+          - couponIds
+        terms: terms
+        metadata:
+          key: metadata
+      properties:
+        lines:
+          description:
+            Restatement lines for the amendment's first draft version.
+            Omit to clone the target subscription's live items; an empty array signs
+            an early termination.
+          items:
+            $ref: "#/components/schemas/BillingQuoteLineInput"
+          type: array
+          default: null
+        couponIds:
+          items:
+            type: string
+          type: array
+          default: null
+        terms:
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
     BillingOrdersExecuteDueRequest:
       additionalProperties: false
       example:

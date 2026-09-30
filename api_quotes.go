@@ -23,6 +23,211 @@ import (
 // QuotesAPIService QuotesAPI service
 type QuotesAPIService service
 
+type QuotesAPIAmendBillingOrderRequest struct {
+	ctx context.Context
+	ApiService *QuotesAPIService
+	orderId string
+	environment *string
+	merchantAccountId *string
+	billingOrderAmendRequest *BillingOrderAmendRequest
+	idempotencyKey *string
+}
+
+func (r QuotesAPIAmendBillingOrderRequest) Environment(environment string) QuotesAPIAmendBillingOrderRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r QuotesAPIAmendBillingOrderRequest) MerchantAccountId(merchantAccountId string) QuotesAPIAmendBillingOrderRequest {
+	r.merchantAccountId = &merchantAccountId
+	return r
+}
+
+func (r QuotesAPIAmendBillingOrderRequest) BillingOrderAmendRequest(billingOrderAmendRequest BillingOrderAmendRequest) QuotesAPIAmendBillingOrderRequest {
+	r.billingOrderAmendRequest = &billingOrderAmendRequest
+	return r
+}
+
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r QuotesAPIAmendBillingOrderRequest) IdempotencyKey(idempotencyKey string) QuotesAPIAmendBillingOrderRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r QuotesAPIAmendBillingOrderRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
+	return r.ApiService.AmendBillingOrderExecute(r)
+}
+
+/*
+AmendBillingOrder Open an amendment on an executed BillingOrder; returns its lineage-stamped amendment quote
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param orderId
+ @return QuotesAPIAmendBillingOrderRequest
+*/
+func (a *QuotesAPIService) AmendBillingOrder(ctx context.Context, orderId string) QuotesAPIAmendBillingOrderRequest {
+	return QuotesAPIAmendBillingOrderRequest{
+		ApiService: a,
+		ctx: ctx,
+		orderId: orderId,
+	}
+}
+
+// Execute executes the request
+//  @return ApiWriteEnvelope
+func (a *QuotesAPIService) AmendBillingOrderExecute(r QuotesAPIAmendBillingOrderRequest) (*ApiWriteEnvelope, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ApiWriteEnvelope
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QuotesAPIService.AmendBillingOrder")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/orders/{orderId}/amend"
+	localVarPath = strings.Replace(localVarPath, "{"+"orderId"+"}", url.PathEscape(parameterValueToString(r.orderId, "orderId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.environment == nil {
+		return localVarReturnValue, nil, reportError("environment is required and must be specified")
+	}
+	if r.merchantAccountId == nil {
+		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
+	}
+	if r.billingOrderAmendRequest == nil {
+		return localVarReturnValue, nil, reportError("billingOrderAmendRequest is required and must be specified")
+	}
+
+	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.billingOrderAmendRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ApiError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ApiError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v ApiError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v ApiError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v ApiError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+			var v ApiError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type QuotesAPIApproveBillingQuoteVersionRequest struct {
 	ctx context.Context
 	ApiService *QuotesAPIService

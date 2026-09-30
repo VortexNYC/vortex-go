@@ -8510,6 +8510,248 @@ paths:
               query: { environment: "sandbox", merchantAccountId: "..." },
               body: {"customerId":"bcust_123","billingAccountId":"bacc_123","meterId":"meter_api_calls","eventName":"api.call","quantity":42,"occurredAt":"2026-09-01T12:00:00Z"},
             });
+  /v1/usage-thresholds:
+    get:
+      operationId: listUsageThresholds
+      parameters:
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: includeArchived
+          required: false
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: limit
+          required: false
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: offset
+          required: false
+          schema:
+            type: string
+          style: form
+        - description:
+            Opaque cursor from the previous page's nextCursor. Pass it back
+            verbatim to fetch the next page.
+          explode: true
+          in: query
+          name: cursor
+          required: false
+          schema:
+            type: string
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UsageThresholdListResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: List configured usage thresholds
+      tags:
+        - billing
+        - usage
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/usage-thresholds?includeArchived=...&limit=...&offset=...&environment=sandbox&merchantAccountId=..." \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { listUsageThresholds, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await listUsageThresholds({
+              client: vortex,
+              query: { includeArchived: "...", limit: "...", offset: "...", environment: "sandbox", merchantAccountId: "..." },
+            });
+    post:
+      operationId: createUsageThreshold
+      parameters:
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value:
+                  meterId: meter_api_calls
+                  thresholdValue: 10000
+            schema:
+              $ref: "#/components/schemas/UsageThresholdCreateRequest"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UsageThresholdResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary:
+        Configure a usage threshold on a meter (customerId omitted = meter-wide);
+        emits usage.threshold_reached when the windowed aggregate crosses
+      tags:
+        - billing
+        - usage
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/usage-thresholds?environment=sandbox&merchantAccountId=..." \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{"meterId":"meter_api_calls","thresholdValue":10000}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { createUsageThreshold, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await createUsageThreshold({
+              client: vortex,
+              query: { environment: "sandbox", merchantAccountId: "..." },
+              body: {"meterId":"meter_api_calls","thresholdValue":10000},
+            });
+  /v1/usage-thresholds/{thresholdId}/archive:
+    post:
+      operationId: archiveUsageThreshold
+      parameters:
+        - explode: false
+          in: path
+          name: thresholdId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WebhookEmptyRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UsageThresholdResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: Archive a usage threshold (stops evaluation)
+      tags:
+        - billing
+        - usage
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/usage-thresholds/{thresholdId}/archive?environment=sandbox&merchantAccountId=..." \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { archiveUsageThreshold, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await archiveUsageThreshold({
+              client: vortex,
+              path: { thresholdId: "..." },
+              query: { environment: "sandbox", merchantAccountId: "..." },
+            });
   /v1/webhook-deliveries:
     get:
       operationId: listWebhookDeliveries
@@ -13778,6 +14020,25 @@ components:
       additionalProperties: false
       properties: {}
       type: object
+    UsageThresholdCreateRequest:
+      additionalProperties: false
+      example:
+        meterId: meterId
+        customerId: customerId
+        thresholdValue: 0
+        thresholdId: thresholdId
+      properties:
+        meterId:
+          type: string
+        customerId:
+          type: string
+        thresholdValue:
+          type: integer
+        thresholdId:
+          type: string
+      required:
+        - meterId
+        - thresholdValue
     UsageEventCreateRequest:
       additionalProperties: false
       example:
@@ -15307,6 +15568,10 @@ components:
     UsageEventResponse:
       $ref: "#/components/schemas/ApiWriteEnvelope"
     UsageEventListResponse:
+      $ref: "#/components/schemas/ApiWriteEnvelope"
+    UsageThresholdResponse:
+      $ref: "#/components/schemas/ApiWriteEnvelope"
+    UsageThresholdListResponse:
       $ref: "#/components/schemas/ApiWriteEnvelope"
     InvoiceListResponse:
       $ref: "#/components/schemas/ApiWriteEnvelope"

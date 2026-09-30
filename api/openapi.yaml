@@ -9625,6 +9625,170 @@ paths:
               query: { environment: "sandbox", merchantAccountId: "..." },
               body: {"reason":"customer_requested"},
             });
+  /v1/customers/{customerId}/payment-methods/{paymentMethodId}/verify-microdeposit:
+    post:
+      operationId: verifyCustomerPaymentMethodMicrodeposit
+      parameters:
+        - explode: false
+          in: path
+          name: customerId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - explode: false
+          in: path
+          name: paymentMethodId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value:
+                  verificationCode: FNX7Q2M
+            schema:
+              $ref: "#/components/schemas/CustomerPaymentMethodVerifyMicrodepositRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomerPaymentMethodMicrodepositVerifyResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: Submit the microdeposit statement code for a pending bank payment method
+      tags:
+        - billing
+        - payment-methods
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/customers/{customerId}/payment-methods/{paymentMethodId}/verify-microdeposit?environment=sandbox&merchantAccountId=..." \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{"verificationCode":"FNX7Q2M"}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { verifyCustomerPaymentMethodMicrodeposit, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await verifyCustomerPaymentMethodMicrodeposit({
+              client: vortex,
+              path: { customerId: "...", paymentMethodId: "..." },
+              query: { environment: "sandbox", merchantAccountId: "..." },
+              body: {"verificationCode":"FNX7Q2M"},
+            });
+  /v1/customers/{customerId}/payment-methods/{paymentMethodId}/microdeposit-status:
+    get:
+      operationId: getCustomerPaymentMethodMicrodepositStatus
+      parameters:
+        - explode: false
+          in: path
+          name: customerId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - explode: false
+          in: path
+          name: paymentMethodId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomerPaymentMethodMicrodepositStatusResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: Get live provider microdeposit state for a pending bank payment method
+      tags:
+        - billing
+        - payment-methods
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/customers/{customerId}/payment-methods/{paymentMethodId}/microdeposit-status?environment=sandbox&merchantAccountId=..." \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { getCustomerPaymentMethodMicrodepositStatus, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await getCustomerPaymentMethodMicrodepositStatus({
+              client: vortex,
+              path: { customerId: "...", paymentMethodId: "..." },
+              query: { environment: "sandbox", merchantAccountId: "..." },
+            });
   /v1/customers/{customerId}/payment-state:
     get:
       operationId: getCustomerPaymentState
@@ -13392,6 +13556,23 @@ components:
           type: string
         reason:
           type: string
+    CustomerPaymentMethodVerifyMicrodepositRequest:
+      additionalProperties: false
+      example:
+        billingAccountId: billingAccountId
+        verificationCode: verificationCode
+      properties:
+        billingAccountId:
+          type: string
+        verificationCode:
+          description: The FNX-prefixed code from the buyer's bank statement descriptor.
+          type: string
+      required:
+        - verificationCode
+    CustomerPaymentMethodMicrodepositVerifyResponse:
+      $ref: "#/components/schemas/ApiWriteEnvelope"
+    CustomerPaymentMethodMicrodepositStatusResponse:
+      $ref: "#/components/schemas/ApiWriteEnvelope"
     GrantEntitlementRequest:
       additionalProperties: false
       example:

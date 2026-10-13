@@ -31,6 +31,10 @@ tags:
     name: hosted
   - description: "Invoice preview, creation, finalization, collection, and lifecycle."
     name: invoices
+  - description:
+      Self-serve org provisioning and merchant onboarding — anonymous signup
+      through hosted underwriting.
+    name: onboarding
   - description: Customer payment method setup and management.
     name: payment-methods
   - description: Payment requests and payment links.
@@ -9425,6 +9429,64 @@ paths:
               query: { environment: "sandbox", merchantAccountId: "..." },
               body: {"url":"https://app.example.com/vortex/webhooks","eventTypes":["invoice.paid"],"description":"Production consumer app webhook endpoint"},
             });
+  /v1/signup:
+    post:
+      operationId: createSignup
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value:
+                  name: Acme Contracting LLC
+                  contactEmail: ops@acme.example
+            schema:
+              $ref: "#/components/schemas/SignupRequest"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SignupResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security: []
+      summary:
+        "Anonymous self-serve signup — mints a sandbox organization + vp_test_\
+        \ API key, no session required"
+      tags:
+        - onboarding
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/signup" \
+              -X POST \
+              -H "Content-Type: application/json" \
+              -d '{"name":"Acme Contracting LLC","contactEmail":"ops@acme.example"}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { createSignup, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await createSignup({
+              client: vortex,
+              body: {"name":"Acme Contracting LLC","contactEmail":"ops@acme.example"},
+            });
   /v1/recurring-payables:
     post:
       operationId: createRecurringPayable
@@ -13433,6 +13495,61 @@ components:
       required:
         - createdByRef
         - environment
+    SignupRequest:
+      additionalProperties: false
+      description:
+        "Anonymous sandbox signup. Provisions an organization + a vp_test_\
+        \ API key with no credential at all — the org is claimed later via claimUrl.\
+        \ Production orgs require an authenticated session, not this route."
+      example:
+        name: name
+        contactEmail: contactEmail
+        inviteCode: inviteCode
+      properties:
+        name:
+          description: Organization name
+          type: string
+        contactEmail:
+          format: email
+          type: string
+        inviteCode:
+          description: Ops-issued invite code (vxi_…) — optional attribution
+          type: string
+      required:
+        - name
+    SignupResponse:
+      additionalProperties: false
+      example:
+        organizationId: organizationId
+        environment: sandbox
+        apiKey: apiKey
+        apiKeyNote: apiKeyNote
+        claimUrl: claimUrl
+        claimExpiresAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        organizationId:
+          type: string
+        environment:
+          enum:
+            - sandbox
+          type: string
+        apiKey:
+          description: vp_test_ key — shown once; only its hash is retained
+          type: string
+        apiKeyNote:
+          type: string
+        claimUrl:
+          description:
+            Claim URL carrying the token in the URL fragment — hands the
+            org to a human
+          type: string
+        claimExpiresAt:
+          format: date-time
+          type: string
+      required:
+        - apiKey
+        - environment
+        - organizationId
     FeePolicy:
       additionalProperties: true
       description:

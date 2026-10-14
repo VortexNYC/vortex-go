@@ -5423,6 +5423,239 @@ paths:
               path: { merchantAccountId: "..." },
               query: { environment: "sandbox", merchantAccountId: "..." },
             });
+  /v1/merchant-accounts/{merchantAccountId}/promote:
+    post:
+      operationId: promoteMerchantToLive
+      parameters:
+        - explode: false
+          in: path
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value:
+                  environment: sandbox
+            schema:
+              $ref: "#/components/schemas/PromoteMerchantRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PromoteMerchantResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary:
+        Promote a sandbox merchant to production on the same org — creates
+        the live twin and mints the org's first vp_live_ key
+      tags:
+        - onboarding
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/merchant-accounts/{merchantAccountId}/promote?environment=sandbox&merchantAccountId=..." \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{"environment":"sandbox"}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { promoteMerchantToLive, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await promoteMerchantToLive({
+              client: vortex,
+              path: { merchantAccountId: "..." },
+              query: { environment: "sandbox", merchantAccountId: "..." },
+              body: {"environment":"sandbox"},
+            });
+  /v1/merchant-accounts/{merchantAccountId}/rate-plan:
+    get:
+      operationId: getMerchantRatePlan
+      parameters:
+        - explode: false
+          in: path
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MerchantRatePlanResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary:
+        "The merchant's active rate plan — sell-side pricing only (their rates,\
+        \ not platform internals)"
+      tags:
+        - onboarding
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/merchant-accounts/{merchantAccountId}/rate-plan?environment=sandbox&merchantAccountId=..." \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { getMerchantRatePlan, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await getMerchantRatePlan({
+              client: vortex,
+              path: { merchantAccountId: "..." },
+              query: { environment: "sandbox", merchantAccountId: "..." },
+            });
+  /v1/merchant-accounts/{merchantAccountId}/sandbox-seed:
+    post:
+      operationId: seedSandboxBook
+      parameters:
+        - explode: false
+          in: path
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value:
+                  environment: sandbox
+            schema:
+              $ref: "#/components/schemas/SandboxSeedRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SandboxSeedResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary:
+        "Seed a fresh sandbox merchant's first book — customer, vaulted fixture\
+        \ card, captured payment intent"
+      tags:
+        - onboarding
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/merchant-accounts/{merchantAccountId}/sandbox-seed?environment=sandbox&merchantAccountId=..." \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{"environment":"sandbox"}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { seedSandboxBook, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await seedSandboxBook({
+              client: vortex,
+              path: { merchantAccountId: "..." },
+              query: { environment: "sandbox", merchantAccountId: "..." },
+              body: {"environment":"sandbox"},
+            });
   /v1/merchant-accounts/{merchantAccountId}/state:
     get:
       operationId: getMerchantAccountState
@@ -5490,6 +5723,161 @@ paths:
               client: vortex,
               path: { merchantAccountId: "..." },
               query: { environment: "sandbox", merchantAccountId: "..." },
+            });
+  /v1/merchant-accounts/{merchantAccountId}/statements:
+    get:
+      operationId: listMerchantStatements
+      parameters:
+        - explode: false
+          in: path
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatementListResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary:
+        List uploaded statements — status and filename only; parsed economics
+        are internal
+      tags:
+        - onboarding
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/merchant-accounts/{merchantAccountId}/statements?environment=sandbox&merchantAccountId=..." \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { listMerchantStatements, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await listMerchantStatements({
+              client: vortex,
+              path: { merchantAccountId: "..." },
+              query: { environment: "sandbox", merchantAccountId: "..." },
+            });
+    post:
+      operationId: uploadMerchantStatement
+      parameters:
+        - explode: false
+          in: path
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value:
+                  environment: sandbox
+                  filename: stripe-sept.csv
+                  contentType: text/csv
+                  body: |-
+                    id,Type,Amount,Fee,Net
+                    ch_1,charge,100.00,3.20,96.80
+            schema:
+              $ref: "#/components/schemas/StatementUploadRequest"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatementUploadResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary:
+        "Upload a processing statement (CSV/TSV export) for pricing analysis\
+        \ — merchant writes it, internal reads the economics"
+      tags:
+        - onboarding
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/merchant-accounts/{merchantAccountId}/statements?environment=sandbox&merchantAccountId=..." \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{"environment":"sandbox","filename":"stripe-sept.csv","contentType":"text/csv","body":"id,Type,Amount,Fee,Net\nch_1,charge,100.00,3.20,96.80"}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { uploadMerchantStatement, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await uploadMerchantStatement({
+              client: vortex,
+              path: { merchantAccountId: "..." },
+              query: { environment: "sandbox", merchantAccountId: "..." },
+              body: {"environment":"sandbox","filename":"stripe-sept.csv","contentType":"text/csv","body":"id,Type,Amount,Fee,Net\nch_1,charge,100.00,3.20,96.80"},
             });
   /v1/merchant-accounts/{merchantAccountId}/tax-profile:
     get:
@@ -13550,6 +13938,266 @@ components:
         - apiKey
         - environment
         - organizationId
+    PromoteMerchantRequest:
+      additionalProperties: false
+      description:
+        Promote this sandbox merchant to production on the same organization.
+        The org must be claimed — an unclaimed anonymous org cannot mint live credentials.
+        Idempotent on promote:<sourceId>; replays return the existing live twin.
+      example:
+        environment: sandbox
+        merchantAccountId: merchantAccountId
+      properties:
+        environment:
+          enum:
+            - sandbox
+          type: string
+        merchantAccountId:
+          description: Must match the path merchantAccountId
+          type: string
+      required:
+        - environment
+        - merchantAccountId
+    PromoteMerchantResponse:
+      additionalProperties: false
+      example:
+        organizationId: organizationId
+        merchantAccountId: merchantAccountId
+        alreadyPromoted: true
+        apiKey: apiKey
+        apiKeyNote: apiKeyNote
+      properties:
+        organizationId:
+          type: string
+        merchantAccountId:
+          description:
+            The production twin merchant — separate provider underwriting
+            runs against it
+          type: string
+        alreadyPromoted:
+          description: True when the live twin already existed (idempotent replay)
+          type: boolean
+        apiKey:
+          description:
+            The org's first vp_live_ key — null when one already exists
+            or on replay
+          nullable: true
+          type: string
+        apiKeyNote:
+          nullable: true
+          type: string
+      required:
+        - alreadyPromoted
+        - merchantAccountId
+        - organizationId
+    MerchantRatePlanResponse:
+      additionalProperties: false
+      description:
+        The merchant's active rate plan — the pricing they pay. Platform
+        fees and provider internals are not in this shape.
+      example:
+        ratePlanId: ratePlanId
+        displayName: displayName
+        pricingStrategy: pricingStrategy
+        effectiveAt: 2000-01-23T04:56:07.000+00:00
+        rate:
+          cardBasisPoints: 0.8008281904610115
+          cardFixedFee: 6.027456183070403
+          cardCrossBorderBasisPoints: 1.4658129805029452
+          achBasisPoints: 5.962133916683182
+          achFixedFee: 5.637376656633329
+          disputeFixedFee: 2.3021358869347655
+          monthlyFeeCents: 7.061401241503109
+      properties:
+        ratePlanId:
+          type: string
+        displayName:
+          type: string
+        pricingStrategy:
+          type: string
+        effectiveAt:
+          format: date-time
+          type: string
+        rate:
+          $ref: "#/components/schemas/MerchantRatePlanResponse_rate"
+      required:
+        - displayName
+        - pricingStrategy
+        - rate
+        - ratePlanId
+    StatementUploadRequest:
+      additionalProperties: false
+      description:
+        "A processing statement export — CSV/TSV text or a base64-encoded\
+        \ binary (PDF). Parsed server-side: deterministic rules first, document-parse\
+        \ + AI extraction as the fallback. Metrics are internal-only; the merchant\
+        \ never sees them."
+      example:
+        environment: sandbox
+        merchantAccountId: merchantAccountId
+        filename: filename
+        contentType: text/csv
+        body: body
+      properties:
+        environment:
+          enum:
+            - sandbox
+            - production
+          type: string
+        merchantAccountId:
+          description: Must match the path merchantAccountId
+          type: string
+        filename:
+          type: string
+        contentType:
+          enum:
+            - text/csv
+            - text/plain
+            - text/tab-separated-values
+            - application/pdf
+            - application/octet-stream
+          type: string
+        body:
+          description:
+            "Raw text for text/* uploads; base64-encoded bytes for binary\
+            \ types (application/pdf, application/octet-stream)"
+          type: string
+      required:
+        - body
+        - contentType
+        - environment
+        - filename
+        - merchantAccountId
+    StatementUploadResponse:
+      additionalProperties: false
+      example:
+        id: id
+        environment: sandbox
+        merchantAccountId: merchantAccountId
+        filename: filename
+        status: received
+        createdAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        id:
+          type: string
+        environment:
+          enum:
+            - sandbox
+            - production
+          type: string
+        merchantAccountId:
+          type: string
+        filename:
+          type: string
+        status:
+          enum:
+            - received
+            - parsed
+            - failed
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+      required:
+        - createdAt
+        - environment
+        - filename
+        - id
+        - merchantAccountId
+        - status
+    StatementListResponse:
+      example:
+        data:
+          - id: id
+            environment: sandbox
+            merchantAccountId: merchantAccountId
+            filename: filename
+            status: received
+            createdAt: 2000-01-23T04:56:07.000+00:00
+          - id: id
+            environment: sandbox
+            merchantAccountId: merchantAccountId
+            filename: filename
+            status: received
+            createdAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        data:
+          items:
+            $ref: "#/components/schemas/StatementUploadResponse"
+          type: array
+          default: null
+      required:
+        - data
+    SandboxSeedRequest:
+      additionalProperties: false
+      description:
+        "Seed the merchant's sandbox book — a demo customer, a vaulted\
+        \ fixture card, and one captured $42 payment intent so list reads return real\
+        \ rows on day one. Sandbox-only; the route is dead in production deploys."
+      example:
+        environment: sandbox
+        merchantAccountId: merchantAccountId
+        preset: storefront
+      properties:
+        environment:
+          enum:
+            - sandbox
+          type: string
+        merchantAccountId:
+          description: Must match the path merchantAccountId
+          type: string
+        preset:
+          enum:
+            - storefront
+          type: string
+      required:
+        - environment
+        - merchantAccountId
+    SandboxSeedResponse:
+      additionalProperties: false
+      example:
+        environment: sandbox
+        merchantAccountId: merchantAccountId
+        customerProfileId: customerProfileId
+        paymentMethodId: paymentMethodId
+        paymentInstrumentId: paymentInstrumentId
+        paymentIntentId: paymentIntentId
+        paymentIntentStatus: paymentIntentStatus
+        chargeSkippedReason: chargeSkippedReason
+      properties:
+        environment:
+          enum:
+            - sandbox
+          type: string
+        merchantAccountId:
+          type: string
+        customerProfileId:
+          type: string
+        paymentMethodId:
+          type: string
+        paymentInstrumentId:
+          type: string
+        paymentIntentId:
+          description:
+            "Null when the merchant isn't provider-linked yet — the charge\
+            \ leg is skipped, not failed"
+          nullable: true
+          type: string
+        paymentIntentStatus:
+          nullable: true
+          type: string
+        chargeSkippedReason:
+          description:
+            Why the demo charge was skipped (e.g. merchant isn't processor-linked
+            yet)
+          nullable: true
+          type: string
+      required:
+        - customerProfileId
+        - environment
+        - merchantAccountId
+        - paymentInstrumentId
+        - paymentMethodId
     FeePolicy:
       additionalProperties: true
       description:
@@ -16325,6 +16973,33 @@ components:
         consumerToConsumerVolumePercentage:
           type: number
         otherVolumePercentage:
+          type: number
+    MerchantRatePlanResponse_rate:
+      example:
+        cardBasisPoints: 0.8008281904610115
+        cardFixedFee: 6.027456183070403
+        cardCrossBorderBasisPoints: 1.4658129805029452
+        achBasisPoints: 5.962133916683182
+        achFixedFee: 5.637376656633329
+        disputeFixedFee: 2.3021358869347655
+        monthlyFeeCents: 7.061401241503109
+      properties:
+        cardBasisPoints:
+          type: number
+        cardFixedFee:
+          type: number
+        cardCrossBorderBasisPoints:
+          nullable: true
+          type: number
+        achBasisPoints:
+          type: number
+        achFixedFee:
+          nullable: true
+          type: number
+        disputeFixedFee:
+          nullable: true
+          type: number
+        monthlyFeeCents:
           type: number
     CreateRecurringPayableRequest_cadence:
       additionalProperties: false

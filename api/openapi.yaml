@@ -972,6 +972,312 @@ paths:
             const { data } = await putMerchantPortalPrefix({
               client: vortex,
             });
+  /refund-portal/{tail}:
+    delete:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: delete_refund_portal_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: DELETE /refund-portal/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/refund-portal/" \
+              -X DELETE \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { deleteRefundPortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await deleteRefundPortalPrefix({
+              client: vortex,
+            });
+    get:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: get_refund_portal_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: GET /refund-portal/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/refund-portal/" \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { getRefundPortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await getRefundPortalPrefix({
+              client: vortex,
+            });
+    patch:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: patch_refund_portal_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: PATCH /refund-portal/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/refund-portal/" \
+              -X PATCH \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { patchRefundPortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await patchRefundPortalPrefix({
+              client: vortex,
+            });
+    post:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: post_refund_portal_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: POST /refund-portal/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/refund-portal/" \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { postRefundPortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await postRefundPortalPrefix({
+              client: vortex,
+            });
+    put:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: put_refund_portal_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: PUT /refund-portal/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/refund-portal/" \
+              -X PUT \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { putRefundPortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await putRefundPortalPrefix({
+              client: vortex,
+            });
   /devices/{tail}:
     delete:
       description:

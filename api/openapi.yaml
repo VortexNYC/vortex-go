@@ -972,6 +972,312 @@ paths:
             const { data } = await putMerchantPortalPrefix({
               client: vortex,
             });
+  /pay-me/{tail}:
+    delete:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: delete_pay_me_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: DELETE /pay-me/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/pay-me/" \
+              -X DELETE \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { deletePayMePrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await deletePayMePrefix({
+              client: vortex,
+            });
+    get:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: get_pay_me_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: GET /pay-me/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/pay-me/" \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { getPayMePrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await getPayMePrefix({
+              client: vortex,
+            });
+    patch:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: patch_pay_me_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: PATCH /pay-me/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/pay-me/" \
+              -X PATCH \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { patchPayMePrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await patchPayMePrefix({
+              client: vortex,
+            });
+    post:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: post_pay_me_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: POST /pay-me/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/pay-me/" \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { postPayMePrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await postPayMePrefix({
+              client: vortex,
+            });
+    put:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: put_pay_me_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: PUT /pay-me/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/pay-me/" \
+              -X PUT \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { putPayMePrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await putPayMePrefix({
+              client: vortex,
+            });
   /refund-portal/{tail}:
     delete:
       description:

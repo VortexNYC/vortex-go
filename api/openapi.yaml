@@ -666,6 +666,312 @@ paths:
             const { data } = await putInvoicePrefix({
               client: vortex,
             });
+  /merchant-portal/{tail}:
+    delete:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: delete_merchant_portal_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: DELETE /merchant-portal/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/merchant-portal/" \
+              -X DELETE \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { deleteMerchantPortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await deleteMerchantPortalPrefix({
+              client: vortex,
+            });
+    get:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: get_merchant_portal_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: GET /merchant-portal/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/merchant-portal/" \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { getMerchantPortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await getMerchantPortalPrefix({
+              client: vortex,
+            });
+    patch:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: patch_merchant_portal_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: PATCH /merchant-portal/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/merchant-portal/" \
+              -X PATCH \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { patchMerchantPortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await patchMerchantPortalPrefix({
+              client: vortex,
+            });
+    post:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: post_merchant_portal_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: POST /merchant-portal/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/merchant-portal/" \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { postMerchantPortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await postMerchantPortalPrefix({
+              client: vortex,
+            });
+    put:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: put_merchant_portal_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: PUT /merchant-portal/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/merchant-portal/" \
+              -X PUT \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { putMerchantPortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await putMerchantPortalPrefix({
+              client: vortex,
+            });
   /devices/{tail}:
     delete:
       description:

@@ -13,6 +13,7 @@ package vortex
 import (
 	"encoding/json"
 	"time"
+	"bytes"
 	"fmt"
 )
 
@@ -28,7 +29,6 @@ type SubscriptionCreateRequest struct {
 	Items []map[string]interface{} `json:"items,omitempty"`
 	TrialEndsAt *time.Time `json:"trialEndsAt,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
-	AdditionalProperties map[string]interface{}
 }
 
 type _SubscriptionCreateRequest SubscriptionCreateRequest
@@ -278,11 +278,6 @@ func (o SubscriptionCreateRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
-	}
-
 	return toSerialize, nil
 }
 
@@ -312,26 +307,15 @@ func (o *SubscriptionCreateRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varSubscriptionCreateRequest := _SubscriptionCreateRequest{}
 
-	err = json.Unmarshal(data, &varSubscriptionCreateRequest)
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varSubscriptionCreateRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = SubscriptionCreateRequest(varSubscriptionCreateRequest)
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "customerExternalId")
-		delete(additionalProperties, "subscriptionExternalId")
-		delete(additionalProperties, "planCode")
-		delete(additionalProperties, "collectionMode")
-		delete(additionalProperties, "items")
-		delete(additionalProperties, "trialEndsAt")
-		delete(additionalProperties, "metadata")
-		o.AdditionalProperties = additionalProperties
-	}
 
 	return err
 }

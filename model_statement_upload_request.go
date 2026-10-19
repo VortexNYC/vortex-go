@@ -26,7 +26,7 @@ type StatementUploadRequest struct {
 	MerchantAccountId string `json:"merchantAccountId"`
 	Filename string `json:"filename"`
 	ContentType string `json:"contentType"`
-	// Raw text for text/_* uploads; base64-encoded bytes for binary types (application/pdf, application/octet-stream)
+	// Raw text for text/_* uploads; base64-encoded bytes for binary types (application/pdf, application/octet-stream). Max 10 MiB decoded.
 	Body string `json:"body"`
 }
 

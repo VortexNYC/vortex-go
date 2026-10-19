@@ -47,6 +47,10 @@ tags:
     name: quotes
   - description: Receipt lookup and receipt lifecycle.
     name: receipts
+  - description:
+      "Publishable-key browser-safe reads — products, checkout state, merchant\
+      \ readiness."
+    name: storefront
   - description: Subscription creation and change lifecycle.
     name: subscriptions
   - description: "Tax quote, finalization, and evidence flows."
@@ -54,6 +58,193 @@ tags:
   - description: "Outbound webhook endpoints, events, deliveries, and replay."
     name: webhooks
 paths:
+  /v1/compare:
+    post:
+      operationId: compareRates
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value:
+                  processor: stripe
+                  channel: online
+                  monthlyVolumeCents: 5000000
+                  avgTicketCents: 12500
+            schema:
+              $ref: "#/components/schemas/CompareRatesRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateComparisonResponse"
+          description: Success
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateComparisonResponse"
+          description: Created
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security: []
+      summary:
+        Anonymous rate comparison — self-reported volume priced against published
+        rate cards
+      tags:
+        - onboarding
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/compare" \
+              -X POST \
+              -H "Content-Type: application/json" \
+              -d '{"processor":"stripe","channel":"online","monthlyVolumeCents":5000000,"avgTicketCents":12500}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { compareRates, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await compareRates({
+              client: vortex,
+              body: {"processor":"stripe","channel":"online","monthlyVolumeCents":5000000,"avgTicketCents":12500},
+            });
+  /v1/mcc-suggest:
+    get:
+      operationId: suggestMccCodes
+      parameters:
+        - explode: true
+          in: query
+          name: q
+          required: false
+          schema:
+            type: string
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MccSuggestResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security: []
+      summary:
+        "Ranked MCC suggestions for onboarding pickers — anonymous, curated\
+        \ list"
+      tags:
+        - onboarding
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/mcc-suggest?q=..." \
+              -X GET \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { suggestMccCodes, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await suggestMccCodes({
+              client: vortex,
+              query: { q: "..." },
+            });
+  /v1/quote-requests:
+    post:
+      operationId: requestComparisonQuote
+      parameters:
+        - description:
+            Turnstile token. Required on a fresh write when the deployment
+            has a Turnstile secret configured; omitted requests get 403 captcha_required.
+            An identical replay does not need it.
+          explode: false
+          in: header
+          name: x-captcha-response
+          required: false
+          schema:
+            type: string
+          style: simple
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value:
+                  comparisonId: cmp_9f8d0c1a2b3e
+                  contactEmail: ops@acme.example
+            schema:
+              $ref: "#/components/schemas/QuoteRequestCreateRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateComparisonResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security: []
+      summary:
+        Queue a human-priced quote on a stored comparison — anonymous; fresh
+        writes may require an x-captcha-response token
+      tags:
+        - onboarding
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/quote-requests" \
+              -X POST \
+              -H "x-captcha-response: $TURNSTILE_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d '{"comparisonId":"cmp_9f8d0c1a2b3e","contactEmail":"ops@acme.example"}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { requestComparisonQuote, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await requestComparisonQuote({
+              client: vortex,
+              headers: { "x-captcha-response": process.env.TURNSTILE_TOKEN },
+              body: {"comparisonId":"cmp_9f8d0c1a2b3e","contactEmail":"ops@acme.example"},
+            });
   /customer-portal/{tail}:
     delete:
       description:
@@ -2390,409 +2581,6 @@ paths:
               client: vortex,
               query: { environment: "sandbox", merchantAccountId: "..." },
             });
-  /internal/hosted-pay/{tail}:
-    delete:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: delete_internal_hosted_pay_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: DELETE /internal/hosted-pay/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/internal/hosted-pay/?environment=sandbox&merchantAccountId=..." \
-              -X DELETE \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { deleteInternalHostedPayPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await deleteInternalHostedPayPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-    get:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: get_internal_hosted_pay_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: GET /internal/hosted-pay/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/internal/hosted-pay/?environment=sandbox&merchantAccountId=..." \
-              -X GET \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { getInternalHostedPayPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await getInternalHostedPayPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-    patch:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: patch_internal_hosted_pay_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GenericRequestBody"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: PATCH /internal/hosted-pay/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/internal/hosted-pay/?environment=sandbox&merchantAccountId=..." \
-              -X PATCH \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { patchInternalHostedPayPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await patchInternalHostedPayPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-    post:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: post_internal_hosted_pay_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GenericRequestBody"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: POST /internal/hosted-pay/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/internal/hosted-pay/?environment=sandbox&merchantAccountId=..." \
-              -X POST \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { postInternalHostedPayPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await postInternalHostedPayPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-    put:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: put_internal_hosted_pay_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GenericRequestBody"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: PUT /internal/hosted-pay/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/internal/hosted-pay/?environment=sandbox&merchantAccountId=..." \
-              -X PUT \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { putInternalHostedPayPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await putInternalHostedPayPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
   /merchant-onboarding/{tail}:
     delete:
       description:
@@ -3641,7 +3429,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CreateCheckoutSessionResponse"
-          description: Success
+          description: Created
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -3855,7 +3643,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CouponResponse"
-          description: Success
+          description: Created
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -4312,7 +4100,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CustomerResponse"
-          description: Success
+          description: Created
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -6667,6 +6455,20 @@ paths:
           schema:
             type: string
           style: form
+        - explode: true
+          in: query
+          name: limit
+          required: false
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: offset
+          required: false
+          schema:
+            type: string
+          style: form
       responses:
         "200":
           content:
@@ -6697,7 +6499,7 @@ paths:
         - lang: Shell
           label: curl
           source: |-
-            curl "https://api.vortex.nyc/v1/merchant-accounts/{merchantAccountId}/statements?environment=sandbox&merchantAccountId=..." \
+            curl "https://api.vortex.nyc/v1/merchant-accounts/{merchantAccountId}/statements?limit=...&offset=...&environment=sandbox&merchantAccountId=..." \
               -X GET \
               -H "Authorization: Bearer $VORTEX_API_KEY" \
         - lang: TypeScript
@@ -6709,7 +6511,7 @@ paths:
             const { data } = await listMerchantStatements({
               client: vortex,
               path: { merchantAccountId: "..." },
-              query: { environment: "sandbox", merchantAccountId: "..." },
+              query: { limit: "...", offset: "...", environment: "sandbox", merchantAccountId: "..." },
             });
     post:
       operationId: uploadMerchantStatement
@@ -6756,7 +6558,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/StatementUploadResponse"
-          description: Success
+          description: Created
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -8332,7 +8134,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PaymentRequestResponse"
-          description: Success
+          description: Created
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -8564,7 +8366,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PaymentRequestLinkResponse"
-          description: Success
+          description: Created
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -9217,7 +9019,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BillingQuoteResponse"
-          description: Success
+          description: Created
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -9439,7 +9241,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BillingQuoteVersionResponse"
-          description: Success
+          description: Created
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -9478,6 +9280,220 @@ paths:
               path: { quoteId: "..." },
               query: { environment: "sandbox", merchantAccountId: "..." },
               body: {"lines":[{"priceId":"bprice_seats","quantity":15,"unitAmount":4500}],"terms":"Net 30, revised seat count"},
+            });
+  /v1/storefront/checkout-sessions/{checkoutSessionId}:
+    get:
+      operationId: getStorefrontCheckoutSession
+      parameters:
+        - explode: false
+          in: path
+          name: checkoutSessionId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StorefrontCheckoutSessionResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: Read a checkout session's public state — publishable-key scope
+      tags:
+        - storefront
+        - checkout
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/storefront/checkout-sessions/{checkoutSessionId}?environment=sandbox&merchantAccountId=..." \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { getStorefrontCheckoutSession, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await getStorefrontCheckoutSession({
+              client: vortex,
+              path: { checkoutSessionId: "..." },
+              query: { environment: "sandbox", merchantAccountId: "..." },
+            });
+  /v1/storefront/merchants/{merchantAccountId}/readiness:
+    get:
+      operationId: getStorefrontMerchantReadiness
+      parameters:
+        - explode: false
+          in: path
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StorefrontMerchantReadinessResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: Read a merchant's public readiness — publishable-key scope
+      tags:
+        - storefront
+        - payments-readiness
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/storefront/merchants/{merchantAccountId}/readiness?environment=sandbox" \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { getStorefrontMerchantReadiness, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await getStorefrontMerchantReadiness({
+              client: vortex,
+              path: { merchantAccountId: "..." },
+              query: { environment: "sandbox" },
+            });
+  /v1/storefront/products:
+    get:
+      operationId: listStorefrontProducts
+      parameters:
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+        - description: "Page size, 1-100. Omit for the default page."
+          explode: true
+          in: query
+          name: limit
+          required: false
+          schema:
+            maximum: 100
+            minimum: 1
+            type: integer
+          style: form
+        - description: Row offset into the catalog. Omit to start at 0.
+          explode: true
+          in: query
+          name: offset
+          required: false
+          schema:
+            minimum: 0
+            type: integer
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StorefrontCatalogResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary:
+        List a merchant's public product and price catalog — publishable-key
+        scope
+      tags:
+        - storefront
+        - catalog
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/storefront/products?environment=sandbox&merchantAccountId=...&limit=25&offset=0" \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { listStorefrontProducts, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await listStorefrontProducts({
+              client: vortex,
+              query: { environment: "sandbox", merchantAccountId: "...", limit: 25, offset: 0 },
             });
   /v1/subscriptions:
     get:
@@ -9779,7 +9795,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TaxTransactionResponse"
-          description: Success
+          description: Created
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -10010,7 +10026,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TaxTransactionResponse"
-          description: Success
+          description: Created
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -10184,7 +10200,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UsageEventResponse"
-          description: Success
+          description: Created
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -10349,7 +10365,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UsageThresholdResponse"
-          description: Success
+          description: Created
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -10756,11 +10772,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SignupResponse"
-          description: Success
+          description: Created
         "400":
           $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
         "409":
           $ref: "#/components/responses/Conflict"
         "422":
@@ -11344,7 +11358,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CustomerPaymentMethodResponse"
-          description: Success
+          description: Created
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -11427,7 +11441,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CustomerPaymentMethodSetupResponse"
-          description: Success
+          description: Created
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -13252,7 +13266,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CustomerBalanceEntryResponse"
-          description: Success
+          description: Created
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -13337,7 +13351,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CustomerBalanceEntryResponse"
-          description: Success
+          description: Created
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -13423,7 +13437,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CustomerBalanceEntryResponse"
-          description: Success
+          description: Created
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -13509,7 +13523,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CustomerBalanceEntryResponse"
-          description: Success
+          description: Created
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -14978,7 +14992,8 @@ components:
         body:
           description:
             "Raw text for text/* uploads; base64-encoded bytes for binary\
-            \ types (application/pdf, application/octet-stream)"
+            \ types (application/pdf, application/octet-stream). Max 10 MiB decoded."
+          maxLength: 13981016
           type: string
       required:
         - body
@@ -15333,7 +15348,7 @@ components:
         - startAt
         - taxMode
     CreateInstallmentPayableRequest:
-      additionalProperties: {}
+      additionalProperties: false
       example:
         sourceType: document_payment_field
         sourceId: sourceId
@@ -15427,7 +15442,7 @@ components:
         - sourceType
         - taxMode
     CreateDepositBalancePayableRequest:
-      additionalProperties: {}
+      additionalProperties: false
       example:
         sourceType: document_payment_field
         sourceId: sourceId
@@ -15699,7 +15714,7 @@ components:
         - priceType
         - productId
     SubscriptionCreateRequest:
-      additionalProperties: {}
+      additionalProperties: false
       example:
         customerExternalId: customerExternalId
         subscriptionExternalId: subscriptionExternalId
@@ -17824,8 +17839,485 @@ components:
       $ref: "#/components/schemas/ApiWriteEnvelope"
     BillingOrderListResponse:
       $ref: "#/components/schemas/ApiWriteEnvelope"
-    ApiWriteEnvelope:
+    CompareRatesRequest:
       additionalProperties: {}
+      description:
+        "Self-reported volume priced against published rate cards. Anonymous\
+        \ — the deployment resolves the environment, never the caller."
+      example:
+        processor: processor
+        channel: online
+        monthlyVolumeCents: 2147483647
+        avgTicketCents: 2147483647
+        monthlyTransactions: 14658130
+        currentRate:
+          basisPoints: 2981
+          fixedFeeCents: 5637
+      properties:
+        processor:
+          description: "Current processor key (e.g. stripe, square); omit for greenfield."
+          maxLength: 40
+          type: string
+        channel:
+          enum:
+            - online
+            - in_person
+            - keyed
+          type: string
+        monthlyVolumeCents:
+          maximum: 100000000000
+          minimum: 1
+          type: integer
+        avgTicketCents:
+          maximum: 10000000000
+          minimum: 1
+          type: integer
+        monthlyTransactions:
+          maximum: 100000000
+          minimum: 1
+          type: integer
+        currentRate:
+          $ref: "#/components/schemas/CompareRatesRequest_currentRate"
+      required:
+        - channel
+        - monthlyVolumeCents
+    MerchantFacingComparison:
+      additionalProperties: {}
+      description:
+        Published-rate comparison only — no platform margin or personalized
+        pricing.
+      example:
+        isEstimate: true
+        channel: online
+        monthlyVolumeCents: 1
+        monthlyTransactions: 5
+        current:
+          processorKey: processorKey
+          displayName: displayName
+          monthlyCostCents: 5
+          effectiveRateBp: 2
+          source: self_reported
+        vortex:
+          monthlyCostCents: 7
+          effectiveRateBp: 9
+        marketDefault:
+          processorKey: processorKey
+          displayName: displayName
+          monthlyCostCents: 3
+          effectiveRateBp: 2
+        estimatedAnnualSavingsCents: 4
+        benchmarkedAt: benchmarkedAt
+      properties:
+        isEstimate:
+          type: boolean
+        channel:
+          enum:
+            - online
+            - in_person
+            - keyed
+          type: string
+        monthlyVolumeCents:
+          type: integer
+        monthlyTransactions:
+          type: integer
+        current:
+          $ref: "#/components/schemas/MerchantFacingComparison_current"
+        vortex:
+          $ref: "#/components/schemas/MerchantFacingComparison_vortex"
+        marketDefault:
+          $ref: "#/components/schemas/MerchantFacingComparison_marketDefault"
+        estimatedAnnualSavingsCents:
+          type: integer
+        benchmarkedAt:
+          type: string
+      required:
+        - benchmarkedAt
+        - channel
+        - current
+        - estimatedAnnualSavingsCents
+        - isEstimate
+        - marketDefault
+        - monthlyTransactions
+        - monthlyVolumeCents
+        - vortex
+    RateComparisonRecord:
+      additionalProperties: false
+      example:
+        id: id
+        environment: sandbox
+        processor: processor
+        channel: online
+        monthlyVolumeCents: 0
+        avgTicketCents: 6
+        computed:
+          isEstimate: true
+          channel: online
+          monthlyVolumeCents: 1
+          monthlyTransactions: 5
+          current:
+            processorKey: processorKey
+            displayName: displayName
+            monthlyCostCents: 5
+            effectiveRateBp: 2
+            source: self_reported
+          vortex:
+            monthlyCostCents: 7
+            effectiveRateBp: 9
+          marketDefault:
+            processorKey: processorKey
+            displayName: displayName
+            monthlyCostCents: 3
+            effectiveRateBp: 2
+          estimatedAnnualSavingsCents: 4
+          benchmarkedAt: benchmarkedAt
+        status: new
+        contactEmail: contactEmail
+        contactName: contactName
+        note: note
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        id:
+          type: string
+        environment:
+          enum:
+            - sandbox
+            - production
+          type: string
+        processor:
+          description: Processor key the caller named; null = greenfield.
+          nullable: true
+          type: string
+        channel:
+          enum:
+            - online
+            - in_person
+            - keyed
+          type: string
+        monthlyVolumeCents:
+          type: integer
+        avgTicketCents:
+          nullable: true
+          type: integer
+        computed:
+          $ref: "#/components/schemas/MerchantFacingComparison"
+        status:
+          enum:
+            - new
+            - quote_requested
+            - onboarded
+            - closed
+          type: string
+        contactEmail:
+          nullable: true
+          type: string
+        contactName:
+          nullable: true
+          type: string
+        note:
+          nullable: true
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+      required:
+        - avgTicketCents
+        - channel
+        - computed
+        - contactEmail
+        - contactName
+        - createdAt
+        - environment
+        - id
+        - monthlyVolumeCents
+        - note
+        - processor
+        - status
+        - updatedAt
+    RateComparisonResponse:
+      additionalProperties: false
+      example:
+        data:
+          id: id
+          environment: sandbox
+          processor: processor
+          channel: online
+          monthlyVolumeCents: 0
+          avgTicketCents: 6
+          computed:
+            isEstimate: true
+            channel: online
+            monthlyVolumeCents: 1
+            monthlyTransactions: 5
+            current:
+              processorKey: processorKey
+              displayName: displayName
+              monthlyCostCents: 5
+              effectiveRateBp: 2
+              source: self_reported
+            vortex:
+              monthlyCostCents: 7
+              effectiveRateBp: 9
+            marketDefault:
+              processorKey: processorKey
+              displayName: displayName
+              monthlyCostCents: 3
+              effectiveRateBp: 2
+            estimatedAnnualSavingsCents: 4
+            benchmarkedAt: benchmarkedAt
+          status: new
+          contactEmail: contactEmail
+          contactName: contactName
+          note: note
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        data:
+          $ref: "#/components/schemas/RateComparisonRecord"
+      required:
+        - data
+    QuoteRequestCreateRequest:
+      additionalProperties: false
+      description:
+        Queue a human-priced quote on a stored comparison. Anonymous; a
+        fresh write may require an `x-captcha-response` token.
+      example:
+        comparisonId: comparisonId
+        contactEmail: contactEmail
+        contactName: contactName
+        note: note
+      properties:
+        comparisonId:
+          minLength: 1
+          type: string
+        contactEmail:
+          format: email
+          maxLength: 320
+          type: string
+        contactName:
+          maxLength: 200
+          minLength: 1
+          type: string
+        note:
+          maxLength: 2000
+          type: string
+      required:
+        - comparisonId
+        - contactEmail
+    MccSuggestResponse:
+      additionalProperties: {}
+      example:
+        data:
+          matches:
+            - code: code
+              label: label
+            - code: code
+              label: label
+      properties:
+        data:
+          $ref: "#/components/schemas/MccSuggestResponse_data"
+      required:
+        - data
+    StorefrontPriceSnapshot:
+      additionalProperties: false
+      example:
+        priceId: priceId
+        productId: productId
+        name: name
+        priceType: fixed_recurring
+        currency: currency
+        unitAmount: 0
+        billingInterval: day
+        billingIntervalCount: 6
+        active: true
+      properties:
+        priceId:
+          type: string
+        productId:
+          type: string
+        name:
+          type: string
+        priceType:
+          enum:
+            - fixed_recurring
+            - fixed_one_time
+            - usage_metered
+            - pay_what_you_want
+            - free
+            - credit_grant
+            - credit_top_up
+          type: string
+        currency:
+          type: string
+        unitAmount:
+          type: integer
+        billingInterval:
+          enum:
+            - day
+            - week
+            - month
+            - year
+          type: string
+        billingIntervalCount:
+          type: integer
+        active:
+          type: boolean
+      required:
+        - active
+        - currency
+        - name
+        - priceId
+        - priceType
+        - productId
+    StorefrontProductSnapshot:
+      additionalProperties: false
+      example:
+        productId: productId
+        name: name
+        description: description
+        active: true
+        prices:
+          - priceId: priceId
+            productId: productId
+            name: name
+            priceType: fixed_recurring
+            currency: currency
+            unitAmount: 0
+            billingInterval: day
+            billingIntervalCount: 6
+            active: true
+          - priceId: priceId
+            productId: productId
+            name: name
+            priceType: fixed_recurring
+            currency: currency
+            unitAmount: 0
+            billingInterval: day
+            billingIntervalCount: 6
+            active: true
+      properties:
+        productId:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        active:
+          type: boolean
+        prices:
+          items:
+            $ref: "#/components/schemas/StorefrontPriceSnapshot"
+          type: array
+          default: null
+      required:
+        - active
+        - name
+        - prices
+        - productId
+    StorefrontCatalogResponse:
+      additionalProperties: {}
+      example:
+        data:
+          items:
+            - productId: productId
+              name: name
+              description: description
+              active: true
+              prices:
+                - priceId: priceId
+                  productId: productId
+                  name: name
+                  priceType: fixed_recurring
+                  currency: currency
+                  unitAmount: 0
+                  billingInterval: day
+                  billingIntervalCount: 6
+                  active: true
+                - priceId: priceId
+                  productId: productId
+                  name: name
+                  priceType: fixed_recurring
+                  currency: currency
+                  unitAmount: 0
+                  billingInterval: day
+                  billingIntervalCount: 6
+                  active: true
+            - productId: productId
+              name: name
+              description: description
+              active: true
+              prices:
+                - priceId: priceId
+                  productId: productId
+                  name: name
+                  priceType: fixed_recurring
+                  currency: currency
+                  unitAmount: 0
+                  billingInterval: day
+                  billingIntervalCount: 6
+                  active: true
+                - priceId: priceId
+                  productId: productId
+                  name: name
+                  priceType: fixed_recurring
+                  currency: currency
+                  unitAmount: 0
+                  billingInterval: day
+                  billingIntervalCount: 6
+                  active: true
+          total: 1
+          hasMore: true
+          nextOffset: 5
+        requestId: requestId
+      properties:
+        data:
+          $ref: "#/components/schemas/StorefrontCatalogResponse_data"
+        requestId:
+          type: string
+      required:
+        - data
+        - requestId
+    StorefrontCheckoutSessionResponse:
+      additionalProperties: {}
+      example:
+        data:
+          checkoutSessionId: checkoutSessionId
+          status: status
+          mode: mode
+          expiresAt: 2000-01-23T04:56:07.000+00:00
+          successUrl: successUrl
+          cancelUrl: cancelUrl
+        requestId: requestId
+      properties:
+        data:
+          $ref: "#/components/schemas/StorefrontCheckoutSessionResponse_data"
+        requestId:
+          type: string
+      required:
+        - data
+        - requestId
+    StorefrontMerchantReadinessResponse:
+      additionalProperties: {}
+      example:
+        data:
+          merchantAccountId: merchantAccountId
+          displayName: displayName
+          environment: sandbox
+          canAcceptPayments: true
+        requestId: requestId
+      properties:
+        data:
+          $ref: "#/components/schemas/StorefrontMerchantReadinessResponse_data"
+        requestId:
+          type: string
+      required:
+        - data
+        - requestId
+    ApiWriteEnvelope:
+      additionalProperties: true
       example:
         data:
           key: ""
@@ -18038,6 +18530,234 @@ components:
           type: string
       required:
         - country
+    CompareRatesRequest_currentRate:
+      additionalProperties: false
+      description: Self-reported current pricing — overrides the published benchmark.
+      example:
+        basisPoints: 2981
+        fixedFeeCents: 5637
+      properties:
+        basisPoints:
+          maximum: 5000
+          minimum: 0
+          type: integer
+        fixedFeeCents:
+          maximum: 10000
+          minimum: 0
+          type: integer
+      required:
+        - basisPoints
+        - fixedFeeCents
+    MerchantFacingComparison_current:
+      additionalProperties: false
+      example:
+        processorKey: processorKey
+        displayName: displayName
+        monthlyCostCents: 5
+        effectiveRateBp: 2
+        source: self_reported
+      properties:
+        processorKey:
+          type: string
+        displayName:
+          type: string
+        monthlyCostCents:
+          type: integer
+        effectiveRateBp:
+          type: integer
+        source:
+          enum:
+            - self_reported
+            - published_rate
+          type: string
+      required:
+        - displayName
+        - effectiveRateBp
+        - monthlyCostCents
+        - processorKey
+        - source
+    MerchantFacingComparison_vortex:
+      additionalProperties: false
+      example:
+        monthlyCostCents: 7
+        effectiveRateBp: 9
+      properties:
+        monthlyCostCents:
+          type: integer
+        effectiveRateBp:
+          type: integer
+      required:
+        - effectiveRateBp
+        - monthlyCostCents
+    MerchantFacingComparison_marketDefault:
+      additionalProperties: false
+      example:
+        processorKey: processorKey
+        displayName: displayName
+        monthlyCostCents: 3
+        effectiveRateBp: 2
+      properties:
+        processorKey:
+          type: string
+        displayName:
+          type: string
+        monthlyCostCents:
+          type: integer
+        effectiveRateBp:
+          type: integer
+      required:
+        - displayName
+        - effectiveRateBp
+        - monthlyCostCents
+        - processorKey
+    MccSuggestResponse_data_matches_inner:
+      additionalProperties: false
+      example:
+        code: code
+        label: label
+      properties:
+        code:
+          type: string
+        label:
+          type: string
+      required:
+        - code
+        - label
+    MccSuggestResponse_data:
+      additionalProperties: false
+      example:
+        matches:
+          - code: code
+            label: label
+          - code: code
+            label: label
+      properties:
+        matches:
+          items:
+            $ref: "#/components/schemas/MccSuggestResponse_data_matches_inner"
+          type: array
+          default: null
+      required:
+        - matches
+    StorefrontCatalogResponse_data:
+      additionalProperties: false
+      example:
+        items:
+          - productId: productId
+            name: name
+            description: description
+            active: true
+            prices:
+              - priceId: priceId
+                productId: productId
+                name: name
+                priceType: fixed_recurring
+                currency: currency
+                unitAmount: 0
+                billingInterval: day
+                billingIntervalCount: 6
+                active: true
+              - priceId: priceId
+                productId: productId
+                name: name
+                priceType: fixed_recurring
+                currency: currency
+                unitAmount: 0
+                billingInterval: day
+                billingIntervalCount: 6
+                active: true
+          - productId: productId
+            name: name
+            description: description
+            active: true
+            prices:
+              - priceId: priceId
+                productId: productId
+                name: name
+                priceType: fixed_recurring
+                currency: currency
+                unitAmount: 0
+                billingInterval: day
+                billingIntervalCount: 6
+                active: true
+              - priceId: priceId
+                productId: productId
+                name: name
+                priceType: fixed_recurring
+                currency: currency
+                unitAmount: 0
+                billingInterval: day
+                billingIntervalCount: 6
+                active: true
+        total: 1
+        hasMore: true
+        nextOffset: 5
+      properties:
+        items:
+          items:
+            $ref: "#/components/schemas/StorefrontProductSnapshot"
+          type: array
+          default: null
+        total:
+          type: integer
+        hasMore:
+          type: boolean
+        nextOffset:
+          type: integer
+      required:
+        - hasMore
+        - items
+        - total
+    StorefrontCheckoutSessionResponse_data:
+      additionalProperties: false
+      example:
+        checkoutSessionId: checkoutSessionId
+        status: status
+        mode: mode
+        expiresAt: 2000-01-23T04:56:07.000+00:00
+        successUrl: successUrl
+        cancelUrl: cancelUrl
+      properties:
+        checkoutSessionId:
+          type: string
+        status:
+          type: string
+        mode:
+          type: string
+        expiresAt:
+          format: date-time
+          type: string
+        successUrl:
+          type: string
+        cancelUrl:
+          type: string
+      required:
+        - checkoutSessionId
+        - status
+    StorefrontMerchantReadinessResponse_data:
+      additionalProperties: false
+      example:
+        merchantAccountId: merchantAccountId
+        displayName: displayName
+        environment: sandbox
+        canAcceptPayments: true
+      properties:
+        merchantAccountId:
+          type: string
+        displayName:
+          type: string
+        environment:
+          enum:
+            - sandbox
+            - production
+          type: string
+        canAcceptPayments:
+          type: boolean
+      required:
+        - canAcceptPayments
+        - displayName
+        - environment
+        - merchantAccountId
     ApiError_error:
       additionalProperties: true
       example:

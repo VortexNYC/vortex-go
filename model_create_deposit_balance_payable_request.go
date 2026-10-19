@@ -12,6 +12,7 @@ package vortex
 
 import (
 	"encoding/json"
+	"bytes"
 	"fmt"
 )
 
@@ -39,7 +40,6 @@ type CreateDepositBalancePayableRequest struct {
 	Deposit map[string]interface{} `json:"deposit"`
 	Balance map[string]interface{} `json:"balance"`
 	Metadata map[string]string `json:"metadata"`
-	AdditionalProperties map[string]interface{}
 }
 
 type _CreateDepositBalancePayableRequest CreateDepositBalancePayableRequest
@@ -549,11 +549,6 @@ func (o CreateDepositBalancePayableRequest) ToMap() (map[string]interface{}, err
 	toSerialize["deposit"] = o.Deposit
 	toSerialize["balance"] = o.Balance
 	toSerialize["metadata"] = o.Metadata
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
-	}
-
 	return toSerialize, nil
 }
 
@@ -593,36 +588,15 @@ func (o *CreateDepositBalancePayableRequest) UnmarshalJSON(data []byte) (err err
 
 	varCreateDepositBalancePayableRequest := _CreateDepositBalancePayableRequest{}
 
-	err = json.Unmarshal(data, &varCreateDepositBalancePayableRequest)
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCreateDepositBalancePayableRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateDepositBalancePayableRequest(varCreateDepositBalancePayableRequest)
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "sourceType")
-		delete(additionalProperties, "sourceId")
-		delete(additionalProperties, "documentId")
-		delete(additionalProperties, "paymentFieldId")
-		delete(additionalProperties, "customerExternalId")
-		delete(additionalProperties, "billingAccountId")
-		delete(additionalProperties, "merchantAccountId")
-		delete(additionalProperties, "currency")
-		delete(additionalProperties, "taxMode")
-		delete(additionalProperties, "taxable")
-		delete(additionalProperties, "taxBehavior")
-		delete(additionalProperties, "taxClassificationKey")
-		delete(additionalProperties, "collectionIntent")
-		delete(additionalProperties, "feePolicy")
-		delete(additionalProperties, "deposit")
-		delete(additionalProperties, "balance")
-		delete(additionalProperties, "metadata")
-		o.AdditionalProperties = additionalProperties
-	}
 
 	return err
 }

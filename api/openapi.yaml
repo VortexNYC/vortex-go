@@ -3541,6 +3541,229 @@ paths:
               path: { checkoutSessionId: "..." },
               query: { environment: "sandbox", merchantAccountId: "..." },
             });
+  /v1/cli/listen/ack:
+    post:
+      operationId: ackCliListenDelivery
+      parameters:
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value:
+                  endpointId: we_...
+                  deliveryId: wd_...
+                  attempt: 1
+                  statusCode: 200
+            schema:
+              $ref: "#/components/schemas/CliListenAckRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CliListenAckResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: Resolve a claimed listen delivery with the local handler's HTTP status
+      tags:
+        - billing
+        - webhooks
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/cli/listen/ack?environment=sandbox" \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{"endpointId":"we_...","deliveryId":"wd_...","attempt":1,"statusCode":200}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { ackCliListenDelivery, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await ackCliListenDelivery({
+              client: vortex,
+              query: { environment: "sandbox" },
+              body: {"endpointId":"we_...","deliveryId":"wd_...","attempt":1,"statusCode":200},
+            });
+  /v1/cli/listen/next:
+    get:
+      operationId: cliListenNext
+      parameters:
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: endpointId
+          required: true
+          schema:
+            type: string
+          style: form
+        - description: Long-poll deadline; capped at 30 seconds
+          explode: true
+          in: query
+          name: timeoutMs
+          required: false
+          schema:
+            maximum: 30000
+            minimum: 0
+            type: integer
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CliListenDeliveryResponse"
+          description: Success
+        "204":
+          description: No content — success with an empty body
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary:
+        Long-poll the next due delivery for a listen endpoint — 204 when the
+        deadline passes
+      tags:
+        - billing
+        - webhooks
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/cli/listen/next?environment=sandbox&endpointId=...&timeoutMs=25000" \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { cliListenNext, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await cliListenNext({
+              client: vortex,
+              query: { environment: "sandbox", endpointId: "...", timeoutMs: 25000 },
+            });
+  /v1/cli/listen/register:
+    post:
+      operationId: registerCliListenEndpoint
+      parameters:
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: false
+          schema:
+            type: string
+          style: form
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value: {}
+            schema:
+              $ref: "#/components/schemas/CliListenRegisterRequest"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CliListenRegisterResponse"
+          description: Created
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary:
+        Register a `vortex-listen` CLI endpoint — returns the endpoint's whsec_
+        signing secret once
+      tags:
+        - billing
+        - webhooks
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/cli/listen/register?environment=sandbox&merchantAccountId=..." \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { registerCliListenEndpoint, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await registerCliListenEndpoint({
+              client: vortex,
+              query: { environment: "sandbox", merchantAccountId: "..." },
+              body: {},
+            });
   /v1/coupons:
     get:
       operationId: listCoupons
@@ -17777,6 +18000,96 @@ components:
       $ref: "#/components/schemas/ApiWriteEnvelope"
     WebhookDeliveryRedriveResponse:
       $ref: "#/components/schemas/ApiWriteEnvelope"
+    CliListenRegisterRequest:
+      additionalProperties: false
+      example:
+        merchantAccountId: merchantAccountId
+      properties:
+        merchantAccountId:
+          description:
+            Required when the API key's org owns multiple sandbox merchant
+            accounts; resolvable from the query parameter of the same name.
+          type: string
+    CliListenRegisterResponse:
+      additionalProperties: {}
+      example:
+        data:
+          endpointId: endpointId
+          environment: sandbox
+          merchantAccountId: merchantAccountId
+          apiVersion: apiVersion
+          secret: secret
+        requestId: requestId
+      properties:
+        data:
+          $ref: "#/components/schemas/CliListenRegisterResponse_data"
+        requestId:
+          type: string
+      required:
+        - data
+        - requestId
+    CliListenDeliveryResponse:
+      additionalProperties: {}
+      example:
+        data:
+          deliveryId: deliveryId
+          eventType: eventType
+          attempt: 0
+          body: body
+          headers:
+            key: headers
+        requestId: requestId
+      properties:
+        data:
+          $ref: "#/components/schemas/CliListenDeliveryResponse_data"
+        requestId:
+          type: string
+      required:
+        - data
+        - requestId
+    CliListenAckRequest:
+      additionalProperties: false
+      example:
+        endpointId: endpointId
+        deliveryId: deliveryId
+        attempt: 0
+        statusCode: 400
+      properties:
+        endpointId:
+          description: The listen endpoint the delivery was claimed under.
+          type: string
+        deliveryId:
+          type: string
+        attempt:
+          description:
+            The claim epoch `next` returned — binds the ack to that exact
+            claim.
+          type: integer
+        statusCode:
+          description: HTTP status the local handler answered with.
+          maximum: 599
+          minimum: 100
+          type: integer
+      required:
+        - attempt
+        - deliveryId
+        - endpointId
+        - statusCode
+    CliListenAckResponse:
+      additionalProperties: {}
+      example:
+        data:
+          deliveryId: deliveryId
+          status: delivered
+        requestId: requestId
+      properties:
+        data:
+          $ref: "#/components/schemas/CliListenAckResponse_data"
+        requestId:
+          type: string
+      required:
+        - data
+        - requestId
     InvoicePreviewResponse:
       $ref: "#/components/schemas/ApiWriteEnvelope"
     InvoiceResponse:
@@ -18530,6 +18843,83 @@ components:
           type: string
       required:
         - country
+    CliListenRegisterResponse_data:
+      additionalProperties: false
+      example:
+        endpointId: endpointId
+        environment: sandbox
+        merchantAccountId: merchantAccountId
+        apiVersion: apiVersion
+        secret: secret
+      properties:
+        endpointId:
+          type: string
+        environment:
+          enum:
+            - sandbox
+          type: string
+        merchantAccountId:
+          type: string
+        apiVersion:
+          type: string
+        secret:
+          description: whsec_ endpoint signing secret — returned only here.
+          type: string
+      required:
+        - apiVersion
+        - endpointId
+        - environment
+        - merchantAccountId
+        - secret
+    CliListenDeliveryResponse_data:
+      additionalProperties: false
+      example:
+        deliveryId: deliveryId
+        eventType: eventType
+        attempt: 0
+        body: body
+        headers:
+          key: headers
+      properties:
+        deliveryId:
+          type: string
+        eventType:
+          type: string
+        attempt:
+          description:
+            Claim epoch — echo it back in the ack to bind the outcome to
+            this exact claim.
+          type: integer
+        body:
+          description: Exact signed envelope bytes to POST to the local handler.
+          type: string
+        headers:
+          additionalProperties:
+            type: string
+          description: "Real delivery headers, including the genuine Vortex-Signature."
+      required:
+        - attempt
+        - body
+        - deliveryId
+        - eventType
+        - headers
+    CliListenAckResponse_data:
+      additionalProperties: false
+      example:
+        deliveryId: deliveryId
+        status: delivered
+      properties:
+        deliveryId:
+          type: string
+        status:
+          enum:
+            - delivered
+            - pending
+            - failed
+          type: string
+      required:
+        - deliveryId
+        - status
     CompareRatesRequest_currentRate:
       additionalProperties: false
       description: Self-reported current pricing — overrides the published benchmark.

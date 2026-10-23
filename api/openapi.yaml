@@ -245,6 +245,312 @@ paths:
               headers: { "x-captcha-response": process.env.TURNSTILE_TOKEN },
               body: {"comparisonId":"cmp_9f8d0c1a2b3e","contactEmail":"ops@acme.example"},
             });
+  /collection-retry/{tail}:
+    delete:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: delete_collection_retry_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: DELETE /collection-retry/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/collection-retry/" \
+              -X DELETE \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { deleteCollectionRetryPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await deleteCollectionRetryPrefix({
+              client: vortex,
+            });
+    get:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: get_collection_retry_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: GET /collection-retry/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/collection-retry/" \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { getCollectionRetryPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await getCollectionRetryPrefix({
+              client: vortex,
+            });
+    patch:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: patch_collection_retry_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: PATCH /collection-retry/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/collection-retry/" \
+              -X PATCH \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { patchCollectionRetryPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await patchCollectionRetryPrefix({
+              client: vortex,
+            });
+    post:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: post_collection_retry_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: POST /collection-retry/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/collection-retry/" \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { postCollectionRetryPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await postCollectionRetryPrefix({
+              client: vortex,
+            });
+    put:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: put_collection_retry_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: PUT /collection-retry/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/collection-retry/" \
+              -X PUT \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { putCollectionRetryPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await putCollectionRetryPrefix({
+              client: vortex,
+            });
   /customer-portal/{tail}:
     delete:
       description:
@@ -549,6 +855,618 @@ paths:
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await putCustomerPortalPrefix({
+              client: vortex,
+            });
+  /devices/{tail}:
+    delete:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: delete_devices_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: DELETE /devices/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/devices/" \
+              -X DELETE \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { deleteDevicesPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await deleteDevicesPrefix({
+              client: vortex,
+            });
+    get:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: get_devices_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: GET /devices/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/devices/" \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { getDevicesPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await getDevicesPrefix({
+              client: vortex,
+            });
+    patch:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: patch_devices_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: PATCH /devices/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/devices/" \
+              -X PATCH \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { patchDevicesPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await patchDevicesPrefix({
+              client: vortex,
+            });
+    post:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: post_devices_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: POST /devices/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/devices/" \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { postDevicesPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await postDevicesPrefix({
+              client: vortex,
+            });
+    put:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: put_devices_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: PUT /devices/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/devices/" \
+              -X PUT \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { putDevicesPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await putDevicesPrefix({
+              client: vortex,
+            });
+  /dispute-portal/{tail}:
+    delete:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: delete_dispute_portal_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: DELETE /dispute-portal/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/dispute-portal/" \
+              -X DELETE \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { deleteDisputePortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await deleteDisputePortalPrefix({
+              client: vortex,
+            });
+    get:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: get_dispute_portal_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: GET /dispute-portal/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/dispute-portal/" \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { getDisputePortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await getDisputePortalPrefix({
+              client: vortex,
+            });
+    patch:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: patch_dispute_portal_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: PATCH /dispute-portal/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/dispute-portal/" \
+              -X PATCH \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { patchDisputePortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await patchDisputePortalPrefix({
+              client: vortex,
+            });
+    post:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: post_dispute_portal_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: POST /dispute-portal/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/dispute-portal/" \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { postDisputePortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await postDisputePortalPrefix({
+              client: vortex,
+            });
+    put:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: put_dispute_portal_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: PUT /dispute-portal/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/dispute-portal/" \
+              -X PUT \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { putDisputePortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await putDisputePortalPrefix({
               client: vortex,
             });
   /invoice/{tail}:
@@ -857,6 +1775,312 @@ paths:
             const { data } = await putInvoicePrefix({
               client: vortex,
             });
+  /merchant-onboarding/{tail}:
+    delete:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: delete_merchant_onboarding_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: DELETE /merchant-onboarding/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/merchant-onboarding/" \
+              -X DELETE \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { deleteMerchantOnboardingPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await deleteMerchantOnboardingPrefix({
+              client: vortex,
+            });
+    get:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: get_merchant_onboarding_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: GET /merchant-onboarding/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/merchant-onboarding/" \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { getMerchantOnboardingPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await getMerchantOnboardingPrefix({
+              client: vortex,
+            });
+    patch:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: patch_merchant_onboarding_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: PATCH /merchant-onboarding/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/merchant-onboarding/" \
+              -X PATCH \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { patchMerchantOnboardingPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await patchMerchantOnboardingPrefix({
+              client: vortex,
+            });
+    post:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: post_merchant_onboarding_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: POST /merchant-onboarding/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/merchant-onboarding/" \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { postMerchantOnboardingPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await postMerchantOnboardingPrefix({
+              client: vortex,
+            });
+    put:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: put_merchant_onboarding_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: PUT /merchant-onboarding/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/merchant-onboarding/" \
+              -X PUT \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { putMerchantOnboardingPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await putMerchantOnboardingPrefix({
+              client: vortex,
+            });
   /merchant-portal/{tail}:
     delete:
       description:
@@ -1161,6 +2385,312 @@ paths:
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await putMerchantPortalPrefix({
+              client: vortex,
+            });
+  /order-form/{tail}:
+    delete:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: delete_order_form_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: DELETE /order-form/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/order-form/" \
+              -X DELETE \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { deleteOrderFormPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await deleteOrderFormPrefix({
+              client: vortex,
+            });
+    get:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: get_order_form_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: GET /order-form/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/order-form/" \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { getOrderFormPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await getOrderFormPrefix({
+              client: vortex,
+            });
+    patch:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: patch_order_form_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: PATCH /order-form/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/order-form/" \
+              -X PATCH \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { patchOrderFormPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await patchOrderFormPrefix({
+              client: vortex,
+            });
+    post:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: post_order_form_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: POST /order-form/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/order-form/" \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { postOrderFormPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await postOrderFormPrefix({
+              client: vortex,
+            });
+    put:
+      description:
+        "Generated route-discovery operation. Promoted operations in this\
+        \ spec carry exact request and response schemas; use this route entry for\
+        \ auth, path, idempotency, and error semantics until the route is promoted."
+      operationId: put_order_form_prefix
+      parameters:
+        - description:
+            Remainder of the prefix-routed path. See route docs/contract
+            for exact sub-operation.
+          explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSuccess"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - checkout-token: []
+      summary: PUT /order-form/*
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/order-form/" \
+              -X PUT \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { putOrderFormPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await putOrderFormPrefix({
               client: vortex,
             });
   /pay-me/{tail}:
@@ -1775,2021 +3305,6 @@ paths:
             const { data } = await putRefundPortalPrefix({
               client: vortex,
             });
-  /collection-retry/{tail}:
-    delete:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: delete_collection_retry_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: DELETE /collection-retry/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/collection-retry/?environment=sandbox&merchantAccountId=..." \
-              -X DELETE \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { deleteCollectionRetryPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await deleteCollectionRetryPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-    get:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: get_collection_retry_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: GET /collection-retry/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/collection-retry/?environment=sandbox&merchantAccountId=..." \
-              -X GET \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { getCollectionRetryPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await getCollectionRetryPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-    patch:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: patch_collection_retry_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GenericRequestBody"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: PATCH /collection-retry/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/collection-retry/?environment=sandbox&merchantAccountId=..." \
-              -X PATCH \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { patchCollectionRetryPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await patchCollectionRetryPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-    post:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: post_collection_retry_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GenericRequestBody"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: POST /collection-retry/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/collection-retry/?environment=sandbox&merchantAccountId=..." \
-              -X POST \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { postCollectionRetryPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await postCollectionRetryPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-    put:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: put_collection_retry_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GenericRequestBody"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: PUT /collection-retry/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/collection-retry/?environment=sandbox&merchantAccountId=..." \
-              -X PUT \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { putCollectionRetryPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await putCollectionRetryPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-  /devices/{tail}:
-    delete:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: delete_devices_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: DELETE /devices/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/devices/?environment=sandbox&merchantAccountId=..." \
-              -X DELETE \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { deleteDevicesPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await deleteDevicesPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-    get:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: get_devices_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: GET /devices/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/devices/?environment=sandbox&merchantAccountId=..." \
-              -X GET \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { getDevicesPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await getDevicesPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-    patch:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: patch_devices_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GenericRequestBody"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: PATCH /devices/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/devices/?environment=sandbox&merchantAccountId=..." \
-              -X PATCH \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { patchDevicesPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await patchDevicesPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-    post:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: post_devices_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GenericRequestBody"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: POST /devices/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/devices/?environment=sandbox&merchantAccountId=..." \
-              -X POST \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { postDevicesPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await postDevicesPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-    put:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: put_devices_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GenericRequestBody"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: PUT /devices/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/devices/?environment=sandbox&merchantAccountId=..." \
-              -X PUT \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { putDevicesPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await putDevicesPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-  /dispute-portal/{tail}:
-    delete:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: delete_dispute_portal_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: DELETE /dispute-portal/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/dispute-portal/?environment=sandbox&merchantAccountId=..." \
-              -X DELETE \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { deleteDisputePortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await deleteDisputePortalPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-    get:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: get_dispute_portal_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: GET /dispute-portal/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/dispute-portal/?environment=sandbox&merchantAccountId=..." \
-              -X GET \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { getDisputePortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await getDisputePortalPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-    patch:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: patch_dispute_portal_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GenericRequestBody"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: PATCH /dispute-portal/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/dispute-portal/?environment=sandbox&merchantAccountId=..." \
-              -X PATCH \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { patchDisputePortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await patchDisputePortalPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-    post:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: post_dispute_portal_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GenericRequestBody"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: POST /dispute-portal/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/dispute-portal/?environment=sandbox&merchantAccountId=..." \
-              -X POST \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { postDisputePortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await postDisputePortalPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-    put:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: put_dispute_portal_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GenericRequestBody"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: PUT /dispute-portal/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/dispute-portal/?environment=sandbox&merchantAccountId=..." \
-              -X PUT \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { putDisputePortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await putDisputePortalPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-  /merchant-onboarding/{tail}:
-    delete:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: delete_merchant_onboarding_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: DELETE /merchant-onboarding/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/merchant-onboarding/?environment=sandbox&merchantAccountId=..." \
-              -X DELETE \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { deleteMerchantOnboardingPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await deleteMerchantOnboardingPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-    get:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: get_merchant_onboarding_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: GET /merchant-onboarding/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/merchant-onboarding/?environment=sandbox&merchantAccountId=..." \
-              -X GET \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { getMerchantOnboardingPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await getMerchantOnboardingPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-    patch:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: patch_merchant_onboarding_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GenericRequestBody"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: PATCH /merchant-onboarding/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/merchant-onboarding/?environment=sandbox&merchantAccountId=..." \
-              -X PATCH \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { patchMerchantOnboardingPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await patchMerchantOnboardingPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-    post:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: post_merchant_onboarding_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GenericRequestBody"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: POST /merchant-onboarding/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/merchant-onboarding/?environment=sandbox&merchantAccountId=..." \
-              -X POST \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { postMerchantOnboardingPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await postMerchantOnboardingPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-    put:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: put_merchant_onboarding_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GenericRequestBody"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: PUT /merchant-onboarding/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/merchant-onboarding/?environment=sandbox&merchantAccountId=..." \
-              -X PUT \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { putMerchantOnboardingPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await putMerchantOnboardingPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-  /order-form/{tail}:
-    delete:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: delete_order_form_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: DELETE /order-form/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/order-form/?environment=sandbox&merchantAccountId=..." \
-              -X DELETE \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { deleteOrderFormPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await deleteOrderFormPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-    get:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: get_order_form_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: GET /order-form/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/order-form/?environment=sandbox&merchantAccountId=..." \
-              -X GET \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { getOrderFormPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await getOrderFormPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-    patch:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: patch_order_form_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GenericRequestBody"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: PATCH /order-form/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/order-form/?environment=sandbox&merchantAccountId=..." \
-              -X PATCH \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { patchOrderFormPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await patchOrderFormPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-    post:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: post_order_form_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GenericRequestBody"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: POST /order-form/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/order-form/?environment=sandbox&merchantAccountId=..." \
-              -X POST \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { postOrderFormPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await postOrderFormPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
-    put:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: put_order_form_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GenericRequestBody"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: PUT /order-form/*
-      tags:
-        - public
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/order-form/?environment=sandbox&merchantAccountId=..." \
-              -X PUT \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { putOrderFormPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await putOrderFormPrefix({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-            });
   /update-payment-method/{tail}:
     delete:
       description:
@@ -3808,21 +3323,6 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
       responses:
         "200":
           content:
@@ -3847,15 +3347,15 @@ paths:
         default:
           $ref: "#/components/responses/ApiError"
       security:
-        - api-key: []
+        - checkout-token: []
       summary: DELETE /update-payment-method/*
       tags:
-        - public
+        - hosted
       x-codeSamples:
         - lang: Shell
           label: curl
           source: |-
-            curl "https://api.vortex.nyc/update-payment-method/?environment=sandbox&merchantAccountId=..." \
+            curl "https://api.vortex.nyc/update-payment-method/" \
               -X DELETE \
               -H "Authorization: Bearer $VORTEX_API_KEY" \
         - lang: TypeScript
@@ -3866,7 +3366,6 @@ paths:
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await deleteUpdatePaymentMethodPrefix({
               client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
             });
     get:
       description:
@@ -3885,20 +3384,6 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
       responses:
         "200":
           content:
@@ -3923,15 +3408,15 @@ paths:
         default:
           $ref: "#/components/responses/ApiError"
       security:
-        - api-key: []
+        - checkout-token: []
       summary: GET /update-payment-method/*
       tags:
-        - public
+        - hosted
       x-codeSamples:
         - lang: Shell
           label: curl
           source: |-
-            curl "https://api.vortex.nyc/update-payment-method/?environment=sandbox&merchantAccountId=..." \
+            curl "https://api.vortex.nyc/update-payment-method/" \
               -X GET \
               -H "Authorization: Bearer $VORTEX_API_KEY" \
         - lang: TypeScript
@@ -3942,7 +3427,6 @@ paths:
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getUpdatePaymentMethodPrefix({
               client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
             });
     patch:
       description:
@@ -3961,27 +3445,6 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GenericRequestBody"
-        required: true
       responses:
         "200":
           content:
@@ -4006,15 +3469,15 @@ paths:
         default:
           $ref: "#/components/responses/ApiError"
       security:
-        - api-key: []
+        - checkout-token: []
       summary: PATCH /update-payment-method/*
       tags:
-        - public
+        - hosted
       x-codeSamples:
         - lang: Shell
           label: curl
           source: |-
-            curl "https://api.vortex.nyc/update-payment-method/?environment=sandbox&merchantAccountId=..." \
+            curl "https://api.vortex.nyc/update-payment-method/" \
               -X PATCH \
               -H "Authorization: Bearer $VORTEX_API_KEY" \
         - lang: TypeScript
@@ -4025,7 +3488,6 @@ paths:
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await patchUpdatePaymentMethodPrefix({
               client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
             });
     post:
       description:
@@ -4044,27 +3506,6 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GenericRequestBody"
-        required: true
       responses:
         "200":
           content:
@@ -4089,15 +3530,15 @@ paths:
         default:
           $ref: "#/components/responses/ApiError"
       security:
-        - api-key: []
+        - checkout-token: []
       summary: POST /update-payment-method/*
       tags:
-        - public
+        - hosted
       x-codeSamples:
         - lang: Shell
           label: curl
           source: |-
-            curl "https://api.vortex.nyc/update-payment-method/?environment=sandbox&merchantAccountId=..." \
+            curl "https://api.vortex.nyc/update-payment-method/" \
               -X POST \
               -H "Authorization: Bearer $VORTEX_API_KEY" \
         - lang: TypeScript
@@ -4108,7 +3549,6 @@ paths:
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await postUpdatePaymentMethodPrefix({
               client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
             });
     put:
       description:
@@ -4127,27 +3567,6 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GenericRequestBody"
-        required: true
       responses:
         "200":
           content:
@@ -4172,15 +3591,15 @@ paths:
         default:
           $ref: "#/components/responses/ApiError"
       security:
-        - api-key: []
+        - checkout-token: []
       summary: PUT /update-payment-method/*
       tags:
-        - public
+        - hosted
       x-codeSamples:
         - lang: Shell
           label: curl
           source: |-
-            curl "https://api.vortex.nyc/update-payment-method/?environment=sandbox&merchantAccountId=..." \
+            curl "https://api.vortex.nyc/update-payment-method/" \
               -X PUT \
               -H "Authorization: Bearer $VORTEX_API_KEY" \
         - lang: TypeScript
@@ -4191,7 +3610,6 @@ paths:
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await putUpdatePaymentMethodPrefix({
               client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
             });
   /v1/checkout/sessions:
     post:
@@ -19457,11 +18875,10 @@ components:
         for exact promoted schemas until this OpenAPI is fully enriched.
       type: object
     GenericRequestBody:
-      additionalProperties: true
+      additionalProperties: {}
       description:
         Generic object request body for route-discovery operations; promoted
         routes carry typed schemas.
-      type: object
     ApiError:
       additionalProperties: {}
       example:

@@ -11063,7 +11063,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MeterAggregateResponse"
+                $ref: "#/components/schemas/BillingMeterAggregateResponse"
           description: Success
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -17900,8 +17900,35 @@ components:
       $ref: "#/components/schemas/ApiWriteEnvelope"
     UsageEventListResponse:
       $ref: "#/components/schemas/ApiWriteEnvelope"
-    MeterAggregateResponse:
-      $ref: "#/components/schemas/ApiWriteEnvelope"
+    BillingMeterAggregateResponse:
+      additionalProperties: {}
+      example:
+        data:
+          meterId: meterId
+          eventName: eventName
+          aggregationType: sum
+          windowGrain: day
+          windowStartAt: windowStartAt
+          windowEndAt: windowEndAt
+          aggregatedQuantity: 0.8008281904610115
+          customers:
+            items:
+              - customerId: customerId
+                aggregatedQuantity: 6.027456183070403
+              - customerId: customerId
+                aggregatedQuantity: 6.027456183070403
+            hasMore: true
+            total: 2147483647
+            nextCursor: nextCursor
+        requestId: requestId
+      properties:
+        data:
+          $ref: "#/components/schemas/BillingMeterAggregateResponse_data"
+        requestId:
+          type: string
+      required:
+        - data
+        - requestId
     UsageThresholdResponse:
       $ref: "#/components/schemas/ApiWriteEnvelope"
     UsageThresholdListResponse:
@@ -19364,6 +19391,107 @@ components:
       required:
         - replayed
         - tax
+    BillingMeterAggregateResponse_data_customers_items_inner:
+      additionalProperties: false
+      example:
+        customerId: customerId
+        aggregatedQuantity: 6.027456183070403
+      properties:
+        customerId:
+          minLength: 1
+          type: string
+        aggregatedQuantity:
+          type: number
+      required:
+        - aggregatedQuantity
+        - customerId
+    BillingMeterAggregateResponse_data_customers:
+      additionalProperties: false
+      example:
+        items:
+          - customerId: customerId
+            aggregatedQuantity: 6.027456183070403
+          - customerId: customerId
+            aggregatedQuantity: 6.027456183070403
+        hasMore: true
+        total: 2147483647
+        nextCursor: nextCursor
+      properties:
+        items:
+          items:
+            $ref: "#/components/schemas/BillingMeterAggregateResponse_data_customers_items_inner"
+          type: array
+          default: null
+        hasMore:
+          type: boolean
+        total:
+          maximum: 9007199254740991
+          minimum: 0
+          type: integer
+        nextCursor:
+          minLength: 1
+          type: string
+      required:
+        - hasMore
+        - items
+        - total
+    BillingMeterAggregateResponse_data:
+      additionalProperties: false
+      example:
+        meterId: meterId
+        eventName: eventName
+        aggregationType: sum
+        windowGrain: day
+        windowStartAt: windowStartAt
+        windowEndAt: windowEndAt
+        aggregatedQuantity: 0.8008281904610115
+        customers:
+          items:
+            - customerId: customerId
+              aggregatedQuantity: 6.027456183070403
+            - customerId: customerId
+              aggregatedQuantity: 6.027456183070403
+          hasMore: true
+          total: 2147483647
+          nextCursor: nextCursor
+      properties:
+        meterId:
+          minLength: 1
+          type: string
+        eventName:
+          minLength: 1
+          type: string
+        aggregationType:
+          enum:
+            - sum
+            - count
+            - max
+          type: string
+        windowGrain:
+          enum:
+            - day
+            - week
+            - month
+          type: string
+        windowStartAt:
+          minLength: 1
+          type: string
+        windowEndAt:
+          minLength: 1
+          type: string
+        aggregatedQuantity:
+          type: number
+        customers:
+          $ref: "#/components/schemas/BillingMeterAggregateResponse_data_customers"
+      required:
+        - aggregatedQuantity
+        - aggregationType
+        - customers
+        - eventName
+        - meterId
+        - windowEndAt
+        - windowGrain
+        - windowStartAt
     MerchantTaxProfileRequest_registrations_inner:
       additionalProperties: false
       example:

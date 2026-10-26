@@ -674,7 +674,7 @@ func (r UsageAPIGetMeterAggregateRequest) Cursor(cursor string) UsageAPIGetMeter
 	return r
 }
 
-func (r UsageAPIGetMeterAggregateRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
+func (r UsageAPIGetMeterAggregateRequest) Execute() (*BillingMeterAggregateResponse, *http.Response, error) {
 	return r.ApiService.GetMeterAggregateExecute(r)
 }
 
@@ -694,13 +694,13 @@ func (a *UsageAPIService) GetMeterAggregate(ctx context.Context, meterId string)
 }
 
 // Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *UsageAPIService) GetMeterAggregateExecute(r UsageAPIGetMeterAggregateRequest) (*ApiWriteEnvelope, *http.Response, error) {
+//  @return BillingMeterAggregateResponse
+func (a *UsageAPIService) GetMeterAggregateExecute(r UsageAPIGetMeterAggregateRequest) (*BillingMeterAggregateResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
+		localVarReturnValue  *BillingMeterAggregateResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsageAPIService.GetMeterAggregate")

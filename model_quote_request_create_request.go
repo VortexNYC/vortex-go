@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -25,6 +24,8 @@ type QuoteRequestCreateRequest struct {
 	ContactEmail string `json:"contactEmail"`
 	ContactName *string `json:"contactName,omitempty"`
 	Note *string `json:"note,omitempty"`
+	Application *QuoteRequestCreateRequestApplication `json:"application,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _QuoteRequestCreateRequest QuoteRequestCreateRequest
@@ -160,6 +161,38 @@ func (o *QuoteRequestCreateRequest) SetNote(v string) {
 	o.Note = &v
 }
 
+// GetApplication returns the Application field value if set, zero value otherwise.
+func (o *QuoteRequestCreateRequest) GetApplication() QuoteRequestCreateRequestApplication {
+	if o == nil || IsNil(o.Application) {
+		var ret QuoteRequestCreateRequestApplication
+		return ret
+	}
+	return *o.Application
+}
+
+// GetApplicationOk returns a tuple with the Application field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *QuoteRequestCreateRequest) GetApplicationOk() (*QuoteRequestCreateRequestApplication, bool) {
+	if o == nil || IsNil(o.Application) {
+		return nil, false
+	}
+	return o.Application, true
+}
+
+// HasApplication returns a boolean if a field has been set.
+func (o *QuoteRequestCreateRequest) HasApplication() bool {
+	if o != nil && !IsNil(o.Application) {
+		return true
+	}
+
+	return false
+}
+
+// SetApplication gets a reference to the given QuoteRequestCreateRequestApplication and assigns it to the Application field.
+func (o *QuoteRequestCreateRequest) SetApplication(v QuoteRequestCreateRequestApplication) {
+	o.Application = &v
+}
+
 func (o QuoteRequestCreateRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -178,6 +211,14 @@ func (o QuoteRequestCreateRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Note) {
 		toSerialize["note"] = o.Note
 	}
+	if !IsNil(o.Application) {
+		toSerialize["application"] = o.Application
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -206,15 +247,24 @@ func (o *QuoteRequestCreateRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varQuoteRequestCreateRequest := _QuoteRequestCreateRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varQuoteRequestCreateRequest)
+	err = json.Unmarshal(data, &varQuoteRequestCreateRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = QuoteRequestCreateRequest(varQuoteRequestCreateRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "comparisonId")
+		delete(additionalProperties, "contactEmail")
+		delete(additionalProperties, "contactName")
+		delete(additionalProperties, "note")
+		delete(additionalProperties, "application")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

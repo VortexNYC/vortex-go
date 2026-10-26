@@ -15438,8 +15438,9 @@ components:
           type: string
         body:
           description:
-            "Raw text for text/* uploads; base64-encoded bytes for binary\
-            \ types (application/pdf, application/octet-stream). Max 10 MiB decoded."
+            "Raw text for text/* uploads (control characters other than\
+            \ \\b\\t\\n\\f\\r are not accepted); base64-encoded bytes for binary types\
+            \ (application/pdf, application/octet-stream). Max 10 MiB decoded."
           maxLength: 13981016
           type: string
       required:
@@ -18617,7 +18618,7 @@ components:
       required:
         - data
     QuoteRequestCreateRequest:
-      additionalProperties: false
+      additionalProperties: {}
       description:
         Queue a human-priced quote on a stored comparison. Anonymous; a
         fresh write may require an `x-captcha-response` token.
@@ -18626,6 +18627,30 @@ components:
         contactEmail: contactEmail
         contactName: contactName
         note: note
+        application:
+          ratePlan: ratePlan
+          legalName: legalName
+          doingBusinessAs: doingBusinessAs
+          legalEntityType: llc
+          mcc: mcc
+          einProvided: true
+          einLast4: einLast4
+          phone: phone
+          businessAddress:
+            line1: line1
+            city: city
+            region: region
+            postalCode: postalCode
+            country: country
+          channel: online
+          monthlyVolumeCents: 2147483647
+          attribution:
+            utm_source: utm_source
+            utm_medium: utm_medium
+            utm_campaign: utm_campaign
+            utm_term: utm_term
+            utm_content: utm_content
+            ref: ref
       properties:
         comparisonId:
           minLength: 1
@@ -18641,6 +18666,8 @@ components:
         note:
           maxLength: 2000
           type: string
+        application:
+          $ref: "#/components/schemas/QuoteRequestCreateRequest_application"
       required:
         - comparisonId
         - contactEmail
@@ -19223,6 +19250,154 @@ components:
         - effectiveRateBp
         - monthlyCostCents
         - processorKey
+    QuoteRequestCreateRequest_application_businessAddress:
+      additionalProperties: false
+      example:
+        line1: line1
+        city: city
+        region: region
+        postalCode: postalCode
+        country: country
+      properties:
+        line1:
+          maxLength: 200
+          minLength: 1
+          type: string
+        city:
+          maxLength: 120
+          minLength: 1
+          type: string
+        region:
+          maxLength: 2
+          minLength: 2
+          type: string
+        postalCode:
+          maxLength: 20
+          minLength: 1
+          type: string
+        country:
+          maxLength: 2
+          minLength: 2
+          type: string
+      required:
+        - city
+        - country
+        - line1
+        - postalCode
+        - region
+    QuoteRequestCreateRequest_application_attribution:
+      additionalProperties: false
+      example:
+        utm_source: utm_source
+        utm_medium: utm_medium
+        utm_campaign: utm_campaign
+        utm_term: utm_term
+        utm_content: utm_content
+        ref: ref
+      properties:
+        utm_source:
+          maxLength: 120
+          type: string
+        utm_medium:
+          maxLength: 120
+          type: string
+        utm_campaign:
+          maxLength: 120
+          type: string
+        utm_term:
+          maxLength: 120
+          type: string
+        utm_content:
+          maxLength: 120
+          type: string
+        ref:
+          maxLength: 120
+          type: string
+    QuoteRequestCreateRequest_application:
+      additionalProperties: false
+      description:
+        Structured merchant self-serve application — the typed counterpart
+        of `note`. Raw EIN never crosses the wire.
+      example:
+        ratePlan: ratePlan
+        legalName: legalName
+        doingBusinessAs: doingBusinessAs
+        legalEntityType: llc
+        mcc: mcc
+        einProvided: true
+        einLast4: einLast4
+        phone: phone
+        businessAddress:
+          line1: line1
+          city: city
+          region: region
+          postalCode: postalCode
+          country: country
+        channel: online
+        monthlyVolumeCents: 2147483647
+        attribution:
+          utm_source: utm_source
+          utm_medium: utm_medium
+          utm_campaign: utm_campaign
+          utm_term: utm_term
+          utm_content: utm_content
+          ref: ref
+      properties:
+        ratePlan:
+          maxLength: 60
+          minLength: 1
+          type: string
+        legalName:
+          maxLength: 200
+          minLength: 1
+          type: string
+        doingBusinessAs:
+          maxLength: 200
+          minLength: 1
+          type: string
+        legalEntityType:
+          enum:
+            - llc
+            - corporation
+            - sole_proprietorship
+          type: string
+        mcc:
+          pattern: "^\\d{4}$"
+          type: string
+        einProvided:
+          type: boolean
+        einLast4:
+          pattern: "^\\d{4}$"
+          type: string
+        phone:
+          maxLength: 40
+          minLength: 1
+          type: string
+        businessAddress:
+          $ref: "#/components/schemas/QuoteRequestCreateRequest_application_businessAddress"
+        channel:
+          enum:
+            - online
+            - in_person
+            - keyed
+          type: string
+        monthlyVolumeCents:
+          maximum: 100000000000
+          minimum: 1
+          type: integer
+        attribution:
+          $ref: "#/components/schemas/QuoteRequestCreateRequest_application_attribution"
+      required:
+        - businessAddress
+        - channel
+        - doingBusinessAs
+        - einProvided
+        - legalEntityType
+        - legalName
+        - mcc
+        - monthlyVolumeCents
+        - phone
+        - ratePlan
     MccSuggestResponse_data_matches_inner:
       additionalProperties: false
       example:

@@ -245,312 +245,6 @@ paths:
               headers: { "x-captcha-response": process.env.TURNSTILE_TOKEN },
               body: {"comparisonId":"cmp_9f8d0c1a2b3e","contactEmail":"ops@acme.example"},
             });
-  /collection-retry/{tail}:
-    delete:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: delete_collection_retry_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - checkout-token: []
-      summary: DELETE /collection-retry/*
-      tags:
-        - hosted
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/collection-retry/" \
-              -X DELETE \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { deleteCollectionRetryPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await deleteCollectionRetryPrefix({
-              client: vortex,
-            });
-    get:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: get_collection_retry_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - checkout-token: []
-      summary: GET /collection-retry/*
-      tags:
-        - hosted
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/collection-retry/" \
-              -X GET \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { getCollectionRetryPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await getCollectionRetryPrefix({
-              client: vortex,
-            });
-    patch:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: patch_collection_retry_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - checkout-token: []
-      summary: PATCH /collection-retry/*
-      tags:
-        - hosted
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/collection-retry/" \
-              -X PATCH \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { patchCollectionRetryPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await patchCollectionRetryPrefix({
-              client: vortex,
-            });
-    post:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: post_collection_retry_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - checkout-token: []
-      summary: POST /collection-retry/*
-      tags:
-        - hosted
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/collection-retry/" \
-              -X POST \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { postCollectionRetryPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await postCollectionRetryPrefix({
-              client: vortex,
-            });
-    put:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: put_collection_retry_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - checkout-token: []
-      summary: PUT /collection-retry/*
-      tags:
-        - hosted
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/collection-retry/" \
-              -X PUT \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { putCollectionRetryPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await putCollectionRetryPrefix({
-              client: vortex,
-            });
   /customer-portal/{tail}:
     delete:
       description:
@@ -2144,35 +1838,96 @@ paths:
               client: vortex,
             });
     get:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: get_merchant_portal_prefix
+      operationId: getMerchantPortal
       parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
+        - explode: false
           in: path
           name: tail
           required: true
           schema:
             type: string
           style: simple
+        - description:
+            Ledger leg to stream as a `text/csv` attachment (`vortex-<leg>-<environment>.csv`).
+            Export pages the leg to exhaustion; a cursor that cannot complete returns
+            409 rather than a truncated file.
+          explode: true
+          in: query
+          name: export
+          required: false
+          schema:
+            enum:
+              - payments
+              - invoices
+              - payouts
+              - settlements
+              - customers
+              - subscriptions
+              - paymentLinks
+              - taxTransactions
+            type: string
+          style: form
+        - description:
+            "Continuation page for one list leg, `<leg>:<continuation-token>`\
+            \ — the token comes from the view's `pageInfo` map or a prior page's `nextToken`.\
+            \ Returns `{ items, nextToken? }` filtered by the same `from`/`to` bounds."
+          explode: true
+          in: query
+          name: more
+          required: false
+          schema:
+            pattern: "^[^:]+:.+$"
+            type: string
+          style: form
+        - description:
+            "Per-meter usage rows for one customer drawer (`{ items }`) —\
+            \ VOR-752's on-demand read replacing the unbounded per-customer array on\
+            \ meter windows."
+          explode: true
+          in: query
+          name: meterUsage
+          required: false
+          schema:
+            minLength: 1
+            type: string
+          style: form
+        - description:
+            Inclusive ISO timestamp lower bound applied to each leg's timestamp
+            field; rows missing that field are kept.
+          explode: true
+          in: query
+          name: from
+          required: false
+          schema:
+            format: date-time
+            type: string
+          style: form
+        - description:
+            Inclusive ISO timestamp upper bound applied to each leg's timestamp
+            field; rows missing that field are kept.
+          explode: true
+          in: query
+          name: to
+          required: false
+          schema:
+            format: date-time
+            type: string
+          style: form
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiSuccess"
+                $ref: "#/components/schemas/MerchantPortalGetResponse"
+            text/csv:
+              example: "paymentIntentId,status,amount,currency,createdAt\r\npi_123,succeeded,4900,USD,2026-10-01T00:00:00.000Z"
+              schema:
+                type: string
           description: Success
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
         "404":
           $ref: "#/components/responses/NotFound"
         "409":
@@ -2185,24 +1940,29 @@ paths:
           $ref: "#/components/responses/ApiError"
       security:
         - checkout-token: []
-      summary: GET /merchant-portal/*
+      summary:
+        Read the hosted merchant portal. Bare GET returns the composed portal
+        view; `?more=<leg>:<token>` returns one list leg's continuation page; `?export=<leg>`
+        streams the ledger leg as a `text/csv` attachment. `from`/`to` (ISO timestamps)
+        bound every mode on each leg's timestamp field.
       tags:
         - hosted
       x-codeSamples:
         - lang: Shell
           label: curl
           source: |-
-            curl "https://api.vortex.nyc/merchant-portal/" \
+            curl "https://api.vortex.nyc/merchant-portal/{tail}?export=payments&from=2026-01-01T00:00:00Z&to=2026-12-31T23:59:59Z" \
               -X GET \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getMerchantPortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getMerchantPortal, createVortex } from "@vortex-api/vortex/2026-08";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await getMerchantPortalPrefix({
+            const { data } = await getMerchantPortal({
               client: vortex,
+              path: { tail: "..." },
+              query: { export: "payments", from: "2026-01-01T00:00:00Z", to: "2026-12-31T23:59:59Z" },
             });
     patch:
       description:
@@ -2267,9 +2027,10 @@ paths:
             });
     post:
       description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
+        "Hosted merchant-portal action door — auth is the portal link token\
+        \ in the path. POST accepts the declared action union (MerchantPortalActionRequest)\
+        \ and answers the declared result envelope (MerchantPortalActionResponse);\
+        \ a bare `{ ok: true }` or ad-hoc field is a contract violation."
       operationId: post_merchant_portal_prefix
       parameters:
         - description:
@@ -2282,13 +2043,30 @@ paths:
           schema:
             type: string
           style: simple
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value:
+                  action: pause-subscription
+                  subscriptionId: sub_123
+            schema:
+              $ref: "#/components/schemas/MerchantPortalActionRequest"
+        required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiSuccess"
+                $ref: "#/components/schemas/MerchantPortalActionResponse"
           description: Success
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MerchantPortalActionResponse"
+          description: Created
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -2317,6 +2095,8 @@ paths:
             curl "https://api.vortex.nyc/merchant-portal/" \
               -X POST \
               -H "Authorization: Bearer $VORTEX_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{"action":"pause-subscription","subscriptionId":"sub_123"}'
         - lang: TypeScript
           label: TypeScript
           source: |-
@@ -2325,6 +2105,7 @@ paths:
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await postMerchantPortalPrefix({
               client: vortex,
+              body: {"action":"pause-subscription","subscriptionId":"sub_123"},
             });
     put:
       description:
@@ -3303,312 +3084,6 @@ paths:
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await putRefundPortalPrefix({
-              client: vortex,
-            });
-  /update-payment-method/{tail}:
-    delete:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: delete_update_payment_method_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - checkout-token: []
-      summary: DELETE /update-payment-method/*
-      tags:
-        - hosted
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/update-payment-method/" \
-              -X DELETE \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { deleteUpdatePaymentMethodPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await deleteUpdatePaymentMethodPrefix({
-              client: vortex,
-            });
-    get:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: get_update_payment_method_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - checkout-token: []
-      summary: GET /update-payment-method/*
-      tags:
-        - hosted
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/update-payment-method/" \
-              -X GET \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { getUpdatePaymentMethodPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await getUpdatePaymentMethodPrefix({
-              client: vortex,
-            });
-    patch:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: patch_update_payment_method_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - checkout-token: []
-      summary: PATCH /update-payment-method/*
-      tags:
-        - hosted
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/update-payment-method/" \
-              -X PATCH \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { patchUpdatePaymentMethodPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await patchUpdatePaymentMethodPrefix({
-              client: vortex,
-            });
-    post:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: post_update_payment_method_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - checkout-token: []
-      summary: POST /update-payment-method/*
-      tags:
-        - hosted
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/update-payment-method/" \
-              -X POST \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { postUpdatePaymentMethodPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await postUpdatePaymentMethodPrefix({
-              client: vortex,
-            });
-    put:
-      description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
-      operationId: put_update_payment_method_prefix
-      parameters:
-        - description:
-            Remainder of the prefix-routed path. See route docs/contract
-            for exact sub-operation.
-          explode: false
-          in: path
-          name: tail
-          required: true
-          schema:
-            type: string
-          style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSuccess"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - checkout-token: []
-      summary: PUT /update-payment-method/*
-      tags:
-        - hosted
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/update-payment-method/" \
-              -X PUT \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { putUpdatePaymentMethodPrefix, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await putUpdatePaymentMethodPrefix({
               client: vortex,
             });
   /v1/checkout/sessions:
@@ -11522,6 +10997,113 @@ paths:
               query: { environment: "sandbox", merchantAccountId: "..." },
               body: {"sourceType":"document_payment_field","sourceId":"field_1","documentId":"doc_1","paymentFieldId":"field_1","customerExternalId":"vtx_cust_seal_org_1","billingAccountId":"bacc_1","currency":"USD","taxMode":"not_taxable","collectionIntent":"manual","feePolicy":{},"deposit":{"dueAt":"2026-08-01T00:00:00Z","amountDue":5000,"lineItems":[]},"balance":{"dueAt":"2026-09-01T00:00:00Z","amountDue":5000,"lineItems":[]},"metadata":{}},
             });
+  /v1/meters/{meterId}/aggregate:
+    get:
+      operationId: getMeterAggregate
+      parameters:
+        - explode: false
+          in: path
+          name: meterId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: customerId
+          required: false
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: at
+          required: false
+          schema:
+            type: string
+          style: form
+        - description:
+            "Page size, 1-100. Omitting both limit and cursor returns the\
+            \ full unpaginated list."
+          explode: true
+          in: query
+          name: limit
+          required: false
+          schema:
+            maximum: 100
+            minimum: 1
+            type: integer
+          style: form
+        - description:
+            Opaque cursor from the previous page's nextCursor. Pass it back
+            verbatim to fetch the next page.
+          explode: true
+          in: query
+          name: cursor
+          required: false
+          schema:
+            type: string
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MeterAggregateResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary:
+        "Read a meter's grain-windowed aggregate — org rollup plus a paginated\
+        \ per-customer breakdown (`at` selects the window, `customerId` narrows the\
+        \ breakdown)"
+      tags:
+        - billing
+        - usage
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/meters/{meterId}/aggregate?customerId=...&at=...&environment=sandbox&merchantAccountId=..." \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { getMeterAggregate, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await getMeterAggregate({
+              client: vortex,
+              path: { meterId: "..." },
+              query: { customerId: "...", at: "...", environment: "sandbox", merchantAccountId: "..." },
+            });
   /v1/subscriptions/{subscriptionId}/change/preview:
     post:
       operationId: previewSubscriptionItemChange
@@ -14609,6 +14191,200 @@ paths:
               query: { environment: "sandbox", merchantAccountId: "..." },
               body: {"paymentsRefundId":"refund_123"},
             });
+  /collection-retry/{token}:
+    get:
+      description:
+        "Hosted link door: the crty_ token in the path IS the bearer credential\
+        \ — minted by the merchant portal's mint-collection-retry-link action, never\
+        \ an API key. Browsers (Accept: text/html) are 302-redirected to the hosted\
+        \ SPA; this JSON view answers API calls. A revoked, expired, or consumed link\
+        \ returns 404."
+      operationId: getHostedCollectionRetry
+      parameters:
+        - explode: false
+          in: path
+          name: token
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HostedCollectionRetryViewResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security: []
+      summary: Read the collection-retry link's single-invoice view
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/collection-retry/{token}" \
+              -X GET \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { getHostedCollectionRetry, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await getHostedCollectionRetry({
+              client: vortex,
+              path: { token: "..." },
+            });
+    post:
+      description:
+        "Hosted link door: the crty_ token in the path IS the bearer credential.\
+        \ Arms the dunning queue for the link's one invoice and nothing else — a retry\
+        \ may only arm on a settled failure, never while an attempt is in flight.\
+        \ Success revokes the link; a 409 leaves it usable for a legitimate retry\
+        \ later."
+      operationId: scheduleHostedCollectionRetry
+      parameters:
+        - explode: false
+          in: path
+          name: token
+          required: true
+          schema:
+            type: string
+          style: simple
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value:
+                  action: schedule
+            schema:
+              $ref: "#/components/schemas/HostedCollectionRetryActionRequest"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HostedCollectionRetryScheduleResponse"
+          description: Created
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security: []
+      summary: Arm a collection retry for the link's single invoice (single-use)
+      tags:
+        - hosted
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/collection-retry/{token}" \
+              -X POST \
+              -H "Content-Type: application/json" \
+              -d '{"action":"schedule"}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { scheduleHostedCollectionRetry, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await scheduleHostedCollectionRetry({
+              client: vortex,
+              path: { token: "..." },
+              body: {"action":"schedule"},
+            });
+  /update-payment-method/{tail}:
+    post:
+      operationId: updateHostedPaymentMethod
+      parameters:
+        - explode: false
+          in: path
+          name: tail
+          required: true
+          schema:
+            type: string
+          style: simple
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value:
+                  action: begin
+            schema:
+              $ref: "#/components/schemas/HostedUpdatePaymentMethodActionRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HostedUpdatePaymentMethodActionResponse"
+          description: Success
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HostedUpdatePaymentMethodActionResponse"
+          description: Created
+        "400":
+          $ref: "#/components/responses/HostedActionError"
+        "404":
+          $ref: "#/components/responses/HostedActionError"
+        "409":
+          $ref: "#/components/responses/HostedActionError"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/HostedActionError"
+      security: []
+      summary:
+        "Hosted card-update door — begin mints the elements setup session,\
+        \ confirm defaults the attached method and consumes the link"
+      tags:
+        - hosted
+      x-error-contract: exact
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/update-payment-method/{tail}" \
+              -X POST \
+              -H "Content-Type: application/json" \
+              -d '{"action":"begin"}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { updateHostedPaymentMethod, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await updateHostedPaymentMethod({
+              client: vortex,
+              path: { tail: "..." },
+              body: {"action":"begin"},
+            });
 components:
   parameters:
     IdempotencyKey:
@@ -14630,6 +14406,12 @@ components:
           schema:
             $ref: "#/components/schemas/ApiError"
       description: "Bad request, including malformed JSON"
+    HostedActionError:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/HostedActionError"
+      description: Hosted door error
     Unauthorized:
       content:
         application/json:
@@ -18118,6 +17900,8 @@ components:
       $ref: "#/components/schemas/ApiWriteEnvelope"
     UsageEventListResponse:
       $ref: "#/components/schemas/ApiWriteEnvelope"
+    MeterAggregateResponse:
+      $ref: "#/components/schemas/ApiWriteEnvelope"
     UsageThresholdResponse:
       $ref: "#/components/schemas/ApiWriteEnvelope"
     UsageThresholdListResponse:
@@ -18880,6 +18664,505 @@ components:
       required:
         - data
         - requestId
+    MerchantPortalSettlementDestination:
+      additionalProperties: false
+      example:
+        present: true
+        accountType: accountType
+        bankCode: bankCode
+        accountNumberMasked: accountNumberMasked
+        name: name
+      properties:
+        present:
+          type: boolean
+        accountType:
+          type: string
+        bankCode:
+          type: string
+        accountNumberMasked:
+          type: string
+        name:
+          type: string
+      required:
+        - present
+    MerchantPortalAccount:
+      additionalProperties: false
+      description:
+        "Safe subset of the merchant's own account snapshot — business\
+        \ identity, masked settlement destination, status/capabilities."
+      example:
+        displayName: displayName
+        doingBusinessAs: doingBusinessAs
+        legalEntityType: legalEntityType
+        country: country
+        merchantMode: merchantMode
+        defaultCurrency: defaultCurrency
+        status: status
+        capabilityStatus: capabilityStatus
+        email: email
+        businessPhone: businessPhone
+        url: url
+        mcc: mcc
+        businessTaxIdMasked: businessTaxIdMasked
+        acceptsAch: true
+        maxTransactionAmount: 0.8008281904610115
+        achMaxTransactionAmount: 6.027456183070403
+        settlementAccount:
+          present: true
+          accountType: accountType
+          bankCode: bankCode
+          accountNumberMasked: accountNumberMasked
+          name: name
+      properties:
+        displayName:
+          type: string
+        doingBusinessAs:
+          type: string
+        legalEntityType:
+          type: string
+        country:
+          type: string
+        merchantMode:
+          type: string
+        defaultCurrency:
+          type: string
+        status:
+          type: string
+        capabilityStatus:
+          type: string
+        email:
+          type: string
+        businessPhone:
+          type: string
+        url:
+          type: string
+        mcc:
+          type: string
+        businessTaxIdMasked:
+          type: string
+        acceptsAch:
+          type: boolean
+        maxTransactionAmount:
+          type: number
+        achMaxTransactionAmount:
+          type: number
+        settlementAccount:
+          $ref: "#/components/schemas/MerchantPortalSettlementDestination"
+      required:
+        - acceptsAch
+        - capabilityStatus
+        - country
+        - defaultCurrency
+        - displayName
+        - legalEntityType
+        - merchantMode
+        - settlementAccount
+        - status
+    MerchantPortalPageLeg:
+      additionalProperties: false
+      description:
+        One page of a paginated portal leg (GET ?more=<leg>:<token>). Items
+        are the leg's row objects — the leg named in the query decides the row type.
+        nextToken is absent on the last page.
+      properties:
+        items:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          default: null
+        nextToken:
+          minLength: 1
+          type: string
+      required:
+        - items
+    MerchantPortalView:
+      additionalProperties: true
+      description:
+        "Full portal snapshot — one array per bucket (customers, payments,\
+        \ invoices, subscriptions, paymentLinks, taxTransactions, creditNotes, coupons,\
+        \ disputes, wallets, products, prices, collectionRetries, settlements, payouts,\
+        \ meters, usageEvents, webhookEndpoints, paymentMethods) plus recentEvents,\
+        \ attention, aging, and the optional moneySummary/onboarding/taxProfile/analytics\
+        \ blocks. Only the fields named here are part of the declared contract today;\
+        \ each bucket promotes its own component as it earns a stable shape."
+      example:
+        organizationName: organizationName
+        merchantAccountId: merchantAccountId
+        linkExpiresAt: 2000-01-23T04:56:07.000+00:00
+        account:
+          displayName: displayName
+          doingBusinessAs: doingBusinessAs
+          legalEntityType: legalEntityType
+          country: country
+          merchantMode: merchantMode
+          defaultCurrency: defaultCurrency
+          status: status
+          capabilityStatus: capabilityStatus
+          email: email
+          businessPhone: businessPhone
+          url: url
+          mcc: mcc
+          businessTaxIdMasked: businessTaxIdMasked
+          acceptsAch: true
+          maxTransactionAmount: 0.8008281904610115
+          achMaxTransactionAmount: 6.027456183070403
+          settlementAccount:
+            present: true
+            accountType: accountType
+            bankCode: bankCode
+            accountNumberMasked: accountNumberMasked
+            name: name
+        pageInfo:
+          key: pageInfo
+      properties:
+        organizationName:
+          type: string
+        merchantAccountId:
+          type: string
+        linkExpiresAt:
+          format: date-time
+          type: string
+        account:
+          $ref: "#/components/schemas/MerchantPortalAccount"
+        pageInfo:
+          additionalProperties:
+            type: string
+          description:
+            Continuation token per paginated leg — present only when that
+            leg has another page; feed it back via ?more=<leg>:<token>.
+      required:
+        - merchantAccountId
+        - organizationName
+    MerchantPortalMeterUsageLeg:
+      additionalProperties: {}
+      description:
+        Per-meter usage rows for one customer drawer (GET ?meterUsage=<customerId>)
+        — the on-demand read replacing the unbounded per-customer array on meter windows.
+      properties:
+        items:
+          items:
+            $ref: "#/components/schemas/MerchantPortalMeterUsageLeg_items_inner"
+          type: array
+          default: null
+      required:
+        - items
+    MerchantPortalGetResponse:
+      additionalProperties: false
+      example:
+        data:
+          organizationName: organizationName
+          merchantAccountId: merchantAccountId
+          linkExpiresAt: 2000-01-23T04:56:07.000+00:00
+          account:
+            displayName: displayName
+            doingBusinessAs: doingBusinessAs
+            legalEntityType: legalEntityType
+            country: country
+            merchantMode: merchantMode
+            defaultCurrency: defaultCurrency
+            status: status
+            capabilityStatus: capabilityStatus
+            email: email
+            businessPhone: businessPhone
+            url: url
+            mcc: mcc
+            businessTaxIdMasked: businessTaxIdMasked
+            acceptsAch: true
+            maxTransactionAmount: 0.8008281904610115
+            achMaxTransactionAmount: 6.027456183070403
+            settlementAccount:
+              present: true
+              accountType: accountType
+              bankCode: bankCode
+              accountNumberMasked: accountNumberMasked
+              name: name
+          pageInfo:
+            key: pageInfo
+      properties:
+        data:
+          $ref: "#/components/schemas/MerchantPortalGetResponse_data"
+      required:
+        - data
+    MerchantPortalActionRequest:
+      discriminator:
+        propertyName: action
+      oneOf:
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_1"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_2"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_3"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_4"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_5"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_6"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_7"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_8"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_9"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_10"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_11"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_12"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_13"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_14"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_15"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_16"
+    HostedPortalSubscriptionItem:
+      additionalProperties: false
+      properties:
+        subscriptionItemId:
+          type: string
+        priceId:
+          type: string
+        quantity:
+          type: integer
+      required:
+        - priceId
+        - quantity
+        - subscriptionItemId
+    HostedPortalSubscription:
+      additionalProperties: false
+      properties:
+        subscriptionId:
+          type: string
+        customerId:
+          type: string
+        status:
+          type: string
+        collectionMode:
+          type: string
+        currentPeriodStartAt:
+          format: date-time
+          type: string
+        currentPeriodEndAt:
+          format: date-time
+          type: string
+        trialEndAt:
+          format: date-time
+          type: string
+        cancelAt:
+          format: date-time
+          type: string
+        canceledAt:
+          format: date-time
+          type: string
+        endedAt:
+          format: date-time
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+        items:
+          items:
+            $ref: "#/components/schemas/HostedPortalSubscriptionItem"
+          type: array
+          default: null
+        canCancel:
+          type: boolean
+        canPause:
+          type: boolean
+        canResume:
+          type: boolean
+      required:
+        - canCancel
+        - canPause
+        - canResume
+        - collectionMode
+        - createdAt
+        - customerId
+        - items
+        - status
+        - subscriptionId
+    HostedPortalPageMessage:
+      additionalProperties: false
+      properties:
+        tone:
+          enum:
+            - error
+            - success
+            - info
+          type: string
+        text:
+          type: string
+      required:
+        - text
+        - tone
+    MerchantPortalCollectionRetryResult:
+      additionalProperties: false
+      properties:
+        retryId:
+          type: string
+        invoiceId:
+          type: string
+        status:
+          type: string
+        retrySequence:
+          type: integer
+        runAt:
+          format: date-time
+          type: string
+        lastError:
+          type: string
+        exhaustedAt:
+          format: date-time
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+      required:
+        - createdAt
+        - invoiceId
+        - retryId
+        - retrySequence
+        - runAt
+        - status
+    MerchantPortalSubscriptionActionResult:
+      additionalProperties: false
+      properties:
+        subscription:
+          $ref: "#/components/schemas/HostedPortalSubscription"
+      required:
+        - subscription
+    MerchantPortalActionResponse:
+      additionalProperties: false
+      example:
+        data:
+          hostedInvoiceUrl: https://openapi-generator.tech
+      properties:
+        data:
+          $ref: "#/components/schemas/MerchantPortalActionResponse_data"
+      required:
+        - data
+    HostedCollectionRetryActionRequest:
+      additionalProperties: false
+      description:
+        "The link is invoice-scoped, so the body names the action and nothing\
+        \ else."
+      example:
+        action: schedule
+      properties:
+        action:
+          description: Arm the dunning queue for the link's single invoice.
+          enum:
+            - schedule
+          type: string
+      required:
+        - action
+    HostedCollectionRetryPageView:
+      additionalProperties: false
+      description:
+        "What the bearer sees before arming the retry — enough to confirm\
+        \ the invoice and the outstanding balance, never the underlying payment method."
+      example:
+        merchantName: merchantName
+        invoiceId: invoiceId
+        invoiceNumber: invoiceNumber
+        amountDue: 0
+        amountRemaining: 6
+        currency: currency
+        status: status
+        dueAt: 2000-01-23T04:56:07.000+00:00
+        retryAlreadyScheduled: true
+      properties:
+        merchantName:
+          type: string
+        invoiceId:
+          type: string
+        invoiceNumber:
+          type: string
+        amountDue:
+          description: Invoice total in minor units.
+          type: integer
+        amountRemaining:
+          description: Outstanding balance in minor units.
+          type: integer
+        currency:
+          type: string
+        status:
+          type: string
+        dueAt:
+          format: date-time
+          type: string
+        retryAlreadyScheduled:
+          description:
+            True when a retry is already pending/running — the door shows
+            scheduled instead of arming a duplicate.
+          type: boolean
+      required:
+        - amountDue
+        - amountRemaining
+        - currency
+        - invoiceId
+        - merchantName
+        - retryAlreadyScheduled
+        - status
+    HostedCollectionRetryViewResponse:
+      additionalProperties: {}
+      example:
+        data:
+          view:
+            merchantName: merchantName
+            invoiceId: invoiceId
+            invoiceNumber: invoiceNumber
+            amountDue: 0
+            amountRemaining: 6
+            currency: currency
+            status: status
+            dueAt: 2000-01-23T04:56:07.000+00:00
+            retryAlreadyScheduled: true
+      properties:
+        data:
+          $ref: "#/components/schemas/HostedCollectionRetryViewResponse_data"
+      required:
+        - data
+    HostedUpdatePaymentMethodActionRequest:
+      oneOf:
+        - $ref: "#/components/schemas/HostedUpdatePaymentMethodActionRequest_oneOf"
+        - $ref: "#/components/schemas/HostedUpdatePaymentMethodActionRequest_oneOf_1"
+    HostedUpdatePaymentMethodActionResponse:
+      additionalProperties: {}
+      example:
+        data:
+          paymentMethodSetupSession:
+            id: id
+            environment: environment
+            merchantAccountId: merchantAccountId
+            ownerType: ownerType
+            ownerId: ownerId
+            methodType: methodType
+            status: status
+            clientSecret: clientSecret
+            setAsDefault: true
+            expiresAt: expiresAt
+            createdAt: createdAt
+            updatedAt: updatedAt
+          elementMerchantAccountId: elementMerchantAccountId
+      properties:
+        data:
+          $ref: "#/components/schemas/HostedUpdatePaymentMethodActionResponse_data"
+      required:
+        - data
+    HostedActionError:
+      additionalProperties: false
+      example:
+        error: error
+      properties:
+        error:
+          type: string
+      required:
+        - error
+    HostedCollectionRetryScheduleResponse:
+      additionalProperties: {}
+      example:
+        data:
+          retryId: retryId
+          invoiceId: invoiceId
+          status: pending
+          retrySequence: 0
+          runAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        data:
+          $ref: "#/components/schemas/HostedCollectionRetryScheduleResponse_data"
+      required:
+        - data
     ApiWriteEnvelope:
       additionalProperties: true
       example:
@@ -19546,6 +19829,557 @@ components:
         - displayName
         - environment
         - merchantAccountId
+    MerchantPortalMeterUsageLeg_items_inner:
+      additionalProperties: false
+      properties:
+        meterId:
+          type: string
+        name:
+          type: string
+        aggregationType:
+          type: string
+        windowGrain:
+          type: string
+        aggregatedQuantity:
+          type: number
+      required:
+        - aggregatedQuantity
+        - aggregationType
+        - meterId
+        - name
+        - windowGrain
+    MerchantPortalGetResponse_data:
+      oneOf:
+        - $ref: "#/components/schemas/MerchantPortalView"
+        - $ref: "#/components/schemas/MerchantPortalPageLeg"
+        - $ref: "#/components/schemas/MerchantPortalMeterUsageLeg"
+    MerchantPortalActionRequest_oneOf:
+      example:
+        action: open-dispute-portal
+        disputeId: disputeId
+      properties:
+        action:
+          enum:
+            - open-dispute-portal
+          type: string
+        disputeId:
+          minLength: 1
+          type: string
+      required:
+        - action
+    MerchantPortalActionRequest_oneOf_1:
+      properties:
+        action:
+          enum:
+            - open-invoice
+          type: string
+        invoiceId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - invoiceId
+    MerchantPortalActionRequest_oneOf_2:
+      properties:
+        action:
+          enum:
+            - open-refund
+          type: string
+        paymentId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - paymentId
+    MerchantPortalActionRequest_oneOf_3:
+      properties:
+        action:
+          enum:
+            - open-onboarding
+          type: string
+      required:
+        - action
+    MerchantPortalActionRequest_oneOf_4:
+      properties:
+        action:
+          enum:
+            - share-customer-portal-link
+          type: string
+        customerId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - customerId
+    MerchantPortalActionRequest_oneOf_5:
+      properties:
+        action:
+          enum:
+            - open-update-payment-method
+          type: string
+        paymentMethodId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - paymentMethodId
+    MerchantPortalActionRequest_oneOf_6:
+      properties:
+        action:
+          enum:
+            - open-pay-me
+          type: string
+        currency:
+          default: USD
+          minLength: 1
+          type: string
+        amount:
+          minimum: 1
+          type: integer
+        label:
+          maxLength: 80
+          minLength: 1
+          type: string
+      required:
+        - action
+    MerchantPortalActionRequest_oneOf_7:
+      properties:
+        action:
+          enum:
+            - pause-subscription
+          type: string
+        subscriptionId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - subscriptionId
+    MerchantPortalActionRequest_oneOf_8:
+      properties:
+        action:
+          enum:
+            - resume-subscription
+          type: string
+        subscriptionId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - subscriptionId
+    MerchantPortalActionRequest_oneOf_9:
+      properties:
+        action:
+          enum:
+            - cancel-subscription
+          type: string
+        subscriptionId:
+          minLength: 1
+          type: string
+        cancelAt:
+          description:
+            "Optional schedule — a future cancelAt is a scheduled cancel,\
+            \ not terminal. Merchant-side authority; the customer portal door rejects\
+            \ this field."
+          minLength: 1
+          type: string
+      required:
+        - action
+        - subscriptionId
+    MerchantPortalActionRequest_oneOf_10:
+      properties:
+        action:
+          enum:
+            - charge-customer
+          type: string
+        customerId:
+          minLength: 1
+          type: string
+        amount:
+          minimum: 1
+          type: integer
+        currency:
+          default: USD
+          minLength: 1
+          type: string
+        paymentMethodId:
+          minLength: 1
+          type: string
+        description:
+          maxLength: 120
+          minLength: 1
+          type: string
+        attemptId:
+          maxLength: 80
+          minLength: 1
+          type: string
+      required:
+        - action
+        - amount
+        - customerId
+    MerchantPortalActionRequest_oneOf_11:
+      properties:
+        action:
+          enum:
+            - schedule-collection-retry
+          type: string
+        invoiceId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - invoiceId
+    MerchantPortalActionRequest_oneOf_12:
+      properties:
+        action:
+          enum:
+            - mint-collection-retry-link
+          type: string
+        invoiceId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - invoiceId
+    MerchantPortalActionRequest_oneOf_13:
+      properties:
+        action:
+          enum:
+            - update-payment-method-settings
+          type: string
+        acceptsAch:
+          type: boolean
+      required:
+        - acceptsAch
+        - action
+    MerchantPortalActionRequest_oneOf_14:
+      properties:
+        action:
+          enum:
+            - customer-detail
+          type: string
+        customerId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - customerId
+    MerchantPortalActionRequest_oneOf_15:
+      properties:
+        action:
+          enum:
+            - invoice-detail
+          type: string
+        invoiceId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - invoiceId
+    MerchantPortalActionRequest_oneOf_16:
+      properties:
+        action:
+          enum:
+            - payout-detail
+          type: string
+        payoutId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - payoutId
+    MerchantPortalActionResponse_data_oneOf:
+      example:
+        hostedInvoiceUrl: https://openapi-generator.tech
+      properties:
+        hostedInvoiceUrl:
+          format: uri
+          type: string
+      required:
+        - hostedInvoiceUrl
+    MerchantPortalActionResponse_data_oneOf_1:
+      properties:
+        refundPortalUrl:
+          format: uri
+          type: string
+      required:
+        - refundPortalUrl
+    MerchantPortalActionResponse_data_oneOf_2:
+      properties:
+        onboardingUrl:
+          format: uri
+          type: string
+      required:
+        - onboardingUrl
+    MerchantPortalActionResponse_data_oneOf_3:
+      properties:
+        customerPortalUrl:
+          format: uri
+          type: string
+      required:
+        - customerPortalUrl
+    MerchantPortalActionResponse_data_oneOf_4:
+      properties:
+        updatePaymentMethodUrl:
+          format: uri
+          type: string
+      required:
+        - updatePaymentMethodUrl
+    MerchantPortalActionResponse_data_oneOf_5:
+      properties:
+        payMeUrl:
+          format: uri
+          type: string
+      required:
+        - payMeUrl
+    MerchantPortalActionResponse_data_oneOf_6:
+      properties:
+        collectionRetryUrl:
+          format: uri
+          type: string
+      required:
+        - collectionRetryUrl
+    MerchantPortalActionResponse_data_oneOf_7:
+      properties:
+        customerDetail:
+          additionalProperties: true
+          type: object
+      required:
+        - customerDetail
+    MerchantPortalActionResponse_data_oneOf_8:
+      properties:
+        invoiceDetail:
+          additionalProperties: true
+          type: object
+      required:
+        - invoiceDetail
+    MerchantPortalActionResponse_data_oneOf_9:
+      properties:
+        payoutDetail:
+          additionalProperties: true
+          type: object
+      required:
+        - payoutDetail
+    MerchantPortalActionResponse_data_oneOf_10:
+      properties:
+        paymentRequestId:
+          type: string
+        status:
+          type: string
+        amountPaid:
+          minimum: 0
+          type: integer
+        invoiceId:
+          type: string
+      required:
+        - amountPaid
+        - paymentRequestId
+        - status
+    MerchantPortalActionResponse_data_oneOf_11:
+      properties:
+        ok:
+          type: boolean
+      required:
+        - ok
+    MerchantPortalActionResponse_data_oneOf_12:
+      properties:
+        disputePortalUrl:
+          format: uri
+          type: string
+        disputeUrl:
+          format: uri
+          type: string
+        message:
+          $ref: "#/components/schemas/HostedPortalPageMessage"
+      required:
+        - disputePortalUrl
+        - message
+    MerchantPortalActionResponse_data:
+      oneOf:
+        - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf"
+        - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_1"
+        - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_2"
+        - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_3"
+        - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_4"
+        - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_5"
+        - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_6"
+        - $ref: "#/components/schemas/MerchantPortalSubscriptionActionResult"
+        - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_7"
+        - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_8"
+        - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_9"
+        - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_10"
+        - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_11"
+        - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_12"
+        - $ref: "#/components/schemas/MerchantPortalCollectionRetryResult"
+    HostedCollectionRetryViewResponse_data:
+      additionalProperties: false
+      example:
+        view:
+          merchantName: merchantName
+          invoiceId: invoiceId
+          invoiceNumber: invoiceNumber
+          amountDue: 0
+          amountRemaining: 6
+          currency: currency
+          status: status
+          dueAt: 2000-01-23T04:56:07.000+00:00
+          retryAlreadyScheduled: true
+      properties:
+        view:
+          $ref: "#/components/schemas/HostedCollectionRetryPageView"
+      required:
+        - view
+    HostedUpdatePaymentMethodActionRequest_oneOf:
+      additionalProperties: false
+      example:
+        action: begin
+      properties:
+        action:
+          enum:
+            - begin
+          type: string
+      required:
+        - action
+    HostedUpdatePaymentMethodActionRequest_oneOf_1:
+      additionalProperties: false
+      properties:
+        action:
+          enum:
+            - confirm
+          type: string
+        paymentMethodId:
+          minLength: 1
+          type: string
+        paymentMethodSetupSessionId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - paymentMethodId
+        - paymentMethodSetupSessionId
+    HostedUpdatePaymentMethodActionResponse_data_anyOf_paymentMethodSetupSession:
+      additionalProperties: {}
+      example:
+        id: id
+        environment: environment
+        merchantAccountId: merchantAccountId
+        ownerType: ownerType
+        ownerId: ownerId
+        methodType: methodType
+        status: status
+        clientSecret: clientSecret
+        setAsDefault: true
+        expiresAt: expiresAt
+        createdAt: createdAt
+        updatedAt: updatedAt
+      properties:
+        id:
+          type: string
+        environment:
+          type: string
+        merchantAccountId:
+          type: string
+        ownerType:
+          type: string
+        ownerId:
+          type: string
+        methodType:
+          type: string
+        status:
+          type: string
+        clientSecret:
+          type: string
+        setAsDefault:
+          type: boolean
+        expiresAt:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+        - createdAt
+        - environment
+        - expiresAt
+        - id
+        - merchantAccountId
+        - methodType
+        - ownerId
+        - ownerType
+        - setAsDefault
+        - status
+        - updatedAt
+    HostedUpdatePaymentMethodActionResponse_data_anyOf:
+      additionalProperties: false
+      example:
+        paymentMethodSetupSession:
+          id: id
+          environment: environment
+          merchantAccountId: merchantAccountId
+          ownerType: ownerType
+          ownerId: ownerId
+          methodType: methodType
+          status: status
+          clientSecret: clientSecret
+          setAsDefault: true
+          expiresAt: expiresAt
+          createdAt: createdAt
+          updatedAt: updatedAt
+        elementMerchantAccountId: elementMerchantAccountId
+      properties:
+        paymentMethodSetupSession:
+          $ref: "#/components/schemas/HostedUpdatePaymentMethodActionResponse_data_anyOf_paymentMethodSetupSession"
+        elementMerchantAccountId:
+          type: string
+      required:
+        - elementMerchantAccountId
+        - paymentMethodSetupSession
+    HostedUpdatePaymentMethodActionResponse_data_anyOf_1:
+      additionalProperties: false
+      properties:
+        paymentMethodId:
+          type: string
+        replaced:
+          type: boolean
+      required:
+        - paymentMethodId
+        - replaced
+    HostedUpdatePaymentMethodActionResponse_data:
+      anyOf:
+        - $ref: "#/components/schemas/HostedUpdatePaymentMethodActionResponse_data_anyOf"
+        - $ref: "#/components/schemas/HostedUpdatePaymentMethodActionResponse_data_anyOf_1"
+    HostedCollectionRetryScheduleResponse_data:
+      additionalProperties: false
+      example:
+        retryId: retryId
+        invoiceId: invoiceId
+        status: pending
+        retrySequence: 0
+        runAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        retryId:
+          type: string
+        invoiceId:
+          type: string
+        status:
+          enum:
+            - pending
+            - running
+            - succeeded
+            - failed
+            - exhausted
+            - canceled
+          type: string
+        retrySequence:
+          type: integer
+        runAt:
+          format: date-time
+          type: string
+      required:
+        - invoiceId
+        - retryId
+        - retrySequence
+        - runAt
+        - status
     ApiError_error:
       additionalProperties: true
       example:

@@ -630,6 +630,228 @@ func (a *UsageAPIService) CreateUsageThresholdExecute(r UsageAPICreateUsageThres
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type UsageAPIGetMeterAggregateRequest struct {
+	ctx context.Context
+	ApiService *UsageAPIService
+	meterId string
+	environment *string
+	merchantAccountId *string
+	customerId *string
+	at *string
+	limit *int32
+	cursor *string
+}
+
+func (r UsageAPIGetMeterAggregateRequest) Environment(environment string) UsageAPIGetMeterAggregateRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r UsageAPIGetMeterAggregateRequest) MerchantAccountId(merchantAccountId string) UsageAPIGetMeterAggregateRequest {
+	r.merchantAccountId = &merchantAccountId
+	return r
+}
+
+func (r UsageAPIGetMeterAggregateRequest) CustomerId(customerId string) UsageAPIGetMeterAggregateRequest {
+	r.customerId = &customerId
+	return r
+}
+
+func (r UsageAPIGetMeterAggregateRequest) At(at string) UsageAPIGetMeterAggregateRequest {
+	r.at = &at
+	return r
+}
+
+// Page size, 1-100. Omitting both limit and cursor returns the full unpaginated list.
+func (r UsageAPIGetMeterAggregateRequest) Limit(limit int32) UsageAPIGetMeterAggregateRequest {
+	r.limit = &limit
+	return r
+}
+
+// Opaque cursor from the previous page&#39;s nextCursor. Pass it back verbatim to fetch the next page.
+func (r UsageAPIGetMeterAggregateRequest) Cursor(cursor string) UsageAPIGetMeterAggregateRequest {
+	r.cursor = &cursor
+	return r
+}
+
+func (r UsageAPIGetMeterAggregateRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
+	return r.ApiService.GetMeterAggregateExecute(r)
+}
+
+/*
+GetMeterAggregate Read a meter's grain-windowed aggregate — org rollup plus a paginated per-customer breakdown (`at` selects the window, `customerId` narrows the breakdown)
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param meterId
+ @return UsageAPIGetMeterAggregateRequest
+*/
+func (a *UsageAPIService) GetMeterAggregate(ctx context.Context, meterId string) UsageAPIGetMeterAggregateRequest {
+	return UsageAPIGetMeterAggregateRequest{
+		ApiService: a,
+		ctx: ctx,
+		meterId: meterId,
+	}
+}
+
+// Execute executes the request
+//  @return ApiWriteEnvelope
+func (a *UsageAPIService) GetMeterAggregateExecute(r UsageAPIGetMeterAggregateRequest) (*ApiWriteEnvelope, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ApiWriteEnvelope
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsageAPIService.GetMeterAggregate")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/meters/{meterId}/aggregate"
+	localVarPath = strings.Replace(localVarPath, "{"+"meterId"+"}", url.PathEscape(parameterValueToString(r.meterId, "meterId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.environment == nil {
+		return localVarReturnValue, nil, reportError("environment is required and must be specified")
+	}
+	if r.merchantAccountId == nil {
+		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
+	}
+
+	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	if r.customerId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "customerId", r.customerId, "form", "")
+	}
+	if r.at != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "at", r.at, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ApiError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ApiError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v ApiError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v ApiError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v ApiError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+			var v ApiError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type UsageAPIListUsageEventsRequest struct {
 	ctx context.Context
 	ApiService *UsageAPIService

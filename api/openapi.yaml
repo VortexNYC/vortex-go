@@ -41,6 +41,10 @@ tags:
     name: payment-requests
   - description: Payment collection and reconciliation.
     name: payments
+  - description:
+      Merchant portal — the composed view and action surface shared by the
+      hosted token door and the /v1 session door.
+    name: portal
   - description: Merchant and account payment readiness.
     name: payments-readiness
   - description: "Quotes, quote versions, order forms, and orders."
@@ -8327,6 +8331,270 @@ paths:
               path: { paymentRequestId: "..." },
               query: { environment: "sandbox", merchantAccountId: "..." },
               body: {"expiresAt":"2026-06-08T00:00:00.000Z","createdByRef":"dunning-recovery"},
+            });
+  /v1/portal:
+    get:
+      operationId: getPortal
+      parameters:
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
+          in: query
+          name: environment
+          required: false
+          schema:
+            enum:
+              - sandbox
+              - production
+            type: string
+          style: form
+        - description:
+            Merchant account inside the resolved organization. Required when
+            the org owns more than one merchant in this environment.
+          explode: true
+          in: query
+          name: merchantAccountId
+          required: false
+          schema:
+            minLength: 1
+            type: string
+          style: form
+        - description:
+            Organization override — session/JWT callers may name any member
+            org (membership re-checked per request); API keys are bound to a single
+            org.
+          explode: true
+          in: query
+          name: organizationId
+          required: false
+          schema:
+            minLength: 1
+            type: string
+          style: form
+        - description:
+            Ledger leg to stream as a `text/csv` attachment (`vortex-<leg>-<environment>.csv`).
+            Export pages the leg to exhaustion; a cursor that cannot complete returns
+            409 rather than a truncated file.
+          explode: true
+          in: query
+          name: export
+          required: false
+          schema:
+            enum:
+              - payments
+              - invoices
+              - payouts
+              - settlements
+              - customers
+              - subscriptions
+              - paymentLinks
+              - taxTransactions
+            type: string
+          style: form
+        - description:
+            "Continuation page for one list leg, `<leg>:<continuation-token>`\
+            \ — the token comes from the view's `pageInfo` map or a prior page's `nextToken`.\
+            \ Returns `{ items, nextToken? }` filtered by the same `from`/`to` bounds."
+          explode: true
+          in: query
+          name: more
+          required: false
+          schema:
+            pattern: "^[^:]+:.+$"
+            type: string
+          style: form
+        - description: "Per-meter usage rows for one customer drawer (`{ items }`)."
+          explode: true
+          in: query
+          name: meterUsage
+          required: false
+          schema:
+            minLength: 1
+            type: string
+          style: form
+        - description:
+            Inclusive ISO timestamp lower bound applied to each leg's timestamp
+            field.
+          explode: true
+          in: query
+          name: from
+          required: false
+          schema:
+            format: date-time
+            type: string
+          style: form
+        - description:
+            Inclusive ISO timestamp upper bound applied to each leg's timestamp
+            field.
+          explode: true
+          in: query
+          name: to
+          required: false
+          schema:
+            format: date-time
+            type: string
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionPortalGetResponse"
+            text/csv:
+              example: "paymentIntentId,status,amount,currency,createdAt\r\npi_123,succeeded,4900,USD,2026-10-01T00:00:00.000Z"
+              schema:
+                type: string
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary:
+        "Read the session merchant portal — the same composed view as the hosted\
+        \ /merchant-portal/:token door, authorized by the caller's organization. Bare\
+        \ GET returns the portal view; ?more=<leg>:<token> pages one list leg; ?export=<leg>\
+        \ streams CSV; ?meterUsage=<customerId> reads the drawer leg. Omitted merchantAccountId\
+        \ auto-selects a sole merchant; zero or many returns {data:{merchants}}."
+      tags:
+        - portal
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/portal?environment=sandbox" \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { getPortal, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await getPortal({
+              client: vortex,
+              query: { environment: "sandbox" },
+            });
+    post:
+      operationId: runPortalAction
+      parameters:
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
+          in: query
+          name: environment
+          required: false
+          schema:
+            enum:
+              - sandbox
+              - production
+            type: string
+          style: form
+        - description:
+            Merchant account inside the resolved organization — required
+            when the org owns more than one merchant in this environment.
+          explode: true
+          in: query
+          name: merchantAccountId
+          required: false
+          schema:
+            minLength: 1
+            type: string
+          style: form
+        - description:
+            Organization override — session/JWT callers may name any member
+            org (membership re-checked per request); API keys are bound to a single
+            org.
+          explode: true
+          in: query
+          name: organizationId
+          required: false
+          schema:
+            minLength: 1
+            type: string
+          style: form
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value:
+                  action: pause-subscription
+                  subscriptionId: sub_123
+            schema:
+              $ref: "#/components/schemas/MerchantPortalActionRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MerchantPortalActionResponse"
+          description: Success
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MerchantPortalActionResponse"
+          description: Created
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary:
+        Run a merchant-portal action under the session's resolved scope — the
+        same action union the hosted /merchant-portal/:token door accepts
+      tags:
+        - portal
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/portal?environment=sandbox&merchantAccountId=ma_123" \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{"action":"pause-subscription","subscriptionId":"sub_123"}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { runPortalAction, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await runPortalAction({
+              client: vortex,
+              query: { environment: "sandbox", merchantAccountId: "ma_123" },
+              body: {"action":"pause-subscription","subscriptionId":"sub_123"},
             });
   /v1/prices:
     post:
@@ -18911,6 +19179,74 @@ components:
           $ref: "#/components/schemas/MerchantPortalGetResponse_data"
       required:
         - data
+    PortalMerchantOption:
+      additionalProperties: false
+      properties:
+        merchantAccountId:
+          type: string
+        environment:
+          enum:
+            - sandbox
+            - production
+          type: string
+        status:
+          type: string
+        displayName:
+          type: string
+      required:
+        - environment
+        - merchantAccountId
+        - status
+    PortalMerchantSwitcher:
+      additionalProperties: false
+      description:
+        The org's merchant list for the picker — returned when ?merchantAccountId
+        is omitted and the org does not own exactly one merchant in this environment.
+      properties:
+        merchants:
+          items:
+            $ref: "#/components/schemas/PortalMerchantOption"
+          type: array
+          default: null
+      required:
+        - merchants
+    SessionPortalGetResponse:
+      additionalProperties: false
+      example:
+        data:
+          organizationName: organizationName
+          merchantAccountId: merchantAccountId
+          linkExpiresAt: 2000-01-23T04:56:07.000+00:00
+          account:
+            displayName: displayName
+            doingBusinessAs: doingBusinessAs
+            legalEntityType: legalEntityType
+            country: country
+            merchantMode: merchantMode
+            defaultCurrency: defaultCurrency
+            status: status
+            capabilityStatus: capabilityStatus
+            email: email
+            businessPhone: businessPhone
+            url: url
+            mcc: mcc
+            businessTaxIdMasked: businessTaxIdMasked
+            acceptsAch: true
+            maxTransactionAmount: 0.8008281904610115
+            achMaxTransactionAmount: 6.027456183070403
+            settlementAccount:
+              present: true
+              accountType: accountType
+              bankCode: bankCode
+              accountNumberMasked: accountNumberMasked
+              name: name
+          pageInfo:
+            key: pageInfo
+      properties:
+        data:
+          $ref: "#/components/schemas/SessionPortalGetResponse_data"
+      required:
+        - data
     MerchantPortalActionRequest:
       discriminator:
         propertyName: action
@@ -19981,6 +20317,12 @@ components:
         - $ref: "#/components/schemas/MerchantPortalView"
         - $ref: "#/components/schemas/MerchantPortalPageLeg"
         - $ref: "#/components/schemas/MerchantPortalMeterUsageLeg"
+    SessionPortalGetResponse_data:
+      oneOf:
+        - $ref: "#/components/schemas/MerchantPortalView"
+        - $ref: "#/components/schemas/MerchantPortalPageLeg"
+        - $ref: "#/components/schemas/MerchantPortalMeterUsageLeg"
+        - $ref: "#/components/schemas/PortalMerchantSwitcher"
     MerchantPortalActionRequest_oneOf:
       example:
         action: open-dispute-portal

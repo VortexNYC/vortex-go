@@ -31,6 +31,7 @@ type CatalogAPICreatePriceRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r CatalogAPICreatePriceRequest) Environment(environment string) CatalogAPICreatePriceRequest {
 	r.environment = &environment
 	return r
@@ -232,6 +233,7 @@ type CatalogAPICreateProductRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r CatalogAPICreateProductRequest) Environment(environment string) CatalogAPICreateProductRequest {
 	r.environment = &environment
 	return r
@@ -433,6 +435,7 @@ type CatalogAPIListStorefrontProductsRequest struct {
 	offset *int32
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r CatalogAPIListStorefrontProductsRequest) Environment(environment string) CatalogAPIListStorefrontProductsRequest {
 	r.environment = &environment
 	return r

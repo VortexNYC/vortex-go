@@ -33,6 +33,7 @@ type CustomersAPICreateBillingAccountRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r CustomersAPICreateBillingAccountRequest) Environment(environment string) CustomersAPICreateBillingAccountRequest {
 	r.environment = &environment
 	return r
@@ -237,6 +238,7 @@ type CustomersAPICreateCustomerRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r CustomersAPICreateCustomerRequest) Environment(environment string) CustomersAPICreateCustomerRequest {
 	r.environment = &environment
 	return r
@@ -438,6 +440,7 @@ type CustomersAPIEnsureCustomerRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r CustomersAPIEnsureCustomerRequest) Environment(environment string) CustomersAPIEnsureCustomerRequest {
 	r.environment = &environment
 	return r
@@ -638,6 +641,7 @@ type CustomersAPIGetBillingAccountRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r CustomersAPIGetBillingAccountRequest) Environment(environment string) CustomersAPIGetBillingAccountRequest {
 	r.environment = &environment
 	return r
@@ -835,6 +839,7 @@ type CustomersAPIListCustomerBillingAccountsRequest struct {
 	cursor *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r CustomersAPIListCustomerBillingAccountsRequest) Environment(environment string) CustomersAPIListCustomerBillingAccountsRequest {
 	r.environment = &environment
 	return r
@@ -1039,6 +1044,7 @@ type CustomersAPIListCustomersRequest struct {
 	cursor *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r CustomersAPIListCustomersRequest) Environment(environment string) CustomersAPIListCustomersRequest {
 	r.environment = &environment
 	return r
@@ -1246,6 +1252,7 @@ type CustomersAPIUpsertCustomerRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r CustomersAPIUpsertCustomerRequest) Environment(environment string) CustomersAPIUpsertCustomerRequest {
 	r.environment = &environment
 	return r

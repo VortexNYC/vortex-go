@@ -24,6 +24,8 @@ type SignupRequest struct {
 	// Organization name
 	Name string `json:"name"`
 	ContactEmail *string `json:"contactEmail,omitempty"`
+	// Optional. Anonymous signup provisions sandbox only — `production` is rejected 403 (production orgs require an authenticated session).
+	Environment *string `json:"environment,omitempty"`
 	// Ops-issued invite code (vxi_…) — optional attribution
 	InviteCode *string `json:"inviteCode,omitempty"`
 }
@@ -104,6 +106,38 @@ func (o *SignupRequest) SetContactEmail(v string) {
 	o.ContactEmail = &v
 }
 
+// GetEnvironment returns the Environment field value if set, zero value otherwise.
+func (o *SignupRequest) GetEnvironment() string {
+	if o == nil || IsNil(o.Environment) {
+		var ret string
+		return ret
+	}
+	return *o.Environment
+}
+
+// GetEnvironmentOk returns a tuple with the Environment field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SignupRequest) GetEnvironmentOk() (*string, bool) {
+	if o == nil || IsNil(o.Environment) {
+		return nil, false
+	}
+	return o.Environment, true
+}
+
+// HasEnvironment returns a boolean if a field has been set.
+func (o *SignupRequest) HasEnvironment() bool {
+	if o != nil && !IsNil(o.Environment) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnvironment gets a reference to the given string and assigns it to the Environment field.
+func (o *SignupRequest) SetEnvironment(v string) {
+	o.Environment = &v
+}
+
 // GetInviteCode returns the InviteCode field value if set, zero value otherwise.
 func (o *SignupRequest) GetInviteCode() string {
 	if o == nil || IsNil(o.InviteCode) {
@@ -149,6 +183,9 @@ func (o SignupRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["name"] = o.Name
 	if !IsNil(o.ContactEmail) {
 		toSerialize["contactEmail"] = o.ContactEmail
+	}
+	if !IsNil(o.Environment) {
+		toSerialize["environment"] = o.Environment
 	}
 	if !IsNil(o.InviteCode) {
 		toSerialize["inviteCode"] = o.InviteCode

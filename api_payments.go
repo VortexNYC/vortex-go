@@ -33,6 +33,7 @@ type PaymentsAPICollectInvoiceRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r PaymentsAPICollectInvoiceRequest) Environment(environment string) PaymentsAPICollectInvoiceRequest {
 	r.environment = &environment
 	return r
@@ -236,6 +237,7 @@ type PaymentsAPIGetInvoicePaymentLifecycleRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r PaymentsAPIGetInvoicePaymentLifecycleRequest) Environment(environment string) PaymentsAPIGetInvoicePaymentLifecycleRequest {
 	r.environment = &environment
 	return r

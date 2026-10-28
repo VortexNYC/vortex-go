@@ -33,6 +33,7 @@ type PaymentRequestsAPICollectPaymentRequestRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r PaymentRequestsAPICollectPaymentRequestRequest) Environment(environment string) PaymentRequestsAPICollectPaymentRequestRequest {
 	r.environment = &environment
 	return r
@@ -237,6 +238,7 @@ type PaymentRequestsAPICreatePaymentRequestRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r PaymentRequestsAPICreatePaymentRequestRequest) Environment(environment string) PaymentRequestsAPICreatePaymentRequestRequest {
 	r.environment = &environment
 	return r
@@ -439,6 +441,7 @@ type PaymentRequestsAPICreatePaymentRequestLinkRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r PaymentRequestsAPICreatePaymentRequestLinkRequest) Environment(environment string) PaymentRequestsAPICreatePaymentRequestLinkRequest {
 	r.environment = &environment
 	return r
@@ -642,6 +645,7 @@ type PaymentRequestsAPIGetPaymentRequestRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r PaymentRequestsAPIGetPaymentRequestRequest) Environment(environment string) PaymentRequestsAPIGetPaymentRequestRequest {
 	r.environment = &environment
 	return r
@@ -837,6 +841,7 @@ type PaymentRequestsAPIListPaymentRequestsRequest struct {
 	offset *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r PaymentRequestsAPIListPaymentRequestsRequest) Environment(environment string) PaymentRequestsAPIListPaymentRequestsRequest {
 	r.environment = &environment
 	return r

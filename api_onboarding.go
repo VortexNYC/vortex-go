@@ -351,6 +351,7 @@ type OnboardingAPIGetMerchantRatePlanRequest struct {
 	merchantAccountId2 *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r OnboardingAPIGetMerchantRatePlanRequest) Environment(environment string) OnboardingAPIGetMerchantRatePlanRequest {
 	r.environment = &environment
 	return r
@@ -537,6 +538,7 @@ type OnboardingAPIListMerchantStatementsRequest struct {
 	offset *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r OnboardingAPIListMerchantStatementsRequest) Environment(environment string) OnboardingAPIListMerchantStatementsRequest {
 	r.environment = &environment
 	return r
@@ -738,6 +740,7 @@ type OnboardingAPIPromoteMerchantToLiveRequest struct {
 	promoteMerchantRequest *PromoteMerchantRequest
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r OnboardingAPIPromoteMerchantToLiveRequest) Environment(environment string) OnboardingAPIPromoteMerchantToLiveRequest {
 	r.environment = &environment
 	return r
@@ -1125,6 +1128,7 @@ type OnboardingAPISeedSandboxBookRequest struct {
 	sandboxSeedRequest *SandboxSeedRequest
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r OnboardingAPISeedSandboxBookRequest) Environment(environment string) OnboardingAPISeedSandboxBookRequest {
 	r.environment = &environment
 	return r
@@ -1478,6 +1482,7 @@ type OnboardingAPIUploadMerchantStatementRequest struct {
 	statementUploadRequest *StatementUploadRequest
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r OnboardingAPIUploadMerchantStatementRequest) Environment(environment string) OnboardingAPIUploadMerchantStatementRequest {
 	r.environment = &environment
 	return r

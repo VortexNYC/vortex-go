@@ -32,6 +32,7 @@ type CheckoutAPICreateCheckoutSessionRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r CheckoutAPICreateCheckoutSessionRequest) Environment(environment string) CheckoutAPICreateCheckoutSessionRequest {
 	r.environment = &environment
 	return r
@@ -232,6 +233,7 @@ type CheckoutAPIGetCheckoutSessionRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r CheckoutAPIGetCheckoutSessionRequest) Environment(environment string) CheckoutAPIGetCheckoutSessionRequest {
 	r.environment = &environment
 	return r
@@ -416,6 +418,7 @@ type CheckoutAPIGetStorefrontCheckoutSessionRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r CheckoutAPIGetStorefrontCheckoutSessionRequest) Environment(environment string) CheckoutAPIGetStorefrontCheckoutSessionRequest {
 	r.environment = &environment
 	return r

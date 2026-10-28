@@ -33,6 +33,7 @@ type DiscountsAPIApplyCouponRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r DiscountsAPIApplyCouponRequest) Environment(environment string) DiscountsAPIApplyCouponRequest {
 	r.environment = &environment
 	return r
@@ -237,6 +238,7 @@ type DiscountsAPICreateCouponRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r DiscountsAPICreateCouponRequest) Environment(environment string) DiscountsAPICreateCouponRequest {
 	r.environment = &environment
 	return r
@@ -437,6 +439,7 @@ type DiscountsAPIGetAppliedCouponRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r DiscountsAPIGetAppliedCouponRequest) Environment(environment string) DiscountsAPIGetAppliedCouponRequest {
 	r.environment = &environment
 	return r
@@ -621,6 +624,7 @@ type DiscountsAPIGetCouponRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r DiscountsAPIGetCouponRequest) Environment(environment string) DiscountsAPIGetCouponRequest {
 	r.environment = &environment
 	return r
@@ -804,6 +808,7 @@ type DiscountsAPIListAppliedCouponsRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r DiscountsAPIListAppliedCouponsRequest) Environment(environment string) DiscountsAPIListAppliedCouponsRequest {
 	r.environment = &environment
 	return r
@@ -984,6 +989,7 @@ type DiscountsAPIListCouponsRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r DiscountsAPIListCouponsRequest) Environment(environment string) DiscountsAPIListCouponsRequest {
 	r.environment = &environment
 	return r
@@ -1167,6 +1173,7 @@ type DiscountsAPITerminateAppliedCouponRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r DiscountsAPITerminateAppliedCouponRequest) Environment(environment string) DiscountsAPITerminateAppliedCouponRequest {
 	r.environment = &environment
 	return r
@@ -1372,6 +1379,7 @@ type DiscountsAPITerminateCouponRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r DiscountsAPITerminateCouponRequest) Environment(environment string) DiscountsAPITerminateCouponRequest {
 	r.environment = &environment
 	return r

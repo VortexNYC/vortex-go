@@ -32,6 +32,7 @@ type CreditNotesAPICreateCreditNoteRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r CreditNotesAPICreateCreditNoteRequest) Environment(environment string) CreditNotesAPICreateCreditNoteRequest {
 	r.environment = &environment
 	return r
@@ -232,6 +233,7 @@ type CreditNotesAPIGetCreditNoteRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r CreditNotesAPIGetCreditNoteRequest) Environment(environment string) CreditNotesAPIGetCreditNoteRequest {
 	r.environment = &environment
 	return r
@@ -416,6 +418,7 @@ type CreditNotesAPIGetCreditNoteRefundLineageRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r CreditNotesAPIGetCreditNoteRefundLineageRequest) Environment(environment string) CreditNotesAPIGetCreditNoteRefundLineageRequest {
 	r.environment = &environment
 	return r
@@ -602,6 +605,7 @@ type CreditNotesAPIReconcileCreditNoteRefundRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r CreditNotesAPIReconcileCreditNoteRefundRequest) Environment(environment string) CreditNotesAPIReconcileCreditNoteRefundRequest {
 	r.environment = &environment
 	return r
@@ -807,6 +811,7 @@ type CreditNotesAPIRefundCreditNoteRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r CreditNotesAPIRefundCreditNoteRequest) Environment(environment string) CreditNotesAPIRefundCreditNoteRequest {
 	r.environment = &environment
 	return r

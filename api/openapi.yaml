@@ -3101,11 +3101,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -3164,11 +3170,17 @@ paths:
     post:
       operationId: createCheckoutSession
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -3254,11 +3266,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -3317,11 +3335,17 @@ paths:
     post:
       operationId: ackCliListenDelivery
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - $ref: "#/components/parameters/IdempotencyKey"
@@ -3389,11 +3413,17 @@ paths:
     get:
       operationId: cliListenNext
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -3465,11 +3495,17 @@ paths:
     post:
       operationId: registerCliListenEndpoint
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -3540,11 +3576,17 @@ paths:
     get:
       operationId: listCoupons
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -3599,11 +3641,17 @@ paths:
     post:
       operationId: createCoupon
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -3688,11 +3736,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -3749,11 +3803,17 @@ paths:
     post:
       operationId: createCreditNote
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -3838,11 +3898,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -3906,11 +3972,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -3981,11 +4053,17 @@ paths:
     get:
       operationId: listCustomers
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -4061,11 +4139,17 @@ paths:
     post:
       operationId: createCustomer
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -4137,11 +4221,17 @@ paths:
     put:
       operationId: ensureCustomer
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -4223,11 +4313,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -4314,11 +4410,17 @@ paths:
           schema:
             type: string
           style: form
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -4382,11 +4484,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -4450,11 +4558,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -4539,11 +4653,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -4624,11 +4744,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -4692,11 +4818,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -4753,11 +4885,17 @@ paths:
     post:
       operationId: grantEntitlement
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -4831,11 +4969,17 @@ paths:
     post:
       operationId: revokeEntitlement
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -4910,11 +5054,17 @@ paths:
     get:
       operationId: listWebhookEvents
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -4970,11 +5120,17 @@ paths:
     get:
       operationId: listInvoices
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -5057,11 +5213,17 @@ paths:
     post:
       operationId: createInvoice
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -5142,11 +5304,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -5210,11 +5378,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -5292,11 +5466,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -5374,11 +5554,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -5457,11 +5643,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -5547,11 +5739,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -5623,11 +5821,17 @@ paths:
     get:
       operationId: listMerchantAccounts
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -5696,11 +5900,17 @@ paths:
     post:
       operationId: createMerchantAccount
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -5786,11 +5996,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -5853,11 +6069,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -5937,11 +6159,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -6005,11 +6233,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -6094,11 +6328,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -6162,11 +6402,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -6246,11 +6492,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -6314,11 +6566,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -6396,11 +6654,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -6465,11 +6729,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -6547,11 +6817,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -6615,11 +6891,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -6697,11 +6979,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -6784,11 +7072,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -6851,11 +7145,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -6935,11 +7235,17 @@ paths:
     get:
       operationId: listMeters
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -7020,11 +7326,17 @@ paths:
     post:
       operationId: createMeter
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -7105,11 +7417,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -7187,11 +7505,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -7256,11 +7580,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -7332,11 +7662,17 @@ paths:
     get:
       operationId: listBillingOrderForms
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -7435,11 +7771,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -7503,11 +7845,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -7588,11 +7936,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -7672,11 +8026,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -7747,11 +8107,17 @@ paths:
     post:
       operationId: expireDueBillingOrderForms
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -7823,11 +8189,17 @@ paths:
     get:
       operationId: listBillingOrders
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -7926,11 +8298,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -7993,11 +8371,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -8076,11 +8460,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -8162,11 +8552,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -8238,11 +8634,17 @@ paths:
     post:
       operationId: executeDueBillingOrders
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -8312,11 +8714,17 @@ paths:
     post:
       operationId: createPayable
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -8404,11 +8812,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -8467,11 +8881,17 @@ paths:
     get:
       operationId: listPaymentReceipts
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -8597,11 +9017,17 @@ paths:
     get:
       operationId: listPaymentRequests
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -8742,11 +9168,17 @@ paths:
     post:
       operationId: createPaymentRequest
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -8827,11 +9259,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -8895,11 +9333,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -8977,11 +9421,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -9317,11 +9767,17 @@ paths:
     post:
       operationId: createPrice
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -9398,11 +9854,17 @@ paths:
     post:
       operationId: createProduct
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -9481,11 +9943,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -9548,11 +10016,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -9633,11 +10107,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -9715,11 +10195,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -9790,11 +10276,17 @@ paths:
     get:
       operationId: listBillingQuotes
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -9885,11 +10377,17 @@ paths:
     post:
       operationId: createBillingQuote
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -9978,11 +10476,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -10046,11 +10550,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -10113,11 +10623,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -10199,11 +10715,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -10269,11 +10791,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
       responses:
@@ -10325,11 +10853,17 @@ paths:
     get:
       operationId: listStorefrontProducts
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -10406,11 +10940,17 @@ paths:
     get:
       operationId: listSubscriptions
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -10493,11 +11033,17 @@ paths:
     post:
       operationId: createSubscription
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -10572,11 +11118,17 @@ paths:
     get:
       operationId: listTaxTransactions
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -10659,11 +11211,17 @@ paths:
     post:
       operationId: quoteTaxTransaction
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -10754,11 +11312,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -10822,11 +11386,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -10903,11 +11473,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -10979,11 +11555,17 @@ paths:
     get:
       operationId: listUsageEvents
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -11073,11 +11655,17 @@ paths:
     post:
       operationId: createUsageEvent
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -11152,11 +11740,17 @@ paths:
     get:
       operationId: listUsageThresholds
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -11242,11 +11836,17 @@ paths:
     post:
       operationId: createUsageThreshold
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -11326,11 +11926,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -11394,11 +12000,17 @@ paths:
     get:
       operationId: listWebhookDeliveries
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -11454,11 +12066,17 @@ paths:
     post:
       operationId: dispatchWebhookDeliveries
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -11528,11 +12146,17 @@ paths:
     get:
       operationId: listWebhookEndpoints
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -11594,11 +12218,17 @@ paths:
         \ on it — and `Vortex-Delivery-Id`, unique per delivery attempt."
       operationId: createWebhookEndpoint
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -11734,11 +12364,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -11841,11 +12477,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -11926,11 +12568,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -12013,11 +12661,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -12080,11 +12734,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -12164,11 +12824,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -12247,11 +12913,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -12336,11 +13008,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -12425,11 +13103,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -12514,11 +13198,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -12582,11 +13272,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -12650,11 +13346,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -12747,11 +13449,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -12830,11 +13538,17 @@ paths:
     get:
       operationId: listWebhookEventTypes
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -12897,11 +13611,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -12977,11 +13697,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -13062,11 +13788,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -13145,11 +13877,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -13227,11 +13965,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -13295,11 +14039,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -13376,11 +14126,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -13444,11 +14200,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -13520,11 +14282,17 @@ paths:
     post:
       operationId: redriveWebhookDeliveries
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -13604,11 +14372,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -13689,11 +14463,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -13764,11 +14544,17 @@ paths:
     get:
       operationId: listAppliedCoupons
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -13831,11 +14617,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -13899,11 +14691,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -13981,11 +14779,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -14072,11 +14876,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -14157,11 +14967,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -14243,11 +15059,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -14322,11 +15144,17 @@ paths:
     post:
       operationId: previewInvoice
       parameters:
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -14406,11 +15234,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -14487,11 +15321,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -14577,11 +15417,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -14645,11 +15491,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -14713,11 +15565,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -14781,11 +15639,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -14849,11 +15713,17 @@ paths:
           schema:
             type: string
           style: simple
-        - explode: true
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
           in: query
           name: environment
           required: true
           schema:
+            enum:
+              - sandbox
+              - production
             type: string
           style: form
         - explode: true
@@ -15800,6 +16670,7 @@ components:
       example:
         name: name
         contactEmail: contactEmail
+        environment: sandbox
         inviteCode: inviteCode
       properties:
         name:
@@ -15807,6 +16678,14 @@ components:
           type: string
         contactEmail:
           format: email
+          type: string
+        environment:
+          description:
+            Optional. Anonymous signup provisions sandbox only — `production`
+            is rejected 403 (production orgs require an authenticated session).
+          enum:
+            - sandbox
+            - production
           type: string
         inviteCode:
           description: Ops-issued invite code (vxi_…) — optional attribution

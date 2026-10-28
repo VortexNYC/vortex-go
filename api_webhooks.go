@@ -31,6 +31,7 @@ type WebhooksAPIAckCliListenDeliveryRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r WebhooksAPIAckCliListenDeliveryRequest) Environment(environment string) WebhooksAPIAckCliListenDeliveryRequest {
 	r.environment = &environment
 	return r
@@ -233,6 +234,7 @@ type WebhooksAPICliListenNextRequest struct {
 	timeoutMs *int32
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r WebhooksAPICliListenNextRequest) Environment(environment string) WebhooksAPICliListenNextRequest {
 	r.environment = &environment
 	return r
@@ -435,6 +437,7 @@ type WebhooksAPICreateWebhookEndpointRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r WebhooksAPICreateWebhookEndpointRequest) Environment(environment string) WebhooksAPICreateWebhookEndpointRequest {
 	r.environment = &environment
 	return r
@@ -639,6 +642,7 @@ type WebhooksAPIDeleteWebhookEndpointRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r WebhooksAPIDeleteWebhookEndpointRequest) Environment(environment string) WebhooksAPIDeleteWebhookEndpointRequest {
 	r.environment = &environment
 	return r
@@ -843,6 +847,7 @@ type WebhooksAPIDispatchWebhookDeliveriesRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r WebhooksAPIDispatchWebhookDeliveriesRequest) Environment(environment string) WebhooksAPIDispatchWebhookDeliveriesRequest {
 	r.environment = &environment
 	return r
@@ -1043,6 +1048,7 @@ type WebhooksAPIGetWebhookDeliveryRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r WebhooksAPIGetWebhookDeliveryRequest) Environment(environment string) WebhooksAPIGetWebhookDeliveryRequest {
 	r.environment = &environment
 	return r
@@ -1227,6 +1233,7 @@ type WebhooksAPIGetWebhookEventRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r WebhooksAPIGetWebhookEventRequest) Environment(environment string) WebhooksAPIGetWebhookEventRequest {
 	r.environment = &environment
 	return r
@@ -1410,6 +1417,7 @@ type WebhooksAPIListWebhookDeliveriesRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r WebhooksAPIListWebhookDeliveriesRequest) Environment(environment string) WebhooksAPIListWebhookDeliveriesRequest {
 	r.environment = &environment
 	return r
@@ -1590,6 +1598,7 @@ type WebhooksAPIListWebhookEndpointsRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r WebhooksAPIListWebhookEndpointsRequest) Environment(environment string) WebhooksAPIListWebhookEndpointsRequest {
 	r.environment = &environment
 	return r
@@ -1770,6 +1779,7 @@ type WebhooksAPIListWebhookEventTypesRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r WebhooksAPIListWebhookEventTypesRequest) Environment(environment string) WebhooksAPIListWebhookEventTypesRequest {
 	r.environment = &environment
 	return r
@@ -1950,6 +1960,7 @@ type WebhooksAPIListWebhookEventsRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r WebhooksAPIListWebhookEventsRequest) Environment(environment string) WebhooksAPIListWebhookEventsRequest {
 	r.environment = &environment
 	return r
@@ -2132,6 +2143,7 @@ type WebhooksAPIRedriveWebhookDeliveriesRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r WebhooksAPIRedriveWebhookDeliveriesRequest) Environment(environment string) WebhooksAPIRedriveWebhookDeliveriesRequest {
 	r.environment = &environment
 	return r
@@ -2333,6 +2345,7 @@ type WebhooksAPIRegisterCliListenEndpointRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r WebhooksAPIRegisterCliListenEndpointRequest) Environment(environment string) WebhooksAPIRegisterCliListenEndpointRequest {
 	r.environment = &environment
 	return r
@@ -2534,6 +2547,7 @@ type WebhooksAPIReplayWebhookDeliveryRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r WebhooksAPIReplayWebhookDeliveryRequest) Environment(environment string) WebhooksAPIReplayWebhookDeliveryRequest {
 	r.environment = &environment
 	return r
@@ -2739,6 +2753,7 @@ type WebhooksAPIResendWebhookEventRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r WebhooksAPIResendWebhookEventRequest) Environment(environment string) WebhooksAPIResendWebhookEventRequest {
 	r.environment = &environment
 	return r
@@ -2944,6 +2959,7 @@ type WebhooksAPIRotateWebhookEndpointSecretRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r WebhooksAPIRotateWebhookEndpointSecretRequest) Environment(environment string) WebhooksAPIRotateWebhookEndpointSecretRequest {
 	r.environment = &environment
 	return r
@@ -3149,6 +3165,7 @@ type WebhooksAPITestWebhookEndpointRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r WebhooksAPITestWebhookEndpointRequest) Environment(environment string) WebhooksAPITestWebhookEndpointRequest {
 	r.environment = &environment
 	return r
@@ -3354,6 +3371,7 @@ type WebhooksAPIUpdateWebhookEndpointRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r WebhooksAPIUpdateWebhookEndpointRequest) Environment(environment string) WebhooksAPIUpdateWebhookEndpointRequest {
 	r.environment = &environment
 	return r

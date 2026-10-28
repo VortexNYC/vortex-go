@@ -33,6 +33,7 @@ type CustomerBalanceAPIExpireCustomerBalanceRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r CustomerBalanceAPIExpireCustomerBalanceRequest) Environment(environment string) CustomerBalanceAPIExpireCustomerBalanceRequest {
 	r.environment = &environment
 	return r
@@ -236,6 +237,7 @@ type CustomerBalanceAPIGetCustomerBalanceRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r CustomerBalanceAPIGetCustomerBalanceRequest) Environment(environment string) CustomerBalanceAPIGetCustomerBalanceRequest {
 	r.environment = &environment
 	return r
@@ -422,6 +424,7 @@ type CustomerBalanceAPIGrantCustomerBalanceRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r CustomerBalanceAPIGrantCustomerBalanceRequest) Environment(environment string) CustomerBalanceAPIGrantCustomerBalanceRequest {
 	r.environment = &environment
 	return r
@@ -627,6 +630,7 @@ type CustomerBalanceAPIGrantCustomerBalanceFromPaymentRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r CustomerBalanceAPIGrantCustomerBalanceFromPaymentRequest) Environment(environment string) CustomerBalanceAPIGrantCustomerBalanceFromPaymentRequest {
 	r.environment = &environment
 	return r
@@ -832,6 +836,7 @@ type CustomerBalanceAPIReverseCustomerBalanceRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r CustomerBalanceAPIReverseCustomerBalanceRequest) Environment(environment string) CustomerBalanceAPIReverseCustomerBalanceRequest {
 	r.environment = &environment
 	return r

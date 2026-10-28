@@ -34,6 +34,7 @@ type PaymentMethodsAPIArchiveCustomerPaymentMethodRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r PaymentMethodsAPIArchiveCustomerPaymentMethodRequest) Environment(environment string) PaymentMethodsAPIArchiveCustomerPaymentMethodRequest {
 	r.environment = &environment
 	return r
@@ -242,6 +243,7 @@ type PaymentMethodsAPIAttachCustomerPaymentMethodRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r PaymentMethodsAPIAttachCustomerPaymentMethodRequest) Environment(environment string) PaymentMethodsAPIAttachCustomerPaymentMethodRequest {
 	r.environment = &environment
 	return r
@@ -447,6 +449,7 @@ type PaymentMethodsAPICreateCustomerPaymentMethodSetupRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r PaymentMethodsAPICreateCustomerPaymentMethodSetupRequest) Environment(environment string) PaymentMethodsAPICreateCustomerPaymentMethodSetupRequest {
 	r.environment = &environment
 	return r
@@ -651,6 +654,7 @@ type PaymentMethodsAPIGetCustomerPaymentMethodMicrodepositStatusRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r PaymentMethodsAPIGetCustomerPaymentMethodMicrodepositStatusRequest) Environment(environment string) PaymentMethodsAPIGetCustomerPaymentMethodMicrodepositStatusRequest {
 	r.environment = &environment
 	return r
@@ -838,6 +842,7 @@ type PaymentMethodsAPIGetCustomerPaymentStateRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r PaymentMethodsAPIGetCustomerPaymentStateRequest) Environment(environment string) PaymentMethodsAPIGetCustomerPaymentStateRequest {
 	r.environment = &environment
 	return r
@@ -1022,6 +1027,7 @@ type PaymentMethodsAPIListCustomerPaymentMethodsRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r PaymentMethodsAPIListCustomerPaymentMethodsRequest) Environment(environment string) PaymentMethodsAPIListCustomerPaymentMethodsRequest {
 	r.environment = &environment
 	return r
@@ -1208,6 +1214,7 @@ type PaymentMethodsAPISetCustomerDefaultPaymentMethodRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r PaymentMethodsAPISetCustomerDefaultPaymentMethodRequest) Environment(environment string) PaymentMethodsAPISetCustomerDefaultPaymentMethodRequest {
 	r.environment = &environment
 	return r
@@ -1414,6 +1421,7 @@ type PaymentMethodsAPIVerifyCustomerPaymentMethodMicrodepositRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r PaymentMethodsAPIVerifyCustomerPaymentMethodMicrodepositRequest) Environment(environment string) PaymentMethodsAPIVerifyCustomerPaymentMethodMicrodepositRequest {
 	r.environment = &environment
 	return r

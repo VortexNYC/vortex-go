@@ -31,6 +31,7 @@ type ReceiptsAPIGetPaymentReceiptRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r ReceiptsAPIGetPaymentReceiptRequest) Environment(environment string) ReceiptsAPIGetPaymentReceiptRequest {
 	r.environment = &environment
 	return r
@@ -215,6 +216,7 @@ type ReceiptsAPIListInvoiceReceiptsRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r ReceiptsAPIListInvoiceReceiptsRequest) Environment(environment string) ReceiptsAPIListInvoiceReceiptsRequest {
 	r.environment = &environment
 	return r
@@ -408,6 +410,7 @@ type ReceiptsAPIListPaymentReceiptsRequest struct {
 	offset *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r ReceiptsAPIListPaymentReceiptsRequest) Environment(environment string) ReceiptsAPIListPaymentReceiptsRequest {
 	r.environment = &environment
 	return r

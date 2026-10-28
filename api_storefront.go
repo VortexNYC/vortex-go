@@ -31,6 +31,7 @@ type StorefrontAPIGetStorefrontCheckoutSessionRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r StorefrontAPIGetStorefrontCheckoutSessionRequest) Environment(environment string) StorefrontAPIGetStorefrontCheckoutSessionRequest {
 	r.environment = &environment
 	return r
@@ -225,6 +226,7 @@ type StorefrontAPIGetStorefrontMerchantReadinessRequest struct {
 	environment *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r StorefrontAPIGetStorefrontMerchantReadinessRequest) Environment(environment string) StorefrontAPIGetStorefrontMerchantReadinessRequest {
 	r.environment = &environment
 	return r
@@ -412,6 +414,7 @@ type StorefrontAPIListStorefrontProductsRequest struct {
 	offset *int32
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r StorefrontAPIListStorefrontProductsRequest) Environment(environment string) StorefrontAPIListStorefrontProductsRequest {
 	r.environment = &environment
 	return r

@@ -33,6 +33,7 @@ type TaxAPIFinalizeInvoiceTaxRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r TaxAPIFinalizeInvoiceTaxRequest) Environment(environment string) TaxAPIFinalizeInvoiceTaxRequest {
 	r.environment = &environment
 	return r
@@ -238,6 +239,7 @@ type TaxAPIFinalizeTaxTransactionRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r TaxAPIFinalizeTaxTransactionRequest) Environment(environment string) TaxAPIFinalizeTaxTransactionRequest {
 	r.environment = &environment
 	return r
@@ -441,6 +443,7 @@ type TaxAPIGetMerchantAccountTaxProfileRequest struct {
 	merchantAccountId2 *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r TaxAPIGetMerchantAccountTaxProfileRequest) Environment(environment string) TaxAPIGetMerchantAccountTaxProfileRequest {
 	r.environment = &environment
 	return r
@@ -625,6 +628,7 @@ type TaxAPIGetTaxTransactionRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r TaxAPIGetTaxTransactionRequest) Environment(environment string) TaxAPIGetTaxTransactionRequest {
 	r.environment = &environment
 	return r
@@ -812,6 +816,7 @@ type TaxAPIListTaxTransactionsRequest struct {
 	cursor *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r TaxAPIListTaxTransactionsRequest) Environment(environment string) TaxAPIListTaxTransactionsRequest {
 	r.environment = &environment
 	return r
@@ -1027,6 +1032,7 @@ type TaxAPIQuoteInvoiceTaxRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r TaxAPIQuoteInvoiceTaxRequest) Environment(environment string) TaxAPIQuoteInvoiceTaxRequest {
 	r.environment = &environment
 	return r
@@ -1231,6 +1237,7 @@ type TaxAPIQuoteTaxTransactionRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r TaxAPIQuoteTaxTransactionRequest) Environment(environment string) TaxAPIQuoteTaxTransactionRequest {
 	r.environment = &environment
 	return r
@@ -1433,6 +1440,7 @@ type TaxAPIReverseTaxTransactionRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r TaxAPIReverseTaxTransactionRequest) Environment(environment string) TaxAPIReverseTaxTransactionRequest {
 	r.environment = &environment
 	return r
@@ -1638,6 +1646,7 @@ type TaxAPIUpsertMerchantAccountTaxProfileRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r TaxAPIUpsertMerchantAccountTaxProfileRequest) Environment(environment string) TaxAPIUpsertMerchantAccountTaxProfileRequest {
 	r.environment = &environment
 	return r

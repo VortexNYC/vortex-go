@@ -32,6 +32,7 @@ type InvoicesAPICreateInvoiceRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r InvoicesAPICreateInvoiceRequest) Environment(environment string) InvoicesAPICreateInvoiceRequest {
 	r.environment = &environment
 	return r
@@ -234,6 +235,7 @@ type InvoicesAPIFinalizeInvoiceRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r InvoicesAPIFinalizeInvoiceRequest) Environment(environment string) InvoicesAPIFinalizeInvoiceRequest {
 	r.environment = &environment
 	return r
@@ -437,6 +439,7 @@ type InvoicesAPIGetInvoiceRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r InvoicesAPIGetInvoiceRequest) Environment(environment string) InvoicesAPIGetInvoiceRequest {
 	r.environment = &environment
 	return r
@@ -624,6 +627,7 @@ type InvoicesAPIListInvoicesRequest struct {
 	cursor *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r InvoicesAPIListInvoicesRequest) Environment(environment string) InvoicesAPIListInvoicesRequest {
 	r.environment = &environment
 	return r
@@ -839,6 +843,7 @@ type InvoicesAPIMarkInvoiceUncollectibleRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r InvoicesAPIMarkInvoiceUncollectibleRequest) Environment(environment string) InvoicesAPIMarkInvoiceUncollectibleRequest {
 	r.environment = &environment
 	return r
@@ -1042,6 +1047,7 @@ type InvoicesAPIPreviewInvoiceRequest struct {
 	invoiceCreateRequest *InvoiceCreateRequest
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r InvoicesAPIPreviewInvoiceRequest) Environment(environment string) InvoicesAPIPreviewInvoiceRequest {
 	r.environment = &environment
 	return r
@@ -1235,6 +1241,7 @@ type InvoicesAPIRefreshInvoiceRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r InvoicesAPIRefreshInvoiceRequest) Environment(environment string) InvoicesAPIRefreshInvoiceRequest {
 	r.environment = &environment
 	return r
@@ -1440,6 +1447,7 @@ type InvoicesAPIVoidInvoiceRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r InvoicesAPIVoidInvoiceRequest) Environment(environment string) InvoicesAPIVoidInvoiceRequest {
 	r.environment = &environment
 	return r

@@ -37,6 +37,7 @@ func (r EntitlementsAPICheckCustomerAccessRequest) Key(key string) EntitlementsA
 	return r
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r EntitlementsAPICheckCustomerAccessRequest) Environment(environment string) EntitlementsAPICheckCustomerAccessRequest {
 	r.environment = &environment
 	return r
@@ -225,6 +226,7 @@ type EntitlementsAPIGetCustomerEntitlementsRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r EntitlementsAPIGetCustomerEntitlementsRequest) Environment(environment string) EntitlementsAPIGetCustomerEntitlementsRequest {
 	r.environment = &environment
 	return r
@@ -409,6 +411,7 @@ type EntitlementsAPIGetCustomerStateRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r EntitlementsAPIGetCustomerStateRequest) Environment(environment string) EntitlementsAPIGetCustomerStateRequest {
 	r.environment = &environment
 	return r
@@ -594,6 +597,7 @@ type EntitlementsAPIGrantEntitlementRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r EntitlementsAPIGrantEntitlementRequest) Environment(environment string) EntitlementsAPIGrantEntitlementRequest {
 	r.environment = &environment
 	return r
@@ -795,6 +799,7 @@ type EntitlementsAPIRevokeEntitlementRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r EntitlementsAPIRevokeEntitlementRequest) Environment(environment string) EntitlementsAPIRevokeEntitlementRequest {
 	r.environment = &environment
 	return r

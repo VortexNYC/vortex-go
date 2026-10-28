@@ -33,6 +33,7 @@ type UsageAPIActivateMeterRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r UsageAPIActivateMeterRequest) Environment(environment string) UsageAPIActivateMeterRequest {
 	r.environment = &environment
 	return r
@@ -249,6 +250,7 @@ type UsageAPIArchiveMeterRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r UsageAPIArchiveMeterRequest) Environment(environment string) UsageAPIArchiveMeterRequest {
 	r.environment = &environment
 	return r
@@ -465,6 +467,7 @@ type UsageAPIArchiveUsageThresholdRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r UsageAPIArchiveUsageThresholdRequest) Environment(environment string) UsageAPIArchiveUsageThresholdRequest {
 	r.environment = &environment
 	return r
@@ -669,6 +672,7 @@ type UsageAPICreateMeterRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r UsageAPICreateMeterRequest) Environment(environment string) UsageAPICreateMeterRequest {
 	r.environment = &environment
 	return r
@@ -870,6 +874,7 @@ type UsageAPICreateUsageEventRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r UsageAPICreateUsageEventRequest) Environment(environment string) UsageAPICreateUsageEventRequest {
 	r.environment = &environment
 	return r
@@ -1071,6 +1076,7 @@ type UsageAPICreateUsageThresholdRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r UsageAPICreateUsageThresholdRequest) Environment(environment string) UsageAPICreateUsageThresholdRequest {
 	r.environment = &environment
 	return r
@@ -1271,6 +1277,7 @@ type UsageAPIGetMeterRequest struct {
 	merchantAccountId *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r UsageAPIGetMeterRequest) Environment(environment string) UsageAPIGetMeterRequest {
 	r.environment = &environment
 	return r
@@ -1470,6 +1477,7 @@ type UsageAPIGetMeterAggregateRequest struct {
 	cursor *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r UsageAPIGetMeterAggregateRequest) Environment(environment string) UsageAPIGetMeterAggregateRequest {
 	r.environment = &environment
 	return r
@@ -1690,6 +1698,7 @@ type UsageAPIListMetersRequest struct {
 	offset *int32
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r UsageAPIListMetersRequest) Environment(environment string) UsageAPIListMetersRequest {
 	r.environment = &environment
 	return r
@@ -1901,6 +1910,7 @@ type UsageAPIListUsageEventsRequest struct {
 	cursor *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r UsageAPIListUsageEventsRequest) Environment(environment string) UsageAPIListUsageEventsRequest {
 	r.environment = &environment
 	return r
@@ -2125,6 +2135,7 @@ type UsageAPIListUsageThresholdsRequest struct {
 	cursor *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r UsageAPIListUsageThresholdsRequest) Environment(environment string) UsageAPIListUsageThresholdsRequest {
 	r.environment = &environment
 	return r

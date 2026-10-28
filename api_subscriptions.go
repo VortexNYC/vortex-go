@@ -33,6 +33,7 @@ type SubscriptionsAPIChangeSubscriptionRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r SubscriptionsAPIChangeSubscriptionRequest) Environment(environment string) SubscriptionsAPIChangeSubscriptionRequest {
 	r.environment = &environment
 	return r
@@ -237,6 +238,7 @@ type SubscriptionsAPICreateSubscriptionRequest struct {
 	idempotencyKey *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r SubscriptionsAPICreateSubscriptionRequest) Environment(environment string) SubscriptionsAPICreateSubscriptionRequest {
 	r.environment = &environment
 	return r
@@ -440,6 +442,7 @@ type SubscriptionsAPIListSubscriptionsRequest struct {
 	cursor *string
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r SubscriptionsAPIListSubscriptionsRequest) Environment(environment string) SubscriptionsAPIListSubscriptionsRequest {
 	r.environment = &environment
 	return r
@@ -654,6 +657,7 @@ type SubscriptionsAPIPreviewSubscriptionItemChangeRequest struct {
 	subscriptionItemChangePreviewRequest *SubscriptionItemChangePreviewRequest
 }
 
+// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r SubscriptionsAPIPreviewSubscriptionItemChangeRequest) Environment(environment string) SubscriptionsAPIPreviewSubscriptionItemChangeRequest {
 	r.environment = &environment
 	return r

@@ -21,7 +21,9 @@ var _ MappedNullable = &MerchantPortalActionResponseDataOneOf17{}
 
 // MerchantPortalActionResponseDataOneOf17 struct for MerchantPortalActionResponseDataOneOf17
 type MerchantPortalActionResponseDataOneOf17 struct {
-	WebhookEndpointDetail MerchantPortalActionResponseDataOneOf17WebhookEndpointDetail `json:"webhookEndpointDetail"`
+	DisputePortalUrl string `json:"disputePortalUrl"`
+	DisputeUrl *string `json:"disputeUrl,omitempty"`
+	Message HostedPortalPageMessage `json:"message"`
 }
 
 type _MerchantPortalActionResponseDataOneOf17 MerchantPortalActionResponseDataOneOf17
@@ -30,9 +32,10 @@ type _MerchantPortalActionResponseDataOneOf17 MerchantPortalActionResponseDataOn
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionResponseDataOneOf17(webhookEndpointDetail MerchantPortalActionResponseDataOneOf17WebhookEndpointDetail) *MerchantPortalActionResponseDataOneOf17 {
+func NewMerchantPortalActionResponseDataOneOf17(disputePortalUrl string, message HostedPortalPageMessage) *MerchantPortalActionResponseDataOneOf17 {
 	this := MerchantPortalActionResponseDataOneOf17{}
-	this.WebhookEndpointDetail = webhookEndpointDetail
+	this.DisputePortalUrl = disputePortalUrl
+	this.Message = message
 	return &this
 }
 
@@ -44,28 +47,84 @@ func NewMerchantPortalActionResponseDataOneOf17WithDefaults() *MerchantPortalAct
 	return &this
 }
 
-// GetWebhookEndpointDetail returns the WebhookEndpointDetail field value
-func (o *MerchantPortalActionResponseDataOneOf17) GetWebhookEndpointDetail() MerchantPortalActionResponseDataOneOf17WebhookEndpointDetail {
+// GetDisputePortalUrl returns the DisputePortalUrl field value
+func (o *MerchantPortalActionResponseDataOneOf17) GetDisputePortalUrl() string {
 	if o == nil {
-		var ret MerchantPortalActionResponseDataOneOf17WebhookEndpointDetail
+		var ret string
 		return ret
 	}
 
-	return o.WebhookEndpointDetail
+	return o.DisputePortalUrl
 }
 
-// GetWebhookEndpointDetailOk returns a tuple with the WebhookEndpointDetail field value
+// GetDisputePortalUrlOk returns a tuple with the DisputePortalUrl field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionResponseDataOneOf17) GetWebhookEndpointDetailOk() (*MerchantPortalActionResponseDataOneOf17WebhookEndpointDetail, bool) {
+func (o *MerchantPortalActionResponseDataOneOf17) GetDisputePortalUrlOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.WebhookEndpointDetail, true
+	return &o.DisputePortalUrl, true
 }
 
-// SetWebhookEndpointDetail sets field value
-func (o *MerchantPortalActionResponseDataOneOf17) SetWebhookEndpointDetail(v MerchantPortalActionResponseDataOneOf17WebhookEndpointDetail) {
-	o.WebhookEndpointDetail = v
+// SetDisputePortalUrl sets field value
+func (o *MerchantPortalActionResponseDataOneOf17) SetDisputePortalUrl(v string) {
+	o.DisputePortalUrl = v
+}
+
+// GetDisputeUrl returns the DisputeUrl field value if set, zero value otherwise.
+func (o *MerchantPortalActionResponseDataOneOf17) GetDisputeUrl() string {
+	if o == nil || IsNil(o.DisputeUrl) {
+		var ret string
+		return ret
+	}
+	return *o.DisputeUrl
+}
+
+// GetDisputeUrlOk returns a tuple with the DisputeUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MerchantPortalActionResponseDataOneOf17) GetDisputeUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.DisputeUrl) {
+		return nil, false
+	}
+	return o.DisputeUrl, true
+}
+
+// HasDisputeUrl returns a boolean if a field has been set.
+func (o *MerchantPortalActionResponseDataOneOf17) HasDisputeUrl() bool {
+	if o != nil && !IsNil(o.DisputeUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetDisputeUrl gets a reference to the given string and assigns it to the DisputeUrl field.
+func (o *MerchantPortalActionResponseDataOneOf17) SetDisputeUrl(v string) {
+	o.DisputeUrl = &v
+}
+
+// GetMessage returns the Message field value
+func (o *MerchantPortalActionResponseDataOneOf17) GetMessage() HostedPortalPageMessage {
+	if o == nil {
+		var ret HostedPortalPageMessage
+		return ret
+	}
+
+	return o.Message
+}
+
+// GetMessageOk returns a tuple with the Message field value
+// and a boolean to check if the value has been set.
+func (o *MerchantPortalActionResponseDataOneOf17) GetMessageOk() (*HostedPortalPageMessage, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Message, true
+}
+
+// SetMessage sets field value
+func (o *MerchantPortalActionResponseDataOneOf17) SetMessage(v HostedPortalPageMessage) {
+	o.Message = v
 }
 
 func (o MerchantPortalActionResponseDataOneOf17) MarshalJSON() ([]byte, error) {
@@ -78,7 +137,11 @@ func (o MerchantPortalActionResponseDataOneOf17) MarshalJSON() ([]byte, error) {
 
 func (o MerchantPortalActionResponseDataOneOf17) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["webhookEndpointDetail"] = o.WebhookEndpointDetail
+	toSerialize["disputePortalUrl"] = o.DisputePortalUrl
+	if !IsNil(o.DisputeUrl) {
+		toSerialize["disputeUrl"] = o.DisputeUrl
+	}
+	toSerialize["message"] = o.Message
 	return toSerialize, nil
 }
 
@@ -87,7 +150,8 @@ func (o *MerchantPortalActionResponseDataOneOf17) UnmarshalJSON(data []byte) (er
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"webhookEndpointDetail",
+		"disputePortalUrl",
+		"message",
 	}
 
 	allProperties := make(map[string]interface{})

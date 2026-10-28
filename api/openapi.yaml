@@ -20462,6 +20462,10 @@ components:
         - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_28"
         - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_29"
         - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_30"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_31"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_32"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_33"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_34"
     HostedPortalSubscriptionItem:
       additionalProperties: false
       properties:
@@ -22087,6 +22091,63 @@ components:
       properties:
         action:
           enum:
+            - capture-payment
+          type: string
+        paymentIntentId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - paymentIntentId
+    MerchantPortalActionRequest_oneOf_20:
+      properties:
+        action:
+          enum:
+            - cancel-payment
+          type: string
+        paymentIntentId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - paymentIntentId
+    MerchantPortalActionRequest_oneOf_21:
+      properties:
+        action:
+          enum:
+            - refund-payment
+          type: string
+        paymentId:
+          minLength: 1
+          type: string
+        amount:
+          description:
+            Optional — defaults to the remaining refundable balance in
+            minor units.
+          minimum: 1
+          type: integer
+        reason:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - paymentId
+    MerchantPortalActionRequest_oneOf_22:
+      properties:
+        action:
+          enum:
+            - list-payment-refunds
+          type: string
+        paymentId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - paymentId
+    MerchantPortalActionRequest_oneOf_23:
+      properties:
+        action:
+          enum:
             - update-payment-method-settings
           type: string
         acceptsAch:
@@ -22094,7 +22155,7 @@ components:
       required:
         - acceptsAch
         - action
-    MerchantPortalActionRequest_oneOf_20:
+    MerchantPortalActionRequest_oneOf_24:
       properties:
         action:
           enum:
@@ -22116,7 +22177,7 @@ components:
       required:
         - action
         - name
-    MerchantPortalActionRequest_oneOf_21_lineItems_inner:
+    MerchantPortalActionRequest_oneOf_25_lineItems_inner:
       properties:
         description:
           maxLength: 200
@@ -22131,7 +22192,7 @@ components:
       required:
         - description
         - unitAmount
-    MerchantPortalActionRequest_oneOf_21:
+    MerchantPortalActionRequest_oneOf_25:
       properties:
         action:
           enum:
@@ -22158,7 +22219,7 @@ components:
           type: boolean
         lineItems:
           items:
-            $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_21_lineItems_inner"
+            $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_25_lineItems_inner"
           maxItems: 50
           minItems: 1
           type: array
@@ -22171,7 +22232,7 @@ components:
         - action
         - customerId
         - lineItems
-    MerchantPortalActionRequest_oneOf_22:
+    MerchantPortalActionRequest_oneOf_26:
       properties:
         action:
           enum:
@@ -22201,7 +22262,7 @@ components:
       required:
         - action
         - amount
-    MerchantPortalActionRequest_oneOf_23:
+    MerchantPortalActionRequest_oneOf_27:
       properties:
         action:
           enum:
@@ -22213,7 +22274,7 @@ components:
       required:
         - action
         - customerId
-    MerchantPortalActionRequest_oneOf_24:
+    MerchantPortalActionRequest_oneOf_28:
       properties:
         action:
           enum:
@@ -22225,7 +22286,7 @@ components:
       required:
         - action
         - invoiceId
-    MerchantPortalActionRequest_oneOf_25:
+    MerchantPortalActionRequest_oneOf_29:
       properties:
         action:
           enum:
@@ -22237,7 +22298,7 @@ components:
       required:
         - action
         - payoutId
-    MerchantPortalActionRequest_oneOf_26:
+    MerchantPortalActionRequest_oneOf_30:
       properties:
         action:
           enum:
@@ -22264,7 +22325,7 @@ components:
         - action
         - destinationUrl
         - subscribedEventTypes
-    MerchantPortalActionRequest_oneOf_27:
+    MerchantPortalActionRequest_oneOf_31:
       properties:
         action:
           enum:
@@ -22276,7 +22337,7 @@ components:
       required:
         - action
         - endpointId
-    MerchantPortalActionRequest_oneOf_28:
+    MerchantPortalActionRequest_oneOf_32:
       properties:
         action:
           enum:
@@ -22294,7 +22355,7 @@ components:
       required:
         - action
         - endpointId
-    MerchantPortalActionRequest_oneOf_29:
+    MerchantPortalActionRequest_oneOf_33:
       properties:
         action:
           enum:
@@ -22306,7 +22367,7 @@ components:
       required:
         - action
         - deliveryId
-    MerchantPortalActionRequest_oneOf_30:
+    MerchantPortalActionRequest_oneOf_34:
       properties:
         action:
           enum:
@@ -22371,33 +22432,62 @@ components:
         - collectionRetryUrl
     MerchantPortalActionResponse_data_oneOf_7:
       properties:
+        payment:
+          additionalProperties: true
+          description:
+            The portal payment row after capture-payment / cancel-payment
+            — carries status plus the canCapture/canCancel verb gates.
+          type: object
+      required:
+        - payment
+    MerchantPortalActionResponse_data_oneOf_8:
+      properties:
+        refund:
+          additionalProperties: true
+          description: The portal refund row created by refund-payment.
+          type: object
+      required:
+        - refund
+    MerchantPortalActionResponse_data_oneOf_9:
+      properties:
+        refunds:
+          description: The payment's refund ledger — list-payment-refunds.
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          default: null
+      required:
+        - refunds
+    MerchantPortalActionResponse_data_oneOf_10:
+      properties:
         customerDetail:
           additionalProperties: true
           type: object
       required:
         - customerDetail
-    MerchantPortalActionResponse_data_oneOf_8:
+    MerchantPortalActionResponse_data_oneOf_11:
       properties:
         invoiceDetail:
           additionalProperties: true
           type: object
       required:
         - invoiceDetail
-    MerchantPortalActionResponse_data_oneOf_9:
+    MerchantPortalActionResponse_data_oneOf_12:
       properties:
         payoutDetail:
           additionalProperties: true
           type: object
       required:
         - payoutDetail
-    MerchantPortalActionResponse_data_oneOf_10:
+    MerchantPortalActionResponse_data_oneOf_13:
       properties:
         customer:
           additionalProperties: true
           type: object
       required:
         - customer
-    MerchantPortalActionResponse_data_oneOf_11:
+    MerchantPortalActionResponse_data_oneOf_14:
       properties:
         paymentRequestId:
           type: string
@@ -22407,7 +22497,7 @@ components:
       required:
         - checkoutUrl
         - paymentRequestId
-    MerchantPortalActionResponse_data_oneOf_12:
+    MerchantPortalActionResponse_data_oneOf_15:
       properties:
         paymentRequestId:
           type: string
@@ -22422,13 +22512,13 @@ components:
         - amountPaid
         - paymentRequestId
         - status
-    MerchantPortalActionResponse_data_oneOf_13:
+    MerchantPortalActionResponse_data_oneOf_16:
       properties:
         ok:
           type: boolean
       required:
         - ok
-    MerchantPortalActionResponse_data_oneOf_14:
+    MerchantPortalActionResponse_data_oneOf_17:
       properties:
         disputePortalUrl:
           format: uri
@@ -22441,7 +22531,7 @@ components:
       required:
         - disputePortalUrl
         - message
-    MerchantPortalActionResponse_data_oneOf_15:
+    MerchantPortalActionResponse_data_oneOf_18:
       properties:
         endpoint:
           additionalProperties: true
@@ -22449,7 +22539,7 @@ components:
           type: object
       required:
         - endpoint
-    MerchantPortalActionResponse_data_oneOf_16:
+    MerchantPortalActionResponse_data_oneOf_19:
       properties:
         delivery:
           additionalProperties: true
@@ -22459,7 +22549,7 @@ components:
           type: object
       required:
         - delivery
-    MerchantPortalActionResponse_data_oneOf_17_webhookEndpointDetail:
+    MerchantPortalActionResponse_data_oneOf_20_webhookEndpointDetail:
       properties:
         endpoint:
           additionalProperties: true
@@ -22473,10 +22563,10 @@ components:
       required:
         - deliveries
         - endpoint
-    MerchantPortalActionResponse_data_oneOf_17:
+    MerchantPortalActionResponse_data_oneOf_20:
       properties:
         webhookEndpointDetail:
-          $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_17_webhookEndpointDetail"
+          $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_20_webhookEndpointDetail"
       required:
         - webhookEndpointDetail
     MerchantPortalActionResponse_data:
@@ -22498,10 +22588,13 @@ components:
         - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_12"
         - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_13"
         - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_14"
-        - $ref: "#/components/schemas/MerchantPortalCollectionRetryResult"
         - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_15"
         - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_16"
         - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_17"
+        - $ref: "#/components/schemas/MerchantPortalCollectionRetryResult"
+        - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_18"
+        - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_19"
+        - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_20"
     HostedCollectionRetryViewResponse_data:
       additionalProperties: false
       example:

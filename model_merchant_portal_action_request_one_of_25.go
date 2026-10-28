@@ -22,7 +22,14 @@ var _ MappedNullable = &MerchantPortalActionRequestOneOf25{}
 // MerchantPortalActionRequestOneOf25 struct for MerchantPortalActionRequestOneOf25
 type MerchantPortalActionRequestOneOf25 struct {
 	Action string `json:"action"`
-	PayoutId string `json:"payoutId"`
+	CustomerId string `json:"customerId"`
+	Currency *string `json:"currency,omitempty"`
+	// Optional calendar due date — the door derives the billing account's netTermsDays from it.
+	DueAt *string `json:"dueAt,omitempty"`
+	// Finalize the draft in the same transaction so the invoice is immediately collectible — this is the default; explicit false leaves a draft.
+	IssueNow *bool `json:"issueNow,omitempty"`
+	LineItems []MerchantPortalActionRequestOneOf25LineItemsInner `json:"lineItems"`
+	AttemptId *string `json:"attemptId,omitempty"`
 }
 
 type _MerchantPortalActionRequestOneOf25 MerchantPortalActionRequestOneOf25
@@ -31,10 +38,13 @@ type _MerchantPortalActionRequestOneOf25 MerchantPortalActionRequestOneOf25
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionRequestOneOf25(action string, payoutId string) *MerchantPortalActionRequestOneOf25 {
+func NewMerchantPortalActionRequestOneOf25(action string, customerId string, lineItems []MerchantPortalActionRequestOneOf25LineItemsInner) *MerchantPortalActionRequestOneOf25 {
 	this := MerchantPortalActionRequestOneOf25{}
 	this.Action = action
-	this.PayoutId = payoutId
+	this.CustomerId = customerId
+	var currency string = "USD"
+	this.Currency = &currency
+	this.LineItems = lineItems
 	return &this
 }
 
@@ -43,6 +53,8 @@ func NewMerchantPortalActionRequestOneOf25(action string, payoutId string) *Merc
 // but it doesn't guarantee that properties required by API are set
 func NewMerchantPortalActionRequestOneOf25WithDefaults() *MerchantPortalActionRequestOneOf25 {
 	this := MerchantPortalActionRequestOneOf25{}
+	var currency string = "USD"
+	this.Currency = &currency
 	return &this
 }
 
@@ -70,28 +82,180 @@ func (o *MerchantPortalActionRequestOneOf25) SetAction(v string) {
 	o.Action = v
 }
 
-// GetPayoutId returns the PayoutId field value
-func (o *MerchantPortalActionRequestOneOf25) GetPayoutId() string {
+// GetCustomerId returns the CustomerId field value
+func (o *MerchantPortalActionRequestOneOf25) GetCustomerId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.PayoutId
+	return o.CustomerId
 }
 
-// GetPayoutIdOk returns a tuple with the PayoutId field value
+// GetCustomerIdOk returns a tuple with the CustomerId field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf25) GetPayoutIdOk() (*string, bool) {
+func (o *MerchantPortalActionRequestOneOf25) GetCustomerIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PayoutId, true
+	return &o.CustomerId, true
 }
 
-// SetPayoutId sets field value
-func (o *MerchantPortalActionRequestOneOf25) SetPayoutId(v string) {
-	o.PayoutId = v
+// SetCustomerId sets field value
+func (o *MerchantPortalActionRequestOneOf25) SetCustomerId(v string) {
+	o.CustomerId = v
+}
+
+// GetCurrency returns the Currency field value if set, zero value otherwise.
+func (o *MerchantPortalActionRequestOneOf25) GetCurrency() string {
+	if o == nil || IsNil(o.Currency) {
+		var ret string
+		return ret
+	}
+	return *o.Currency
+}
+
+// GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MerchantPortalActionRequestOneOf25) GetCurrencyOk() (*string, bool) {
+	if o == nil || IsNil(o.Currency) {
+		return nil, false
+	}
+	return o.Currency, true
+}
+
+// HasCurrency returns a boolean if a field has been set.
+func (o *MerchantPortalActionRequestOneOf25) HasCurrency() bool {
+	if o != nil && !IsNil(o.Currency) {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrency gets a reference to the given string and assigns it to the Currency field.
+func (o *MerchantPortalActionRequestOneOf25) SetCurrency(v string) {
+	o.Currency = &v
+}
+
+// GetDueAt returns the DueAt field value if set, zero value otherwise.
+func (o *MerchantPortalActionRequestOneOf25) GetDueAt() string {
+	if o == nil || IsNil(o.DueAt) {
+		var ret string
+		return ret
+	}
+	return *o.DueAt
+}
+
+// GetDueAtOk returns a tuple with the DueAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MerchantPortalActionRequestOneOf25) GetDueAtOk() (*string, bool) {
+	if o == nil || IsNil(o.DueAt) {
+		return nil, false
+	}
+	return o.DueAt, true
+}
+
+// HasDueAt returns a boolean if a field has been set.
+func (o *MerchantPortalActionRequestOneOf25) HasDueAt() bool {
+	if o != nil && !IsNil(o.DueAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetDueAt gets a reference to the given string and assigns it to the DueAt field.
+func (o *MerchantPortalActionRequestOneOf25) SetDueAt(v string) {
+	o.DueAt = &v
+}
+
+// GetIssueNow returns the IssueNow field value if set, zero value otherwise.
+func (o *MerchantPortalActionRequestOneOf25) GetIssueNow() bool {
+	if o == nil || IsNil(o.IssueNow) {
+		var ret bool
+		return ret
+	}
+	return *o.IssueNow
+}
+
+// GetIssueNowOk returns a tuple with the IssueNow field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MerchantPortalActionRequestOneOf25) GetIssueNowOk() (*bool, bool) {
+	if o == nil || IsNil(o.IssueNow) {
+		return nil, false
+	}
+	return o.IssueNow, true
+}
+
+// HasIssueNow returns a boolean if a field has been set.
+func (o *MerchantPortalActionRequestOneOf25) HasIssueNow() bool {
+	if o != nil && !IsNil(o.IssueNow) {
+		return true
+	}
+
+	return false
+}
+
+// SetIssueNow gets a reference to the given bool and assigns it to the IssueNow field.
+func (o *MerchantPortalActionRequestOneOf25) SetIssueNow(v bool) {
+	o.IssueNow = &v
+}
+
+// GetLineItems returns the LineItems field value
+func (o *MerchantPortalActionRequestOneOf25) GetLineItems() []MerchantPortalActionRequestOneOf25LineItemsInner {
+	if o == nil {
+		var ret []MerchantPortalActionRequestOneOf25LineItemsInner
+		return ret
+	}
+
+	return o.LineItems
+}
+
+// GetLineItemsOk returns a tuple with the LineItems field value
+// and a boolean to check if the value has been set.
+func (o *MerchantPortalActionRequestOneOf25) GetLineItemsOk() ([]MerchantPortalActionRequestOneOf25LineItemsInner, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.LineItems, true
+}
+
+// SetLineItems sets field value
+func (o *MerchantPortalActionRequestOneOf25) SetLineItems(v []MerchantPortalActionRequestOneOf25LineItemsInner) {
+	o.LineItems = v
+}
+
+// GetAttemptId returns the AttemptId field value if set, zero value otherwise.
+func (o *MerchantPortalActionRequestOneOf25) GetAttemptId() string {
+	if o == nil || IsNil(o.AttemptId) {
+		var ret string
+		return ret
+	}
+	return *o.AttemptId
+}
+
+// GetAttemptIdOk returns a tuple with the AttemptId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MerchantPortalActionRequestOneOf25) GetAttemptIdOk() (*string, bool) {
+	if o == nil || IsNil(o.AttemptId) {
+		return nil, false
+	}
+	return o.AttemptId, true
+}
+
+// HasAttemptId returns a boolean if a field has been set.
+func (o *MerchantPortalActionRequestOneOf25) HasAttemptId() bool {
+	if o != nil && !IsNil(o.AttemptId) {
+		return true
+	}
+
+	return false
+}
+
+// SetAttemptId gets a reference to the given string and assigns it to the AttemptId field.
+func (o *MerchantPortalActionRequestOneOf25) SetAttemptId(v string) {
+	o.AttemptId = &v
 }
 
 func (o MerchantPortalActionRequestOneOf25) MarshalJSON() ([]byte, error) {
@@ -105,7 +269,20 @@ func (o MerchantPortalActionRequestOneOf25) MarshalJSON() ([]byte, error) {
 func (o MerchantPortalActionRequestOneOf25) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["action"] = o.Action
-	toSerialize["payoutId"] = o.PayoutId
+	toSerialize["customerId"] = o.CustomerId
+	if !IsNil(o.Currency) {
+		toSerialize["currency"] = o.Currency
+	}
+	if !IsNil(o.DueAt) {
+		toSerialize["dueAt"] = o.DueAt
+	}
+	if !IsNil(o.IssueNow) {
+		toSerialize["issueNow"] = o.IssueNow
+	}
+	toSerialize["lineItems"] = o.LineItems
+	if !IsNil(o.AttemptId) {
+		toSerialize["attemptId"] = o.AttemptId
+	}
 	return toSerialize, nil
 }
 
@@ -115,7 +292,8 @@ func (o *MerchantPortalActionRequestOneOf25) UnmarshalJSON(data []byte) (err err
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"action",
-		"payoutId",
+		"customerId",
+		"lineItems",
 	}
 
 	allProperties := make(map[string]interface{})

@@ -22,7 +22,7 @@ var _ MappedNullable = &MerchantPortalActionRequestOneOf27{}
 // MerchantPortalActionRequestOneOf27 struct for MerchantPortalActionRequestOneOf27
 type MerchantPortalActionRequestOneOf27 struct {
 	Action string `json:"action"`
-	EndpointId string `json:"endpointId"`
+	CustomerId string `json:"customerId"`
 }
 
 type _MerchantPortalActionRequestOneOf27 MerchantPortalActionRequestOneOf27
@@ -31,10 +31,10 @@ type _MerchantPortalActionRequestOneOf27 MerchantPortalActionRequestOneOf27
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionRequestOneOf27(action string, endpointId string) *MerchantPortalActionRequestOneOf27 {
+func NewMerchantPortalActionRequestOneOf27(action string, customerId string) *MerchantPortalActionRequestOneOf27 {
 	this := MerchantPortalActionRequestOneOf27{}
 	this.Action = action
-	this.EndpointId = endpointId
+	this.CustomerId = customerId
 	return &this
 }
 
@@ -70,28 +70,28 @@ func (o *MerchantPortalActionRequestOneOf27) SetAction(v string) {
 	o.Action = v
 }
 
-// GetEndpointId returns the EndpointId field value
-func (o *MerchantPortalActionRequestOneOf27) GetEndpointId() string {
+// GetCustomerId returns the CustomerId field value
+func (o *MerchantPortalActionRequestOneOf27) GetCustomerId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.EndpointId
+	return o.CustomerId
 }
 
-// GetEndpointIdOk returns a tuple with the EndpointId field value
+// GetCustomerIdOk returns a tuple with the CustomerId field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf27) GetEndpointIdOk() (*string, bool) {
+func (o *MerchantPortalActionRequestOneOf27) GetCustomerIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.EndpointId, true
+	return &o.CustomerId, true
 }
 
-// SetEndpointId sets field value
-func (o *MerchantPortalActionRequestOneOf27) SetEndpointId(v string) {
-	o.EndpointId = v
+// SetCustomerId sets field value
+func (o *MerchantPortalActionRequestOneOf27) SetCustomerId(v string) {
+	o.CustomerId = v
 }
 
 func (o MerchantPortalActionRequestOneOf27) MarshalJSON() ([]byte, error) {
@@ -105,7 +105,7 @@ func (o MerchantPortalActionRequestOneOf27) MarshalJSON() ([]byte, error) {
 func (o MerchantPortalActionRequestOneOf27) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["action"] = o.Action
-	toSerialize["endpointId"] = o.EndpointId
+	toSerialize["customerId"] = o.CustomerId
 	return toSerialize, nil
 }
 
@@ -115,7 +115,7 @@ func (o *MerchantPortalActionRequestOneOf27) UnmarshalJSON(data []byte) (err err
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"action",
-		"endpointId",
+		"customerId",
 	}
 
 	allProperties := make(map[string]interface{})

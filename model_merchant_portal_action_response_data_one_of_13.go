@@ -21,7 +21,7 @@ var _ MappedNullable = &MerchantPortalActionResponseDataOneOf13{}
 
 // MerchantPortalActionResponseDataOneOf13 struct for MerchantPortalActionResponseDataOneOf13
 type MerchantPortalActionResponseDataOneOf13 struct {
-	Ok bool `json:"ok"`
+	Customer map[string]interface{} `json:"customer"`
 }
 
 type _MerchantPortalActionResponseDataOneOf13 MerchantPortalActionResponseDataOneOf13
@@ -30,9 +30,9 @@ type _MerchantPortalActionResponseDataOneOf13 MerchantPortalActionResponseDataOn
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionResponseDataOneOf13(ok bool) *MerchantPortalActionResponseDataOneOf13 {
+func NewMerchantPortalActionResponseDataOneOf13(customer map[string]interface{}) *MerchantPortalActionResponseDataOneOf13 {
 	this := MerchantPortalActionResponseDataOneOf13{}
-	this.Ok = ok
+	this.Customer = customer
 	return &this
 }
 
@@ -44,28 +44,28 @@ func NewMerchantPortalActionResponseDataOneOf13WithDefaults() *MerchantPortalAct
 	return &this
 }
 
-// GetOk returns the Ok field value
-func (o *MerchantPortalActionResponseDataOneOf13) GetOk() bool {
+// GetCustomer returns the Customer field value
+func (o *MerchantPortalActionResponseDataOneOf13) GetCustomer() map[string]interface{} {
 	if o == nil {
-		var ret bool
+		var ret map[string]interface{}
 		return ret
 	}
 
-	return o.Ok
+	return o.Customer
 }
 
-// GetOkOk returns a tuple with the Ok field value
+// GetCustomerOk returns a tuple with the Customer field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionResponseDataOneOf13) GetOkOk() (*bool, bool) {
+func (o *MerchantPortalActionResponseDataOneOf13) GetCustomerOk() (map[string]interface{}, bool) {
 	if o == nil {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
-	return &o.Ok, true
+	return o.Customer, true
 }
 
-// SetOk sets field value
-func (o *MerchantPortalActionResponseDataOneOf13) SetOk(v bool) {
-	o.Ok = v
+// SetCustomer sets field value
+func (o *MerchantPortalActionResponseDataOneOf13) SetCustomer(v map[string]interface{}) {
+	o.Customer = v
 }
 
 func (o MerchantPortalActionResponseDataOneOf13) MarshalJSON() ([]byte, error) {
@@ -78,7 +78,7 @@ func (o MerchantPortalActionResponseDataOneOf13) MarshalJSON() ([]byte, error) {
 
 func (o MerchantPortalActionResponseDataOneOf13) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["ok"] = o.Ok
+	toSerialize["customer"] = o.Customer
 	return toSerialize, nil
 }
 
@@ -87,7 +87,7 @@ func (o *MerchantPortalActionResponseDataOneOf13) UnmarshalJSON(data []byte) (er
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"ok",
+		"customer",
 	}
 
 	allProperties := make(map[string]interface{})

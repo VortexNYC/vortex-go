@@ -21,8 +21,7 @@ var _ MappedNullable = &MerchantPortalActionResponseDataOneOf11{}
 
 // MerchantPortalActionResponseDataOneOf11 struct for MerchantPortalActionResponseDataOneOf11
 type MerchantPortalActionResponseDataOneOf11 struct {
-	PaymentRequestId string `json:"paymentRequestId"`
-	CheckoutUrl string `json:"checkoutUrl"`
+	InvoiceDetail map[string]interface{} `json:"invoiceDetail"`
 }
 
 type _MerchantPortalActionResponseDataOneOf11 MerchantPortalActionResponseDataOneOf11
@@ -31,10 +30,9 @@ type _MerchantPortalActionResponseDataOneOf11 MerchantPortalActionResponseDataOn
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionResponseDataOneOf11(paymentRequestId string, checkoutUrl string) *MerchantPortalActionResponseDataOneOf11 {
+func NewMerchantPortalActionResponseDataOneOf11(invoiceDetail map[string]interface{}) *MerchantPortalActionResponseDataOneOf11 {
 	this := MerchantPortalActionResponseDataOneOf11{}
-	this.PaymentRequestId = paymentRequestId
-	this.CheckoutUrl = checkoutUrl
+	this.InvoiceDetail = invoiceDetail
 	return &this
 }
 
@@ -46,52 +44,28 @@ func NewMerchantPortalActionResponseDataOneOf11WithDefaults() *MerchantPortalAct
 	return &this
 }
 
-// GetPaymentRequestId returns the PaymentRequestId field value
-func (o *MerchantPortalActionResponseDataOneOf11) GetPaymentRequestId() string {
+// GetInvoiceDetail returns the InvoiceDetail field value
+func (o *MerchantPortalActionResponseDataOneOf11) GetInvoiceDetail() map[string]interface{} {
 	if o == nil {
-		var ret string
+		var ret map[string]interface{}
 		return ret
 	}
 
-	return o.PaymentRequestId
+	return o.InvoiceDetail
 }
 
-// GetPaymentRequestIdOk returns a tuple with the PaymentRequestId field value
+// GetInvoiceDetailOk returns a tuple with the InvoiceDetail field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionResponseDataOneOf11) GetPaymentRequestIdOk() (*string, bool) {
+func (o *MerchantPortalActionResponseDataOneOf11) GetInvoiceDetailOk() (map[string]interface{}, bool) {
 	if o == nil {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
-	return &o.PaymentRequestId, true
+	return o.InvoiceDetail, true
 }
 
-// SetPaymentRequestId sets field value
-func (o *MerchantPortalActionResponseDataOneOf11) SetPaymentRequestId(v string) {
-	o.PaymentRequestId = v
-}
-
-// GetCheckoutUrl returns the CheckoutUrl field value
-func (o *MerchantPortalActionResponseDataOneOf11) GetCheckoutUrl() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.CheckoutUrl
-}
-
-// GetCheckoutUrlOk returns a tuple with the CheckoutUrl field value
-// and a boolean to check if the value has been set.
-func (o *MerchantPortalActionResponseDataOneOf11) GetCheckoutUrlOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CheckoutUrl, true
-}
-
-// SetCheckoutUrl sets field value
-func (o *MerchantPortalActionResponseDataOneOf11) SetCheckoutUrl(v string) {
-	o.CheckoutUrl = v
+// SetInvoiceDetail sets field value
+func (o *MerchantPortalActionResponseDataOneOf11) SetInvoiceDetail(v map[string]interface{}) {
+	o.InvoiceDetail = v
 }
 
 func (o MerchantPortalActionResponseDataOneOf11) MarshalJSON() ([]byte, error) {
@@ -104,8 +78,7 @@ func (o MerchantPortalActionResponseDataOneOf11) MarshalJSON() ([]byte, error) {
 
 func (o MerchantPortalActionResponseDataOneOf11) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["paymentRequestId"] = o.PaymentRequestId
-	toSerialize["checkoutUrl"] = o.CheckoutUrl
+	toSerialize["invoiceDetail"] = o.InvoiceDetail
 	return toSerialize, nil
 }
 
@@ -114,8 +87,7 @@ func (o *MerchantPortalActionResponseDataOneOf11) UnmarshalJSON(data []byte) (er
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"paymentRequestId",
-		"checkoutUrl",
+		"invoiceDetail",
 	}
 
 	allProperties := make(map[string]interface{})

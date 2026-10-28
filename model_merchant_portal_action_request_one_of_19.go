@@ -22,7 +22,7 @@ var _ MappedNullable = &MerchantPortalActionRequestOneOf19{}
 // MerchantPortalActionRequestOneOf19 struct for MerchantPortalActionRequestOneOf19
 type MerchantPortalActionRequestOneOf19 struct {
 	Action string `json:"action"`
-	AcceptsAch bool `json:"acceptsAch"`
+	PaymentIntentId string `json:"paymentIntentId"`
 }
 
 type _MerchantPortalActionRequestOneOf19 MerchantPortalActionRequestOneOf19
@@ -31,10 +31,10 @@ type _MerchantPortalActionRequestOneOf19 MerchantPortalActionRequestOneOf19
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionRequestOneOf19(action string, acceptsAch bool) *MerchantPortalActionRequestOneOf19 {
+func NewMerchantPortalActionRequestOneOf19(action string, paymentIntentId string) *MerchantPortalActionRequestOneOf19 {
 	this := MerchantPortalActionRequestOneOf19{}
 	this.Action = action
-	this.AcceptsAch = acceptsAch
+	this.PaymentIntentId = paymentIntentId
 	return &this
 }
 
@@ -70,28 +70,28 @@ func (o *MerchantPortalActionRequestOneOf19) SetAction(v string) {
 	o.Action = v
 }
 
-// GetAcceptsAch returns the AcceptsAch field value
-func (o *MerchantPortalActionRequestOneOf19) GetAcceptsAch() bool {
+// GetPaymentIntentId returns the PaymentIntentId field value
+func (o *MerchantPortalActionRequestOneOf19) GetPaymentIntentId() string {
 	if o == nil {
-		var ret bool
+		var ret string
 		return ret
 	}
 
-	return o.AcceptsAch
+	return o.PaymentIntentId
 }
 
-// GetAcceptsAchOk returns a tuple with the AcceptsAch field value
+// GetPaymentIntentIdOk returns a tuple with the PaymentIntentId field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf19) GetAcceptsAchOk() (*bool, bool) {
+func (o *MerchantPortalActionRequestOneOf19) GetPaymentIntentIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AcceptsAch, true
+	return &o.PaymentIntentId, true
 }
 
-// SetAcceptsAch sets field value
-func (o *MerchantPortalActionRequestOneOf19) SetAcceptsAch(v bool) {
-	o.AcceptsAch = v
+// SetPaymentIntentId sets field value
+func (o *MerchantPortalActionRequestOneOf19) SetPaymentIntentId(v string) {
+	o.PaymentIntentId = v
 }
 
 func (o MerchantPortalActionRequestOneOf19) MarshalJSON() ([]byte, error) {
@@ -105,7 +105,7 @@ func (o MerchantPortalActionRequestOneOf19) MarshalJSON() ([]byte, error) {
 func (o MerchantPortalActionRequestOneOf19) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["action"] = o.Action
-	toSerialize["acceptsAch"] = o.AcceptsAch
+	toSerialize["paymentIntentId"] = o.PaymentIntentId
 	return toSerialize, nil
 }
 
@@ -115,7 +115,7 @@ func (o *MerchantPortalActionRequestOneOf19) UnmarshalJSON(data []byte) (err err
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"action",
-		"acceptsAch",
+		"paymentIntentId",
 	}
 
 	allProperties := make(map[string]interface{})

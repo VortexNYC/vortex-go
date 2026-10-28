@@ -21,9 +21,8 @@ var _ MappedNullable = &MerchantPortalActionResponseDataOneOf14{}
 
 // MerchantPortalActionResponseDataOneOf14 struct for MerchantPortalActionResponseDataOneOf14
 type MerchantPortalActionResponseDataOneOf14 struct {
-	DisputePortalUrl string `json:"disputePortalUrl"`
-	DisputeUrl *string `json:"disputeUrl,omitempty"`
-	Message HostedPortalPageMessage `json:"message"`
+	PaymentRequestId string `json:"paymentRequestId"`
+	CheckoutUrl string `json:"checkoutUrl"`
 }
 
 type _MerchantPortalActionResponseDataOneOf14 MerchantPortalActionResponseDataOneOf14
@@ -32,10 +31,10 @@ type _MerchantPortalActionResponseDataOneOf14 MerchantPortalActionResponseDataOn
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionResponseDataOneOf14(disputePortalUrl string, message HostedPortalPageMessage) *MerchantPortalActionResponseDataOneOf14 {
+func NewMerchantPortalActionResponseDataOneOf14(paymentRequestId string, checkoutUrl string) *MerchantPortalActionResponseDataOneOf14 {
 	this := MerchantPortalActionResponseDataOneOf14{}
-	this.DisputePortalUrl = disputePortalUrl
-	this.Message = message
+	this.PaymentRequestId = paymentRequestId
+	this.CheckoutUrl = checkoutUrl
 	return &this
 }
 
@@ -47,84 +46,52 @@ func NewMerchantPortalActionResponseDataOneOf14WithDefaults() *MerchantPortalAct
 	return &this
 }
 
-// GetDisputePortalUrl returns the DisputePortalUrl field value
-func (o *MerchantPortalActionResponseDataOneOf14) GetDisputePortalUrl() string {
+// GetPaymentRequestId returns the PaymentRequestId field value
+func (o *MerchantPortalActionResponseDataOneOf14) GetPaymentRequestId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.DisputePortalUrl
+	return o.PaymentRequestId
 }
 
-// GetDisputePortalUrlOk returns a tuple with the DisputePortalUrl field value
+// GetPaymentRequestIdOk returns a tuple with the PaymentRequestId field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionResponseDataOneOf14) GetDisputePortalUrlOk() (*string, bool) {
+func (o *MerchantPortalActionResponseDataOneOf14) GetPaymentRequestIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.DisputePortalUrl, true
+	return &o.PaymentRequestId, true
 }
 
-// SetDisputePortalUrl sets field value
-func (o *MerchantPortalActionResponseDataOneOf14) SetDisputePortalUrl(v string) {
-	o.DisputePortalUrl = v
+// SetPaymentRequestId sets field value
+func (o *MerchantPortalActionResponseDataOneOf14) SetPaymentRequestId(v string) {
+	o.PaymentRequestId = v
 }
 
-// GetDisputeUrl returns the DisputeUrl field value if set, zero value otherwise.
-func (o *MerchantPortalActionResponseDataOneOf14) GetDisputeUrl() string {
-	if o == nil || IsNil(o.DisputeUrl) {
+// GetCheckoutUrl returns the CheckoutUrl field value
+func (o *MerchantPortalActionResponseDataOneOf14) GetCheckoutUrl() string {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.DisputeUrl
+
+	return o.CheckoutUrl
 }
 
-// GetDisputeUrlOk returns a tuple with the DisputeUrl field value if set, nil otherwise
+// GetCheckoutUrlOk returns a tuple with the CheckoutUrl field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionResponseDataOneOf14) GetDisputeUrlOk() (*string, bool) {
-	if o == nil || IsNil(o.DisputeUrl) {
-		return nil, false
-	}
-	return o.DisputeUrl, true
-}
-
-// HasDisputeUrl returns a boolean if a field has been set.
-func (o *MerchantPortalActionResponseDataOneOf14) HasDisputeUrl() bool {
-	if o != nil && !IsNil(o.DisputeUrl) {
-		return true
-	}
-
-	return false
-}
-
-// SetDisputeUrl gets a reference to the given string and assigns it to the DisputeUrl field.
-func (o *MerchantPortalActionResponseDataOneOf14) SetDisputeUrl(v string) {
-	o.DisputeUrl = &v
-}
-
-// GetMessage returns the Message field value
-func (o *MerchantPortalActionResponseDataOneOf14) GetMessage() HostedPortalPageMessage {
-	if o == nil {
-		var ret HostedPortalPageMessage
-		return ret
-	}
-
-	return o.Message
-}
-
-// GetMessageOk returns a tuple with the Message field value
-// and a boolean to check if the value has been set.
-func (o *MerchantPortalActionResponseDataOneOf14) GetMessageOk() (*HostedPortalPageMessage, bool) {
+func (o *MerchantPortalActionResponseDataOneOf14) GetCheckoutUrlOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Message, true
+	return &o.CheckoutUrl, true
 }
 
-// SetMessage sets field value
-func (o *MerchantPortalActionResponseDataOneOf14) SetMessage(v HostedPortalPageMessage) {
-	o.Message = v
+// SetCheckoutUrl sets field value
+func (o *MerchantPortalActionResponseDataOneOf14) SetCheckoutUrl(v string) {
+	o.CheckoutUrl = v
 }
 
 func (o MerchantPortalActionResponseDataOneOf14) MarshalJSON() ([]byte, error) {
@@ -137,11 +104,8 @@ func (o MerchantPortalActionResponseDataOneOf14) MarshalJSON() ([]byte, error) {
 
 func (o MerchantPortalActionResponseDataOneOf14) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["disputePortalUrl"] = o.DisputePortalUrl
-	if !IsNil(o.DisputeUrl) {
-		toSerialize["disputeUrl"] = o.DisputeUrl
-	}
-	toSerialize["message"] = o.Message
+	toSerialize["paymentRequestId"] = o.PaymentRequestId
+	toSerialize["checkoutUrl"] = o.CheckoutUrl
 	return toSerialize, nil
 }
 
@@ -150,8 +114,8 @@ func (o *MerchantPortalActionResponseDataOneOf14) UnmarshalJSON(data []byte) (er
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"disputePortalUrl",
-		"message",
+		"paymentRequestId",
+		"checkoutUrl",
 	}
 
 	allProperties := make(map[string]interface{})

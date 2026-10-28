@@ -22,9 +22,7 @@ var _ MappedNullable = &MerchantPortalActionRequestOneOf28{}
 // MerchantPortalActionRequestOneOf28 struct for MerchantPortalActionRequestOneOf28
 type MerchantPortalActionRequestOneOf28 struct {
 	Action string `json:"action"`
-	EndpointId string `json:"endpointId"`
-	// Optional — defaults to the endpoint's first concrete subscription, else payment.created.
-	EventType *string `json:"eventType,omitempty"`
+	InvoiceId string `json:"invoiceId"`
 }
 
 type _MerchantPortalActionRequestOneOf28 MerchantPortalActionRequestOneOf28
@@ -33,10 +31,10 @@ type _MerchantPortalActionRequestOneOf28 MerchantPortalActionRequestOneOf28
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionRequestOneOf28(action string, endpointId string) *MerchantPortalActionRequestOneOf28 {
+func NewMerchantPortalActionRequestOneOf28(action string, invoiceId string) *MerchantPortalActionRequestOneOf28 {
 	this := MerchantPortalActionRequestOneOf28{}
 	this.Action = action
-	this.EndpointId = endpointId
+	this.InvoiceId = invoiceId
 	return &this
 }
 
@@ -72,60 +70,28 @@ func (o *MerchantPortalActionRequestOneOf28) SetAction(v string) {
 	o.Action = v
 }
 
-// GetEndpointId returns the EndpointId field value
-func (o *MerchantPortalActionRequestOneOf28) GetEndpointId() string {
+// GetInvoiceId returns the InvoiceId field value
+func (o *MerchantPortalActionRequestOneOf28) GetInvoiceId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.EndpointId
+	return o.InvoiceId
 }
 
-// GetEndpointIdOk returns a tuple with the EndpointId field value
+// GetInvoiceIdOk returns a tuple with the InvoiceId field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf28) GetEndpointIdOk() (*string, bool) {
+func (o *MerchantPortalActionRequestOneOf28) GetInvoiceIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.EndpointId, true
+	return &o.InvoiceId, true
 }
 
-// SetEndpointId sets field value
-func (o *MerchantPortalActionRequestOneOf28) SetEndpointId(v string) {
-	o.EndpointId = v
-}
-
-// GetEventType returns the EventType field value if set, zero value otherwise.
-func (o *MerchantPortalActionRequestOneOf28) GetEventType() string {
-	if o == nil || IsNil(o.EventType) {
-		var ret string
-		return ret
-	}
-	return *o.EventType
-}
-
-// GetEventTypeOk returns a tuple with the EventType field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf28) GetEventTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.EventType) {
-		return nil, false
-	}
-	return o.EventType, true
-}
-
-// HasEventType returns a boolean if a field has been set.
-func (o *MerchantPortalActionRequestOneOf28) HasEventType() bool {
-	if o != nil && !IsNil(o.EventType) {
-		return true
-	}
-
-	return false
-}
-
-// SetEventType gets a reference to the given string and assigns it to the EventType field.
-func (o *MerchantPortalActionRequestOneOf28) SetEventType(v string) {
-	o.EventType = &v
+// SetInvoiceId sets field value
+func (o *MerchantPortalActionRequestOneOf28) SetInvoiceId(v string) {
+	o.InvoiceId = v
 }
 
 func (o MerchantPortalActionRequestOneOf28) MarshalJSON() ([]byte, error) {
@@ -139,10 +105,7 @@ func (o MerchantPortalActionRequestOneOf28) MarshalJSON() ([]byte, error) {
 func (o MerchantPortalActionRequestOneOf28) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["action"] = o.Action
-	toSerialize["endpointId"] = o.EndpointId
-	if !IsNil(o.EventType) {
-		toSerialize["eventType"] = o.EventType
-	}
+	toSerialize["invoiceId"] = o.InvoiceId
 	return toSerialize, nil
 }
 
@@ -152,7 +115,7 @@ func (o *MerchantPortalActionRequestOneOf28) UnmarshalJSON(data []byte) (err err
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"action",
-		"endpointId",
+		"invoiceId",
 	}
 
 	allProperties := make(map[string]interface{})

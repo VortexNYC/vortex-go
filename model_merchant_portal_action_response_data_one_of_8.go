@@ -21,7 +21,8 @@ var _ MappedNullable = &MerchantPortalActionResponseDataOneOf8{}
 
 // MerchantPortalActionResponseDataOneOf8 struct for MerchantPortalActionResponseDataOneOf8
 type MerchantPortalActionResponseDataOneOf8 struct {
-	InvoiceDetail map[string]interface{} `json:"invoiceDetail"`
+	// The portal refund row created by refund-payment.
+	Refund map[string]interface{} `json:"refund"`
 }
 
 type _MerchantPortalActionResponseDataOneOf8 MerchantPortalActionResponseDataOneOf8
@@ -30,9 +31,9 @@ type _MerchantPortalActionResponseDataOneOf8 MerchantPortalActionResponseDataOne
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionResponseDataOneOf8(invoiceDetail map[string]interface{}) *MerchantPortalActionResponseDataOneOf8 {
+func NewMerchantPortalActionResponseDataOneOf8(refund map[string]interface{}) *MerchantPortalActionResponseDataOneOf8 {
 	this := MerchantPortalActionResponseDataOneOf8{}
-	this.InvoiceDetail = invoiceDetail
+	this.Refund = refund
 	return &this
 }
 
@@ -44,28 +45,28 @@ func NewMerchantPortalActionResponseDataOneOf8WithDefaults() *MerchantPortalActi
 	return &this
 }
 
-// GetInvoiceDetail returns the InvoiceDetail field value
-func (o *MerchantPortalActionResponseDataOneOf8) GetInvoiceDetail() map[string]interface{} {
+// GetRefund returns the Refund field value
+func (o *MerchantPortalActionResponseDataOneOf8) GetRefund() map[string]interface{} {
 	if o == nil {
 		var ret map[string]interface{}
 		return ret
 	}
 
-	return o.InvoiceDetail
+	return o.Refund
 }
 
-// GetInvoiceDetailOk returns a tuple with the InvoiceDetail field value
+// GetRefundOk returns a tuple with the Refund field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionResponseDataOneOf8) GetInvoiceDetailOk() (map[string]interface{}, bool) {
+func (o *MerchantPortalActionResponseDataOneOf8) GetRefundOk() (map[string]interface{}, bool) {
 	if o == nil {
 		return map[string]interface{}{}, false
 	}
-	return o.InvoiceDetail, true
+	return o.Refund, true
 }
 
-// SetInvoiceDetail sets field value
-func (o *MerchantPortalActionResponseDataOneOf8) SetInvoiceDetail(v map[string]interface{}) {
-	o.InvoiceDetail = v
+// SetRefund sets field value
+func (o *MerchantPortalActionResponseDataOneOf8) SetRefund(v map[string]interface{}) {
+	o.Refund = v
 }
 
 func (o MerchantPortalActionResponseDataOneOf8) MarshalJSON() ([]byte, error) {
@@ -78,7 +79,7 @@ func (o MerchantPortalActionResponseDataOneOf8) MarshalJSON() ([]byte, error) {
 
 func (o MerchantPortalActionResponseDataOneOf8) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["invoiceDetail"] = o.InvoiceDetail
+	toSerialize["refund"] = o.Refund
 	return toSerialize, nil
 }
 
@@ -87,7 +88,7 @@ func (o *MerchantPortalActionResponseDataOneOf8) UnmarshalJSON(data []byte) (err
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"invoiceDetail",
+		"refund",
 	}
 
 	allProperties := make(map[string]interface{})

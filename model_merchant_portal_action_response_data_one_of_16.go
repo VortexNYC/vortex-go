@@ -21,8 +21,7 @@ var _ MappedNullable = &MerchantPortalActionResponseDataOneOf16{}
 
 // MerchantPortalActionResponseDataOneOf16 struct for MerchantPortalActionResponseDataOneOf16
 type MerchantPortalActionResponseDataOneOf16 struct {
-	// The portal webhook-delivery row (the test dispatch or the replayed clone).
-	Delivery map[string]interface{} `json:"delivery"`
+	Ok bool `json:"ok"`
 }
 
 type _MerchantPortalActionResponseDataOneOf16 MerchantPortalActionResponseDataOneOf16
@@ -31,9 +30,9 @@ type _MerchantPortalActionResponseDataOneOf16 MerchantPortalActionResponseDataOn
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionResponseDataOneOf16(delivery map[string]interface{}) *MerchantPortalActionResponseDataOneOf16 {
+func NewMerchantPortalActionResponseDataOneOf16(ok bool) *MerchantPortalActionResponseDataOneOf16 {
 	this := MerchantPortalActionResponseDataOneOf16{}
-	this.Delivery = delivery
+	this.Ok = ok
 	return &this
 }
 
@@ -45,28 +44,28 @@ func NewMerchantPortalActionResponseDataOneOf16WithDefaults() *MerchantPortalAct
 	return &this
 }
 
-// GetDelivery returns the Delivery field value
-func (o *MerchantPortalActionResponseDataOneOf16) GetDelivery() map[string]interface{} {
+// GetOk returns the Ok field value
+func (o *MerchantPortalActionResponseDataOneOf16) GetOk() bool {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret bool
 		return ret
 	}
 
-	return o.Delivery
+	return o.Ok
 }
 
-// GetDeliveryOk returns a tuple with the Delivery field value
+// GetOkOk returns a tuple with the Ok field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionResponseDataOneOf16) GetDeliveryOk() (map[string]interface{}, bool) {
+func (o *MerchantPortalActionResponseDataOneOf16) GetOkOk() (*bool, bool) {
 	if o == nil {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Delivery, true
+	return &o.Ok, true
 }
 
-// SetDelivery sets field value
-func (o *MerchantPortalActionResponseDataOneOf16) SetDelivery(v map[string]interface{}) {
-	o.Delivery = v
+// SetOk sets field value
+func (o *MerchantPortalActionResponseDataOneOf16) SetOk(v bool) {
+	o.Ok = v
 }
 
 func (o MerchantPortalActionResponseDataOneOf16) MarshalJSON() ([]byte, error) {
@@ -79,7 +78,7 @@ func (o MerchantPortalActionResponseDataOneOf16) MarshalJSON() ([]byte, error) {
 
 func (o MerchantPortalActionResponseDataOneOf16) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["delivery"] = o.Delivery
+	toSerialize["ok"] = o.Ok
 	return toSerialize, nil
 }
 
@@ -88,7 +87,7 @@ func (o *MerchantPortalActionResponseDataOneOf16) UnmarshalJSON(data []byte) (er
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"delivery",
+		"ok",
 	}
 
 	allProperties := make(map[string]interface{})

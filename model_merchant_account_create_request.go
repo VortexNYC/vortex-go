@@ -33,6 +33,8 @@ type MerchantAccountCreateRequest struct {
 	TenantId *string `json:"tenantId,omitempty"`
 	// Connect: provision this account as a linked sub-merchant under an operator-granted platform account the caller controls (sandbox only in v1). The account is created in a fresh claimable org; the response carries `claimUrl`/`claimExpiresAt` for handing ownership to the sub-merchant.
 	PlatformMerchantAccountId *string `json:"platformMerchantAccountId,omitempty"`
+	// Identity anchor (VOR-794): create this account as a same-tenant product sibling that shares the named merchant account's Finix KYC identity at onboarding submit. Immutable; mutually exclusive with platformMerchantAccountId. The anchor must be in the caller's org and environment, already onboarded (a provider `seller_identity` ref exists), and neither a Connect sub-merchant nor itself anchored.
+	IdentityAnchorMerchantAccountId *string `json:"identityAnchorMerchantAccountId,omitempty"`
 	DoingBusinessAs *string `json:"doingBusinessAs,omitempty"`
 	BusinessPhone *string `json:"businessPhone,omitempty"`
 	BusinessTaxId *string `json:"businessTaxId,omitempty"`
@@ -321,6 +323,38 @@ func (o *MerchantAccountCreateRequest) HasPlatformMerchantAccountId() bool {
 // SetPlatformMerchantAccountId gets a reference to the given string and assigns it to the PlatformMerchantAccountId field.
 func (o *MerchantAccountCreateRequest) SetPlatformMerchantAccountId(v string) {
 	o.PlatformMerchantAccountId = &v
+}
+
+// GetIdentityAnchorMerchantAccountId returns the IdentityAnchorMerchantAccountId field value if set, zero value otherwise.
+func (o *MerchantAccountCreateRequest) GetIdentityAnchorMerchantAccountId() string {
+	if o == nil || IsNil(o.IdentityAnchorMerchantAccountId) {
+		var ret string
+		return ret
+	}
+	return *o.IdentityAnchorMerchantAccountId
+}
+
+// GetIdentityAnchorMerchantAccountIdOk returns a tuple with the IdentityAnchorMerchantAccountId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MerchantAccountCreateRequest) GetIdentityAnchorMerchantAccountIdOk() (*string, bool) {
+	if o == nil || IsNil(o.IdentityAnchorMerchantAccountId) {
+		return nil, false
+	}
+	return o.IdentityAnchorMerchantAccountId, true
+}
+
+// HasIdentityAnchorMerchantAccountId returns a boolean if a field has been set.
+func (o *MerchantAccountCreateRequest) HasIdentityAnchorMerchantAccountId() bool {
+	if o != nil && !IsNil(o.IdentityAnchorMerchantAccountId) {
+		return true
+	}
+
+	return false
+}
+
+// SetIdentityAnchorMerchantAccountId gets a reference to the given string and assigns it to the IdentityAnchorMerchantAccountId field.
+func (o *MerchantAccountCreateRequest) SetIdentityAnchorMerchantAccountId(v string) {
+	o.IdentityAnchorMerchantAccountId = &v
 }
 
 // GetDoingBusinessAs returns the DoingBusinessAs field value if set, zero value otherwise.
@@ -1083,6 +1117,9 @@ func (o MerchantAccountCreateRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.PlatformMerchantAccountId) {
 		toSerialize["platformMerchantAccountId"] = o.PlatformMerchantAccountId
+	}
+	if !IsNil(o.IdentityAnchorMerchantAccountId) {
+		toSerialize["identityAnchorMerchantAccountId"] = o.IdentityAnchorMerchantAccountId
 	}
 	if !IsNil(o.DoingBusinessAs) {
 		toSerialize["doingBusinessAs"] = o.DoingBusinessAs

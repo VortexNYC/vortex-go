@@ -15363,6 +15363,7 @@ components:
         defaultCurrency: defaultCurrency
         tenantId: tenantId
         platformMerchantAccountId: platformMerchantAccountId
+        identityAnchorMerchantAccountId: identityAnchorMerchantAccountId
         doingBusinessAs: doingBusinessAs
         businessPhone: businessPhone
         businessTaxId: businessTaxId
@@ -15507,6 +15508,15 @@ components:
             \ an operator-granted platform account the caller controls (sandbox only\
             \ in v1). The account is created in a fresh claimable org; the response\
             \ carries `claimUrl`/`claimExpiresAt` for handing ownership to the sub-merchant."
+          type: string
+        identityAnchorMerchantAccountId:
+          description:
+            "Identity anchor (VOR-794): create this account as a same-tenant\
+            \ product sibling that shares the named merchant account's Finix KYC identity\
+            \ at onboarding submit. Immutable; mutually exclusive with platformMerchantAccountId.\
+            \ The anchor must be in the caller's org and environment, already onboarded\
+            \ (a provider `seller_identity` ref exists), and neither a Connect sub-merchant\
+            \ nor itself anchored."
           type: string
         doingBusinessAs:
           type: string

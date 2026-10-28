@@ -21,11 +21,12 @@ var _ MappedNullable = &GrantEntitlementRequest{}
 
 // GrantEntitlementRequest struct for GrantEntitlementRequest
 type GrantEntitlementRequest struct {
-	CustomerExternalId string `json:"customerExternalId"`
-	BillingAccountId *string `json:"billingAccountId,omitempty"`
+	CustomerId string `json:"customerId"`
+	BillingAccountId string `json:"billingAccountId"`
 	EntitlementKey string `json:"entitlementKey"`
-	Source *string `json:"source,omitempty"`
-	SourceRef *string `json:"sourceRef,omitempty"`
+	Source string `json:"source"`
+	SourceRef string `json:"sourceRef"`
+	EntitlementId *string `json:"entitlementId,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
 }
 
@@ -35,10 +36,13 @@ type _GrantEntitlementRequest GrantEntitlementRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGrantEntitlementRequest(customerExternalId string, entitlementKey string) *GrantEntitlementRequest {
+func NewGrantEntitlementRequest(customerId string, billingAccountId string, entitlementKey string, source string, sourceRef string) *GrantEntitlementRequest {
 	this := GrantEntitlementRequest{}
-	this.CustomerExternalId = customerExternalId
+	this.CustomerId = customerId
+	this.BillingAccountId = billingAccountId
 	this.EntitlementKey = entitlementKey
+	this.Source = source
+	this.SourceRef = sourceRef
 	return &this
 }
 
@@ -50,60 +54,52 @@ func NewGrantEntitlementRequestWithDefaults() *GrantEntitlementRequest {
 	return &this
 }
 
-// GetCustomerExternalId returns the CustomerExternalId field value
-func (o *GrantEntitlementRequest) GetCustomerExternalId() string {
+// GetCustomerId returns the CustomerId field value
+func (o *GrantEntitlementRequest) GetCustomerId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.CustomerExternalId
+	return o.CustomerId
 }
 
-// GetCustomerExternalIdOk returns a tuple with the CustomerExternalId field value
+// GetCustomerIdOk returns a tuple with the CustomerId field value
 // and a boolean to check if the value has been set.
-func (o *GrantEntitlementRequest) GetCustomerExternalIdOk() (*string, bool) {
+func (o *GrantEntitlementRequest) GetCustomerIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CustomerExternalId, true
+	return &o.CustomerId, true
 }
 
-// SetCustomerExternalId sets field value
-func (o *GrantEntitlementRequest) SetCustomerExternalId(v string) {
-	o.CustomerExternalId = v
+// SetCustomerId sets field value
+func (o *GrantEntitlementRequest) SetCustomerId(v string) {
+	o.CustomerId = v
 }
 
-// GetBillingAccountId returns the BillingAccountId field value if set, zero value otherwise.
+// GetBillingAccountId returns the BillingAccountId field value
 func (o *GrantEntitlementRequest) GetBillingAccountId() string {
-	if o == nil || IsNil(o.BillingAccountId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.BillingAccountId
+
+	return o.BillingAccountId
 }
 
-// GetBillingAccountIdOk returns a tuple with the BillingAccountId field value if set, nil otherwise
+// GetBillingAccountIdOk returns a tuple with the BillingAccountId field value
 // and a boolean to check if the value has been set.
 func (o *GrantEntitlementRequest) GetBillingAccountIdOk() (*string, bool) {
-	if o == nil || IsNil(o.BillingAccountId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.BillingAccountId, true
+	return &o.BillingAccountId, true
 }
 
-// HasBillingAccountId returns a boolean if a field has been set.
-func (o *GrantEntitlementRequest) HasBillingAccountId() bool {
-	if o != nil && !IsNil(o.BillingAccountId) {
-		return true
-	}
-
-	return false
-}
-
-// SetBillingAccountId gets a reference to the given string and assigns it to the BillingAccountId field.
+// SetBillingAccountId sets field value
 func (o *GrantEntitlementRequest) SetBillingAccountId(v string) {
-	o.BillingAccountId = &v
+	o.BillingAccountId = v
 }
 
 // GetEntitlementKey returns the EntitlementKey field value
@@ -130,68 +126,84 @@ func (o *GrantEntitlementRequest) SetEntitlementKey(v string) {
 	o.EntitlementKey = v
 }
 
-// GetSource returns the Source field value if set, zero value otherwise.
+// GetSource returns the Source field value
 func (o *GrantEntitlementRequest) GetSource() string {
-	if o == nil || IsNil(o.Source) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Source
+
+	return o.Source
 }
 
-// GetSourceOk returns a tuple with the Source field value if set, nil otherwise
+// GetSourceOk returns a tuple with the Source field value
 // and a boolean to check if the value has been set.
 func (o *GrantEntitlementRequest) GetSourceOk() (*string, bool) {
-	if o == nil || IsNil(o.Source) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Source, true
+	return &o.Source, true
 }
 
-// HasSource returns a boolean if a field has been set.
-func (o *GrantEntitlementRequest) HasSource() bool {
-	if o != nil && !IsNil(o.Source) {
-		return true
-	}
-
-	return false
-}
-
-// SetSource gets a reference to the given string and assigns it to the Source field.
+// SetSource sets field value
 func (o *GrantEntitlementRequest) SetSource(v string) {
-	o.Source = &v
+	o.Source = v
 }
 
-// GetSourceRef returns the SourceRef field value if set, zero value otherwise.
+// GetSourceRef returns the SourceRef field value
 func (o *GrantEntitlementRequest) GetSourceRef() string {
-	if o == nil || IsNil(o.SourceRef) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.SourceRef
+
+	return o.SourceRef
 }
 
-// GetSourceRefOk returns a tuple with the SourceRef field value if set, nil otherwise
+// GetSourceRefOk returns a tuple with the SourceRef field value
 // and a boolean to check if the value has been set.
 func (o *GrantEntitlementRequest) GetSourceRefOk() (*string, bool) {
-	if o == nil || IsNil(o.SourceRef) {
+	if o == nil {
 		return nil, false
 	}
-	return o.SourceRef, true
+	return &o.SourceRef, true
 }
 
-// HasSourceRef returns a boolean if a field has been set.
-func (o *GrantEntitlementRequest) HasSourceRef() bool {
-	if o != nil && !IsNil(o.SourceRef) {
+// SetSourceRef sets field value
+func (o *GrantEntitlementRequest) SetSourceRef(v string) {
+	o.SourceRef = v
+}
+
+// GetEntitlementId returns the EntitlementId field value if set, zero value otherwise.
+func (o *GrantEntitlementRequest) GetEntitlementId() string {
+	if o == nil || IsNil(o.EntitlementId) {
+		var ret string
+		return ret
+	}
+	return *o.EntitlementId
+}
+
+// GetEntitlementIdOk returns a tuple with the EntitlementId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GrantEntitlementRequest) GetEntitlementIdOk() (*string, bool) {
+	if o == nil || IsNil(o.EntitlementId) {
+		return nil, false
+	}
+	return o.EntitlementId, true
+}
+
+// HasEntitlementId returns a boolean if a field has been set.
+func (o *GrantEntitlementRequest) HasEntitlementId() bool {
+	if o != nil && !IsNil(o.EntitlementId) {
 		return true
 	}
 
 	return false
 }
 
-// SetSourceRef gets a reference to the given string and assigns it to the SourceRef field.
-func (o *GrantEntitlementRequest) SetSourceRef(v string) {
-	o.SourceRef = &v
+// SetEntitlementId gets a reference to the given string and assigns it to the EntitlementId field.
+func (o *GrantEntitlementRequest) SetEntitlementId(v string) {
+	o.EntitlementId = &v
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
@@ -236,16 +248,13 @@ func (o GrantEntitlementRequest) MarshalJSON() ([]byte, error) {
 
 func (o GrantEntitlementRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["customerExternalId"] = o.CustomerExternalId
-	if !IsNil(o.BillingAccountId) {
-		toSerialize["billingAccountId"] = o.BillingAccountId
-	}
+	toSerialize["customerId"] = o.CustomerId
+	toSerialize["billingAccountId"] = o.BillingAccountId
 	toSerialize["entitlementKey"] = o.EntitlementKey
-	if !IsNil(o.Source) {
-		toSerialize["source"] = o.Source
-	}
-	if !IsNil(o.SourceRef) {
-		toSerialize["sourceRef"] = o.SourceRef
+	toSerialize["source"] = o.Source
+	toSerialize["sourceRef"] = o.SourceRef
+	if !IsNil(o.EntitlementId) {
+		toSerialize["entitlementId"] = o.EntitlementId
 	}
 	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
@@ -258,8 +267,11 @@ func (o *GrantEntitlementRequest) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"customerExternalId",
+		"customerId",
+		"billingAccountId",
 		"entitlementKey",
+		"source",
+		"sourceRef",
 	}
 
 	allProperties := make(map[string]interface{})

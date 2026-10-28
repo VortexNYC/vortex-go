@@ -4774,7 +4774,8 @@ paths:
             examples:
               default:
                 value:
-                  customerExternalId: cus_123
+                  customerId: bcust_123
+                  billingAccountId: bacc_123
                   entitlementKey: pro
                   source: operator
                   sourceRef: launch-proof
@@ -4814,7 +4815,7 @@ paths:
               -X POST \
               -H "Authorization: Bearer $VORTEX_API_KEY" \
               -H "Content-Type: application/json" \
-              -d '{"customerExternalId":"cus_123","entitlementKey":"pro","source":"operator","sourceRef":"launch-proof"}'
+              -d '{"customerId":"bcust_123","billingAccountId":"bacc_123","entitlementKey":"pro","source":"operator","sourceRef":"launch-proof"}'
         - lang: TypeScript
           label: TypeScript
           source: |-
@@ -4824,7 +4825,7 @@ paths:
             const { data } = await grantEntitlement({
               client: vortex,
               query: { environment: "sandbox", merchantAccountId: "..." },
-              body: {"customerExternalId":"cus_123","entitlementKey":"pro","source":"operator","sourceRef":"launch-proof"},
+              body: {"customerId":"bcust_123","billingAccountId":"bacc_123","entitlementKey":"pro","source":"operator","sourceRef":"launch-proof"},
             });
   /v1/entitlements/revoke:
     post:
@@ -4851,7 +4852,8 @@ paths:
             examples:
               default:
                 value:
-                  customerExternalId: cus_123
+                  customerId: bcust_123
+                  billingAccountId: bacc_123
                   entitlementKey: pro
                   source: operator
                   sourceRef: launch-proof
@@ -4892,7 +4894,7 @@ paths:
               -X POST \
               -H "Authorization: Bearer $VORTEX_API_KEY" \
               -H "Content-Type: application/json" \
-              -d '{"customerExternalId":"cus_123","entitlementKey":"pro","source":"operator","sourceRef":"launch-proof","reason":"downgrade"}'
+              -d '{"customerId":"bcust_123","billingAccountId":"bacc_123","entitlementKey":"pro","source":"operator","sourceRef":"launch-proof","reason":"downgrade"}'
         - lang: TypeScript
           label: TypeScript
           source: |-
@@ -4902,7 +4904,7 @@ paths:
             const { data } = await revokeEntitlement({
               client: vortex,
               query: { environment: "sandbox", merchantAccountId: "..." },
-              body: {"customerExternalId":"cus_123","entitlementKey":"pro","source":"operator","sourceRef":"launch-proof","reason":"downgrade"},
+              body: {"customerId":"bcust_123","billingAccountId":"bacc_123","entitlementKey":"pro","source":"operator","sourceRef":"launch-proof","reason":"downgrade"},
             });
   /v1/events:
     get:
@@ -5076,8 +5078,11 @@ paths:
             examples:
               default:
                 value:
-                  customerExternalId: cus_123
-                  subscriptionExternalId: sub_123
+                  customerId: bcust_123
+                  billingAccountId: bacc_123
+                  lineItems:
+                    - priceId: price_core_monthly
+                      quantity: 1
             schema:
               $ref: "#/components/schemas/InvoiceCreateRequest"
         required: true
@@ -5114,7 +5119,7 @@ paths:
               -X POST \
               -H "Authorization: Bearer $VORTEX_API_KEY" \
               -H "Content-Type: application/json" \
-              -d '{"customerExternalId":"cus_123","subscriptionExternalId":"sub_123"}'
+              -d '{"customerId":"bcust_123","billingAccountId":"bacc_123","lineItems":[{"priceId":"price_core_monthly","quantity":1}]}'
         - lang: TypeScript
           label: TypeScript
           source: |-
@@ -5124,7 +5129,7 @@ paths:
             const { data } = await createInvoice({
               client: vortex,
               query: { environment: "sandbox", merchantAccountId: "..." },
-              body: {"customerExternalId":"cus_123","subscriptionExternalId":"sub_123"},
+              body: {"customerId":"bcust_123","billingAccountId":"bacc_123","lineItems":[{"priceId":"price_core_monthly","quantity":1}]},
             });
   /v1/invoices/{invoiceId}:
     get:
@@ -7090,6 +7095,88 @@ paths:
               body: {"meterId":"meter_api_calls","name":"API calls","eventName":"api.call","aggregationType":"sum","windowGrain":"month"},
             });
   /v1/meters/{meterId}:
+    delete:
+      operationId: archiveMeter
+      parameters:
+        - explode: false
+          in: path
+          name: meterId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value: {}
+            schema:
+              $ref: "#/components/schemas/WebhookEmptyRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MeterResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: Archive a billing meter (stops accepting usage events)
+      tags:
+        - billing
+        - usage
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/meters/{meterId}?environment=sandbox&merchantAccountId=..." \
+              -X DELETE \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { archiveMeter, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await archiveMeter({
+              client: vortex,
+              path: { meterId: "..." },
+              query: { environment: "sandbox", merchantAccountId: "..." },
+              body: {},
+            });
     get:
       operationId: getMeter
       parameters:
@@ -7158,6 +7245,88 @@ paths:
               client: vortex,
               path: { meterId: "..." },
               query: { environment: "sandbox", merchantAccountId: "..." },
+            });
+    patch:
+      operationId: activateMeter
+      parameters:
+        - explode: false
+          in: path
+          name: meterId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value: {}
+            schema:
+              $ref: "#/components/schemas/WebhookEmptyRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MeterResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: Reactivate an archived billing meter
+      tags:
+        - billing
+        - usage
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/meters/{meterId}?environment=sandbox&merchantAccountId=..." \
+              -X PATCH \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { activateMeter, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await activateMeter({
+              client: vortex,
+              path: { meterId: "..." },
+              query: { environment: "sandbox", merchantAccountId: "..." },
+              body: {},
             });
   /v1/order-forms:
     get:
@@ -13653,8 +13822,8 @@ paths:
               default:
                 value:
                   appliedCouponId: acpn_123
-                  customerExternalId: cus_123
-                  subscriptionExternalId: sub_123
+                  customerId: bcust_123
+                  subscriptionId: bsub_123
                   appliedAt: 2026-06-01T00:00:00.000Z
             schema:
               $ref: "#/components/schemas/ApplyCouponRequest"
@@ -13692,7 +13861,7 @@ paths:
               -X POST \
               -H "Authorization: Bearer $VORTEX_API_KEY" \
               -H "Content-Type: application/json" \
-              -d '{"appliedCouponId":"acpn_123","customerExternalId":"cus_123","subscriptionExternalId":"sub_123","appliedAt":"2026-06-01T00:00:00.000Z"}'
+              -d '{"appliedCouponId":"acpn_123","customerId":"bcust_123","subscriptionId":"bsub_123","appliedAt":"2026-06-01T00:00:00.000Z"}'
         - lang: TypeScript
           label: TypeScript
           source: |-
@@ -13703,7 +13872,7 @@ paths:
               client: vortex,
               path: { couponId: "..." },
               query: { environment: "sandbox", merchantAccountId: "..." },
-              body: {"appliedCouponId":"acpn_123","customerExternalId":"cus_123","subscriptionExternalId":"sub_123","appliedAt":"2026-06-01T00:00:00.000Z"},
+              body: {"appliedCouponId":"acpn_123","customerId":"bcust_123","subscriptionId":"bsub_123","appliedAt":"2026-06-01T00:00:00.000Z"},
             });
   /v1/coupons/{couponId}/terminate:
     post:
@@ -14369,8 +14538,11 @@ paths:
             examples:
               default:
                 value:
-                  customerExternalId: cus_123
-                  subscriptionExternalId: sub_123
+                  customerId: bcust_123
+                  billingAccountId: bacc_123
+                  lineItems:
+                    - priceId: price_core_monthly
+                      quantity: 1
             schema:
               $ref: "#/components/schemas/InvoiceCreateRequest"
         required: true
@@ -14407,7 +14579,7 @@ paths:
               -X POST \
               -H "Authorization: Bearer $VORTEX_API_KEY" \
               -H "Content-Type: application/json" \
-              -d '{"customerExternalId":"cus_123","subscriptionExternalId":"sub_123"}'
+              -d '{"customerId":"bcust_123","billingAccountId":"bacc_123","lineItems":[{"priceId":"price_core_monthly","quantity":1}]}'
         - lang: TypeScript
           label: TypeScript
           source: |-
@@ -14417,7 +14589,7 @@ paths:
             const { data } = await previewInvoice({
               client: vortex,
               query: { environment: "sandbox", merchantAccountId: "..." },
-              body: {"customerExternalId":"cus_123","subscriptionExternalId":"sub_123"},
+              body: {"customerId":"bcust_123","billingAccountId":"bacc_123","lineItems":[{"priceId":"price_core_monthly","quantity":1}]},
             });
   /v1/invoices/{invoiceId}/refresh:
     post:
@@ -16985,15 +17157,16 @@ components:
     GrantEntitlementRequest:
       additionalProperties: false
       example:
-        customerExternalId: customerExternalId
+        customerId: customerId
         billingAccountId: billingAccountId
         entitlementKey: entitlementKey
         source: subscription
         sourceRef: sourceRef
+        entitlementId: entitlementId
         metadata:
           key: metadata
       properties:
-        customerExternalId:
+        customerId:
           type: string
         billingAccountId:
           type: string
@@ -17007,23 +17180,28 @@ components:
           type: string
         sourceRef:
           type: string
+        entitlementId:
+          type: string
         metadata:
           additionalProperties:
             type: string
       required:
-        - customerExternalId
+        - billingAccountId
+        - customerId
         - entitlementKey
+        - source
+        - sourceRef
     RevokeEntitlementRequest:
       additionalProperties: false
       example:
-        customerExternalId: customerExternalId
+        customerId: customerId
         billingAccountId: billingAccountId
         entitlementKey: entitlementKey
         source: subscription
         sourceRef: sourceRef
         reason: reason
       properties:
-        customerExternalId:
+        customerId:
           type: string
         billingAccountId:
           type: string
@@ -17040,8 +17218,11 @@ components:
         reason:
           type: string
       required:
-        - customerExternalId
+        - billingAccountId
+        - customerId
         - entitlementKey
+        - source
+        - sourceRef
     WebhookEndpointCreateRequest:
       additionalProperties: false
       example:
@@ -17296,25 +17477,124 @@ components:
         - occurredAt
         - quantity
     InvoiceCreateRequest:
-      additionalProperties: false
+      additionalProperties: {}
       example:
-        customerExternalId: customerExternalId
-        subscriptionExternalId: subscriptionExternalId
+        customerId: customerId
         billingAccountId: billingAccountId
+        lineItems:
+          - priceId: priceId
+            quantity: 1.0800828190461012
+            unitAmount: 0
+            metadata:
+              key: metadata
+          - priceId: priceId
+            quantity: 1.0800828190461012
+            unitAmount: 0
+            metadata:
+              key: metadata
+        invoiceId: invoiceId
+        asOf: 2000-01-23T04:56:07.000+00:00
+        couponId: couponId
+        tenantId: tenantId
+        taxIdempotencyKey: taxIdempotencyKey
+        customerTaxAddress:
+          line1: line1
+          line2: line2
+          city: city
+          region: region
+          postalCode: postalCode
+          country: country
+        customerTaxIds:
+          - type: type
+            value: value
+          - type: type
+            value: value
+        customerType: consumer
+        customerTaxExempt: true
+        customerTaxExemptionRef: customerTaxExemptionRef
+        fallbackOnProviderUnavailable: true
+        taxIdValidation: full
+        taxIdUnverifiableTreatment: strict
+        shipFromAddress:
+          line1: line1
+          line2: line2
+          city: city
+          region: region
+          postalCode: postalCode
+          country: country
+        taxBehavior: inclusive
+        classificationKey: classificationKey
         metadata:
           key: metadata
       properties:
-        customerExternalId:
-          type: string
-        subscriptionExternalId:
+        customerId:
           type: string
         billingAccountId:
+          type: string
+        lineItems:
+          items:
+            $ref: "#/components/schemas/InvoiceCreateRequest_lineItems_inner"
+          minItems: 1
+          type: array
+          default: null
+        invoiceId:
+          description: Caller-chosen invoice id; omit to auto-mint.
+          type: string
+        asOf:
+          format: date-time
+          type: string
+        couponId:
+          type: string
+        tenantId:
+          type: string
+        taxIdempotencyKey:
+          type: string
+        customerTaxAddress:
+          $ref: "#/components/schemas/TaxAddress"
+        customerTaxIds:
+          items:
+            $ref: "#/components/schemas/InvoiceCreateRequest_customerTaxIds_inner"
+          type: array
+          default: null
+        customerType:
+          enum:
+            - consumer
+            - business
+            - government
+          type: string
+        customerTaxExempt:
+          type: boolean
+        customerTaxExemptionRef:
+          type: string
+        fallbackOnProviderUnavailable:
+          type: boolean
+        taxIdValidation:
+          enum:
+            - full
+            - format
+            - none
+          type: string
+        taxIdUnverifiableTreatment:
+          enum:
+            - strict
+            - permissive
+          type: string
+        shipFromAddress:
+          $ref: "#/components/schemas/TaxAddress"
+        taxBehavior:
+          enum:
+            - inclusive
+            - exclusive
+          type: string
+        classificationKey:
           type: string
         metadata:
           additionalProperties:
             type: string
       required:
-        - customerExternalId
+        - billingAccountId
+        - customerId
+        - lineItems
     InvoiceFinalizeRequest:
       additionalProperties: false
       example:
@@ -18575,20 +18855,20 @@ components:
       additionalProperties: false
       example:
         appliedCouponId: appliedCouponId
-        customerExternalId: customerExternalId
+        customerId: customerId
         billingAccountId: billingAccountId
-        subscriptionExternalId: subscriptionExternalId
+        subscriptionId: subscriptionId
         appliedAt: 2000-01-23T04:56:07.000+00:00
         metadata:
           key: metadata
       properties:
         appliedCouponId:
           type: string
-        customerExternalId:
+        customerId:
           type: string
         billingAccountId:
           type: string
-        subscriptionExternalId:
+        subscriptionId:
           type: string
         appliedAt:
           format: date-time
@@ -18597,7 +18877,7 @@ components:
           additionalProperties:
             type: string
       required:
-        - customerExternalId
+        - customerId
     TerminateCouponRequest:
       additionalProperties: false
       example:
@@ -20538,6 +20818,41 @@ components:
       required:
         - interval
         - intervalCount
+    InvoiceCreateRequest_lineItems_inner:
+      additionalProperties: false
+      example:
+        priceId: priceId
+        quantity: 1.0800828190461012
+        unitAmount: 0
+        metadata:
+          key: metadata
+      properties:
+        priceId:
+          type: string
+        quantity:
+          minimum: 1
+          type: number
+        unitAmount:
+          minimum: 0
+          type: integer
+        metadata:
+          additionalProperties:
+            type: string
+      required:
+        - priceId
+    InvoiceCreateRequest_customerTaxIds_inner:
+      additionalProperties: false
+      example:
+        type: type
+        value: value
+      properties:
+        type:
+          type: string
+        value:
+          type: string
+      required:
+        - type
+        - value
     TaxTransactionQuoteRequest_lines_inner:
       additionalProperties: false
       example:

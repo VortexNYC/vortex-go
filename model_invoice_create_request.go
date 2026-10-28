@@ -12,7 +12,7 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
+	"time"
 	"fmt"
 )
 
@@ -21,10 +21,28 @@ var _ MappedNullable = &InvoiceCreateRequest{}
 
 // InvoiceCreateRequest struct for InvoiceCreateRequest
 type InvoiceCreateRequest struct {
-	CustomerExternalId string `json:"customerExternalId"`
-	SubscriptionExternalId *string `json:"subscriptionExternalId,omitempty"`
-	BillingAccountId *string `json:"billingAccountId,omitempty"`
+	CustomerId string `json:"customerId"`
+	BillingAccountId string `json:"billingAccountId"`
+	LineItems []InvoiceCreateRequestLineItemsInner `json:"lineItems"`
+	// Caller-chosen invoice id; omit to auto-mint.
+	InvoiceId *string `json:"invoiceId,omitempty"`
+	AsOf *time.Time `json:"asOf,omitempty"`
+	CouponId *string `json:"couponId,omitempty"`
+	TenantId *string `json:"tenantId,omitempty"`
+	TaxIdempotencyKey *string `json:"taxIdempotencyKey,omitempty"`
+	CustomerTaxAddress *TaxAddress `json:"customerTaxAddress,omitempty"`
+	CustomerTaxIds []InvoiceCreateRequestCustomerTaxIdsInner `json:"customerTaxIds,omitempty"`
+	CustomerType *string `json:"customerType,omitempty"`
+	CustomerTaxExempt *bool `json:"customerTaxExempt,omitempty"`
+	CustomerTaxExemptionRef *string `json:"customerTaxExemptionRef,omitempty"`
+	FallbackOnProviderUnavailable *bool `json:"fallbackOnProviderUnavailable,omitempty"`
+	TaxIdValidation *string `json:"taxIdValidation,omitempty"`
+	TaxIdUnverifiableTreatment *string `json:"taxIdUnverifiableTreatment,omitempty"`
+	ShipFromAddress *TaxAddress `json:"shipFromAddress,omitempty"`
+	TaxBehavior *string `json:"taxBehavior,omitempty"`
+	ClassificationKey *string `json:"classificationKey,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _InvoiceCreateRequest InvoiceCreateRequest
@@ -33,9 +51,11 @@ type _InvoiceCreateRequest InvoiceCreateRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInvoiceCreateRequest(customerExternalId string) *InvoiceCreateRequest {
+func NewInvoiceCreateRequest(customerId string, billingAccountId string, lineItems []InvoiceCreateRequestLineItemsInner) *InvoiceCreateRequest {
 	this := InvoiceCreateRequest{}
-	this.CustomerExternalId = customerExternalId
+	this.CustomerId = customerId
+	this.BillingAccountId = billingAccountId
+	this.LineItems = lineItems
 	return &this
 }
 
@@ -47,92 +67,588 @@ func NewInvoiceCreateRequestWithDefaults() *InvoiceCreateRequest {
 	return &this
 }
 
-// GetCustomerExternalId returns the CustomerExternalId field value
-func (o *InvoiceCreateRequest) GetCustomerExternalId() string {
+// GetCustomerId returns the CustomerId field value
+func (o *InvoiceCreateRequest) GetCustomerId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.CustomerExternalId
+	return o.CustomerId
 }
 
-// GetCustomerExternalIdOk returns a tuple with the CustomerExternalId field value
+// GetCustomerIdOk returns a tuple with the CustomerId field value
 // and a boolean to check if the value has been set.
-func (o *InvoiceCreateRequest) GetCustomerExternalIdOk() (*string, bool) {
+func (o *InvoiceCreateRequest) GetCustomerIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CustomerExternalId, true
+	return &o.CustomerId, true
 }
 
-// SetCustomerExternalId sets field value
-func (o *InvoiceCreateRequest) SetCustomerExternalId(v string) {
-	o.CustomerExternalId = v
+// SetCustomerId sets field value
+func (o *InvoiceCreateRequest) SetCustomerId(v string) {
+	o.CustomerId = v
 }
 
-// GetSubscriptionExternalId returns the SubscriptionExternalId field value if set, zero value otherwise.
-func (o *InvoiceCreateRequest) GetSubscriptionExternalId() string {
-	if o == nil || IsNil(o.SubscriptionExternalId) {
-		var ret string
-		return ret
-	}
-	return *o.SubscriptionExternalId
-}
-
-// GetSubscriptionExternalIdOk returns a tuple with the SubscriptionExternalId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *InvoiceCreateRequest) GetSubscriptionExternalIdOk() (*string, bool) {
-	if o == nil || IsNil(o.SubscriptionExternalId) {
-		return nil, false
-	}
-	return o.SubscriptionExternalId, true
-}
-
-// HasSubscriptionExternalId returns a boolean if a field has been set.
-func (o *InvoiceCreateRequest) HasSubscriptionExternalId() bool {
-	if o != nil && !IsNil(o.SubscriptionExternalId) {
-		return true
-	}
-
-	return false
-}
-
-// SetSubscriptionExternalId gets a reference to the given string and assigns it to the SubscriptionExternalId field.
-func (o *InvoiceCreateRequest) SetSubscriptionExternalId(v string) {
-	o.SubscriptionExternalId = &v
-}
-
-// GetBillingAccountId returns the BillingAccountId field value if set, zero value otherwise.
+// GetBillingAccountId returns the BillingAccountId field value
 func (o *InvoiceCreateRequest) GetBillingAccountId() string {
-	if o == nil || IsNil(o.BillingAccountId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.BillingAccountId
+
+	return o.BillingAccountId
 }
 
-// GetBillingAccountIdOk returns a tuple with the BillingAccountId field value if set, nil otherwise
+// GetBillingAccountIdOk returns a tuple with the BillingAccountId field value
 // and a boolean to check if the value has been set.
 func (o *InvoiceCreateRequest) GetBillingAccountIdOk() (*string, bool) {
-	if o == nil || IsNil(o.BillingAccountId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.BillingAccountId, true
+	return &o.BillingAccountId, true
 }
 
-// HasBillingAccountId returns a boolean if a field has been set.
-func (o *InvoiceCreateRequest) HasBillingAccountId() bool {
-	if o != nil && !IsNil(o.BillingAccountId) {
+// SetBillingAccountId sets field value
+func (o *InvoiceCreateRequest) SetBillingAccountId(v string) {
+	o.BillingAccountId = v
+}
+
+// GetLineItems returns the LineItems field value
+func (o *InvoiceCreateRequest) GetLineItems() []InvoiceCreateRequestLineItemsInner {
+	if o == nil {
+		var ret []InvoiceCreateRequestLineItemsInner
+		return ret
+	}
+
+	return o.LineItems
+}
+
+// GetLineItemsOk returns a tuple with the LineItems field value
+// and a boolean to check if the value has been set.
+func (o *InvoiceCreateRequest) GetLineItemsOk() ([]InvoiceCreateRequestLineItemsInner, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.LineItems, true
+}
+
+// SetLineItems sets field value
+func (o *InvoiceCreateRequest) SetLineItems(v []InvoiceCreateRequestLineItemsInner) {
+	o.LineItems = v
+}
+
+// GetInvoiceId returns the InvoiceId field value if set, zero value otherwise.
+func (o *InvoiceCreateRequest) GetInvoiceId() string {
+	if o == nil || IsNil(o.InvoiceId) {
+		var ret string
+		return ret
+	}
+	return *o.InvoiceId
+}
+
+// GetInvoiceIdOk returns a tuple with the InvoiceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InvoiceCreateRequest) GetInvoiceIdOk() (*string, bool) {
+	if o == nil || IsNil(o.InvoiceId) {
+		return nil, false
+	}
+	return o.InvoiceId, true
+}
+
+// HasInvoiceId returns a boolean if a field has been set.
+func (o *InvoiceCreateRequest) HasInvoiceId() bool {
+	if o != nil && !IsNil(o.InvoiceId) {
 		return true
 	}
 
 	return false
 }
 
-// SetBillingAccountId gets a reference to the given string and assigns it to the BillingAccountId field.
-func (o *InvoiceCreateRequest) SetBillingAccountId(v string) {
-	o.BillingAccountId = &v
+// SetInvoiceId gets a reference to the given string and assigns it to the InvoiceId field.
+func (o *InvoiceCreateRequest) SetInvoiceId(v string) {
+	o.InvoiceId = &v
+}
+
+// GetAsOf returns the AsOf field value if set, zero value otherwise.
+func (o *InvoiceCreateRequest) GetAsOf() time.Time {
+	if o == nil || IsNil(o.AsOf) {
+		var ret time.Time
+		return ret
+	}
+	return *o.AsOf
+}
+
+// GetAsOfOk returns a tuple with the AsOf field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InvoiceCreateRequest) GetAsOfOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.AsOf) {
+		return nil, false
+	}
+	return o.AsOf, true
+}
+
+// HasAsOf returns a boolean if a field has been set.
+func (o *InvoiceCreateRequest) HasAsOf() bool {
+	if o != nil && !IsNil(o.AsOf) {
+		return true
+	}
+
+	return false
+}
+
+// SetAsOf gets a reference to the given time.Time and assigns it to the AsOf field.
+func (o *InvoiceCreateRequest) SetAsOf(v time.Time) {
+	o.AsOf = &v
+}
+
+// GetCouponId returns the CouponId field value if set, zero value otherwise.
+func (o *InvoiceCreateRequest) GetCouponId() string {
+	if o == nil || IsNil(o.CouponId) {
+		var ret string
+		return ret
+	}
+	return *o.CouponId
+}
+
+// GetCouponIdOk returns a tuple with the CouponId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InvoiceCreateRequest) GetCouponIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CouponId) {
+		return nil, false
+	}
+	return o.CouponId, true
+}
+
+// HasCouponId returns a boolean if a field has been set.
+func (o *InvoiceCreateRequest) HasCouponId() bool {
+	if o != nil && !IsNil(o.CouponId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCouponId gets a reference to the given string and assigns it to the CouponId field.
+func (o *InvoiceCreateRequest) SetCouponId(v string) {
+	o.CouponId = &v
+}
+
+// GetTenantId returns the TenantId field value if set, zero value otherwise.
+func (o *InvoiceCreateRequest) GetTenantId() string {
+	if o == nil || IsNil(o.TenantId) {
+		var ret string
+		return ret
+	}
+	return *o.TenantId
+}
+
+// GetTenantIdOk returns a tuple with the TenantId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InvoiceCreateRequest) GetTenantIdOk() (*string, bool) {
+	if o == nil || IsNil(o.TenantId) {
+		return nil, false
+	}
+	return o.TenantId, true
+}
+
+// HasTenantId returns a boolean if a field has been set.
+func (o *InvoiceCreateRequest) HasTenantId() bool {
+	if o != nil && !IsNil(o.TenantId) {
+		return true
+	}
+
+	return false
+}
+
+// SetTenantId gets a reference to the given string and assigns it to the TenantId field.
+func (o *InvoiceCreateRequest) SetTenantId(v string) {
+	o.TenantId = &v
+}
+
+// GetTaxIdempotencyKey returns the TaxIdempotencyKey field value if set, zero value otherwise.
+func (o *InvoiceCreateRequest) GetTaxIdempotencyKey() string {
+	if o == nil || IsNil(o.TaxIdempotencyKey) {
+		var ret string
+		return ret
+	}
+	return *o.TaxIdempotencyKey
+}
+
+// GetTaxIdempotencyKeyOk returns a tuple with the TaxIdempotencyKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InvoiceCreateRequest) GetTaxIdempotencyKeyOk() (*string, bool) {
+	if o == nil || IsNil(o.TaxIdempotencyKey) {
+		return nil, false
+	}
+	return o.TaxIdempotencyKey, true
+}
+
+// HasTaxIdempotencyKey returns a boolean if a field has been set.
+func (o *InvoiceCreateRequest) HasTaxIdempotencyKey() bool {
+	if o != nil && !IsNil(o.TaxIdempotencyKey) {
+		return true
+	}
+
+	return false
+}
+
+// SetTaxIdempotencyKey gets a reference to the given string and assigns it to the TaxIdempotencyKey field.
+func (o *InvoiceCreateRequest) SetTaxIdempotencyKey(v string) {
+	o.TaxIdempotencyKey = &v
+}
+
+// GetCustomerTaxAddress returns the CustomerTaxAddress field value if set, zero value otherwise.
+func (o *InvoiceCreateRequest) GetCustomerTaxAddress() TaxAddress {
+	if o == nil || IsNil(o.CustomerTaxAddress) {
+		var ret TaxAddress
+		return ret
+	}
+	return *o.CustomerTaxAddress
+}
+
+// GetCustomerTaxAddressOk returns a tuple with the CustomerTaxAddress field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InvoiceCreateRequest) GetCustomerTaxAddressOk() (*TaxAddress, bool) {
+	if o == nil || IsNil(o.CustomerTaxAddress) {
+		return nil, false
+	}
+	return o.CustomerTaxAddress, true
+}
+
+// HasCustomerTaxAddress returns a boolean if a field has been set.
+func (o *InvoiceCreateRequest) HasCustomerTaxAddress() bool {
+	if o != nil && !IsNil(o.CustomerTaxAddress) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomerTaxAddress gets a reference to the given TaxAddress and assigns it to the CustomerTaxAddress field.
+func (o *InvoiceCreateRequest) SetCustomerTaxAddress(v TaxAddress) {
+	o.CustomerTaxAddress = &v
+}
+
+// GetCustomerTaxIds returns the CustomerTaxIds field value if set, zero value otherwise.
+func (o *InvoiceCreateRequest) GetCustomerTaxIds() []InvoiceCreateRequestCustomerTaxIdsInner {
+	if o == nil || IsNil(o.CustomerTaxIds) {
+		var ret []InvoiceCreateRequestCustomerTaxIdsInner
+		return ret
+	}
+	return o.CustomerTaxIds
+}
+
+// GetCustomerTaxIdsOk returns a tuple with the CustomerTaxIds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InvoiceCreateRequest) GetCustomerTaxIdsOk() ([]InvoiceCreateRequestCustomerTaxIdsInner, bool) {
+	if o == nil || IsNil(o.CustomerTaxIds) {
+		return nil, false
+	}
+	return o.CustomerTaxIds, true
+}
+
+// HasCustomerTaxIds returns a boolean if a field has been set.
+func (o *InvoiceCreateRequest) HasCustomerTaxIds() bool {
+	if o != nil && !IsNil(o.CustomerTaxIds) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomerTaxIds gets a reference to the given []InvoiceCreateRequestCustomerTaxIdsInner and assigns it to the CustomerTaxIds field.
+func (o *InvoiceCreateRequest) SetCustomerTaxIds(v []InvoiceCreateRequestCustomerTaxIdsInner) {
+	o.CustomerTaxIds = v
+}
+
+// GetCustomerType returns the CustomerType field value if set, zero value otherwise.
+func (o *InvoiceCreateRequest) GetCustomerType() string {
+	if o == nil || IsNil(o.CustomerType) {
+		var ret string
+		return ret
+	}
+	return *o.CustomerType
+}
+
+// GetCustomerTypeOk returns a tuple with the CustomerType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InvoiceCreateRequest) GetCustomerTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.CustomerType) {
+		return nil, false
+	}
+	return o.CustomerType, true
+}
+
+// HasCustomerType returns a boolean if a field has been set.
+func (o *InvoiceCreateRequest) HasCustomerType() bool {
+	if o != nil && !IsNil(o.CustomerType) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomerType gets a reference to the given string and assigns it to the CustomerType field.
+func (o *InvoiceCreateRequest) SetCustomerType(v string) {
+	o.CustomerType = &v
+}
+
+// GetCustomerTaxExempt returns the CustomerTaxExempt field value if set, zero value otherwise.
+func (o *InvoiceCreateRequest) GetCustomerTaxExempt() bool {
+	if o == nil || IsNil(o.CustomerTaxExempt) {
+		var ret bool
+		return ret
+	}
+	return *o.CustomerTaxExempt
+}
+
+// GetCustomerTaxExemptOk returns a tuple with the CustomerTaxExempt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InvoiceCreateRequest) GetCustomerTaxExemptOk() (*bool, bool) {
+	if o == nil || IsNil(o.CustomerTaxExempt) {
+		return nil, false
+	}
+	return o.CustomerTaxExempt, true
+}
+
+// HasCustomerTaxExempt returns a boolean if a field has been set.
+func (o *InvoiceCreateRequest) HasCustomerTaxExempt() bool {
+	if o != nil && !IsNil(o.CustomerTaxExempt) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomerTaxExempt gets a reference to the given bool and assigns it to the CustomerTaxExempt field.
+func (o *InvoiceCreateRequest) SetCustomerTaxExempt(v bool) {
+	o.CustomerTaxExempt = &v
+}
+
+// GetCustomerTaxExemptionRef returns the CustomerTaxExemptionRef field value if set, zero value otherwise.
+func (o *InvoiceCreateRequest) GetCustomerTaxExemptionRef() string {
+	if o == nil || IsNil(o.CustomerTaxExemptionRef) {
+		var ret string
+		return ret
+	}
+	return *o.CustomerTaxExemptionRef
+}
+
+// GetCustomerTaxExemptionRefOk returns a tuple with the CustomerTaxExemptionRef field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InvoiceCreateRequest) GetCustomerTaxExemptionRefOk() (*string, bool) {
+	if o == nil || IsNil(o.CustomerTaxExemptionRef) {
+		return nil, false
+	}
+	return o.CustomerTaxExemptionRef, true
+}
+
+// HasCustomerTaxExemptionRef returns a boolean if a field has been set.
+func (o *InvoiceCreateRequest) HasCustomerTaxExemptionRef() bool {
+	if o != nil && !IsNil(o.CustomerTaxExemptionRef) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomerTaxExemptionRef gets a reference to the given string and assigns it to the CustomerTaxExemptionRef field.
+func (o *InvoiceCreateRequest) SetCustomerTaxExemptionRef(v string) {
+	o.CustomerTaxExemptionRef = &v
+}
+
+// GetFallbackOnProviderUnavailable returns the FallbackOnProviderUnavailable field value if set, zero value otherwise.
+func (o *InvoiceCreateRequest) GetFallbackOnProviderUnavailable() bool {
+	if o == nil || IsNil(o.FallbackOnProviderUnavailable) {
+		var ret bool
+		return ret
+	}
+	return *o.FallbackOnProviderUnavailable
+}
+
+// GetFallbackOnProviderUnavailableOk returns a tuple with the FallbackOnProviderUnavailable field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InvoiceCreateRequest) GetFallbackOnProviderUnavailableOk() (*bool, bool) {
+	if o == nil || IsNil(o.FallbackOnProviderUnavailable) {
+		return nil, false
+	}
+	return o.FallbackOnProviderUnavailable, true
+}
+
+// HasFallbackOnProviderUnavailable returns a boolean if a field has been set.
+func (o *InvoiceCreateRequest) HasFallbackOnProviderUnavailable() bool {
+	if o != nil && !IsNil(o.FallbackOnProviderUnavailable) {
+		return true
+	}
+
+	return false
+}
+
+// SetFallbackOnProviderUnavailable gets a reference to the given bool and assigns it to the FallbackOnProviderUnavailable field.
+func (o *InvoiceCreateRequest) SetFallbackOnProviderUnavailable(v bool) {
+	o.FallbackOnProviderUnavailable = &v
+}
+
+// GetTaxIdValidation returns the TaxIdValidation field value if set, zero value otherwise.
+func (o *InvoiceCreateRequest) GetTaxIdValidation() string {
+	if o == nil || IsNil(o.TaxIdValidation) {
+		var ret string
+		return ret
+	}
+	return *o.TaxIdValidation
+}
+
+// GetTaxIdValidationOk returns a tuple with the TaxIdValidation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InvoiceCreateRequest) GetTaxIdValidationOk() (*string, bool) {
+	if o == nil || IsNil(o.TaxIdValidation) {
+		return nil, false
+	}
+	return o.TaxIdValidation, true
+}
+
+// HasTaxIdValidation returns a boolean if a field has been set.
+func (o *InvoiceCreateRequest) HasTaxIdValidation() bool {
+	if o != nil && !IsNil(o.TaxIdValidation) {
+		return true
+	}
+
+	return false
+}
+
+// SetTaxIdValidation gets a reference to the given string and assigns it to the TaxIdValidation field.
+func (o *InvoiceCreateRequest) SetTaxIdValidation(v string) {
+	o.TaxIdValidation = &v
+}
+
+// GetTaxIdUnverifiableTreatment returns the TaxIdUnverifiableTreatment field value if set, zero value otherwise.
+func (o *InvoiceCreateRequest) GetTaxIdUnverifiableTreatment() string {
+	if o == nil || IsNil(o.TaxIdUnverifiableTreatment) {
+		var ret string
+		return ret
+	}
+	return *o.TaxIdUnverifiableTreatment
+}
+
+// GetTaxIdUnverifiableTreatmentOk returns a tuple with the TaxIdUnverifiableTreatment field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InvoiceCreateRequest) GetTaxIdUnverifiableTreatmentOk() (*string, bool) {
+	if o == nil || IsNil(o.TaxIdUnverifiableTreatment) {
+		return nil, false
+	}
+	return o.TaxIdUnverifiableTreatment, true
+}
+
+// HasTaxIdUnverifiableTreatment returns a boolean if a field has been set.
+func (o *InvoiceCreateRequest) HasTaxIdUnverifiableTreatment() bool {
+	if o != nil && !IsNil(o.TaxIdUnverifiableTreatment) {
+		return true
+	}
+
+	return false
+}
+
+// SetTaxIdUnverifiableTreatment gets a reference to the given string and assigns it to the TaxIdUnverifiableTreatment field.
+func (o *InvoiceCreateRequest) SetTaxIdUnverifiableTreatment(v string) {
+	o.TaxIdUnverifiableTreatment = &v
+}
+
+// GetShipFromAddress returns the ShipFromAddress field value if set, zero value otherwise.
+func (o *InvoiceCreateRequest) GetShipFromAddress() TaxAddress {
+	if o == nil || IsNil(o.ShipFromAddress) {
+		var ret TaxAddress
+		return ret
+	}
+	return *o.ShipFromAddress
+}
+
+// GetShipFromAddressOk returns a tuple with the ShipFromAddress field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InvoiceCreateRequest) GetShipFromAddressOk() (*TaxAddress, bool) {
+	if o == nil || IsNil(o.ShipFromAddress) {
+		return nil, false
+	}
+	return o.ShipFromAddress, true
+}
+
+// HasShipFromAddress returns a boolean if a field has been set.
+func (o *InvoiceCreateRequest) HasShipFromAddress() bool {
+	if o != nil && !IsNil(o.ShipFromAddress) {
+		return true
+	}
+
+	return false
+}
+
+// SetShipFromAddress gets a reference to the given TaxAddress and assigns it to the ShipFromAddress field.
+func (o *InvoiceCreateRequest) SetShipFromAddress(v TaxAddress) {
+	o.ShipFromAddress = &v
+}
+
+// GetTaxBehavior returns the TaxBehavior field value if set, zero value otherwise.
+func (o *InvoiceCreateRequest) GetTaxBehavior() string {
+	if o == nil || IsNil(o.TaxBehavior) {
+		var ret string
+		return ret
+	}
+	return *o.TaxBehavior
+}
+
+// GetTaxBehaviorOk returns a tuple with the TaxBehavior field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InvoiceCreateRequest) GetTaxBehaviorOk() (*string, bool) {
+	if o == nil || IsNil(o.TaxBehavior) {
+		return nil, false
+	}
+	return o.TaxBehavior, true
+}
+
+// HasTaxBehavior returns a boolean if a field has been set.
+func (o *InvoiceCreateRequest) HasTaxBehavior() bool {
+	if o != nil && !IsNil(o.TaxBehavior) {
+		return true
+	}
+
+	return false
+}
+
+// SetTaxBehavior gets a reference to the given string and assigns it to the TaxBehavior field.
+func (o *InvoiceCreateRequest) SetTaxBehavior(v string) {
+	o.TaxBehavior = &v
+}
+
+// GetClassificationKey returns the ClassificationKey field value if set, zero value otherwise.
+func (o *InvoiceCreateRequest) GetClassificationKey() string {
+	if o == nil || IsNil(o.ClassificationKey) {
+		var ret string
+		return ret
+	}
+	return *o.ClassificationKey
+}
+
+// GetClassificationKeyOk returns a tuple with the ClassificationKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InvoiceCreateRequest) GetClassificationKeyOk() (*string, bool) {
+	if o == nil || IsNil(o.ClassificationKey) {
+		return nil, false
+	}
+	return o.ClassificationKey, true
+}
+
+// HasClassificationKey returns a boolean if a field has been set.
+func (o *InvoiceCreateRequest) HasClassificationKey() bool {
+	if o != nil && !IsNil(o.ClassificationKey) {
+		return true
+	}
+
+	return false
+}
+
+// SetClassificationKey gets a reference to the given string and assigns it to the ClassificationKey field.
+func (o *InvoiceCreateRequest) SetClassificationKey(v string) {
+	o.ClassificationKey = &v
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
@@ -177,16 +693,65 @@ func (o InvoiceCreateRequest) MarshalJSON() ([]byte, error) {
 
 func (o InvoiceCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["customerExternalId"] = o.CustomerExternalId
-	if !IsNil(o.SubscriptionExternalId) {
-		toSerialize["subscriptionExternalId"] = o.SubscriptionExternalId
+	toSerialize["customerId"] = o.CustomerId
+	toSerialize["billingAccountId"] = o.BillingAccountId
+	toSerialize["lineItems"] = o.LineItems
+	if !IsNil(o.InvoiceId) {
+		toSerialize["invoiceId"] = o.InvoiceId
 	}
-	if !IsNil(o.BillingAccountId) {
-		toSerialize["billingAccountId"] = o.BillingAccountId
+	if !IsNil(o.AsOf) {
+		toSerialize["asOf"] = o.AsOf
+	}
+	if !IsNil(o.CouponId) {
+		toSerialize["couponId"] = o.CouponId
+	}
+	if !IsNil(o.TenantId) {
+		toSerialize["tenantId"] = o.TenantId
+	}
+	if !IsNil(o.TaxIdempotencyKey) {
+		toSerialize["taxIdempotencyKey"] = o.TaxIdempotencyKey
+	}
+	if !IsNil(o.CustomerTaxAddress) {
+		toSerialize["customerTaxAddress"] = o.CustomerTaxAddress
+	}
+	if !IsNil(o.CustomerTaxIds) {
+		toSerialize["customerTaxIds"] = o.CustomerTaxIds
+	}
+	if !IsNil(o.CustomerType) {
+		toSerialize["customerType"] = o.CustomerType
+	}
+	if !IsNil(o.CustomerTaxExempt) {
+		toSerialize["customerTaxExempt"] = o.CustomerTaxExempt
+	}
+	if !IsNil(o.CustomerTaxExemptionRef) {
+		toSerialize["customerTaxExemptionRef"] = o.CustomerTaxExemptionRef
+	}
+	if !IsNil(o.FallbackOnProviderUnavailable) {
+		toSerialize["fallbackOnProviderUnavailable"] = o.FallbackOnProviderUnavailable
+	}
+	if !IsNil(o.TaxIdValidation) {
+		toSerialize["taxIdValidation"] = o.TaxIdValidation
+	}
+	if !IsNil(o.TaxIdUnverifiableTreatment) {
+		toSerialize["taxIdUnverifiableTreatment"] = o.TaxIdUnverifiableTreatment
+	}
+	if !IsNil(o.ShipFromAddress) {
+		toSerialize["shipFromAddress"] = o.ShipFromAddress
+	}
+	if !IsNil(o.TaxBehavior) {
+		toSerialize["taxBehavior"] = o.TaxBehavior
+	}
+	if !IsNil(o.ClassificationKey) {
+		toSerialize["classificationKey"] = o.ClassificationKey
 	}
 	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -195,7 +760,9 @@ func (o *InvoiceCreateRequest) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"customerExternalId",
+		"customerId",
+		"billingAccountId",
+		"lineItems",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -214,15 +781,39 @@ func (o *InvoiceCreateRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varInvoiceCreateRequest := _InvoiceCreateRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varInvoiceCreateRequest)
+	err = json.Unmarshal(data, &varInvoiceCreateRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = InvoiceCreateRequest(varInvoiceCreateRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "customerId")
+		delete(additionalProperties, "billingAccountId")
+		delete(additionalProperties, "lineItems")
+		delete(additionalProperties, "invoiceId")
+		delete(additionalProperties, "asOf")
+		delete(additionalProperties, "couponId")
+		delete(additionalProperties, "tenantId")
+		delete(additionalProperties, "taxIdempotencyKey")
+		delete(additionalProperties, "customerTaxAddress")
+		delete(additionalProperties, "customerTaxIds")
+		delete(additionalProperties, "customerType")
+		delete(additionalProperties, "customerTaxExempt")
+		delete(additionalProperties, "customerTaxExemptionRef")
+		delete(additionalProperties, "fallbackOnProviderUnavailable")
+		delete(additionalProperties, "taxIdValidation")
+		delete(additionalProperties, "taxIdUnverifiableTreatment")
+		delete(additionalProperties, "shipFromAddress")
+		delete(additionalProperties, "taxBehavior")
+		delete(additionalProperties, "classificationKey")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

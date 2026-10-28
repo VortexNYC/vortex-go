@@ -23,9 +23,9 @@ var _ MappedNullable = &ApplyCouponRequest{}
 // ApplyCouponRequest struct for ApplyCouponRequest
 type ApplyCouponRequest struct {
 	AppliedCouponId *string `json:"appliedCouponId,omitempty"`
-	CustomerExternalId string `json:"customerExternalId"`
+	CustomerId string `json:"customerId"`
 	BillingAccountId *string `json:"billingAccountId,omitempty"`
-	SubscriptionExternalId *string `json:"subscriptionExternalId,omitempty"`
+	SubscriptionId *string `json:"subscriptionId,omitempty"`
 	AppliedAt *time.Time `json:"appliedAt,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
 }
@@ -36,9 +36,9 @@ type _ApplyCouponRequest ApplyCouponRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApplyCouponRequest(customerExternalId string) *ApplyCouponRequest {
+func NewApplyCouponRequest(customerId string) *ApplyCouponRequest {
 	this := ApplyCouponRequest{}
-	this.CustomerExternalId = customerExternalId
+	this.CustomerId = customerId
 	return &this
 }
 
@@ -82,28 +82,28 @@ func (o *ApplyCouponRequest) SetAppliedCouponId(v string) {
 	o.AppliedCouponId = &v
 }
 
-// GetCustomerExternalId returns the CustomerExternalId field value
-func (o *ApplyCouponRequest) GetCustomerExternalId() string {
+// GetCustomerId returns the CustomerId field value
+func (o *ApplyCouponRequest) GetCustomerId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.CustomerExternalId
+	return o.CustomerId
 }
 
-// GetCustomerExternalIdOk returns a tuple with the CustomerExternalId field value
+// GetCustomerIdOk returns a tuple with the CustomerId field value
 // and a boolean to check if the value has been set.
-func (o *ApplyCouponRequest) GetCustomerExternalIdOk() (*string, bool) {
+func (o *ApplyCouponRequest) GetCustomerIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CustomerExternalId, true
+	return &o.CustomerId, true
 }
 
-// SetCustomerExternalId sets field value
-func (o *ApplyCouponRequest) SetCustomerExternalId(v string) {
-	o.CustomerExternalId = v
+// SetCustomerId sets field value
+func (o *ApplyCouponRequest) SetCustomerId(v string) {
+	o.CustomerId = v
 }
 
 // GetBillingAccountId returns the BillingAccountId field value if set, zero value otherwise.
@@ -138,36 +138,36 @@ func (o *ApplyCouponRequest) SetBillingAccountId(v string) {
 	o.BillingAccountId = &v
 }
 
-// GetSubscriptionExternalId returns the SubscriptionExternalId field value if set, zero value otherwise.
-func (o *ApplyCouponRequest) GetSubscriptionExternalId() string {
-	if o == nil || IsNil(o.SubscriptionExternalId) {
+// GetSubscriptionId returns the SubscriptionId field value if set, zero value otherwise.
+func (o *ApplyCouponRequest) GetSubscriptionId() string {
+	if o == nil || IsNil(o.SubscriptionId) {
 		var ret string
 		return ret
 	}
-	return *o.SubscriptionExternalId
+	return *o.SubscriptionId
 }
 
-// GetSubscriptionExternalIdOk returns a tuple with the SubscriptionExternalId field value if set, nil otherwise
+// GetSubscriptionIdOk returns a tuple with the SubscriptionId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApplyCouponRequest) GetSubscriptionExternalIdOk() (*string, bool) {
-	if o == nil || IsNil(o.SubscriptionExternalId) {
+func (o *ApplyCouponRequest) GetSubscriptionIdOk() (*string, bool) {
+	if o == nil || IsNil(o.SubscriptionId) {
 		return nil, false
 	}
-	return o.SubscriptionExternalId, true
+	return o.SubscriptionId, true
 }
 
-// HasSubscriptionExternalId returns a boolean if a field has been set.
-func (o *ApplyCouponRequest) HasSubscriptionExternalId() bool {
-	if o != nil && !IsNil(o.SubscriptionExternalId) {
+// HasSubscriptionId returns a boolean if a field has been set.
+func (o *ApplyCouponRequest) HasSubscriptionId() bool {
+	if o != nil && !IsNil(o.SubscriptionId) {
 		return true
 	}
 
 	return false
 }
 
-// SetSubscriptionExternalId gets a reference to the given string and assigns it to the SubscriptionExternalId field.
-func (o *ApplyCouponRequest) SetSubscriptionExternalId(v string) {
-	o.SubscriptionExternalId = &v
+// SetSubscriptionId gets a reference to the given string and assigns it to the SubscriptionId field.
+func (o *ApplyCouponRequest) SetSubscriptionId(v string) {
+	o.SubscriptionId = &v
 }
 
 // GetAppliedAt returns the AppliedAt field value if set, zero value otherwise.
@@ -247,12 +247,12 @@ func (o ApplyCouponRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AppliedCouponId) {
 		toSerialize["appliedCouponId"] = o.AppliedCouponId
 	}
-	toSerialize["customerExternalId"] = o.CustomerExternalId
+	toSerialize["customerId"] = o.CustomerId
 	if !IsNil(o.BillingAccountId) {
 		toSerialize["billingAccountId"] = o.BillingAccountId
 	}
-	if !IsNil(o.SubscriptionExternalId) {
-		toSerialize["subscriptionExternalId"] = o.SubscriptionExternalId
+	if !IsNil(o.SubscriptionId) {
+		toSerialize["subscriptionId"] = o.SubscriptionId
 	}
 	if !IsNil(o.AppliedAt) {
 		toSerialize["appliedAt"] = o.AppliedAt
@@ -268,7 +268,7 @@ func (o *ApplyCouponRequest) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"customerExternalId",
+		"customerId",
 	}
 
 	allProperties := make(map[string]interface{})

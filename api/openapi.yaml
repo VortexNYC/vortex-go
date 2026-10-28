@@ -20466,6 +20466,9 @@ components:
         - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_32"
         - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_33"
         - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_34"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_35"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_36"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_37"
     HostedPortalSubscriptionItem:
       additionalProperties: false
       properties:
@@ -22379,6 +22382,87 @@ components:
       required:
         - action
         - endpointId
+    MerchantPortalActionRequest_oneOf_35:
+      properties:
+        action:
+          enum:
+            - finalize-tax-transaction
+          type: string
+        taxTransactionId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - taxTransactionId
+    MerchantPortalActionRequest_oneOf_36:
+      properties:
+        action:
+          enum:
+            - reverse-tax-transaction
+          type: string
+        taxTransactionId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - taxTransactionId
+    MerchantPortalActionRequest_oneOf_37_originAddress:
+      properties:
+        line1:
+          minLength: 1
+          type: string
+        line2:
+          minLength: 1
+          type: string
+        city:
+          minLength: 1
+          type: string
+        region:
+          minLength: 1
+          type: string
+        postalCode:
+          minLength: 1
+          type: string
+        country:
+          minLength: 1
+          type: string
+      required:
+        - city
+        - country
+        - line1
+        - postalCode
+        - region
+    MerchantPortalActionRequest_oneOf_37_registrations_inner:
+      properties:
+        country:
+          minLength: 1
+          type: string
+        region:
+          minLength: 1
+          type: string
+      required:
+        - country
+    MerchantPortalActionRequest_oneOf_37:
+      properties:
+        action:
+          enum:
+            - update-tax-profile
+          type: string
+        displayName:
+          minLength: 1
+          type: string
+        originAddress:
+          $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_37_originAddress"
+        registrations:
+          items:
+            $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_37_registrations_inner"
+          minItems: 1
+          type: array
+          default: null
+      required:
+        - action
+        - originAddress
+        - registrations
     MerchantPortalActionResponse_data_oneOf:
       example:
         hostedInvoiceUrl: https://openapi-generator.tech

@@ -463,6 +463,8 @@ func (r WebhooksAPICreateWebhookEndpointRequest) Execute() (*ApiWriteEnvelope, *
 /*
 CreateWebhookEndpoint Create an outbound webhook endpoint
 
+The response carries the endpoint's `whsec_` signing secret once — persist it. Every delivery POSTs the JSON event envelope with `Vortex-Signature: t=<ms>,v1=<hex>` (v1 is the hex HMAC-SHA256 of `{t}.{raw body}` under the whsec_ secret; reject timestamps beyond ~5 minutes of drift) plus `Vortex-Event-Id` — the event's stable id, identical across retries and replays, so dedupe on it — and `Vortex-Delivery-Id`, unique per delivery attempt.
+
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return WebhooksAPICreateWebhookEndpointRequest
 */

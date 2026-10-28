@@ -22,12 +22,16 @@ var _ MappedNullable = &SubscriptionCreateRequest{}
 
 // SubscriptionCreateRequest struct for SubscriptionCreateRequest
 type SubscriptionCreateRequest struct {
-	CustomerExternalId string `json:"customerExternalId"`
-	SubscriptionExternalId string `json:"subscriptionExternalId"`
-	PlanCode string `json:"planCode"`
-	CollectionMode *string `json:"collectionMode,omitempty"`
-	Items []map[string]interface{} `json:"items,omitempty"`
-	TrialEndsAt *time.Time `json:"trialEndsAt,omitempty"`
+	CustomerId string `json:"customerId"`
+	BillingAccountId string `json:"billingAccountId"`
+	CollectionMode string `json:"collectionMode"`
+	Items []SubscriptionItemChangeRequestItem `json:"items"`
+	// Caller-chosen subscription id; omit to auto-mint.
+	SubscriptionId *string `json:"subscriptionId,omitempty"`
+	StartAt *time.Time `json:"startAt,omitempty"`
+	TrialEndAt *time.Time `json:"trialEndAt,omitempty"`
+	InitialStatus *string `json:"initialStatus,omitempty"`
+	TestClockId *string `json:"testClockId,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
 }
 
@@ -37,11 +41,12 @@ type _SubscriptionCreateRequest SubscriptionCreateRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSubscriptionCreateRequest(customerExternalId string, subscriptionExternalId string, planCode string) *SubscriptionCreateRequest {
+func NewSubscriptionCreateRequest(customerId string, billingAccountId string, collectionMode string, items []SubscriptionItemChangeRequestItem) *SubscriptionCreateRequest {
 	this := SubscriptionCreateRequest{}
-	this.CustomerExternalId = customerExternalId
-	this.SubscriptionExternalId = subscriptionExternalId
-	this.PlanCode = planCode
+	this.CustomerId = customerId
+	this.BillingAccountId = billingAccountId
+	this.CollectionMode = collectionMode
+	this.Items = items
 	return &this
 }
 
@@ -53,172 +58,260 @@ func NewSubscriptionCreateRequestWithDefaults() *SubscriptionCreateRequest {
 	return &this
 }
 
-// GetCustomerExternalId returns the CustomerExternalId field value
-func (o *SubscriptionCreateRequest) GetCustomerExternalId() string {
+// GetCustomerId returns the CustomerId field value
+func (o *SubscriptionCreateRequest) GetCustomerId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.CustomerExternalId
+	return o.CustomerId
 }
 
-// GetCustomerExternalIdOk returns a tuple with the CustomerExternalId field value
+// GetCustomerIdOk returns a tuple with the CustomerId field value
 // and a boolean to check if the value has been set.
-func (o *SubscriptionCreateRequest) GetCustomerExternalIdOk() (*string, bool) {
+func (o *SubscriptionCreateRequest) GetCustomerIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CustomerExternalId, true
+	return &o.CustomerId, true
 }
 
-// SetCustomerExternalId sets field value
-func (o *SubscriptionCreateRequest) SetCustomerExternalId(v string) {
-	o.CustomerExternalId = v
+// SetCustomerId sets field value
+func (o *SubscriptionCreateRequest) SetCustomerId(v string) {
+	o.CustomerId = v
 }
 
-// GetSubscriptionExternalId returns the SubscriptionExternalId field value
-func (o *SubscriptionCreateRequest) GetSubscriptionExternalId() string {
+// GetBillingAccountId returns the BillingAccountId field value
+func (o *SubscriptionCreateRequest) GetBillingAccountId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.SubscriptionExternalId
+	return o.BillingAccountId
 }
 
-// GetSubscriptionExternalIdOk returns a tuple with the SubscriptionExternalId field value
+// GetBillingAccountIdOk returns a tuple with the BillingAccountId field value
 // and a boolean to check if the value has been set.
-func (o *SubscriptionCreateRequest) GetSubscriptionExternalIdOk() (*string, bool) {
+func (o *SubscriptionCreateRequest) GetBillingAccountIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SubscriptionExternalId, true
+	return &o.BillingAccountId, true
 }
 
-// SetSubscriptionExternalId sets field value
-func (o *SubscriptionCreateRequest) SetSubscriptionExternalId(v string) {
-	o.SubscriptionExternalId = v
+// SetBillingAccountId sets field value
+func (o *SubscriptionCreateRequest) SetBillingAccountId(v string) {
+	o.BillingAccountId = v
 }
 
-// GetPlanCode returns the PlanCode field value
-func (o *SubscriptionCreateRequest) GetPlanCode() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.PlanCode
-}
-
-// GetPlanCodeOk returns a tuple with the PlanCode field value
-// and a boolean to check if the value has been set.
-func (o *SubscriptionCreateRequest) GetPlanCodeOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.PlanCode, true
-}
-
-// SetPlanCode sets field value
-func (o *SubscriptionCreateRequest) SetPlanCode(v string) {
-	o.PlanCode = v
-}
-
-// GetCollectionMode returns the CollectionMode field value if set, zero value otherwise.
+// GetCollectionMode returns the CollectionMode field value
 func (o *SubscriptionCreateRequest) GetCollectionMode() string {
-	if o == nil || IsNil(o.CollectionMode) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.CollectionMode
+
+	return o.CollectionMode
 }
 
-// GetCollectionModeOk returns a tuple with the CollectionMode field value if set, nil otherwise
+// GetCollectionModeOk returns a tuple with the CollectionMode field value
 // and a boolean to check if the value has been set.
 func (o *SubscriptionCreateRequest) GetCollectionModeOk() (*string, bool) {
-	if o == nil || IsNil(o.CollectionMode) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CollectionMode, true
+	return &o.CollectionMode, true
 }
 
-// HasCollectionMode returns a boolean if a field has been set.
-func (o *SubscriptionCreateRequest) HasCollectionMode() bool {
-	if o != nil && !IsNil(o.CollectionMode) {
-		return true
-	}
-
-	return false
-}
-
-// SetCollectionMode gets a reference to the given string and assigns it to the CollectionMode field.
+// SetCollectionMode sets field value
 func (o *SubscriptionCreateRequest) SetCollectionMode(v string) {
-	o.CollectionMode = &v
+	o.CollectionMode = v
 }
 
-// GetItems returns the Items field value if set, zero value otherwise.
-func (o *SubscriptionCreateRequest) GetItems() []map[string]interface{} {
-	if o == nil || IsNil(o.Items) {
-		var ret []map[string]interface{}
+// GetItems returns the Items field value
+func (o *SubscriptionCreateRequest) GetItems() []SubscriptionItemChangeRequestItem {
+	if o == nil {
+		var ret []SubscriptionItemChangeRequestItem
 		return ret
 	}
+
 	return o.Items
 }
 
-// GetItemsOk returns a tuple with the Items field value if set, nil otherwise
+// GetItemsOk returns a tuple with the Items field value
 // and a boolean to check if the value has been set.
-func (o *SubscriptionCreateRequest) GetItemsOk() ([]map[string]interface{}, bool) {
-	if o == nil || IsNil(o.Items) {
+func (o *SubscriptionCreateRequest) GetItemsOk() ([]SubscriptionItemChangeRequestItem, bool) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Items, true
 }
 
-// HasItems returns a boolean if a field has been set.
-func (o *SubscriptionCreateRequest) HasItems() bool {
-	if o != nil && !IsNil(o.Items) {
-		return true
-	}
-
-	return false
-}
-
-// SetItems gets a reference to the given []map[string]interface{} and assigns it to the Items field.
-func (o *SubscriptionCreateRequest) SetItems(v []map[string]interface{}) {
+// SetItems sets field value
+func (o *SubscriptionCreateRequest) SetItems(v []SubscriptionItemChangeRequestItem) {
 	o.Items = v
 }
 
-// GetTrialEndsAt returns the TrialEndsAt field value if set, zero value otherwise.
-func (o *SubscriptionCreateRequest) GetTrialEndsAt() time.Time {
-	if o == nil || IsNil(o.TrialEndsAt) {
-		var ret time.Time
+// GetSubscriptionId returns the SubscriptionId field value if set, zero value otherwise.
+func (o *SubscriptionCreateRequest) GetSubscriptionId() string {
+	if o == nil || IsNil(o.SubscriptionId) {
+		var ret string
 		return ret
 	}
-	return *o.TrialEndsAt
+	return *o.SubscriptionId
 }
 
-// GetTrialEndsAtOk returns a tuple with the TrialEndsAt field value if set, nil otherwise
+// GetSubscriptionIdOk returns a tuple with the SubscriptionId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SubscriptionCreateRequest) GetTrialEndsAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.TrialEndsAt) {
+func (o *SubscriptionCreateRequest) GetSubscriptionIdOk() (*string, bool) {
+	if o == nil || IsNil(o.SubscriptionId) {
 		return nil, false
 	}
-	return o.TrialEndsAt, true
+	return o.SubscriptionId, true
 }
 
-// HasTrialEndsAt returns a boolean if a field has been set.
-func (o *SubscriptionCreateRequest) HasTrialEndsAt() bool {
-	if o != nil && !IsNil(o.TrialEndsAt) {
+// HasSubscriptionId returns a boolean if a field has been set.
+func (o *SubscriptionCreateRequest) HasSubscriptionId() bool {
+	if o != nil && !IsNil(o.SubscriptionId) {
 		return true
 	}
 
 	return false
 }
 
-// SetTrialEndsAt gets a reference to the given time.Time and assigns it to the TrialEndsAt field.
-func (o *SubscriptionCreateRequest) SetTrialEndsAt(v time.Time) {
-	o.TrialEndsAt = &v
+// SetSubscriptionId gets a reference to the given string and assigns it to the SubscriptionId field.
+func (o *SubscriptionCreateRequest) SetSubscriptionId(v string) {
+	o.SubscriptionId = &v
+}
+
+// GetStartAt returns the StartAt field value if set, zero value otherwise.
+func (o *SubscriptionCreateRequest) GetStartAt() time.Time {
+	if o == nil || IsNil(o.StartAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.StartAt
+}
+
+// GetStartAtOk returns a tuple with the StartAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SubscriptionCreateRequest) GetStartAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.StartAt) {
+		return nil, false
+	}
+	return o.StartAt, true
+}
+
+// HasStartAt returns a boolean if a field has been set.
+func (o *SubscriptionCreateRequest) HasStartAt() bool {
+	if o != nil && !IsNil(o.StartAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetStartAt gets a reference to the given time.Time and assigns it to the StartAt field.
+func (o *SubscriptionCreateRequest) SetStartAt(v time.Time) {
+	o.StartAt = &v
+}
+
+// GetTrialEndAt returns the TrialEndAt field value if set, zero value otherwise.
+func (o *SubscriptionCreateRequest) GetTrialEndAt() time.Time {
+	if o == nil || IsNil(o.TrialEndAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.TrialEndAt
+}
+
+// GetTrialEndAtOk returns a tuple with the TrialEndAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SubscriptionCreateRequest) GetTrialEndAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.TrialEndAt) {
+		return nil, false
+	}
+	return o.TrialEndAt, true
+}
+
+// HasTrialEndAt returns a boolean if a field has been set.
+func (o *SubscriptionCreateRequest) HasTrialEndAt() bool {
+	if o != nil && !IsNil(o.TrialEndAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetTrialEndAt gets a reference to the given time.Time and assigns it to the TrialEndAt field.
+func (o *SubscriptionCreateRequest) SetTrialEndAt(v time.Time) {
+	o.TrialEndAt = &v
+}
+
+// GetInitialStatus returns the InitialStatus field value if set, zero value otherwise.
+func (o *SubscriptionCreateRequest) GetInitialStatus() string {
+	if o == nil || IsNil(o.InitialStatus) {
+		var ret string
+		return ret
+	}
+	return *o.InitialStatus
+}
+
+// GetInitialStatusOk returns a tuple with the InitialStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SubscriptionCreateRequest) GetInitialStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.InitialStatus) {
+		return nil, false
+	}
+	return o.InitialStatus, true
+}
+
+// HasInitialStatus returns a boolean if a field has been set.
+func (o *SubscriptionCreateRequest) HasInitialStatus() bool {
+	if o != nil && !IsNil(o.InitialStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetInitialStatus gets a reference to the given string and assigns it to the InitialStatus field.
+func (o *SubscriptionCreateRequest) SetInitialStatus(v string) {
+	o.InitialStatus = &v
+}
+
+// GetTestClockId returns the TestClockId field value if set, zero value otherwise.
+func (o *SubscriptionCreateRequest) GetTestClockId() string {
+	if o == nil || IsNil(o.TestClockId) {
+		var ret string
+		return ret
+	}
+	return *o.TestClockId
+}
+
+// GetTestClockIdOk returns a tuple with the TestClockId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SubscriptionCreateRequest) GetTestClockIdOk() (*string, bool) {
+	if o == nil || IsNil(o.TestClockId) {
+		return nil, false
+	}
+	return o.TestClockId, true
+}
+
+// HasTestClockId returns a boolean if a field has been set.
+func (o *SubscriptionCreateRequest) HasTestClockId() bool {
+	if o != nil && !IsNil(o.TestClockId) {
+		return true
+	}
+
+	return false
+}
+
+// SetTestClockId gets a reference to the given string and assigns it to the TestClockId field.
+func (o *SubscriptionCreateRequest) SetTestClockId(v string) {
+	o.TestClockId = &v
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
@@ -263,17 +356,24 @@ func (o SubscriptionCreateRequest) MarshalJSON() ([]byte, error) {
 
 func (o SubscriptionCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["customerExternalId"] = o.CustomerExternalId
-	toSerialize["subscriptionExternalId"] = o.SubscriptionExternalId
-	toSerialize["planCode"] = o.PlanCode
-	if !IsNil(o.CollectionMode) {
-		toSerialize["collectionMode"] = o.CollectionMode
+	toSerialize["customerId"] = o.CustomerId
+	toSerialize["billingAccountId"] = o.BillingAccountId
+	toSerialize["collectionMode"] = o.CollectionMode
+	toSerialize["items"] = o.Items
+	if !IsNil(o.SubscriptionId) {
+		toSerialize["subscriptionId"] = o.SubscriptionId
 	}
-	if !IsNil(o.Items) {
-		toSerialize["items"] = o.Items
+	if !IsNil(o.StartAt) {
+		toSerialize["startAt"] = o.StartAt
 	}
-	if !IsNil(o.TrialEndsAt) {
-		toSerialize["trialEndsAt"] = o.TrialEndsAt
+	if !IsNil(o.TrialEndAt) {
+		toSerialize["trialEndAt"] = o.TrialEndAt
+	}
+	if !IsNil(o.InitialStatus) {
+		toSerialize["initialStatus"] = o.InitialStatus
+	}
+	if !IsNil(o.TestClockId) {
+		toSerialize["testClockId"] = o.TestClockId
 	}
 	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
@@ -286,9 +386,10 @@ func (o *SubscriptionCreateRequest) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"customerExternalId",
-		"subscriptionExternalId",
-		"planCode",
+		"customerId",
+		"billingAccountId",
+		"collectionMode",
+		"items",
 	}
 
 	allProperties := make(map[string]interface{})

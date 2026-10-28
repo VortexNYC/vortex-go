@@ -23,7 +23,6 @@ var _ MappedNullable = &CheckoutSessionLineItemRequest{}
 type CheckoutSessionLineItemRequest struct {
 	PriceId string `json:"priceId"`
 	Quantity *int32 `json:"quantity,omitempty"`
-	Metadata map[string]string `json:"metadata,omitempty"`
 }
 
 type _CheckoutSessionLineItemRequest CheckoutSessionLineItemRequest
@@ -102,38 +101,6 @@ func (o *CheckoutSessionLineItemRequest) SetQuantity(v int32) {
 	o.Quantity = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *CheckoutSessionLineItemRequest) GetMetadata() map[string]string {
-	if o == nil || IsNil(o.Metadata) {
-		var ret map[string]string
-		return ret
-	}
-	return o.Metadata
-}
-
-// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CheckoutSessionLineItemRequest) GetMetadataOk() (map[string]string, bool) {
-	if o == nil || IsNil(o.Metadata) {
-		return map[string]string{}, false
-	}
-	return o.Metadata, true
-}
-
-// HasMetadata returns a boolean if a field has been set.
-func (o *CheckoutSessionLineItemRequest) HasMetadata() bool {
-	if o != nil && !IsNil(o.Metadata) {
-		return true
-	}
-
-	return false
-}
-
-// SetMetadata gets a reference to the given map[string]string and assigns it to the Metadata field.
-func (o *CheckoutSessionLineItemRequest) SetMetadata(v map[string]string) {
-	o.Metadata = v
-}
-
 func (o CheckoutSessionLineItemRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -147,9 +114,6 @@ func (o CheckoutSessionLineItemRequest) ToMap() (map[string]interface{}, error) 
 	toSerialize["priceId"] = o.PriceId
 	if !IsNil(o.Quantity) {
 		toSerialize["quantity"] = o.Quantity
-	}
-	if !IsNil(o.Metadata) {
-		toSerialize["metadata"] = o.Metadata
 	}
 	return toSerialize, nil
 }

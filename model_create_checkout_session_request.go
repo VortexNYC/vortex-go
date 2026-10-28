@@ -18,21 +18,36 @@ import (
 // checks if the CreateCheckoutSessionRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &CreateCheckoutSessionRequest{}
 
-// CreateCheckoutSessionRequest struct for CreateCheckoutSessionRequest
+// CreateCheckoutSessionRequest mode=payment (the default): pass invoiceNumbers, or amount + currency plus one customer handle (customerEmail, customerId, or a customer ensure-block) for an ad-hoc payable — invoiceNumbers and amount are mutually exclusive. mode=subscription: items plus customerId or a customer ensure-block are required; billingAccountId or a billingAccount block is optional (omitted resolves the customer's first account or auto-provisions a default). trialEndAt is not supported for mode=subscription — trial checkout collects a payment method, not a first-period invoice.
 type CreateCheckoutSessionRequest struct {
 	Mode *string `json:"mode,omitempty"`
-	InvoiceNumber *string `json:"invoiceNumber,omitempty"`
 	InvoiceNumbers []string `json:"invoiceNumbers,omitempty"`
-	CustomerExternalId *string `json:"customerExternalId,omitempty"`
+	// Minor units — composes customer → billing account → one-time invoice → payment request → /pay link when invoiceNumbers is omitted on mode=payment.
+	Amount *int32 `json:"amount,omitempty"`
+	// Required when amount is provided.
+	Currency *string `json:"currency,omitempty"`
+	Description *string `json:"description,omitempty"`
+	CustomerId *string `json:"customerId,omitempty"`
 	BillingAccountId *string `json:"billingAccountId,omitempty"`
-	SubscriptionExternalId *string `json:"subscriptionExternalId,omitempty"`
+	Customer *CheckoutSessionCustomerEnsure `json:"customer,omitempty"`
+	BillingAccount *CheckoutSessionBillingAccount `json:"billingAccount,omitempty"`
+	// Required for mode=subscription.
+	Items []CheckoutSessionLineItemRequest `json:"items,omitempty"`
+	TrialEndAt *time.Time `json:"trialEndAt,omitempty"`
+	TestClockId *string `json:"testClockId,omitempty"`
 	CollectionMode *string `json:"collectionMode,omitempty"`
-	StartAt *time.Time `json:"startAt,omitempty"`
-	LineItems []CheckoutSessionLineItemRequest `json:"lineItems,omitempty"`
-	PaymentRequestId *string `json:"paymentRequestId,omitempty"`
+	SuccessUrl *string `json:"successUrl,omitempty"`
+	CancelUrl *string `json:"cancelUrl,omitempty"`
+	ReturnUrl *string `json:"returnUrl,omitempty"`
+	PaymentMethodId *string `json:"paymentMethodId,omitempty"`
+	CustomerEmail *string `json:"customerEmail,omitempty"`
+	BillingAddressCollection *string `json:"billingAddressCollection,omitempty"`
+	DueAt *time.Time `json:"dueAt,omitempty"`
 	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
-	CreatedByRef *string `json:"createdByRef,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
+	// May instead ride the Idempotency-Key header.
+	IdempotencyKey *string `json:"idempotencyKey,omitempty"`
+	CreatedByRef *string `json:"createdByRef,omitempty"`
 }
 
 // NewCreateCheckoutSessionRequest instantiates a new CreateCheckoutSessionRequest object
@@ -41,6 +56,8 @@ type CreateCheckoutSessionRequest struct {
 // will change when the set of required properties is changed
 func NewCreateCheckoutSessionRequest() *CreateCheckoutSessionRequest {
 	this := CreateCheckoutSessionRequest{}
+	var mode string = "payment"
+	this.Mode = &mode
 	return &this
 }
 
@@ -49,6 +66,8 @@ func NewCreateCheckoutSessionRequest() *CreateCheckoutSessionRequest {
 // but it doesn't guarantee that properties required by API are set
 func NewCreateCheckoutSessionRequestWithDefaults() *CreateCheckoutSessionRequest {
 	this := CreateCheckoutSessionRequest{}
+	var mode string = "payment"
+	this.Mode = &mode
 	return &this
 }
 
@@ -84,38 +103,6 @@ func (o *CreateCheckoutSessionRequest) SetMode(v string) {
 	o.Mode = &v
 }
 
-// GetInvoiceNumber returns the InvoiceNumber field value if set, zero value otherwise.
-func (o *CreateCheckoutSessionRequest) GetInvoiceNumber() string {
-	if o == nil || IsNil(o.InvoiceNumber) {
-		var ret string
-		return ret
-	}
-	return *o.InvoiceNumber
-}
-
-// GetInvoiceNumberOk returns a tuple with the InvoiceNumber field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateCheckoutSessionRequest) GetInvoiceNumberOk() (*string, bool) {
-	if o == nil || IsNil(o.InvoiceNumber) {
-		return nil, false
-	}
-	return o.InvoiceNumber, true
-}
-
-// HasInvoiceNumber returns a boolean if a field has been set.
-func (o *CreateCheckoutSessionRequest) HasInvoiceNumber() bool {
-	if o != nil && !IsNil(o.InvoiceNumber) {
-		return true
-	}
-
-	return false
-}
-
-// SetInvoiceNumber gets a reference to the given string and assigns it to the InvoiceNumber field.
-func (o *CreateCheckoutSessionRequest) SetInvoiceNumber(v string) {
-	o.InvoiceNumber = &v
-}
-
 // GetInvoiceNumbers returns the InvoiceNumbers field value if set, zero value otherwise.
 func (o *CreateCheckoutSessionRequest) GetInvoiceNumbers() []string {
 	if o == nil || IsNil(o.InvoiceNumbers) {
@@ -148,36 +135,132 @@ func (o *CreateCheckoutSessionRequest) SetInvoiceNumbers(v []string) {
 	o.InvoiceNumbers = v
 }
 
-// GetCustomerExternalId returns the CustomerExternalId field value if set, zero value otherwise.
-func (o *CreateCheckoutSessionRequest) GetCustomerExternalId() string {
-	if o == nil || IsNil(o.CustomerExternalId) {
-		var ret string
+// GetAmount returns the Amount field value if set, zero value otherwise.
+func (o *CreateCheckoutSessionRequest) GetAmount() int32 {
+	if o == nil || IsNil(o.Amount) {
+		var ret int32
 		return ret
 	}
-	return *o.CustomerExternalId
+	return *o.Amount
 }
 
-// GetCustomerExternalIdOk returns a tuple with the CustomerExternalId field value if set, nil otherwise
+// GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCheckoutSessionRequest) GetCustomerExternalIdOk() (*string, bool) {
-	if o == nil || IsNil(o.CustomerExternalId) {
+func (o *CreateCheckoutSessionRequest) GetAmountOk() (*int32, bool) {
+	if o == nil || IsNil(o.Amount) {
 		return nil, false
 	}
-	return o.CustomerExternalId, true
+	return o.Amount, true
 }
 
-// HasCustomerExternalId returns a boolean if a field has been set.
-func (o *CreateCheckoutSessionRequest) HasCustomerExternalId() bool {
-	if o != nil && !IsNil(o.CustomerExternalId) {
+// HasAmount returns a boolean if a field has been set.
+func (o *CreateCheckoutSessionRequest) HasAmount() bool {
+	if o != nil && !IsNil(o.Amount) {
 		return true
 	}
 
 	return false
 }
 
-// SetCustomerExternalId gets a reference to the given string and assigns it to the CustomerExternalId field.
-func (o *CreateCheckoutSessionRequest) SetCustomerExternalId(v string) {
-	o.CustomerExternalId = &v
+// SetAmount gets a reference to the given int32 and assigns it to the Amount field.
+func (o *CreateCheckoutSessionRequest) SetAmount(v int32) {
+	o.Amount = &v
+}
+
+// GetCurrency returns the Currency field value if set, zero value otherwise.
+func (o *CreateCheckoutSessionRequest) GetCurrency() string {
+	if o == nil || IsNil(o.Currency) {
+		var ret string
+		return ret
+	}
+	return *o.Currency
+}
+
+// GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCheckoutSessionRequest) GetCurrencyOk() (*string, bool) {
+	if o == nil || IsNil(o.Currency) {
+		return nil, false
+	}
+	return o.Currency, true
+}
+
+// HasCurrency returns a boolean if a field has been set.
+func (o *CreateCheckoutSessionRequest) HasCurrency() bool {
+	if o != nil && !IsNil(o.Currency) {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrency gets a reference to the given string and assigns it to the Currency field.
+func (o *CreateCheckoutSessionRequest) SetCurrency(v string) {
+	o.Currency = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *CreateCheckoutSessionRequest) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCheckoutSessionRequest) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *CreateCheckoutSessionRequest) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *CreateCheckoutSessionRequest) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetCustomerId returns the CustomerId field value if set, zero value otherwise.
+func (o *CreateCheckoutSessionRequest) GetCustomerId() string {
+	if o == nil || IsNil(o.CustomerId) {
+		var ret string
+		return ret
+	}
+	return *o.CustomerId
+}
+
+// GetCustomerIdOk returns a tuple with the CustomerId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCheckoutSessionRequest) GetCustomerIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CustomerId) {
+		return nil, false
+	}
+	return o.CustomerId, true
+}
+
+// HasCustomerId returns a boolean if a field has been set.
+func (o *CreateCheckoutSessionRequest) HasCustomerId() bool {
+	if o != nil && !IsNil(o.CustomerId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomerId gets a reference to the given string and assigns it to the CustomerId field.
+func (o *CreateCheckoutSessionRequest) SetCustomerId(v string) {
+	o.CustomerId = &v
 }
 
 // GetBillingAccountId returns the BillingAccountId field value if set, zero value otherwise.
@@ -212,36 +295,164 @@ func (o *CreateCheckoutSessionRequest) SetBillingAccountId(v string) {
 	o.BillingAccountId = &v
 }
 
-// GetSubscriptionExternalId returns the SubscriptionExternalId field value if set, zero value otherwise.
-func (o *CreateCheckoutSessionRequest) GetSubscriptionExternalId() string {
-	if o == nil || IsNil(o.SubscriptionExternalId) {
-		var ret string
+// GetCustomer returns the Customer field value if set, zero value otherwise.
+func (o *CreateCheckoutSessionRequest) GetCustomer() CheckoutSessionCustomerEnsure {
+	if o == nil || IsNil(o.Customer) {
+		var ret CheckoutSessionCustomerEnsure
 		return ret
 	}
-	return *o.SubscriptionExternalId
+	return *o.Customer
 }
 
-// GetSubscriptionExternalIdOk returns a tuple with the SubscriptionExternalId field value if set, nil otherwise
+// GetCustomerOk returns a tuple with the Customer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCheckoutSessionRequest) GetSubscriptionExternalIdOk() (*string, bool) {
-	if o == nil || IsNil(o.SubscriptionExternalId) {
+func (o *CreateCheckoutSessionRequest) GetCustomerOk() (*CheckoutSessionCustomerEnsure, bool) {
+	if o == nil || IsNil(o.Customer) {
 		return nil, false
 	}
-	return o.SubscriptionExternalId, true
+	return o.Customer, true
 }
 
-// HasSubscriptionExternalId returns a boolean if a field has been set.
-func (o *CreateCheckoutSessionRequest) HasSubscriptionExternalId() bool {
-	if o != nil && !IsNil(o.SubscriptionExternalId) {
+// HasCustomer returns a boolean if a field has been set.
+func (o *CreateCheckoutSessionRequest) HasCustomer() bool {
+	if o != nil && !IsNil(o.Customer) {
 		return true
 	}
 
 	return false
 }
 
-// SetSubscriptionExternalId gets a reference to the given string and assigns it to the SubscriptionExternalId field.
-func (o *CreateCheckoutSessionRequest) SetSubscriptionExternalId(v string) {
-	o.SubscriptionExternalId = &v
+// SetCustomer gets a reference to the given CheckoutSessionCustomerEnsure and assigns it to the Customer field.
+func (o *CreateCheckoutSessionRequest) SetCustomer(v CheckoutSessionCustomerEnsure) {
+	o.Customer = &v
+}
+
+// GetBillingAccount returns the BillingAccount field value if set, zero value otherwise.
+func (o *CreateCheckoutSessionRequest) GetBillingAccount() CheckoutSessionBillingAccount {
+	if o == nil || IsNil(o.BillingAccount) {
+		var ret CheckoutSessionBillingAccount
+		return ret
+	}
+	return *o.BillingAccount
+}
+
+// GetBillingAccountOk returns a tuple with the BillingAccount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCheckoutSessionRequest) GetBillingAccountOk() (*CheckoutSessionBillingAccount, bool) {
+	if o == nil || IsNil(o.BillingAccount) {
+		return nil, false
+	}
+	return o.BillingAccount, true
+}
+
+// HasBillingAccount returns a boolean if a field has been set.
+func (o *CreateCheckoutSessionRequest) HasBillingAccount() bool {
+	if o != nil && !IsNil(o.BillingAccount) {
+		return true
+	}
+
+	return false
+}
+
+// SetBillingAccount gets a reference to the given CheckoutSessionBillingAccount and assigns it to the BillingAccount field.
+func (o *CreateCheckoutSessionRequest) SetBillingAccount(v CheckoutSessionBillingAccount) {
+	o.BillingAccount = &v
+}
+
+// GetItems returns the Items field value if set, zero value otherwise.
+func (o *CreateCheckoutSessionRequest) GetItems() []CheckoutSessionLineItemRequest {
+	if o == nil || IsNil(o.Items) {
+		var ret []CheckoutSessionLineItemRequest
+		return ret
+	}
+	return o.Items
+}
+
+// GetItemsOk returns a tuple with the Items field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCheckoutSessionRequest) GetItemsOk() ([]CheckoutSessionLineItemRequest, bool) {
+	if o == nil || IsNil(o.Items) {
+		return nil, false
+	}
+	return o.Items, true
+}
+
+// HasItems returns a boolean if a field has been set.
+func (o *CreateCheckoutSessionRequest) HasItems() bool {
+	if o != nil && !IsNil(o.Items) {
+		return true
+	}
+
+	return false
+}
+
+// SetItems gets a reference to the given []CheckoutSessionLineItemRequest and assigns it to the Items field.
+func (o *CreateCheckoutSessionRequest) SetItems(v []CheckoutSessionLineItemRequest) {
+	o.Items = v
+}
+
+// GetTrialEndAt returns the TrialEndAt field value if set, zero value otherwise.
+func (o *CreateCheckoutSessionRequest) GetTrialEndAt() time.Time {
+	if o == nil || IsNil(o.TrialEndAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.TrialEndAt
+}
+
+// GetTrialEndAtOk returns a tuple with the TrialEndAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCheckoutSessionRequest) GetTrialEndAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.TrialEndAt) {
+		return nil, false
+	}
+	return o.TrialEndAt, true
+}
+
+// HasTrialEndAt returns a boolean if a field has been set.
+func (o *CreateCheckoutSessionRequest) HasTrialEndAt() bool {
+	if o != nil && !IsNil(o.TrialEndAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetTrialEndAt gets a reference to the given time.Time and assigns it to the TrialEndAt field.
+func (o *CreateCheckoutSessionRequest) SetTrialEndAt(v time.Time) {
+	o.TrialEndAt = &v
+}
+
+// GetTestClockId returns the TestClockId field value if set, zero value otherwise.
+func (o *CreateCheckoutSessionRequest) GetTestClockId() string {
+	if o == nil || IsNil(o.TestClockId) {
+		var ret string
+		return ret
+	}
+	return *o.TestClockId
+}
+
+// GetTestClockIdOk returns a tuple with the TestClockId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCheckoutSessionRequest) GetTestClockIdOk() (*string, bool) {
+	if o == nil || IsNil(o.TestClockId) {
+		return nil, false
+	}
+	return o.TestClockId, true
+}
+
+// HasTestClockId returns a boolean if a field has been set.
+func (o *CreateCheckoutSessionRequest) HasTestClockId() bool {
+	if o != nil && !IsNil(o.TestClockId) {
+		return true
+	}
+
+	return false
+}
+
+// SetTestClockId gets a reference to the given string and assigns it to the TestClockId field.
+func (o *CreateCheckoutSessionRequest) SetTestClockId(v string) {
+	o.TestClockId = &v
 }
 
 // GetCollectionMode returns the CollectionMode field value if set, zero value otherwise.
@@ -276,100 +487,228 @@ func (o *CreateCheckoutSessionRequest) SetCollectionMode(v string) {
 	o.CollectionMode = &v
 }
 
-// GetStartAt returns the StartAt field value if set, zero value otherwise.
-func (o *CreateCheckoutSessionRequest) GetStartAt() time.Time {
-	if o == nil || IsNil(o.StartAt) {
-		var ret time.Time
-		return ret
-	}
-	return *o.StartAt
-}
-
-// GetStartAtOk returns a tuple with the StartAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateCheckoutSessionRequest) GetStartAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.StartAt) {
-		return nil, false
-	}
-	return o.StartAt, true
-}
-
-// HasStartAt returns a boolean if a field has been set.
-func (o *CreateCheckoutSessionRequest) HasStartAt() bool {
-	if o != nil && !IsNil(o.StartAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetStartAt gets a reference to the given time.Time and assigns it to the StartAt field.
-func (o *CreateCheckoutSessionRequest) SetStartAt(v time.Time) {
-	o.StartAt = &v
-}
-
-// GetLineItems returns the LineItems field value if set, zero value otherwise.
-func (o *CreateCheckoutSessionRequest) GetLineItems() []CheckoutSessionLineItemRequest {
-	if o == nil || IsNil(o.LineItems) {
-		var ret []CheckoutSessionLineItemRequest
-		return ret
-	}
-	return o.LineItems
-}
-
-// GetLineItemsOk returns a tuple with the LineItems field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateCheckoutSessionRequest) GetLineItemsOk() ([]CheckoutSessionLineItemRequest, bool) {
-	if o == nil || IsNil(o.LineItems) {
-		return nil, false
-	}
-	return o.LineItems, true
-}
-
-// HasLineItems returns a boolean if a field has been set.
-func (o *CreateCheckoutSessionRequest) HasLineItems() bool {
-	if o != nil && !IsNil(o.LineItems) {
-		return true
-	}
-
-	return false
-}
-
-// SetLineItems gets a reference to the given []CheckoutSessionLineItemRequest and assigns it to the LineItems field.
-func (o *CreateCheckoutSessionRequest) SetLineItems(v []CheckoutSessionLineItemRequest) {
-	o.LineItems = v
-}
-
-// GetPaymentRequestId returns the PaymentRequestId field value if set, zero value otherwise.
-func (o *CreateCheckoutSessionRequest) GetPaymentRequestId() string {
-	if o == nil || IsNil(o.PaymentRequestId) {
+// GetSuccessUrl returns the SuccessUrl field value if set, zero value otherwise.
+func (o *CreateCheckoutSessionRequest) GetSuccessUrl() string {
+	if o == nil || IsNil(o.SuccessUrl) {
 		var ret string
 		return ret
 	}
-	return *o.PaymentRequestId
+	return *o.SuccessUrl
 }
 
-// GetPaymentRequestIdOk returns a tuple with the PaymentRequestId field value if set, nil otherwise
+// GetSuccessUrlOk returns a tuple with the SuccessUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCheckoutSessionRequest) GetPaymentRequestIdOk() (*string, bool) {
-	if o == nil || IsNil(o.PaymentRequestId) {
+func (o *CreateCheckoutSessionRequest) GetSuccessUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.SuccessUrl) {
 		return nil, false
 	}
-	return o.PaymentRequestId, true
+	return o.SuccessUrl, true
 }
 
-// HasPaymentRequestId returns a boolean if a field has been set.
-func (o *CreateCheckoutSessionRequest) HasPaymentRequestId() bool {
-	if o != nil && !IsNil(o.PaymentRequestId) {
+// HasSuccessUrl returns a boolean if a field has been set.
+func (o *CreateCheckoutSessionRequest) HasSuccessUrl() bool {
+	if o != nil && !IsNil(o.SuccessUrl) {
 		return true
 	}
 
 	return false
 }
 
-// SetPaymentRequestId gets a reference to the given string and assigns it to the PaymentRequestId field.
-func (o *CreateCheckoutSessionRequest) SetPaymentRequestId(v string) {
-	o.PaymentRequestId = &v
+// SetSuccessUrl gets a reference to the given string and assigns it to the SuccessUrl field.
+func (o *CreateCheckoutSessionRequest) SetSuccessUrl(v string) {
+	o.SuccessUrl = &v
+}
+
+// GetCancelUrl returns the CancelUrl field value if set, zero value otherwise.
+func (o *CreateCheckoutSessionRequest) GetCancelUrl() string {
+	if o == nil || IsNil(o.CancelUrl) {
+		var ret string
+		return ret
+	}
+	return *o.CancelUrl
+}
+
+// GetCancelUrlOk returns a tuple with the CancelUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCheckoutSessionRequest) GetCancelUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.CancelUrl) {
+		return nil, false
+	}
+	return o.CancelUrl, true
+}
+
+// HasCancelUrl returns a boolean if a field has been set.
+func (o *CreateCheckoutSessionRequest) HasCancelUrl() bool {
+	if o != nil && !IsNil(o.CancelUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetCancelUrl gets a reference to the given string and assigns it to the CancelUrl field.
+func (o *CreateCheckoutSessionRequest) SetCancelUrl(v string) {
+	o.CancelUrl = &v
+}
+
+// GetReturnUrl returns the ReturnUrl field value if set, zero value otherwise.
+func (o *CreateCheckoutSessionRequest) GetReturnUrl() string {
+	if o == nil || IsNil(o.ReturnUrl) {
+		var ret string
+		return ret
+	}
+	return *o.ReturnUrl
+}
+
+// GetReturnUrlOk returns a tuple with the ReturnUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCheckoutSessionRequest) GetReturnUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.ReturnUrl) {
+		return nil, false
+	}
+	return o.ReturnUrl, true
+}
+
+// HasReturnUrl returns a boolean if a field has been set.
+func (o *CreateCheckoutSessionRequest) HasReturnUrl() bool {
+	if o != nil && !IsNil(o.ReturnUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetReturnUrl gets a reference to the given string and assigns it to the ReturnUrl field.
+func (o *CreateCheckoutSessionRequest) SetReturnUrl(v string) {
+	o.ReturnUrl = &v
+}
+
+// GetPaymentMethodId returns the PaymentMethodId field value if set, zero value otherwise.
+func (o *CreateCheckoutSessionRequest) GetPaymentMethodId() string {
+	if o == nil || IsNil(o.PaymentMethodId) {
+		var ret string
+		return ret
+	}
+	return *o.PaymentMethodId
+}
+
+// GetPaymentMethodIdOk returns a tuple with the PaymentMethodId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCheckoutSessionRequest) GetPaymentMethodIdOk() (*string, bool) {
+	if o == nil || IsNil(o.PaymentMethodId) {
+		return nil, false
+	}
+	return o.PaymentMethodId, true
+}
+
+// HasPaymentMethodId returns a boolean if a field has been set.
+func (o *CreateCheckoutSessionRequest) HasPaymentMethodId() bool {
+	if o != nil && !IsNil(o.PaymentMethodId) {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentMethodId gets a reference to the given string and assigns it to the PaymentMethodId field.
+func (o *CreateCheckoutSessionRequest) SetPaymentMethodId(v string) {
+	o.PaymentMethodId = &v
+}
+
+// GetCustomerEmail returns the CustomerEmail field value if set, zero value otherwise.
+func (o *CreateCheckoutSessionRequest) GetCustomerEmail() string {
+	if o == nil || IsNil(o.CustomerEmail) {
+		var ret string
+		return ret
+	}
+	return *o.CustomerEmail
+}
+
+// GetCustomerEmailOk returns a tuple with the CustomerEmail field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCheckoutSessionRequest) GetCustomerEmailOk() (*string, bool) {
+	if o == nil || IsNil(o.CustomerEmail) {
+		return nil, false
+	}
+	return o.CustomerEmail, true
+}
+
+// HasCustomerEmail returns a boolean if a field has been set.
+func (o *CreateCheckoutSessionRequest) HasCustomerEmail() bool {
+	if o != nil && !IsNil(o.CustomerEmail) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomerEmail gets a reference to the given string and assigns it to the CustomerEmail field.
+func (o *CreateCheckoutSessionRequest) SetCustomerEmail(v string) {
+	o.CustomerEmail = &v
+}
+
+// GetBillingAddressCollection returns the BillingAddressCollection field value if set, zero value otherwise.
+func (o *CreateCheckoutSessionRequest) GetBillingAddressCollection() string {
+	if o == nil || IsNil(o.BillingAddressCollection) {
+		var ret string
+		return ret
+	}
+	return *o.BillingAddressCollection
+}
+
+// GetBillingAddressCollectionOk returns a tuple with the BillingAddressCollection field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCheckoutSessionRequest) GetBillingAddressCollectionOk() (*string, bool) {
+	if o == nil || IsNil(o.BillingAddressCollection) {
+		return nil, false
+	}
+	return o.BillingAddressCollection, true
+}
+
+// HasBillingAddressCollection returns a boolean if a field has been set.
+func (o *CreateCheckoutSessionRequest) HasBillingAddressCollection() bool {
+	if o != nil && !IsNil(o.BillingAddressCollection) {
+		return true
+	}
+
+	return false
+}
+
+// SetBillingAddressCollection gets a reference to the given string and assigns it to the BillingAddressCollection field.
+func (o *CreateCheckoutSessionRequest) SetBillingAddressCollection(v string) {
+	o.BillingAddressCollection = &v
+}
+
+// GetDueAt returns the DueAt field value if set, zero value otherwise.
+func (o *CreateCheckoutSessionRequest) GetDueAt() time.Time {
+	if o == nil || IsNil(o.DueAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.DueAt
+}
+
+// GetDueAtOk returns a tuple with the DueAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCheckoutSessionRequest) GetDueAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.DueAt) {
+		return nil, false
+	}
+	return o.DueAt, true
+}
+
+// HasDueAt returns a boolean if a field has been set.
+func (o *CreateCheckoutSessionRequest) HasDueAt() bool {
+	if o != nil && !IsNil(o.DueAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetDueAt gets a reference to the given time.Time and assigns it to the DueAt field.
+func (o *CreateCheckoutSessionRequest) SetDueAt(v time.Time) {
+	o.DueAt = &v
 }
 
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
@@ -404,38 +743,6 @@ func (o *CreateCheckoutSessionRequest) SetExpiresAt(v time.Time) {
 	o.ExpiresAt = &v
 }
 
-// GetCreatedByRef returns the CreatedByRef field value if set, zero value otherwise.
-func (o *CreateCheckoutSessionRequest) GetCreatedByRef() string {
-	if o == nil || IsNil(o.CreatedByRef) {
-		var ret string
-		return ret
-	}
-	return *o.CreatedByRef
-}
-
-// GetCreatedByRefOk returns a tuple with the CreatedByRef field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateCheckoutSessionRequest) GetCreatedByRefOk() (*string, bool) {
-	if o == nil || IsNil(o.CreatedByRef) {
-		return nil, false
-	}
-	return o.CreatedByRef, true
-}
-
-// HasCreatedByRef returns a boolean if a field has been set.
-func (o *CreateCheckoutSessionRequest) HasCreatedByRef() bool {
-	if o != nil && !IsNil(o.CreatedByRef) {
-		return true
-	}
-
-	return false
-}
-
-// SetCreatedByRef gets a reference to the given string and assigns it to the CreatedByRef field.
-func (o *CreateCheckoutSessionRequest) SetCreatedByRef(v string) {
-	o.CreatedByRef = &v
-}
-
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *CreateCheckoutSessionRequest) GetMetadata() map[string]string {
 	if o == nil || IsNil(o.Metadata) {
@@ -468,6 +775,70 @@ func (o *CreateCheckoutSessionRequest) SetMetadata(v map[string]string) {
 	o.Metadata = v
 }
 
+// GetIdempotencyKey returns the IdempotencyKey field value if set, zero value otherwise.
+func (o *CreateCheckoutSessionRequest) GetIdempotencyKey() string {
+	if o == nil || IsNil(o.IdempotencyKey) {
+		var ret string
+		return ret
+	}
+	return *o.IdempotencyKey
+}
+
+// GetIdempotencyKeyOk returns a tuple with the IdempotencyKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCheckoutSessionRequest) GetIdempotencyKeyOk() (*string, bool) {
+	if o == nil || IsNil(o.IdempotencyKey) {
+		return nil, false
+	}
+	return o.IdempotencyKey, true
+}
+
+// HasIdempotencyKey returns a boolean if a field has been set.
+func (o *CreateCheckoutSessionRequest) HasIdempotencyKey() bool {
+	if o != nil && !IsNil(o.IdempotencyKey) {
+		return true
+	}
+
+	return false
+}
+
+// SetIdempotencyKey gets a reference to the given string and assigns it to the IdempotencyKey field.
+func (o *CreateCheckoutSessionRequest) SetIdempotencyKey(v string) {
+	o.IdempotencyKey = &v
+}
+
+// GetCreatedByRef returns the CreatedByRef field value if set, zero value otherwise.
+func (o *CreateCheckoutSessionRequest) GetCreatedByRef() string {
+	if o == nil || IsNil(o.CreatedByRef) {
+		var ret string
+		return ret
+	}
+	return *o.CreatedByRef
+}
+
+// GetCreatedByRefOk returns a tuple with the CreatedByRef field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCheckoutSessionRequest) GetCreatedByRefOk() (*string, bool) {
+	if o == nil || IsNil(o.CreatedByRef) {
+		return nil, false
+	}
+	return o.CreatedByRef, true
+}
+
+// HasCreatedByRef returns a boolean if a field has been set.
+func (o *CreateCheckoutSessionRequest) HasCreatedByRef() bool {
+	if o != nil && !IsNil(o.CreatedByRef) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedByRef gets a reference to the given string and assigns it to the CreatedByRef field.
+func (o *CreateCheckoutSessionRequest) SetCreatedByRef(v string) {
+	o.CreatedByRef = &v
+}
+
 func (o CreateCheckoutSessionRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -481,41 +852,74 @@ func (o CreateCheckoutSessionRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Mode) {
 		toSerialize["mode"] = o.Mode
 	}
-	if !IsNil(o.InvoiceNumber) {
-		toSerialize["invoiceNumber"] = o.InvoiceNumber
-	}
 	if !IsNil(o.InvoiceNumbers) {
 		toSerialize["invoiceNumbers"] = o.InvoiceNumbers
 	}
-	if !IsNil(o.CustomerExternalId) {
-		toSerialize["customerExternalId"] = o.CustomerExternalId
+	if !IsNil(o.Amount) {
+		toSerialize["amount"] = o.Amount
+	}
+	if !IsNil(o.Currency) {
+		toSerialize["currency"] = o.Currency
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.CustomerId) {
+		toSerialize["customerId"] = o.CustomerId
 	}
 	if !IsNil(o.BillingAccountId) {
 		toSerialize["billingAccountId"] = o.BillingAccountId
 	}
-	if !IsNil(o.SubscriptionExternalId) {
-		toSerialize["subscriptionExternalId"] = o.SubscriptionExternalId
+	if !IsNil(o.Customer) {
+		toSerialize["customer"] = o.Customer
+	}
+	if !IsNil(o.BillingAccount) {
+		toSerialize["billingAccount"] = o.BillingAccount
+	}
+	if !IsNil(o.Items) {
+		toSerialize["items"] = o.Items
+	}
+	if !IsNil(o.TrialEndAt) {
+		toSerialize["trialEndAt"] = o.TrialEndAt
+	}
+	if !IsNil(o.TestClockId) {
+		toSerialize["testClockId"] = o.TestClockId
 	}
 	if !IsNil(o.CollectionMode) {
 		toSerialize["collectionMode"] = o.CollectionMode
 	}
-	if !IsNil(o.StartAt) {
-		toSerialize["startAt"] = o.StartAt
+	if !IsNil(o.SuccessUrl) {
+		toSerialize["successUrl"] = o.SuccessUrl
 	}
-	if !IsNil(o.LineItems) {
-		toSerialize["lineItems"] = o.LineItems
+	if !IsNil(o.CancelUrl) {
+		toSerialize["cancelUrl"] = o.CancelUrl
 	}
-	if !IsNil(o.PaymentRequestId) {
-		toSerialize["paymentRequestId"] = o.PaymentRequestId
+	if !IsNil(o.ReturnUrl) {
+		toSerialize["returnUrl"] = o.ReturnUrl
+	}
+	if !IsNil(o.PaymentMethodId) {
+		toSerialize["paymentMethodId"] = o.PaymentMethodId
+	}
+	if !IsNil(o.CustomerEmail) {
+		toSerialize["customerEmail"] = o.CustomerEmail
+	}
+	if !IsNil(o.BillingAddressCollection) {
+		toSerialize["billingAddressCollection"] = o.BillingAddressCollection
+	}
+	if !IsNil(o.DueAt) {
+		toSerialize["dueAt"] = o.DueAt
 	}
 	if !IsNil(o.ExpiresAt) {
 		toSerialize["expiresAt"] = o.ExpiresAt
 	}
-	if !IsNil(o.CreatedByRef) {
-		toSerialize["createdByRef"] = o.CreatedByRef
-	}
 	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
+	}
+	if !IsNil(o.IdempotencyKey) {
+		toSerialize["idempotencyKey"] = o.IdempotencyKey
+	}
+	if !IsNil(o.CreatedByRef) {
+		toSerialize["createdByRef"] = o.CreatedByRef
 	}
 	return toSerialize, nil
 }

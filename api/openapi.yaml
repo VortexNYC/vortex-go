@@ -3090,6 +3090,76 @@ paths:
             const { data } = await putRefundPortalPrefix({
               client: vortex,
             });
+  /v1/billing-accounts/{billingAccountId}:
+    get:
+      operationId: getBillingAccount
+      parameters:
+        - explode: false
+          in: path
+          name: billingAccountId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BillingAccountResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: Get one billing account
+      tags:
+        - billing
+        - customers
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/billing-accounts/{billingAccountId}?environment=sandbox&merchantAccountId=..." \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { getBillingAccount, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await getBillingAccount({
+              client: vortex,
+              path: { billingAccountId: "..." },
+              query: { environment: "sandbox", merchantAccountId: "..." },
+            });
   /v1/checkout/sessions:
     post:
       operationId: createCheckoutSession
@@ -3116,10 +3186,9 @@ paths:
               default:
                 value:
                   mode: subscription
-                  customerExternalId: cus_123
-                  subscriptionExternalId: sub_123
+                  customerId: bcust_123
                   collectionMode: automatic
-                  lineItems:
+                  items:
                     - priceId: price_core_monthly
                       quantity: 1
                   createdByRef: internal-integration
@@ -3162,7 +3231,7 @@ paths:
               -X POST \
               -H "Authorization: Bearer $VORTEX_API_KEY" \
               -H "Content-Type: application/json" \
-              -d '{"mode":"subscription","customerExternalId":"cus_123","subscriptionExternalId":"sub_123","collectionMode":"automatic","lineItems":[{"priceId":"price_core_monthly","quantity":1}],"createdByRef":"internal-integration"}'
+              -d '{"mode":"subscription","customerId":"bcust_123","collectionMode":"automatic","items":[{"priceId":"price_core_monthly","quantity":1}],"createdByRef":"internal-integration"}'
         - lang: TypeScript
           label: TypeScript
           source: |-
@@ -3172,7 +3241,7 @@ paths:
             const { data } = await createCheckoutSession({
               client: vortex,
               query: { environment: "sandbox", merchantAccountId: "..." },
-              body: {"mode":"subscription","customerExternalId":"cus_123","subscriptionExternalId":"sub_123","collectionMode":"automatic","lineItems":[{"priceId":"price_core_monthly","quantity":1}],"createdByRef":"internal-integration"},
+              body: {"mode":"subscription","customerId":"bcust_123","collectionMode":"automatic","items":[{"priceId":"price_core_monthly","quantity":1}],"createdByRef":"internal-integration"},
             });
   /v1/checkout/sessions/{checkoutSessionId}:
     get:
@@ -4369,6 +4438,180 @@ paths:
               client: vortex,
               path: { customerId: "..." },
               query: { environment: "sandbox", merchantAccountId: "..." },
+            });
+  /v1/customers/{customerId}/billing-accounts:
+    get:
+      operationId: listCustomerBillingAccounts
+      parameters:
+        - explode: false
+          in: path
+          name: customerId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+        - description:
+            "Page size, 1-100. Omitting both limit and cursor returns the\
+            \ full unpaginated list."
+          explode: true
+          in: query
+          name: limit
+          required: false
+          schema:
+            maximum: 100
+            minimum: 1
+            type: integer
+          style: form
+        - description:
+            Opaque cursor from the previous page's nextCursor. Pass it back
+            verbatim to fetch the next page.
+          explode: true
+          in: query
+          name: cursor
+          required: false
+          schema:
+            type: string
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BillingAccountListResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: List a customer's billing accounts
+      tags:
+        - billing
+        - customers
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/customers/{customerId}/billing-accounts?environment=sandbox&merchantAccountId=..." \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { listCustomerBillingAccounts, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await listCustomerBillingAccounts({
+              client: vortex,
+              path: { customerId: "..." },
+              query: { environment: "sandbox", merchantAccountId: "..." },
+            });
+    post:
+      operationId: createBillingAccount
+      parameters:
+        - explode: false
+          in: path
+          name: customerId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value:
+                  invoiceDeliveryMode: api_only
+                  collectionMode: manual
+                  autoCollectionEnabled: false
+                  netTermsDays: 30
+            schema:
+              $ref: "#/components/schemas/BillingAccountCreateRequest"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BillingAccountResponse"
+          description: Created
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: Create a billing account for a customer
+      tags:
+        - billing
+        - customers
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/customers/{customerId}/billing-accounts?environment=sandbox&merchantAccountId=..." \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{"invoiceDeliveryMode":"api_only","collectionMode":"manual","autoCollectionEnabled":false,"netTermsDays":30}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { createBillingAccount, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await createBillingAccount({
+              client: vortex,
+              path: { customerId: "..." },
+              query: { environment: "sandbox", merchantAccountId: "..." },
+              body: {"invoiceDeliveryMode":"api_only","collectionMode":"manual","autoCollectionEnabled":false,"netTermsDays":30},
             });
   /v1/customers/{customerId}/entitlements:
     get:
@@ -6682,6 +6925,239 @@ paths:
               path: { merchantAccountId: "..." },
               query: { environment: "sandbox", merchantAccountId: "..." },
               body: {"environment":"sandbox","originAddress":{"line1":"1 MetroTech Center","city":"Brooklyn","region":"NY","postalCode":"11201","country":"US"},"registrations":[{"country":"US","region":"NY"}]},
+            });
+  /v1/meters:
+    get:
+      operationId: listMeters
+      parameters:
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: includeArchived
+          required: false
+          schema:
+            type: string
+          style: form
+        - description: Page size — defaults to 100.
+          explode: true
+          in: query
+          name: limit
+          required: false
+          schema:
+            maximum: 100
+            minimum: 1
+            type: integer
+          style: form
+        - description: Row offset into the meter list — defaults to 0.
+          explode: true
+          in: query
+          name: offset
+          required: false
+          schema:
+            minimum: 0
+            type: integer
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MeterListResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: List billing meters
+      tags:
+        - billing
+        - usage
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/meters?includeArchived=...&environment=sandbox&merchantAccountId=...&limit=100&offset=0" \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { listMeters, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await listMeters({
+              client: vortex,
+              query: { includeArchived: "...", environment: "sandbox", merchantAccountId: "...", limit: 100, offset: 0 },
+            });
+    post:
+      operationId: createMeter
+      parameters:
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value:
+                  meterId: meter_api_calls
+                  name: API calls
+                  eventName: api.call
+                  aggregationType: sum
+                  windowGrain: month
+            schema:
+              $ref: "#/components/schemas/MeterCreateRequest"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MeterResponse"
+          description: Created
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: Create a billing meter that aggregates usage events
+      tags:
+        - billing
+        - usage
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/meters?environment=sandbox&merchantAccountId=..." \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{"meterId":"meter_api_calls","name":"API calls","eventName":"api.call","aggregationType":"sum","windowGrain":"month"}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { createMeter, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await createMeter({
+              client: vortex,
+              query: { environment: "sandbox", merchantAccountId: "..." },
+              body: {"meterId":"meter_api_calls","name":"API calls","eventName":"api.call","aggregationType":"sum","windowGrain":"month"},
+            });
+  /v1/meters/{meterId}:
+    get:
+      operationId: getMeter
+      parameters:
+        - explode: false
+          in: path
+          name: meterId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MeterResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: Get one billing meter
+      tags:
+        - billing
+        - usage
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/meters/{meterId}?environment=sandbox&merchantAccountId=..." \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { getMeter, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await getMeter({
+              client: vortex,
+              path: { meterId: "..." },
+              query: { environment: "sandbox", merchantAccountId: "..." },
             });
   /v1/order-forms:
     get:
@@ -9797,10 +10273,12 @@ paths:
             examples:
               default:
                 value:
-                  customerExternalId: cus_123
-                  subscriptionExternalId: sub_123
-                  planCode: price_core_monthly
+                  customerId: bcust_123
+                  billingAccountId: bacc_123
                   collectionMode: automatic
+                  items:
+                    - priceId: price_core_monthly
+                      quantity: 1
             schema:
               $ref: "#/components/schemas/SubscriptionCreateRequest"
         required: true
@@ -9837,7 +10315,7 @@ paths:
               -X POST \
               -H "Authorization: Bearer $VORTEX_API_KEY" \
               -H "Content-Type: application/json" \
-              -d '{"customerExternalId":"cus_123","subscriptionExternalId":"sub_123","planCode":"price_core_monthly","collectionMode":"automatic"}'
+              -d '{"customerId":"bcust_123","billingAccountId":"bacc_123","collectionMode":"automatic","items":[{"priceId":"price_core_monthly","quantity":1}]}'
         - lang: TypeScript
           label: TypeScript
           source: |-
@@ -9847,7 +10325,7 @@ paths:
             const { data } = await createSubscription({
               client: vortex,
               query: { environment: "sandbox", merchantAccountId: "..." },
-              body: {"customerExternalId":"cus_123","subscriptionExternalId":"sub_123","planCode":"price_core_monthly","collectionMode":"automatic"},
+              body: {"customerId":"bcust_123","billingAccountId":"bacc_123","collectionMode":"automatic","items":[{"priceId":"price_core_monthly","quantity":1}]},
             });
   /v1/tax-transactions:
     get:
@@ -10866,6 +11344,13 @@ paths:
               query: { environment: "sandbox", merchantAccountId: "..." },
             });
     post:
+      description:
+        "The response carries the endpoint's `whsec_` signing secret once\
+        \ — persist it. Every delivery POSTs the JSON event envelope with `Vortex-Signature:\
+        \ t=<ms>,v1=<hex>` (v1 is the hex HMAC-SHA256 of `{t}.{raw body}` under the\
+        \ whsec_ secret; reject timestamps beyond ~5 minutes of drift) plus `Vortex-Event-Id`\
+        \ — the event's stable id, identical across retries and replays, so dedupe\
+        \ on it — and `Vortex-Delivery-Id`, unique per delivery attempt."
       operationId: createWebhookEndpoint
       parameters:
         - explode: true
@@ -14898,7 +15383,7 @@ components:
         displayName: displayName
         legalEntityType: legalEntityType
         country: country
-        merchantMode: merchantMode
+        merchantMode: processing
         defaultCurrency: defaultCurrency
         tenantId: tenantId
         platformMerchantAccountId: platformMerchantAccountId
@@ -15028,6 +15513,10 @@ components:
         country:
           type: string
         merchantMode:
+          enum:
+            - processing
+            - payout_only
+            - hybrid
           type: string
         defaultCurrency:
           type: string
@@ -15105,7 +15594,7 @@ components:
       example:
         environment: sandbox
         displayName: displayName
-        merchantMode: merchantMode
+        merchantMode: processing
         doingBusinessAs: doingBusinessAs
         businessPhone: businessPhone
         businessTaxId: businessTaxId
@@ -15184,6 +15673,10 @@ components:
         displayName:
           type: string
         merchantMode:
+          enum:
+            - processing
+            - payout_only
+            - hybrid
           type: string
         doingBusinessAs:
           nullable: true
@@ -16132,6 +16625,58 @@ components:
         - name
     CustomerListResponse:
       $ref: "#/components/schemas/ApiWriteEnvelope"
+    BillingAccountCreateRequest:
+      additionalProperties: false
+      example:
+        billingAccountId: billingAccountId
+        invoiceDeliveryMode: email
+        collectionMode: manual
+        autoCollectionEnabled: true
+        customerProfileId: customerProfileId
+        defaultPaymentMethodId: defaultPaymentMethodId
+        renewalTiming: advance
+        netTermsDays: 0
+        dunningCampaignId: dunningCampaignId
+        metadata:
+          key: metadata
+      properties:
+        billingAccountId:
+          description: Caller-chosen billing account id (bacc_…); omit to auto-mint.
+          type: string
+        invoiceDeliveryMode:
+          enum:
+            - email
+            - manual
+            - api_only
+          type: string
+        collectionMode:
+          enum:
+            - manual
+            - automatic
+          type: string
+        autoCollectionEnabled:
+          type: boolean
+        customerProfileId:
+          type: string
+        defaultPaymentMethodId:
+          type: string
+        renewalTiming:
+          enum:
+            - advance
+            - arrears
+          type: string
+        netTermsDays:
+          minimum: 0
+          type: integer
+        dunningCampaignId:
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+      required:
+        - autoCollectionEnabled
+        - collectionMode
+        - invoiceDeliveryMode
     ProductCreateRequest:
       additionalProperties: false
       example:
@@ -16214,22 +16759,29 @@ components:
     SubscriptionCreateRequest:
       additionalProperties: false
       example:
-        customerExternalId: customerExternalId
-        subscriptionExternalId: subscriptionExternalId
-        planCode: planCode
+        customerId: customerId
+        billingAccountId: billingAccountId
         collectionMode: automatic
         items:
-          - key: ""
-          - key: ""
-        trialEndsAt: 2000-01-23T04:56:07.000+00:00
+          - priceId: priceId
+            quantity: 1
+            metadata:
+              key: metadata
+          - priceId: priceId
+            quantity: 1
+            metadata:
+              key: metadata
+        subscriptionId: subscriptionId
+        startAt: 2000-01-23T04:56:07.000+00:00
+        trialEndAt: 2000-01-23T04:56:07.000+00:00
+        initialStatus: draft
+        testClockId: testClockId
         metadata:
           key: metadata
       properties:
-        customerExternalId:
+        customerId:
           type: string
-        subscriptionExternalId:
-          type: string
-        planCode:
+        billingAccountId:
           type: string
         collectionMode:
           enum:
@@ -16238,20 +16790,36 @@ components:
           type: string
         items:
           items:
-            additionalProperties: true
-            type: object
+            $ref: "#/components/schemas/SubscriptionItemChangeRequestItem"
+          minItems: 1
           type: array
           default: null
-        trialEndsAt:
+        subscriptionId:
+          description: Caller-chosen subscription id; omit to auto-mint.
+          type: string
+        startAt:
           format: date-time
+          type: string
+        trialEndAt:
+          format: date-time
+          type: string
+        initialStatus:
+          enum:
+            - draft
+            - trialing
+            - active
+            - incomplete
+          type: string
+        testClockId:
           type: string
         metadata:
           additionalProperties:
             type: string
       required:
-        - customerExternalId
-        - planCode
-        - subscriptionExternalId
+        - billingAccountId
+        - collectionMode
+        - customerId
+        - items
     SubscriptionItemChangeRequestItem:
       additionalProperties: false
       example:
@@ -16619,6 +17187,47 @@ components:
       additionalProperties: false
       properties: {}
       type: object
+    MeterCreateRequest:
+      additionalProperties: false
+      example:
+        meterId: meterId
+        name: name
+        eventName: eventName
+        aggregationType: sum
+        windowGrain: day
+        filterSchema:
+          key: filterSchema
+      properties:
+        meterId:
+          description: Caller-chosen meter id; omit to auto-mint.
+          type: string
+        name:
+          type: string
+        eventName:
+          description:
+            Usage-event name this meter aggregates — must match the eventName
+            sent on POST /v1/usage-events.
+          type: string
+        aggregationType:
+          enum:
+            - sum
+            - count
+            - max
+          type: string
+        windowGrain:
+          enum:
+            - day
+            - week
+            - month
+          type: string
+        filterSchema:
+          additionalProperties:
+            type: string
+      required:
+        - aggregationType
+        - eventName
+        - name
+        - windowGrain
     UsageThresholdCreateRequest:
       additionalProperties: false
       example:
@@ -17628,90 +18237,243 @@ components:
       example:
         priceId: priceId
         quantity: 1
-        metadata:
-          key: metadata
       properties:
         priceId:
           type: string
         quantity:
           minimum: 1
           type: integer
-        metadata:
-          additionalProperties:
-            type: string
       required:
         - priceId
-    CreateCheckoutSessionRequest:
+    CheckoutSessionCustomerEnsure:
       additionalProperties: false
+      description:
+        "Inline customer ensure-block (mutually exclusive with the top-level\
+        \ customerId). Resolution order: customerId resolves an existing customer\
+        \ (miss = not found); externalCustomerRef ensure-upserts; otherwise a bare\
+        \ block creates one — name and defaultCurrency are then required."
       example:
-        mode: payment
-        invoiceNumber: invoiceNumber
-        invoiceNumbers:
-          - invoiceNumbers
-          - invoiceNumbers
-        customerExternalId: customerExternalId
-        billingAccountId: billingAccountId
-        subscriptionExternalId: subscriptionExternalId
-        collectionMode: manual
-        startAt: 2000-01-23T04:56:07.000+00:00
-        lineItems:
-          - priceId: priceId
-            quantity: 1
-            metadata:
-              key: metadata
-          - priceId: priceId
-            quantity: 1
-            metadata:
-              key: metadata
-        paymentRequestId: paymentRequestId
-        expiresAt: 2000-01-23T04:56:07.000+00:00
-        createdByRef: createdByRef
+        customerId: customerId
+        externalCustomerRef: externalCustomerRef
+        name: name
+        email: email
+        defaultCurrency: USD
         metadata:
           key: metadata
       properties:
-        mode:
-          enum:
-            - payment
-            - subscription
+        customerId:
           type: string
-        invoiceNumber:
+        externalCustomerRef:
           type: string
-        invoiceNumbers:
-          items:
+        name:
+          type: string
+        email:
+          format: email
+          type: string
+        defaultCurrency:
+          example: USD
+          type: string
+        metadata:
+          additionalProperties:
             type: string
-          minItems: 1
-          type: array
-          default: null
-        customerExternalId:
-          type: string
+    CheckoutSessionBillingAccount:
+      additionalProperties: false
+      description:
+        "Inline billing-account create block for mode=subscription (mutually\
+        \ exclusive with billingAccountId). Omitted entirely, the session resolves\
+        \ the customer's first account or auto-provisions a default manual/api_only\
+        \ one."
+      example:
+        billingAccountId: billingAccountId
+        invoiceDeliveryMode: email
+        collectionMode: manual
+        autoCollectionEnabled: true
+        customerProfileId: customerProfileId
+        defaultPaymentMethodId: defaultPaymentMethodId
+        renewalTiming: advance
+        netTermsDays: 0
+        dunningCampaignId: dunningCampaignId
+        metadata:
+          key: metadata
+      properties:
         billingAccountId:
           type: string
-        subscriptionExternalId:
+        invoiceDeliveryMode:
+          enum:
+            - email
+            - manual
+            - api_only
           type: string
         collectionMode:
           enum:
             - manual
             - automatic
           type: string
-        startAt:
-          format: date-time
+        autoCollectionEnabled:
+          type: boolean
+        customerProfileId:
           type: string
-        lineItems:
+        defaultPaymentMethodId:
+          type: string
+        renewalTiming:
+          enum:
+            - advance
+            - arrears
+          type: string
+        netTermsDays:
+          minimum: 0
+          type: integer
+        dunningCampaignId:
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+    CreateCheckoutSessionRequest:
+      additionalProperties: false
+      description:
+        "mode=payment (the default): pass invoiceNumbers, or amount + currency\
+        \ plus one customer handle (customerEmail, customerId, or a customer ensure-block)\
+        \ for an ad-hoc payable — invoiceNumbers and amount are mutually exclusive.\
+        \ mode=subscription: items plus customerId or a customer ensure-block are\
+        \ required; billingAccountId or a billingAccount block is optional (omitted\
+        \ resolves the customer's first account or auto-provisions a default). trialEndAt\
+        \ is not supported for mode=subscription — trial checkout collects a payment\
+        \ method, not a first-period invoice."
+      example:
+        mode: payment
+        invoiceNumbers:
+          - invoiceNumbers
+          - invoiceNumbers
+        amount: 1
+        currency: USD
+        description: description
+        customerId: customerId
+        billingAccountId: billingAccountId
+        customer:
+          customerId: customerId
+          externalCustomerRef: externalCustomerRef
+          name: name
+          email: email
+          defaultCurrency: USD
+          metadata:
+            key: metadata
+        billingAccount:
+          billingAccountId: billingAccountId
+          invoiceDeliveryMode: email
+          collectionMode: manual
+          autoCollectionEnabled: true
+          customerProfileId: customerProfileId
+          defaultPaymentMethodId: defaultPaymentMethodId
+          renewalTiming: advance
+          netTermsDays: 0
+          dunningCampaignId: dunningCampaignId
+          metadata:
+            key: metadata
+        items:
+          - priceId: priceId
+            quantity: 1
+          - priceId: priceId
+            quantity: 1
+        trialEndAt: 2000-01-23T04:56:07.000+00:00
+        testClockId: testClockId
+        collectionMode: manual
+        successUrl: https://openapi-generator.tech
+        cancelUrl: https://openapi-generator.tech
+        returnUrl: https://openapi-generator.tech
+        paymentMethodId: paymentMethodId
+        customerEmail: customerEmail
+        billingAddressCollection: auto
+        dueAt: 2000-01-23T04:56:07.000+00:00
+        expiresAt: 2000-01-23T04:56:07.000+00:00
+        metadata:
+          key: metadata
+        idempotencyKey: idempotencyKey
+        createdByRef: createdByRef
+      properties:
+        mode:
+          default: payment
+          enum:
+            - payment
+            - subscription
+          type: string
+        invoiceNumbers:
+          items:
+            type: string
+          minItems: 1
+          type: array
+          default: null
+        amount:
+          description:
+            Minor units — composes customer → billing account → one-time
+            invoice → payment request → /pay link when invoiceNumbers is omitted on
+            mode=payment.
+          minimum: 1
+          type: integer
+        currency:
+          description: Required when amount is provided.
+          example: USD
+          type: string
+        description:
+          maxLength: 255
+          type: string
+        customerId:
+          type: string
+        billingAccountId:
+          type: string
+        customer:
+          $ref: "#/components/schemas/CheckoutSessionCustomerEnsure"
+        billingAccount:
+          $ref: "#/components/schemas/CheckoutSessionBillingAccount"
+        items:
+          description: Required for mode=subscription.
           items:
             $ref: "#/components/schemas/CheckoutSessionLineItemRequest"
           minItems: 1
           type: array
           default: null
-        paymentRequestId:
+        trialEndAt:
+          format: date-time
+          type: string
+        testClockId:
+          type: string
+        collectionMode:
+          enum:
+            - manual
+            - automatic
+          type: string
+        successUrl:
+          format: uri
+          type: string
+        cancelUrl:
+          format: uri
+          type: string
+        returnUrl:
+          format: uri
+          type: string
+        paymentMethodId:
+          type: string
+        customerEmail:
+          format: email
+          type: string
+        billingAddressCollection:
+          enum:
+            - auto
+            - required
+          type: string
+        dueAt:
+          format: date-time
           type: string
         expiresAt:
           format: date-time
           type: string
-        createdByRef:
-          type: string
         metadata:
           additionalProperties:
             type: string
+        idempotencyKey:
+          description: May instead ride the Idempotency-Key header.
+          type: string
+        createdByRef:
+          type: string
     CouponTargets:
       additionalProperties: false
       example:
@@ -18192,6 +18954,140 @@ components:
       properties:
         data:
           $ref: "#/components/schemas/BillingMeterAggregateResponse_data"
+        requestId:
+          type: string
+      required:
+        - data
+        - requestId
+    MeterResponse:
+      additionalProperties: {}
+      example:
+        data:
+          meterId: meterId
+          name: name
+          eventName: eventName
+          aggregationType: sum
+          windowGrain: day
+          createdAt: createdAt
+          filterSchema:
+            key: filterSchema
+          archivedAt: archivedAt
+        requestId: requestId
+      properties:
+        data:
+          $ref: "#/components/schemas/MeterResponse_data"
+        requestId:
+          type: string
+      required:
+        - data
+        - requestId
+    MeterListResponse:
+      additionalProperties: {}
+      example:
+        data:
+          items:
+            - meterId: meterId
+              name: name
+              eventName: eventName
+              aggregationType: sum
+              windowGrain: day
+              createdAt: createdAt
+              filterSchema:
+                key: filterSchema
+              archivedAt: archivedAt
+            - meterId: meterId
+              name: name
+              eventName: eventName
+              aggregationType: sum
+              windowGrain: day
+              createdAt: createdAt
+              filterSchema:
+                key: filterSchema
+              archivedAt: archivedAt
+          total: 2147483647
+          hasMore: true
+          nextOffset: 2147483647
+        requestId: requestId
+      properties:
+        data:
+          $ref: "#/components/schemas/MeterListResponse_data"
+        requestId:
+          type: string
+      required:
+        - data
+        - requestId
+    BillingAccountResponse:
+      additionalProperties: {}
+      example:
+        data:
+          billingAccountId: billingAccountId
+          customerId: customerId
+          merchantAccountId: merchantAccountId
+          environment: sandbox
+          invoiceDeliveryMode: email
+          collectionMode: manual
+          autoCollectionEnabled: true
+          metadata:
+            key: metadata
+          createdAt: createdAt
+          customerProfileId: customerProfileId
+          defaultPaymentMethodId: defaultPaymentMethodId
+          renewalTiming: advance
+          netTermsDays: 2147483647
+          dunningCampaignId: dunningCampaignId
+          archivedAt: archivedAt
+        requestId: requestId
+      properties:
+        data:
+          $ref: "#/components/schemas/BillingAccountResponse_data"
+        requestId:
+          type: string
+      required:
+        - data
+        - requestId
+    BillingAccountListResponse:
+      additionalProperties: {}
+      example:
+        data:
+          items:
+            - billingAccountId: billingAccountId
+              customerId: customerId
+              merchantAccountId: merchantAccountId
+              environment: sandbox
+              invoiceDeliveryMode: email
+              collectionMode: manual
+              autoCollectionEnabled: true
+              metadata:
+                key: metadata
+              createdAt: createdAt
+              customerProfileId: customerProfileId
+              defaultPaymentMethodId: defaultPaymentMethodId
+              renewalTiming: advance
+              netTermsDays: 2147483647
+              dunningCampaignId: dunningCampaignId
+              archivedAt: archivedAt
+            - billingAccountId: billingAccountId
+              customerId: customerId
+              merchantAccountId: merchantAccountId
+              environment: sandbox
+              invoiceDeliveryMode: email
+              collectionMode: manual
+              autoCollectionEnabled: true
+              metadata:
+                key: metadata
+              createdAt: createdAt
+              customerProfileId: customerProfileId
+              defaultPaymentMethodId: defaultPaymentMethodId
+              renewalTiming: advance
+              netTermsDays: 2147483647
+              dunningCampaignId: dunningCampaignId
+              archivedAt: archivedAt
+          hasMore: true
+          nextCursor: nextCursor
+        requestId: requestId
+      properties:
+        data:
+          $ref: "#/components/schemas/BillingAccountListResponse_data"
         requestId:
           type: string
       required:
@@ -18990,7 +19886,7 @@ components:
         doingBusinessAs: doingBusinessAs
         legalEntityType: legalEntityType
         country: country
-        merchantMode: merchantMode
+        merchantMode: processing
         defaultCurrency: defaultCurrency
         status: status
         capabilityStatus: capabilityStatus
@@ -19018,6 +19914,10 @@ components:
         country:
           type: string
         merchantMode:
+          enum:
+            - processing
+            - payout_only
+            - hybrid
           type: string
         defaultCurrency:
           type: string
@@ -19090,7 +19990,7 @@ components:
           doingBusinessAs: doingBusinessAs
           legalEntityType: legalEntityType
           country: country
-          merchantMode: merchantMode
+          merchantMode: processing
           defaultCurrency: defaultCurrency
           status: status
           capabilityStatus: capabilityStatus
@@ -19154,7 +20054,7 @@ components:
             doingBusinessAs: doingBusinessAs
             legalEntityType: legalEntityType
             country: country
-            merchantMode: merchantMode
+            merchantMode: processing
             defaultCurrency: defaultCurrency
             status: status
             capabilityStatus: capabilityStatus
@@ -19222,7 +20122,7 @@ components:
             doingBusinessAs: doingBusinessAs
             legalEntityType: legalEntityType
             country: country
-            merchantMode: merchantMode
+            merchantMode: processing
             defaultCurrency: defaultCurrency
             status: status
             capabilityStatus: capabilityStatus
@@ -19828,6 +20728,237 @@ components:
         - windowEndAt
         - windowGrain
         - windowStartAt
+    MeterResponse_data:
+      additionalProperties: false
+      example:
+        meterId: meterId
+        name: name
+        eventName: eventName
+        aggregationType: sum
+        windowGrain: day
+        createdAt: createdAt
+        filterSchema:
+          key: filterSchema
+        archivedAt: archivedAt
+      properties:
+        meterId:
+          minLength: 1
+          type: string
+        name:
+          minLength: 1
+          type: string
+        eventName:
+          minLength: 1
+          type: string
+        aggregationType:
+          enum:
+            - sum
+            - count
+            - max
+          type: string
+        windowGrain:
+          enum:
+            - day
+            - week
+            - month
+          type: string
+        createdAt:
+          minLength: 1
+          type: string
+        filterSchema:
+          additionalProperties:
+            type: string
+        archivedAt:
+          minLength: 1
+          type: string
+      required:
+        - aggregationType
+        - createdAt
+        - eventName
+        - meterId
+        - name
+        - windowGrain
+    MeterListResponse_data:
+      additionalProperties: false
+      example:
+        items:
+          - meterId: meterId
+            name: name
+            eventName: eventName
+            aggregationType: sum
+            windowGrain: day
+            createdAt: createdAt
+            filterSchema:
+              key: filterSchema
+            archivedAt: archivedAt
+          - meterId: meterId
+            name: name
+            eventName: eventName
+            aggregationType: sum
+            windowGrain: day
+            createdAt: createdAt
+            filterSchema:
+              key: filterSchema
+            archivedAt: archivedAt
+        total: 2147483647
+        hasMore: true
+        nextOffset: 2147483647
+      properties:
+        items:
+          items:
+            $ref: "#/components/schemas/MeterResponse_data"
+          type: array
+          default: null
+        total:
+          maximum: 9007199254740991
+          minimum: 0
+          type: integer
+        hasMore:
+          type: boolean
+        nextOffset:
+          maximum: 9007199254740991
+          minimum: 0
+          type: integer
+      required:
+        - hasMore
+        - items
+        - total
+    BillingAccountResponse_data:
+      additionalProperties: false
+      example:
+        billingAccountId: billingAccountId
+        customerId: customerId
+        merchantAccountId: merchantAccountId
+        environment: sandbox
+        invoiceDeliveryMode: email
+        collectionMode: manual
+        autoCollectionEnabled: true
+        metadata:
+          key: metadata
+        createdAt: createdAt
+        customerProfileId: customerProfileId
+        defaultPaymentMethodId: defaultPaymentMethodId
+        renewalTiming: advance
+        netTermsDays: 2147483647
+        dunningCampaignId: dunningCampaignId
+        archivedAt: archivedAt
+      properties:
+        billingAccountId:
+          minLength: 1
+          type: string
+        customerId:
+          minLength: 1
+          type: string
+        merchantAccountId:
+          minLength: 1
+          type: string
+        environment:
+          enum:
+            - sandbox
+            - production
+          type: string
+        invoiceDeliveryMode:
+          enum:
+            - email
+            - manual
+            - api_only
+          type: string
+        collectionMode:
+          enum:
+            - manual
+            - automatic
+          type: string
+        autoCollectionEnabled:
+          type: boolean
+        metadata:
+          additionalProperties:
+            type: string
+        createdAt:
+          minLength: 1
+          type: string
+        customerProfileId:
+          minLength: 1
+          type: string
+        defaultPaymentMethodId:
+          minLength: 1
+          type: string
+        renewalTiming:
+          enum:
+            - advance
+            - arrears
+          type: string
+        netTermsDays:
+          maximum: 9007199254740991
+          minimum: 0
+          type: integer
+        dunningCampaignId:
+          minLength: 1
+          type: string
+        archivedAt:
+          minLength: 1
+          type: string
+      required:
+        - autoCollectionEnabled
+        - billingAccountId
+        - collectionMode
+        - createdAt
+        - customerId
+        - environment
+        - invoiceDeliveryMode
+        - merchantAccountId
+        - metadata
+    BillingAccountListResponse_data:
+      additionalProperties: false
+      example:
+        items:
+          - billingAccountId: billingAccountId
+            customerId: customerId
+            merchantAccountId: merchantAccountId
+            environment: sandbox
+            invoiceDeliveryMode: email
+            collectionMode: manual
+            autoCollectionEnabled: true
+            metadata:
+              key: metadata
+            createdAt: createdAt
+            customerProfileId: customerProfileId
+            defaultPaymentMethodId: defaultPaymentMethodId
+            renewalTiming: advance
+            netTermsDays: 2147483647
+            dunningCampaignId: dunningCampaignId
+            archivedAt: archivedAt
+          - billingAccountId: billingAccountId
+            customerId: customerId
+            merchantAccountId: merchantAccountId
+            environment: sandbox
+            invoiceDeliveryMode: email
+            collectionMode: manual
+            autoCollectionEnabled: true
+            metadata:
+              key: metadata
+            createdAt: createdAt
+            customerProfileId: customerProfileId
+            defaultPaymentMethodId: defaultPaymentMethodId
+            renewalTiming: advance
+            netTermsDays: 2147483647
+            dunningCampaignId: dunningCampaignId
+            archivedAt: archivedAt
+        hasMore: true
+        nextCursor: nextCursor
+      properties:
+        items:
+          items:
+            $ref: "#/components/schemas/BillingAccountResponse_data"
+          type: array
+          default: null
+        hasMore:
+          type: boolean
+        nextCursor:
+          minLength: 1
+          type: string
+      required:
+        - hasMore
+        - items
     MerchantTaxProfileRequest_registrations_inner:
       additionalProperties: false
       example:

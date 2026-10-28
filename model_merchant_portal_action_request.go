@@ -56,6 +56,9 @@ type MerchantPortalActionRequest struct {
 	MerchantPortalActionRequestOneOf40 *MerchantPortalActionRequestOneOf40
 	MerchantPortalActionRequestOneOf41 *MerchantPortalActionRequestOneOf41
 	MerchantPortalActionRequestOneOf42 *MerchantPortalActionRequestOneOf42
+	MerchantPortalActionRequestOneOf43 *MerchantPortalActionRequestOneOf43
+	MerchantPortalActionRequestOneOf44 *MerchantPortalActionRequestOneOf44
+	MerchantPortalActionRequestOneOf45 *MerchantPortalActionRequestOneOf45
 	MerchantPortalActionRequestOneOf5 *MerchantPortalActionRequestOneOf5
 	MerchantPortalActionRequestOneOf6 *MerchantPortalActionRequestOneOf6
 	MerchantPortalActionRequestOneOf7 *MerchantPortalActionRequestOneOf7
@@ -326,6 +329,27 @@ func MerchantPortalActionRequestOneOf41AsMerchantPortalActionRequest(v *Merchant
 func MerchantPortalActionRequestOneOf42AsMerchantPortalActionRequest(v *MerchantPortalActionRequestOneOf42) MerchantPortalActionRequest {
 	return MerchantPortalActionRequest{
 		MerchantPortalActionRequestOneOf42: v,
+	}
+}
+
+// MerchantPortalActionRequestOneOf43AsMerchantPortalActionRequest is a convenience function that returns MerchantPortalActionRequestOneOf43 wrapped in MerchantPortalActionRequest
+func MerchantPortalActionRequestOneOf43AsMerchantPortalActionRequest(v *MerchantPortalActionRequestOneOf43) MerchantPortalActionRequest {
+	return MerchantPortalActionRequest{
+		MerchantPortalActionRequestOneOf43: v,
+	}
+}
+
+// MerchantPortalActionRequestOneOf44AsMerchantPortalActionRequest is a convenience function that returns MerchantPortalActionRequestOneOf44 wrapped in MerchantPortalActionRequest
+func MerchantPortalActionRequestOneOf44AsMerchantPortalActionRequest(v *MerchantPortalActionRequestOneOf44) MerchantPortalActionRequest {
+	return MerchantPortalActionRequest{
+		MerchantPortalActionRequestOneOf44: v,
+	}
+}
+
+// MerchantPortalActionRequestOneOf45AsMerchantPortalActionRequest is a convenience function that returns MerchantPortalActionRequestOneOf45 wrapped in MerchantPortalActionRequest
+func MerchantPortalActionRequestOneOf45AsMerchantPortalActionRequest(v *MerchantPortalActionRequestOneOf45) MerchantPortalActionRequest {
+	return MerchantPortalActionRequest{
+		MerchantPortalActionRequestOneOf45: v,
 	}
 }
 
@@ -1015,6 +1039,57 @@ func (dst *MerchantPortalActionRequest) UnmarshalJSON(data []byte) error {
 		dst.MerchantPortalActionRequestOneOf42 = nil
 	}
 
+	// try to unmarshal data into MerchantPortalActionRequestOneOf43
+	err = newStrictDecoder(data).Decode(&dst.MerchantPortalActionRequestOneOf43)
+	if err == nil {
+		jsonMerchantPortalActionRequestOneOf43, _ := json.Marshal(dst.MerchantPortalActionRequestOneOf43)
+		if string(jsonMerchantPortalActionRequestOneOf43) == "{}" { // empty struct
+			dst.MerchantPortalActionRequestOneOf43 = nil
+		} else {
+			if err = validator.Validate(dst.MerchantPortalActionRequestOneOf43); err != nil {
+				dst.MerchantPortalActionRequestOneOf43 = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.MerchantPortalActionRequestOneOf43 = nil
+	}
+
+	// try to unmarshal data into MerchantPortalActionRequestOneOf44
+	err = newStrictDecoder(data).Decode(&dst.MerchantPortalActionRequestOneOf44)
+	if err == nil {
+		jsonMerchantPortalActionRequestOneOf44, _ := json.Marshal(dst.MerchantPortalActionRequestOneOf44)
+		if string(jsonMerchantPortalActionRequestOneOf44) == "{}" { // empty struct
+			dst.MerchantPortalActionRequestOneOf44 = nil
+		} else {
+			if err = validator.Validate(dst.MerchantPortalActionRequestOneOf44); err != nil {
+				dst.MerchantPortalActionRequestOneOf44 = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.MerchantPortalActionRequestOneOf44 = nil
+	}
+
+	// try to unmarshal data into MerchantPortalActionRequestOneOf45
+	err = newStrictDecoder(data).Decode(&dst.MerchantPortalActionRequestOneOf45)
+	if err == nil {
+		jsonMerchantPortalActionRequestOneOf45, _ := json.Marshal(dst.MerchantPortalActionRequestOneOf45)
+		if string(jsonMerchantPortalActionRequestOneOf45) == "{}" { // empty struct
+			dst.MerchantPortalActionRequestOneOf45 = nil
+		} else {
+			if err = validator.Validate(dst.MerchantPortalActionRequestOneOf45); err != nil {
+				dst.MerchantPortalActionRequestOneOf45 = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.MerchantPortalActionRequestOneOf45 = nil
+	}
+
 	// try to unmarshal data into MerchantPortalActionRequestOneOf5
 	err = newStrictDecoder(data).Decode(&dst.MerchantPortalActionRequestOneOf5)
 	if err == nil {
@@ -1140,6 +1215,9 @@ func (dst *MerchantPortalActionRequest) UnmarshalJSON(data []byte) error {
 		dst.MerchantPortalActionRequestOneOf40 = nil
 		dst.MerchantPortalActionRequestOneOf41 = nil
 		dst.MerchantPortalActionRequestOneOf42 = nil
+		dst.MerchantPortalActionRequestOneOf43 = nil
+		dst.MerchantPortalActionRequestOneOf44 = nil
+		dst.MerchantPortalActionRequestOneOf45 = nil
 		dst.MerchantPortalActionRequestOneOf5 = nil
 		dst.MerchantPortalActionRequestOneOf6 = nil
 		dst.MerchantPortalActionRequestOneOf7 = nil
@@ -1306,6 +1384,18 @@ func (src MerchantPortalActionRequest) MarshalJSON() ([]byte, error) {
 
 	if src.MerchantPortalActionRequestOneOf42 != nil {
 		return json.Marshal(&src.MerchantPortalActionRequestOneOf42)
+	}
+
+	if src.MerchantPortalActionRequestOneOf43 != nil {
+		return json.Marshal(&src.MerchantPortalActionRequestOneOf43)
+	}
+
+	if src.MerchantPortalActionRequestOneOf44 != nil {
+		return json.Marshal(&src.MerchantPortalActionRequestOneOf44)
+	}
+
+	if src.MerchantPortalActionRequestOneOf45 != nil {
+		return json.Marshal(&src.MerchantPortalActionRequestOneOf45)
 	}
 
 	if src.MerchantPortalActionRequestOneOf5 != nil {
@@ -1488,6 +1578,18 @@ func (obj *MerchantPortalActionRequest) GetActualInstance() (interface{}) {
 		return obj.MerchantPortalActionRequestOneOf42
 	}
 
+	if obj.MerchantPortalActionRequestOneOf43 != nil {
+		return obj.MerchantPortalActionRequestOneOf43
+	}
+
+	if obj.MerchantPortalActionRequestOneOf44 != nil {
+		return obj.MerchantPortalActionRequestOneOf44
+	}
+
+	if obj.MerchantPortalActionRequestOneOf45 != nil {
+		return obj.MerchantPortalActionRequestOneOf45
+	}
+
 	if obj.MerchantPortalActionRequestOneOf5 != nil {
 		return obj.MerchantPortalActionRequestOneOf5
 	}
@@ -1664,6 +1766,18 @@ func (obj MerchantPortalActionRequest) GetActualInstanceValue() (interface{}) {
 
 	if obj.MerchantPortalActionRequestOneOf42 != nil {
 		return *obj.MerchantPortalActionRequestOneOf42
+	}
+
+	if obj.MerchantPortalActionRequestOneOf43 != nil {
+		return *obj.MerchantPortalActionRequestOneOf43
+	}
+
+	if obj.MerchantPortalActionRequestOneOf44 != nil {
+		return *obj.MerchantPortalActionRequestOneOf44
+	}
+
+	if obj.MerchantPortalActionRequestOneOf45 != nil {
+		return *obj.MerchantPortalActionRequestOneOf45
 	}
 
 	if obj.MerchantPortalActionRequestOneOf5 != nil {

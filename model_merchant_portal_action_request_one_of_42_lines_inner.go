@@ -16,40 +16,40 @@ import (
 	"fmt"
 )
 
-// checks if the MerchantPortalActionRequestOneOf39LinesInner type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &MerchantPortalActionRequestOneOf39LinesInner{}
+// checks if the MerchantPortalActionRequestOneOf42LinesInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MerchantPortalActionRequestOneOf42LinesInner{}
 
-// MerchantPortalActionRequestOneOf39LinesInner struct for MerchantPortalActionRequestOneOf39LinesInner
-type MerchantPortalActionRequestOneOf39LinesInner struct {
+// MerchantPortalActionRequestOneOf42LinesInner struct for MerchantPortalActionRequestOneOf42LinesInner
+type MerchantPortalActionRequestOneOf42LinesInner struct {
 	Description string `json:"description"`
 	// Integer minor units.
 	Amount int32 `json:"amount"`
 	InvoiceLineId *string `json:"invoiceLineId,omitempty"`
 }
 
-type _MerchantPortalActionRequestOneOf39LinesInner MerchantPortalActionRequestOneOf39LinesInner
+type _MerchantPortalActionRequestOneOf42LinesInner MerchantPortalActionRequestOneOf42LinesInner
 
-// NewMerchantPortalActionRequestOneOf39LinesInner instantiates a new MerchantPortalActionRequestOneOf39LinesInner object
+// NewMerchantPortalActionRequestOneOf42LinesInner instantiates a new MerchantPortalActionRequestOneOf42LinesInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionRequestOneOf39LinesInner(description string, amount int32) *MerchantPortalActionRequestOneOf39LinesInner {
-	this := MerchantPortalActionRequestOneOf39LinesInner{}
+func NewMerchantPortalActionRequestOneOf42LinesInner(description string, amount int32) *MerchantPortalActionRequestOneOf42LinesInner {
+	this := MerchantPortalActionRequestOneOf42LinesInner{}
 	this.Description = description
 	this.Amount = amount
 	return &this
 }
 
-// NewMerchantPortalActionRequestOneOf39LinesInnerWithDefaults instantiates a new MerchantPortalActionRequestOneOf39LinesInner object
+// NewMerchantPortalActionRequestOneOf42LinesInnerWithDefaults instantiates a new MerchantPortalActionRequestOneOf42LinesInner object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewMerchantPortalActionRequestOneOf39LinesInnerWithDefaults() *MerchantPortalActionRequestOneOf39LinesInner {
-	this := MerchantPortalActionRequestOneOf39LinesInner{}
+func NewMerchantPortalActionRequestOneOf42LinesInnerWithDefaults() *MerchantPortalActionRequestOneOf42LinesInner {
+	this := MerchantPortalActionRequestOneOf42LinesInner{}
 	return &this
 }
 
 // GetDescription returns the Description field value
-func (o *MerchantPortalActionRequestOneOf39LinesInner) GetDescription() string {
+func (o *MerchantPortalActionRequestOneOf42LinesInner) GetDescription() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -60,7 +60,7 @@ func (o *MerchantPortalActionRequestOneOf39LinesInner) GetDescription() string {
 
 // GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf39LinesInner) GetDescriptionOk() (*string, bool) {
+func (o *MerchantPortalActionRequestOneOf42LinesInner) GetDescriptionOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -68,12 +68,12 @@ func (o *MerchantPortalActionRequestOneOf39LinesInner) GetDescriptionOk() (*stri
 }
 
 // SetDescription sets field value
-func (o *MerchantPortalActionRequestOneOf39LinesInner) SetDescription(v string) {
+func (o *MerchantPortalActionRequestOneOf42LinesInner) SetDescription(v string) {
 	o.Description = v
 }
 
 // GetAmount returns the Amount field value
-func (o *MerchantPortalActionRequestOneOf39LinesInner) GetAmount() int32 {
+func (o *MerchantPortalActionRequestOneOf42LinesInner) GetAmount() int32 {
 	if o == nil {
 		var ret int32
 		return ret
@@ -84,7 +84,7 @@ func (o *MerchantPortalActionRequestOneOf39LinesInner) GetAmount() int32 {
 
 // GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf39LinesInner) GetAmountOk() (*int32, bool) {
+func (o *MerchantPortalActionRequestOneOf42LinesInner) GetAmountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -92,12 +92,12 @@ func (o *MerchantPortalActionRequestOneOf39LinesInner) GetAmountOk() (*int32, bo
 }
 
 // SetAmount sets field value
-func (o *MerchantPortalActionRequestOneOf39LinesInner) SetAmount(v int32) {
+func (o *MerchantPortalActionRequestOneOf42LinesInner) SetAmount(v int32) {
 	o.Amount = v
 }
 
 // GetInvoiceLineId returns the InvoiceLineId field value if set, zero value otherwise.
-func (o *MerchantPortalActionRequestOneOf39LinesInner) GetInvoiceLineId() string {
+func (o *MerchantPortalActionRequestOneOf42LinesInner) GetInvoiceLineId() string {
 	if o == nil || IsNil(o.InvoiceLineId) {
 		var ret string
 		return ret
@@ -107,7 +107,7 @@ func (o *MerchantPortalActionRequestOneOf39LinesInner) GetInvoiceLineId() string
 
 // GetInvoiceLineIdOk returns a tuple with the InvoiceLineId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf39LinesInner) GetInvoiceLineIdOk() (*string, bool) {
+func (o *MerchantPortalActionRequestOneOf42LinesInner) GetInvoiceLineIdOk() (*string, bool) {
 	if o == nil || IsNil(o.InvoiceLineId) {
 		return nil, false
 	}
@@ -115,7 +115,7 @@ func (o *MerchantPortalActionRequestOneOf39LinesInner) GetInvoiceLineIdOk() (*st
 }
 
 // HasInvoiceLineId returns a boolean if a field has been set.
-func (o *MerchantPortalActionRequestOneOf39LinesInner) HasInvoiceLineId() bool {
+func (o *MerchantPortalActionRequestOneOf42LinesInner) HasInvoiceLineId() bool {
 	if o != nil && !IsNil(o.InvoiceLineId) {
 		return true
 	}
@@ -124,11 +124,11 @@ func (o *MerchantPortalActionRequestOneOf39LinesInner) HasInvoiceLineId() bool {
 }
 
 // SetInvoiceLineId gets a reference to the given string and assigns it to the InvoiceLineId field.
-func (o *MerchantPortalActionRequestOneOf39LinesInner) SetInvoiceLineId(v string) {
+func (o *MerchantPortalActionRequestOneOf42LinesInner) SetInvoiceLineId(v string) {
 	o.InvoiceLineId = &v
 }
 
-func (o MerchantPortalActionRequestOneOf39LinesInner) MarshalJSON() ([]byte, error) {
+func (o MerchantPortalActionRequestOneOf42LinesInner) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -136,7 +136,7 @@ func (o MerchantPortalActionRequestOneOf39LinesInner) MarshalJSON() ([]byte, err
 	return json.Marshal(toSerialize)
 }
 
-func (o MerchantPortalActionRequestOneOf39LinesInner) ToMap() (map[string]interface{}, error) {
+func (o MerchantPortalActionRequestOneOf42LinesInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["description"] = o.Description
 	toSerialize["amount"] = o.Amount
@@ -146,7 +146,7 @@ func (o MerchantPortalActionRequestOneOf39LinesInner) ToMap() (map[string]interf
 	return toSerialize, nil
 }
 
-func (o *MerchantPortalActionRequestOneOf39LinesInner) UnmarshalJSON(data []byte) (err error) {
+func (o *MerchantPortalActionRequestOneOf42LinesInner) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -169,53 +169,53 @@ func (o *MerchantPortalActionRequestOneOf39LinesInner) UnmarshalJSON(data []byte
 		}
 	}
 
-	varMerchantPortalActionRequestOneOf39LinesInner := _MerchantPortalActionRequestOneOf39LinesInner{}
+	varMerchantPortalActionRequestOneOf42LinesInner := _MerchantPortalActionRequestOneOf42LinesInner{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMerchantPortalActionRequestOneOf39LinesInner)
+	err = decoder.Decode(&varMerchantPortalActionRequestOneOf42LinesInner)
 
 	if err != nil {
 		return err
 	}
 
-	*o = MerchantPortalActionRequestOneOf39LinesInner(varMerchantPortalActionRequestOneOf39LinesInner)
+	*o = MerchantPortalActionRequestOneOf42LinesInner(varMerchantPortalActionRequestOneOf42LinesInner)
 
 	return err
 }
 
-type NullableMerchantPortalActionRequestOneOf39LinesInner struct {
-	value *MerchantPortalActionRequestOneOf39LinesInner
+type NullableMerchantPortalActionRequestOneOf42LinesInner struct {
+	value *MerchantPortalActionRequestOneOf42LinesInner
 	isSet bool
 }
 
-func (v NullableMerchantPortalActionRequestOneOf39LinesInner) Get() *MerchantPortalActionRequestOneOf39LinesInner {
+func (v NullableMerchantPortalActionRequestOneOf42LinesInner) Get() *MerchantPortalActionRequestOneOf42LinesInner {
 	return v.value
 }
 
-func (v *NullableMerchantPortalActionRequestOneOf39LinesInner) Set(val *MerchantPortalActionRequestOneOf39LinesInner) {
+func (v *NullableMerchantPortalActionRequestOneOf42LinesInner) Set(val *MerchantPortalActionRequestOneOf42LinesInner) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableMerchantPortalActionRequestOneOf39LinesInner) IsSet() bool {
+func (v NullableMerchantPortalActionRequestOneOf42LinesInner) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableMerchantPortalActionRequestOneOf39LinesInner) Unset() {
+func (v *NullableMerchantPortalActionRequestOneOf42LinesInner) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableMerchantPortalActionRequestOneOf39LinesInner(val *MerchantPortalActionRequestOneOf39LinesInner) *NullableMerchantPortalActionRequestOneOf39LinesInner {
-	return &NullableMerchantPortalActionRequestOneOf39LinesInner{value: val, isSet: true}
+func NewNullableMerchantPortalActionRequestOneOf42LinesInner(val *MerchantPortalActionRequestOneOf42LinesInner) *NullableMerchantPortalActionRequestOneOf42LinesInner {
+	return &NullableMerchantPortalActionRequestOneOf42LinesInner{value: val, isSet: true}
 }
 
-func (v NullableMerchantPortalActionRequestOneOf39LinesInner) MarshalJSON() ([]byte, error) {
+func (v NullableMerchantPortalActionRequestOneOf42LinesInner) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableMerchantPortalActionRequestOneOf39LinesInner) UnmarshalJSON(src []byte) error {
+func (v *NullableMerchantPortalActionRequestOneOf42LinesInner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

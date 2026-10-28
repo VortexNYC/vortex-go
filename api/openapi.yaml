@@ -20255,12 +20255,13 @@ components:
       additionalProperties: true
       description:
         "Full portal snapshot — one array per bucket (customers, payments,\
-        \ invoices, subscriptions, paymentLinks, taxTransactions, creditNotes, coupons,\
-        \ disputes, wallets, products, prices, collectionRetries, settlements, payouts,\
-        \ meters, usageEvents, webhookEndpoints, webhookDeliveries, canonicalEvents,\
-        \ paymentMethods) plus recentEvents, attention, aging, and the optional moneySummary/onboarding/taxProfile/analytics\
-        \ blocks. Only the fields named here are part of the declared contract today;\
-        \ each bucket promotes its own component as it earns a stable shape."
+        \ invoices, subscriptions, paymentLinks, orders, orderForms, quotes, taxTransactions,\
+        \ creditNotes, coupons, disputes, wallets, products, prices, collectionRetries,\
+        \ settlements, payouts, meters, usageEvents, webhookEndpoints, webhookDeliveries,\
+        \ canonicalEvents, paymentMethods) plus recentEvents, attention, aging, and\
+        \ the optional moneySummary/onboarding/taxProfile/analytics blocks. Only the\
+        \ fields named here are part of the declared contract today; each bucket promotes\
+        \ its own component as it earns a stable shape."
       example:
         organizationName: organizationName
         merchantAccountId: merchantAccountId
@@ -20474,6 +20475,9 @@ components:
         - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_40"
         - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_41"
         - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_42"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_43"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_44"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_45"
     HostedPortalSubscriptionItem:
       additionalProperties: false
       properties:
@@ -22310,6 +22314,42 @@ components:
       properties:
         action:
           enum:
+            - order-detail
+          type: string
+        orderId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - orderId
+    MerchantPortalActionRequest_oneOf_31:
+      properties:
+        action:
+          enum:
+            - order-form-detail
+          type: string
+        orderFormId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - orderFormId
+    MerchantPortalActionRequest_oneOf_32:
+      properties:
+        action:
+          enum:
+            - quote-detail
+          type: string
+        quoteId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - quoteId
+    MerchantPortalActionRequest_oneOf_33:
+      properties:
+        action:
+          enum:
             - create-webhook-endpoint
           type: string
         destinationUrl:
@@ -22333,7 +22373,7 @@ components:
         - action
         - destinationUrl
         - subscribedEventTypes
-    MerchantPortalActionRequest_oneOf_31:
+    MerchantPortalActionRequest_oneOf_34:
       properties:
         action:
           enum:
@@ -22345,7 +22385,7 @@ components:
       required:
         - action
         - endpointId
-    MerchantPortalActionRequest_oneOf_32:
+    MerchantPortalActionRequest_oneOf_35:
       properties:
         action:
           enum:
@@ -22363,7 +22403,7 @@ components:
       required:
         - action
         - endpointId
-    MerchantPortalActionRequest_oneOf_33:
+    MerchantPortalActionRequest_oneOf_36:
       properties:
         action:
           enum:
@@ -22375,7 +22415,7 @@ components:
       required:
         - action
         - deliveryId
-    MerchantPortalActionRequest_oneOf_34:
+    MerchantPortalActionRequest_oneOf_37:
       properties:
         action:
           enum:
@@ -22387,7 +22427,7 @@ components:
       required:
         - action
         - endpointId
-    MerchantPortalActionRequest_oneOf_35_price:
+    MerchantPortalActionRequest_oneOf_38_price:
       description:
         "Optional first price, created in the same transaction — billingInterval\
         \ present means fixed_recurring, absent means fixed_one_time."
@@ -22411,7 +22451,7 @@ components:
           type: string
       required:
         - unitAmount
-    MerchantPortalActionRequest_oneOf_35:
+    MerchantPortalActionRequest_oneOf_38:
       properties:
         action:
           enum:
@@ -22424,7 +22464,7 @@ components:
           minLength: 1
           type: string
         price:
-          $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_35_price"
+          $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_38_price"
         attemptId:
           maxLength: 80
           minLength: 1
@@ -22432,7 +22472,7 @@ components:
       required:
         - action
         - name
-    MerchantPortalActionRequest_oneOf_36:
+    MerchantPortalActionRequest_oneOf_39:
       properties:
         action:
           enum:
@@ -22444,7 +22484,7 @@ components:
       required:
         - action
         - productId
-    MerchantPortalActionRequest_oneOf_37:
+    MerchantPortalActionRequest_oneOf_40:
       properties:
         action:
           enum:
@@ -22456,7 +22496,7 @@ components:
       required:
         - action
         - productId
-    MerchantPortalActionRequest_oneOf_38:
+    MerchantPortalActionRequest_oneOf_41:
       properties:
         action:
           enum:
@@ -22505,7 +22545,7 @@ components:
         - code
         - discountType
         - name
-    MerchantPortalActionRequest_oneOf_39_lines_inner:
+    MerchantPortalActionRequest_oneOf_42_lines_inner:
       properties:
         description:
           maxLength: 200
@@ -22521,7 +22561,7 @@ components:
       required:
         - amount
         - description
-    MerchantPortalActionRequest_oneOf_39:
+    MerchantPortalActionRequest_oneOf_42:
       properties:
         action:
           enum:
@@ -22541,7 +22581,7 @@ components:
           type: string
         lines:
           items:
-            $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_39_lines_inner"
+            $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_42_lines_inner"
           maxItems: 50
           minItems: 1
           type: array
@@ -22559,7 +22599,7 @@ components:
         - invoiceId
         - lines
         - reason
-    MerchantPortalActionRequest_oneOf_40:
+    MerchantPortalActionRequest_oneOf_43:
       properties:
         action:
           enum:
@@ -22571,7 +22611,7 @@ components:
       required:
         - action
         - taxTransactionId
-    MerchantPortalActionRequest_oneOf_41:
+    MerchantPortalActionRequest_oneOf_44:
       properties:
         action:
           enum:
@@ -22583,7 +22623,7 @@ components:
       required:
         - action
         - taxTransactionId
-    MerchantPortalActionRequest_oneOf_42_originAddress:
+    MerchantPortalActionRequest_oneOf_45_originAddress:
       properties:
         line1:
           minLength: 1
@@ -22609,7 +22649,7 @@ components:
         - line1
         - postalCode
         - region
-    MerchantPortalActionRequest_oneOf_42_registrations_inner:
+    MerchantPortalActionRequest_oneOf_45_registrations_inner:
       properties:
         country:
           minLength: 1
@@ -22619,7 +22659,7 @@ components:
           type: string
       required:
         - country
-    MerchantPortalActionRequest_oneOf_42:
+    MerchantPortalActionRequest_oneOf_45:
       properties:
         action:
           enum:
@@ -22629,10 +22669,10 @@ components:
           minLength: 1
           type: string
         originAddress:
-          $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_42_originAddress"
+          $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_45_originAddress"
         registrations:
           items:
-            $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_42_registrations_inner"
+            $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_45_registrations_inner"
           minItems: 1
           type: array
           default: null

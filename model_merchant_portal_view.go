@@ -19,7 +19,7 @@ import (
 // checks if the MerchantPortalView type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &MerchantPortalView{}
 
-// MerchantPortalView Full portal snapshot — one array per bucket (customers, payments, invoices, subscriptions, paymentLinks, taxTransactions, creditNotes, coupons, disputes, wallets, products, prices, collectionRetries, settlements, payouts, meters, usageEvents, webhookEndpoints, webhookDeliveries, canonicalEvents, paymentMethods) plus recentEvents, attention, aging, and the optional moneySummary/onboarding/taxProfile/analytics blocks. Only the fields named here are part of the declared contract today; each bucket promotes its own component as it earns a stable shape.
+// MerchantPortalView Full portal snapshot — one array per bucket (customers, payments, invoices, subscriptions, paymentLinks, orders, orderForms, quotes, taxTransactions, creditNotes, coupons, disputes, wallets, products, prices, collectionRetries, settlements, payouts, meters, usageEvents, webhookEndpoints, webhookDeliveries, canonicalEvents, paymentMethods) plus recentEvents, attention, aging, and the optional moneySummary/onboarding/taxProfile/analytics blocks. Only the fields named here are part of the declared contract today; each bucket promotes its own component as it earns a stable shape.
 type MerchantPortalView struct {
 	OrganizationName string `json:"organizationName"`
 	MerchantAccountId string `json:"merchantAccountId"`

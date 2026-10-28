@@ -22,16 +22,9 @@ var _ MappedNullable = &MerchantPortalActionRequestOneOf38{}
 // MerchantPortalActionRequestOneOf38 struct for MerchantPortalActionRequestOneOf38
 type MerchantPortalActionRequestOneOf38 struct {
 	Action string `json:"action"`
-	Code string `json:"code" validate:"regexp=^[A-Za-z0-9_-]+$"`
 	Name string `json:"name"`
 	Description *string `json:"description,omitempty"`
-	DiscountType string `json:"discountType"`
-	// Required when discountType is percentage.
-	Percentage *float32 `json:"percentage,omitempty"`
-	// Required when discountType is fixed_amount — integer minor units.
-	Amount *int32 `json:"amount,omitempty"`
-	// Required when discountType is fixed_amount.
-	Currency *string `json:"currency,omitempty"`
+	Price *MerchantPortalActionRequestOneOf38Price `json:"price,omitempty"`
 	AttemptId *string `json:"attemptId,omitempty"`
 }
 
@@ -41,12 +34,10 @@ type _MerchantPortalActionRequestOneOf38 MerchantPortalActionRequestOneOf38
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionRequestOneOf38(action string, code string, name string, discountType string) *MerchantPortalActionRequestOneOf38 {
+func NewMerchantPortalActionRequestOneOf38(action string, name string) *MerchantPortalActionRequestOneOf38 {
 	this := MerchantPortalActionRequestOneOf38{}
 	this.Action = action
-	this.Code = code
 	this.Name = name
-	this.DiscountType = discountType
 	return &this
 }
 
@@ -80,30 +71,6 @@ func (o *MerchantPortalActionRequestOneOf38) GetActionOk() (*string, bool) {
 // SetAction sets field value
 func (o *MerchantPortalActionRequestOneOf38) SetAction(v string) {
 	o.Action = v
-}
-
-// GetCode returns the Code field value
-func (o *MerchantPortalActionRequestOneOf38) GetCode() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Code
-}
-
-// GetCodeOk returns a tuple with the Code field value
-// and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf38) GetCodeOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Code, true
-}
-
-// SetCode sets field value
-func (o *MerchantPortalActionRequestOneOf38) SetCode(v string) {
-	o.Code = v
 }
 
 // GetName returns the Name field value
@@ -162,124 +129,36 @@ func (o *MerchantPortalActionRequestOneOf38) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetDiscountType returns the DiscountType field value
-func (o *MerchantPortalActionRequestOneOf38) GetDiscountType() string {
-	if o == nil {
-		var ret string
+// GetPrice returns the Price field value if set, zero value otherwise.
+func (o *MerchantPortalActionRequestOneOf38) GetPrice() MerchantPortalActionRequestOneOf38Price {
+	if o == nil || IsNil(o.Price) {
+		var ret MerchantPortalActionRequestOneOf38Price
 		return ret
 	}
-
-	return o.DiscountType
+	return *o.Price
 }
 
-// GetDiscountTypeOk returns a tuple with the DiscountType field value
+// GetPriceOk returns a tuple with the Price field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf38) GetDiscountTypeOk() (*string, bool) {
-	if o == nil {
+func (o *MerchantPortalActionRequestOneOf38) GetPriceOk() (*MerchantPortalActionRequestOneOf38Price, bool) {
+	if o == nil || IsNil(o.Price) {
 		return nil, false
 	}
-	return &o.DiscountType, true
+	return o.Price, true
 }
 
-// SetDiscountType sets field value
-func (o *MerchantPortalActionRequestOneOf38) SetDiscountType(v string) {
-	o.DiscountType = v
-}
-
-// GetPercentage returns the Percentage field value if set, zero value otherwise.
-func (o *MerchantPortalActionRequestOneOf38) GetPercentage() float32 {
-	if o == nil || IsNil(o.Percentage) {
-		var ret float32
-		return ret
-	}
-	return *o.Percentage
-}
-
-// GetPercentageOk returns a tuple with the Percentage field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf38) GetPercentageOk() (*float32, bool) {
-	if o == nil || IsNil(o.Percentage) {
-		return nil, false
-	}
-	return o.Percentage, true
-}
-
-// HasPercentage returns a boolean if a field has been set.
-func (o *MerchantPortalActionRequestOneOf38) HasPercentage() bool {
-	if o != nil && !IsNil(o.Percentage) {
+// HasPrice returns a boolean if a field has been set.
+func (o *MerchantPortalActionRequestOneOf38) HasPrice() bool {
+	if o != nil && !IsNil(o.Price) {
 		return true
 	}
 
 	return false
 }
 
-// SetPercentage gets a reference to the given float32 and assigns it to the Percentage field.
-func (o *MerchantPortalActionRequestOneOf38) SetPercentage(v float32) {
-	o.Percentage = &v
-}
-
-// GetAmount returns the Amount field value if set, zero value otherwise.
-func (o *MerchantPortalActionRequestOneOf38) GetAmount() int32 {
-	if o == nil || IsNil(o.Amount) {
-		var ret int32
-		return ret
-	}
-	return *o.Amount
-}
-
-// GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf38) GetAmountOk() (*int32, bool) {
-	if o == nil || IsNil(o.Amount) {
-		return nil, false
-	}
-	return o.Amount, true
-}
-
-// HasAmount returns a boolean if a field has been set.
-func (o *MerchantPortalActionRequestOneOf38) HasAmount() bool {
-	if o != nil && !IsNil(o.Amount) {
-		return true
-	}
-
-	return false
-}
-
-// SetAmount gets a reference to the given int32 and assigns it to the Amount field.
-func (o *MerchantPortalActionRequestOneOf38) SetAmount(v int32) {
-	o.Amount = &v
-}
-
-// GetCurrency returns the Currency field value if set, zero value otherwise.
-func (o *MerchantPortalActionRequestOneOf38) GetCurrency() string {
-	if o == nil || IsNil(o.Currency) {
-		var ret string
-		return ret
-	}
-	return *o.Currency
-}
-
-// GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf38) GetCurrencyOk() (*string, bool) {
-	if o == nil || IsNil(o.Currency) {
-		return nil, false
-	}
-	return o.Currency, true
-}
-
-// HasCurrency returns a boolean if a field has been set.
-func (o *MerchantPortalActionRequestOneOf38) HasCurrency() bool {
-	if o != nil && !IsNil(o.Currency) {
-		return true
-	}
-
-	return false
-}
-
-// SetCurrency gets a reference to the given string and assigns it to the Currency field.
-func (o *MerchantPortalActionRequestOneOf38) SetCurrency(v string) {
-	o.Currency = &v
+// SetPrice gets a reference to the given MerchantPortalActionRequestOneOf38Price and assigns it to the Price field.
+func (o *MerchantPortalActionRequestOneOf38) SetPrice(v MerchantPortalActionRequestOneOf38Price) {
+	o.Price = &v
 }
 
 // GetAttemptId returns the AttemptId field value if set, zero value otherwise.
@@ -325,20 +204,12 @@ func (o MerchantPortalActionRequestOneOf38) MarshalJSON() ([]byte, error) {
 func (o MerchantPortalActionRequestOneOf38) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["action"] = o.Action
-	toSerialize["code"] = o.Code
 	toSerialize["name"] = o.Name
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	toSerialize["discountType"] = o.DiscountType
-	if !IsNil(o.Percentage) {
-		toSerialize["percentage"] = o.Percentage
-	}
-	if !IsNil(o.Amount) {
-		toSerialize["amount"] = o.Amount
-	}
-	if !IsNil(o.Currency) {
-		toSerialize["currency"] = o.Currency
+	if !IsNil(o.Price) {
+		toSerialize["price"] = o.Price
 	}
 	if !IsNil(o.AttemptId) {
 		toSerialize["attemptId"] = o.AttemptId
@@ -352,9 +223,7 @@ func (o *MerchantPortalActionRequestOneOf38) UnmarshalJSON(data []byte) (err err
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"action",
-		"code",
 		"name",
-		"discountType",
 	}
 
 	allProperties := make(map[string]interface{})

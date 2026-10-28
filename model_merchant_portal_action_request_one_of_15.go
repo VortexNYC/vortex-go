@@ -23,6 +23,7 @@ var _ MappedNullable = &MerchantPortalActionRequestOneOf15{}
 type MerchantPortalActionRequestOneOf15 struct {
 	Action string `json:"action"`
 	InvoiceId string `json:"invoiceId"`
+	PaymentMethodId *string `json:"paymentMethodId,omitempty"`
 }
 
 type _MerchantPortalActionRequestOneOf15 MerchantPortalActionRequestOneOf15
@@ -94,6 +95,38 @@ func (o *MerchantPortalActionRequestOneOf15) SetInvoiceId(v string) {
 	o.InvoiceId = v
 }
 
+// GetPaymentMethodId returns the PaymentMethodId field value if set, zero value otherwise.
+func (o *MerchantPortalActionRequestOneOf15) GetPaymentMethodId() string {
+	if o == nil || IsNil(o.PaymentMethodId) {
+		var ret string
+		return ret
+	}
+	return *o.PaymentMethodId
+}
+
+// GetPaymentMethodIdOk returns a tuple with the PaymentMethodId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MerchantPortalActionRequestOneOf15) GetPaymentMethodIdOk() (*string, bool) {
+	if o == nil || IsNil(o.PaymentMethodId) {
+		return nil, false
+	}
+	return o.PaymentMethodId, true
+}
+
+// HasPaymentMethodId returns a boolean if a field has been set.
+func (o *MerchantPortalActionRequestOneOf15) HasPaymentMethodId() bool {
+	if o != nil && !IsNil(o.PaymentMethodId) {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentMethodId gets a reference to the given string and assigns it to the PaymentMethodId field.
+func (o *MerchantPortalActionRequestOneOf15) SetPaymentMethodId(v string) {
+	o.PaymentMethodId = &v
+}
+
 func (o MerchantPortalActionRequestOneOf15) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -106,6 +139,9 @@ func (o MerchantPortalActionRequestOneOf15) ToMap() (map[string]interface{}, err
 	toSerialize := map[string]interface{}{}
 	toSerialize["action"] = o.Action
 	toSerialize["invoiceId"] = o.InvoiceId
+	if !IsNil(o.PaymentMethodId) {
+		toSerialize["paymentMethodId"] = o.PaymentMethodId
+	}
 	return toSerialize, nil
 }
 

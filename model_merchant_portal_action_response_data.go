@@ -32,6 +32,7 @@ type MerchantPortalActionResponseData struct {
 	MerchantPortalActionResponseDataOneOf8 *MerchantPortalActionResponseDataOneOf8
 	MerchantPortalActionResponseDataOneOf9 *MerchantPortalActionResponseDataOneOf9
 	MerchantPortalCollectionRetryResult *MerchantPortalCollectionRetryResult
+	MerchantPortalInvoiceActionResult *MerchantPortalInvoiceActionResult
 	MerchantPortalSubscriptionActionResult *MerchantPortalSubscriptionActionResult
 }
 
@@ -130,6 +131,13 @@ func MerchantPortalActionResponseDataOneOf9AsMerchantPortalActionResponseData(v 
 func MerchantPortalCollectionRetryResultAsMerchantPortalActionResponseData(v *MerchantPortalCollectionRetryResult) MerchantPortalActionResponseData {
 	return MerchantPortalActionResponseData{
 		MerchantPortalCollectionRetryResult: v,
+	}
+}
+
+// MerchantPortalInvoiceActionResultAsMerchantPortalActionResponseData is a convenience function that returns MerchantPortalInvoiceActionResult wrapped in MerchantPortalActionResponseData
+func MerchantPortalInvoiceActionResultAsMerchantPortalActionResponseData(v *MerchantPortalInvoiceActionResult) MerchantPortalActionResponseData {
+	return MerchantPortalActionResponseData{
+		MerchantPortalInvoiceActionResult: v,
 	}
 }
 
@@ -383,6 +391,23 @@ func (dst *MerchantPortalActionResponseData) UnmarshalJSON(data []byte) error {
 		dst.MerchantPortalCollectionRetryResult = nil
 	}
 
+	// try to unmarshal data into MerchantPortalInvoiceActionResult
+	err = newStrictDecoder(data).Decode(&dst.MerchantPortalInvoiceActionResult)
+	if err == nil {
+		jsonMerchantPortalInvoiceActionResult, _ := json.Marshal(dst.MerchantPortalInvoiceActionResult)
+		if string(jsonMerchantPortalInvoiceActionResult) == "{}" { // empty struct
+			dst.MerchantPortalInvoiceActionResult = nil
+		} else {
+			if err = validator.Validate(dst.MerchantPortalInvoiceActionResult); err != nil {
+				dst.MerchantPortalInvoiceActionResult = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.MerchantPortalInvoiceActionResult = nil
+	}
+
 	// try to unmarshal data into MerchantPortalSubscriptionActionResult
 	err = newStrictDecoder(data).Decode(&dst.MerchantPortalSubscriptionActionResult)
 	if err == nil {
@@ -416,6 +441,7 @@ func (dst *MerchantPortalActionResponseData) UnmarshalJSON(data []byte) error {
 		dst.MerchantPortalActionResponseDataOneOf8 = nil
 		dst.MerchantPortalActionResponseDataOneOf9 = nil
 		dst.MerchantPortalCollectionRetryResult = nil
+		dst.MerchantPortalInvoiceActionResult = nil
 		dst.MerchantPortalSubscriptionActionResult = nil
 
 		return fmt.Errorf("data matches more than one schema in oneOf(MerchantPortalActionResponseData)")
@@ -482,6 +508,10 @@ func (src MerchantPortalActionResponseData) MarshalJSON() ([]byte, error) {
 
 	if src.MerchantPortalCollectionRetryResult != nil {
 		return json.Marshal(&src.MerchantPortalCollectionRetryResult)
+	}
+
+	if src.MerchantPortalInvoiceActionResult != nil {
+		return json.Marshal(&src.MerchantPortalInvoiceActionResult)
 	}
 
 	if src.MerchantPortalSubscriptionActionResult != nil {
@@ -552,6 +582,10 @@ func (obj *MerchantPortalActionResponseData) GetActualInstance() (interface{}) {
 		return obj.MerchantPortalCollectionRetryResult
 	}
 
+	if obj.MerchantPortalInvoiceActionResult != nil {
+		return obj.MerchantPortalInvoiceActionResult
+	}
+
 	if obj.MerchantPortalSubscriptionActionResult != nil {
 		return obj.MerchantPortalSubscriptionActionResult
 	}
@@ -616,6 +650,10 @@ func (obj MerchantPortalActionResponseData) GetActualInstanceValue() (interface{
 
 	if obj.MerchantPortalCollectionRetryResult != nil {
 		return *obj.MerchantPortalCollectionRetryResult
+	}
+
+	if obj.MerchantPortalInvoiceActionResult != nil {
+		return *obj.MerchantPortalInvoiceActionResult
 	}
 
 	if obj.MerchantPortalSubscriptionActionResult != nil {

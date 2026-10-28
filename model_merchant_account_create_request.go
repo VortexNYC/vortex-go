@@ -33,7 +33,7 @@ type MerchantAccountCreateRequest struct {
 	TenantId *string `json:"tenantId,omitempty"`
 	// Connect: provision this account as a linked sub-merchant under an operator-granted platform account the caller controls (sandbox only in v1). The account is created in a fresh claimable org; the response carries `claimUrl`/`claimExpiresAt` for handing ownership to the sub-merchant.
 	PlatformMerchantAccountId *string `json:"platformMerchantAccountId,omitempty"`
-	// Identity anchor (VOR-794): create this account as a same-tenant product sibling that shares the named merchant account's Finix KYC identity at onboarding submit. Immutable; mutually exclusive with platformMerchantAccountId. The anchor must be in the caller's org and environment, already onboarded (a provider `seller_identity` ref exists), and neither a Connect sub-merchant nor itself anchored.
+	// Identity anchor (VOR-794): create this account as a same-tenant product sibling that shares the named merchant account's processor KYC identity at onboarding submit. Immutable; mutually exclusive with platformMerchantAccountId. The anchor must be in the caller's org and environment, already onboarded (a provider `seller_identity` ref exists), and neither a Connect sub-merchant nor itself anchored.
 	IdentityAnchorMerchantAccountId *string `json:"identityAnchorMerchantAccountId,omitempty"`
 	DoingBusinessAs *string `json:"doingBusinessAs,omitempty"`
 	BusinessPhone *string `json:"businessPhone,omitempty"`

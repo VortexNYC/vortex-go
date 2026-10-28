@@ -16382,8 +16382,8 @@ components:
         identityAnchorMerchantAccountId:
           description:
             "Identity anchor (VOR-794): create this account as a same-tenant\
-            \ product sibling that shares the named merchant account's Finix KYC identity\
-            \ at onboarding submit. Immutable; mutually exclusive with platformMerchantAccountId.\
+            \ product sibling that shares the named merchant account's processor KYC\
+            \ identity at onboarding submit. Immutable; mutually exclusive with platformMerchantAccountId.\
             \ The anchor must be in the caller's org and environment, already onboarded\
             \ (a provider `seller_identity` ref exists), and neither a Connect sub-merchant\
             \ nor itself anchored."

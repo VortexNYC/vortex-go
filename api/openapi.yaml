@@ -8333,26 +8333,28 @@ paths:
             examples:
               default:
                 value:
-                  sourceType: document_payment_field
-                  sourceId: field_1
-                  documentId: doc_1
-                  paymentFieldId: field_1
-                  customerExternalId: vtx_cust_seal_org_1
+                  source:
+                    sourceType: document_payment_field
+                    sourceId: field_1
+                    documentId: doc_1
+                    paymentFieldId: field_1
+                  customerId: bcust_1
                   billingAccountId: bacc_1
                   collectionIntent: manual
-                  feePolicy: {}
-                  lineItems: []
+                  lineItems:
+                    - priceId: price_core_monthly
+                      taxable: false
                   metadata: {}
             schema:
               $ref: "#/components/schemas/CreatePayableRequest"
         required: true
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/PayableResponse"
-          description: Success
+          description: Created
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -8379,7 +8381,7 @@ paths:
               -X POST \
               -H "Authorization: Bearer $VORTEX_API_KEY" \
               -H "Content-Type: application/json" \
-              -d '{"sourceType":"document_payment_field","sourceId":"field_1","documentId":"doc_1","paymentFieldId":"field_1","customerExternalId":"vtx_cust_seal_org_1","billingAccountId":"bacc_1","collectionIntent":"manual","feePolicy":{},"lineItems":[],"metadata":{}}'
+              -d '{"source":{"sourceType":"document_payment_field","sourceId":"field_1","documentId":"doc_1","paymentFieldId":"field_1"},"customerId":"bcust_1","billingAccountId":"bacc_1","collectionIntent":"manual","lineItems":[{"priceId":"price_core_monthly","taxable":false}],"metadata":{}}'
         - lang: TypeScript
           label: TypeScript
           source: |-
@@ -8389,7 +8391,77 @@ paths:
             const { data } = await createPayable({
               client: vortex,
               query: { environment: "sandbox", merchantAccountId: "..." },
-              body: {"sourceType":"document_payment_field","sourceId":"field_1","documentId":"doc_1","paymentFieldId":"field_1","customerExternalId":"vtx_cust_seal_org_1","billingAccountId":"bacc_1","collectionIntent":"manual","feePolicy":{},"lineItems":[],"metadata":{}},
+              body: {"source":{"sourceType":"document_payment_field","sourceId":"field_1","documentId":"doc_1","paymentFieldId":"field_1"},"customerId":"bcust_1","billingAccountId":"bacc_1","collectionIntent":"manual","lineItems":[{"priceId":"price_core_monthly","taxable":false}],"metadata":{}},
+            });
+  /v1/payables/{payableId}:
+    get:
+      operationId: getPayable
+      parameters:
+        - explode: false
+          in: path
+          name: payableId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PayableResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: Get one payable
+      tags:
+        - billing
+        - payables
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/payables/{payableId}?environment=sandbox&merchantAccountId=..." \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { getPayable, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await getPayable({
+              client: vortex,
+              path: { payableId: "..." },
+              query: { environment: "sandbox", merchantAccountId: "..." },
             });
   /v1/payment-receipts:
     get:
@@ -11650,274 +11722,6 @@ paths:
             const { data } = await createSignup({
               client: vortex,
               body: {"name":"Acme Contracting LLC","contactEmail":"ops@acme.example"},
-            });
-  /v1/recurring-payables:
-    post:
-      operationId: createRecurringPayable
-      parameters:
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      requestBody:
-        content:
-          application/json:
-            examples:
-              default:
-                value:
-                  sourceType: document_payment_field
-                  sourceId: field_1
-                  documentId: doc_1
-                  paymentFieldId: field_1
-                  customerExternalId: vtx_cust_seal_org_1
-                  billingAccountId: bacc_1
-                  currency: USD
-                  lineItems: []
-                  taxMode: not_taxable
-                  collectionIntent: manual
-                  feePolicy: {}
-                  cadence:
-                    interval: month
-                    intervalCount: 1
-                  endPolicy:
-                    mode: never
-                  startAt: 2026-08-01T00:00:00Z
-                  metadata: {}
-            schema:
-              $ref: "#/components/schemas/CreateRecurringPayableRequest"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/PayableResponse"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: Create a recurring document payable
-      tags:
-        - billing
-        - payables
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/v1/recurring-payables?environment=sandbox&merchantAccountId=..." \
-              -X POST \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-              -H "Content-Type: application/json" \
-              -d '{"sourceType":"document_payment_field","sourceId":"field_1","documentId":"doc_1","paymentFieldId":"field_1","customerExternalId":"vtx_cust_seal_org_1","billingAccountId":"bacc_1","currency":"USD","lineItems":[],"taxMode":"not_taxable","collectionIntent":"manual","feePolicy":{},"cadence":{"interval":"month","intervalCount":1},"endPolicy":{"mode":"never"},"startAt":"2026-08-01T00:00:00Z","metadata":{}}'
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { createRecurringPayable, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await createRecurringPayable({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-              body: {"sourceType":"document_payment_field","sourceId":"field_1","documentId":"doc_1","paymentFieldId":"field_1","customerExternalId":"vtx_cust_seal_org_1","billingAccountId":"bacc_1","currency":"USD","lineItems":[],"taxMode":"not_taxable","collectionIntent":"manual","feePolicy":{},"cadence":{"interval":"month","intervalCount":1},"endPolicy":{"mode":"never"},"startAt":"2026-08-01T00:00:00Z","metadata":{}},
-            });
-  /v1/installment-payables:
-    post:
-      operationId: createInstallmentPayable
-      parameters:
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      requestBody:
-        content:
-          application/json:
-            examples:
-              default:
-                value:
-                  sourceType: document_payment_field
-                  sourceId: field_1
-                  documentId: doc_1
-                  paymentFieldId: field_1
-                  customerExternalId: vtx_cust_seal_org_1
-                  billingAccountId: bacc_1
-                  currency: USD
-                  taxMode: not_taxable
-                  collectionIntent: manual
-                  feePolicy: {}
-                  installments: []
-                  metadata: {}
-            schema:
-              $ref: "#/components/schemas/CreateInstallmentPayableRequest"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/PayableResponse"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: Create an installment document payable
-      tags:
-        - billing
-        - payables
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/v1/installment-payables?environment=sandbox&merchantAccountId=..." \
-              -X POST \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-              -H "Content-Type: application/json" \
-              -d '{"sourceType":"document_payment_field","sourceId":"field_1","documentId":"doc_1","paymentFieldId":"field_1","customerExternalId":"vtx_cust_seal_org_1","billingAccountId":"bacc_1","currency":"USD","taxMode":"not_taxable","collectionIntent":"manual","feePolicy":{},"installments":[],"metadata":{}}'
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { createInstallmentPayable, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await createInstallmentPayable({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-              body: {"sourceType":"document_payment_field","sourceId":"field_1","documentId":"doc_1","paymentFieldId":"field_1","customerExternalId":"vtx_cust_seal_org_1","billingAccountId":"bacc_1","currency":"USD","taxMode":"not_taxable","collectionIntent":"manual","feePolicy":{},"installments":[],"metadata":{}},
-            });
-  /v1/deposit-balance-payables:
-    post:
-      operationId: createDepositBalancePayable
-      parameters:
-        - explode: true
-          in: query
-          name: environment
-          required: true
-          schema:
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: true
-          schema:
-            type: string
-          style: form
-        - $ref: "#/components/parameters/IdempotencyKey"
-      requestBody:
-        content:
-          application/json:
-            examples:
-              default:
-                value:
-                  sourceType: document_payment_field
-                  sourceId: field_1
-                  documentId: doc_1
-                  paymentFieldId: field_1
-                  customerExternalId: vtx_cust_seal_org_1
-                  billingAccountId: bacc_1
-                  currency: USD
-                  taxMode: not_taxable
-                  collectionIntent: manual
-                  feePolicy: {}
-                  deposit:
-                    dueAt: 2026-08-01T00:00:00Z
-                    amountDue: 5000
-                    lineItems: []
-                  balance:
-                    dueAt: 2026-09-01T00:00:00Z
-                    amountDue: 5000
-                    lineItems: []
-                  metadata: {}
-            schema:
-              $ref: "#/components/schemas/CreateDepositBalancePayableRequest"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/PayableResponse"
-          description: Success
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "422":
-          $ref: "#/components/responses/ValidationFailure"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-        default:
-          $ref: "#/components/responses/ApiError"
-      security:
-        - api-key: []
-      summary: Create a deposit + balance document payable
-      tags:
-        - billing
-        - payables
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/v1/deposit-balance-payables?environment=sandbox&merchantAccountId=..." \
-              -X POST \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-              -H "Content-Type: application/json" \
-              -d '{"sourceType":"document_payment_field","sourceId":"field_1","documentId":"doc_1","paymentFieldId":"field_1","customerExternalId":"vtx_cust_seal_org_1","billingAccountId":"bacc_1","currency":"USD","taxMode":"not_taxable","collectionIntent":"manual","feePolicy":{},"deposit":{"dueAt":"2026-08-01T00:00:00Z","amountDue":5000,"lineItems":[]},"balance":{"dueAt":"2026-09-01T00:00:00Z","amountDue":5000,"lineItems":[]},"metadata":{}}'
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { createDepositBalancePayable, createVortex } from "@vortex-api/vortex/2026-08";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await createDepositBalancePayable({
-              client: vortex,
-              query: { environment: "sandbox", merchantAccountId: "..." },
-              body: {"sourceType":"document_payment_field","sourceId":"field_1","documentId":"doc_1","paymentFieldId":"field_1","customerExternalId":"vtx_cust_seal_org_1","billingAccountId":"bacc_1","currency":"USD","taxMode":"not_taxable","collectionIntent":"manual","feePolicy":{},"deposit":{"dueAt":"2026-08-01T00:00:00Z","amountDue":5000,"lineItems":[]},"balance":{"dueAt":"2026-09-01T00:00:00Z","amountDue":5000,"lineItems":[]},"metadata":{}},
             });
   /v1/meters/{meterId}/aggregate:
     get:
@@ -16294,34 +16098,35 @@ components:
         - merchantAccountId
         - paymentInstrumentId
         - paymentMethodId
-    FeePolicy:
-      additionalProperties: true
-      description:
-        "Adopter fee policy (modeled, not settlement-executed). Structure\
-        \ passed through to Vortex Payments."
-      type: object
-    PayableLineItem:
-      additionalProperties: true
-      type: object
     CreatePayableRequest:
-      additionalProperties: false
       example:
-        sourceType: document_payment_field
-        sourceId: sourceId
-        documentId: documentId
-        paymentFieldId: paymentFieldId
-        customerExternalId: customerExternalId
+        source:
+          sourceType: document_payment_field
+          sourceId: sourceId
+          documentId: documentId
+          paymentFieldId: paymentFieldId
+        customerId: customerId
         billingAccountId: billingAccountId
-        collectionIntent: manual
-        feePolicy:
-          key: ""
-        dueAt: 2000-01-23T04:56:07.000+00:00
         lineItems:
-          - null
-          - null
-        taxable: true
-        taxBehavior: inclusive
-        taxClassificationKey: standard_taxable
+          - priceId: priceId
+            quantity: 1.0800828190461012
+            taxable: true
+            taxClassificationKey: taxClassificationKey
+            metadata:
+              key: metadata
+          - priceId: priceId
+            quantity: 1.0800828190461012
+            taxable: true
+            taxClassificationKey: taxClassificationKey
+            metadata:
+              key: metadata
+        collectionIntent: manual
+        idempotencyKey: idempotencyKey
+        payableId: payableId
+        paymentMethodId: paymentMethodId
+        dueAt: dueAt
+        metadata:
+          key: metadata
         customerTaxAddress:
           line1: line1
           line2: line2
@@ -16329,6 +16134,14 @@ components:
           region: region
           postalCode: postalCode
           country: country
+        customerTaxIds:
+          - type: type
+            value: value
+          - type: type
+            value: value
+        customerType: consumer
+        customerTaxExempt: true
+        customerTaxExemptionRef: customerTaxExemptionRef
         shipFromAddress:
           line1: line1
           line2: line2
@@ -16336,370 +16149,76 @@ components:
           region: region
           postalCode: postalCode
           country: country
-        metadata:
-          key: metadata
+        taxBehavior: inclusive
+        classificationKey: classificationKey
       properties:
-        sourceType:
-          enum:
-            - document_payment_field
-          type: string
-        sourceId:
-          type: string
-        documentId:
-          type: string
-        paymentFieldId:
-          type: string
-        customerExternalId:
+        source:
+          $ref: "#/components/schemas/CreatePayableRequest_source"
+        customerId:
+          minLength: 1
           type: string
         billingAccountId:
+          minLength: 1
           type: string
+        lineItems:
+          items:
+            $ref: "#/components/schemas/CreatePayableRequest_lineItems_inner"
+          minItems: 1
+          type: array
+          default: null
         collectionIntent:
           enum:
             - manual
+            - automatic
           type: string
-        feePolicy:
-          additionalProperties: true
-          description:
-            "Adopter fee policy (modeled, not settlement-executed). Structure\
-            \ passed through to Vortex Payments."
-          type: object
+        idempotencyKey:
+          minLength: 1
+          type: string
+        payableId:
+          minLength: 1
+          type: string
+        paymentMethodId:
+          minLength: 1
+          type: string
         dueAt:
-          format: date-time
+          minLength: 1
           type: string
-        lineItems:
-          items:
-            $ref: "#/components/schemas/PayableLineItem"
-          type: array
-          default: null
-        taxable:
-          type: boolean
-        taxBehavior:
-          enum:
-            - inclusive
-            - exclusive
-          type: string
-        taxClassificationKey:
-          enum:
-            - standard_taxable
-          type: string
+        metadata:
+          additionalProperties:
+            type: string
         customerTaxAddress:
-          $ref: "#/components/schemas/TaxAddress"
+          $ref: "#/components/schemas/CreatePayableRequest_customerTaxAddress"
+        customerTaxIds:
+          items:
+            $ref: "#/components/schemas/CreatePayableRequest_customerTaxIds_inner"
+          type: array
+          default: null
+        customerType:
+          enum:
+            - consumer
+            - business
+            - government
+          type: string
+        customerTaxExempt:
+          type: boolean
+        customerTaxExemptionRef:
+          type: string
         shipFromAddress:
-          $ref: "#/components/schemas/TaxAddress"
-        metadata:
-          additionalProperties:
-            type: string
+          $ref: "#/components/schemas/CreatePayableRequest_customerTaxAddress"
+        taxBehavior:
+          enum:
+            - inclusive
+            - exclusive
+          type: string
+        classificationKey:
+          minLength: 1
+          type: string
       required:
         - billingAccountId
         - collectionIntent
-        - customerExternalId
-        - documentId
-        - feePolicy
+        - customerId
         - lineItems
-        - metadata
-        - paymentFieldId
-        - sourceId
-        - sourceType
-    CreateRecurringPayableRequest:
-      additionalProperties: {}
-      example:
-        sourceType: document_payment_field
-        sourceId: sourceId
-        documentId: documentId
-        paymentFieldId: paymentFieldId
-        customerExternalId: customerExternalId
-        billingAccountId: billingAccountId
-        merchantAccountId: merchantAccountId
-        currency: USD
-        lineItems:
-          - null
-          - null
-        taxMode: not_taxable
-        taxable: true
-        taxBehavior: inclusive
-        taxClassificationKey: standard_taxable
-        collectionIntent: manual
-        feePolicy:
-          key: ""
-        cadence:
-          interval: week
-          intervalCount: 1
-        endPolicy:
-          key: ""
-        startAt: 2000-01-23T04:56:07.000+00:00
-        metadata:
-          key: metadata
-      properties:
-        sourceType:
-          enum:
-            - document_payment_field
-          type: string
-        sourceId:
-          type: string
-        documentId:
-          type: string
-        paymentFieldId:
-          type: string
-        customerExternalId:
-          type: string
-        billingAccountId:
-          type: string
-        merchantAccountId:
-          type: string
-        currency:
-          description:
-            ISO 4217 alpha-3; only currencies processable on current rails
-            are accepted
-          example: USD
-          type: string
-        lineItems:
-          items:
-            $ref: "#/components/schemas/PayableLineItem"
-          type: array
-          default: null
-        taxMode:
-          enum:
-            - not_taxable
-            - taxable_requires_evidence
-          type: string
-        taxable:
-          type: boolean
-        taxBehavior:
-          enum:
-            - inclusive
-            - exclusive
-          type: string
-        taxClassificationKey:
-          enum:
-            - standard_taxable
-          type: string
-        collectionIntent:
-          enum:
-            - manual
-          type: string
-        feePolicy:
-          additionalProperties: true
-          description:
-            "Adopter fee policy (modeled, not settlement-executed). Structure\
-            \ passed through to Vortex Payments."
-          type: object
-        cadence:
-          $ref: "#/components/schemas/CreateRecurringPayableRequest_cadence"
-        endPolicy:
-          additionalProperties: true
-          type: object
-        startAt:
-          format: date-time
-          type: string
-        metadata:
-          additionalProperties:
-            type: string
-      required:
-        - billingAccountId
-        - cadence
-        - collectionIntent
-        - currency
-        - customerExternalId
-        - documentId
-        - endPolicy
-        - feePolicy
-        - lineItems
-        - metadata
-        - paymentFieldId
-        - sourceId
-        - sourceType
-        - startAt
-        - taxMode
-    CreateInstallmentPayableRequest:
-      additionalProperties: false
-      example:
-        sourceType: document_payment_field
-        sourceId: sourceId
-        documentId: documentId
-        paymentFieldId: paymentFieldId
-        customerExternalId: customerExternalId
-        billingAccountId: billingAccountId
-        merchantAccountId: merchantAccountId
-        currency: USD
-        taxMode: not_taxable
-        taxable: true
-        taxBehavior: inclusive
-        taxClassificationKey: standard_taxable
-        collectionIntent: manual
-        feePolicy:
-          key: ""
-        installments:
-          - key: ""
-          - key: ""
-        metadata:
-          key: metadata
-      properties:
-        sourceType:
-          enum:
-            - document_payment_field
-          type: string
-        sourceId:
-          type: string
-        documentId:
-          type: string
-        paymentFieldId:
-          type: string
-        customerExternalId:
-          type: string
-        billingAccountId:
-          type: string
-        merchantAccountId:
-          type: string
-        currency:
-          description:
-            ISO 4217 alpha-3; only currencies processable on current rails
-            are accepted
-          example: USD
-          type: string
-        taxMode:
-          enum:
-            - not_taxable
-            - taxable_requires_evidence
-          type: string
-        taxable:
-          type: boolean
-        taxBehavior:
-          enum:
-            - inclusive
-            - exclusive
-          type: string
-        taxClassificationKey:
-          enum:
-            - standard_taxable
-          type: string
-        collectionIntent:
-          enum:
-            - manual
-          type: string
-        feePolicy:
-          additionalProperties: true
-          description:
-            "Adopter fee policy (modeled, not settlement-executed). Structure\
-            \ passed through to Vortex Payments."
-          type: object
-        installments:
-          items:
-            additionalProperties: true
-            type: object
-          type: array
-          default: null
-        metadata:
-          additionalProperties:
-            type: string
-      required:
-        - billingAccountId
-        - collectionIntent
-        - currency
-        - customerExternalId
-        - documentId
-        - feePolicy
-        - installments
-        - metadata
-        - paymentFieldId
-        - sourceId
-        - sourceType
-        - taxMode
-    CreateDepositBalancePayableRequest:
-      additionalProperties: false
-      example:
-        sourceType: document_payment_field
-        sourceId: sourceId
-        documentId: documentId
-        paymentFieldId: paymentFieldId
-        customerExternalId: customerExternalId
-        billingAccountId: billingAccountId
-        merchantAccountId: merchantAccountId
-        currency: USD
-        taxMode: not_taxable
-        taxable: true
-        taxBehavior: inclusive
-        taxClassificationKey: standard_taxable
-        collectionIntent: manual
-        feePolicy:
-          key: ""
-        deposit:
-          key: ""
-        balance:
-          key: ""
-        metadata:
-          key: metadata
-      properties:
-        sourceType:
-          enum:
-            - document_payment_field
-          type: string
-        sourceId:
-          type: string
-        documentId:
-          type: string
-        paymentFieldId:
-          type: string
-        customerExternalId:
-          type: string
-        billingAccountId:
-          type: string
-        merchantAccountId:
-          type: string
-        currency:
-          description:
-            ISO 4217 alpha-3; only currencies processable on current rails
-            are accepted
-          example: USD
-          type: string
-        taxMode:
-          enum:
-            - not_taxable
-            - taxable_requires_evidence
-          type: string
-        taxable:
-          type: boolean
-        taxBehavior:
-          enum:
-            - inclusive
-            - exclusive
-          type: string
-        taxClassificationKey:
-          enum:
-            - standard_taxable
-          type: string
-        collectionIntent:
-          enum:
-            - manual
-          type: string
-        feePolicy:
-          additionalProperties: true
-          description:
-            "Adopter fee policy (modeled, not settlement-executed). Structure\
-            \ passed through to Vortex Payments."
-          type: object
-        deposit:
-          additionalProperties: true
-          type: object
-        balance:
-          additionalProperties: true
-          type: object
-        metadata:
-          additionalProperties:
-            type: string
-      required:
-        - balance
-        - billingAccountId
-        - collectionIntent
-        - currency
-        - customerExternalId
-        - deposit
-        - documentId
-        - feePolicy
-        - metadata
-        - paymentFieldId
-        - sourceId
-        - sourceType
-        - taxMode
+        - source
     CustomerUpsertRequest:
       additionalProperties: false
       example:
@@ -19197,7 +18716,75 @@ components:
     CustomerResponse:
       $ref: "#/components/schemas/ApiWriteEnvelope"
     PayableResponse:
-      $ref: "#/components/schemas/ApiWriteEnvelope"
+      example:
+        data:
+          payableId: payableId
+          source:
+            sourceType: document_payment_field
+            sourceId: sourceId
+            documentId: documentId
+            paymentFieldId: paymentFieldId
+          customerId: customerId
+          billingAccountId: billingAccountId
+          merchantAccountId: merchantAccountId
+          currency: currency
+          subtotal: -2147483648
+          taxTotal: 2147483647
+          total: -2147483648
+          amountPaid: 2147483647
+          amountRemaining: 2147483647
+          taxMode: not_taxable
+          status: draft
+          collectionIntent: manual
+          feePolicy:
+            policyId: policyId
+            ownerMode: merchant_pays_processing
+            platformFee:
+              mode: none
+            source:
+              scope: merchant_account
+              scopeId: scopeId
+            audit:
+              createdByType: system
+              createdByRef: createdByRef
+              reason: reason
+            execution:
+              status: modeled_not_settlement_executed
+              stopCondition: stopCondition
+            evidence:
+              - evidence
+              - evidence
+          lineage:
+            invoiceId: invoiceId
+            paymentRequestId: paymentRequestId
+            checkoutLinkId: checkoutLinkId
+            checkoutSessionId: checkoutSessionId
+            checkoutUrl: checkoutUrl
+            latestPaymentAttemptId: latestPaymentAttemptId
+            latestPaymentIntentId: latestPaymentIntentId
+            latestPaymentId: latestPaymentId
+            taxEvidenceVersion: taxEvidenceVersion
+            taxTransactionId: taxTransactionId
+            creditNoteId: creditNoteId
+            refundId: refundId
+          statusReason: statusReason
+          operatorEvidence:
+            - operatorEvidence
+            - operatorEvidence
+          metadata:
+            key: metadata
+          createdAt: createdAt
+          updatedAt: updatedAt
+          dueAt: dueAt
+        requestId: requestId
+      properties:
+        data:
+          $ref: "#/components/schemas/PayableResponse_data"
+        requestId:
+          type: string
+      required:
+        - data
+        - requestId
     ProductResponse:
       $ref: "#/components/schemas/ApiWriteEnvelope"
     PriceResponse:
@@ -20846,24 +20433,104 @@ components:
           type: number
         monthlyFeeCents:
           type: number
-    CreateRecurringPayableRequest_cadence:
-      additionalProperties: false
+    CreatePayableRequest_source:
       example:
-        interval: week
-        intervalCount: 1
+        sourceType: document_payment_field
+        sourceId: sourceId
+        documentId: documentId
+        paymentFieldId: paymentFieldId
       properties:
-        interval:
+        sourceType:
           enum:
-            - week
-            - month
-            - year
+            - document_payment_field
+            - one_time_invoice
+            - external_record
           type: string
-        intervalCount:
-          minimum: 1
-          type: integer
+        sourceId:
+          minLength: 1
+          type: string
+        documentId:
+          minLength: 1
+          type: string
+        paymentFieldId:
+          minLength: 1
+          type: string
       required:
-        - interval
-        - intervalCount
+        - sourceId
+        - sourceType
+    CreatePayableRequest_lineItems_inner:
+      example:
+        priceId: priceId
+        quantity: 1.0800828190461012
+        taxable: true
+        taxClassificationKey: taxClassificationKey
+        metadata:
+          key: metadata
+      properties:
+        priceId:
+          minLength: 1
+          type: string
+        quantity:
+          minimum: 1
+          type: number
+        taxable:
+          type: boolean
+        taxClassificationKey:
+          minLength: 1
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+      required:
+        - priceId
+        - taxable
+    CreatePayableRequest_customerTaxAddress:
+      example:
+        line1: line1
+        line2: line2
+        city: city
+        region: region
+        postalCode: postalCode
+        country: country
+      properties:
+        line1:
+          minLength: 1
+          type: string
+        line2:
+          minLength: 1
+          type: string
+        city:
+          minLength: 1
+          type: string
+        region:
+          minLength: 1
+          type: string
+        postalCode:
+          minLength: 1
+          type: string
+        country:
+          minLength: 1
+          type: string
+      required:
+        - city
+        - country
+        - line1
+        - postalCode
+        - region
+    CreatePayableRequest_customerTaxIds_inner:
+      example:
+        type: type
+        value: value
+      properties:
+        type:
+          minLength: 1
+          type: string
+        value:
+          minLength: 1
+          type: string
+      required:
+        - type
+        - value
     InvoiceCreateRequest_lineItems_inner:
       additionalProperties: false
       example:
@@ -20988,6 +20655,384 @@ components:
       required:
         - replayed
         - tax
+    PayableResponse_data_feePolicy_platformFee_oneOf:
+      example:
+        mode: none
+      properties:
+        mode:
+          enum:
+            - none
+          type: string
+      required:
+        - mode
+    PayableResponse_data_feePolicy_platformFee_oneOf_1:
+      properties:
+        mode:
+          enum:
+            - fixed_amount
+          type: string
+        amount:
+          maximum: 9007199254740991
+          minimum: 0
+          type: integer
+        currency:
+          type: string
+        rounding:
+          enum:
+            - half_up
+          type: string
+      required:
+        - amount
+        - currency
+        - mode
+        - rounding
+    PayableResponse_data_feePolicy_platformFee_oneOf_2:
+      properties:
+        mode:
+          enum:
+            - percentage
+          type: string
+        basisPoints:
+          maximum: 10000
+          minimum: 0
+          type: integer
+        rounding:
+          enum:
+            - half_up
+          type: string
+      required:
+        - basisPoints
+        - mode
+        - rounding
+    PayableResponse_data_feePolicy_platformFee:
+      oneOf:
+        - $ref: "#/components/schemas/PayableResponse_data_feePolicy_platformFee_oneOf"
+        - $ref: "#/components/schemas/PayableResponse_data_feePolicy_platformFee_oneOf_1"
+        - $ref: "#/components/schemas/PayableResponse_data_feePolicy_platformFee_oneOf_2"
+    PayableResponse_data_feePolicy_source:
+      example:
+        scope: merchant_account
+        scopeId: scopeId
+      properties:
+        scope:
+          enum:
+            - merchant_account
+            - payable
+            - document_payment_field
+            - product
+          type: string
+        scopeId:
+          minLength: 1
+          type: string
+      required:
+        - scope
+        - scopeId
+    PayableResponse_data_feePolicy_audit:
+      example:
+        createdByType: system
+        createdByRef: createdByRef
+        reason: reason
+      properties:
+        createdByType:
+          enum:
+            - system
+            - operator
+            - adopter
+          type: string
+        createdByRef:
+          minLength: 1
+          type: string
+        reason:
+          minLength: 1
+          type: string
+      required:
+        - createdByRef
+        - createdByType
+        - reason
+    PayableResponse_data_feePolicy_execution:
+      example:
+        status: modeled_not_settlement_executed
+        stopCondition: stopCondition
+      properties:
+        status:
+          enum:
+            - modeled_not_settlement_executed
+            - settlement_executed
+          type: string
+        stopCondition:
+          minLength: 1
+          type: string
+      required:
+        - status
+        - stopCondition
+    PayableResponse_data_feePolicy:
+      example:
+        policyId: policyId
+        ownerMode: merchant_pays_processing
+        platformFee:
+          mode: none
+        source:
+          scope: merchant_account
+          scopeId: scopeId
+        audit:
+          createdByType: system
+          createdByRef: createdByRef
+          reason: reason
+        execution:
+          status: modeled_not_settlement_executed
+          stopCondition: stopCondition
+        evidence:
+          - evidence
+          - evidence
+      properties:
+        policyId:
+          minLength: 1
+          type: string
+        ownerMode:
+          enum:
+            - merchant_pays_processing
+            - customer_pays_processing
+            - platform_absorbs_processing
+            - platform_fee_deducted
+          type: string
+        platformFee:
+          $ref: "#/components/schemas/PayableResponse_data_feePolicy_platformFee"
+        source:
+          $ref: "#/components/schemas/PayableResponse_data_feePolicy_source"
+        audit:
+          $ref: "#/components/schemas/PayableResponse_data_feePolicy_audit"
+        execution:
+          $ref: "#/components/schemas/PayableResponse_data_feePolicy_execution"
+        evidence:
+          items:
+            minLength: 1
+            type: string
+          type: array
+          default: null
+      required:
+        - audit
+        - evidence
+        - execution
+        - ownerMode
+        - platformFee
+        - policyId
+        - source
+    PayableResponse_data_lineage:
+      example:
+        invoiceId: invoiceId
+        paymentRequestId: paymentRequestId
+        checkoutLinkId: checkoutLinkId
+        checkoutSessionId: checkoutSessionId
+        checkoutUrl: checkoutUrl
+        latestPaymentAttemptId: latestPaymentAttemptId
+        latestPaymentIntentId: latestPaymentIntentId
+        latestPaymentId: latestPaymentId
+        taxEvidenceVersion: taxEvidenceVersion
+        taxTransactionId: taxTransactionId
+        creditNoteId: creditNoteId
+        refundId: refundId
+      properties:
+        invoiceId:
+          minLength: 1
+          type: string
+        paymentRequestId:
+          minLength: 1
+          type: string
+        checkoutLinkId:
+          minLength: 1
+          type: string
+        checkoutSessionId:
+          minLength: 1
+          type: string
+        checkoutUrl:
+          minLength: 1
+          type: string
+        latestPaymentAttemptId:
+          minLength: 1
+          type: string
+        latestPaymentIntentId:
+          minLength: 1
+          type: string
+        latestPaymentId:
+          minLength: 1
+          type: string
+        taxEvidenceVersion:
+          minLength: 1
+          type: string
+        taxTransactionId:
+          minLength: 1
+          type: string
+        creditNoteId:
+          minLength: 1
+          type: string
+        refundId:
+          minLength: 1
+          type: string
+    PayableResponse_data:
+      example:
+        payableId: payableId
+        source:
+          sourceType: document_payment_field
+          sourceId: sourceId
+          documentId: documentId
+          paymentFieldId: paymentFieldId
+        customerId: customerId
+        billingAccountId: billingAccountId
+        merchantAccountId: merchantAccountId
+        currency: currency
+        subtotal: -2147483648
+        taxTotal: 2147483647
+        total: -2147483648
+        amountPaid: 2147483647
+        amountRemaining: 2147483647
+        taxMode: not_taxable
+        status: draft
+        collectionIntent: manual
+        feePolicy:
+          policyId: policyId
+          ownerMode: merchant_pays_processing
+          platformFee:
+            mode: none
+          source:
+            scope: merchant_account
+            scopeId: scopeId
+          audit:
+            createdByType: system
+            createdByRef: createdByRef
+            reason: reason
+          execution:
+            status: modeled_not_settlement_executed
+            stopCondition: stopCondition
+          evidence:
+            - evidence
+            - evidence
+        lineage:
+          invoiceId: invoiceId
+          paymentRequestId: paymentRequestId
+          checkoutLinkId: checkoutLinkId
+          checkoutSessionId: checkoutSessionId
+          checkoutUrl: checkoutUrl
+          latestPaymentAttemptId: latestPaymentAttemptId
+          latestPaymentIntentId: latestPaymentIntentId
+          latestPaymentId: latestPaymentId
+          taxEvidenceVersion: taxEvidenceVersion
+          taxTransactionId: taxTransactionId
+          creditNoteId: creditNoteId
+          refundId: refundId
+        statusReason: statusReason
+        operatorEvidence:
+          - operatorEvidence
+          - operatorEvidence
+        metadata:
+          key: metadata
+        createdAt: createdAt
+        updatedAt: updatedAt
+        dueAt: dueAt
+      properties:
+        payableId:
+          minLength: 1
+          type: string
+        source:
+          $ref: "#/components/schemas/CreatePayableRequest_source"
+        customerId:
+          minLength: 1
+          type: string
+        billingAccountId:
+          minLength: 1
+          type: string
+        merchantAccountId:
+          minLength: 1
+          type: string
+        currency:
+          type: string
+        subtotal:
+          maximum: 9007199254740991
+          minimum: -9007199254740991
+          type: integer
+        taxTotal:
+          maximum: 9007199254740991
+          minimum: -9007199254740991
+          type: integer
+        total:
+          maximum: 9007199254740991
+          minimum: -9007199254740991
+          type: integer
+        amountPaid:
+          maximum: 9007199254740991
+          minimum: -9007199254740991
+          type: integer
+        amountRemaining:
+          maximum: 9007199254740991
+          minimum: -9007199254740991
+          type: integer
+        taxMode:
+          enum:
+            - not_taxable
+            - taxable_requires_evidence
+          type: string
+        status:
+          enum:
+            - draft
+            - ready
+            - awaiting_payment
+            - paid
+            - failed
+            - canceled
+            - refunded
+            - reversed
+          type: string
+        collectionIntent:
+          enum:
+            - manual
+            - automatic
+          type: string
+        feePolicy:
+          $ref: "#/components/schemas/PayableResponse_data_feePolicy"
+        lineage:
+          $ref: "#/components/schemas/PayableResponse_data_lineage"
+        statusReason:
+          minLength: 1
+          type: string
+        operatorEvidence:
+          items:
+            minLength: 1
+            type: string
+          type: array
+          default: null
+        metadata:
+          additionalProperties:
+            type: string
+        createdAt:
+          minLength: 1
+          type: string
+        updatedAt:
+          minLength: 1
+          type: string
+        dueAt:
+          minLength: 1
+          type: string
+      required:
+        - amountPaid
+        - amountRemaining
+        - billingAccountId
+        - collectionIntent
+        - createdAt
+        - currency
+        - customerId
+        - feePolicy
+        - lineage
+        - merchantAccountId
+        - metadata
+        - operatorEvidence
+        - payableId
+        - source
+        - status
+        - statusReason
+        - subtotal
+        - taxMode
+        - taxTotal
+        - total
+        - updatedAt
     BillingMeterAggregateResponse_data_customers_items_inner:
       additionalProperties: false
       example:
@@ -22623,32 +22668,6 @@ components:
       required:
         - action
         - taxTransactionId
-    MerchantPortalActionRequest_oneOf_45_originAddress:
-      properties:
-        line1:
-          minLength: 1
-          type: string
-        line2:
-          minLength: 1
-          type: string
-        city:
-          minLength: 1
-          type: string
-        region:
-          minLength: 1
-          type: string
-        postalCode:
-          minLength: 1
-          type: string
-        country:
-          minLength: 1
-          type: string
-      required:
-        - city
-        - country
-        - line1
-        - postalCode
-        - region
     MerchantPortalActionRequest_oneOf_45_registrations_inner:
       properties:
         country:
@@ -22669,7 +22688,7 @@ components:
           minLength: 1
           type: string
         originAddress:
-          $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_45_originAddress"
+          $ref: "#/components/schemas/CreatePayableRequest_customerTaxAddress"
         registrations:
           items:
             $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_45_registrations_inner"

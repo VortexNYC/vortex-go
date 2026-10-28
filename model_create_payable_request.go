@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"time"
 	"bytes"
 	"fmt"
 )
@@ -22,23 +21,24 @@ var _ MappedNullable = &CreatePayableRequest{}
 
 // CreatePayableRequest struct for CreatePayableRequest
 type CreatePayableRequest struct {
-	SourceType string `json:"sourceType"`
-	SourceId string `json:"sourceId"`
-	DocumentId string `json:"documentId"`
-	PaymentFieldId string `json:"paymentFieldId"`
-	CustomerExternalId string `json:"customerExternalId"`
+	Source CreatePayableRequestSource `json:"source"`
+	CustomerId string `json:"customerId"`
 	BillingAccountId string `json:"billingAccountId"`
+	LineItems []CreatePayableRequestLineItemsInner `json:"lineItems"`
 	CollectionIntent string `json:"collectionIntent"`
-	// Adopter fee policy (modeled, not settlement-executed). Structure passed through to Vortex Payments.
-	FeePolicy map[string]interface{} `json:"feePolicy"`
-	DueAt *time.Time `json:"dueAt,omitempty"`
-	LineItems []map[string]interface{} `json:"lineItems"`
-	Taxable *bool `json:"taxable,omitempty"`
+	IdempotencyKey *string `json:"idempotencyKey,omitempty"`
+	PayableId *string `json:"payableId,omitempty"`
+	PaymentMethodId *string `json:"paymentMethodId,omitempty"`
+	DueAt *string `json:"dueAt,omitempty"`
+	Metadata map[string]string `json:"metadata,omitempty"`
+	CustomerTaxAddress *CreatePayableRequestCustomerTaxAddress `json:"customerTaxAddress,omitempty"`
+	CustomerTaxIds []CreatePayableRequestCustomerTaxIdsInner `json:"customerTaxIds,omitempty"`
+	CustomerType *string `json:"customerType,omitempty"`
+	CustomerTaxExempt *bool `json:"customerTaxExempt,omitempty"`
+	CustomerTaxExemptionRef *string `json:"customerTaxExemptionRef,omitempty"`
+	ShipFromAddress *CreatePayableRequestCustomerTaxAddress `json:"shipFromAddress,omitempty"`
 	TaxBehavior *string `json:"taxBehavior,omitempty"`
-	TaxClassificationKey *string `json:"taxClassificationKey,omitempty"`
-	CustomerTaxAddress *TaxAddress `json:"customerTaxAddress,omitempty"`
-	ShipFromAddress *TaxAddress `json:"shipFromAddress,omitempty"`
-	Metadata map[string]string `json:"metadata"`
+	ClassificationKey *string `json:"classificationKey,omitempty"`
 }
 
 type _CreatePayableRequest CreatePayableRequest
@@ -47,18 +47,13 @@ type _CreatePayableRequest CreatePayableRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePayableRequest(sourceType string, sourceId string, documentId string, paymentFieldId string, customerExternalId string, billingAccountId string, collectionIntent string, feePolicy map[string]interface{}, lineItems []map[string]interface{}, metadata map[string]string) *CreatePayableRequest {
+func NewCreatePayableRequest(source CreatePayableRequestSource, customerId string, billingAccountId string, lineItems []CreatePayableRequestLineItemsInner, collectionIntent string) *CreatePayableRequest {
 	this := CreatePayableRequest{}
-	this.SourceType = sourceType
-	this.SourceId = sourceId
-	this.DocumentId = documentId
-	this.PaymentFieldId = paymentFieldId
-	this.CustomerExternalId = customerExternalId
+	this.Source = source
+	this.CustomerId = customerId
 	this.BillingAccountId = billingAccountId
-	this.CollectionIntent = collectionIntent
-	this.FeePolicy = feePolicy
 	this.LineItems = lineItems
-	this.Metadata = metadata
+	this.CollectionIntent = collectionIntent
 	return &this
 }
 
@@ -70,124 +65,52 @@ func NewCreatePayableRequestWithDefaults() *CreatePayableRequest {
 	return &this
 }
 
-// GetSourceType returns the SourceType field value
-func (o *CreatePayableRequest) GetSourceType() string {
+// GetSource returns the Source field value
+func (o *CreatePayableRequest) GetSource() CreatePayableRequestSource {
+	if o == nil {
+		var ret CreatePayableRequestSource
+		return ret
+	}
+
+	return o.Source
+}
+
+// GetSourceOk returns a tuple with the Source field value
+// and a boolean to check if the value has been set.
+func (o *CreatePayableRequest) GetSourceOk() (*CreatePayableRequestSource, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Source, true
+}
+
+// SetSource sets field value
+func (o *CreatePayableRequest) SetSource(v CreatePayableRequestSource) {
+	o.Source = v
+}
+
+// GetCustomerId returns the CustomerId field value
+func (o *CreatePayableRequest) GetCustomerId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.SourceType
+	return o.CustomerId
 }
 
-// GetSourceTypeOk returns a tuple with the SourceType field value
+// GetCustomerIdOk returns a tuple with the CustomerId field value
 // and a boolean to check if the value has been set.
-func (o *CreatePayableRequest) GetSourceTypeOk() (*string, bool) {
+func (o *CreatePayableRequest) GetCustomerIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SourceType, true
+	return &o.CustomerId, true
 }
 
-// SetSourceType sets field value
-func (o *CreatePayableRequest) SetSourceType(v string) {
-	o.SourceType = v
-}
-
-// GetSourceId returns the SourceId field value
-func (o *CreatePayableRequest) GetSourceId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.SourceId
-}
-
-// GetSourceIdOk returns a tuple with the SourceId field value
-// and a boolean to check if the value has been set.
-func (o *CreatePayableRequest) GetSourceIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.SourceId, true
-}
-
-// SetSourceId sets field value
-func (o *CreatePayableRequest) SetSourceId(v string) {
-	o.SourceId = v
-}
-
-// GetDocumentId returns the DocumentId field value
-func (o *CreatePayableRequest) GetDocumentId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.DocumentId
-}
-
-// GetDocumentIdOk returns a tuple with the DocumentId field value
-// and a boolean to check if the value has been set.
-func (o *CreatePayableRequest) GetDocumentIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.DocumentId, true
-}
-
-// SetDocumentId sets field value
-func (o *CreatePayableRequest) SetDocumentId(v string) {
-	o.DocumentId = v
-}
-
-// GetPaymentFieldId returns the PaymentFieldId field value
-func (o *CreatePayableRequest) GetPaymentFieldId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.PaymentFieldId
-}
-
-// GetPaymentFieldIdOk returns a tuple with the PaymentFieldId field value
-// and a boolean to check if the value has been set.
-func (o *CreatePayableRequest) GetPaymentFieldIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.PaymentFieldId, true
-}
-
-// SetPaymentFieldId sets field value
-func (o *CreatePayableRequest) SetPaymentFieldId(v string) {
-	o.PaymentFieldId = v
-}
-
-// GetCustomerExternalId returns the CustomerExternalId field value
-func (o *CreatePayableRequest) GetCustomerExternalId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.CustomerExternalId
-}
-
-// GetCustomerExternalIdOk returns a tuple with the CustomerExternalId field value
-// and a boolean to check if the value has been set.
-func (o *CreatePayableRequest) GetCustomerExternalIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CustomerExternalId, true
-}
-
-// SetCustomerExternalId sets field value
-func (o *CreatePayableRequest) SetCustomerExternalId(v string) {
-	o.CustomerExternalId = v
+// SetCustomerId sets field value
+func (o *CreatePayableRequest) SetCustomerId(v string) {
+	o.CustomerId = v
 }
 
 // GetBillingAccountId returns the BillingAccountId field value
@@ -214,6 +137,30 @@ func (o *CreatePayableRequest) SetBillingAccountId(v string) {
 	o.BillingAccountId = v
 }
 
+// GetLineItems returns the LineItems field value
+func (o *CreatePayableRequest) GetLineItems() []CreatePayableRequestLineItemsInner {
+	if o == nil {
+		var ret []CreatePayableRequestLineItemsInner
+		return ret
+	}
+
+	return o.LineItems
+}
+
+// GetLineItemsOk returns a tuple with the LineItems field value
+// and a boolean to check if the value has been set.
+func (o *CreatePayableRequest) GetLineItemsOk() ([]CreatePayableRequestLineItemsInner, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.LineItems, true
+}
+
+// SetLineItems sets field value
+func (o *CreatePayableRequest) SetLineItems(v []CreatePayableRequestLineItemsInner) {
+	o.LineItems = v
+}
+
 // GetCollectionIntent returns the CollectionIntent field value
 func (o *CreatePayableRequest) GetCollectionIntent() string {
 	if o == nil {
@@ -238,34 +185,106 @@ func (o *CreatePayableRequest) SetCollectionIntent(v string) {
 	o.CollectionIntent = v
 }
 
-// GetFeePolicy returns the FeePolicy field value
-func (o *CreatePayableRequest) GetFeePolicy() map[string]interface{} {
-	if o == nil {
-		var ret map[string]interface{}
+// GetIdempotencyKey returns the IdempotencyKey field value if set, zero value otherwise.
+func (o *CreatePayableRequest) GetIdempotencyKey() string {
+	if o == nil || IsNil(o.IdempotencyKey) {
+		var ret string
 		return ret
 	}
-
-	return o.FeePolicy
+	return *o.IdempotencyKey
 }
 
-// GetFeePolicyOk returns a tuple with the FeePolicy field value
+// GetIdempotencyKeyOk returns a tuple with the IdempotencyKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreatePayableRequest) GetFeePolicyOk() (map[string]interface{}, bool) {
-	if o == nil {
-		return map[string]interface{}{}, false
+func (o *CreatePayableRequest) GetIdempotencyKeyOk() (*string, bool) {
+	if o == nil || IsNil(o.IdempotencyKey) {
+		return nil, false
 	}
-	return o.FeePolicy, true
+	return o.IdempotencyKey, true
 }
 
-// SetFeePolicy sets field value
-func (o *CreatePayableRequest) SetFeePolicy(v map[string]interface{}) {
-	o.FeePolicy = v
+// HasIdempotencyKey returns a boolean if a field has been set.
+func (o *CreatePayableRequest) HasIdempotencyKey() bool {
+	if o != nil && !IsNil(o.IdempotencyKey) {
+		return true
+	}
+
+	return false
+}
+
+// SetIdempotencyKey gets a reference to the given string and assigns it to the IdempotencyKey field.
+func (o *CreatePayableRequest) SetIdempotencyKey(v string) {
+	o.IdempotencyKey = &v
+}
+
+// GetPayableId returns the PayableId field value if set, zero value otherwise.
+func (o *CreatePayableRequest) GetPayableId() string {
+	if o == nil || IsNil(o.PayableId) {
+		var ret string
+		return ret
+	}
+	return *o.PayableId
+}
+
+// GetPayableIdOk returns a tuple with the PayableId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreatePayableRequest) GetPayableIdOk() (*string, bool) {
+	if o == nil || IsNil(o.PayableId) {
+		return nil, false
+	}
+	return o.PayableId, true
+}
+
+// HasPayableId returns a boolean if a field has been set.
+func (o *CreatePayableRequest) HasPayableId() bool {
+	if o != nil && !IsNil(o.PayableId) {
+		return true
+	}
+
+	return false
+}
+
+// SetPayableId gets a reference to the given string and assigns it to the PayableId field.
+func (o *CreatePayableRequest) SetPayableId(v string) {
+	o.PayableId = &v
+}
+
+// GetPaymentMethodId returns the PaymentMethodId field value if set, zero value otherwise.
+func (o *CreatePayableRequest) GetPaymentMethodId() string {
+	if o == nil || IsNil(o.PaymentMethodId) {
+		var ret string
+		return ret
+	}
+	return *o.PaymentMethodId
+}
+
+// GetPaymentMethodIdOk returns a tuple with the PaymentMethodId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreatePayableRequest) GetPaymentMethodIdOk() (*string, bool) {
+	if o == nil || IsNil(o.PaymentMethodId) {
+		return nil, false
+	}
+	return o.PaymentMethodId, true
+}
+
+// HasPaymentMethodId returns a boolean if a field has been set.
+func (o *CreatePayableRequest) HasPaymentMethodId() bool {
+	if o != nil && !IsNil(o.PaymentMethodId) {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentMethodId gets a reference to the given string and assigns it to the PaymentMethodId field.
+func (o *CreatePayableRequest) SetPaymentMethodId(v string) {
+	o.PaymentMethodId = &v
 }
 
 // GetDueAt returns the DueAt field value if set, zero value otherwise.
-func (o *CreatePayableRequest) GetDueAt() time.Time {
+func (o *CreatePayableRequest) GetDueAt() string {
 	if o == nil || IsNil(o.DueAt) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.DueAt
@@ -273,7 +292,7 @@ func (o *CreatePayableRequest) GetDueAt() time.Time {
 
 // GetDueAtOk returns a tuple with the DueAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreatePayableRequest) GetDueAtOk() (*time.Time, bool) {
+func (o *CreatePayableRequest) GetDueAtOk() (*string, bool) {
 	if o == nil || IsNil(o.DueAt) {
 		return nil, false
 	}
@@ -289,65 +308,233 @@ func (o *CreatePayableRequest) HasDueAt() bool {
 	return false
 }
 
-// SetDueAt gets a reference to the given time.Time and assigns it to the DueAt field.
-func (o *CreatePayableRequest) SetDueAt(v time.Time) {
+// SetDueAt gets a reference to the given string and assigns it to the DueAt field.
+func (o *CreatePayableRequest) SetDueAt(v string) {
 	o.DueAt = &v
 }
 
-// GetLineItems returns the LineItems field value
-func (o *CreatePayableRequest) GetLineItems() []map[string]interface{} {
-	if o == nil {
-		var ret []map[string]interface{}
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
+func (o *CreatePayableRequest) GetMetadata() map[string]string {
+	if o == nil || IsNil(o.Metadata) {
+		var ret map[string]string
 		return ret
 	}
-
-	return o.LineItems
+	return o.Metadata
 }
 
-// GetLineItemsOk returns a tuple with the LineItems field value
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreatePayableRequest) GetLineItemsOk() ([]map[string]interface{}, bool) {
-	if o == nil {
-		return nil, false
+func (o *CreatePayableRequest) GetMetadataOk() (map[string]string, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return map[string]string{}, false
 	}
-	return o.LineItems, true
+	return o.Metadata, true
 }
 
-// SetLineItems sets field value
-func (o *CreatePayableRequest) SetLineItems(v []map[string]interface{}) {
-	o.LineItems = v
-}
-
-// GetTaxable returns the Taxable field value if set, zero value otherwise.
-func (o *CreatePayableRequest) GetTaxable() bool {
-	if o == nil || IsNil(o.Taxable) {
-		var ret bool
-		return ret
-	}
-	return *o.Taxable
-}
-
-// GetTaxableOk returns a tuple with the Taxable field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreatePayableRequest) GetTaxableOk() (*bool, bool) {
-	if o == nil || IsNil(o.Taxable) {
-		return nil, false
-	}
-	return o.Taxable, true
-}
-
-// HasTaxable returns a boolean if a field has been set.
-func (o *CreatePayableRequest) HasTaxable() bool {
-	if o != nil && !IsNil(o.Taxable) {
+// HasMetadata returns a boolean if a field has been set.
+func (o *CreatePayableRequest) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
 	return false
 }
 
-// SetTaxable gets a reference to the given bool and assigns it to the Taxable field.
-func (o *CreatePayableRequest) SetTaxable(v bool) {
-	o.Taxable = &v
+// SetMetadata gets a reference to the given map[string]string and assigns it to the Metadata field.
+func (o *CreatePayableRequest) SetMetadata(v map[string]string) {
+	o.Metadata = v
+}
+
+// GetCustomerTaxAddress returns the CustomerTaxAddress field value if set, zero value otherwise.
+func (o *CreatePayableRequest) GetCustomerTaxAddress() CreatePayableRequestCustomerTaxAddress {
+	if o == nil || IsNil(o.CustomerTaxAddress) {
+		var ret CreatePayableRequestCustomerTaxAddress
+		return ret
+	}
+	return *o.CustomerTaxAddress
+}
+
+// GetCustomerTaxAddressOk returns a tuple with the CustomerTaxAddress field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreatePayableRequest) GetCustomerTaxAddressOk() (*CreatePayableRequestCustomerTaxAddress, bool) {
+	if o == nil || IsNil(o.CustomerTaxAddress) {
+		return nil, false
+	}
+	return o.CustomerTaxAddress, true
+}
+
+// HasCustomerTaxAddress returns a boolean if a field has been set.
+func (o *CreatePayableRequest) HasCustomerTaxAddress() bool {
+	if o != nil && !IsNil(o.CustomerTaxAddress) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomerTaxAddress gets a reference to the given CreatePayableRequestCustomerTaxAddress and assigns it to the CustomerTaxAddress field.
+func (o *CreatePayableRequest) SetCustomerTaxAddress(v CreatePayableRequestCustomerTaxAddress) {
+	o.CustomerTaxAddress = &v
+}
+
+// GetCustomerTaxIds returns the CustomerTaxIds field value if set, zero value otherwise.
+func (o *CreatePayableRequest) GetCustomerTaxIds() []CreatePayableRequestCustomerTaxIdsInner {
+	if o == nil || IsNil(o.CustomerTaxIds) {
+		var ret []CreatePayableRequestCustomerTaxIdsInner
+		return ret
+	}
+	return o.CustomerTaxIds
+}
+
+// GetCustomerTaxIdsOk returns a tuple with the CustomerTaxIds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreatePayableRequest) GetCustomerTaxIdsOk() ([]CreatePayableRequestCustomerTaxIdsInner, bool) {
+	if o == nil || IsNil(o.CustomerTaxIds) {
+		return nil, false
+	}
+	return o.CustomerTaxIds, true
+}
+
+// HasCustomerTaxIds returns a boolean if a field has been set.
+func (o *CreatePayableRequest) HasCustomerTaxIds() bool {
+	if o != nil && !IsNil(o.CustomerTaxIds) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomerTaxIds gets a reference to the given []CreatePayableRequestCustomerTaxIdsInner and assigns it to the CustomerTaxIds field.
+func (o *CreatePayableRequest) SetCustomerTaxIds(v []CreatePayableRequestCustomerTaxIdsInner) {
+	o.CustomerTaxIds = v
+}
+
+// GetCustomerType returns the CustomerType field value if set, zero value otherwise.
+func (o *CreatePayableRequest) GetCustomerType() string {
+	if o == nil || IsNil(o.CustomerType) {
+		var ret string
+		return ret
+	}
+	return *o.CustomerType
+}
+
+// GetCustomerTypeOk returns a tuple with the CustomerType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreatePayableRequest) GetCustomerTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.CustomerType) {
+		return nil, false
+	}
+	return o.CustomerType, true
+}
+
+// HasCustomerType returns a boolean if a field has been set.
+func (o *CreatePayableRequest) HasCustomerType() bool {
+	if o != nil && !IsNil(o.CustomerType) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomerType gets a reference to the given string and assigns it to the CustomerType field.
+func (o *CreatePayableRequest) SetCustomerType(v string) {
+	o.CustomerType = &v
+}
+
+// GetCustomerTaxExempt returns the CustomerTaxExempt field value if set, zero value otherwise.
+func (o *CreatePayableRequest) GetCustomerTaxExempt() bool {
+	if o == nil || IsNil(o.CustomerTaxExempt) {
+		var ret bool
+		return ret
+	}
+	return *o.CustomerTaxExempt
+}
+
+// GetCustomerTaxExemptOk returns a tuple with the CustomerTaxExempt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreatePayableRequest) GetCustomerTaxExemptOk() (*bool, bool) {
+	if o == nil || IsNil(o.CustomerTaxExempt) {
+		return nil, false
+	}
+	return o.CustomerTaxExempt, true
+}
+
+// HasCustomerTaxExempt returns a boolean if a field has been set.
+func (o *CreatePayableRequest) HasCustomerTaxExempt() bool {
+	if o != nil && !IsNil(o.CustomerTaxExempt) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomerTaxExempt gets a reference to the given bool and assigns it to the CustomerTaxExempt field.
+func (o *CreatePayableRequest) SetCustomerTaxExempt(v bool) {
+	o.CustomerTaxExempt = &v
+}
+
+// GetCustomerTaxExemptionRef returns the CustomerTaxExemptionRef field value if set, zero value otherwise.
+func (o *CreatePayableRequest) GetCustomerTaxExemptionRef() string {
+	if o == nil || IsNil(o.CustomerTaxExemptionRef) {
+		var ret string
+		return ret
+	}
+	return *o.CustomerTaxExemptionRef
+}
+
+// GetCustomerTaxExemptionRefOk returns a tuple with the CustomerTaxExemptionRef field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreatePayableRequest) GetCustomerTaxExemptionRefOk() (*string, bool) {
+	if o == nil || IsNil(o.CustomerTaxExemptionRef) {
+		return nil, false
+	}
+	return o.CustomerTaxExemptionRef, true
+}
+
+// HasCustomerTaxExemptionRef returns a boolean if a field has been set.
+func (o *CreatePayableRequest) HasCustomerTaxExemptionRef() bool {
+	if o != nil && !IsNil(o.CustomerTaxExemptionRef) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomerTaxExemptionRef gets a reference to the given string and assigns it to the CustomerTaxExemptionRef field.
+func (o *CreatePayableRequest) SetCustomerTaxExemptionRef(v string) {
+	o.CustomerTaxExemptionRef = &v
+}
+
+// GetShipFromAddress returns the ShipFromAddress field value if set, zero value otherwise.
+func (o *CreatePayableRequest) GetShipFromAddress() CreatePayableRequestCustomerTaxAddress {
+	if o == nil || IsNil(o.ShipFromAddress) {
+		var ret CreatePayableRequestCustomerTaxAddress
+		return ret
+	}
+	return *o.ShipFromAddress
+}
+
+// GetShipFromAddressOk returns a tuple with the ShipFromAddress field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreatePayableRequest) GetShipFromAddressOk() (*CreatePayableRequestCustomerTaxAddress, bool) {
+	if o == nil || IsNil(o.ShipFromAddress) {
+		return nil, false
+	}
+	return o.ShipFromAddress, true
+}
+
+// HasShipFromAddress returns a boolean if a field has been set.
+func (o *CreatePayableRequest) HasShipFromAddress() bool {
+	if o != nil && !IsNil(o.ShipFromAddress) {
+		return true
+	}
+
+	return false
+}
+
+// SetShipFromAddress gets a reference to the given CreatePayableRequestCustomerTaxAddress and assigns it to the ShipFromAddress field.
+func (o *CreatePayableRequest) SetShipFromAddress(v CreatePayableRequestCustomerTaxAddress) {
+	o.ShipFromAddress = &v
 }
 
 // GetTaxBehavior returns the TaxBehavior field value if set, zero value otherwise.
@@ -382,124 +569,36 @@ func (o *CreatePayableRequest) SetTaxBehavior(v string) {
 	o.TaxBehavior = &v
 }
 
-// GetTaxClassificationKey returns the TaxClassificationKey field value if set, zero value otherwise.
-func (o *CreatePayableRequest) GetTaxClassificationKey() string {
-	if o == nil || IsNil(o.TaxClassificationKey) {
+// GetClassificationKey returns the ClassificationKey field value if set, zero value otherwise.
+func (o *CreatePayableRequest) GetClassificationKey() string {
+	if o == nil || IsNil(o.ClassificationKey) {
 		var ret string
 		return ret
 	}
-	return *o.TaxClassificationKey
+	return *o.ClassificationKey
 }
 
-// GetTaxClassificationKeyOk returns a tuple with the TaxClassificationKey field value if set, nil otherwise
+// GetClassificationKeyOk returns a tuple with the ClassificationKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreatePayableRequest) GetTaxClassificationKeyOk() (*string, bool) {
-	if o == nil || IsNil(o.TaxClassificationKey) {
+func (o *CreatePayableRequest) GetClassificationKeyOk() (*string, bool) {
+	if o == nil || IsNil(o.ClassificationKey) {
 		return nil, false
 	}
-	return o.TaxClassificationKey, true
+	return o.ClassificationKey, true
 }
 
-// HasTaxClassificationKey returns a boolean if a field has been set.
-func (o *CreatePayableRequest) HasTaxClassificationKey() bool {
-	if o != nil && !IsNil(o.TaxClassificationKey) {
+// HasClassificationKey returns a boolean if a field has been set.
+func (o *CreatePayableRequest) HasClassificationKey() bool {
+	if o != nil && !IsNil(o.ClassificationKey) {
 		return true
 	}
 
 	return false
 }
 
-// SetTaxClassificationKey gets a reference to the given string and assigns it to the TaxClassificationKey field.
-func (o *CreatePayableRequest) SetTaxClassificationKey(v string) {
-	o.TaxClassificationKey = &v
-}
-
-// GetCustomerTaxAddress returns the CustomerTaxAddress field value if set, zero value otherwise.
-func (o *CreatePayableRequest) GetCustomerTaxAddress() TaxAddress {
-	if o == nil || IsNil(o.CustomerTaxAddress) {
-		var ret TaxAddress
-		return ret
-	}
-	return *o.CustomerTaxAddress
-}
-
-// GetCustomerTaxAddressOk returns a tuple with the CustomerTaxAddress field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreatePayableRequest) GetCustomerTaxAddressOk() (*TaxAddress, bool) {
-	if o == nil || IsNil(o.CustomerTaxAddress) {
-		return nil, false
-	}
-	return o.CustomerTaxAddress, true
-}
-
-// HasCustomerTaxAddress returns a boolean if a field has been set.
-func (o *CreatePayableRequest) HasCustomerTaxAddress() bool {
-	if o != nil && !IsNil(o.CustomerTaxAddress) {
-		return true
-	}
-
-	return false
-}
-
-// SetCustomerTaxAddress gets a reference to the given TaxAddress and assigns it to the CustomerTaxAddress field.
-func (o *CreatePayableRequest) SetCustomerTaxAddress(v TaxAddress) {
-	o.CustomerTaxAddress = &v
-}
-
-// GetShipFromAddress returns the ShipFromAddress field value if set, zero value otherwise.
-func (o *CreatePayableRequest) GetShipFromAddress() TaxAddress {
-	if o == nil || IsNil(o.ShipFromAddress) {
-		var ret TaxAddress
-		return ret
-	}
-	return *o.ShipFromAddress
-}
-
-// GetShipFromAddressOk returns a tuple with the ShipFromAddress field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreatePayableRequest) GetShipFromAddressOk() (*TaxAddress, bool) {
-	if o == nil || IsNil(o.ShipFromAddress) {
-		return nil, false
-	}
-	return o.ShipFromAddress, true
-}
-
-// HasShipFromAddress returns a boolean if a field has been set.
-func (o *CreatePayableRequest) HasShipFromAddress() bool {
-	if o != nil && !IsNil(o.ShipFromAddress) {
-		return true
-	}
-
-	return false
-}
-
-// SetShipFromAddress gets a reference to the given TaxAddress and assigns it to the ShipFromAddress field.
-func (o *CreatePayableRequest) SetShipFromAddress(v TaxAddress) {
-	o.ShipFromAddress = &v
-}
-
-// GetMetadata returns the Metadata field value
-func (o *CreatePayableRequest) GetMetadata() map[string]string {
-	if o == nil {
-		var ret map[string]string
-		return ret
-	}
-
-	return o.Metadata
-}
-
-// GetMetadataOk returns a tuple with the Metadata field value
-// and a boolean to check if the value has been set.
-func (o *CreatePayableRequest) GetMetadataOk() (map[string]string, bool) {
-	if o == nil {
-		return map[string]string{}, false
-	}
-	return o.Metadata, true
-}
-
-// SetMetadata sets field value
-func (o *CreatePayableRequest) SetMetadata(v map[string]string) {
-	o.Metadata = v
+// SetClassificationKey gets a reference to the given string and assigns it to the ClassificationKey field.
+func (o *CreatePayableRequest) SetClassificationKey(v string) {
+	o.ClassificationKey = &v
 }
 
 func (o CreatePayableRequest) MarshalJSON() ([]byte, error) {
@@ -512,34 +611,50 @@ func (o CreatePayableRequest) MarshalJSON() ([]byte, error) {
 
 func (o CreatePayableRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["sourceType"] = o.SourceType
-	toSerialize["sourceId"] = o.SourceId
-	toSerialize["documentId"] = o.DocumentId
-	toSerialize["paymentFieldId"] = o.PaymentFieldId
-	toSerialize["customerExternalId"] = o.CustomerExternalId
+	toSerialize["source"] = o.Source
+	toSerialize["customerId"] = o.CustomerId
 	toSerialize["billingAccountId"] = o.BillingAccountId
+	toSerialize["lineItems"] = o.LineItems
 	toSerialize["collectionIntent"] = o.CollectionIntent
-	toSerialize["feePolicy"] = o.FeePolicy
+	if !IsNil(o.IdempotencyKey) {
+		toSerialize["idempotencyKey"] = o.IdempotencyKey
+	}
+	if !IsNil(o.PayableId) {
+		toSerialize["payableId"] = o.PayableId
+	}
+	if !IsNil(o.PaymentMethodId) {
+		toSerialize["paymentMethodId"] = o.PaymentMethodId
+	}
 	if !IsNil(o.DueAt) {
 		toSerialize["dueAt"] = o.DueAt
 	}
-	toSerialize["lineItems"] = o.LineItems
-	if !IsNil(o.Taxable) {
-		toSerialize["taxable"] = o.Taxable
-	}
-	if !IsNil(o.TaxBehavior) {
-		toSerialize["taxBehavior"] = o.TaxBehavior
-	}
-	if !IsNil(o.TaxClassificationKey) {
-		toSerialize["taxClassificationKey"] = o.TaxClassificationKey
+	if !IsNil(o.Metadata) {
+		toSerialize["metadata"] = o.Metadata
 	}
 	if !IsNil(o.CustomerTaxAddress) {
 		toSerialize["customerTaxAddress"] = o.CustomerTaxAddress
 	}
+	if !IsNil(o.CustomerTaxIds) {
+		toSerialize["customerTaxIds"] = o.CustomerTaxIds
+	}
+	if !IsNil(o.CustomerType) {
+		toSerialize["customerType"] = o.CustomerType
+	}
+	if !IsNil(o.CustomerTaxExempt) {
+		toSerialize["customerTaxExempt"] = o.CustomerTaxExempt
+	}
+	if !IsNil(o.CustomerTaxExemptionRef) {
+		toSerialize["customerTaxExemptionRef"] = o.CustomerTaxExemptionRef
+	}
 	if !IsNil(o.ShipFromAddress) {
 		toSerialize["shipFromAddress"] = o.ShipFromAddress
 	}
-	toSerialize["metadata"] = o.Metadata
+	if !IsNil(o.TaxBehavior) {
+		toSerialize["taxBehavior"] = o.TaxBehavior
+	}
+	if !IsNil(o.ClassificationKey) {
+		toSerialize["classificationKey"] = o.ClassificationKey
+	}
 	return toSerialize, nil
 }
 
@@ -548,16 +663,11 @@ func (o *CreatePayableRequest) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"sourceType",
-		"sourceId",
-		"documentId",
-		"paymentFieldId",
-		"customerExternalId",
+		"source",
+		"customerId",
 		"billingAccountId",
-		"collectionIntent",
-		"feePolicy",
 		"lineItems",
-		"metadata",
+		"collectionIntent",
 	}
 
 	allProperties := make(map[string]interface{})

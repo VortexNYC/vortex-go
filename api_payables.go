@@ -16,413 +16,12 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 
 // PayablesAPIService PayablesAPI service
 type PayablesAPIService service
-
-type PayablesAPICreateDepositBalancePayableRequest struct {
-	ctx context.Context
-	ApiService *PayablesAPIService
-	environment *string
-	merchantAccountId *string
-	createDepositBalancePayableRequest *CreateDepositBalancePayableRequest
-	idempotencyKey *string
-}
-
-func (r PayablesAPICreateDepositBalancePayableRequest) Environment(environment string) PayablesAPICreateDepositBalancePayableRequest {
-	r.environment = &environment
-	return r
-}
-
-func (r PayablesAPICreateDepositBalancePayableRequest) MerchantAccountId(merchantAccountId string) PayablesAPICreateDepositBalancePayableRequest {
-	r.merchantAccountId = &merchantAccountId
-	return r
-}
-
-func (r PayablesAPICreateDepositBalancePayableRequest) CreateDepositBalancePayableRequest(createDepositBalancePayableRequest CreateDepositBalancePayableRequest) PayablesAPICreateDepositBalancePayableRequest {
-	r.createDepositBalancePayableRequest = &createDepositBalancePayableRequest
-	return r
-}
-
-// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
-func (r PayablesAPICreateDepositBalancePayableRequest) IdempotencyKey(idempotencyKey string) PayablesAPICreateDepositBalancePayableRequest {
-	r.idempotencyKey = &idempotencyKey
-	return r
-}
-
-func (r PayablesAPICreateDepositBalancePayableRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
-	return r.ApiService.CreateDepositBalancePayableExecute(r)
-}
-
-/*
-CreateDepositBalancePayable Create a deposit + balance document payable
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return PayablesAPICreateDepositBalancePayableRequest
-*/
-func (a *PayablesAPIService) CreateDepositBalancePayable(ctx context.Context) PayablesAPICreateDepositBalancePayableRequest {
-	return PayablesAPICreateDepositBalancePayableRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *PayablesAPIService) CreateDepositBalancePayableExecute(r PayablesAPICreateDepositBalancePayableRequest) (*ApiWriteEnvelope, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PayablesAPIService.CreateDepositBalancePayable")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/deposit-balance-payables"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
-	if r.createDepositBalancePayableRequest == nil {
-		return localVarReturnValue, nil, reportError("createDepositBalancePayableRequest is required and must be specified")
-	}
-
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.idempotencyKey != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
-	}
-	// body params
-	localVarPostBody = r.createDepositBalancePayableRequest
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PayablesAPICreateInstallmentPayableRequest struct {
-	ctx context.Context
-	ApiService *PayablesAPIService
-	environment *string
-	merchantAccountId *string
-	createInstallmentPayableRequest *CreateInstallmentPayableRequest
-	idempotencyKey *string
-}
-
-func (r PayablesAPICreateInstallmentPayableRequest) Environment(environment string) PayablesAPICreateInstallmentPayableRequest {
-	r.environment = &environment
-	return r
-}
-
-func (r PayablesAPICreateInstallmentPayableRequest) MerchantAccountId(merchantAccountId string) PayablesAPICreateInstallmentPayableRequest {
-	r.merchantAccountId = &merchantAccountId
-	return r
-}
-
-func (r PayablesAPICreateInstallmentPayableRequest) CreateInstallmentPayableRequest(createInstallmentPayableRequest CreateInstallmentPayableRequest) PayablesAPICreateInstallmentPayableRequest {
-	r.createInstallmentPayableRequest = &createInstallmentPayableRequest
-	return r
-}
-
-// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
-func (r PayablesAPICreateInstallmentPayableRequest) IdempotencyKey(idempotencyKey string) PayablesAPICreateInstallmentPayableRequest {
-	r.idempotencyKey = &idempotencyKey
-	return r
-}
-
-func (r PayablesAPICreateInstallmentPayableRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
-	return r.ApiService.CreateInstallmentPayableExecute(r)
-}
-
-/*
-CreateInstallmentPayable Create an installment document payable
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return PayablesAPICreateInstallmentPayableRequest
-*/
-func (a *PayablesAPIService) CreateInstallmentPayable(ctx context.Context) PayablesAPICreateInstallmentPayableRequest {
-	return PayablesAPICreateInstallmentPayableRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *PayablesAPIService) CreateInstallmentPayableExecute(r PayablesAPICreateInstallmentPayableRequest) (*ApiWriteEnvelope, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PayablesAPIService.CreateInstallmentPayable")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/installment-payables"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
-	if r.createInstallmentPayableRequest == nil {
-		return localVarReturnValue, nil, reportError("createInstallmentPayableRequest is required and must be specified")
-	}
-
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.idempotencyKey != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
-	}
-	// body params
-	localVarPostBody = r.createInstallmentPayableRequest
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
 
 type PayablesAPICreatePayableRequest struct {
 	ctx context.Context
@@ -454,7 +53,7 @@ func (r PayablesAPICreatePayableRequest) IdempotencyKey(idempotencyKey string) P
 	return r
 }
 
-func (r PayablesAPICreatePayableRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
+func (r PayablesAPICreatePayableRequest) Execute() (*PayableResponse, *http.Response, error) {
 	return r.ApiService.CreatePayableExecute(r)
 }
 
@@ -472,13 +71,13 @@ func (a *PayablesAPIService) CreatePayable(ctx context.Context) PayablesAPICreat
 }
 
 // Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *PayablesAPIService) CreatePayableExecute(r PayablesAPICreatePayableRequest) (*ApiWriteEnvelope, *http.Response, error) {
+//  @return PayableResponse
+func (a *PayablesAPIService) CreatePayableExecute(r PayablesAPICreatePayableRequest) (*PayableResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
+		localVarReturnValue  *PayableResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PayablesAPIService.CreatePayable")
@@ -625,69 +224,60 @@ func (a *PayablesAPIService) CreatePayableExecute(r PayablesAPICreatePayableRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type PayablesAPICreateRecurringPayableRequest struct {
+type PayablesAPIGetPayableRequest struct {
 	ctx context.Context
 	ApiService *PayablesAPIService
+	payableId string
 	environment *string
 	merchantAccountId *string
-	createRecurringPayableRequest *CreateRecurringPayableRequest
-	idempotencyKey *string
 }
 
-func (r PayablesAPICreateRecurringPayableRequest) Environment(environment string) PayablesAPICreateRecurringPayableRequest {
+func (r PayablesAPIGetPayableRequest) Environment(environment string) PayablesAPIGetPayableRequest {
 	r.environment = &environment
 	return r
 }
 
-func (r PayablesAPICreateRecurringPayableRequest) MerchantAccountId(merchantAccountId string) PayablesAPICreateRecurringPayableRequest {
+func (r PayablesAPIGetPayableRequest) MerchantAccountId(merchantAccountId string) PayablesAPIGetPayableRequest {
 	r.merchantAccountId = &merchantAccountId
 	return r
 }
 
-func (r PayablesAPICreateRecurringPayableRequest) CreateRecurringPayableRequest(createRecurringPayableRequest CreateRecurringPayableRequest) PayablesAPICreateRecurringPayableRequest {
-	r.createRecurringPayableRequest = &createRecurringPayableRequest
-	return r
-}
-
-// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
-func (r PayablesAPICreateRecurringPayableRequest) IdempotencyKey(idempotencyKey string) PayablesAPICreateRecurringPayableRequest {
-	r.idempotencyKey = &idempotencyKey
-	return r
-}
-
-func (r PayablesAPICreateRecurringPayableRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
-	return r.ApiService.CreateRecurringPayableExecute(r)
+func (r PayablesAPIGetPayableRequest) Execute() (*PayableResponse, *http.Response, error) {
+	return r.ApiService.GetPayableExecute(r)
 }
 
 /*
-CreateRecurringPayable Create a recurring document payable
+GetPayable Get one payable
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return PayablesAPICreateRecurringPayableRequest
+ @param payableId
+ @return PayablesAPIGetPayableRequest
 */
-func (a *PayablesAPIService) CreateRecurringPayable(ctx context.Context) PayablesAPICreateRecurringPayableRequest {
-	return PayablesAPICreateRecurringPayableRequest{
+func (a *PayablesAPIService) GetPayable(ctx context.Context, payableId string) PayablesAPIGetPayableRequest {
+	return PayablesAPIGetPayableRequest{
 		ApiService: a,
 		ctx: ctx,
+		payableId: payableId,
 	}
 }
 
 // Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *PayablesAPIService) CreateRecurringPayableExecute(r PayablesAPICreateRecurringPayableRequest) (*ApiWriteEnvelope, *http.Response, error) {
+//  @return PayableResponse
+func (a *PayablesAPIService) GetPayableExecute(r PayablesAPIGetPayableRequest) (*PayableResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
+		localVarReturnValue  *PayableResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PayablesAPIService.CreateRecurringPayable")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PayablesAPIService.GetPayable")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/recurring-payables"
+	localVarPath := localBasePath + "/v1/payables/{payableId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"payableId"+"}", url.PathEscape(parameterValueToString(r.payableId, "payableId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -698,14 +288,11 @@ func (a *PayablesAPIService) CreateRecurringPayableExecute(r PayablesAPICreateRe
 	if r.merchantAccountId == nil {
 		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
 	}
-	if r.createRecurringPayableRequest == nil {
-		return localVarReturnValue, nil, reportError("createRecurringPayableRequest is required and must be specified")
-	}
 
 	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -721,11 +308,6 @@ func (a *PayablesAPIService) CreateRecurringPayableExecute(r PayablesAPICreateRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.idempotencyKey != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
-	}
-	// body params
-	localVarPostBody = r.createRecurringPayableRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -760,6 +342,17 @@ func (a *PayablesAPIService) CreateRecurringPayableExecute(r PayablesAPICreateRe
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
+			var v ApiError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
 			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {

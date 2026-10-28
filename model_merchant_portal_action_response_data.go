@@ -23,6 +23,9 @@ type MerchantPortalActionResponseData struct {
 	MerchantPortalActionResponseDataOneOf10 *MerchantPortalActionResponseDataOneOf10
 	MerchantPortalActionResponseDataOneOf11 *MerchantPortalActionResponseDataOneOf11
 	MerchantPortalActionResponseDataOneOf12 *MerchantPortalActionResponseDataOneOf12
+	MerchantPortalActionResponseDataOneOf13 *MerchantPortalActionResponseDataOneOf13
+	MerchantPortalActionResponseDataOneOf14 *MerchantPortalActionResponseDataOneOf14
+	MerchantPortalActionResponseDataOneOf15 *MerchantPortalActionResponseDataOneOf15
 	MerchantPortalActionResponseDataOneOf2 *MerchantPortalActionResponseDataOneOf2
 	MerchantPortalActionResponseDataOneOf3 *MerchantPortalActionResponseDataOneOf3
 	MerchantPortalActionResponseDataOneOf4 *MerchantPortalActionResponseDataOneOf4
@@ -68,6 +71,27 @@ func MerchantPortalActionResponseDataOneOf11AsMerchantPortalActionResponseData(v
 func MerchantPortalActionResponseDataOneOf12AsMerchantPortalActionResponseData(v *MerchantPortalActionResponseDataOneOf12) MerchantPortalActionResponseData {
 	return MerchantPortalActionResponseData{
 		MerchantPortalActionResponseDataOneOf12: v,
+	}
+}
+
+// MerchantPortalActionResponseDataOneOf13AsMerchantPortalActionResponseData is a convenience function that returns MerchantPortalActionResponseDataOneOf13 wrapped in MerchantPortalActionResponseData
+func MerchantPortalActionResponseDataOneOf13AsMerchantPortalActionResponseData(v *MerchantPortalActionResponseDataOneOf13) MerchantPortalActionResponseData {
+	return MerchantPortalActionResponseData{
+		MerchantPortalActionResponseDataOneOf13: v,
+	}
+}
+
+// MerchantPortalActionResponseDataOneOf14AsMerchantPortalActionResponseData is a convenience function that returns MerchantPortalActionResponseDataOneOf14 wrapped in MerchantPortalActionResponseData
+func MerchantPortalActionResponseDataOneOf14AsMerchantPortalActionResponseData(v *MerchantPortalActionResponseDataOneOf14) MerchantPortalActionResponseData {
+	return MerchantPortalActionResponseData{
+		MerchantPortalActionResponseDataOneOf14: v,
+	}
+}
+
+// MerchantPortalActionResponseDataOneOf15AsMerchantPortalActionResponseData is a convenience function that returns MerchantPortalActionResponseDataOneOf15 wrapped in MerchantPortalActionResponseData
+func MerchantPortalActionResponseDataOneOf15AsMerchantPortalActionResponseData(v *MerchantPortalActionResponseDataOneOf15) MerchantPortalActionResponseData {
+	return MerchantPortalActionResponseData{
+		MerchantPortalActionResponseDataOneOf15: v,
 	}
 }
 
@@ -236,6 +260,57 @@ func (dst *MerchantPortalActionResponseData) UnmarshalJSON(data []byte) error {
 		}
 	} else {
 		dst.MerchantPortalActionResponseDataOneOf12 = nil
+	}
+
+	// try to unmarshal data into MerchantPortalActionResponseDataOneOf13
+	err = newStrictDecoder(data).Decode(&dst.MerchantPortalActionResponseDataOneOf13)
+	if err == nil {
+		jsonMerchantPortalActionResponseDataOneOf13, _ := json.Marshal(dst.MerchantPortalActionResponseDataOneOf13)
+		if string(jsonMerchantPortalActionResponseDataOneOf13) == "{}" { // empty struct
+			dst.MerchantPortalActionResponseDataOneOf13 = nil
+		} else {
+			if err = validator.Validate(dst.MerchantPortalActionResponseDataOneOf13); err != nil {
+				dst.MerchantPortalActionResponseDataOneOf13 = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.MerchantPortalActionResponseDataOneOf13 = nil
+	}
+
+	// try to unmarshal data into MerchantPortalActionResponseDataOneOf14
+	err = newStrictDecoder(data).Decode(&dst.MerchantPortalActionResponseDataOneOf14)
+	if err == nil {
+		jsonMerchantPortalActionResponseDataOneOf14, _ := json.Marshal(dst.MerchantPortalActionResponseDataOneOf14)
+		if string(jsonMerchantPortalActionResponseDataOneOf14) == "{}" { // empty struct
+			dst.MerchantPortalActionResponseDataOneOf14 = nil
+		} else {
+			if err = validator.Validate(dst.MerchantPortalActionResponseDataOneOf14); err != nil {
+				dst.MerchantPortalActionResponseDataOneOf14 = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.MerchantPortalActionResponseDataOneOf14 = nil
+	}
+
+	// try to unmarshal data into MerchantPortalActionResponseDataOneOf15
+	err = newStrictDecoder(data).Decode(&dst.MerchantPortalActionResponseDataOneOf15)
+	if err == nil {
+		jsonMerchantPortalActionResponseDataOneOf15, _ := json.Marshal(dst.MerchantPortalActionResponseDataOneOf15)
+		if string(jsonMerchantPortalActionResponseDataOneOf15) == "{}" { // empty struct
+			dst.MerchantPortalActionResponseDataOneOf15 = nil
+		} else {
+			if err = validator.Validate(dst.MerchantPortalActionResponseDataOneOf15); err != nil {
+				dst.MerchantPortalActionResponseDataOneOf15 = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.MerchantPortalActionResponseDataOneOf15 = nil
 	}
 
 	// try to unmarshal data into MerchantPortalActionResponseDataOneOf2
@@ -432,6 +507,9 @@ func (dst *MerchantPortalActionResponseData) UnmarshalJSON(data []byte) error {
 		dst.MerchantPortalActionResponseDataOneOf10 = nil
 		dst.MerchantPortalActionResponseDataOneOf11 = nil
 		dst.MerchantPortalActionResponseDataOneOf12 = nil
+		dst.MerchantPortalActionResponseDataOneOf13 = nil
+		dst.MerchantPortalActionResponseDataOneOf14 = nil
+		dst.MerchantPortalActionResponseDataOneOf15 = nil
 		dst.MerchantPortalActionResponseDataOneOf2 = nil
 		dst.MerchantPortalActionResponseDataOneOf3 = nil
 		dst.MerchantPortalActionResponseDataOneOf4 = nil
@@ -472,6 +550,18 @@ func (src MerchantPortalActionResponseData) MarshalJSON() ([]byte, error) {
 
 	if src.MerchantPortalActionResponseDataOneOf12 != nil {
 		return json.Marshal(&src.MerchantPortalActionResponseDataOneOf12)
+	}
+
+	if src.MerchantPortalActionResponseDataOneOf13 != nil {
+		return json.Marshal(&src.MerchantPortalActionResponseDataOneOf13)
+	}
+
+	if src.MerchantPortalActionResponseDataOneOf14 != nil {
+		return json.Marshal(&src.MerchantPortalActionResponseDataOneOf14)
+	}
+
+	if src.MerchantPortalActionResponseDataOneOf15 != nil {
+		return json.Marshal(&src.MerchantPortalActionResponseDataOneOf15)
 	}
 
 	if src.MerchantPortalActionResponseDataOneOf2 != nil {
@@ -546,6 +636,18 @@ func (obj *MerchantPortalActionResponseData) GetActualInstance() (interface{}) {
 		return obj.MerchantPortalActionResponseDataOneOf12
 	}
 
+	if obj.MerchantPortalActionResponseDataOneOf13 != nil {
+		return obj.MerchantPortalActionResponseDataOneOf13
+	}
+
+	if obj.MerchantPortalActionResponseDataOneOf14 != nil {
+		return obj.MerchantPortalActionResponseDataOneOf14
+	}
+
+	if obj.MerchantPortalActionResponseDataOneOf15 != nil {
+		return obj.MerchantPortalActionResponseDataOneOf15
+	}
+
 	if obj.MerchantPortalActionResponseDataOneOf2 != nil {
 		return obj.MerchantPortalActionResponseDataOneOf2
 	}
@@ -614,6 +716,18 @@ func (obj MerchantPortalActionResponseData) GetActualInstanceValue() (interface{
 
 	if obj.MerchantPortalActionResponseDataOneOf12 != nil {
 		return *obj.MerchantPortalActionResponseDataOneOf12
+	}
+
+	if obj.MerchantPortalActionResponseDataOneOf13 != nil {
+		return *obj.MerchantPortalActionResponseDataOneOf13
+	}
+
+	if obj.MerchantPortalActionResponseDataOneOf14 != nil {
+		return *obj.MerchantPortalActionResponseDataOneOf14
+	}
+
+	if obj.MerchantPortalActionResponseDataOneOf15 != nil {
+		return *obj.MerchantPortalActionResponseDataOneOf15
 	}
 
 	if obj.MerchantPortalActionResponseDataOneOf2 != nil {

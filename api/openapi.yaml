@@ -20257,8 +20257,8 @@ components:
         "Full portal snapshot — one array per bucket (customers, payments,\
         \ invoices, subscriptions, paymentLinks, taxTransactions, creditNotes, coupons,\
         \ disputes, wallets, products, prices, collectionRetries, settlements, payouts,\
-        \ meters, usageEvents, webhookEndpoints, paymentMethods) plus recentEvents,\
-        \ attention, aging, and the optional moneySummary/onboarding/taxProfile/analytics\
+        \ meters, usageEvents, webhookEndpoints, webhookDeliveries, canonicalEvents,\
+        \ paymentMethods) plus recentEvents, attention, aging, and the optional moneySummary/onboarding/taxProfile/analytics\
         \ blocks. Only the fields named here are part of the declared contract today;\
         \ each bucket promotes its own component as it earns a stable shape."
       example:
@@ -20454,6 +20454,11 @@ components:
         - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_20"
         - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_21"
         - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_22"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_23"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_24"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_25"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_26"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_27"
     HostedPortalSubscriptionItem:
       additionalProperties: false
       properties:
@@ -20587,7 +20592,7 @@ components:
       required:
         - invoice
     MerchantPortalActionResponse:
-      additionalProperties: false
+      additionalProperties: {}
       example:
         data:
           hostedInvoiceUrl: https://openapi-generator.tech
@@ -22122,6 +22127,87 @@ components:
       required:
         - action
         - payoutId
+    MerchantPortalActionRequest_oneOf_23:
+      properties:
+        action:
+          enum:
+            - create-webhook-endpoint
+          type: string
+        destinationUrl:
+          description:
+            Public HTTPS endpoint — SSRF-checked at registration and again
+            at delivery.
+          format: uri
+          type: string
+        subscribedEventTypes:
+          description: '"*", an exact event type, or a "prefix.*" wildcard.'
+          items:
+            minLength: 1
+            type: string
+          minItems: 1
+          type: array
+          default: null
+        description:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - destinationUrl
+        - subscribedEventTypes
+    MerchantPortalActionRequest_oneOf_24:
+      properties:
+        action:
+          enum:
+            - disable-webhook-endpoint
+          type: string
+        endpointId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - endpointId
+    MerchantPortalActionRequest_oneOf_25:
+      properties:
+        action:
+          enum:
+            - test-webhook-endpoint
+          type: string
+        endpointId:
+          minLength: 1
+          type: string
+        eventType:
+          description:
+            "Optional — defaults to the endpoint's first concrete subscription,\
+            \ else payment.created."
+          minLength: 1
+          type: string
+      required:
+        - action
+        - endpointId
+    MerchantPortalActionRequest_oneOf_26:
+      properties:
+        action:
+          enum:
+            - replay-webhook-delivery
+          type: string
+        deliveryId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - deliveryId
+    MerchantPortalActionRequest_oneOf_27:
+      properties:
+        action:
+          enum:
+            - webhook-endpoint-detail
+          type: string
+        endpointId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - endpointId
     MerchantPortalActionResponse_data_oneOf:
       example:
         hostedInvoiceUrl: https://openapi-generator.tech
@@ -22228,6 +22314,44 @@ components:
       required:
         - disputePortalUrl
         - message
+    MerchantPortalActionResponse_data_oneOf_13:
+      properties:
+        endpoint:
+          additionalProperties: true
+          description: The portal webhook-endpoint row; create adds a one-time `secret`.
+          type: object
+      required:
+        - endpoint
+    MerchantPortalActionResponse_data_oneOf_14:
+      properties:
+        delivery:
+          additionalProperties: true
+          description:
+            The portal webhook-delivery row (the test dispatch or the replayed
+            clone).
+          type: object
+      required:
+        - delivery
+    MerchantPortalActionResponse_data_oneOf_15_webhookEndpointDetail:
+      properties:
+        endpoint:
+          additionalProperties: true
+          type: object
+        deliveries:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          default: null
+      required:
+        - deliveries
+        - endpoint
+    MerchantPortalActionResponse_data_oneOf_15:
+      properties:
+        webhookEndpointDetail:
+          $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_15_webhookEndpointDetail"
+      required:
+        - webhookEndpointDetail
     MerchantPortalActionResponse_data:
       oneOf:
         - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf"
@@ -22246,6 +22370,9 @@ components:
         - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_11"
         - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_12"
         - $ref: "#/components/schemas/MerchantPortalCollectionRetryResult"
+        - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_13"
+        - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_14"
+        - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_15"
     HostedCollectionRetryViewResponse_data:
       additionalProperties: false
       example:

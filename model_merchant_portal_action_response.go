@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -22,6 +21,7 @@ var _ MappedNullable = &MerchantPortalActionResponse{}
 // MerchantPortalActionResponse struct for MerchantPortalActionResponse
 type MerchantPortalActionResponse struct {
 	Data MerchantPortalActionResponseData `json:"data"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MerchantPortalActionResponse MerchantPortalActionResponse
@@ -79,6 +79,11 @@ func (o MerchantPortalActionResponse) MarshalJSON() ([]byte, error) {
 func (o MerchantPortalActionResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["data"] = o.Data
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -106,15 +111,20 @@ func (o *MerchantPortalActionResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varMerchantPortalActionResponse := _MerchantPortalActionResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMerchantPortalActionResponse)
+	err = json.Unmarshal(data, &varMerchantPortalActionResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MerchantPortalActionResponse(varMerchantPortalActionResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

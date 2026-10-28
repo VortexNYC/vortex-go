@@ -16,11 +16,11 @@ import (
 	"fmt"
 )
 
-// checks if the MerchantPortalActionRequestOneOf37OriginAddress type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &MerchantPortalActionRequestOneOf37OriginAddress{}
+// checks if the MerchantPortalActionRequestOneOf42OriginAddress type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MerchantPortalActionRequestOneOf42OriginAddress{}
 
-// MerchantPortalActionRequestOneOf37OriginAddress struct for MerchantPortalActionRequestOneOf37OriginAddress
-type MerchantPortalActionRequestOneOf37OriginAddress struct {
+// MerchantPortalActionRequestOneOf42OriginAddress struct for MerchantPortalActionRequestOneOf42OriginAddress
+type MerchantPortalActionRequestOneOf42OriginAddress struct {
 	Line1 string `json:"line1"`
 	Line2 *string `json:"line2,omitempty"`
 	City string `json:"city"`
@@ -29,14 +29,14 @@ type MerchantPortalActionRequestOneOf37OriginAddress struct {
 	Country string `json:"country"`
 }
 
-type _MerchantPortalActionRequestOneOf37OriginAddress MerchantPortalActionRequestOneOf37OriginAddress
+type _MerchantPortalActionRequestOneOf42OriginAddress MerchantPortalActionRequestOneOf42OriginAddress
 
-// NewMerchantPortalActionRequestOneOf37OriginAddress instantiates a new MerchantPortalActionRequestOneOf37OriginAddress object
+// NewMerchantPortalActionRequestOneOf42OriginAddress instantiates a new MerchantPortalActionRequestOneOf42OriginAddress object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionRequestOneOf37OriginAddress(line1 string, city string, region string, postalCode string, country string) *MerchantPortalActionRequestOneOf37OriginAddress {
-	this := MerchantPortalActionRequestOneOf37OriginAddress{}
+func NewMerchantPortalActionRequestOneOf42OriginAddress(line1 string, city string, region string, postalCode string, country string) *MerchantPortalActionRequestOneOf42OriginAddress {
+	this := MerchantPortalActionRequestOneOf42OriginAddress{}
 	this.Line1 = line1
 	this.City = city
 	this.Region = region
@@ -45,16 +45,16 @@ func NewMerchantPortalActionRequestOneOf37OriginAddress(line1 string, city strin
 	return &this
 }
 
-// NewMerchantPortalActionRequestOneOf37OriginAddressWithDefaults instantiates a new MerchantPortalActionRequestOneOf37OriginAddress object
+// NewMerchantPortalActionRequestOneOf42OriginAddressWithDefaults instantiates a new MerchantPortalActionRequestOneOf42OriginAddress object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewMerchantPortalActionRequestOneOf37OriginAddressWithDefaults() *MerchantPortalActionRequestOneOf37OriginAddress {
-	this := MerchantPortalActionRequestOneOf37OriginAddress{}
+func NewMerchantPortalActionRequestOneOf42OriginAddressWithDefaults() *MerchantPortalActionRequestOneOf42OriginAddress {
+	this := MerchantPortalActionRequestOneOf42OriginAddress{}
 	return &this
 }
 
 // GetLine1 returns the Line1 field value
-func (o *MerchantPortalActionRequestOneOf37OriginAddress) GetLine1() string {
+func (o *MerchantPortalActionRequestOneOf42OriginAddress) GetLine1() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -65,7 +65,7 @@ func (o *MerchantPortalActionRequestOneOf37OriginAddress) GetLine1() string {
 
 // GetLine1Ok returns a tuple with the Line1 field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf37OriginAddress) GetLine1Ok() (*string, bool) {
+func (o *MerchantPortalActionRequestOneOf42OriginAddress) GetLine1Ok() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -73,12 +73,12 @@ func (o *MerchantPortalActionRequestOneOf37OriginAddress) GetLine1Ok() (*string,
 }
 
 // SetLine1 sets field value
-func (o *MerchantPortalActionRequestOneOf37OriginAddress) SetLine1(v string) {
+func (o *MerchantPortalActionRequestOneOf42OriginAddress) SetLine1(v string) {
 	o.Line1 = v
 }
 
 // GetLine2 returns the Line2 field value if set, zero value otherwise.
-func (o *MerchantPortalActionRequestOneOf37OriginAddress) GetLine2() string {
+func (o *MerchantPortalActionRequestOneOf42OriginAddress) GetLine2() string {
 	if o == nil || IsNil(o.Line2) {
 		var ret string
 		return ret
@@ -88,7 +88,7 @@ func (o *MerchantPortalActionRequestOneOf37OriginAddress) GetLine2() string {
 
 // GetLine2Ok returns a tuple with the Line2 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf37OriginAddress) GetLine2Ok() (*string, bool) {
+func (o *MerchantPortalActionRequestOneOf42OriginAddress) GetLine2Ok() (*string, bool) {
 	if o == nil || IsNil(o.Line2) {
 		return nil, false
 	}
@@ -96,7 +96,7 @@ func (o *MerchantPortalActionRequestOneOf37OriginAddress) GetLine2Ok() (*string,
 }
 
 // HasLine2 returns a boolean if a field has been set.
-func (o *MerchantPortalActionRequestOneOf37OriginAddress) HasLine2() bool {
+func (o *MerchantPortalActionRequestOneOf42OriginAddress) HasLine2() bool {
 	if o != nil && !IsNil(o.Line2) {
 		return true
 	}
@@ -105,12 +105,12 @@ func (o *MerchantPortalActionRequestOneOf37OriginAddress) HasLine2() bool {
 }
 
 // SetLine2 gets a reference to the given string and assigns it to the Line2 field.
-func (o *MerchantPortalActionRequestOneOf37OriginAddress) SetLine2(v string) {
+func (o *MerchantPortalActionRequestOneOf42OriginAddress) SetLine2(v string) {
 	o.Line2 = &v
 }
 
 // GetCity returns the City field value
-func (o *MerchantPortalActionRequestOneOf37OriginAddress) GetCity() string {
+func (o *MerchantPortalActionRequestOneOf42OriginAddress) GetCity() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -121,7 +121,7 @@ func (o *MerchantPortalActionRequestOneOf37OriginAddress) GetCity() string {
 
 // GetCityOk returns a tuple with the City field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf37OriginAddress) GetCityOk() (*string, bool) {
+func (o *MerchantPortalActionRequestOneOf42OriginAddress) GetCityOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -129,12 +129,12 @@ func (o *MerchantPortalActionRequestOneOf37OriginAddress) GetCityOk() (*string, 
 }
 
 // SetCity sets field value
-func (o *MerchantPortalActionRequestOneOf37OriginAddress) SetCity(v string) {
+func (o *MerchantPortalActionRequestOneOf42OriginAddress) SetCity(v string) {
 	o.City = v
 }
 
 // GetRegion returns the Region field value
-func (o *MerchantPortalActionRequestOneOf37OriginAddress) GetRegion() string {
+func (o *MerchantPortalActionRequestOneOf42OriginAddress) GetRegion() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -145,7 +145,7 @@ func (o *MerchantPortalActionRequestOneOf37OriginAddress) GetRegion() string {
 
 // GetRegionOk returns a tuple with the Region field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf37OriginAddress) GetRegionOk() (*string, bool) {
+func (o *MerchantPortalActionRequestOneOf42OriginAddress) GetRegionOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -153,12 +153,12 @@ func (o *MerchantPortalActionRequestOneOf37OriginAddress) GetRegionOk() (*string
 }
 
 // SetRegion sets field value
-func (o *MerchantPortalActionRequestOneOf37OriginAddress) SetRegion(v string) {
+func (o *MerchantPortalActionRequestOneOf42OriginAddress) SetRegion(v string) {
 	o.Region = v
 }
 
 // GetPostalCode returns the PostalCode field value
-func (o *MerchantPortalActionRequestOneOf37OriginAddress) GetPostalCode() string {
+func (o *MerchantPortalActionRequestOneOf42OriginAddress) GetPostalCode() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -169,7 +169,7 @@ func (o *MerchantPortalActionRequestOneOf37OriginAddress) GetPostalCode() string
 
 // GetPostalCodeOk returns a tuple with the PostalCode field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf37OriginAddress) GetPostalCodeOk() (*string, bool) {
+func (o *MerchantPortalActionRequestOneOf42OriginAddress) GetPostalCodeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -177,12 +177,12 @@ func (o *MerchantPortalActionRequestOneOf37OriginAddress) GetPostalCodeOk() (*st
 }
 
 // SetPostalCode sets field value
-func (o *MerchantPortalActionRequestOneOf37OriginAddress) SetPostalCode(v string) {
+func (o *MerchantPortalActionRequestOneOf42OriginAddress) SetPostalCode(v string) {
 	o.PostalCode = v
 }
 
 // GetCountry returns the Country field value
-func (o *MerchantPortalActionRequestOneOf37OriginAddress) GetCountry() string {
+func (o *MerchantPortalActionRequestOneOf42OriginAddress) GetCountry() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -193,7 +193,7 @@ func (o *MerchantPortalActionRequestOneOf37OriginAddress) GetCountry() string {
 
 // GetCountryOk returns a tuple with the Country field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf37OriginAddress) GetCountryOk() (*string, bool) {
+func (o *MerchantPortalActionRequestOneOf42OriginAddress) GetCountryOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -201,11 +201,11 @@ func (o *MerchantPortalActionRequestOneOf37OriginAddress) GetCountryOk() (*strin
 }
 
 // SetCountry sets field value
-func (o *MerchantPortalActionRequestOneOf37OriginAddress) SetCountry(v string) {
+func (o *MerchantPortalActionRequestOneOf42OriginAddress) SetCountry(v string) {
 	o.Country = v
 }
 
-func (o MerchantPortalActionRequestOneOf37OriginAddress) MarshalJSON() ([]byte, error) {
+func (o MerchantPortalActionRequestOneOf42OriginAddress) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -213,7 +213,7 @@ func (o MerchantPortalActionRequestOneOf37OriginAddress) MarshalJSON() ([]byte, 
 	return json.Marshal(toSerialize)
 }
 
-func (o MerchantPortalActionRequestOneOf37OriginAddress) ToMap() (map[string]interface{}, error) {
+func (o MerchantPortalActionRequestOneOf42OriginAddress) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["line1"] = o.Line1
 	if !IsNil(o.Line2) {
@@ -226,7 +226,7 @@ func (o MerchantPortalActionRequestOneOf37OriginAddress) ToMap() (map[string]int
 	return toSerialize, nil
 }
 
-func (o *MerchantPortalActionRequestOneOf37OriginAddress) UnmarshalJSON(data []byte) (err error) {
+func (o *MerchantPortalActionRequestOneOf42OriginAddress) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -252,53 +252,53 @@ func (o *MerchantPortalActionRequestOneOf37OriginAddress) UnmarshalJSON(data []b
 		}
 	}
 
-	varMerchantPortalActionRequestOneOf37OriginAddress := _MerchantPortalActionRequestOneOf37OriginAddress{}
+	varMerchantPortalActionRequestOneOf42OriginAddress := _MerchantPortalActionRequestOneOf42OriginAddress{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMerchantPortalActionRequestOneOf37OriginAddress)
+	err = decoder.Decode(&varMerchantPortalActionRequestOneOf42OriginAddress)
 
 	if err != nil {
 		return err
 	}
 
-	*o = MerchantPortalActionRequestOneOf37OriginAddress(varMerchantPortalActionRequestOneOf37OriginAddress)
+	*o = MerchantPortalActionRequestOneOf42OriginAddress(varMerchantPortalActionRequestOneOf42OriginAddress)
 
 	return err
 }
 
-type NullableMerchantPortalActionRequestOneOf37OriginAddress struct {
-	value *MerchantPortalActionRequestOneOf37OriginAddress
+type NullableMerchantPortalActionRequestOneOf42OriginAddress struct {
+	value *MerchantPortalActionRequestOneOf42OriginAddress
 	isSet bool
 }
 
-func (v NullableMerchantPortalActionRequestOneOf37OriginAddress) Get() *MerchantPortalActionRequestOneOf37OriginAddress {
+func (v NullableMerchantPortalActionRequestOneOf42OriginAddress) Get() *MerchantPortalActionRequestOneOf42OriginAddress {
 	return v.value
 }
 
-func (v *NullableMerchantPortalActionRequestOneOf37OriginAddress) Set(val *MerchantPortalActionRequestOneOf37OriginAddress) {
+func (v *NullableMerchantPortalActionRequestOneOf42OriginAddress) Set(val *MerchantPortalActionRequestOneOf42OriginAddress) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableMerchantPortalActionRequestOneOf37OriginAddress) IsSet() bool {
+func (v NullableMerchantPortalActionRequestOneOf42OriginAddress) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableMerchantPortalActionRequestOneOf37OriginAddress) Unset() {
+func (v *NullableMerchantPortalActionRequestOneOf42OriginAddress) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableMerchantPortalActionRequestOneOf37OriginAddress(val *MerchantPortalActionRequestOneOf37OriginAddress) *NullableMerchantPortalActionRequestOneOf37OriginAddress {
-	return &NullableMerchantPortalActionRequestOneOf37OriginAddress{value: val, isSet: true}
+func NewNullableMerchantPortalActionRequestOneOf42OriginAddress(val *MerchantPortalActionRequestOneOf42OriginAddress) *NullableMerchantPortalActionRequestOneOf42OriginAddress {
+	return &NullableMerchantPortalActionRequestOneOf42OriginAddress{value: val, isSet: true}
 }
 
-func (v NullableMerchantPortalActionRequestOneOf37OriginAddress) MarshalJSON() ([]byte, error) {
+func (v NullableMerchantPortalActionRequestOneOf42OriginAddress) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableMerchantPortalActionRequestOneOf37OriginAddress) UnmarshalJSON(src []byte) error {
+func (v *NullableMerchantPortalActionRequestOneOf42OriginAddress) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

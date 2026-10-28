@@ -20469,6 +20469,11 @@ components:
         - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_35"
         - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_36"
         - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_37"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_38"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_39"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_40"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_41"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_42"
     HostedPortalSubscriptionItem:
       additionalProperties: false
       properties:
@@ -22382,7 +22387,179 @@ components:
       required:
         - action
         - endpointId
+    MerchantPortalActionRequest_oneOf_35_price:
+      description:
+        "Optional first price, created in the same transaction — billingInterval\
+        \ present means fixed_recurring, absent means fixed_one_time."
+      properties:
+        name:
+          minLength: 1
+          type: string
+        unitAmount:
+          minimum: 1
+          type: integer
+        currency:
+          default: USD
+          minLength: 1
+          type: string
+        billingInterval:
+          enum:
+            - day
+            - week
+            - month
+            - year
+          type: string
+      required:
+        - unitAmount
     MerchantPortalActionRequest_oneOf_35:
+      properties:
+        action:
+          enum:
+            - create-product
+          type: string
+        name:
+          minLength: 1
+          type: string
+        description:
+          minLength: 1
+          type: string
+        price:
+          $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_35_price"
+        attemptId:
+          maxLength: 80
+          minLength: 1
+          type: string
+      required:
+        - action
+        - name
+    MerchantPortalActionRequest_oneOf_36:
+      properties:
+        action:
+          enum:
+            - archive-product
+          type: string
+        productId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - productId
+    MerchantPortalActionRequest_oneOf_37:
+      properties:
+        action:
+          enum:
+            - activate-product
+          type: string
+        productId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - productId
+    MerchantPortalActionRequest_oneOf_38:
+      properties:
+        action:
+          enum:
+            - create-coupon
+          type: string
+        code:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[A-Za-z0-9_-]+$"
+          type: string
+        name:
+          maxLength: 120
+          minLength: 1
+          type: string
+        description:
+          maxLength: 500
+          minLength: 1
+          type: string
+        discountType:
+          enum:
+            - percentage
+            - fixed_amount
+          type: string
+        percentage:
+          description: Required when discountType is percentage.
+          exclusiveMinimum: true
+          maximum: 100
+          minimum: 0
+          type: number
+        amount:
+          description:
+            Required when discountType is fixed_amount — integer minor
+            units.
+          minimum: 1
+          type: integer
+        currency:
+          description: Required when discountType is fixed_amount.
+          minLength: 1
+          type: string
+        attemptId:
+          maxLength: 80
+          minLength: 1
+          type: string
+      required:
+        - action
+        - code
+        - discountType
+        - name
+    MerchantPortalActionRequest_oneOf_39_lines_inner:
+      properties:
+        description:
+          maxLength: 200
+          minLength: 1
+          type: string
+        amount:
+          description: Integer minor units.
+          minimum: 1
+          type: integer
+        invoiceLineId:
+          minLength: 1
+          type: string
+      required:
+        - amount
+        - description
+    MerchantPortalActionRequest_oneOf_39:
+      properties:
+        action:
+          enum:
+            - create-credit-note
+          type: string
+        invoiceId:
+          minLength: 1
+          type: string
+        reason:
+          enum:
+            - duplicated_charge
+            - product_unsatisfactory
+            - order_change
+            - order_cancellation
+            - fraudulent_charge
+            - other
+          type: string
+        lines:
+          items:
+            $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_39_lines_inner"
+          maxItems: 50
+          minItems: 1
+          type: array
+          default: null
+        description:
+          maxLength: 500
+          minLength: 1
+          type: string
+        attemptId:
+          maxLength: 80
+          minLength: 1
+          type: string
+      required:
+        - action
+        - invoiceId
+        - lines
+        - reason
+    MerchantPortalActionRequest_oneOf_40:
       properties:
         action:
           enum:
@@ -22394,7 +22571,7 @@ components:
       required:
         - action
         - taxTransactionId
-    MerchantPortalActionRequest_oneOf_36:
+    MerchantPortalActionRequest_oneOf_41:
       properties:
         action:
           enum:
@@ -22406,7 +22583,7 @@ components:
       required:
         - action
         - taxTransactionId
-    MerchantPortalActionRequest_oneOf_37_originAddress:
+    MerchantPortalActionRequest_oneOf_42_originAddress:
       properties:
         line1:
           minLength: 1
@@ -22432,7 +22609,7 @@ components:
         - line1
         - postalCode
         - region
-    MerchantPortalActionRequest_oneOf_37_registrations_inner:
+    MerchantPortalActionRequest_oneOf_42_registrations_inner:
       properties:
         country:
           minLength: 1
@@ -22442,7 +22619,7 @@ components:
           type: string
       required:
         - country
-    MerchantPortalActionRequest_oneOf_37:
+    MerchantPortalActionRequest_oneOf_42:
       properties:
         action:
           enum:
@@ -22452,10 +22629,10 @@ components:
           minLength: 1
           type: string
         originAddress:
-          $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_37_originAddress"
+          $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_42_originAddress"
         registrations:
           items:
-            $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_37_registrations_inner"
+            $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_42_registrations_inner"
           minItems: 1
           type: array
           default: null
@@ -22633,7 +22810,31 @@ components:
           type: object
       required:
         - delivery
-    MerchantPortalActionResponse_data_oneOf_20_webhookEndpointDetail:
+    MerchantPortalActionResponse_data_oneOf_20:
+      properties:
+        product:
+          additionalProperties: true
+          type: object
+        price:
+          additionalProperties: true
+          type: object
+      required:
+        - product
+    MerchantPortalActionResponse_data_oneOf_21:
+      properties:
+        coupon:
+          additionalProperties: true
+          type: object
+      required:
+        - coupon
+    MerchantPortalActionResponse_data_oneOf_22:
+      properties:
+        creditNote:
+          additionalProperties: true
+          type: object
+      required:
+        - creditNote
+    MerchantPortalActionResponse_data_oneOf_23_webhookEndpointDetail:
       properties:
         endpoint:
           additionalProperties: true
@@ -22647,10 +22848,10 @@ components:
       required:
         - deliveries
         - endpoint
-    MerchantPortalActionResponse_data_oneOf_20:
+    MerchantPortalActionResponse_data_oneOf_23:
       properties:
         webhookEndpointDetail:
-          $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_20_webhookEndpointDetail"
+          $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_23_webhookEndpointDetail"
       required:
         - webhookEndpointDetail
     MerchantPortalActionResponse_data:
@@ -22679,6 +22880,9 @@ components:
         - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_18"
         - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_19"
         - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_20"
+        - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_21"
+        - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_22"
+        - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_23"
     HostedCollectionRetryViewResponse_data:
       additionalProperties: false
       example:

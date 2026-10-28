@@ -22,11 +22,7 @@ var _ MappedNullable = &MerchantPortalActionRequestOneOf23{}
 // MerchantPortalActionRequestOneOf23 struct for MerchantPortalActionRequestOneOf23
 type MerchantPortalActionRequestOneOf23 struct {
 	Action string `json:"action"`
-	// Public HTTPS endpoint — SSRF-checked at registration and again at delivery.
-	DestinationUrl string `json:"destinationUrl"`
-	// \"*\", an exact event type, or a \"prefix.*\" wildcard.
-	SubscribedEventTypes []string `json:"subscribedEventTypes"`
-	Description *string `json:"description,omitempty"`
+	CustomerId string `json:"customerId"`
 }
 
 type _MerchantPortalActionRequestOneOf23 MerchantPortalActionRequestOneOf23
@@ -35,11 +31,10 @@ type _MerchantPortalActionRequestOneOf23 MerchantPortalActionRequestOneOf23
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionRequestOneOf23(action string, destinationUrl string, subscribedEventTypes []string) *MerchantPortalActionRequestOneOf23 {
+func NewMerchantPortalActionRequestOneOf23(action string, customerId string) *MerchantPortalActionRequestOneOf23 {
 	this := MerchantPortalActionRequestOneOf23{}
 	this.Action = action
-	this.DestinationUrl = destinationUrl
-	this.SubscribedEventTypes = subscribedEventTypes
+	this.CustomerId = customerId
 	return &this
 }
 
@@ -75,84 +70,28 @@ func (o *MerchantPortalActionRequestOneOf23) SetAction(v string) {
 	o.Action = v
 }
 
-// GetDestinationUrl returns the DestinationUrl field value
-func (o *MerchantPortalActionRequestOneOf23) GetDestinationUrl() string {
+// GetCustomerId returns the CustomerId field value
+func (o *MerchantPortalActionRequestOneOf23) GetCustomerId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.DestinationUrl
+	return o.CustomerId
 }
 
-// GetDestinationUrlOk returns a tuple with the DestinationUrl field value
+// GetCustomerIdOk returns a tuple with the CustomerId field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf23) GetDestinationUrlOk() (*string, bool) {
+func (o *MerchantPortalActionRequestOneOf23) GetCustomerIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.DestinationUrl, true
+	return &o.CustomerId, true
 }
 
-// SetDestinationUrl sets field value
-func (o *MerchantPortalActionRequestOneOf23) SetDestinationUrl(v string) {
-	o.DestinationUrl = v
-}
-
-// GetSubscribedEventTypes returns the SubscribedEventTypes field value
-func (o *MerchantPortalActionRequestOneOf23) GetSubscribedEventTypes() []string {
-	if o == nil {
-		var ret []string
-		return ret
-	}
-
-	return o.SubscribedEventTypes
-}
-
-// GetSubscribedEventTypesOk returns a tuple with the SubscribedEventTypes field value
-// and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf23) GetSubscribedEventTypesOk() ([]string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.SubscribedEventTypes, true
-}
-
-// SetSubscribedEventTypes sets field value
-func (o *MerchantPortalActionRequestOneOf23) SetSubscribedEventTypes(v []string) {
-	o.SubscribedEventTypes = v
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *MerchantPortalActionRequestOneOf23) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf23) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *MerchantPortalActionRequestOneOf23) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *MerchantPortalActionRequestOneOf23) SetDescription(v string) {
-	o.Description = &v
+// SetCustomerId sets field value
+func (o *MerchantPortalActionRequestOneOf23) SetCustomerId(v string) {
+	o.CustomerId = v
 }
 
 func (o MerchantPortalActionRequestOneOf23) MarshalJSON() ([]byte, error) {
@@ -166,11 +105,7 @@ func (o MerchantPortalActionRequestOneOf23) MarshalJSON() ([]byte, error) {
 func (o MerchantPortalActionRequestOneOf23) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["action"] = o.Action
-	toSerialize["destinationUrl"] = o.DestinationUrl
-	toSerialize["subscribedEventTypes"] = o.SubscribedEventTypes
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
+	toSerialize["customerId"] = o.CustomerId
 	return toSerialize, nil
 }
 
@@ -180,8 +115,7 @@ func (o *MerchantPortalActionRequestOneOf23) UnmarshalJSON(data []byte) (err err
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"action",
-		"destinationUrl",
-		"subscribedEventTypes",
+		"customerId",
 	}
 
 	allProperties := make(map[string]interface{})

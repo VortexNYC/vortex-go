@@ -20459,6 +20459,9 @@ components:
         - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_25"
         - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_26"
         - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_27"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_28"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_29"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_30"
     HostedPortalSubscriptionItem:
       additionalProperties: false
       properties:
@@ -22095,6 +22098,113 @@ components:
       properties:
         action:
           enum:
+            - create-customer
+          type: string
+        name:
+          minLength: 1
+          type: string
+        currency:
+          default: USD
+          minLength: 1
+          type: string
+        email:
+          format: email
+          type: string
+        externalCustomerRef:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - name
+    MerchantPortalActionRequest_oneOf_21_lineItems_inner:
+      properties:
+        description:
+          maxLength: 200
+          minLength: 1
+          type: string
+        unitAmount:
+          minimum: 1
+          type: integer
+        quantity:
+          minimum: 1
+          type: number
+      required:
+        - description
+        - unitAmount
+    MerchantPortalActionRequest_oneOf_21:
+      properties:
+        action:
+          enum:
+            - create-invoice
+          type: string
+        customerId:
+          minLength: 1
+          type: string
+        currency:
+          default: USD
+          minLength: 1
+          type: string
+        dueAt:
+          description:
+            Optional calendar due date — the door derives the billing account's
+            netTermsDays from it.
+          format: date
+          type: string
+        issueNow:
+          description:
+            Finalize the draft in the same transaction so the invoice is
+            immediately collectible — this is the default; explicit false leaves a
+            draft.
+          type: boolean
+        lineItems:
+          items:
+            $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_21_lineItems_inner"
+          maxItems: 50
+          minItems: 1
+          type: array
+          default: null
+        attemptId:
+          maxLength: 80
+          minLength: 1
+          type: string
+      required:
+        - action
+        - customerId
+        - lineItems
+    MerchantPortalActionRequest_oneOf_22:
+      properties:
+        action:
+          enum:
+            - create-payment-link
+          type: string
+        amount:
+          minimum: 1
+          type: integer
+        currency:
+          default: USD
+          minLength: 1
+          type: string
+        customerId:
+          minLength: 1
+          type: string
+        customerEmail:
+          format: email
+          type: string
+        label:
+          maxLength: 120
+          minLength: 1
+          type: string
+        attemptId:
+          maxLength: 80
+          minLength: 1
+          type: string
+      required:
+        - action
+        - amount
+    MerchantPortalActionRequest_oneOf_23:
+      properties:
+        action:
+          enum:
             - customer-detail
           type: string
         customerId:
@@ -22103,7 +22213,7 @@ components:
       required:
         - action
         - customerId
-    MerchantPortalActionRequest_oneOf_21:
+    MerchantPortalActionRequest_oneOf_24:
       properties:
         action:
           enum:
@@ -22115,7 +22225,7 @@ components:
       required:
         - action
         - invoiceId
-    MerchantPortalActionRequest_oneOf_22:
+    MerchantPortalActionRequest_oneOf_25:
       properties:
         action:
           enum:
@@ -22127,7 +22237,7 @@ components:
       required:
         - action
         - payoutId
-    MerchantPortalActionRequest_oneOf_23:
+    MerchantPortalActionRequest_oneOf_26:
       properties:
         action:
           enum:
@@ -22154,7 +22264,7 @@ components:
         - action
         - destinationUrl
         - subscribedEventTypes
-    MerchantPortalActionRequest_oneOf_24:
+    MerchantPortalActionRequest_oneOf_27:
       properties:
         action:
           enum:
@@ -22166,7 +22276,7 @@ components:
       required:
         - action
         - endpointId
-    MerchantPortalActionRequest_oneOf_25:
+    MerchantPortalActionRequest_oneOf_28:
       properties:
         action:
           enum:
@@ -22184,7 +22294,7 @@ components:
       required:
         - action
         - endpointId
-    MerchantPortalActionRequest_oneOf_26:
+    MerchantPortalActionRequest_oneOf_29:
       properties:
         action:
           enum:
@@ -22196,7 +22306,7 @@ components:
       required:
         - action
         - deliveryId
-    MerchantPortalActionRequest_oneOf_27:
+    MerchantPortalActionRequest_oneOf_30:
       properties:
         action:
           enum:
@@ -22282,6 +22392,23 @@ components:
         - payoutDetail
     MerchantPortalActionResponse_data_oneOf_10:
       properties:
+        customer:
+          additionalProperties: true
+          type: object
+      required:
+        - customer
+    MerchantPortalActionResponse_data_oneOf_11:
+      properties:
+        paymentRequestId:
+          type: string
+        checkoutUrl:
+          format: uri
+          type: string
+      required:
+        - checkoutUrl
+        - paymentRequestId
+    MerchantPortalActionResponse_data_oneOf_12:
+      properties:
         paymentRequestId:
           type: string
         status:
@@ -22295,13 +22422,13 @@ components:
         - amountPaid
         - paymentRequestId
         - status
-    MerchantPortalActionResponse_data_oneOf_11:
+    MerchantPortalActionResponse_data_oneOf_13:
       properties:
         ok:
           type: boolean
       required:
         - ok
-    MerchantPortalActionResponse_data_oneOf_12:
+    MerchantPortalActionResponse_data_oneOf_14:
       properties:
         disputePortalUrl:
           format: uri
@@ -22314,7 +22441,7 @@ components:
       required:
         - disputePortalUrl
         - message
-    MerchantPortalActionResponse_data_oneOf_13:
+    MerchantPortalActionResponse_data_oneOf_15:
       properties:
         endpoint:
           additionalProperties: true
@@ -22322,7 +22449,7 @@ components:
           type: object
       required:
         - endpoint
-    MerchantPortalActionResponse_data_oneOf_14:
+    MerchantPortalActionResponse_data_oneOf_16:
       properties:
         delivery:
           additionalProperties: true
@@ -22332,7 +22459,7 @@ components:
           type: object
       required:
         - delivery
-    MerchantPortalActionResponse_data_oneOf_15_webhookEndpointDetail:
+    MerchantPortalActionResponse_data_oneOf_17_webhookEndpointDetail:
       properties:
         endpoint:
           additionalProperties: true
@@ -22346,10 +22473,10 @@ components:
       required:
         - deliveries
         - endpoint
-    MerchantPortalActionResponse_data_oneOf_15:
+    MerchantPortalActionResponse_data_oneOf_17:
       properties:
         webhookEndpointDetail:
-          $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_15_webhookEndpointDetail"
+          $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_17_webhookEndpointDetail"
       required:
         - webhookEndpointDetail
     MerchantPortalActionResponse_data:
@@ -22369,10 +22496,12 @@ components:
         - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_10"
         - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_11"
         - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_12"
-        - $ref: "#/components/schemas/MerchantPortalCollectionRetryResult"
         - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_13"
         - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_14"
+        - $ref: "#/components/schemas/MerchantPortalCollectionRetryResult"
         - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_15"
+        - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_16"
+        - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_17"
     HostedCollectionRetryViewResponse_data:
       additionalProperties: false
       example:

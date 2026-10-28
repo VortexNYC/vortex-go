@@ -21,10 +21,7 @@ var _ MappedNullable = &MerchantPortalActionResponseDataOneOf10{}
 
 // MerchantPortalActionResponseDataOneOf10 struct for MerchantPortalActionResponseDataOneOf10
 type MerchantPortalActionResponseDataOneOf10 struct {
-	PaymentRequestId string `json:"paymentRequestId"`
-	Status string `json:"status"`
-	AmountPaid int32 `json:"amountPaid"`
-	InvoiceId *string `json:"invoiceId,omitempty"`
+	Customer map[string]interface{} `json:"customer"`
 }
 
 type _MerchantPortalActionResponseDataOneOf10 MerchantPortalActionResponseDataOneOf10
@@ -33,11 +30,9 @@ type _MerchantPortalActionResponseDataOneOf10 MerchantPortalActionResponseDataOn
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionResponseDataOneOf10(paymentRequestId string, status string, amountPaid int32) *MerchantPortalActionResponseDataOneOf10 {
+func NewMerchantPortalActionResponseDataOneOf10(customer map[string]interface{}) *MerchantPortalActionResponseDataOneOf10 {
 	this := MerchantPortalActionResponseDataOneOf10{}
-	this.PaymentRequestId = paymentRequestId
-	this.Status = status
-	this.AmountPaid = amountPaid
+	this.Customer = customer
 	return &this
 }
 
@@ -49,108 +44,28 @@ func NewMerchantPortalActionResponseDataOneOf10WithDefaults() *MerchantPortalAct
 	return &this
 }
 
-// GetPaymentRequestId returns the PaymentRequestId field value
-func (o *MerchantPortalActionResponseDataOneOf10) GetPaymentRequestId() string {
+// GetCustomer returns the Customer field value
+func (o *MerchantPortalActionResponseDataOneOf10) GetCustomer() map[string]interface{} {
 	if o == nil {
-		var ret string
+		var ret map[string]interface{}
 		return ret
 	}
 
-	return o.PaymentRequestId
+	return o.Customer
 }
 
-// GetPaymentRequestIdOk returns a tuple with the PaymentRequestId field value
+// GetCustomerOk returns a tuple with the Customer field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionResponseDataOneOf10) GetPaymentRequestIdOk() (*string, bool) {
+func (o *MerchantPortalActionResponseDataOneOf10) GetCustomerOk() (map[string]interface{}, bool) {
 	if o == nil {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
-	return &o.PaymentRequestId, true
+	return o.Customer, true
 }
 
-// SetPaymentRequestId sets field value
-func (o *MerchantPortalActionResponseDataOneOf10) SetPaymentRequestId(v string) {
-	o.PaymentRequestId = v
-}
-
-// GetStatus returns the Status field value
-func (o *MerchantPortalActionResponseDataOneOf10) GetStatus() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Status
-}
-
-// GetStatusOk returns a tuple with the Status field value
-// and a boolean to check if the value has been set.
-func (o *MerchantPortalActionResponseDataOneOf10) GetStatusOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Status, true
-}
-
-// SetStatus sets field value
-func (o *MerchantPortalActionResponseDataOneOf10) SetStatus(v string) {
-	o.Status = v
-}
-
-// GetAmountPaid returns the AmountPaid field value
-func (o *MerchantPortalActionResponseDataOneOf10) GetAmountPaid() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.AmountPaid
-}
-
-// GetAmountPaidOk returns a tuple with the AmountPaid field value
-// and a boolean to check if the value has been set.
-func (o *MerchantPortalActionResponseDataOneOf10) GetAmountPaidOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.AmountPaid, true
-}
-
-// SetAmountPaid sets field value
-func (o *MerchantPortalActionResponseDataOneOf10) SetAmountPaid(v int32) {
-	o.AmountPaid = v
-}
-
-// GetInvoiceId returns the InvoiceId field value if set, zero value otherwise.
-func (o *MerchantPortalActionResponseDataOneOf10) GetInvoiceId() string {
-	if o == nil || IsNil(o.InvoiceId) {
-		var ret string
-		return ret
-	}
-	return *o.InvoiceId
-}
-
-// GetInvoiceIdOk returns a tuple with the InvoiceId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *MerchantPortalActionResponseDataOneOf10) GetInvoiceIdOk() (*string, bool) {
-	if o == nil || IsNil(o.InvoiceId) {
-		return nil, false
-	}
-	return o.InvoiceId, true
-}
-
-// HasInvoiceId returns a boolean if a field has been set.
-func (o *MerchantPortalActionResponseDataOneOf10) HasInvoiceId() bool {
-	if o != nil && !IsNil(o.InvoiceId) {
-		return true
-	}
-
-	return false
-}
-
-// SetInvoiceId gets a reference to the given string and assigns it to the InvoiceId field.
-func (o *MerchantPortalActionResponseDataOneOf10) SetInvoiceId(v string) {
-	o.InvoiceId = &v
+// SetCustomer sets field value
+func (o *MerchantPortalActionResponseDataOneOf10) SetCustomer(v map[string]interface{}) {
+	o.Customer = v
 }
 
 func (o MerchantPortalActionResponseDataOneOf10) MarshalJSON() ([]byte, error) {
@@ -163,12 +78,7 @@ func (o MerchantPortalActionResponseDataOneOf10) MarshalJSON() ([]byte, error) {
 
 func (o MerchantPortalActionResponseDataOneOf10) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["paymentRequestId"] = o.PaymentRequestId
-	toSerialize["status"] = o.Status
-	toSerialize["amountPaid"] = o.AmountPaid
-	if !IsNil(o.InvoiceId) {
-		toSerialize["invoiceId"] = o.InvoiceId
-	}
+	toSerialize["customer"] = o.Customer
 	return toSerialize, nil
 }
 
@@ -177,9 +87,7 @@ func (o *MerchantPortalActionResponseDataOneOf10) UnmarshalJSON(data []byte) (er
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"paymentRequestId",
-		"status",
-		"amountPaid",
+		"customer",
 	}
 
 	allProperties := make(map[string]interface{})

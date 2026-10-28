@@ -21,7 +21,8 @@ var _ MappedNullable = &MerchantPortalActionResponseDataOneOf11{}
 
 // MerchantPortalActionResponseDataOneOf11 struct for MerchantPortalActionResponseDataOneOf11
 type MerchantPortalActionResponseDataOneOf11 struct {
-	Ok bool `json:"ok"`
+	PaymentRequestId string `json:"paymentRequestId"`
+	CheckoutUrl string `json:"checkoutUrl"`
 }
 
 type _MerchantPortalActionResponseDataOneOf11 MerchantPortalActionResponseDataOneOf11
@@ -30,9 +31,10 @@ type _MerchantPortalActionResponseDataOneOf11 MerchantPortalActionResponseDataOn
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionResponseDataOneOf11(ok bool) *MerchantPortalActionResponseDataOneOf11 {
+func NewMerchantPortalActionResponseDataOneOf11(paymentRequestId string, checkoutUrl string) *MerchantPortalActionResponseDataOneOf11 {
 	this := MerchantPortalActionResponseDataOneOf11{}
-	this.Ok = ok
+	this.PaymentRequestId = paymentRequestId
+	this.CheckoutUrl = checkoutUrl
 	return &this
 }
 
@@ -44,28 +46,52 @@ func NewMerchantPortalActionResponseDataOneOf11WithDefaults() *MerchantPortalAct
 	return &this
 }
 
-// GetOk returns the Ok field value
-func (o *MerchantPortalActionResponseDataOneOf11) GetOk() bool {
+// GetPaymentRequestId returns the PaymentRequestId field value
+func (o *MerchantPortalActionResponseDataOneOf11) GetPaymentRequestId() string {
 	if o == nil {
-		var ret bool
+		var ret string
 		return ret
 	}
 
-	return o.Ok
+	return o.PaymentRequestId
 }
 
-// GetOkOk returns a tuple with the Ok field value
+// GetPaymentRequestIdOk returns a tuple with the PaymentRequestId field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionResponseDataOneOf11) GetOkOk() (*bool, bool) {
+func (o *MerchantPortalActionResponseDataOneOf11) GetPaymentRequestIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Ok, true
+	return &o.PaymentRequestId, true
 }
 
-// SetOk sets field value
-func (o *MerchantPortalActionResponseDataOneOf11) SetOk(v bool) {
-	o.Ok = v
+// SetPaymentRequestId sets field value
+func (o *MerchantPortalActionResponseDataOneOf11) SetPaymentRequestId(v string) {
+	o.PaymentRequestId = v
+}
+
+// GetCheckoutUrl returns the CheckoutUrl field value
+func (o *MerchantPortalActionResponseDataOneOf11) GetCheckoutUrl() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.CheckoutUrl
+}
+
+// GetCheckoutUrlOk returns a tuple with the CheckoutUrl field value
+// and a boolean to check if the value has been set.
+func (o *MerchantPortalActionResponseDataOneOf11) GetCheckoutUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CheckoutUrl, true
+}
+
+// SetCheckoutUrl sets field value
+func (o *MerchantPortalActionResponseDataOneOf11) SetCheckoutUrl(v string) {
+	o.CheckoutUrl = v
 }
 
 func (o MerchantPortalActionResponseDataOneOf11) MarshalJSON() ([]byte, error) {
@@ -78,7 +104,8 @@ func (o MerchantPortalActionResponseDataOneOf11) MarshalJSON() ([]byte, error) {
 
 func (o MerchantPortalActionResponseDataOneOf11) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["ok"] = o.Ok
+	toSerialize["paymentRequestId"] = o.PaymentRequestId
+	toSerialize["checkoutUrl"] = o.CheckoutUrl
 	return toSerialize, nil
 }
 
@@ -87,7 +114,8 @@ func (o *MerchantPortalActionResponseDataOneOf11) UnmarshalJSON(data []byte) (er
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"ok",
+		"paymentRequestId",
+		"checkoutUrl",
 	}
 
 	allProperties := make(map[string]interface{})

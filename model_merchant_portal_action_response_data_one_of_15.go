@@ -21,7 +21,8 @@ var _ MappedNullable = &MerchantPortalActionResponseDataOneOf15{}
 
 // MerchantPortalActionResponseDataOneOf15 struct for MerchantPortalActionResponseDataOneOf15
 type MerchantPortalActionResponseDataOneOf15 struct {
-	WebhookEndpointDetail MerchantPortalActionResponseDataOneOf15WebhookEndpointDetail `json:"webhookEndpointDetail"`
+	// The portal webhook-endpoint row; create adds a one-time `secret`.
+	Endpoint map[string]interface{} `json:"endpoint"`
 }
 
 type _MerchantPortalActionResponseDataOneOf15 MerchantPortalActionResponseDataOneOf15
@@ -30,9 +31,9 @@ type _MerchantPortalActionResponseDataOneOf15 MerchantPortalActionResponseDataOn
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionResponseDataOneOf15(webhookEndpointDetail MerchantPortalActionResponseDataOneOf15WebhookEndpointDetail) *MerchantPortalActionResponseDataOneOf15 {
+func NewMerchantPortalActionResponseDataOneOf15(endpoint map[string]interface{}) *MerchantPortalActionResponseDataOneOf15 {
 	this := MerchantPortalActionResponseDataOneOf15{}
-	this.WebhookEndpointDetail = webhookEndpointDetail
+	this.Endpoint = endpoint
 	return &this
 }
 
@@ -44,28 +45,28 @@ func NewMerchantPortalActionResponseDataOneOf15WithDefaults() *MerchantPortalAct
 	return &this
 }
 
-// GetWebhookEndpointDetail returns the WebhookEndpointDetail field value
-func (o *MerchantPortalActionResponseDataOneOf15) GetWebhookEndpointDetail() MerchantPortalActionResponseDataOneOf15WebhookEndpointDetail {
+// GetEndpoint returns the Endpoint field value
+func (o *MerchantPortalActionResponseDataOneOf15) GetEndpoint() map[string]interface{} {
 	if o == nil {
-		var ret MerchantPortalActionResponseDataOneOf15WebhookEndpointDetail
+		var ret map[string]interface{}
 		return ret
 	}
 
-	return o.WebhookEndpointDetail
+	return o.Endpoint
 }
 
-// GetWebhookEndpointDetailOk returns a tuple with the WebhookEndpointDetail field value
+// GetEndpointOk returns a tuple with the Endpoint field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionResponseDataOneOf15) GetWebhookEndpointDetailOk() (*MerchantPortalActionResponseDataOneOf15WebhookEndpointDetail, bool) {
+func (o *MerchantPortalActionResponseDataOneOf15) GetEndpointOk() (map[string]interface{}, bool) {
 	if o == nil {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
-	return &o.WebhookEndpointDetail, true
+	return o.Endpoint, true
 }
 
-// SetWebhookEndpointDetail sets field value
-func (o *MerchantPortalActionResponseDataOneOf15) SetWebhookEndpointDetail(v MerchantPortalActionResponseDataOneOf15WebhookEndpointDetail) {
-	o.WebhookEndpointDetail = v
+// SetEndpoint sets field value
+func (o *MerchantPortalActionResponseDataOneOf15) SetEndpoint(v map[string]interface{}) {
+	o.Endpoint = v
 }
 
 func (o MerchantPortalActionResponseDataOneOf15) MarshalJSON() ([]byte, error) {
@@ -78,7 +79,7 @@ func (o MerchantPortalActionResponseDataOneOf15) MarshalJSON() ([]byte, error) {
 
 func (o MerchantPortalActionResponseDataOneOf15) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["webhookEndpointDetail"] = o.WebhookEndpointDetail
+	toSerialize["endpoint"] = o.Endpoint
 	return toSerialize, nil
 }
 
@@ -87,7 +88,7 @@ func (o *MerchantPortalActionResponseDataOneOf15) UnmarshalJSON(data []byte) (er
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"webhookEndpointDetail",
+		"endpoint",
 	}
 
 	allProperties := make(map[string]interface{})

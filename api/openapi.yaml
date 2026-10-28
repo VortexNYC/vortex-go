@@ -6097,8 +6097,8 @@ paths:
               default:
                 value:
                   displayName: Acme Inc.
-                  phone: "+12125550123"
-                  taxId: "123456789"
+                  businessPhone: "+12125550123"
+                  mcc: "5812"
             schema:
               $ref: "#/components/schemas/MerchantAccountUpdateRequest"
         required: true
@@ -6135,7 +6135,7 @@ paths:
               -X PATCH \
               -H "Authorization: Bearer $VORTEX_API_KEY" \
               -H "Content-Type: application/json" \
-              -d '{"displayName":"Acme Inc.","phone":"+12125550123","taxId":"123456789"}'
+              -d '{"displayName":"Acme Inc.","businessPhone":"+12125550123","mcc":"5812"}'
         - lang: TypeScript
           label: TypeScript
           source: |-
@@ -6146,7 +6146,7 @@ paths:
               client: vortex,
               path: { merchantAccountId: "..." },
               query: { environment: "sandbox", merchantAccountId: "..." },
-              body: {"displayName":"Acme Inc.","phone":"+12125550123","taxId":"123456789"},
+              body: {"displayName":"Acme Inc.","businessPhone":"+12125550123","mcc":"5812"},
             });
   /v1/merchant-accounts/{merchantAccountId}/capabilities:
     get:
@@ -8709,6 +8709,186 @@ paths:
               client: vortex,
               query: { environment: "sandbox", merchantAccountId: "..." },
               body: {"limit":50},
+            });
+  /v1/org/legal-entity:
+    get:
+      operationId: getOrgLegalEntity
+      parameters:
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            enum:
+              - sandbox
+              - production
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgLegalEntityResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary:
+        Get the caller organization's legal entity (EIN/KYC owner every merchant
+        account inherits)
+      tags:
+        - onboarding
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/org/legal-entity?environment=sandbox&merchantAccountId=..." \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { getOrgLegalEntity, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await getOrgLegalEntity({
+              client: vortex,
+              query: { environment: "sandbox", merchantAccountId: "..." },
+            });
+    put:
+      operationId: putOrgLegalEntity
+      parameters:
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            enum:
+              - sandbox
+              - production
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value:
+                  environment: sandbox
+                  firstName: Ada
+                  lastName: Lovelace
+                  email: ada@acme.example
+                  phone: "+12125550123"
+                  taxId: "123456789"
+                  businessTaxId: "123456789"
+                  incorporationDate:
+                    day: 12
+                    month: 3
+                    year: 2019
+                  dateOfBirth:
+                    day: 10
+                    month: 12
+                    year: 1815
+                  principalPercentageOwnership: 100
+                  annualCardVolume: 25000000
+                  businessAddress:
+                    line1: 1 Commerce St
+                    city: New York
+                    region: NY
+                    postalCode: "10001"
+                    country: US
+                  personalAddress:
+                    line1: 12 Example Rd
+                    city: New York
+                    region: NY
+                    postalCode: "10001"
+                    country: US
+                  settlementBankAccount:
+                    accountNumber: "1234567890"
+                    accountType: checking
+                    bankCode: "021000021"
+                    name: Acme Inc.
+            schema:
+              $ref: "#/components/schemas/OrgLegalEntityUpsertRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgLegalEntityResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary:
+        "Create or update the organization's legal entity — secrets (tax ids,\
+        \ bank account) are write-only and masked on read"
+      tags:
+        - onboarding
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/org/legal-entity?environment=sandbox&merchantAccountId=..." \
+              -X PUT \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{"environment":"sandbox","firstName":"Ada","lastName":"Lovelace","email":"ada@acme.example","phone":"+12125550123","taxId":"123456789","businessTaxId":"123456789","incorporationDate":{"day":12,"month":3,"year":2019},"dateOfBirth":{"day":10,"month":12,"year":1815},"principalPercentageOwnership":100,"annualCardVolume":25000000,"businessAddress":{"line1":"1 Commerce St","city":"New York","region":"NY","postalCode":"10001","country":"US"},"personalAddress":{"line1":"12 Example Rd","city":"New York","region":"NY","postalCode":"10001","country":"US"},"settlementBankAccount":{"accountNumber":"1234567890","accountType":"checking","bankCode":"021000021","name":"Acme Inc."}}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { putOrgLegalEntity, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await putOrgLegalEntity({
+              client: vortex,
+              query: { environment: "sandbox", merchantAccountId: "..." },
+              body: {"environment":"sandbox","firstName":"Ada","lastName":"Lovelace","email":"ada@acme.example","phone":"+12125550123","taxId":"123456789","businessTaxId":"123456789","incorporationDate":{"day":12,"month":3,"year":2019},"dateOfBirth":{"day":10,"month":12,"year":1815},"principalPercentageOwnership":100,"annualCardVolume":25000000,"businessAddress":{"line1":"1 Commerce St","city":"New York","region":"NY","postalCode":"10001","country":"US"},"personalAddress":{"line1":"12 Example Rd","city":"New York","region":"NY","postalCode":"10001","country":"US"},"settlementBankAccount":{"accountNumber":"1234567890","accountType":"checking","bankCode":"021000021","name":"Acme Inc."}},
             });
   /v1/payables:
     post:
@@ -16057,9 +16237,9 @@ components:
     MerchantProfileDate:
       additionalProperties: false
       example:
-        day: 5.637376656633329
-        month: 2.3021358869347655
-        year: 7.061401241503109
+        day: 5.962133916683182
+        month: 5.637376656633329
+        year: 2.3021358869347655
       properties:
         day:
           type: number
@@ -16100,12 +16280,6 @@ components:
         - postalCode
     MerchantSettlementBankAccount:
       additionalProperties: false
-      example:
-        name: name
-        accountNumber: accountNumber
-        bankCode: bankCode
-        accountType: accountType
-        attemptValidationCheck: true
       properties:
         name:
           type: string
@@ -16135,11 +16309,11 @@ components:
         email: email
         phone: phone
         taxId: taxId
-        principalPercentageOwnership: 9.301444243932576
+        principalPercentageOwnership: 1.4658129805029452
         dateOfBirth:
-          day: 5.637376656633329
-          month: 2.3021358869347655
-          year: 7.061401241503109
+          day: 5.962133916683182
+          month: 5.637376656633329
+          year: 2.3021358869347655
         personalAddress:
           line1: line1
           line2: line2
@@ -16178,9 +16352,9 @@ components:
     MerchantUnderwritingData:
       additionalProperties: {}
       example:
-        annualAchVolume: 3.616076749251911
-        averageAchTransferAmount: 2.027123023002322
-        averageCardTransferAmount: 4.145608029883936
+        annualAchVolume: 7.061401241503109
+        averageAchTransferAmount: 9.301444243932576
+        averageCardTransferAmount: 3.616076749251911
         businessDescription: businessDescription
         creditCheckAllowed: true
         creditCheckIpAddress: creditCheckIpAddress
@@ -16188,13 +16362,13 @@ components:
         creditCheckUserAgent: creditCheckUserAgent
         refundPolicy: refundPolicy
         cardVolumeDistribution:
-          cardPresentPercentage: 7.386281948385884
-          ecommercePercentage: 1.2315135367772556
-          mailOrderTelephoneOrderPercentage: 1.0246457001441578
+          cardPresentPercentage: 2.027123023002322
+          ecommercePercentage: 4.145608029883936
+          mailOrderTelephoneOrderPercentage: 7.386281948385884
         volumeDistributionByBusinessType:
-          businessToConsumerVolumePercentage: 1.4894159098541704
-          consumerToConsumerVolumePercentage: 6.84685269835264
-          otherVolumePercentage: 7.457744773683766
+          businessToConsumerVolumePercentage: 1.2315135367772556
+          consumerToConsumerVolumePercentage: 1.0246457001441578
+          otherVolumePercentage: 1.4894159098541704
       properties:
         annualAchVolume:
           type: number
@@ -16234,49 +16408,11 @@ components:
         tenantId: tenantId
         platformMerchantAccountId: platformMerchantAccountId
         identityAnchorMerchantAccountId: identityAnchorMerchantAccountId
-        doingBusinessAs: doingBusinessAs
         businessPhone: businessPhone
-        businessTaxId: businessTaxId
-        phone: phone
-        taxId: taxId
-        email: email
-        firstName: firstName
-        lastName: lastName
         mcc: mcc
         url: url
         maxTransactionAmount: 0.8008281904610115
         achMaxTransactionAmount: 6.027456183070403
-        annualCardVolume: 1.4658129805029452
-        principalPercentageOwnership: 5.962133916683182
-        hasAcceptedCreditCardsPreviously: true
-        dateOfBirth:
-          day: 5.637376656633329
-          month: 2.3021358869347655
-          year: 7.061401241503109
-        incorporationDate:
-          day: 5.637376656633329
-          month: 2.3021358869347655
-          year: 7.061401241503109
-        businessAddress:
-          line1: line1
-          line2: line2
-          city: city
-          region: region
-          postalCode: postalCode
-          country: country
-        personalAddress:
-          line1: line1
-          line2: line2
-          city: city
-          region: region
-          postalCode: postalCode
-          country: country
-        settlementBankAccount:
-          name: name
-          accountNumber: accountNumber
-          bankCode: bankCode
-          accountType: accountType
-          attemptValidationCheck: true
         associatedIdentities:
           - identityRoles:
               - identityRoles
@@ -16288,11 +16424,11 @@ components:
             email: email
             phone: phone
             taxId: taxId
-            principalPercentageOwnership: 9.301444243932576
+            principalPercentageOwnership: 1.4658129805029452
             dateOfBirth:
-              day: 5.637376656633329
-              month: 2.3021358869347655
-              year: 7.061401241503109
+              day: 5.962133916683182
+              month: 5.637376656633329
+              year: 2.3021358869347655
             personalAddress:
               line1: line1
               line2: line2
@@ -16310,11 +16446,11 @@ components:
             email: email
             phone: phone
             taxId: taxId
-            principalPercentageOwnership: 9.301444243932576
+            principalPercentageOwnership: 1.4658129805029452
             dateOfBirth:
-              day: 5.637376656633329
-              month: 2.3021358869347655
-              year: 7.061401241503109
+              day: 5.962133916683182
+              month: 5.637376656633329
+              year: 2.3021358869347655
             personalAddress:
               line1: line1
               line2: line2
@@ -16323,9 +16459,9 @@ components:
               postalCode: postalCode
               country: country
         underwriting:
-          annualAchVolume: 3.616076749251911
-          averageAchTransferAmount: 2.027123023002322
-          averageCardTransferAmount: 4.145608029883936
+          annualAchVolume: 7.061401241503109
+          averageAchTransferAmount: 9.301444243932576
+          averageCardTransferAmount: 3.616076749251911
           businessDescription: businessDescription
           creditCheckAllowed: true
           creditCheckIpAddress: creditCheckIpAddress
@@ -16333,13 +16469,13 @@ components:
           creditCheckUserAgent: creditCheckUserAgent
           refundPolicy: refundPolicy
           cardVolumeDistribution:
-            cardPresentPercentage: 7.386281948385884
-            ecommercePercentage: 1.2315135367772556
-            mailOrderTelephoneOrderPercentage: 1.0246457001441578
+            cardPresentPercentage: 2.027123023002322
+            ecommercePercentage: 4.145608029883936
+            mailOrderTelephoneOrderPercentage: 7.386281948385884
           volumeDistributionByBusinessType:
-            businessToConsumerVolumePercentage: 1.4894159098541704
-            consumerToConsumerVolumePercentage: 6.84685269835264
-            otherVolumePercentage: 7.457744773683766
+            businessToConsumerVolumePercentage: 1.2315135367772556
+            consumerToConsumerVolumePercentage: 1.0246457001441578
+            otherVolumePercentage: 1.4894159098541704
         metadata:
           key: metadata
       properties:
@@ -16388,21 +16524,7 @@ components:
             \ (a provider `seller_identity` ref exists), and neither a Connect sub-merchant\
             \ nor itself anchored."
           type: string
-        doingBusinessAs:
-          type: string
         businessPhone:
-          type: string
-        businessTaxId:
-          type: string
-        phone:
-          type: string
-        taxId:
-          type: string
-        email:
-          type: string
-        firstName:
-          type: string
-        lastName:
           type: string
         mcc:
           type: string
@@ -16412,22 +16534,6 @@ components:
           type: number
         achMaxTransactionAmount:
           type: number
-        annualCardVolume:
-          type: number
-        principalPercentageOwnership:
-          type: number
-        hasAcceptedCreditCardsPreviously:
-          type: boolean
-        dateOfBirth:
-          $ref: "#/components/schemas/MerchantProfileDate"
-        incorporationDate:
-          $ref: "#/components/schemas/MerchantProfileDate"
-        businessAddress:
-          $ref: "#/components/schemas/MerchantAddress"
-        personalAddress:
-          $ref: "#/components/schemas/MerchantAddress"
-        settlementBankAccount:
-          $ref: "#/components/schemas/MerchantSettlementBankAccount"
         associatedIdentities:
           items:
             $ref: "#/components/schemas/MerchantAssociatedIdentity"
@@ -16451,27 +16557,12 @@ components:
         environment: sandbox
         displayName: displayName
         merchantMode: processing
-        doingBusinessAs: doingBusinessAs
         businessPhone: businessPhone
-        businessTaxId: businessTaxId
-        phone: phone
-        taxId: taxId
-        email: email
-        firstName: firstName
-        lastName: lastName
         mcc: mcc
         url: url
         maxTransactionAmount: 0.8008281904610115
         achMaxTransactionAmount: 6.027456183070403
-        annualCardVolume: 1.4658129805029452
-        principalPercentageOwnership: 5.962133916683182
-        hasAcceptedCreditCardsPreviously: true
         acceptsAch: true
-        dateOfBirth: ""
-        incorporationDate: ""
-        businessAddress: ""
-        personalAddress: ""
-        settlementBankAccount: ""
         associatedIdentities:
           - identityRoles:
               - identityRoles
@@ -16483,11 +16574,11 @@ components:
             email: email
             phone: phone
             taxId: taxId
-            principalPercentageOwnership: 9.301444243932576
+            principalPercentageOwnership: 1.4658129805029452
             dateOfBirth:
-              day: 5.637376656633329
-              month: 2.3021358869347655
-              year: 7.061401241503109
+              day: 5.962133916683182
+              month: 5.637376656633329
+              year: 2.3021358869347655
             personalAddress:
               line1: line1
               line2: line2
@@ -16505,11 +16596,11 @@ components:
             email: email
             phone: phone
             taxId: taxId
-            principalPercentageOwnership: 9.301444243932576
+            principalPercentageOwnership: 1.4658129805029452
             dateOfBirth:
-              day: 5.637376656633329
-              month: 2.3021358869347655
-              year: 7.061401241503109
+              day: 5.962133916683182
+              month: 5.637376656633329
+              year: 2.3021358869347655
             personalAddress:
               line1: line1
               line2: line2
@@ -16534,28 +16625,7 @@ components:
             - payout_only
             - hybrid
           type: string
-        doingBusinessAs:
-          nullable: true
-          type: string
         businessPhone:
-          nullable: true
-          type: string
-        businessTaxId:
-          nullable: true
-          type: string
-        phone:
-          nullable: true
-          type: string
-        taxId:
-          nullable: true
-          type: string
-        email:
-          nullable: true
-          type: string
-        firstName:
-          nullable: true
-          type: string
-        lastName:
           nullable: true
           type: string
         mcc:
@@ -16570,38 +16640,9 @@ components:
         achMaxTransactionAmount:
           nullable: true
           type: number
-        annualCardVolume:
-          nullable: true
-          type: number
-        principalPercentageOwnership:
-          nullable: true
-          type: number
-        hasAcceptedCreditCardsPreviously:
-          nullable: true
-          type: boolean
         acceptsAch:
           nullable: true
           type: boolean
-        dateOfBirth:
-          allOf:
-            - $ref: "#/components/schemas/MerchantProfileDate"
-          nullable: true
-        incorporationDate:
-          allOf:
-            - $ref: "#/components/schemas/MerchantProfileDate"
-          nullable: true
-        businessAddress:
-          allOf:
-            - $ref: "#/components/schemas/MerchantAddress"
-          nullable: true
-        personalAddress:
-          allOf:
-            - $ref: "#/components/schemas/MerchantAddress"
-          nullable: true
-        settlementBankAccount:
-          allOf:
-            - $ref: "#/components/schemas/MerchantSettlementBankAccount"
-          nullable: true
         associatedIdentities:
           items:
             $ref: "#/components/schemas/MerchantAssociatedIdentity"
@@ -19934,6 +19975,85 @@ components:
         - registrations
     MerchantTaxProfileResponse:
       $ref: "#/components/schemas/ApiWriteEnvelope"
+    OrgLegalEntityUpsertRequest:
+      additionalProperties: false
+      example:
+        environment: sandbox
+        taxId: taxId
+        businessTaxId: businessTaxId
+        settlementBankAccount: ""
+        incorporationDate: ""
+        principalPercentageOwnership: 0.8008281904610115
+        personalAddress: ""
+        businessAddress: ""
+        firstName: firstName
+        lastName: lastName
+        dateOfBirth: ""
+        email: email
+        phone: phone
+        doingBusinessAs: doingBusinessAs
+        hasAcceptedCreditCardsPreviously: true
+        annualCardVolume: 6.027456183070403
+      properties:
+        environment:
+          enum:
+            - sandbox
+            - production
+          type: string
+        taxId:
+          nullable: true
+          type: string
+        businessTaxId:
+          nullable: true
+          type: string
+        settlementBankAccount:
+          allOf:
+            - $ref: "#/components/schemas/MerchantSettlementBankAccount"
+          nullable: true
+        incorporationDate:
+          allOf:
+            - $ref: "#/components/schemas/MerchantProfileDate"
+          nullable: true
+        principalPercentageOwnership:
+          nullable: true
+          type: number
+        personalAddress:
+          allOf:
+            - $ref: "#/components/schemas/MerchantAddress"
+          nullable: true
+        businessAddress:
+          allOf:
+            - $ref: "#/components/schemas/MerchantAddress"
+          nullable: true
+        firstName:
+          nullable: true
+          type: string
+        lastName:
+          nullable: true
+          type: string
+        dateOfBirth:
+          allOf:
+            - $ref: "#/components/schemas/MerchantProfileDate"
+          nullable: true
+        email:
+          nullable: true
+          type: string
+        phone:
+          nullable: true
+          type: string
+        doingBusinessAs:
+          nullable: true
+          type: string
+        hasAcceptedCreditCardsPreviously:
+          nullable: true
+          type: boolean
+        annualCardVolume:
+          nullable: true
+          type: number
+      required:
+        - environment
+    OrgLegalEntityResponse:
+      $ref: "#/components/schemas/ApiWriteEnvelope"
     MerchantOnboardingLinkResponse:
       $ref: "#/components/schemas/ApiWriteEnvelope"
     WebhookEventTypesResponse:
@@ -21272,9 +21392,9 @@ components:
     MerchantUnderwritingData_cardVolumeDistribution:
       additionalProperties: false
       example:
-        cardPresentPercentage: 7.386281948385884
-        ecommercePercentage: 1.2315135367772556
-        mailOrderTelephoneOrderPercentage: 1.0246457001441578
+        cardPresentPercentage: 2.027123023002322
+        ecommercePercentage: 4.145608029883936
+        mailOrderTelephoneOrderPercentage: 7.386281948385884
       properties:
         cardPresentPercentage:
           type: number
@@ -21285,9 +21405,9 @@ components:
     MerchantUnderwritingData_volumeDistributionByBusinessType:
       additionalProperties: false
       example:
-        businessToConsumerVolumePercentage: 1.4894159098541704
-        consumerToConsumerVolumePercentage: 6.84685269835264
-        otherVolumePercentage: 7.457744773683766
+        businessToConsumerVolumePercentage: 1.2315135367772556
+        consumerToConsumerVolumePercentage: 1.0246457001441578
+        otherVolumePercentage: 1.4894159098541704
       properties:
         businessToConsumerVolumePercentage:
           type: number

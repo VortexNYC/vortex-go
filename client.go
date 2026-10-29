@@ -63,6 +63,8 @@ type APIClient struct {
 
 	DiscountsAPI *DiscountsAPIService
 
+	DisputesAPI *DisputesAPIService
+
 	EntitlementsAPI *EntitlementsAPIService
 
 	HostedAPI *HostedAPIService
@@ -80,6 +82,8 @@ type APIClient struct {
 	PaymentsAPI *PaymentsAPIService
 
 	PaymentsReadinessAPI *PaymentsReadinessAPIService
+
+	PayoutsAPI *PayoutsAPIService
 
 	PortalAPI *PortalAPIService
 
@@ -121,6 +125,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.CustomerBalanceAPI = (*CustomerBalanceAPIService)(&c.common)
 	c.CustomersAPI = (*CustomersAPIService)(&c.common)
 	c.DiscountsAPI = (*DiscountsAPIService)(&c.common)
+	c.DisputesAPI = (*DisputesAPIService)(&c.common)
 	c.EntitlementsAPI = (*EntitlementsAPIService)(&c.common)
 	c.HostedAPI = (*HostedAPIService)(&c.common)
 	c.InvoicesAPI = (*InvoicesAPIService)(&c.common)
@@ -130,6 +135,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.PaymentRequestsAPI = (*PaymentRequestsAPIService)(&c.common)
 	c.PaymentsAPI = (*PaymentsAPIService)(&c.common)
 	c.PaymentsReadinessAPI = (*PaymentsReadinessAPIService)(&c.common)
+	c.PayoutsAPI = (*PayoutsAPIService)(&c.common)
 	c.PortalAPI = (*PortalAPIService)(&c.common)
 	c.QuotesAPI = (*QuotesAPIService)(&c.common)
 	c.ReceiptsAPI = (*ReceiptsAPIService)(&c.common)

@@ -22,6 +22,9 @@ var _ MappedNullable = &ApiErrorError{}
 type ApiErrorError struct {
 	Code string `json:"code"`
 	Message string `json:"message"`
+	Type *string `json:"type,omitempty"`
+	// The request field that failed validation (dot path), when the error is field-attributable.
+	Param *string `json:"param,omitempty"`
 	RequestId *string `json:"requestId,omitempty"`
 	// Deep link to the errors guide section for this code.
 	DocsUrl *string `json:"docsUrl,omitempty"`
@@ -96,6 +99,70 @@ func (o *ApiErrorError) GetMessageOk() (*string, bool) {
 // SetMessage sets field value
 func (o *ApiErrorError) SetMessage(v string) {
 	o.Message = v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *ApiErrorError) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiErrorError) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *ApiErrorError) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *ApiErrorError) SetType(v string) {
+	o.Type = &v
+}
+
+// GetParam returns the Param field value if set, zero value otherwise.
+func (o *ApiErrorError) GetParam() string {
+	if o == nil || IsNil(o.Param) {
+		var ret string
+		return ret
+	}
+	return *o.Param
+}
+
+// GetParamOk returns a tuple with the Param field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiErrorError) GetParamOk() (*string, bool) {
+	if o == nil || IsNil(o.Param) {
+		return nil, false
+	}
+	return o.Param, true
+}
+
+// HasParam returns a boolean if a field has been set.
+func (o *ApiErrorError) HasParam() bool {
+	if o != nil && !IsNil(o.Param) {
+		return true
+	}
+
+	return false
+}
+
+// SetParam gets a reference to the given string and assigns it to the Param field.
+func (o *ApiErrorError) SetParam(v string) {
+	o.Param = &v
 }
 
 // GetRequestId returns the RequestId field value if set, zero value otherwise.
@@ -206,6 +273,12 @@ func (o ApiErrorError) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["code"] = o.Code
 	toSerialize["message"] = o.Message
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Param) {
+		toSerialize["param"] = o.Param
+	}
 	if !IsNil(o.RequestId) {
 		toSerialize["requestId"] = o.RequestId
 	}
@@ -261,6 +334,8 @@ func (o *ApiErrorError) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "code")
 		delete(additionalProperties, "message")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "param")
 		delete(additionalProperties, "requestId")
 		delete(additionalProperties, "docsUrl")
 		delete(additionalProperties, "details")

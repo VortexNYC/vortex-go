@@ -25,6 +25,8 @@ tags:
     name: customers
   - description: Coupons and applied discount lifecycle.
     name: discounts
+  - description: Chargeback and dispute lifecycle.
+    name: disputes
   - description: Product access and entitlement state.
     name: entitlements
   - description: Hosted payment and customer-facing flows.
@@ -47,6 +49,8 @@ tags:
     name: portal
   - description: Merchant and account payment readiness.
     name: payments-readiness
+  - description: Settlement payout lifecycle.
+    name: payouts
   - description: "Quotes, quote versions, order forms, and orders."
     name: quotes
   - description: Receipt lookup and receipt lifecycle.
@@ -4881,6 +4885,202 @@ paths:
               path: { customerId: "..." },
               query: { environment: "sandbox", merchantAccountId: "..." },
             });
+  /v1/disputes:
+    get:
+      operationId: listDisputes
+      parameters:
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            enum:
+              - sandbox
+              - production
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: actionableOnly
+          required: false
+          schema:
+            type: string
+          style: form
+        - description:
+            "`platform` lists disputes across every merchant account linked
+            to this one via platformMerchantAccountId (Connect fleet view)."
+          explode: true
+          in: query
+          name: scope
+          required: false
+          schema:
+            enum:
+              - platform
+            type: string
+          style: form
+        - description:
+            "`deadline` orders nearest respond-by first (nulls last); `created`
+            keeps insertion order."
+          explode: true
+          in: query
+          name: sort
+          required: false
+          schema:
+            enum:
+              - deadline
+              - created
+            type: string
+          style: form
+        - description:
+            "Page size, 1-100. Omitting both limit and cursor returns the\
+            \ full unpaginated list."
+          explode: true
+          in: query
+          name: limit
+          required: false
+          schema:
+            maximum: 100
+            minimum: 1
+            type: integer
+          style: form
+        - description:
+            Opaque cursor from the previous page's nextCursor. Pass it back
+            verbatim to fetch the next page.
+          explode: true
+          in: query
+          name: cursor
+          required: false
+          schema:
+            type: string
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DisputeListResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: List disputes for a merchant account
+      tags:
+        - payments
+        - disputes
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/disputes?actionableOnly=...&environment=sandbox&merchantAccountId=...&sort=deadline" \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { listDisputes, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await listDisputes({
+              client: vortex,
+              query: { actionableOnly: "...", environment: "sandbox", merchantAccountId: "...", sort: "deadline" },
+            });
+  /v1/disputes/{disputeId}:
+    get:
+      operationId: getDispute
+      parameters:
+        - explode: false
+          in: path
+          name: disputeId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            enum:
+              - sandbox
+              - production
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DisputeResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: Get one dispute
+      tags:
+        - payments
+        - disputes
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/disputes/{disputeId}?environment=sandbox&merchantAccountId=..." \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { getDispute, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await getDispute({
+              client: vortex,
+              path: { disputeId: "..." },
+              query: { environment: "sandbox", merchantAccountId: "..." },
+            });
   /v1/entitlements/grant:
     post:
       operationId: grantEntitlement
@@ -9057,6 +9257,278 @@ paths:
               path: { payableId: "..." },
               query: { environment: "sandbox", merchantAccountId: "..." },
             });
+  /v1/payment-intents:
+    get:
+      operationId: listPaymentIntents
+      parameters:
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            enum:
+              - sandbox
+              - production
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: customerProfileId
+          required: false
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: externalPaymentRef
+          required: false
+          schema:
+            type: string
+          style: form
+        - description: Filter by payment intent status.
+          explode: true
+          in: query
+          name: status
+          required: false
+          schema:
+            enum:
+              - pending
+              - requires_action
+              - authorized
+              - captured
+              - failed
+              - canceled
+            type: string
+          style: form
+        - description:
+            "Page size, 1-100. Omitting both limit and cursor returns the\
+            \ full unpaginated list."
+          explode: true
+          in: query
+          name: limit
+          required: false
+          schema:
+            maximum: 100
+            minimum: 1
+            type: integer
+          style: form
+        - description:
+            Opaque cursor from the previous page's nextCursor. Pass it back
+            verbatim to fetch the next page.
+          explode: true
+          in: query
+          name: cursor
+          required: false
+          schema:
+            type: string
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaymentIntentListResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: List payment intents for a merchant account
+      tags:
+        - payments
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/payment-intents?customerProfileId=...&externalPaymentRef=...&environment=sandbox&merchantAccountId=...&status=captured" \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { listPaymentIntents, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await listPaymentIntents({
+              client: vortex,
+              query: { customerProfileId: "...", externalPaymentRef: "...", environment: "sandbox", merchantAccountId: "...", status: "captured" },
+            });
+    post:
+      operationId: createPaymentIntent
+      parameters:
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            enum:
+              - sandbox
+              - production
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value:
+                  amount: 4900
+                  currency: USD
+                  captureMode: automatic
+                  paymentMethodId: pm_123
+            schema:
+              $ref: "#/components/schemas/PaymentIntentCreateRequest"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaymentIntentResponse"
+          description: Created
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: Create a payment intent (charge a vaulted payment method)
+      tags:
+        - payments
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/payment-intents?environment=sandbox&merchantAccountId=..." \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{"amount":4900,"currency":"USD","captureMode":"automatic","paymentMethodId":"pm_123"}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { createPaymentIntent, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await createPaymentIntent({
+              client: vortex,
+              query: { environment: "sandbox", merchantAccountId: "..." },
+              body: {"amount":4900,"currency":"USD","captureMode":"automatic","paymentMethodId":"pm_123"},
+            });
+  /v1/payment-intents/{paymentIntentId}:
+    get:
+      operationId: getPaymentIntent
+      parameters:
+        - explode: false
+          in: path
+          name: paymentIntentId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            enum:
+              - sandbox
+              - production
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaymentIntentResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: Get one payment intent
+      tags:
+        - payments
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/payment-intents/{paymentIntentId}?environment=sandbox&merchantAccountId=..." \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { getPaymentIntent, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await getPaymentIntent({
+              client: vortex,
+              path: { paymentIntentId: "..." },
+              query: { environment: "sandbox", merchantAccountId: "..." },
+            });
   /v1/payment-receipts:
     get:
       operationId: listPaymentReceipts
@@ -9678,6 +10150,189 @@ paths:
               path: { paymentRequestId: "..." },
               query: { environment: "sandbox", merchantAccountId: "..." },
               body: {"expiresAt":"2026-06-08T00:00:00.000Z","createdByRef":"dunning-recovery"},
+            });
+  /v1/payouts:
+    get:
+      operationId: listPayouts
+      parameters:
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            enum:
+              - sandbox
+              - production
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: currency
+          required: false
+          schema:
+            type: string
+          style: form
+        - description:
+            "`platform` lists payouts owned by every merchant account linked
+            to this merchant via platformMerchantAccountId."
+          explode: true
+          in: query
+          name: scope
+          required: false
+          schema:
+            enum:
+              - platform
+            type: string
+          style: form
+        - description:
+            "Page size, 1-100. Omitting both limit and cursor returns the\
+            \ full unpaginated list."
+          explode: true
+          in: query
+          name: limit
+          required: false
+          schema:
+            maximum: 100
+            minimum: 1
+            type: integer
+          style: form
+        - description:
+            Opaque cursor from the previous page's nextCursor. Pass it back
+            verbatim to fetch the next page.
+          explode: true
+          in: query
+          name: cursor
+          required: false
+          schema:
+            type: string
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PayoutListResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: List payouts for a merchant account
+      tags:
+        - payments
+        - payouts
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/payouts?currency=...&environment=sandbox&merchantAccountId=..." \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { listPayouts, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await listPayouts({
+              client: vortex,
+              query: { currency: "...", environment: "sandbox", merchantAccountId: "..." },
+            });
+  /v1/payouts/{payoutId}:
+    get:
+      operationId: getPayout
+      parameters:
+        - explode: false
+          in: path
+          name: payoutId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            enum:
+              - sandbox
+              - production
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PayoutResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: Get one payout
+      tags:
+        - payments
+        - payouts
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/payouts/{payoutId}?environment=sandbox&merchantAccountId=..." \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { getPayout, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await getPayout({
+              client: vortex,
+              path: { payoutId: "..." },
+              query: { environment: "sandbox", merchantAccountId: "..." },
             });
   /v1/portal:
     get:
@@ -10884,6 +11539,164 @@ paths:
               query: { environment: "sandbox", merchantAccountId: "..." },
               body: {"lines":[{"priceId":"bprice_seats","quantity":15,"unitAmount":4500}],"terms":"Net 30, revised seat count"},
             });
+  /v1/refunds:
+    post:
+      operationId: createRefund
+      parameters:
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            enum:
+              - sandbox
+              - production
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value:
+                  paymentId: pay_123
+                  amount: 4900
+                  reason: customer_request
+                  requestedByType: merchant
+                  requestedByRef: bcust_123
+            schema:
+              $ref: "#/components/schemas/RefundCreateRequest"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RefundResponse"
+          description: Created
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: Refund a captured payment
+      tags:
+        - payments
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/refunds?environment=sandbox&merchantAccountId=..." \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{"paymentId":"pay_123","amount":4900,"reason":"customer_request","requestedByType":"merchant","requestedByRef":"bcust_123"}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { createRefund, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await createRefund({
+              client: vortex,
+              query: { environment: "sandbox", merchantAccountId: "..." },
+              body: {"paymentId":"pay_123","amount":4900,"reason":"customer_request","requestedByType":"merchant","requestedByRef":"bcust_123"},
+            });
+  /v1/refunds/{refundId}:
+    get:
+      operationId: getRefund
+      parameters:
+        - explode: false
+          in: path
+          name: refundId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            enum:
+              - sandbox
+              - production
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RefundResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: Get one refund
+      tags:
+        - payments
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/refunds/{refundId}?environment=sandbox&merchantAccountId=..." \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { getRefund, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await getRefund({
+              client: vortex,
+              path: { refundId: "..." },
+              query: { environment: "sandbox", merchantAccountId: "..." },
+            });
   /v1/storefront/checkout-sessions/{checkoutSessionId}:
     get:
       operationId: getStorefrontCheckoutSession
@@ -11294,6 +12107,274 @@ paths:
               query: { environment: "sandbox", merchantAccountId: "..." },
               body: {"customerId":"bcust_123","billingAccountId":"bacc_123","collectionMode":"automatic","items":[{"priceId":"price_core_monthly","quantity":1}]},
             });
+  /v1/subscriptions/{subscriptionId}/cancel:
+    post:
+      operationId: cancelSubscription
+      parameters:
+        - explode: false
+          in: path
+          name: subscriptionId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            enum:
+              - sandbox
+              - production
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value:
+                  canceledBy: customer
+                  canceledByRef: bcust_123
+                  cancelAt: 2026-07-01T00:00:00.000Z
+            schema:
+              $ref: "#/components/schemas/SubscriptionCancelRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SubscriptionDetailResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: "Cancel a subscription (immediate, or scheduled via cancelAt)"
+      tags:
+        - billing
+        - subscriptions
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/subscriptions/{subscriptionId}/cancel?environment=sandbox&merchantAccountId=..." \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{"canceledBy":"customer","canceledByRef":"bcust_123","cancelAt":"2026-07-01T00:00:00.000Z"}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { cancelSubscription, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await cancelSubscription({
+              client: vortex,
+              path: { subscriptionId: "..." },
+              query: { environment: "sandbox", merchantAccountId: "..." },
+              body: {"canceledBy":"customer","canceledByRef":"bcust_123","cancelAt":"2026-07-01T00:00:00.000Z"},
+            });
+  /v1/subscriptions/{subscriptionId}/pause:
+    post:
+      operationId: pauseSubscription
+      parameters:
+        - explode: false
+          in: path
+          name: subscriptionId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            enum:
+              - sandbox
+              - production
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value:
+                  pausedBy: customer
+                  pausedByRef: bcust_123
+            schema:
+              $ref: "#/components/schemas/SubscriptionPauseRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SubscriptionDetailResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: Pause an active subscription
+      tags:
+        - billing
+        - subscriptions
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/subscriptions/{subscriptionId}/pause?environment=sandbox&merchantAccountId=..." \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{"pausedBy":"customer","pausedByRef":"bcust_123"}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { pauseSubscription, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await pauseSubscription({
+              client: vortex,
+              path: { subscriptionId: "..." },
+              query: { environment: "sandbox", merchantAccountId: "..." },
+              body: {"pausedBy":"customer","pausedByRef":"bcust_123"},
+            });
+  /v1/subscriptions/{subscriptionId}/resume:
+    post:
+      operationId: resumeSubscription
+      parameters:
+        - explode: false
+          in: path
+          name: subscriptionId
+          required: true
+          schema:
+            type: string
+          style: simple
+        - description:
+            Merchant environment — key-bound keys resolve it from the credential;
+            unbound callers default to sandbox.
+          explode: true
+          in: query
+          name: environment
+          required: true
+          schema:
+            enum:
+              - sandbox
+              - production
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: merchantAccountId
+          required: true
+          schema:
+            type: string
+          style: form
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value:
+                  resumedBy: customer
+                  resumedByRef: bcust_123
+            schema:
+              $ref: "#/components/schemas/SubscriptionResumeRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SubscriptionDetailResponse"
+          description: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/ValidationFailure"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        default:
+          $ref: "#/components/responses/ApiError"
+      security:
+        - api-key: []
+      summary: Resume a paused subscription
+      tags:
+        - billing
+        - subscriptions
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/subscriptions/{subscriptionId}/resume?environment=sandbox&merchantAccountId=..." \
+              -X POST \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{"resumedBy":"customer","resumedByRef":"bcust_123"}'
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { resumeSubscription, createVortex } from "@vortex-api/vortex/2026-08";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await resumeSubscription({
+              client: vortex,
+              path: { subscriptionId: "..." },
+              query: { environment: "sandbox", merchantAccountId: "..." },
+              body: {"resumedBy":"customer","resumedByRef":"bcust_123"},
+            });
   /v1/tax-transactions:
     get:
       operationId: listTaxTransactions
@@ -11420,7 +12501,6 @@ paths:
                 value:
                   sourceDocumentId: binv_123
                   sourceDocumentType: invoice
-                  idempotencyKey: tax-quote-binv_123
                   currency: USD
                   customerTaxAddress:
                     line1: 897 Broadway
@@ -11469,7 +12549,7 @@ paths:
               -X POST \
               -H "Authorization: Bearer $VORTEX_API_KEY" \
               -H "Content-Type: application/json" \
-              -d '{"sourceDocumentId":"binv_123","sourceDocumentType":"invoice","idempotencyKey":"tax-quote-binv_123","currency":"USD","customerTaxAddress":{"line1":"897 Broadway","city":"New York","region":"NY","postalCode":"10003","country":"US"},"lines":[{"sourceLineId":"line-1","amount":50000,"quantity":1,"classificationKey":"saas"}]}'
+              -d '{"sourceDocumentId":"binv_123","sourceDocumentType":"invoice","currency":"USD","customerTaxAddress":{"line1":"897 Broadway","city":"New York","region":"NY","postalCode":"10003","country":"US"},"lines":[{"sourceLineId":"line-1","amount":50000,"quantity":1,"classificationKey":"saas"}]}'
         - lang: TypeScript
           label: TypeScript
           source: |-
@@ -11479,7 +12559,7 @@ paths:
             const { data } = await quoteTaxTransaction({
               client: vortex,
               query: { environment: "sandbox", merchantAccountId: "..." },
-              body: {"sourceDocumentId":"binv_123","sourceDocumentType":"invoice","idempotencyKey":"tax-quote-binv_123","currency":"USD","customerTaxAddress":{"line1":"897 Broadway","city":"New York","region":"NY","postalCode":"10003","country":"US"},"lines":[{"sourceLineId":"line-1","amount":50000,"quantity":1,"classificationKey":"saas"}]},
+              body: {"sourceDocumentId":"binv_123","sourceDocumentType":"invoice","currency":"USD","customerTaxAddress":{"line1":"897 Broadway","city":"New York","region":"NY","postalCode":"10003","country":"US"},"lines":[{"sourceLineId":"line-1","amount":50000,"quantity":1,"classificationKey":"saas"}]},
             });
   /v1/tax-transactions/{taxTransactionId}:
     get:
@@ -11680,7 +12760,6 @@ paths:
             examples:
               default:
                 value:
-                  idempotencyKey: tax-reverse-1
                   sourceDocumentId: bcn_123
             schema:
               $ref: "#/components/schemas/TaxTransactionReverseRequest"
@@ -11718,7 +12797,7 @@ paths:
               -X POST \
               -H "Authorization: Bearer $VORTEX_API_KEY" \
               -H "Content-Type: application/json" \
-              -d '{"idempotencyKey":"tax-reverse-1","sourceDocumentId":"bcn_123"}'
+              -d '{"sourceDocumentId":"bcn_123"}'
         - lang: TypeScript
           label: TypeScript
           source: |-
@@ -11729,7 +12808,7 @@ paths:
               client: vortex,
               path: { taxTransactionId: "..." },
               query: { environment: "sandbox", merchantAccountId: "..." },
-              body: {"idempotencyKey":"tax-reverse-1","sourceDocumentId":"bcn_123"},
+              body: {"sourceDocumentId":"bcn_123"},
             });
   /v1/usage-events:
     get:
@@ -19715,6 +20794,492 @@ components:
       required:
         - data
         - requestId
+    PaymentIntentCreateRequest:
+      example:
+        customerProfileId: customerProfileId
+        amount: 2147483647
+        currency: currency
+        captureMode: automatic
+        paymentMethodId: paymentMethodId
+        platformPaymentMethodId: platformPaymentMethodId
+        externalPaymentRef: externalPaymentRef
+        returnUrl: https://openapi-generator.tech
+        statementDescriptor: statementDescriptor
+        fraudSessionId: fraudSessionId
+        metadata:
+          key: metadata
+        idempotencyKey: idempotencyKey
+        platformFeeAmount: 2147483647
+        surcharge:
+          amount: 2147483647
+          disclosed: true
+          cardFunding: credit
+      properties:
+        customerProfileId:
+          minLength: 1
+          type: string
+        amount:
+          exclusiveMinimum: true
+          maximum: 9007199254740991
+          minimum: 0
+          type: integer
+        currency:
+          type: string
+        captureMode:
+          enum:
+            - automatic
+            - manual
+          type: string
+        paymentMethodId:
+          minLength: 1
+          type: string
+        platformPaymentMethodId:
+          minLength: 1
+          type: string
+        externalPaymentRef:
+          minLength: 1
+          type: string
+        returnUrl:
+          format: uri
+          type: string
+        statementDescriptor:
+          maxLength: 22
+          minLength: 1
+          type: string
+        fraudSessionId:
+          maxLength: 256
+          minLength: 1
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+        idempotencyKey:
+          minLength: 1
+          type: string
+        platformFeeAmount:
+          maximum: 9007199254740991
+          minimum: 0
+          type: integer
+        surcharge:
+          $ref: "#/components/schemas/PaymentIntentCreateRequest_surcharge"
+      required:
+        - amount
+        - captureMode
+        - currency
+    PaymentIntentResponse:
+      example:
+        data:
+          id: id
+          paymentId: paymentId
+          merchantAccountId: merchantAccountId
+          customerProfileId: customerProfileId
+          paymentMethodId: paymentMethodId
+          status: status
+          amount: -2147483648
+          currency: currency
+          requiresAction: true
+          canCapture: true
+          canCancel: true
+          canRetry: true
+          nextStep: nextStep
+          nextActionType: nextActionType
+          hostedActionUrl: hostedActionUrl
+          platformFeeAmount: 2147483647
+          createdAt: createdAt
+        requestId: requestId
+      properties:
+        data:
+          $ref: "#/components/schemas/PaymentIntentResponse_data"
+        requestId:
+          type: string
+      required:
+        - data
+        - requestId
+    PaymentIntentListResponse:
+      example:
+        data:
+          items:
+            - id: id
+              paymentId: paymentId
+              merchantAccountId: merchantAccountId
+              customerProfileId: customerProfileId
+              paymentMethodId: paymentMethodId
+              status: status
+              amount: -2147483648
+              currency: currency
+              requiresAction: true
+              canCapture: true
+              canCancel: true
+              canRetry: true
+              nextStep: nextStep
+              nextActionType: nextActionType
+              hostedActionUrl: hostedActionUrl
+              platformFeeAmount: 2147483647
+              createdAt: createdAt
+            - id: id
+              paymentId: paymentId
+              merchantAccountId: merchantAccountId
+              customerProfileId: customerProfileId
+              paymentMethodId: paymentMethodId
+              status: status
+              amount: -2147483648
+              currency: currency
+              requiresAction: true
+              canCapture: true
+              canCancel: true
+              canRetry: true
+              nextStep: nextStep
+              nextActionType: nextActionType
+              hostedActionUrl: hostedActionUrl
+              platformFeeAmount: 2147483647
+              createdAt: createdAt
+          hasMore: true
+          nextCursor: nextCursor
+        requestId: requestId
+      properties:
+        data:
+          $ref: "#/components/schemas/PaymentIntentListResponse_data"
+        requestId:
+          type: string
+      required:
+        - data
+        - requestId
+    RefundCreateRequest:
+      example:
+        paymentId: paymentId
+        amount: 2147483647
+        reason: reason
+        requestedByType: system
+        requestedByRef: requestedByRef
+        idempotencyKey: idempotencyKey
+      properties:
+        paymentId:
+          minLength: 1
+          type: string
+        amount:
+          exclusiveMinimum: true
+          maximum: 9007199254740991
+          minimum: 0
+          type: integer
+        reason:
+          minLength: 1
+          type: string
+        requestedByType:
+          enum:
+            - system
+            - operator
+            - merchant
+          type: string
+        requestedByRef:
+          minLength: 1
+          type: string
+        idempotencyKey:
+          minLength: 1
+          type: string
+      required:
+        - amount
+        - paymentId
+        - reason
+        - requestedByRef
+        - requestedByType
+    RefundResponse:
+      example:
+        data:
+          id: id
+          merchantAccountId: merchantAccountId
+          paymentId: paymentId
+          amount: -2147483648
+          currency: currency
+          status: pending
+          reason: reason
+          terminalSessionId: terminalSessionId
+          terminalReaderId: terminalReaderId
+        requestId: requestId
+      properties:
+        data:
+          $ref: "#/components/schemas/RefundResponse_data"
+        requestId:
+          type: string
+      required:
+        - data
+        - requestId
+    DisputeResponse:
+      example:
+        data:
+          id: id
+          environment: sandbox
+          merchantAccountId: merchantAccountId
+          paymentId: paymentId
+          stage: inquiry
+          responseState: needs_response
+          canonicalStatus: opened
+          evidenceGuidance:
+            reasonCode: reasonCode
+            label: label
+            summary: summary
+            recommendedEvidence:
+              - recommendedEvidence
+              - recommendedEvidence
+          openedAt: openedAt
+          createdAt: createdAt
+          updatedAt: updatedAt
+          amount: -2147483648
+          currency: currency
+          network: network
+          reasonCode: reasonCode
+          deadlineAt: deadlineAt
+          evidenceStatus: evidenceStatus
+          closedAt: closedAt
+          terminalSessionId: terminalSessionId
+          terminalReaderId: terminalReaderId
+        requestId: requestId
+      properties:
+        data:
+          $ref: "#/components/schemas/DisputeResponse_data"
+        requestId:
+          type: string
+      required:
+        - data
+        - requestId
+    DisputeListResponse:
+      example:
+        data:
+          items:
+            - id: id
+              environment: sandbox
+              merchantAccountId: merchantAccountId
+              paymentId: paymentId
+              stage: inquiry
+              responseState: needs_response
+              canonicalStatus: opened
+              evidenceGuidance:
+                reasonCode: reasonCode
+                label: label
+                summary: summary
+                recommendedEvidence:
+                  - recommendedEvidence
+                  - recommendedEvidence
+              openedAt: openedAt
+              createdAt: createdAt
+              updatedAt: updatedAt
+              amount: -2147483648
+              currency: currency
+              network: network
+              reasonCode: reasonCode
+              deadlineAt: deadlineAt
+              evidenceStatus: evidenceStatus
+              closedAt: closedAt
+              terminalSessionId: terminalSessionId
+              terminalReaderId: terminalReaderId
+            - id: id
+              environment: sandbox
+              merchantAccountId: merchantAccountId
+              paymentId: paymentId
+              stage: inquiry
+              responseState: needs_response
+              canonicalStatus: opened
+              evidenceGuidance:
+                reasonCode: reasonCode
+                label: label
+                summary: summary
+                recommendedEvidence:
+                  - recommendedEvidence
+                  - recommendedEvidence
+              openedAt: openedAt
+              createdAt: createdAt
+              updatedAt: updatedAt
+              amount: -2147483648
+              currency: currency
+              network: network
+              reasonCode: reasonCode
+              deadlineAt: deadlineAt
+              evidenceStatus: evidenceStatus
+              closedAt: closedAt
+              terminalSessionId: terminalSessionId
+              terminalReaderId: terminalReaderId
+          hasMore: true
+          nextCursor: nextCursor
+        requestId: requestId
+      properties:
+        data:
+          $ref: "#/components/schemas/DisputeListResponse_data"
+        requestId:
+          type: string
+      required:
+        - data
+        - requestId
+    PayoutResponse:
+      example:
+        data:
+          id: id
+          environment: sandbox
+          merchantAccountId: merchantAccountId
+          payoutAccountId: payoutAccountId
+          settlementId: settlementId
+          rail: instant_card_push
+          status: pending
+          amount: -2147483648
+          currency: currency
+          direction: credit
+          expectedArrivalAt: expectedArrivalAt
+          failureCode: failureCode
+          failureMessage: failureMessage
+          createdAt: createdAt
+          updatedAt: updatedAt
+        requestId: requestId
+      properties:
+        data:
+          $ref: "#/components/schemas/PayoutResponse_data"
+        requestId:
+          type: string
+      required:
+        - data
+        - requestId
+    PayoutListResponse:
+      example:
+        data:
+          items:
+            - id: id
+              environment: sandbox
+              merchantAccountId: merchantAccountId
+              payoutAccountId: payoutAccountId
+              settlementId: settlementId
+              rail: instant_card_push
+              status: pending
+              amount: -2147483648
+              currency: currency
+              direction: credit
+              expectedArrivalAt: expectedArrivalAt
+              failureCode: failureCode
+              failureMessage: failureMessage
+              createdAt: createdAt
+              updatedAt: updatedAt
+            - id: id
+              environment: sandbox
+              merchantAccountId: merchantAccountId
+              payoutAccountId: payoutAccountId
+              settlementId: settlementId
+              rail: instant_card_push
+              status: pending
+              amount: -2147483648
+              currency: currency
+              direction: credit
+              expectedArrivalAt: expectedArrivalAt
+              failureCode: failureCode
+              failureMessage: failureMessage
+              createdAt: createdAt
+              updatedAt: updatedAt
+          hasMore: true
+          nextCursor: nextCursor
+        requestId: requestId
+      properties:
+        data:
+          $ref: "#/components/schemas/PayoutListResponse_data"
+        requestId:
+          type: string
+      required:
+        - data
+        - requestId
+    SubscriptionCancelRequest:
+      example:
+        canceledBy: system
+        canceledByRef: canceledByRef
+        cancelAt: cancelAt
+      properties:
+        canceledBy:
+          enum:
+            - system
+            - operator
+            - customer
+          type: string
+        canceledByRef:
+          minLength: 1
+          type: string
+        cancelAt:
+          minLength: 1
+          type: string
+      required:
+        - canceledBy
+        - canceledByRef
+    SubscriptionPauseRequest:
+      example:
+        pausedBy: system
+        pausedByRef: pausedByRef
+      properties:
+        pausedBy:
+          enum:
+            - system
+            - operator
+            - customer
+          type: string
+        pausedByRef:
+          minLength: 1
+          type: string
+      required:
+        - pausedBy
+        - pausedByRef
+    SubscriptionResumeRequest:
+      example:
+        resumedBy: system
+        resumedByRef: resumedByRef
+      properties:
+        resumedBy:
+          enum:
+            - system
+            - operator
+            - customer
+          type: string
+        resumedByRef:
+          minLength: 1
+          type: string
+      required:
+        - resumedBy
+        - resumedByRef
+    SubscriptionDetailResponse:
+      example:
+        data:
+          subscription:
+            subscriptionId: subscriptionId
+            customerId: customerId
+            billingAccountId: billingAccountId
+            status: draft
+            collectionMode: manual
+            metadata:
+              key: metadata
+            createdAt: createdAt
+            currentPeriodStartAt: currentPeriodStartAt
+            currentPeriodEndAt: currentPeriodEndAt
+            trialEndAt: trialEndAt
+            cancelAt: cancelAt
+            canceledAt: canceledAt
+            endedAt: endedAt
+            testClockId: testClockId
+          items:
+            - subscriptionItemId: subscriptionItemId
+              subscriptionId: subscriptionId
+              priceId: priceId
+              quantity: 0.8008281904610115
+              startAt: startAt
+              metadata:
+                key: metadata
+              endAt: endAt
+            - subscriptionItemId: subscriptionItemId
+              subscriptionId: subscriptionId
+              priceId: priceId
+              quantity: 0.8008281904610115
+              startAt: startAt
+              metadata:
+                key: metadata
+              endAt: endAt
+        requestId: requestId
+      properties:
+        data:
+          $ref: "#/components/schemas/SubscriptionDetailResponse_data"
+        requestId:
+          type: string
+      required:
+        - data
+        - requestId
     ProductResponse:
       $ref: "#/components/schemas/ApiWriteEnvelope"
     PriceResponse:
@@ -21380,6 +22945,8 @@ components:
         error:
           code: bad_request
           message: message
+          type: api_error
+          param: param
           requestId: requestId
           docsUrl: docsUrl
           details:
@@ -22042,6 +23609,727 @@ components:
         - taxTotal
         - total
         - updatedAt
+    PaymentIntentCreateRequest_surcharge:
+      example:
+        amount: 2147483647
+        disclosed: true
+        cardFunding: credit
+      properties:
+        amount:
+          exclusiveMinimum: true
+          maximum: 9007199254740991
+          minimum: 0
+          type: integer
+        disclosed:
+          type: boolean
+        cardFunding:
+          enum:
+            - credit
+            - debit
+            - prepaid
+          type: string
+      required:
+        - amount
+        - cardFunding
+        - disclosed
+    PaymentIntentResponse_data:
+      example:
+        id: id
+        paymentId: paymentId
+        merchantAccountId: merchantAccountId
+        customerProfileId: customerProfileId
+        paymentMethodId: paymentMethodId
+        status: status
+        amount: -2147483648
+        currency: currency
+        requiresAction: true
+        canCapture: true
+        canCancel: true
+        canRetry: true
+        nextStep: nextStep
+        nextActionType: nextActionType
+        hostedActionUrl: hostedActionUrl
+        platformFeeAmount: 2147483647
+        createdAt: createdAt
+      properties:
+        id:
+          minLength: 1
+          type: string
+        paymentId:
+          minLength: 1
+          type: string
+        merchantAccountId:
+          minLength: 1
+          type: string
+        customerProfileId:
+          minLength: 1
+          type: string
+        paymentMethodId:
+          minLength: 1
+          type: string
+        status:
+          minLength: 1
+          type: string
+        amount:
+          maximum: 9007199254740991
+          minimum: -9007199254740991
+          type: integer
+        currency:
+          minLength: 1
+          type: string
+        requiresAction:
+          type: boolean
+        canCapture:
+          type: boolean
+        canCancel:
+          type: boolean
+        canRetry:
+          type: boolean
+        nextStep:
+          minLength: 1
+          type: string
+        nextActionType:
+          minLength: 1
+          type: string
+        hostedActionUrl:
+          minLength: 1
+          type: string
+        platformFeeAmount:
+          maximum: 9007199254740991
+          minimum: -9007199254740991
+          type: integer
+        createdAt:
+          minLength: 1
+          type: string
+      required:
+        - amount
+        - canCancel
+        - canCapture
+        - canRetry
+        - currency
+        - id
+        - merchantAccountId
+        - nextStep
+        - requiresAction
+        - status
+    PaymentIntentListResponse_data:
+      example:
+        items:
+          - id: id
+            paymentId: paymentId
+            merchantAccountId: merchantAccountId
+            customerProfileId: customerProfileId
+            paymentMethodId: paymentMethodId
+            status: status
+            amount: -2147483648
+            currency: currency
+            requiresAction: true
+            canCapture: true
+            canCancel: true
+            canRetry: true
+            nextStep: nextStep
+            nextActionType: nextActionType
+            hostedActionUrl: hostedActionUrl
+            platformFeeAmount: 2147483647
+            createdAt: createdAt
+          - id: id
+            paymentId: paymentId
+            merchantAccountId: merchantAccountId
+            customerProfileId: customerProfileId
+            paymentMethodId: paymentMethodId
+            status: status
+            amount: -2147483648
+            currency: currency
+            requiresAction: true
+            canCapture: true
+            canCancel: true
+            canRetry: true
+            nextStep: nextStep
+            nextActionType: nextActionType
+            hostedActionUrl: hostedActionUrl
+            platformFeeAmount: 2147483647
+            createdAt: createdAt
+        hasMore: true
+        nextCursor: nextCursor
+      properties:
+        items:
+          items:
+            $ref: "#/components/schemas/PaymentIntentResponse_data"
+          type: array
+          default: null
+        hasMore:
+          type: boolean
+        nextCursor:
+          minLength: 1
+          type: string
+      required:
+        - hasMore
+        - items
+    RefundResponse_data:
+      example:
+        id: id
+        merchantAccountId: merchantAccountId
+        paymentId: paymentId
+        amount: -2147483648
+        currency: currency
+        status: pending
+        reason: reason
+        terminalSessionId: terminalSessionId
+        terminalReaderId: terminalReaderId
+      properties:
+        id:
+          minLength: 1
+          type: string
+        merchantAccountId:
+          minLength: 1
+          type: string
+        paymentId:
+          minLength: 1
+          type: string
+        amount:
+          maximum: 9007199254740991
+          minimum: -9007199254740991
+          type: integer
+        currency:
+          minLength: 1
+          type: string
+        status:
+          enum:
+            - pending
+            - succeeded
+            - failed
+          type: string
+        reason:
+          minLength: 1
+          type: string
+        terminalSessionId:
+          minLength: 1
+          type: string
+        terminalReaderId:
+          minLength: 1
+          type: string
+      required:
+        - amount
+        - currency
+        - id
+        - merchantAccountId
+        - paymentId
+        - reason
+        - status
+    DisputeResponse_data_evidenceGuidance:
+      example:
+        reasonCode: reasonCode
+        label: label
+        summary: summary
+        recommendedEvidence:
+          - recommendedEvidence
+          - recommendedEvidence
+      properties:
+        reasonCode:
+          type: string
+        label:
+          type: string
+        summary:
+          type: string
+        recommendedEvidence:
+          items:
+            type: string
+          type: array
+          default: null
+      required:
+        - label
+        - reasonCode
+        - recommendedEvidence
+        - summary
+    DisputeResponse_data:
+      example:
+        id: id
+        environment: sandbox
+        merchantAccountId: merchantAccountId
+        paymentId: paymentId
+        stage: inquiry
+        responseState: needs_response
+        canonicalStatus: opened
+        evidenceGuidance:
+          reasonCode: reasonCode
+          label: label
+          summary: summary
+          recommendedEvidence:
+            - recommendedEvidence
+            - recommendedEvidence
+        openedAt: openedAt
+        createdAt: createdAt
+        updatedAt: updatedAt
+        amount: -2147483648
+        currency: currency
+        network: network
+        reasonCode: reasonCode
+        deadlineAt: deadlineAt
+        evidenceStatus: evidenceStatus
+        closedAt: closedAt
+        terminalSessionId: terminalSessionId
+        terminalReaderId: terminalReaderId
+      properties:
+        id:
+          minLength: 1
+          type: string
+        environment:
+          enum:
+            - sandbox
+            - production
+          type: string
+        merchantAccountId:
+          minLength: 1
+          type: string
+        paymentId:
+          minLength: 1
+          type: string
+        stage:
+          enum:
+            - inquiry
+            - chargeback
+            - review
+            - won
+            - lost
+          type: string
+        responseState:
+          enum:
+            - needs_response
+            - responding
+            - responded
+            - accepted
+            - closed
+          type: string
+        canonicalStatus:
+          enum:
+            - opened
+            - challenged
+            - won
+            - lost
+            - accepted
+            - reversed
+            - expired
+          type: string
+        evidenceGuidance:
+          $ref: "#/components/schemas/DisputeResponse_data_evidenceGuidance"
+        openedAt:
+          minLength: 1
+          type: string
+        createdAt:
+          minLength: 1
+          type: string
+        updatedAt:
+          minLength: 1
+          type: string
+        amount:
+          maximum: 9007199254740991
+          minimum: -9007199254740991
+          type: integer
+        currency:
+          minLength: 1
+          type: string
+        network:
+          minLength: 1
+          type: string
+        reasonCode:
+          minLength: 1
+          type: string
+        deadlineAt:
+          minLength: 1
+          type: string
+        evidenceStatus:
+          minLength: 1
+          type: string
+        closedAt:
+          minLength: 1
+          type: string
+        terminalSessionId:
+          minLength: 1
+          type: string
+        terminalReaderId:
+          minLength: 1
+          type: string
+      required:
+        - canonicalStatus
+        - createdAt
+        - environment
+        - evidenceGuidance
+        - id
+        - merchantAccountId
+        - openedAt
+        - paymentId
+        - responseState
+        - stage
+        - updatedAt
+    DisputeListResponse_data:
+      example:
+        items:
+          - id: id
+            environment: sandbox
+            merchantAccountId: merchantAccountId
+            paymentId: paymentId
+            stage: inquiry
+            responseState: needs_response
+            canonicalStatus: opened
+            evidenceGuidance:
+              reasonCode: reasonCode
+              label: label
+              summary: summary
+              recommendedEvidence:
+                - recommendedEvidence
+                - recommendedEvidence
+            openedAt: openedAt
+            createdAt: createdAt
+            updatedAt: updatedAt
+            amount: -2147483648
+            currency: currency
+            network: network
+            reasonCode: reasonCode
+            deadlineAt: deadlineAt
+            evidenceStatus: evidenceStatus
+            closedAt: closedAt
+            terminalSessionId: terminalSessionId
+            terminalReaderId: terminalReaderId
+          - id: id
+            environment: sandbox
+            merchantAccountId: merchantAccountId
+            paymentId: paymentId
+            stage: inquiry
+            responseState: needs_response
+            canonicalStatus: opened
+            evidenceGuidance:
+              reasonCode: reasonCode
+              label: label
+              summary: summary
+              recommendedEvidence:
+                - recommendedEvidence
+                - recommendedEvidence
+            openedAt: openedAt
+            createdAt: createdAt
+            updatedAt: updatedAt
+            amount: -2147483648
+            currency: currency
+            network: network
+            reasonCode: reasonCode
+            deadlineAt: deadlineAt
+            evidenceStatus: evidenceStatus
+            closedAt: closedAt
+            terminalSessionId: terminalSessionId
+            terminalReaderId: terminalReaderId
+        hasMore: true
+        nextCursor: nextCursor
+      properties:
+        items:
+          items:
+            $ref: "#/components/schemas/DisputeResponse_data"
+          type: array
+          default: null
+        hasMore:
+          type: boolean
+        nextCursor:
+          minLength: 1
+          type: string
+      required:
+        - hasMore
+        - items
+    PayoutResponse_data:
+      example:
+        id: id
+        environment: sandbox
+        merchantAccountId: merchantAccountId
+        payoutAccountId: payoutAccountId
+        settlementId: settlementId
+        rail: instant_card_push
+        status: pending
+        amount: -2147483648
+        currency: currency
+        direction: credit
+        expectedArrivalAt: expectedArrivalAt
+        failureCode: failureCode
+        failureMessage: failureMessage
+        createdAt: createdAt
+        updatedAt: updatedAt
+      properties:
+        id:
+          minLength: 1
+          type: string
+        environment:
+          enum:
+            - sandbox
+            - production
+          type: string
+        merchantAccountId:
+          minLength: 1
+          type: string
+        payoutAccountId:
+          minLength: 1
+          type: string
+        settlementId:
+          minLength: 1
+          type: string
+        rail:
+          enum:
+            - instant_card_push
+            - standard_next_day_ach
+          type: string
+        status:
+          enum:
+            - pending
+            - submitted
+            - in_transit
+            - succeeded
+            - failed
+            - returned
+            - held
+          type: string
+        amount:
+          maximum: 9007199254740991
+          minimum: -9007199254740991
+          type: integer
+        currency:
+          type: string
+        direction:
+          enum:
+            - credit
+            - debit
+          type: string
+        expectedArrivalAt:
+          minLength: 1
+          type: string
+        failureCode:
+          minLength: 1
+          type: string
+        failureMessage:
+          minLength: 1
+          type: string
+        createdAt:
+          minLength: 1
+          type: string
+        updatedAt:
+          minLength: 1
+          type: string
+      required:
+        - amount
+        - createdAt
+        - currency
+        - direction
+        - environment
+        - id
+        - merchantAccountId
+        - status
+        - updatedAt
+    PayoutListResponse_data:
+      example:
+        items:
+          - id: id
+            environment: sandbox
+            merchantAccountId: merchantAccountId
+            payoutAccountId: payoutAccountId
+            settlementId: settlementId
+            rail: instant_card_push
+            status: pending
+            amount: -2147483648
+            currency: currency
+            direction: credit
+            expectedArrivalAt: expectedArrivalAt
+            failureCode: failureCode
+            failureMessage: failureMessage
+            createdAt: createdAt
+            updatedAt: updatedAt
+          - id: id
+            environment: sandbox
+            merchantAccountId: merchantAccountId
+            payoutAccountId: payoutAccountId
+            settlementId: settlementId
+            rail: instant_card_push
+            status: pending
+            amount: -2147483648
+            currency: currency
+            direction: credit
+            expectedArrivalAt: expectedArrivalAt
+            failureCode: failureCode
+            failureMessage: failureMessage
+            createdAt: createdAt
+            updatedAt: updatedAt
+        hasMore: true
+        nextCursor: nextCursor
+      properties:
+        items:
+          items:
+            $ref: "#/components/schemas/PayoutResponse_data"
+          type: array
+          default: null
+        hasMore:
+          type: boolean
+        nextCursor:
+          minLength: 1
+          type: string
+      required:
+        - hasMore
+        - items
+    SubscriptionDetailResponse_data_subscription:
+      example:
+        subscriptionId: subscriptionId
+        customerId: customerId
+        billingAccountId: billingAccountId
+        status: draft
+        collectionMode: manual
+        metadata:
+          key: metadata
+        createdAt: createdAt
+        currentPeriodStartAt: currentPeriodStartAt
+        currentPeriodEndAt: currentPeriodEndAt
+        trialEndAt: trialEndAt
+        cancelAt: cancelAt
+        canceledAt: canceledAt
+        endedAt: endedAt
+        testClockId: testClockId
+      properties:
+        subscriptionId:
+          minLength: 1
+          type: string
+        customerId:
+          minLength: 1
+          type: string
+        billingAccountId:
+          minLength: 1
+          type: string
+        status:
+          enum:
+            - draft
+            - pending
+            - incomplete
+            - incomplete_expired
+            - trialing
+            - active
+            - past_due
+            - paused
+            - canceled
+          type: string
+        collectionMode:
+          enum:
+            - manual
+            - automatic
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+        createdAt:
+          minLength: 1
+          type: string
+        currentPeriodStartAt:
+          minLength: 1
+          type: string
+        currentPeriodEndAt:
+          minLength: 1
+          type: string
+        trialEndAt:
+          minLength: 1
+          type: string
+        cancelAt:
+          minLength: 1
+          type: string
+        canceledAt:
+          minLength: 1
+          type: string
+        endedAt:
+          minLength: 1
+          type: string
+        testClockId:
+          minLength: 1
+          type: string
+      required:
+        - billingAccountId
+        - collectionMode
+        - createdAt
+        - customerId
+        - metadata
+        - status
+        - subscriptionId
+    SubscriptionDetailResponse_data_items_inner:
+      example:
+        subscriptionItemId: subscriptionItemId
+        subscriptionId: subscriptionId
+        priceId: priceId
+        quantity: 0.8008281904610115
+        startAt: startAt
+        metadata:
+          key: metadata
+        endAt: endAt
+      properties:
+        subscriptionItemId:
+          minLength: 1
+          type: string
+        subscriptionId:
+          minLength: 1
+          type: string
+        priceId:
+          minLength: 1
+          type: string
+        quantity:
+          type: number
+        startAt:
+          minLength: 1
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+        endAt:
+          minLength: 1
+          type: string
+      required:
+        - metadata
+        - priceId
+        - quantity
+        - startAt
+        - subscriptionId
+        - subscriptionItemId
+    SubscriptionDetailResponse_data:
+      example:
+        subscription:
+          subscriptionId: subscriptionId
+          customerId: customerId
+          billingAccountId: billingAccountId
+          status: draft
+          collectionMode: manual
+          metadata:
+            key: metadata
+          createdAt: createdAt
+          currentPeriodStartAt: currentPeriodStartAt
+          currentPeriodEndAt: currentPeriodEndAt
+          trialEndAt: trialEndAt
+          cancelAt: cancelAt
+          canceledAt: canceledAt
+          endedAt: endedAt
+          testClockId: testClockId
+        items:
+          - subscriptionItemId: subscriptionItemId
+            subscriptionId: subscriptionId
+            priceId: priceId
+            quantity: 0.8008281904610115
+            startAt: startAt
+            metadata:
+              key: metadata
+            endAt: endAt
+          - subscriptionItemId: subscriptionItemId
+            subscriptionId: subscriptionId
+            priceId: priceId
+            quantity: 0.8008281904610115
+            startAt: startAt
+            metadata:
+              key: metadata
+            endAt: endAt
+      properties:
+        subscription:
+          $ref: "#/components/schemas/SubscriptionDetailResponse_data_subscription"
+        items:
+          items:
+            $ref: "#/components/schemas/SubscriptionDetailResponse_data_items_inner"
+          type: array
+          default: null
+      required:
+        - items
+        - subscription
     BillingMeterAggregateResponse_data_customers_items_inner:
       additionalProperties: false
       example:
@@ -24126,6 +26414,8 @@ components:
       example:
         code: bad_request
         message: message
+        type: api_error
+        param: param
         requestId: requestId
         docsUrl: docsUrl
         details:
@@ -24144,6 +26434,21 @@ components:
             - internal_error
           type: string
         message:
+          type: string
+        type:
+          enum:
+            - api_error
+            - authentication_error
+            - card_error
+            - idempotency_error
+            - invalid_request_error
+            - permission_error
+            - rate_limit_error
+          type: string
+        param:
+          description:
+            "The request field that failed validation (dot path), when\
+            \ the error is field-attributable."
           type: string
         requestId:
           type: string

@@ -4,7 +4,7 @@ info:
     "Public Vortex Payments API for customers, subscriptions, invoices,\
     \ payment requests, checkout, receipts, webhooks, tax."
   title: Vortex Payments API
-  version: 2026-08
+  version: 2026-09
 servers:
   - description: Production
     url: https://api.vortex.nyc
@@ -123,7 +123,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { compareRates, createVortex } from "@vortex-api/vortex/2026-08";
+            import { compareRates, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await compareRates({
@@ -173,7 +173,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { suggestMccCodes, createVortex } from "@vortex-api/vortex/2026-08";
+            import { suggestMccCodes, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await suggestMccCodes({
@@ -245,7 +245,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { requestComparisonQuote, createVortex } from "@vortex-api/vortex/2026-08";
+            import { requestComparisonQuote, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await requestComparisonQuote({
@@ -309,7 +309,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { deleteCustomerPortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { deleteCustomerPortalPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await deleteCustomerPortalPrefix({
@@ -370,7 +370,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getCustomerPortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getCustomerPortalPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getCustomerPortalPrefix({
@@ -431,7 +431,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { patchCustomerPortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { patchCustomerPortalPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await patchCustomerPortalPrefix({
@@ -492,7 +492,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { postCustomerPortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { postCustomerPortalPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await postCustomerPortalPrefix({
@@ -553,7 +553,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { putCustomerPortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { putCustomerPortalPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await putCustomerPortalPrefix({
@@ -615,7 +615,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { deleteDevicesPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { deleteDevicesPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await deleteDevicesPrefix({
@@ -676,7 +676,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getDevicesPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getDevicesPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getDevicesPrefix({
@@ -737,7 +737,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { patchDevicesPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { patchDevicesPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await patchDevicesPrefix({
@@ -798,7 +798,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { postDevicesPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { postDevicesPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await postDevicesPrefix({
@@ -859,7 +859,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { putDevicesPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { putDevicesPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await putDevicesPrefix({
@@ -921,7 +921,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { deleteDisputePortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { deleteDisputePortalPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await deleteDisputePortalPrefix({
@@ -982,7 +982,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getDisputePortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getDisputePortalPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getDisputePortalPrefix({
@@ -1043,7 +1043,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { patchDisputePortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { patchDisputePortalPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await patchDisputePortalPrefix({
@@ -1104,7 +1104,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { postDisputePortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { postDisputePortalPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await postDisputePortalPrefix({
@@ -1165,7 +1165,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { putDisputePortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { putDisputePortalPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await putDisputePortalPrefix({
@@ -1227,7 +1227,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { deleteInvoicePrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { deleteInvoicePrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await deleteInvoicePrefix({
@@ -1288,7 +1288,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getInvoicePrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getInvoicePrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getInvoicePrefix({
@@ -1349,7 +1349,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { patchInvoicePrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { patchInvoicePrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await patchInvoicePrefix({
@@ -1410,7 +1410,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { postInvoicePrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { postInvoicePrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await postInvoicePrefix({
@@ -1471,7 +1471,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { putInvoicePrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { putInvoicePrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await putInvoicePrefix({
@@ -1533,7 +1533,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { deleteMerchantOnboardingPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { deleteMerchantOnboardingPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await deleteMerchantOnboardingPrefix({
@@ -1594,7 +1594,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getMerchantOnboardingPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getMerchantOnboardingPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getMerchantOnboardingPrefix({
@@ -1655,7 +1655,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { patchMerchantOnboardingPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { patchMerchantOnboardingPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await patchMerchantOnboardingPrefix({
@@ -1716,7 +1716,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { postMerchantOnboardingPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { postMerchantOnboardingPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await postMerchantOnboardingPrefix({
@@ -1777,7 +1777,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { putMerchantOnboardingPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { putMerchantOnboardingPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await putMerchantOnboardingPrefix({
@@ -1839,7 +1839,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { deleteMerchantPortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { deleteMerchantPortalPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await deleteMerchantPortalPrefix({
@@ -1964,7 +1964,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getMerchantPortal, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getMerchantPortal, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getMerchantPortal({
@@ -2027,7 +2027,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { patchMerchantPortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { patchMerchantPortalPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await patchMerchantPortalPrefix({
@@ -2108,7 +2108,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { postMerchantPortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { postMerchantPortalPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await postMerchantPortalPrefix({
@@ -2170,7 +2170,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { putMerchantPortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { putMerchantPortalPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await putMerchantPortalPrefix({
@@ -2232,7 +2232,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { deleteOrderFormPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { deleteOrderFormPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await deleteOrderFormPrefix({
@@ -2293,7 +2293,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getOrderFormPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getOrderFormPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getOrderFormPrefix({
@@ -2354,7 +2354,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { patchOrderFormPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { patchOrderFormPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await patchOrderFormPrefix({
@@ -2415,7 +2415,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { postOrderFormPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { postOrderFormPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await postOrderFormPrefix({
@@ -2476,7 +2476,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { putOrderFormPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { putOrderFormPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await putOrderFormPrefix({
@@ -2538,7 +2538,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { deletePayMePrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { deletePayMePrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await deletePayMePrefix({
@@ -2599,7 +2599,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getPayMePrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getPayMePrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getPayMePrefix({
@@ -2660,7 +2660,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { patchPayMePrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { patchPayMePrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await patchPayMePrefix({
@@ -2721,7 +2721,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { postPayMePrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { postPayMePrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await postPayMePrefix({
@@ -2782,7 +2782,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { putPayMePrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { putPayMePrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await putPayMePrefix({
@@ -2844,7 +2844,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { deleteRefundPortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { deleteRefundPortalPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await deleteRefundPortalPrefix({
@@ -2905,7 +2905,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getRefundPortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getRefundPortalPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getRefundPortalPrefix({
@@ -2966,7 +2966,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { patchRefundPortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { patchRefundPortalPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await patchRefundPortalPrefix({
@@ -3027,7 +3027,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { postRefundPortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { postRefundPortalPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await postRefundPortalPrefix({
@@ -3088,7 +3088,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { putRefundPortalPrefix, createVortex } from "@vortex-api/vortex/2026-08";
+            import { putRefundPortalPrefix, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await putRefundPortalPrefix({
@@ -3162,7 +3162,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getBillingAccount, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getBillingAccount, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getBillingAccount({
@@ -3251,7 +3251,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { createCheckoutSession, createVortex } from "@vortex-api/vortex/2026-08";
+            import { createCheckoutSession, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await createCheckoutSession({
@@ -3327,7 +3327,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getCheckoutSession, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getCheckoutSession, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getCheckoutSession({
@@ -3405,7 +3405,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { ackCliListenDelivery, createVortex } from "@vortex-api/vortex/2026-08";
+            import { ackCliListenDelivery, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await ackCliListenDelivery({
@@ -3488,7 +3488,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { cliListenNext, createVortex } from "@vortex-api/vortex/2026-08";
+            import { cliListenNext, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await cliListenNext({
@@ -3568,7 +3568,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { registerCliListenEndpoint, createVortex } from "@vortex-api/vortex/2026-08";
+            import { registerCliListenEndpoint, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await registerCliListenEndpoint({
@@ -3635,7 +3635,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listCoupons, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listCoupons, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listCoupons({
@@ -3721,7 +3721,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { createCoupon, createVortex } from "@vortex-api/vortex/2026-08";
+            import { createCoupon, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await createCoupon({
@@ -3795,7 +3795,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getCoupon, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getCoupon, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getCoupon({
@@ -3883,7 +3883,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { createCreditNote, createVortex } from "@vortex-api/vortex/2026-08";
+            import { createCreditNote, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await createCreditNote({
@@ -3957,7 +3957,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getCreditNote, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getCreditNote, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getCreditNote({
@@ -4044,7 +4044,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { refundCreditNote, createVortex } from "@vortex-api/vortex/2026-08";
+            import { refundCreditNote, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await refundCreditNote({
@@ -4133,7 +4133,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listCustomers, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listCustomers, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listCustomers({
@@ -4214,7 +4214,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { createCustomer, createVortex } from "@vortex-api/vortex/2026-08";
+            import { createCustomer, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await createCustomer({
@@ -4298,7 +4298,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { ensureCustomer, createVortex } from "@vortex-api/vortex/2026-08";
+            import { ensureCustomer, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await ensureCustomer({
@@ -4387,7 +4387,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { upsertCustomer, createVortex } from "@vortex-api/vortex/2026-08";
+            import { upsertCustomer, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await upsertCustomer({
@@ -4469,7 +4469,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { checkCustomerAccess, createVortex } from "@vortex-api/vortex/2026-08";
+            import { checkCustomerAccess, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await checkCustomerAccess({
@@ -4543,7 +4543,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getCustomerBalance, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getCustomerBalance, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getCustomerBalance({
@@ -4639,7 +4639,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listCustomerBillingAccounts, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listCustomerBillingAccounts, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listCustomerBillingAccounts({
@@ -4728,7 +4728,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { createBillingAccount, createVortex } from "@vortex-api/vortex/2026-08";
+            import { createBillingAccount, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await createBillingAccount({
@@ -4803,7 +4803,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getCustomerEntitlements, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getCustomerEntitlements, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getCustomerEntitlements({
@@ -4877,7 +4877,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getCustomerState, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getCustomerState, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getCustomerState({
@@ -4998,7 +4998,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listDisputes, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listDisputes, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listDisputes({
@@ -5073,7 +5073,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getDispute, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getDispute, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getDispute({
@@ -5157,7 +5157,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { grantEntitlement, createVortex } from "@vortex-api/vortex/2026-08";
+            import { grantEntitlement, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await grantEntitlement({
@@ -5242,7 +5242,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { revokeEntitlement, createVortex } from "@vortex-api/vortex/2026-08";
+            import { revokeEntitlement, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await revokeEntitlement({
@@ -5309,7 +5309,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listWebhookEvents, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listWebhookEvents, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listWebhookEvents({
@@ -5403,7 +5403,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listInvoices, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listInvoices, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listInvoices({
@@ -5485,7 +5485,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { createInvoice, createVortex } from "@vortex-api/vortex/2026-08";
+            import { createInvoice, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await createInvoice({
@@ -5559,7 +5559,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getInvoice, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getInvoice, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getInvoice({
@@ -5646,7 +5646,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { collectInvoice, createVortex } from "@vortex-api/vortex/2026-08";
+            import { collectInvoice, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await collectInvoice({
@@ -5734,7 +5734,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { finalizeInvoice, createVortex } from "@vortex-api/vortex/2026-08";
+            import { finalizeInvoice, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await finalizeInvoice({
@@ -5823,7 +5823,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { markInvoiceUncollectible, createVortex } from "@vortex-api/vortex/2026-08";
+            import { markInvoiceUncollectible, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await markInvoiceUncollectible({
@@ -5919,7 +5919,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { finalizeInvoiceTax, createVortex } from "@vortex-api/vortex/2026-08";
+            import { finalizeInvoiceTax, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await finalizeInvoiceTax({
@@ -6008,7 +6008,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { voidInvoice, createVortex } from "@vortex-api/vortex/2026-08";
+            import { voidInvoice, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await voidInvoice({
@@ -6090,7 +6090,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listMerchantAccounts, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listMerchantAccounts, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listMerchantAccounts({
@@ -6177,7 +6177,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { createMerchantAccount, createVortex } from "@vortex-api/vortex/2026-08";
+            import { createMerchantAccount, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await createMerchantAccount({
@@ -6251,7 +6251,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getMerchantAccount, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getMerchantAccount, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getMerchantAccount({
@@ -6339,7 +6339,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { updateMerchantAccount, createVortex } from "@vortex-api/vortex/2026-08";
+            import { updateMerchantAccount, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await updateMerchantAccount({
@@ -6414,7 +6414,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getMerchantAccountCapabilities, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getMerchantAccountCapabilities, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getMerchantAccountCapabilities({
@@ -6501,7 +6501,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { createMerchantOnboardingLink, createVortex } from "@vortex-api/vortex/2026-08";
+            import { createMerchantOnboardingLink, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await createMerchantOnboardingLink({
@@ -6583,7 +6583,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getMerchantOnboarding, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getMerchantOnboarding, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getMerchantOnboarding({
@@ -6672,7 +6672,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { submitMerchantOnboarding, createVortex } from "@vortex-api/vortex/2026-08";
+            import { submitMerchantOnboarding, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await submitMerchantOnboarding({
@@ -6747,7 +6747,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getMerchantAccountPayoutProfile, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getMerchantAccountPayoutProfile, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getMerchantAccountPayoutProfile({
@@ -6834,7 +6834,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { promoteMerchantToLive, createVortex } from "@vortex-api/vortex/2026-08";
+            import { promoteMerchantToLive, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await promoteMerchantToLive({
@@ -6910,7 +6910,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getMerchantRatePlan, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getMerchantRatePlan, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getMerchantRatePlan({
@@ -6997,7 +6997,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { seedSandboxBook, createVortex } from "@vortex-api/vortex/2026-08";
+            import { seedSandboxBook, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await seedSandboxBook({
@@ -7072,7 +7072,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getMerchantAccountState, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getMerchantAccountState, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getMerchantAccountState({
@@ -7161,7 +7161,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listMerchantStatements, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listMerchantStatements, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listMerchantStatements({
@@ -7252,7 +7252,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { uploadMerchantStatement, createVortex } from "@vortex-api/vortex/2026-08";
+            import { uploadMerchantStatement, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await uploadMerchantStatement({
@@ -7327,7 +7327,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getMerchantAccountTaxProfile, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getMerchantAccountTaxProfile, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getMerchantAccountTaxProfile({
@@ -7422,7 +7422,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { upsertMerchantAccountTaxProfile, createVortex } from "@vortex-api/vortex/2026-08";
+            import { upsertMerchantAccountTaxProfile, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await upsertMerchantAccountTaxProfile({
@@ -7516,7 +7516,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listMeters, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listMeters, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listMeters({
@@ -7598,7 +7598,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { createMeter, createVortex } from "@vortex-api/vortex/2026-08";
+            import { createMeter, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await createMeter({
@@ -7686,7 +7686,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { archiveMeter, createVortex } from "@vortex-api/vortex/2026-08";
+            import { archiveMeter, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await archiveMeter({
@@ -7762,7 +7762,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getMeter, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getMeter, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getMeter({
@@ -7849,7 +7849,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { activateMeter, createVortex } from "@vortex-api/vortex/2026-08";
+            import { activateMeter, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await activateMeter({
@@ -7953,7 +7953,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listBillingOrderForms, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listBillingOrderForms, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listBillingOrderForms({
@@ -8026,7 +8026,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getBillingOrderForm, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getBillingOrderForm, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getBillingOrderForm({
@@ -8116,7 +8116,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { markBillingOrderFormSigned, createVortex } from "@vortex-api/vortex/2026-08";
+            import { markBillingOrderFormSigned, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await markBillingOrderFormSigned({
@@ -8206,7 +8206,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { registerBillingOrderFormSignatureRequest, createVortex } from "@vortex-api/vortex/2026-08";
+            import { registerBillingOrderFormSignatureRequest, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await registerBillingOrderFormSignatureRequest({
@@ -8294,7 +8294,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { voidBillingOrderForm, createVortex } from "@vortex-api/vortex/2026-08";
+            import { voidBillingOrderForm, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await voidBillingOrderForm({
@@ -8377,7 +8377,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { expireDueBillingOrderForms, createVortex } from "@vortex-api/vortex/2026-08";
+            import { expireDueBillingOrderForms, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await expireDueBillingOrderForms({
@@ -8480,7 +8480,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listBillingOrders, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listBillingOrders, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listBillingOrders({
@@ -8553,7 +8553,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getBillingOrder, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getBillingOrder, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getBillingOrder({
@@ -8640,7 +8640,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { updateBillingOrder, createVortex } from "@vortex-api/vortex/2026-08";
+            import { updateBillingOrder, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await updateBillingOrder({
@@ -8732,7 +8732,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { amendBillingOrder, createVortex } from "@vortex-api/vortex/2026-08";
+            import { amendBillingOrder, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await amendBillingOrder({
@@ -8821,7 +8821,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { executeBillingOrder, createVortex } from "@vortex-api/vortex/2026-08";
+            import { executeBillingOrder, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await executeBillingOrder({
@@ -8902,7 +8902,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { executeDueBillingOrders, createVortex } from "@vortex-api/vortex/2026-08";
+            import { executeDueBillingOrders, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await executeDueBillingOrders({
@@ -8970,7 +8970,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getOrgLegalEntity, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getOrgLegalEntity, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getOrgLegalEntity({
@@ -9082,7 +9082,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { putOrgLegalEntity, createVortex } from "@vortex-api/vortex/2026-08";
+            import { putOrgLegalEntity, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await putOrgLegalEntity({
@@ -9173,7 +9173,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { createPayable, createVortex } from "@vortex-api/vortex/2026-08";
+            import { createPayable, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await createPayable({
@@ -9249,7 +9249,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getPayable, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getPayable, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getPayable({
@@ -9366,7 +9366,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listPaymentIntents, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listPaymentIntents, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listPaymentIntents({
@@ -9446,7 +9446,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { createPaymentIntent, createVortex } from "@vortex-api/vortex/2026-08";
+            import { createPaymentIntent, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await createPaymentIntent({
@@ -9521,7 +9521,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getPaymentIntent, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getPaymentIntent, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getPaymentIntent({
@@ -9658,7 +9658,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listPaymentReceipts, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listPaymentReceipts, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listPaymentReceipts({
@@ -9810,7 +9810,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listPaymentRequests, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listPaymentRequests, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listPaymentRequests({
@@ -9892,7 +9892,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { createPaymentRequest, createVortex } from "@vortex-api/vortex/2026-08";
+            import { createPaymentRequest, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await createPaymentRequest({
@@ -9966,7 +9966,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getPaymentRequest, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getPaymentRequest, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getPaymentRequest({
@@ -10053,7 +10053,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { collectPaymentRequest, createVortex } from "@vortex-api/vortex/2026-08";
+            import { collectPaymentRequest, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await collectPaymentRequest({
@@ -10142,7 +10142,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { createPaymentRequestLink, createVortex } from "@vortex-api/vortex/2026-08";
+            import { createPaymentRequestLink, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await createPaymentRequestLink({
@@ -10251,7 +10251,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listPayouts, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listPayouts, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listPayouts({
@@ -10326,7 +10326,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getPayout, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getPayout, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getPayout({
@@ -10484,7 +10484,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getPortal, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getPortal, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getPortal({
@@ -10590,7 +10590,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { runPortalAction, createVortex } from "@vortex-api/vortex/2026-08";
+            import { runPortalAction, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await runPortalAction({
@@ -10677,7 +10677,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { createPrice, createVortex } from "@vortex-api/vortex/2026-08";
+            import { createPrice, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await createPrice({
@@ -10759,7 +10759,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { createProduct, createVortex } from "@vortex-api/vortex/2026-08";
+            import { createProduct, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await createProduct({
@@ -10833,7 +10833,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getBillingQuoteVersion, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getBillingQuoteVersion, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getBillingQuoteVersion({
@@ -10922,7 +10922,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { updateBillingQuoteVersion, createVortex } from "@vortex-api/vortex/2026-08";
+            import { updateBillingQuoteVersion, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await updateBillingQuoteVersion({
@@ -11010,7 +11010,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { approveBillingQuoteVersion, createVortex } from "@vortex-api/vortex/2026-08";
+            import { approveBillingQuoteVersion, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await approveBillingQuoteVersion({
@@ -11098,7 +11098,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { voidBillingQuoteVersion, createVortex } from "@vortex-api/vortex/2026-08";
+            import { voidBillingQuoteVersion, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await voidBillingQuoteVersion({
@@ -11202,7 +11202,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listBillingQuotes, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listBillingQuotes, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listBillingQuotes({
@@ -11292,7 +11292,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { createBillingQuote, createVortex } from "@vortex-api/vortex/2026-08";
+            import { createBillingQuote, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await createBillingQuote({
@@ -11366,7 +11366,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getBillingQuote, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getBillingQuote, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getBillingQuote({
@@ -11440,7 +11440,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listBillingQuoteVersions, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listBillingQuoteVersions, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listBillingQuoteVersions({
@@ -11530,7 +11530,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { createBillingQuoteVersion, createVortex } from "@vortex-api/vortex/2026-08";
+            import { createBillingQuoteVersion, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await createBillingQuoteVersion({
@@ -11614,7 +11614,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { createRefund, createVortex } from "@vortex-api/vortex/2026-08";
+            import { createRefund, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await createRefund({
@@ -11689,7 +11689,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getRefund, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getRefund, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getRefund({
@@ -11765,7 +11765,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getStorefrontCheckoutSession, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getStorefrontCheckoutSession, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getStorefrontCheckoutSession({
@@ -11834,7 +11834,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getStorefrontMerchantReadiness, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getStorefrontMerchantReadiness, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getStorefrontMerchantReadiness({
@@ -11922,7 +11922,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listStorefrontProducts, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listStorefrontProducts, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listStorefrontProducts({
@@ -12016,7 +12016,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listSubscriptions, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listSubscriptions, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listSubscriptions({
@@ -12099,7 +12099,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { createSubscription, createVortex } from "@vortex-api/vortex/2026-08";
+            import { createSubscription, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await createSubscription({
@@ -12188,7 +12188,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { cancelSubscription, createVortex } from "@vortex-api/vortex/2026-08";
+            import { cancelSubscription, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await cancelSubscription({
@@ -12277,7 +12277,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { pauseSubscription, createVortex } from "@vortex-api/vortex/2026-08";
+            import { pauseSubscription, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await pauseSubscription({
@@ -12366,7 +12366,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { resumeSubscription, createVortex } from "@vortex-api/vortex/2026-08";
+            import { resumeSubscription, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await resumeSubscription({
@@ -12462,7 +12462,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listTaxTransactions, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listTaxTransactions, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listTaxTransactions({
@@ -12553,7 +12553,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { quoteTaxTransaction, createVortex } from "@vortex-api/vortex/2026-08";
+            import { quoteTaxTransaction, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await quoteTaxTransaction({
@@ -12627,7 +12627,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getTaxTransaction, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getTaxTransaction, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getTaxTransaction({
@@ -12713,7 +12713,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { finalizeTaxTransaction, createVortex } from "@vortex-api/vortex/2026-08";
+            import { finalizeTaxTransaction, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await finalizeTaxTransaction({
@@ -12801,7 +12801,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { reverseTaxTransaction, createVortex } from "@vortex-api/vortex/2026-08";
+            import { reverseTaxTransaction, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await reverseTaxTransaction({
@@ -12904,7 +12904,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listUsageEvents, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listUsageEvents, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listUsageEvents({
@@ -12987,7 +12987,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { createUsageEvent, createVortex } from "@vortex-api/vortex/2026-08";
+            import { createUsageEvent, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await createUsageEvent({
@@ -13085,7 +13085,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listUsageThresholds, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listUsageThresholds, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listUsageThresholds({
@@ -13166,7 +13166,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { createUsageThreshold, createVortex } from "@vortex-api/vortex/2026-08";
+            import { createUsageThreshold, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await createUsageThreshold({
@@ -13247,7 +13247,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { archiveUsageThreshold, createVortex } from "@vortex-api/vortex/2026-08";
+            import { archiveUsageThreshold, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await archiveUsageThreshold({
@@ -13314,7 +13314,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listWebhookDeliveries, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listWebhookDeliveries, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listWebhookDeliveries({
@@ -13393,7 +13393,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { dispatchWebhookDeliveries, createVortex } from "@vortex-api/vortex/2026-08";
+            import { dispatchWebhookDeliveries, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await dispatchWebhookDeliveries({
@@ -13460,7 +13460,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listWebhookEndpoints, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listWebhookEndpoints, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listWebhookEndpoints({
@@ -13548,7 +13548,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { createWebhookEndpoint, createVortex } from "@vortex-api/vortex/2026-08";
+            import { createWebhookEndpoint, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await createWebhookEndpoint({
@@ -13605,7 +13605,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { createSignup, createVortex } from "@vortex-api/vortex/2026-08";
+            import { createSignup, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await createSignup({
@@ -13717,7 +13717,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getMeterAggregate, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getMeterAggregate, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getMeterAggregate({
@@ -13807,7 +13807,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { previewSubscriptionItemChange, createVortex } from "@vortex-api/vortex/2026-08";
+            import { previewSubscriptionItemChange, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await previewSubscriptionItemChange({
@@ -13900,7 +13900,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { changeSubscription, createVortex } from "@vortex-api/vortex/2026-08";
+            import { changeSubscription, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await changeSubscription({
@@ -13975,7 +13975,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listCustomerPaymentMethods, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listCustomerPaymentMethods, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listCustomerPaymentMethods({
@@ -14063,7 +14063,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { attachCustomerPaymentMethod, createVortex } from "@vortex-api/vortex/2026-08";
+            import { attachCustomerPaymentMethod, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await attachCustomerPaymentMethod({
@@ -14152,7 +14152,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { createCustomerPaymentMethodSetup, createVortex } from "@vortex-api/vortex/2026-08";
+            import { createCustomerPaymentMethodSetup, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await createCustomerPaymentMethodSetup({
@@ -14240,7 +14240,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { setCustomerDefaultPaymentMethod, createVortex } from "@vortex-api/vortex/2026-08";
+            import { setCustomerDefaultPaymentMethod, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await setCustomerDefaultPaymentMethod({
@@ -14335,7 +14335,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { archiveCustomerPaymentMethod, createVortex } from "@vortex-api/vortex/2026-08";
+            import { archiveCustomerPaymentMethod, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await archiveCustomerPaymentMethod({
@@ -14430,7 +14430,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { verifyCustomerPaymentMethodMicrodeposit, createVortex } from "@vortex-api/vortex/2026-08";
+            import { verifyCustomerPaymentMethodMicrodeposit, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await verifyCustomerPaymentMethodMicrodeposit({
@@ -14512,7 +14512,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getCustomerPaymentMethodMicrodepositStatus, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getCustomerPaymentMethodMicrodepositStatus, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getCustomerPaymentMethodMicrodepositStatus({
@@ -14586,7 +14586,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getCustomerPaymentState, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getCustomerPaymentState, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getCustomerPaymentState({
@@ -14689,7 +14689,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getMerchantAccountSettlements, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getMerchantAccountSettlements, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getMerchantAccountSettlements({
@@ -14785,7 +14785,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getMerchantAccountPayouts, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getMerchantAccountPayouts, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getMerchantAccountPayouts({
@@ -14852,7 +14852,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listWebhookEventTypes, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listWebhookEventTypes, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listWebhookEventTypes({
@@ -14937,7 +14937,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { deleteWebhookEndpoint, createVortex } from "@vortex-api/vortex/2026-08";
+            import { deleteWebhookEndpoint, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await deleteWebhookEndpoint({
@@ -15027,7 +15027,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { updateWebhookEndpoint, createVortex } from "@vortex-api/vortex/2026-08";
+            import { updateWebhookEndpoint, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await updateWebhookEndpoint({
@@ -15116,7 +15116,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { testWebhookEndpoint, createVortex } from "@vortex-api/vortex/2026-08";
+            import { testWebhookEndpoint, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await testWebhookEndpoint({
@@ -15204,7 +15204,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { rotateWebhookEndpointSecret, createVortex } from "@vortex-api/vortex/2026-08";
+            import { rotateWebhookEndpointSecret, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await rotateWebhookEndpointSecret({
@@ -15279,7 +15279,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getWebhookEvent, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getWebhookEvent, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getWebhookEvent({
@@ -15365,7 +15365,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { resendWebhookEvent, createVortex } from "@vortex-api/vortex/2026-08";
+            import { resendWebhookEvent, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await resendWebhookEvent({
@@ -15440,7 +15440,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getWebhookDelivery, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getWebhookDelivery, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getWebhookDelivery({
@@ -15528,7 +15528,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { replayWebhookDelivery, createVortex } from "@vortex-api/vortex/2026-08";
+            import { replayWebhookDelivery, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await replayWebhookDelivery({
@@ -15612,7 +15612,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { redriveWebhookDeliveries, createVortex } from "@vortex-api/vortex/2026-08";
+            import { redriveWebhookDeliveries, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await redriveWebhookDeliveries({
@@ -15702,7 +15702,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { applyCoupon, createVortex } from "@vortex-api/vortex/2026-08";
+            import { applyCoupon, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await applyCoupon({
@@ -15790,7 +15790,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { terminateCoupon, createVortex } from "@vortex-api/vortex/2026-08";
+            import { terminateCoupon, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await terminateCoupon({
@@ -15858,7 +15858,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listAppliedCoupons, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listAppliedCoupons, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listAppliedCoupons({
@@ -15931,7 +15931,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getAppliedCoupon, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getAppliedCoupon, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getAppliedCoupon({
@@ -16018,7 +16018,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { terminateAppliedCoupon, createVortex } from "@vortex-api/vortex/2026-08";
+            import { terminateAppliedCoupon, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await terminateAppliedCoupon({
@@ -16115,7 +16115,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { grantCustomerBalance, createVortex } from "@vortex-api/vortex/2026-08";
+            import { grantCustomerBalance, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await grantCustomerBalance({
@@ -16206,7 +16206,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { grantCustomerBalanceFromPayment, createVortex } from "@vortex-api/vortex/2026-08";
+            import { grantCustomerBalanceFromPayment, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await grantCustomerBalanceFromPayment({
@@ -16298,7 +16298,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { expireCustomerBalance, createVortex } from "@vortex-api/vortex/2026-08";
+            import { expireCustomerBalance, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await expireCustomerBalance({
@@ -16390,7 +16390,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { reverseCustomerBalance, createVortex } from "@vortex-api/vortex/2026-08";
+            import { reverseCustomerBalance, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await reverseCustomerBalance({
@@ -16474,7 +16474,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { previewInvoice, createVortex } from "@vortex-api/vortex/2026-08";
+            import { previewInvoice, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await previewInvoice({
@@ -16560,7 +16560,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { refreshInvoice, createVortex } from "@vortex-api/vortex/2026-08";
+            import { refreshInvoice, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await refreshInvoice({
@@ -16656,7 +16656,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { quoteInvoiceTax, createVortex } from "@vortex-api/vortex/2026-08";
+            import { quoteInvoiceTax, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await quoteInvoiceTax({
@@ -16731,7 +16731,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getInvoicePaymentLifecycle, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getInvoicePaymentLifecycle, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getInvoicePaymentLifecycle({
@@ -16805,7 +16805,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { listInvoiceReceipts, createVortex } from "@vortex-api/vortex/2026-08";
+            import { listInvoiceReceipts, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await listInvoiceReceipts({
@@ -16879,7 +16879,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getPaymentReceipt, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getPaymentReceipt, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getPaymentReceipt({
@@ -16953,7 +16953,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getCreditNoteRefundLineage, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getCreditNoteRefundLineage, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getCreditNoteRefundLineage({
@@ -17040,7 +17040,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { reconcileCreditNoteRefund, createVortex } from "@vortex-api/vortex/2026-08";
+            import { reconcileCreditNoteRefund, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await reconcileCreditNoteRefund({
@@ -17098,7 +17098,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { getHostedCollectionRetry, createVortex } from "@vortex-api/vortex/2026-08";
+            import { getHostedCollectionRetry, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await getHostedCollectionRetry({
@@ -17165,7 +17165,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { scheduleHostedCollectionRetry, createVortex } from "@vortex-api/vortex/2026-08";
+            import { scheduleHostedCollectionRetry, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await scheduleHostedCollectionRetry({
@@ -17235,7 +17235,7 @@ paths:
         - lang: TypeScript
           label: TypeScript
           source: |-
-            import { updateHostedPaymentMethod, createVortex } from "@vortex-api/vortex/2026-08";
+            import { updateHostedPaymentMethod, createVortex } from "@vortex-api/vortex/2026-09";
 
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await updateHostedPaymentMethod({

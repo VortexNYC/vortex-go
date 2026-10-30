@@ -439,9 +439,8 @@ paths:
             });
     post:
       description:
-        "Generated route-discovery operation. Promoted operations in this\
-        \ spec carry exact request and response schemas; use this route entry for\
-        \ auth, path, idempotency, and error semantics until the route is promoted."
+        Hosted customer-portal action door — auth is the portal link token
+        in the path. POST accepts CustomerPortalActionRequest and answers CustomerPortalActionResponse.
       operationId: post_customer_portal_prefix
       parameters:
         - description:
@@ -454,12 +453,23 @@ paths:
           schema:
             type: string
           style: simple
+      requestBody:
+        content:
+          application/json:
+            examples:
+              default:
+                value:
+                  action: set-default-payment-method
+                  paymentMethodId: pm_123
+            schema:
+              $ref: "#/components/schemas/CustomerPortalActionRequest"
+        required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiSuccess"
+                $ref: "#/components/schemas/CustomerPortalActionResponse"
           description: Success
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -489,6 +499,8 @@ paths:
             curl "https://api.vortex.nyc/customer-portal/" \
               -X POST \
               -H "Authorization: Bearer $VORTEX_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{"action":"set-default-payment-method","paymentMethodId":"pm_123"}'
         - lang: TypeScript
           label: TypeScript
           source: |-
@@ -497,6 +509,7 @@ paths:
             const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
             const { data } = await postCustomerPortalPrefix({
               client: vortex,
+              body: {"action":"set-default-payment-method","paymentMethodId":"pm_123"},
             });
     put:
       description:
@@ -22639,6 +22652,17 @@ components:
         - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_43"
         - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_44"
         - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_45"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_46"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_47"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_48"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_49"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_50"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_51"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_52"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_53"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_54"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_55"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_56"
     HostedPortalSubscriptionItem:
       additionalProperties: false
       properties:
@@ -22771,6 +22795,32 @@ components:
           type: string
       required:
         - invoice
+    CustomerPortalActionRequest:
+      discriminator:
+        propertyName: action
+      oneOf:
+        - $ref: "#/components/schemas/CustomerPortalActionRequest_oneOf"
+        - $ref: "#/components/schemas/CustomerPortalActionRequest_oneOf_1"
+        - $ref: "#/components/schemas/CustomerPortalActionRequest_oneOf_2"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_11"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_12"
+        - $ref: "#/components/schemas/CustomerPortalActionRequest_oneOf_3"
+        - $ref: "#/components/schemas/CustomerPortalActionRequest_oneOf_4"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_7"
+        - $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_8"
+    CustomerPortalActionResponse:
+      additionalProperties: false
+      example:
+        data:
+          view:
+            key: ""
+          message:
+            key: ""
+      properties:
+        data:
+          $ref: "#/components/schemas/CustomerPortalActionResponse_data"
+      required:
+        - data
     MerchantPortalActionResponse:
       additionalProperties: {}
       example:
@@ -25590,6 +25640,41 @@ components:
       properties:
         action:
           enum:
+            - create-quote
+          type: string
+        customerId:
+          minLength: 1
+          type: string
+        currency:
+          default: USD
+          minLength: 1
+          type: string
+        orderType:
+          default: one_off
+          enum:
+            - one_off
+            - subscription_creation
+            - subscription_amendment
+          type: string
+        lineItems:
+          items:
+            $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_25_lineItems_inner"
+          maxItems: 50
+          minItems: 1
+          type: array
+          default: null
+        attemptId:
+          maxLength: 80
+          minLength: 1
+          type: string
+      required:
+        - action
+        - customerId
+        - lineItems
+    MerchantPortalActionRequest_oneOf_27:
+      properties:
+        action:
+          enum:
             - create-payment-link
           type: string
         amount:
@@ -25616,7 +25701,7 @@ components:
       required:
         - action
         - amount
-    MerchantPortalActionRequest_oneOf_27:
+    MerchantPortalActionRequest_oneOf_28:
       properties:
         action:
           enum:
@@ -25628,7 +25713,7 @@ components:
       required:
         - action
         - customerId
-    MerchantPortalActionRequest_oneOf_28:
+    MerchantPortalActionRequest_oneOf_29:
       properties:
         action:
           enum:
@@ -25640,7 +25725,7 @@ components:
       required:
         - action
         - invoiceId
-    MerchantPortalActionRequest_oneOf_29:
+    MerchantPortalActionRequest_oneOf_30:
       properties:
         action:
           enum:
@@ -25652,7 +25737,7 @@ components:
       required:
         - action
         - payoutId
-    MerchantPortalActionRequest_oneOf_30:
+    MerchantPortalActionRequest_oneOf_31:
       properties:
         action:
           enum:
@@ -25664,7 +25749,7 @@ components:
       required:
         - action
         - orderId
-    MerchantPortalActionRequest_oneOf_31:
+    MerchantPortalActionRequest_oneOf_32:
       properties:
         action:
           enum:
@@ -25676,7 +25761,200 @@ components:
       required:
         - action
         - orderFormId
-    MerchantPortalActionRequest_oneOf_32:
+    MerchantPortalActionRequest_oneOf_33:
+      properties:
+        action:
+          enum:
+            - approve-quote-version
+          type: string
+        quoteVersionId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - quoteVersionId
+    MerchantPortalActionRequest_oneOf_34_lineItems_inner:
+      properties:
+        priceId:
+          minLength: 1
+          type: string
+        description:
+          maxLength: 200
+          minLength: 1
+          type: string
+        unitAmount:
+          minimum: 1
+          type: integer
+        quantity:
+          minimum: 1
+          type: number
+      required:
+        - description
+        - unitAmount
+    MerchantPortalActionRequest_oneOf_34:
+      properties:
+        action:
+          enum:
+            - update-quote-version
+          type: string
+        quoteVersionId:
+          minLength: 1
+          type: string
+        currency:
+          minLength: 1
+          type: string
+        terms:
+          maxLength: 5000
+          type: string
+        lineItems:
+          items:
+            $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_34_lineItems_inner"
+          maxItems: 50
+          minItems: 1
+          type: array
+          default: null
+      required:
+        - action
+        - lineItems
+        - quoteVersionId
+    MerchantPortalActionRequest_oneOf_35:
+      properties:
+        action:
+          enum:
+            - void-quote-version
+          type: string
+        quoteVersionId:
+          minLength: 1
+          type: string
+        reason:
+          default: manual
+          enum:
+            - manual
+            - superseded
+          type: string
+      required:
+        - action
+        - quoteVersionId
+    MerchantPortalActionRequest_oneOf_36:
+      properties:
+        action:
+          enum:
+            - create-quote-version
+          type: string
+        quoteId:
+          minLength: 1
+          type: string
+        currency:
+          minLength: 1
+          type: string
+        terms:
+          maxLength: 5000
+          type: string
+        lineItems:
+          items:
+            $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_25_lineItems_inner"
+          maxItems: 50
+          minItems: 1
+          type: array
+          default: null
+      required:
+        - action
+        - lineItems
+        - quoteId
+    MerchantPortalActionRequest_oneOf_37:
+      properties:
+        action:
+          enum:
+            - renew-quote-version
+          type: string
+        quoteVersionId:
+          minLength: 1
+          type: string
+        currency:
+          minLength: 1
+          type: string
+        terms:
+          maxLength: 5000
+          type: string
+        lineItems:
+          items:
+            $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_25_lineItems_inner"
+          maxItems: 50
+          minItems: 1
+          type: array
+          default: null
+      required:
+        - action
+        - quoteVersionId
+    MerchantPortalActionRequest_oneOf_38:
+      properties:
+        action:
+          enum:
+            - preview-quote-version
+          type: string
+        quoteVersionId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - quoteVersionId
+    MerchantPortalActionRequest_oneOf_39:
+      properties:
+        action:
+          enum:
+            - download-quote-version-pdf
+          type: string
+        quoteVersionId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - quoteVersionId
+    MerchantPortalActionRequest_oneOf_40:
+      properties:
+        action:
+          enum:
+            - void-order-form
+          type: string
+        orderFormId:
+          minLength: 1
+          type: string
+        reason:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - orderFormId
+    MerchantPortalActionRequest_oneOf_41:
+      properties:
+        action:
+          enum:
+            - mint-order-form-link
+          type: string
+        orderFormId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - orderFormId
+    MerchantPortalActionRequest_oneOf_42:
+      properties:
+        action:
+          enum:
+            - execute-order
+          type: string
+        orderId:
+          minLength: 1
+          type: string
+        attemptId:
+          maxLength: 80
+          minLength: 1
+          pattern: "^[A-Za-z0-9_-]+$"
+          type: string
+      required:
+        - action
+        - orderId
+    MerchantPortalActionRequest_oneOf_43:
       properties:
         action:
           enum:
@@ -25688,7 +25966,7 @@ components:
       required:
         - action
         - quoteId
-    MerchantPortalActionRequest_oneOf_33:
+    MerchantPortalActionRequest_oneOf_44:
       properties:
         action:
           enum:
@@ -25715,7 +25993,7 @@ components:
         - action
         - destinationUrl
         - subscribedEventTypes
-    MerchantPortalActionRequest_oneOf_34:
+    MerchantPortalActionRequest_oneOf_45:
       properties:
         action:
           enum:
@@ -25727,7 +26005,7 @@ components:
       required:
         - action
         - endpointId
-    MerchantPortalActionRequest_oneOf_35:
+    MerchantPortalActionRequest_oneOf_46:
       properties:
         action:
           enum:
@@ -25745,7 +26023,7 @@ components:
       required:
         - action
         - endpointId
-    MerchantPortalActionRequest_oneOf_36:
+    MerchantPortalActionRequest_oneOf_47:
       properties:
         action:
           enum:
@@ -25757,7 +26035,7 @@ components:
       required:
         - action
         - deliveryId
-    MerchantPortalActionRequest_oneOf_37:
+    MerchantPortalActionRequest_oneOf_48:
       properties:
         action:
           enum:
@@ -25769,7 +26047,7 @@ components:
       required:
         - action
         - endpointId
-    MerchantPortalActionRequest_oneOf_38_price:
+    MerchantPortalActionRequest_oneOf_49_price:
       description:
         "Optional first price, created in the same transaction — billingInterval\
         \ present means fixed_recurring, absent means fixed_one_time."
@@ -25793,7 +26071,7 @@ components:
           type: string
       required:
         - unitAmount
-    MerchantPortalActionRequest_oneOf_38:
+    MerchantPortalActionRequest_oneOf_49:
       properties:
         action:
           enum:
@@ -25806,7 +26084,7 @@ components:
           minLength: 1
           type: string
         price:
-          $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_38_price"
+          $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_49_price"
         attemptId:
           maxLength: 80
           minLength: 1
@@ -25814,7 +26092,7 @@ components:
       required:
         - action
         - name
-    MerchantPortalActionRequest_oneOf_39:
+    MerchantPortalActionRequest_oneOf_50:
       properties:
         action:
           enum:
@@ -25826,7 +26104,7 @@ components:
       required:
         - action
         - productId
-    MerchantPortalActionRequest_oneOf_40:
+    MerchantPortalActionRequest_oneOf_51:
       properties:
         action:
           enum:
@@ -25838,7 +26116,7 @@ components:
       required:
         - action
         - productId
-    MerchantPortalActionRequest_oneOf_41:
+    MerchantPortalActionRequest_oneOf_52:
       properties:
         action:
           enum:
@@ -25887,7 +26165,7 @@ components:
         - code
         - discountType
         - name
-    MerchantPortalActionRequest_oneOf_42_lines_inner:
+    MerchantPortalActionRequest_oneOf_53_lines_inner:
       properties:
         description:
           maxLength: 200
@@ -25903,7 +26181,7 @@ components:
       required:
         - amount
         - description
-    MerchantPortalActionRequest_oneOf_42:
+    MerchantPortalActionRequest_oneOf_53:
       properties:
         action:
           enum:
@@ -25923,7 +26201,7 @@ components:
           type: string
         lines:
           items:
-            $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_42_lines_inner"
+            $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_53_lines_inner"
           maxItems: 50
           minItems: 1
           type: array
@@ -25941,7 +26219,7 @@ components:
         - invoiceId
         - lines
         - reason
-    MerchantPortalActionRequest_oneOf_43:
+    MerchantPortalActionRequest_oneOf_54:
       properties:
         action:
           enum:
@@ -25953,7 +26231,7 @@ components:
       required:
         - action
         - taxTransactionId
-    MerchantPortalActionRequest_oneOf_44:
+    MerchantPortalActionRequest_oneOf_55:
       properties:
         action:
           enum:
@@ -25965,7 +26243,7 @@ components:
       required:
         - action
         - taxTransactionId
-    MerchantPortalActionRequest_oneOf_45_registrations_inner:
+    MerchantPortalActionRequest_oneOf_56_registrations_inner:
       properties:
         country:
           minLength: 1
@@ -25975,7 +26253,7 @@ components:
           type: string
       required:
         - country
-    MerchantPortalActionRequest_oneOf_45:
+    MerchantPortalActionRequest_oneOf_56:
       properties:
         action:
           enum:
@@ -25988,7 +26266,7 @@ components:
           $ref: "#/components/schemas/CreatePayableRequest_customerTaxAddress"
         registrations:
           items:
-            $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_45_registrations_inner"
+            $ref: "#/components/schemas/MerchantPortalActionRequest_oneOf_56_registrations_inner"
           minItems: 1
           type: array
           default: null
@@ -25996,6 +26274,125 @@ components:
         - action
         - originAddress
         - registrations
+    CustomerPortalActionRequest_oneOf:
+      example:
+        action: cancel-subscription
+        subscriptionId: subscriptionId
+      properties:
+        action:
+          enum:
+            - cancel-subscription
+          type: string
+        subscriptionId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - subscriptionId
+    CustomerPortalActionRequest_oneOf_1:
+      properties:
+        action:
+          enum:
+            - begin-add-payment-method
+          type: string
+        replacePaymentMethodId:
+          minLength: 1
+          type: string
+      required:
+        - action
+    CustomerPortalActionRequest_oneOf_2:
+      properties:
+        action:
+          enum:
+            - confirm-add-payment-method
+          type: string
+        paymentMethodId:
+          minLength: 1
+          type: string
+        paymentMethodSetupSessionId:
+          minLength: 1
+          type: string
+        replacePaymentMethodId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - paymentMethodId
+        - paymentMethodSetupSessionId
+    CustomerPortalActionRequest_oneOf_3:
+      properties:
+        action:
+          enum:
+            - set-default-payment-method
+          type: string
+        paymentMethodId:
+          minLength: 1
+          type: string
+      required:
+        - action
+        - paymentMethodId
+    CustomerPortalActionRequest_oneOf_4_items_inner:
+      properties:
+        priceId:
+          minLength: 1
+          type: string
+        quantity:
+          minimum: 1
+          type: integer
+      required:
+        - priceId
+        - quantity
+    CustomerPortalActionRequest_oneOf_4:
+      properties:
+        action:
+          enum:
+            - update-subscription-items
+          type: string
+        subscriptionId:
+          minLength: 1
+          type: string
+        items:
+          items:
+            $ref: "#/components/schemas/CustomerPortalActionRequest_oneOf_4_items_inner"
+          type: array
+          default: null
+      required:
+        - action
+        - items
+        - subscriptionId
+    CustomerPortalActionResponse_data_oneOf:
+      example:
+        view:
+          key: ""
+        message:
+          key: ""
+      properties:
+        view:
+          additionalProperties: true
+          type: object
+        message:
+          additionalProperties: true
+          type: object
+      required:
+        - view
+    CustomerPortalActionResponse_data_oneOf_1:
+      properties:
+        collectionRetryUrl:
+          format: uri
+          type: string
+      required:
+        - collectionRetryUrl
+    CustomerPortalActionResponse_data_oneOf_2:
+      properties:
+        paymentMethodSetupSessionId:
+          type: string
+      required:
+        - paymentMethodSetupSessionId
+    CustomerPortalActionResponse_data:
+      oneOf:
+        - $ref: "#/components/schemas/CustomerPortalActionResponse_data_oneOf"
+        - $ref: "#/components/schemas/CustomerPortalActionResponse_data_oneOf_1"
+        - $ref: "#/components/schemas/CustomerPortalActionResponse_data_oneOf_2"
     MerchantPortalActionResponse_data_oneOf:
       example:
         hostedInvoiceUrl: https://openapi-generator.tech
@@ -26042,11 +26439,11 @@ components:
         - payMeUrl
     MerchantPortalActionResponse_data_oneOf_6:
       properties:
-        collectionRetryUrl:
+        hostedOrderFormUrl:
           format: uri
           type: string
       required:
-        - collectionRetryUrl
+        - hostedOrderFormUrl
     MerchantPortalActionResponse_data_oneOf_7:
       properties:
         payment:
@@ -26218,6 +26615,7 @@ components:
         - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_3"
         - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_4"
         - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_5"
+        - $ref: "#/components/schemas/CustomerPortalActionResponse_data_oneOf_1"
         - $ref: "#/components/schemas/MerchantPortalActionResponse_data_oneOf_6"
         - $ref: "#/components/schemas/MerchantPortalSubscriptionActionResult"
         - $ref: "#/components/schemas/MerchantPortalInvoiceActionResult"

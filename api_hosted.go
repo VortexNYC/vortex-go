@@ -5685,16 +5685,22 @@ type HostedAPIPostCustomerPortalPrefixRequest struct {
 	ctx context.Context
 	ApiService *HostedAPIService
 	tail string
+	customerPortalActionRequest *CustomerPortalActionRequest
 }
 
-func (r HostedAPIPostCustomerPortalPrefixRequest) Execute() (map[string]interface{}, *http.Response, error) {
+func (r HostedAPIPostCustomerPortalPrefixRequest) CustomerPortalActionRequest(customerPortalActionRequest CustomerPortalActionRequest) HostedAPIPostCustomerPortalPrefixRequest {
+	r.customerPortalActionRequest = &customerPortalActionRequest
+	return r
+}
+
+func (r HostedAPIPostCustomerPortalPrefixRequest) Execute() (*CustomerPortalActionResponse, *http.Response, error) {
 	return r.ApiService.PostCustomerPortalPrefixExecute(r)
 }
 
 /*
 PostCustomerPortalPrefix POST /customer-portal/_*
 
-Generated route-discovery operation. Promoted operations in this spec carry exact request and response schemas; use this route entry for auth, path, idempotency, and error semantics until the route is promoted.
+Hosted customer-portal action door — auth is the portal link token in the path. POST accepts CustomerPortalActionRequest and answers CustomerPortalActionResponse.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param tail Remainder of the prefix-routed path. See route docs/contract for exact sub-operation.
@@ -5709,13 +5715,13 @@ func (a *HostedAPIService) PostCustomerPortalPrefix(ctx context.Context, tail st
 }
 
 // Execute executes the request
-//  @return map[string]interface{}
-func (a *HostedAPIService) PostCustomerPortalPrefixExecute(r HostedAPIPostCustomerPortalPrefixRequest) (map[string]interface{}, *http.Response, error) {
+//  @return CustomerPortalActionResponse
+func (a *HostedAPIService) PostCustomerPortalPrefixExecute(r HostedAPIPostCustomerPortalPrefixRequest) (*CustomerPortalActionResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  map[string]interface{}
+		localVarReturnValue  *CustomerPortalActionResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HostedAPIService.PostCustomerPortalPrefix")
@@ -5729,9 +5735,12 @@ func (a *HostedAPIService) PostCustomerPortalPrefixExecute(r HostedAPIPostCustom
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.customerPortalActionRequest == nil {
+		return localVarReturnValue, nil, reportError("customerPortalActionRequest is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -5747,6 +5756,8 @@ func (a *HostedAPIService) PostCustomerPortalPrefixExecute(r HostedAPIPostCustom
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.customerPortalActionRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

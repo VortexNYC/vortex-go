@@ -22,9 +22,7 @@ var _ MappedNullable = &MerchantPortalActionRequestOneOf45{}
 // MerchantPortalActionRequestOneOf45 struct for MerchantPortalActionRequestOneOf45
 type MerchantPortalActionRequestOneOf45 struct {
 	Action string `json:"action"`
-	DisplayName *string `json:"displayName,omitempty"`
-	OriginAddress CreatePayableRequestCustomerTaxAddress `json:"originAddress"`
-	Registrations []MerchantPortalActionRequestOneOf45RegistrationsInner `json:"registrations"`
+	EndpointId string `json:"endpointId"`
 }
 
 type _MerchantPortalActionRequestOneOf45 MerchantPortalActionRequestOneOf45
@@ -33,11 +31,10 @@ type _MerchantPortalActionRequestOneOf45 MerchantPortalActionRequestOneOf45
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionRequestOneOf45(action string, originAddress CreatePayableRequestCustomerTaxAddress, registrations []MerchantPortalActionRequestOneOf45RegistrationsInner) *MerchantPortalActionRequestOneOf45 {
+func NewMerchantPortalActionRequestOneOf45(action string, endpointId string) *MerchantPortalActionRequestOneOf45 {
 	this := MerchantPortalActionRequestOneOf45{}
 	this.Action = action
-	this.OriginAddress = originAddress
-	this.Registrations = registrations
+	this.EndpointId = endpointId
 	return &this
 }
 
@@ -73,84 +70,28 @@ func (o *MerchantPortalActionRequestOneOf45) SetAction(v string) {
 	o.Action = v
 }
 
-// GetDisplayName returns the DisplayName field value if set, zero value otherwise.
-func (o *MerchantPortalActionRequestOneOf45) GetDisplayName() string {
-	if o == nil || IsNil(o.DisplayName) {
+// GetEndpointId returns the EndpointId field value
+func (o *MerchantPortalActionRequestOneOf45) GetEndpointId() string {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.DisplayName
+
+	return o.EndpointId
 }
 
-// GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
+// GetEndpointIdOk returns a tuple with the EndpointId field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf45) GetDisplayNameOk() (*string, bool) {
-	if o == nil || IsNil(o.DisplayName) {
-		return nil, false
-	}
-	return o.DisplayName, true
-}
-
-// HasDisplayName returns a boolean if a field has been set.
-func (o *MerchantPortalActionRequestOneOf45) HasDisplayName() bool {
-	if o != nil && !IsNil(o.DisplayName) {
-		return true
-	}
-
-	return false
-}
-
-// SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
-func (o *MerchantPortalActionRequestOneOf45) SetDisplayName(v string) {
-	o.DisplayName = &v
-}
-
-// GetOriginAddress returns the OriginAddress field value
-func (o *MerchantPortalActionRequestOneOf45) GetOriginAddress() CreatePayableRequestCustomerTaxAddress {
-	if o == nil {
-		var ret CreatePayableRequestCustomerTaxAddress
-		return ret
-	}
-
-	return o.OriginAddress
-}
-
-// GetOriginAddressOk returns a tuple with the OriginAddress field value
-// and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf45) GetOriginAddressOk() (*CreatePayableRequestCustomerTaxAddress, bool) {
+func (o *MerchantPortalActionRequestOneOf45) GetEndpointIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.OriginAddress, true
+	return &o.EndpointId, true
 }
 
-// SetOriginAddress sets field value
-func (o *MerchantPortalActionRequestOneOf45) SetOriginAddress(v CreatePayableRequestCustomerTaxAddress) {
-	o.OriginAddress = v
-}
-
-// GetRegistrations returns the Registrations field value
-func (o *MerchantPortalActionRequestOneOf45) GetRegistrations() []MerchantPortalActionRequestOneOf45RegistrationsInner {
-	if o == nil {
-		var ret []MerchantPortalActionRequestOneOf45RegistrationsInner
-		return ret
-	}
-
-	return o.Registrations
-}
-
-// GetRegistrationsOk returns a tuple with the Registrations field value
-// and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf45) GetRegistrationsOk() ([]MerchantPortalActionRequestOneOf45RegistrationsInner, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Registrations, true
-}
-
-// SetRegistrations sets field value
-func (o *MerchantPortalActionRequestOneOf45) SetRegistrations(v []MerchantPortalActionRequestOneOf45RegistrationsInner) {
-	o.Registrations = v
+// SetEndpointId sets field value
+func (o *MerchantPortalActionRequestOneOf45) SetEndpointId(v string) {
+	o.EndpointId = v
 }
 
 func (o MerchantPortalActionRequestOneOf45) MarshalJSON() ([]byte, error) {
@@ -164,11 +105,7 @@ func (o MerchantPortalActionRequestOneOf45) MarshalJSON() ([]byte, error) {
 func (o MerchantPortalActionRequestOneOf45) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["action"] = o.Action
-	if !IsNil(o.DisplayName) {
-		toSerialize["displayName"] = o.DisplayName
-	}
-	toSerialize["originAddress"] = o.OriginAddress
-	toSerialize["registrations"] = o.Registrations
+	toSerialize["endpointId"] = o.EndpointId
 	return toSerialize, nil
 }
 
@@ -178,8 +115,7 @@ func (o *MerchantPortalActionRequestOneOf45) UnmarshalJSON(data []byte) (err err
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"action",
-		"originAddress",
-		"registrations",
+		"endpointId",
 	}
 
 	allProperties := make(map[string]interface{})

@@ -22,9 +22,8 @@ var _ MappedNullable = &MerchantPortalActionRequestOneOf35{}
 // MerchantPortalActionRequestOneOf35 struct for MerchantPortalActionRequestOneOf35
 type MerchantPortalActionRequestOneOf35 struct {
 	Action string `json:"action"`
-	EndpointId string `json:"endpointId"`
-	// Optional — defaults to the endpoint's first concrete subscription, else payment.created.
-	EventType *string `json:"eventType,omitempty"`
+	QuoteVersionId string `json:"quoteVersionId"`
+	Reason *string `json:"reason,omitempty"`
 }
 
 type _MerchantPortalActionRequestOneOf35 MerchantPortalActionRequestOneOf35
@@ -33,10 +32,12 @@ type _MerchantPortalActionRequestOneOf35 MerchantPortalActionRequestOneOf35
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionRequestOneOf35(action string, endpointId string) *MerchantPortalActionRequestOneOf35 {
+func NewMerchantPortalActionRequestOneOf35(action string, quoteVersionId string) *MerchantPortalActionRequestOneOf35 {
 	this := MerchantPortalActionRequestOneOf35{}
 	this.Action = action
-	this.EndpointId = endpointId
+	this.QuoteVersionId = quoteVersionId
+	var reason string = "manual"
+	this.Reason = &reason
 	return &this
 }
 
@@ -45,6 +46,8 @@ func NewMerchantPortalActionRequestOneOf35(action string, endpointId string) *Me
 // but it doesn't guarantee that properties required by API are set
 func NewMerchantPortalActionRequestOneOf35WithDefaults() *MerchantPortalActionRequestOneOf35 {
 	this := MerchantPortalActionRequestOneOf35{}
+	var reason string = "manual"
+	this.Reason = &reason
 	return &this
 }
 
@@ -72,60 +75,60 @@ func (o *MerchantPortalActionRequestOneOf35) SetAction(v string) {
 	o.Action = v
 }
 
-// GetEndpointId returns the EndpointId field value
-func (o *MerchantPortalActionRequestOneOf35) GetEndpointId() string {
+// GetQuoteVersionId returns the QuoteVersionId field value
+func (o *MerchantPortalActionRequestOneOf35) GetQuoteVersionId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.EndpointId
+	return o.QuoteVersionId
 }
 
-// GetEndpointIdOk returns a tuple with the EndpointId field value
+// GetQuoteVersionIdOk returns a tuple with the QuoteVersionId field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf35) GetEndpointIdOk() (*string, bool) {
+func (o *MerchantPortalActionRequestOneOf35) GetQuoteVersionIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.EndpointId, true
+	return &o.QuoteVersionId, true
 }
 
-// SetEndpointId sets field value
-func (o *MerchantPortalActionRequestOneOf35) SetEndpointId(v string) {
-	o.EndpointId = v
+// SetQuoteVersionId sets field value
+func (o *MerchantPortalActionRequestOneOf35) SetQuoteVersionId(v string) {
+	o.QuoteVersionId = v
 }
 
-// GetEventType returns the EventType field value if set, zero value otherwise.
-func (o *MerchantPortalActionRequestOneOf35) GetEventType() string {
-	if o == nil || IsNil(o.EventType) {
+// GetReason returns the Reason field value if set, zero value otherwise.
+func (o *MerchantPortalActionRequestOneOf35) GetReason() string {
+	if o == nil || IsNil(o.Reason) {
 		var ret string
 		return ret
 	}
-	return *o.EventType
+	return *o.Reason
 }
 
-// GetEventTypeOk returns a tuple with the EventType field value if set, nil otherwise
+// GetReasonOk returns a tuple with the Reason field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf35) GetEventTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.EventType) {
+func (o *MerchantPortalActionRequestOneOf35) GetReasonOk() (*string, bool) {
+	if o == nil || IsNil(o.Reason) {
 		return nil, false
 	}
-	return o.EventType, true
+	return o.Reason, true
 }
 
-// HasEventType returns a boolean if a field has been set.
-func (o *MerchantPortalActionRequestOneOf35) HasEventType() bool {
-	if o != nil && !IsNil(o.EventType) {
+// HasReason returns a boolean if a field has been set.
+func (o *MerchantPortalActionRequestOneOf35) HasReason() bool {
+	if o != nil && !IsNil(o.Reason) {
 		return true
 	}
 
 	return false
 }
 
-// SetEventType gets a reference to the given string and assigns it to the EventType field.
-func (o *MerchantPortalActionRequestOneOf35) SetEventType(v string) {
-	o.EventType = &v
+// SetReason gets a reference to the given string and assigns it to the Reason field.
+func (o *MerchantPortalActionRequestOneOf35) SetReason(v string) {
+	o.Reason = &v
 }
 
 func (o MerchantPortalActionRequestOneOf35) MarshalJSON() ([]byte, error) {
@@ -139,9 +142,9 @@ func (o MerchantPortalActionRequestOneOf35) MarshalJSON() ([]byte, error) {
 func (o MerchantPortalActionRequestOneOf35) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["action"] = o.Action
-	toSerialize["endpointId"] = o.EndpointId
-	if !IsNil(o.EventType) {
-		toSerialize["eventType"] = o.EventType
+	toSerialize["quoteVersionId"] = o.QuoteVersionId
+	if !IsNil(o.Reason) {
+		toSerialize["reason"] = o.Reason
 	}
 	return toSerialize, nil
 }
@@ -152,7 +155,7 @@ func (o *MerchantPortalActionRequestOneOf35) UnmarshalJSON(data []byte) (err err
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"action",
-		"endpointId",
+		"quoteVersionId",
 	}
 
 	allProperties := make(map[string]interface{})

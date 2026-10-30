@@ -18,6 +18,7 @@ import (
 
 // MerchantPortalActionResponseData - struct for MerchantPortalActionResponseData
 type MerchantPortalActionResponseData struct {
+	CustomerPortalActionResponseDataOneOf1 *CustomerPortalActionResponseDataOneOf1
 	MerchantPortalActionResponseDataOneOf *MerchantPortalActionResponseDataOneOf
 	MerchantPortalActionResponseDataOneOf1 *MerchantPortalActionResponseDataOneOf1
 	MerchantPortalActionResponseDataOneOf10 *MerchantPortalActionResponseDataOneOf10
@@ -45,6 +46,13 @@ type MerchantPortalActionResponseData struct {
 	MerchantPortalCollectionRetryResult *MerchantPortalCollectionRetryResult
 	MerchantPortalInvoiceActionResult *MerchantPortalInvoiceActionResult
 	MerchantPortalSubscriptionActionResult *MerchantPortalSubscriptionActionResult
+}
+
+// CustomerPortalActionResponseDataOneOf1AsMerchantPortalActionResponseData is a convenience function that returns CustomerPortalActionResponseDataOneOf1 wrapped in MerchantPortalActionResponseData
+func CustomerPortalActionResponseDataOneOf1AsMerchantPortalActionResponseData(v *CustomerPortalActionResponseDataOneOf1) MerchantPortalActionResponseData {
+	return MerchantPortalActionResponseData{
+		CustomerPortalActionResponseDataOneOf1: v,
+	}
 }
 
 // MerchantPortalActionResponseDataOneOfAsMerchantPortalActionResponseData is a convenience function that returns MerchantPortalActionResponseDataOneOf wrapped in MerchantPortalActionResponseData
@@ -241,6 +249,23 @@ func MerchantPortalSubscriptionActionResultAsMerchantPortalActionResponseData(v 
 func (dst *MerchantPortalActionResponseData) UnmarshalJSON(data []byte) error {
 	var err error
 	match := 0
+	// try to unmarshal data into CustomerPortalActionResponseDataOneOf1
+	err = newStrictDecoder(data).Decode(&dst.CustomerPortalActionResponseDataOneOf1)
+	if err == nil {
+		jsonCustomerPortalActionResponseDataOneOf1, _ := json.Marshal(dst.CustomerPortalActionResponseDataOneOf1)
+		if string(jsonCustomerPortalActionResponseDataOneOf1) == "{}" { // empty struct
+			dst.CustomerPortalActionResponseDataOneOf1 = nil
+		} else {
+			if err = validator.Validate(dst.CustomerPortalActionResponseDataOneOf1); err != nil {
+				dst.CustomerPortalActionResponseDataOneOf1 = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.CustomerPortalActionResponseDataOneOf1 = nil
+	}
+
 	// try to unmarshal data into MerchantPortalActionResponseDataOneOf
 	err = newStrictDecoder(data).Decode(&dst.MerchantPortalActionResponseDataOneOf)
 	if err == nil {
@@ -702,6 +727,7 @@ func (dst *MerchantPortalActionResponseData) UnmarshalJSON(data []byte) error {
 
 	if match > 1 { // more than 1 match
 		// reset to nil
+		dst.CustomerPortalActionResponseDataOneOf1 = nil
 		dst.MerchantPortalActionResponseDataOneOf = nil
 		dst.MerchantPortalActionResponseDataOneOf1 = nil
 		dst.MerchantPortalActionResponseDataOneOf10 = nil
@@ -740,6 +766,10 @@ func (dst *MerchantPortalActionResponseData) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src MerchantPortalActionResponseData) MarshalJSON() ([]byte, error) {
+	if src.CustomerPortalActionResponseDataOneOf1 != nil {
+		return json.Marshal(&src.CustomerPortalActionResponseDataOneOf1)
+	}
+
 	if src.MerchantPortalActionResponseDataOneOf != nil {
 		return json.Marshal(&src.MerchantPortalActionResponseDataOneOf)
 	}
@@ -856,6 +886,10 @@ func (obj *MerchantPortalActionResponseData) GetActualInstance() (interface{}) {
 	if obj == nil {
 		return nil
 	}
+	if obj.CustomerPortalActionResponseDataOneOf1 != nil {
+		return obj.CustomerPortalActionResponseDataOneOf1
+	}
+
 	if obj.MerchantPortalActionResponseDataOneOf != nil {
 		return obj.MerchantPortalActionResponseDataOneOf
 	}
@@ -970,6 +1004,10 @@ func (obj *MerchantPortalActionResponseData) GetActualInstance() (interface{}) {
 
 // Get the actual instance value
 func (obj MerchantPortalActionResponseData) GetActualInstanceValue() (interface{}) {
+	if obj.CustomerPortalActionResponseDataOneOf1 != nil {
+		return *obj.CustomerPortalActionResponseDataOneOf1
+	}
+
 	if obj.MerchantPortalActionResponseDataOneOf != nil {
 		return *obj.MerchantPortalActionResponseDataOneOf
 	}

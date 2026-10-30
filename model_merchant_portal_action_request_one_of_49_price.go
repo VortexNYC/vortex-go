@@ -16,43 +16,43 @@ import (
 	"fmt"
 )
 
-// checks if the MerchantPortalActionRequestOneOf38Price type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &MerchantPortalActionRequestOneOf38Price{}
+// checks if the MerchantPortalActionRequestOneOf49Price type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MerchantPortalActionRequestOneOf49Price{}
 
-// MerchantPortalActionRequestOneOf38Price Optional first price, created in the same transaction — billingInterval present means fixed_recurring, absent means fixed_one_time.
-type MerchantPortalActionRequestOneOf38Price struct {
+// MerchantPortalActionRequestOneOf49Price Optional first price, created in the same transaction — billingInterval present means fixed_recurring, absent means fixed_one_time.
+type MerchantPortalActionRequestOneOf49Price struct {
 	Name *string `json:"name,omitempty"`
 	UnitAmount int32 `json:"unitAmount"`
 	Currency *string `json:"currency,omitempty"`
 	BillingInterval *string `json:"billingInterval,omitempty"`
 }
 
-type _MerchantPortalActionRequestOneOf38Price MerchantPortalActionRequestOneOf38Price
+type _MerchantPortalActionRequestOneOf49Price MerchantPortalActionRequestOneOf49Price
 
-// NewMerchantPortalActionRequestOneOf38Price instantiates a new MerchantPortalActionRequestOneOf38Price object
+// NewMerchantPortalActionRequestOneOf49Price instantiates a new MerchantPortalActionRequestOneOf49Price object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionRequestOneOf38Price(unitAmount int32) *MerchantPortalActionRequestOneOf38Price {
-	this := MerchantPortalActionRequestOneOf38Price{}
+func NewMerchantPortalActionRequestOneOf49Price(unitAmount int32) *MerchantPortalActionRequestOneOf49Price {
+	this := MerchantPortalActionRequestOneOf49Price{}
 	this.UnitAmount = unitAmount
 	var currency string = "USD"
 	this.Currency = &currency
 	return &this
 }
 
-// NewMerchantPortalActionRequestOneOf38PriceWithDefaults instantiates a new MerchantPortalActionRequestOneOf38Price object
+// NewMerchantPortalActionRequestOneOf49PriceWithDefaults instantiates a new MerchantPortalActionRequestOneOf49Price object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewMerchantPortalActionRequestOneOf38PriceWithDefaults() *MerchantPortalActionRequestOneOf38Price {
-	this := MerchantPortalActionRequestOneOf38Price{}
+func NewMerchantPortalActionRequestOneOf49PriceWithDefaults() *MerchantPortalActionRequestOneOf49Price {
+	this := MerchantPortalActionRequestOneOf49Price{}
 	var currency string = "USD"
 	this.Currency = &currency
 	return &this
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
-func (o *MerchantPortalActionRequestOneOf38Price) GetName() string {
+func (o *MerchantPortalActionRequestOneOf49Price) GetName() string {
 	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
@@ -62,7 +62,7 @@ func (o *MerchantPortalActionRequestOneOf38Price) GetName() string {
 
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf38Price) GetNameOk() (*string, bool) {
+func (o *MerchantPortalActionRequestOneOf49Price) GetNameOk() (*string, bool) {
 	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
@@ -70,7 +70,7 @@ func (o *MerchantPortalActionRequestOneOf38Price) GetNameOk() (*string, bool) {
 }
 
 // HasName returns a boolean if a field has been set.
-func (o *MerchantPortalActionRequestOneOf38Price) HasName() bool {
+func (o *MerchantPortalActionRequestOneOf49Price) HasName() bool {
 	if o != nil && !IsNil(o.Name) {
 		return true
 	}
@@ -79,12 +79,12 @@ func (o *MerchantPortalActionRequestOneOf38Price) HasName() bool {
 }
 
 // SetName gets a reference to the given string and assigns it to the Name field.
-func (o *MerchantPortalActionRequestOneOf38Price) SetName(v string) {
+func (o *MerchantPortalActionRequestOneOf49Price) SetName(v string) {
 	o.Name = &v
 }
 
 // GetUnitAmount returns the UnitAmount field value
-func (o *MerchantPortalActionRequestOneOf38Price) GetUnitAmount() int32 {
+func (o *MerchantPortalActionRequestOneOf49Price) GetUnitAmount() int32 {
 	if o == nil {
 		var ret int32
 		return ret
@@ -95,7 +95,7 @@ func (o *MerchantPortalActionRequestOneOf38Price) GetUnitAmount() int32 {
 
 // GetUnitAmountOk returns a tuple with the UnitAmount field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf38Price) GetUnitAmountOk() (*int32, bool) {
+func (o *MerchantPortalActionRequestOneOf49Price) GetUnitAmountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -103,12 +103,12 @@ func (o *MerchantPortalActionRequestOneOf38Price) GetUnitAmountOk() (*int32, boo
 }
 
 // SetUnitAmount sets field value
-func (o *MerchantPortalActionRequestOneOf38Price) SetUnitAmount(v int32) {
+func (o *MerchantPortalActionRequestOneOf49Price) SetUnitAmount(v int32) {
 	o.UnitAmount = v
 }
 
 // GetCurrency returns the Currency field value if set, zero value otherwise.
-func (o *MerchantPortalActionRequestOneOf38Price) GetCurrency() string {
+func (o *MerchantPortalActionRequestOneOf49Price) GetCurrency() string {
 	if o == nil || IsNil(o.Currency) {
 		var ret string
 		return ret
@@ -118,7 +118,7 @@ func (o *MerchantPortalActionRequestOneOf38Price) GetCurrency() string {
 
 // GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf38Price) GetCurrencyOk() (*string, bool) {
+func (o *MerchantPortalActionRequestOneOf49Price) GetCurrencyOk() (*string, bool) {
 	if o == nil || IsNil(o.Currency) {
 		return nil, false
 	}
@@ -126,7 +126,7 @@ func (o *MerchantPortalActionRequestOneOf38Price) GetCurrencyOk() (*string, bool
 }
 
 // HasCurrency returns a boolean if a field has been set.
-func (o *MerchantPortalActionRequestOneOf38Price) HasCurrency() bool {
+func (o *MerchantPortalActionRequestOneOf49Price) HasCurrency() bool {
 	if o != nil && !IsNil(o.Currency) {
 		return true
 	}
@@ -135,12 +135,12 @@ func (o *MerchantPortalActionRequestOneOf38Price) HasCurrency() bool {
 }
 
 // SetCurrency gets a reference to the given string and assigns it to the Currency field.
-func (o *MerchantPortalActionRequestOneOf38Price) SetCurrency(v string) {
+func (o *MerchantPortalActionRequestOneOf49Price) SetCurrency(v string) {
 	o.Currency = &v
 }
 
 // GetBillingInterval returns the BillingInterval field value if set, zero value otherwise.
-func (o *MerchantPortalActionRequestOneOf38Price) GetBillingInterval() string {
+func (o *MerchantPortalActionRequestOneOf49Price) GetBillingInterval() string {
 	if o == nil || IsNil(o.BillingInterval) {
 		var ret string
 		return ret
@@ -150,7 +150,7 @@ func (o *MerchantPortalActionRequestOneOf38Price) GetBillingInterval() string {
 
 // GetBillingIntervalOk returns a tuple with the BillingInterval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf38Price) GetBillingIntervalOk() (*string, bool) {
+func (o *MerchantPortalActionRequestOneOf49Price) GetBillingIntervalOk() (*string, bool) {
 	if o == nil || IsNil(o.BillingInterval) {
 		return nil, false
 	}
@@ -158,7 +158,7 @@ func (o *MerchantPortalActionRequestOneOf38Price) GetBillingIntervalOk() (*strin
 }
 
 // HasBillingInterval returns a boolean if a field has been set.
-func (o *MerchantPortalActionRequestOneOf38Price) HasBillingInterval() bool {
+func (o *MerchantPortalActionRequestOneOf49Price) HasBillingInterval() bool {
 	if o != nil && !IsNil(o.BillingInterval) {
 		return true
 	}
@@ -167,11 +167,11 @@ func (o *MerchantPortalActionRequestOneOf38Price) HasBillingInterval() bool {
 }
 
 // SetBillingInterval gets a reference to the given string and assigns it to the BillingInterval field.
-func (o *MerchantPortalActionRequestOneOf38Price) SetBillingInterval(v string) {
+func (o *MerchantPortalActionRequestOneOf49Price) SetBillingInterval(v string) {
 	o.BillingInterval = &v
 }
 
-func (o MerchantPortalActionRequestOneOf38Price) MarshalJSON() ([]byte, error) {
+func (o MerchantPortalActionRequestOneOf49Price) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -179,7 +179,7 @@ func (o MerchantPortalActionRequestOneOf38Price) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o MerchantPortalActionRequestOneOf38Price) ToMap() (map[string]interface{}, error) {
+func (o MerchantPortalActionRequestOneOf49Price) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
@@ -194,7 +194,7 @@ func (o MerchantPortalActionRequestOneOf38Price) ToMap() (map[string]interface{}
 	return toSerialize, nil
 }
 
-func (o *MerchantPortalActionRequestOneOf38Price) UnmarshalJSON(data []byte) (err error) {
+func (o *MerchantPortalActionRequestOneOf49Price) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -216,53 +216,53 @@ func (o *MerchantPortalActionRequestOneOf38Price) UnmarshalJSON(data []byte) (er
 		}
 	}
 
-	varMerchantPortalActionRequestOneOf38Price := _MerchantPortalActionRequestOneOf38Price{}
+	varMerchantPortalActionRequestOneOf49Price := _MerchantPortalActionRequestOneOf49Price{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMerchantPortalActionRequestOneOf38Price)
+	err = decoder.Decode(&varMerchantPortalActionRequestOneOf49Price)
 
 	if err != nil {
 		return err
 	}
 
-	*o = MerchantPortalActionRequestOneOf38Price(varMerchantPortalActionRequestOneOf38Price)
+	*o = MerchantPortalActionRequestOneOf49Price(varMerchantPortalActionRequestOneOf49Price)
 
 	return err
 }
 
-type NullableMerchantPortalActionRequestOneOf38Price struct {
-	value *MerchantPortalActionRequestOneOf38Price
+type NullableMerchantPortalActionRequestOneOf49Price struct {
+	value *MerchantPortalActionRequestOneOf49Price
 	isSet bool
 }
 
-func (v NullableMerchantPortalActionRequestOneOf38Price) Get() *MerchantPortalActionRequestOneOf38Price {
+func (v NullableMerchantPortalActionRequestOneOf49Price) Get() *MerchantPortalActionRequestOneOf49Price {
 	return v.value
 }
 
-func (v *NullableMerchantPortalActionRequestOneOf38Price) Set(val *MerchantPortalActionRequestOneOf38Price) {
+func (v *NullableMerchantPortalActionRequestOneOf49Price) Set(val *MerchantPortalActionRequestOneOf49Price) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableMerchantPortalActionRequestOneOf38Price) IsSet() bool {
+func (v NullableMerchantPortalActionRequestOneOf49Price) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableMerchantPortalActionRequestOneOf38Price) Unset() {
+func (v *NullableMerchantPortalActionRequestOneOf49Price) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableMerchantPortalActionRequestOneOf38Price(val *MerchantPortalActionRequestOneOf38Price) *NullableMerchantPortalActionRequestOneOf38Price {
-	return &NullableMerchantPortalActionRequestOneOf38Price{value: val, isSet: true}
+func NewNullableMerchantPortalActionRequestOneOf49Price(val *MerchantPortalActionRequestOneOf49Price) *NullableMerchantPortalActionRequestOneOf49Price {
+	return &NullableMerchantPortalActionRequestOneOf49Price{value: val, isSet: true}
 }
 
-func (v NullableMerchantPortalActionRequestOneOf38Price) MarshalJSON() ([]byte, error) {
+func (v NullableMerchantPortalActionRequestOneOf49Price) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableMerchantPortalActionRequestOneOf38Price) UnmarshalJSON(src []byte) error {
+func (v *NullableMerchantPortalActionRequestOneOf49Price) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

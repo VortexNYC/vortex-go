@@ -22,7 +22,8 @@ var _ MappedNullable = &MerchantPortalActionRequestOneOf40{}
 // MerchantPortalActionRequestOneOf40 struct for MerchantPortalActionRequestOneOf40
 type MerchantPortalActionRequestOneOf40 struct {
 	Action string `json:"action"`
-	ProductId string `json:"productId"`
+	OrderFormId string `json:"orderFormId"`
+	Reason *string `json:"reason,omitempty"`
 }
 
 type _MerchantPortalActionRequestOneOf40 MerchantPortalActionRequestOneOf40
@@ -31,10 +32,10 @@ type _MerchantPortalActionRequestOneOf40 MerchantPortalActionRequestOneOf40
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionRequestOneOf40(action string, productId string) *MerchantPortalActionRequestOneOf40 {
+func NewMerchantPortalActionRequestOneOf40(action string, orderFormId string) *MerchantPortalActionRequestOneOf40 {
 	this := MerchantPortalActionRequestOneOf40{}
 	this.Action = action
-	this.ProductId = productId
+	this.OrderFormId = orderFormId
 	return &this
 }
 
@@ -70,28 +71,60 @@ func (o *MerchantPortalActionRequestOneOf40) SetAction(v string) {
 	o.Action = v
 }
 
-// GetProductId returns the ProductId field value
-func (o *MerchantPortalActionRequestOneOf40) GetProductId() string {
+// GetOrderFormId returns the OrderFormId field value
+func (o *MerchantPortalActionRequestOneOf40) GetOrderFormId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.ProductId
+	return o.OrderFormId
 }
 
-// GetProductIdOk returns a tuple with the ProductId field value
+// GetOrderFormIdOk returns a tuple with the OrderFormId field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf40) GetProductIdOk() (*string, bool) {
+func (o *MerchantPortalActionRequestOneOf40) GetOrderFormIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ProductId, true
+	return &o.OrderFormId, true
 }
 
-// SetProductId sets field value
-func (o *MerchantPortalActionRequestOneOf40) SetProductId(v string) {
-	o.ProductId = v
+// SetOrderFormId sets field value
+func (o *MerchantPortalActionRequestOneOf40) SetOrderFormId(v string) {
+	o.OrderFormId = v
+}
+
+// GetReason returns the Reason field value if set, zero value otherwise.
+func (o *MerchantPortalActionRequestOneOf40) GetReason() string {
+	if o == nil || IsNil(o.Reason) {
+		var ret string
+		return ret
+	}
+	return *o.Reason
+}
+
+// GetReasonOk returns a tuple with the Reason field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MerchantPortalActionRequestOneOf40) GetReasonOk() (*string, bool) {
+	if o == nil || IsNil(o.Reason) {
+		return nil, false
+	}
+	return o.Reason, true
+}
+
+// HasReason returns a boolean if a field has been set.
+func (o *MerchantPortalActionRequestOneOf40) HasReason() bool {
+	if o != nil && !IsNil(o.Reason) {
+		return true
+	}
+
+	return false
+}
+
+// SetReason gets a reference to the given string and assigns it to the Reason field.
+func (o *MerchantPortalActionRequestOneOf40) SetReason(v string) {
+	o.Reason = &v
 }
 
 func (o MerchantPortalActionRequestOneOf40) MarshalJSON() ([]byte, error) {
@@ -105,7 +138,10 @@ func (o MerchantPortalActionRequestOneOf40) MarshalJSON() ([]byte, error) {
 func (o MerchantPortalActionRequestOneOf40) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["action"] = o.Action
-	toSerialize["productId"] = o.ProductId
+	toSerialize["orderFormId"] = o.OrderFormId
+	if !IsNil(o.Reason) {
+		toSerialize["reason"] = o.Reason
+	}
 	return toSerialize, nil
 }
 
@@ -115,7 +151,7 @@ func (o *MerchantPortalActionRequestOneOf40) UnmarshalJSON(data []byte) (err err
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"action",
-		"productId",
+		"orderFormId",
 	}
 
 	allProperties := make(map[string]interface{})

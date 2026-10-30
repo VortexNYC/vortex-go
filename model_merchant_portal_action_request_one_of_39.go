@@ -22,7 +22,7 @@ var _ MappedNullable = &MerchantPortalActionRequestOneOf39{}
 // MerchantPortalActionRequestOneOf39 struct for MerchantPortalActionRequestOneOf39
 type MerchantPortalActionRequestOneOf39 struct {
 	Action string `json:"action"`
-	ProductId string `json:"productId"`
+	QuoteVersionId string `json:"quoteVersionId"`
 }
 
 type _MerchantPortalActionRequestOneOf39 MerchantPortalActionRequestOneOf39
@@ -31,10 +31,10 @@ type _MerchantPortalActionRequestOneOf39 MerchantPortalActionRequestOneOf39
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionRequestOneOf39(action string, productId string) *MerchantPortalActionRequestOneOf39 {
+func NewMerchantPortalActionRequestOneOf39(action string, quoteVersionId string) *MerchantPortalActionRequestOneOf39 {
 	this := MerchantPortalActionRequestOneOf39{}
 	this.Action = action
-	this.ProductId = productId
+	this.QuoteVersionId = quoteVersionId
 	return &this
 }
 
@@ -70,28 +70,28 @@ func (o *MerchantPortalActionRequestOneOf39) SetAction(v string) {
 	o.Action = v
 }
 
-// GetProductId returns the ProductId field value
-func (o *MerchantPortalActionRequestOneOf39) GetProductId() string {
+// GetQuoteVersionId returns the QuoteVersionId field value
+func (o *MerchantPortalActionRequestOneOf39) GetQuoteVersionId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.ProductId
+	return o.QuoteVersionId
 }
 
-// GetProductIdOk returns a tuple with the ProductId field value
+// GetQuoteVersionIdOk returns a tuple with the QuoteVersionId field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf39) GetProductIdOk() (*string, bool) {
+func (o *MerchantPortalActionRequestOneOf39) GetQuoteVersionIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ProductId, true
+	return &o.QuoteVersionId, true
 }
 
-// SetProductId sets field value
-func (o *MerchantPortalActionRequestOneOf39) SetProductId(v string) {
-	o.ProductId = v
+// SetQuoteVersionId sets field value
+func (o *MerchantPortalActionRequestOneOf39) SetQuoteVersionId(v string) {
+	o.QuoteVersionId = v
 }
 
 func (o MerchantPortalActionRequestOneOf39) MarshalJSON() ([]byte, error) {
@@ -105,7 +105,7 @@ func (o MerchantPortalActionRequestOneOf39) MarshalJSON() ([]byte, error) {
 func (o MerchantPortalActionRequestOneOf39) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["action"] = o.Action
-	toSerialize["productId"] = o.ProductId
+	toSerialize["quoteVersionId"] = o.QuoteVersionId
 	return toSerialize, nil
 }
 
@@ -115,7 +115,7 @@ func (o *MerchantPortalActionRequestOneOf39) UnmarshalJSON(data []byte) (err err
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"action",
-		"productId",
+		"quoteVersionId",
 	}
 
 	allProperties := make(map[string]interface{})

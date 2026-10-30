@@ -22,10 +22,7 @@ var _ MappedNullable = &MerchantPortalActionRequestOneOf38{}
 // MerchantPortalActionRequestOneOf38 struct for MerchantPortalActionRequestOneOf38
 type MerchantPortalActionRequestOneOf38 struct {
 	Action string `json:"action"`
-	Name string `json:"name"`
-	Description *string `json:"description,omitempty"`
-	Price *MerchantPortalActionRequestOneOf38Price `json:"price,omitempty"`
-	AttemptId *string `json:"attemptId,omitempty"`
+	QuoteVersionId string `json:"quoteVersionId"`
 }
 
 type _MerchantPortalActionRequestOneOf38 MerchantPortalActionRequestOneOf38
@@ -34,10 +31,10 @@ type _MerchantPortalActionRequestOneOf38 MerchantPortalActionRequestOneOf38
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionRequestOneOf38(action string, name string) *MerchantPortalActionRequestOneOf38 {
+func NewMerchantPortalActionRequestOneOf38(action string, quoteVersionId string) *MerchantPortalActionRequestOneOf38 {
 	this := MerchantPortalActionRequestOneOf38{}
 	this.Action = action
-	this.Name = name
+	this.QuoteVersionId = quoteVersionId
 	return &this
 }
 
@@ -73,124 +70,28 @@ func (o *MerchantPortalActionRequestOneOf38) SetAction(v string) {
 	o.Action = v
 }
 
-// GetName returns the Name field value
-func (o *MerchantPortalActionRequestOneOf38) GetName() string {
+// GetQuoteVersionId returns the QuoteVersionId field value
+func (o *MerchantPortalActionRequestOneOf38) GetQuoteVersionId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Name
+	return o.QuoteVersionId
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetQuoteVersionIdOk returns a tuple with the QuoteVersionId field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf38) GetNameOk() (*string, bool) {
+func (o *MerchantPortalActionRequestOneOf38) GetQuoteVersionIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Name, true
+	return &o.QuoteVersionId, true
 }
 
-// SetName sets field value
-func (o *MerchantPortalActionRequestOneOf38) SetName(v string) {
-	o.Name = v
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *MerchantPortalActionRequestOneOf38) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf38) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *MerchantPortalActionRequestOneOf38) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *MerchantPortalActionRequestOneOf38) SetDescription(v string) {
-	o.Description = &v
-}
-
-// GetPrice returns the Price field value if set, zero value otherwise.
-func (o *MerchantPortalActionRequestOneOf38) GetPrice() MerchantPortalActionRequestOneOf38Price {
-	if o == nil || IsNil(o.Price) {
-		var ret MerchantPortalActionRequestOneOf38Price
-		return ret
-	}
-	return *o.Price
-}
-
-// GetPriceOk returns a tuple with the Price field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf38) GetPriceOk() (*MerchantPortalActionRequestOneOf38Price, bool) {
-	if o == nil || IsNil(o.Price) {
-		return nil, false
-	}
-	return o.Price, true
-}
-
-// HasPrice returns a boolean if a field has been set.
-func (o *MerchantPortalActionRequestOneOf38) HasPrice() bool {
-	if o != nil && !IsNil(o.Price) {
-		return true
-	}
-
-	return false
-}
-
-// SetPrice gets a reference to the given MerchantPortalActionRequestOneOf38Price and assigns it to the Price field.
-func (o *MerchantPortalActionRequestOneOf38) SetPrice(v MerchantPortalActionRequestOneOf38Price) {
-	o.Price = &v
-}
-
-// GetAttemptId returns the AttemptId field value if set, zero value otherwise.
-func (o *MerchantPortalActionRequestOneOf38) GetAttemptId() string {
-	if o == nil || IsNil(o.AttemptId) {
-		var ret string
-		return ret
-	}
-	return *o.AttemptId
-}
-
-// GetAttemptIdOk returns a tuple with the AttemptId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf38) GetAttemptIdOk() (*string, bool) {
-	if o == nil || IsNil(o.AttemptId) {
-		return nil, false
-	}
-	return o.AttemptId, true
-}
-
-// HasAttemptId returns a boolean if a field has been set.
-func (o *MerchantPortalActionRequestOneOf38) HasAttemptId() bool {
-	if o != nil && !IsNil(o.AttemptId) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttemptId gets a reference to the given string and assigns it to the AttemptId field.
-func (o *MerchantPortalActionRequestOneOf38) SetAttemptId(v string) {
-	o.AttemptId = &v
+// SetQuoteVersionId sets field value
+func (o *MerchantPortalActionRequestOneOf38) SetQuoteVersionId(v string) {
+	o.QuoteVersionId = v
 }
 
 func (o MerchantPortalActionRequestOneOf38) MarshalJSON() ([]byte, error) {
@@ -204,16 +105,7 @@ func (o MerchantPortalActionRequestOneOf38) MarshalJSON() ([]byte, error) {
 func (o MerchantPortalActionRequestOneOf38) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["action"] = o.Action
-	toSerialize["name"] = o.Name
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
-	if !IsNil(o.Price) {
-		toSerialize["price"] = o.Price
-	}
-	if !IsNil(o.AttemptId) {
-		toSerialize["attemptId"] = o.AttemptId
-	}
+	toSerialize["quoteVersionId"] = o.QuoteVersionId
 	return toSerialize, nil
 }
 
@@ -223,7 +115,7 @@ func (o *MerchantPortalActionRequestOneOf38) UnmarshalJSON(data []byte) (err err
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"action",
-		"name",
+		"quoteVersionId",
 	}
 
 	allProperties := make(map[string]interface{})

@@ -22,7 +22,7 @@ var _ MappedNullable = &MerchantPortalActionRequestOneOf32{}
 // MerchantPortalActionRequestOneOf32 struct for MerchantPortalActionRequestOneOf32
 type MerchantPortalActionRequestOneOf32 struct {
 	Action string `json:"action"`
-	QuoteId string `json:"quoteId"`
+	OrderFormId string `json:"orderFormId"`
 }
 
 type _MerchantPortalActionRequestOneOf32 MerchantPortalActionRequestOneOf32
@@ -31,10 +31,10 @@ type _MerchantPortalActionRequestOneOf32 MerchantPortalActionRequestOneOf32
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionRequestOneOf32(action string, quoteId string) *MerchantPortalActionRequestOneOf32 {
+func NewMerchantPortalActionRequestOneOf32(action string, orderFormId string) *MerchantPortalActionRequestOneOf32 {
 	this := MerchantPortalActionRequestOneOf32{}
 	this.Action = action
-	this.QuoteId = quoteId
+	this.OrderFormId = orderFormId
 	return &this
 }
 
@@ -70,28 +70,28 @@ func (o *MerchantPortalActionRequestOneOf32) SetAction(v string) {
 	o.Action = v
 }
 
-// GetQuoteId returns the QuoteId field value
-func (o *MerchantPortalActionRequestOneOf32) GetQuoteId() string {
+// GetOrderFormId returns the OrderFormId field value
+func (o *MerchantPortalActionRequestOneOf32) GetOrderFormId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.QuoteId
+	return o.OrderFormId
 }
 
-// GetQuoteIdOk returns a tuple with the QuoteId field value
+// GetOrderFormIdOk returns a tuple with the OrderFormId field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf32) GetQuoteIdOk() (*string, bool) {
+func (o *MerchantPortalActionRequestOneOf32) GetOrderFormIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.QuoteId, true
+	return &o.OrderFormId, true
 }
 
-// SetQuoteId sets field value
-func (o *MerchantPortalActionRequestOneOf32) SetQuoteId(v string) {
-	o.QuoteId = v
+// SetOrderFormId sets field value
+func (o *MerchantPortalActionRequestOneOf32) SetOrderFormId(v string) {
+	o.OrderFormId = v
 }
 
 func (o MerchantPortalActionRequestOneOf32) MarshalJSON() ([]byte, error) {
@@ -105,7 +105,7 @@ func (o MerchantPortalActionRequestOneOf32) MarshalJSON() ([]byte, error) {
 func (o MerchantPortalActionRequestOneOf32) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["action"] = o.Action
-	toSerialize["quoteId"] = o.QuoteId
+	toSerialize["orderFormId"] = o.OrderFormId
 	return toSerialize, nil
 }
 
@@ -115,7 +115,7 @@ func (o *MerchantPortalActionRequestOneOf32) UnmarshalJSON(data []byte) (err err
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"action",
-		"quoteId",
+		"orderFormId",
 	}
 
 	allProperties := make(map[string]interface{})

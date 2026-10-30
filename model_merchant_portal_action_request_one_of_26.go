@@ -22,11 +22,10 @@ var _ MappedNullable = &MerchantPortalActionRequestOneOf26{}
 // MerchantPortalActionRequestOneOf26 struct for MerchantPortalActionRequestOneOf26
 type MerchantPortalActionRequestOneOf26 struct {
 	Action string `json:"action"`
-	Amount int32 `json:"amount"`
+	CustomerId string `json:"customerId"`
 	Currency *string `json:"currency,omitempty"`
-	CustomerId *string `json:"customerId,omitempty"`
-	CustomerEmail *string `json:"customerEmail,omitempty"`
-	Label *string `json:"label,omitempty"`
+	OrderType *string `json:"orderType,omitempty"`
+	LineItems []MerchantPortalActionRequestOneOf25LineItemsInner `json:"lineItems"`
 	AttemptId *string `json:"attemptId,omitempty"`
 }
 
@@ -36,12 +35,15 @@ type _MerchantPortalActionRequestOneOf26 MerchantPortalActionRequestOneOf26
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionRequestOneOf26(action string, amount int32) *MerchantPortalActionRequestOneOf26 {
+func NewMerchantPortalActionRequestOneOf26(action string, customerId string, lineItems []MerchantPortalActionRequestOneOf25LineItemsInner) *MerchantPortalActionRequestOneOf26 {
 	this := MerchantPortalActionRequestOneOf26{}
 	this.Action = action
-	this.Amount = amount
+	this.CustomerId = customerId
 	var currency string = "USD"
 	this.Currency = &currency
+	var orderType string = "one_off"
+	this.OrderType = &orderType
+	this.LineItems = lineItems
 	return &this
 }
 
@@ -52,6 +54,8 @@ func NewMerchantPortalActionRequestOneOf26WithDefaults() *MerchantPortalActionRe
 	this := MerchantPortalActionRequestOneOf26{}
 	var currency string = "USD"
 	this.Currency = &currency
+	var orderType string = "one_off"
+	this.OrderType = &orderType
 	return &this
 }
 
@@ -79,28 +83,28 @@ func (o *MerchantPortalActionRequestOneOf26) SetAction(v string) {
 	o.Action = v
 }
 
-// GetAmount returns the Amount field value
-func (o *MerchantPortalActionRequestOneOf26) GetAmount() int32 {
+// GetCustomerId returns the CustomerId field value
+func (o *MerchantPortalActionRequestOneOf26) GetCustomerId() string {
 	if o == nil {
-		var ret int32
+		var ret string
 		return ret
 	}
 
-	return o.Amount
+	return o.CustomerId
 }
 
-// GetAmountOk returns a tuple with the Amount field value
+// GetCustomerIdOk returns a tuple with the CustomerId field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf26) GetAmountOk() (*int32, bool) {
+func (o *MerchantPortalActionRequestOneOf26) GetCustomerIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Amount, true
+	return &o.CustomerId, true
 }
 
-// SetAmount sets field value
-func (o *MerchantPortalActionRequestOneOf26) SetAmount(v int32) {
-	o.Amount = v
+// SetCustomerId sets field value
+func (o *MerchantPortalActionRequestOneOf26) SetCustomerId(v string) {
+	o.CustomerId = v
 }
 
 // GetCurrency returns the Currency field value if set, zero value otherwise.
@@ -135,100 +139,60 @@ func (o *MerchantPortalActionRequestOneOf26) SetCurrency(v string) {
 	o.Currency = &v
 }
 
-// GetCustomerId returns the CustomerId field value if set, zero value otherwise.
-func (o *MerchantPortalActionRequestOneOf26) GetCustomerId() string {
-	if o == nil || IsNil(o.CustomerId) {
+// GetOrderType returns the OrderType field value if set, zero value otherwise.
+func (o *MerchantPortalActionRequestOneOf26) GetOrderType() string {
+	if o == nil || IsNil(o.OrderType) {
 		var ret string
 		return ret
 	}
-	return *o.CustomerId
+	return *o.OrderType
 }
 
-// GetCustomerIdOk returns a tuple with the CustomerId field value if set, nil otherwise
+// GetOrderTypeOk returns a tuple with the OrderType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf26) GetCustomerIdOk() (*string, bool) {
-	if o == nil || IsNil(o.CustomerId) {
+func (o *MerchantPortalActionRequestOneOf26) GetOrderTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.OrderType) {
 		return nil, false
 	}
-	return o.CustomerId, true
+	return o.OrderType, true
 }
 
-// HasCustomerId returns a boolean if a field has been set.
-func (o *MerchantPortalActionRequestOneOf26) HasCustomerId() bool {
-	if o != nil && !IsNil(o.CustomerId) {
+// HasOrderType returns a boolean if a field has been set.
+func (o *MerchantPortalActionRequestOneOf26) HasOrderType() bool {
+	if o != nil && !IsNil(o.OrderType) {
 		return true
 	}
 
 	return false
 }
 
-// SetCustomerId gets a reference to the given string and assigns it to the CustomerId field.
-func (o *MerchantPortalActionRequestOneOf26) SetCustomerId(v string) {
-	o.CustomerId = &v
+// SetOrderType gets a reference to the given string and assigns it to the OrderType field.
+func (o *MerchantPortalActionRequestOneOf26) SetOrderType(v string) {
+	o.OrderType = &v
 }
 
-// GetCustomerEmail returns the CustomerEmail field value if set, zero value otherwise.
-func (o *MerchantPortalActionRequestOneOf26) GetCustomerEmail() string {
-	if o == nil || IsNil(o.CustomerEmail) {
-		var ret string
+// GetLineItems returns the LineItems field value
+func (o *MerchantPortalActionRequestOneOf26) GetLineItems() []MerchantPortalActionRequestOneOf25LineItemsInner {
+	if o == nil {
+		var ret []MerchantPortalActionRequestOneOf25LineItemsInner
 		return ret
 	}
-	return *o.CustomerEmail
+
+	return o.LineItems
 }
 
-// GetCustomerEmailOk returns a tuple with the CustomerEmail field value if set, nil otherwise
+// GetLineItemsOk returns a tuple with the LineItems field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf26) GetCustomerEmailOk() (*string, bool) {
-	if o == nil || IsNil(o.CustomerEmail) {
+func (o *MerchantPortalActionRequestOneOf26) GetLineItemsOk() ([]MerchantPortalActionRequestOneOf25LineItemsInner, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CustomerEmail, true
+	return o.LineItems, true
 }
 
-// HasCustomerEmail returns a boolean if a field has been set.
-func (o *MerchantPortalActionRequestOneOf26) HasCustomerEmail() bool {
-	if o != nil && !IsNil(o.CustomerEmail) {
-		return true
-	}
-
-	return false
-}
-
-// SetCustomerEmail gets a reference to the given string and assigns it to the CustomerEmail field.
-func (o *MerchantPortalActionRequestOneOf26) SetCustomerEmail(v string) {
-	o.CustomerEmail = &v
-}
-
-// GetLabel returns the Label field value if set, zero value otherwise.
-func (o *MerchantPortalActionRequestOneOf26) GetLabel() string {
-	if o == nil || IsNil(o.Label) {
-		var ret string
-		return ret
-	}
-	return *o.Label
-}
-
-// GetLabelOk returns a tuple with the Label field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf26) GetLabelOk() (*string, bool) {
-	if o == nil || IsNil(o.Label) {
-		return nil, false
-	}
-	return o.Label, true
-}
-
-// HasLabel returns a boolean if a field has been set.
-func (o *MerchantPortalActionRequestOneOf26) HasLabel() bool {
-	if o != nil && !IsNil(o.Label) {
-		return true
-	}
-
-	return false
-}
-
-// SetLabel gets a reference to the given string and assigns it to the Label field.
-func (o *MerchantPortalActionRequestOneOf26) SetLabel(v string) {
-	o.Label = &v
+// SetLineItems sets field value
+func (o *MerchantPortalActionRequestOneOf26) SetLineItems(v []MerchantPortalActionRequestOneOf25LineItemsInner) {
+	o.LineItems = v
 }
 
 // GetAttemptId returns the AttemptId field value if set, zero value otherwise.
@@ -274,19 +238,14 @@ func (o MerchantPortalActionRequestOneOf26) MarshalJSON() ([]byte, error) {
 func (o MerchantPortalActionRequestOneOf26) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["action"] = o.Action
-	toSerialize["amount"] = o.Amount
+	toSerialize["customerId"] = o.CustomerId
 	if !IsNil(o.Currency) {
 		toSerialize["currency"] = o.Currency
 	}
-	if !IsNil(o.CustomerId) {
-		toSerialize["customerId"] = o.CustomerId
+	if !IsNil(o.OrderType) {
+		toSerialize["orderType"] = o.OrderType
 	}
-	if !IsNil(o.CustomerEmail) {
-		toSerialize["customerEmail"] = o.CustomerEmail
-	}
-	if !IsNil(o.Label) {
-		toSerialize["label"] = o.Label
-	}
+	toSerialize["lineItems"] = o.LineItems
 	if !IsNil(o.AttemptId) {
 		toSerialize["attemptId"] = o.AttemptId
 	}
@@ -299,7 +258,8 @@ func (o *MerchantPortalActionRequestOneOf26) UnmarshalJSON(data []byte) (err err
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"action",
-		"amount",
+		"customerId",
+		"lineItems",
 	}
 
 	allProperties := make(map[string]interface{})

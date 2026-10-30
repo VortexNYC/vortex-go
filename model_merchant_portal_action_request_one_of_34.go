@@ -22,7 +22,10 @@ var _ MappedNullable = &MerchantPortalActionRequestOneOf34{}
 // MerchantPortalActionRequestOneOf34 struct for MerchantPortalActionRequestOneOf34
 type MerchantPortalActionRequestOneOf34 struct {
 	Action string `json:"action"`
-	EndpointId string `json:"endpointId"`
+	QuoteVersionId string `json:"quoteVersionId"`
+	Currency *string `json:"currency,omitempty"`
+	Terms *string `json:"terms,omitempty"`
+	LineItems []MerchantPortalActionRequestOneOf34LineItemsInner `json:"lineItems"`
 }
 
 type _MerchantPortalActionRequestOneOf34 MerchantPortalActionRequestOneOf34
@@ -31,10 +34,11 @@ type _MerchantPortalActionRequestOneOf34 MerchantPortalActionRequestOneOf34
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionRequestOneOf34(action string, endpointId string) *MerchantPortalActionRequestOneOf34 {
+func NewMerchantPortalActionRequestOneOf34(action string, quoteVersionId string, lineItems []MerchantPortalActionRequestOneOf34LineItemsInner) *MerchantPortalActionRequestOneOf34 {
 	this := MerchantPortalActionRequestOneOf34{}
 	this.Action = action
-	this.EndpointId = endpointId
+	this.QuoteVersionId = quoteVersionId
+	this.LineItems = lineItems
 	return &this
 }
 
@@ -70,28 +74,116 @@ func (o *MerchantPortalActionRequestOneOf34) SetAction(v string) {
 	o.Action = v
 }
 
-// GetEndpointId returns the EndpointId field value
-func (o *MerchantPortalActionRequestOneOf34) GetEndpointId() string {
+// GetQuoteVersionId returns the QuoteVersionId field value
+func (o *MerchantPortalActionRequestOneOf34) GetQuoteVersionId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.EndpointId
+	return o.QuoteVersionId
 }
 
-// GetEndpointIdOk returns a tuple with the EndpointId field value
+// GetQuoteVersionIdOk returns a tuple with the QuoteVersionId field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf34) GetEndpointIdOk() (*string, bool) {
+func (o *MerchantPortalActionRequestOneOf34) GetQuoteVersionIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.EndpointId, true
+	return &o.QuoteVersionId, true
 }
 
-// SetEndpointId sets field value
-func (o *MerchantPortalActionRequestOneOf34) SetEndpointId(v string) {
-	o.EndpointId = v
+// SetQuoteVersionId sets field value
+func (o *MerchantPortalActionRequestOneOf34) SetQuoteVersionId(v string) {
+	o.QuoteVersionId = v
+}
+
+// GetCurrency returns the Currency field value if set, zero value otherwise.
+func (o *MerchantPortalActionRequestOneOf34) GetCurrency() string {
+	if o == nil || IsNil(o.Currency) {
+		var ret string
+		return ret
+	}
+	return *o.Currency
+}
+
+// GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MerchantPortalActionRequestOneOf34) GetCurrencyOk() (*string, bool) {
+	if o == nil || IsNil(o.Currency) {
+		return nil, false
+	}
+	return o.Currency, true
+}
+
+// HasCurrency returns a boolean if a field has been set.
+func (o *MerchantPortalActionRequestOneOf34) HasCurrency() bool {
+	if o != nil && !IsNil(o.Currency) {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrency gets a reference to the given string and assigns it to the Currency field.
+func (o *MerchantPortalActionRequestOneOf34) SetCurrency(v string) {
+	o.Currency = &v
+}
+
+// GetTerms returns the Terms field value if set, zero value otherwise.
+func (o *MerchantPortalActionRequestOneOf34) GetTerms() string {
+	if o == nil || IsNil(o.Terms) {
+		var ret string
+		return ret
+	}
+	return *o.Terms
+}
+
+// GetTermsOk returns a tuple with the Terms field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MerchantPortalActionRequestOneOf34) GetTermsOk() (*string, bool) {
+	if o == nil || IsNil(o.Terms) {
+		return nil, false
+	}
+	return o.Terms, true
+}
+
+// HasTerms returns a boolean if a field has been set.
+func (o *MerchantPortalActionRequestOneOf34) HasTerms() bool {
+	if o != nil && !IsNil(o.Terms) {
+		return true
+	}
+
+	return false
+}
+
+// SetTerms gets a reference to the given string and assigns it to the Terms field.
+func (o *MerchantPortalActionRequestOneOf34) SetTerms(v string) {
+	o.Terms = &v
+}
+
+// GetLineItems returns the LineItems field value
+func (o *MerchantPortalActionRequestOneOf34) GetLineItems() []MerchantPortalActionRequestOneOf34LineItemsInner {
+	if o == nil {
+		var ret []MerchantPortalActionRequestOneOf34LineItemsInner
+		return ret
+	}
+
+	return o.LineItems
+}
+
+// GetLineItemsOk returns a tuple with the LineItems field value
+// and a boolean to check if the value has been set.
+func (o *MerchantPortalActionRequestOneOf34) GetLineItemsOk() ([]MerchantPortalActionRequestOneOf34LineItemsInner, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.LineItems, true
+}
+
+// SetLineItems sets field value
+func (o *MerchantPortalActionRequestOneOf34) SetLineItems(v []MerchantPortalActionRequestOneOf34LineItemsInner) {
+	o.LineItems = v
 }
 
 func (o MerchantPortalActionRequestOneOf34) MarshalJSON() ([]byte, error) {
@@ -105,7 +197,14 @@ func (o MerchantPortalActionRequestOneOf34) MarshalJSON() ([]byte, error) {
 func (o MerchantPortalActionRequestOneOf34) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["action"] = o.Action
-	toSerialize["endpointId"] = o.EndpointId
+	toSerialize["quoteVersionId"] = o.QuoteVersionId
+	if !IsNil(o.Currency) {
+		toSerialize["currency"] = o.Currency
+	}
+	if !IsNil(o.Terms) {
+		toSerialize["terms"] = o.Terms
+	}
+	toSerialize["lineItems"] = o.LineItems
 	return toSerialize, nil
 }
 
@@ -115,7 +214,8 @@ func (o *MerchantPortalActionRequestOneOf34) UnmarshalJSON(data []byte) (err err
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"action",
-		"endpointId",
+		"quoteVersionId",
+		"lineItems",
 	}
 
 	allProperties := make(map[string]interface{})

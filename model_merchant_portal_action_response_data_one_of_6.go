@@ -21,7 +21,7 @@ var _ MappedNullable = &MerchantPortalActionResponseDataOneOf6{}
 
 // MerchantPortalActionResponseDataOneOf6 struct for MerchantPortalActionResponseDataOneOf6
 type MerchantPortalActionResponseDataOneOf6 struct {
-	CollectionRetryUrl string `json:"collectionRetryUrl"`
+	HostedOrderFormUrl string `json:"hostedOrderFormUrl"`
 }
 
 type _MerchantPortalActionResponseDataOneOf6 MerchantPortalActionResponseDataOneOf6
@@ -30,9 +30,9 @@ type _MerchantPortalActionResponseDataOneOf6 MerchantPortalActionResponseDataOne
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionResponseDataOneOf6(collectionRetryUrl string) *MerchantPortalActionResponseDataOneOf6 {
+func NewMerchantPortalActionResponseDataOneOf6(hostedOrderFormUrl string) *MerchantPortalActionResponseDataOneOf6 {
 	this := MerchantPortalActionResponseDataOneOf6{}
-	this.CollectionRetryUrl = collectionRetryUrl
+	this.HostedOrderFormUrl = hostedOrderFormUrl
 	return &this
 }
 
@@ -44,28 +44,28 @@ func NewMerchantPortalActionResponseDataOneOf6WithDefaults() *MerchantPortalActi
 	return &this
 }
 
-// GetCollectionRetryUrl returns the CollectionRetryUrl field value
-func (o *MerchantPortalActionResponseDataOneOf6) GetCollectionRetryUrl() string {
+// GetHostedOrderFormUrl returns the HostedOrderFormUrl field value
+func (o *MerchantPortalActionResponseDataOneOf6) GetHostedOrderFormUrl() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.CollectionRetryUrl
+	return o.HostedOrderFormUrl
 }
 
-// GetCollectionRetryUrlOk returns a tuple with the CollectionRetryUrl field value
+// GetHostedOrderFormUrlOk returns a tuple with the HostedOrderFormUrl field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionResponseDataOneOf6) GetCollectionRetryUrlOk() (*string, bool) {
+func (o *MerchantPortalActionResponseDataOneOf6) GetHostedOrderFormUrlOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CollectionRetryUrl, true
+	return &o.HostedOrderFormUrl, true
 }
 
-// SetCollectionRetryUrl sets field value
-func (o *MerchantPortalActionResponseDataOneOf6) SetCollectionRetryUrl(v string) {
-	o.CollectionRetryUrl = v
+// SetHostedOrderFormUrl sets field value
+func (o *MerchantPortalActionResponseDataOneOf6) SetHostedOrderFormUrl(v string) {
+	o.HostedOrderFormUrl = v
 }
 
 func (o MerchantPortalActionResponseDataOneOf6) MarshalJSON() ([]byte, error) {
@@ -78,7 +78,7 @@ func (o MerchantPortalActionResponseDataOneOf6) MarshalJSON() ([]byte, error) {
 
 func (o MerchantPortalActionResponseDataOneOf6) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["collectionRetryUrl"] = o.CollectionRetryUrl
+	toSerialize["hostedOrderFormUrl"] = o.HostedOrderFormUrl
 	return toSerialize, nil
 }
 
@@ -87,7 +87,7 @@ func (o *MerchantPortalActionResponseDataOneOf6) UnmarshalJSON(data []byte) (err
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"collectionRetryUrl",
+		"hostedOrderFormUrl",
 	}
 
 	allProperties := make(map[string]interface{})

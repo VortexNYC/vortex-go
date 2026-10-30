@@ -22,7 +22,11 @@ var _ MappedNullable = &MerchantPortalActionRequestOneOf44{}
 // MerchantPortalActionRequestOneOf44 struct for MerchantPortalActionRequestOneOf44
 type MerchantPortalActionRequestOneOf44 struct {
 	Action string `json:"action"`
-	TaxTransactionId string `json:"taxTransactionId"`
+	// Public HTTPS endpoint — SSRF-checked at registration and again at delivery.
+	DestinationUrl string `json:"destinationUrl"`
+	// \"*\", an exact event type, or a \"prefix.*\" wildcard.
+	SubscribedEventTypes []string `json:"subscribedEventTypes"`
+	Description *string `json:"description,omitempty"`
 }
 
 type _MerchantPortalActionRequestOneOf44 MerchantPortalActionRequestOneOf44
@@ -31,10 +35,11 @@ type _MerchantPortalActionRequestOneOf44 MerchantPortalActionRequestOneOf44
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionRequestOneOf44(action string, taxTransactionId string) *MerchantPortalActionRequestOneOf44 {
+func NewMerchantPortalActionRequestOneOf44(action string, destinationUrl string, subscribedEventTypes []string) *MerchantPortalActionRequestOneOf44 {
 	this := MerchantPortalActionRequestOneOf44{}
 	this.Action = action
-	this.TaxTransactionId = taxTransactionId
+	this.DestinationUrl = destinationUrl
+	this.SubscribedEventTypes = subscribedEventTypes
 	return &this
 }
 
@@ -70,28 +75,84 @@ func (o *MerchantPortalActionRequestOneOf44) SetAction(v string) {
 	o.Action = v
 }
 
-// GetTaxTransactionId returns the TaxTransactionId field value
-func (o *MerchantPortalActionRequestOneOf44) GetTaxTransactionId() string {
+// GetDestinationUrl returns the DestinationUrl field value
+func (o *MerchantPortalActionRequestOneOf44) GetDestinationUrl() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.TaxTransactionId
+	return o.DestinationUrl
 }
 
-// GetTaxTransactionIdOk returns a tuple with the TaxTransactionId field value
+// GetDestinationUrlOk returns a tuple with the DestinationUrl field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf44) GetTaxTransactionIdOk() (*string, bool) {
+func (o *MerchantPortalActionRequestOneOf44) GetDestinationUrlOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.TaxTransactionId, true
+	return &o.DestinationUrl, true
 }
 
-// SetTaxTransactionId sets field value
-func (o *MerchantPortalActionRequestOneOf44) SetTaxTransactionId(v string) {
-	o.TaxTransactionId = v
+// SetDestinationUrl sets field value
+func (o *MerchantPortalActionRequestOneOf44) SetDestinationUrl(v string) {
+	o.DestinationUrl = v
+}
+
+// GetSubscribedEventTypes returns the SubscribedEventTypes field value
+func (o *MerchantPortalActionRequestOneOf44) GetSubscribedEventTypes() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+
+	return o.SubscribedEventTypes
+}
+
+// GetSubscribedEventTypesOk returns a tuple with the SubscribedEventTypes field value
+// and a boolean to check if the value has been set.
+func (o *MerchantPortalActionRequestOneOf44) GetSubscribedEventTypesOk() ([]string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.SubscribedEventTypes, true
+}
+
+// SetSubscribedEventTypes sets field value
+func (o *MerchantPortalActionRequestOneOf44) SetSubscribedEventTypes(v []string) {
+	o.SubscribedEventTypes = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *MerchantPortalActionRequestOneOf44) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MerchantPortalActionRequestOneOf44) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *MerchantPortalActionRequestOneOf44) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *MerchantPortalActionRequestOneOf44) SetDescription(v string) {
+	o.Description = &v
 }
 
 func (o MerchantPortalActionRequestOneOf44) MarshalJSON() ([]byte, error) {
@@ -105,7 +166,11 @@ func (o MerchantPortalActionRequestOneOf44) MarshalJSON() ([]byte, error) {
 func (o MerchantPortalActionRequestOneOf44) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["action"] = o.Action
-	toSerialize["taxTransactionId"] = o.TaxTransactionId
+	toSerialize["destinationUrl"] = o.DestinationUrl
+	toSerialize["subscribedEventTypes"] = o.SubscribedEventTypes
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
 	return toSerialize, nil
 }
 
@@ -115,7 +180,8 @@ func (o *MerchantPortalActionRequestOneOf44) UnmarshalJSON(data []byte) (err err
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"action",
-		"taxTransactionId",
+		"destinationUrl",
+		"subscribedEventTypes",
 	}
 
 	allProperties := make(map[string]interface{})

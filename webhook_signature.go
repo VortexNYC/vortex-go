@@ -47,6 +47,7 @@ var VortexEventTypes = []string{
 	"merchant_account.submitted",
 	"merchant_account.updated",
 	"merchant_capability.updated",
+	"merchant_requirement.action_required",
 	"merchant_requirement.refreshed",
 	"merchant_requirement.submitted",
 	"merchant_requirement_document.upload_link_created",

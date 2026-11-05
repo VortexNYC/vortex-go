@@ -20,7 +20,10 @@ var _ MappedNullable = &BillingQuoteVersionVoidRequest{}
 // BillingQuoteVersionVoidRequest struct for BillingQuoteVersionVoidRequest
 type BillingQuoteVersionVoidRequest struct {
 	Reason *string `json:"reason,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _BillingQuoteVersionVoidRequest BillingQuoteVersionVoidRequest
 
 // NewBillingQuoteVersionVoidRequest instantiates a new BillingQuoteVersionVoidRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o BillingQuoteVersionVoidRequest) ToMap() (map[string]interface{}, error) 
 	if !IsNil(o.Reason) {
 		toSerialize["reason"] = o.Reason
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *BillingQuoteVersionVoidRequest) UnmarshalJSON(data []byte) (err error) {
+	varBillingQuoteVersionVoidRequest := _BillingQuoteVersionVoidRequest{}
+
+	err = json.Unmarshal(data, &varBillingQuoteVersionVoidRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BillingQuoteVersionVoidRequest(varBillingQuoteVersionVoidRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "reason")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableBillingQuoteVersionVoidRequest struct {

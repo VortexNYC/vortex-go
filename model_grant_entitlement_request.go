@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,13 +20,14 @@ var _ MappedNullable = &GrantEntitlementRequest{}
 
 // GrantEntitlementRequest struct for GrantEntitlementRequest
 type GrantEntitlementRequest struct {
-	CustomerId string `json:"customerId"`
-	BillingAccountId string `json:"billingAccountId"`
-	EntitlementKey string `json:"entitlementKey"`
+	CustomerId NullableString `json:"customerId"`
+	BillingAccountId NullableString `json:"billingAccountId"`
+	EntitlementKey NullableString `json:"entitlementKey"`
 	Source string `json:"source"`
-	SourceRef string `json:"sourceRef"`
-	EntitlementId *string `json:"entitlementId,omitempty"`
+	SourceRef NullableString `json:"sourceRef"`
+	EntitlementId NullableString `json:"entitlementId,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _GrantEntitlementRequest GrantEntitlementRequest
@@ -36,7 +36,7 @@ type _GrantEntitlementRequest GrantEntitlementRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGrantEntitlementRequest(customerId string, billingAccountId string, entitlementKey string, source string, sourceRef string) *GrantEntitlementRequest {
+func NewGrantEntitlementRequest(customerId NullableString, billingAccountId NullableString, entitlementKey NullableString, source string, sourceRef NullableString) *GrantEntitlementRequest {
 	this := GrantEntitlementRequest{}
 	this.CustomerId = customerId
 	this.BillingAccountId = billingAccountId
@@ -55,75 +55,81 @@ func NewGrantEntitlementRequestWithDefaults() *GrantEntitlementRequest {
 }
 
 // GetCustomerId returns the CustomerId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *GrantEntitlementRequest) GetCustomerId() string {
-	if o == nil {
+	if o == nil || o.CustomerId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.CustomerId
+	return *o.CustomerId.Get()
 }
 
 // GetCustomerIdOk returns a tuple with the CustomerId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GrantEntitlementRequest) GetCustomerIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CustomerId, true
+	return o.CustomerId.Get(), o.CustomerId.IsSet()
 }
 
 // SetCustomerId sets field value
 func (o *GrantEntitlementRequest) SetCustomerId(v string) {
-	o.CustomerId = v
+	o.CustomerId.Set(&v)
 }
 
 // GetBillingAccountId returns the BillingAccountId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *GrantEntitlementRequest) GetBillingAccountId() string {
-	if o == nil {
+	if o == nil || o.BillingAccountId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.BillingAccountId
+	return *o.BillingAccountId.Get()
 }
 
 // GetBillingAccountIdOk returns a tuple with the BillingAccountId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GrantEntitlementRequest) GetBillingAccountIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.BillingAccountId, true
+	return o.BillingAccountId.Get(), o.BillingAccountId.IsSet()
 }
 
 // SetBillingAccountId sets field value
 func (o *GrantEntitlementRequest) SetBillingAccountId(v string) {
-	o.BillingAccountId = v
+	o.BillingAccountId.Set(&v)
 }
 
 // GetEntitlementKey returns the EntitlementKey field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *GrantEntitlementRequest) GetEntitlementKey() string {
-	if o == nil {
+	if o == nil || o.EntitlementKey.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.EntitlementKey
+	return *o.EntitlementKey.Get()
 }
 
 // GetEntitlementKeyOk returns a tuple with the EntitlementKey field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GrantEntitlementRequest) GetEntitlementKeyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.EntitlementKey, true
+	return o.EntitlementKey.Get(), o.EntitlementKey.IsSet()
 }
 
 // SetEntitlementKey sets field value
 func (o *GrantEntitlementRequest) SetEntitlementKey(v string) {
-	o.EntitlementKey = v
+	o.EntitlementKey.Set(&v)
 }
 
 // GetSource returns the Source field value
@@ -151,64 +157,76 @@ func (o *GrantEntitlementRequest) SetSource(v string) {
 }
 
 // GetSourceRef returns the SourceRef field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *GrantEntitlementRequest) GetSourceRef() string {
-	if o == nil {
+	if o == nil || o.SourceRef.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.SourceRef
+	return *o.SourceRef.Get()
 }
 
 // GetSourceRefOk returns a tuple with the SourceRef field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GrantEntitlementRequest) GetSourceRefOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SourceRef, true
+	return o.SourceRef.Get(), o.SourceRef.IsSet()
 }
 
 // SetSourceRef sets field value
 func (o *GrantEntitlementRequest) SetSourceRef(v string) {
-	o.SourceRef = v
+	o.SourceRef.Set(&v)
 }
 
-// GetEntitlementId returns the EntitlementId field value if set, zero value otherwise.
+// GetEntitlementId returns the EntitlementId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *GrantEntitlementRequest) GetEntitlementId() string {
-	if o == nil || IsNil(o.EntitlementId) {
+	if o == nil || IsNil(o.EntitlementId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.EntitlementId
+	return *o.EntitlementId.Get()
 }
 
 // GetEntitlementIdOk returns a tuple with the EntitlementId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GrantEntitlementRequest) GetEntitlementIdOk() (*string, bool) {
-	if o == nil || IsNil(o.EntitlementId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.EntitlementId, true
+	return o.EntitlementId.Get(), o.EntitlementId.IsSet()
 }
 
 // HasEntitlementId returns a boolean if a field has been set.
 func (o *GrantEntitlementRequest) HasEntitlementId() bool {
-	if o != nil && !IsNil(o.EntitlementId) {
+	if o != nil && o.EntitlementId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetEntitlementId gets a reference to the given string and assigns it to the EntitlementId field.
+// SetEntitlementId gets a reference to the given NullableString and assigns it to the EntitlementId field.
 func (o *GrantEntitlementRequest) SetEntitlementId(v string) {
-	o.EntitlementId = &v
+	o.EntitlementId.Set(&v)
+}
+// SetEntitlementIdNil sets the value for EntitlementId to be an explicit nil
+func (o *GrantEntitlementRequest) SetEntitlementIdNil() {
+	o.EntitlementId.Set(nil)
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// UnsetEntitlementId ensures that no value is present for EntitlementId, not even an explicit nil
+func (o *GrantEntitlementRequest) UnsetEntitlementId() {
+	o.EntitlementId.Unset()
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *GrantEntitlementRequest) GetMetadata() map[string]string {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -217,6 +235,7 @@ func (o *GrantEntitlementRequest) GetMetadata() map[string]string {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GrantEntitlementRequest) GetMetadataOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return map[string]string{}, false
@@ -248,17 +267,22 @@ func (o GrantEntitlementRequest) MarshalJSON() ([]byte, error) {
 
 func (o GrantEntitlementRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["customerId"] = o.CustomerId
-	toSerialize["billingAccountId"] = o.BillingAccountId
-	toSerialize["entitlementKey"] = o.EntitlementKey
+	toSerialize["customerId"] = o.CustomerId.Get()
+	toSerialize["billingAccountId"] = o.BillingAccountId.Get()
+	toSerialize["entitlementKey"] = o.EntitlementKey.Get()
 	toSerialize["source"] = o.Source
-	toSerialize["sourceRef"] = o.SourceRef
-	if !IsNil(o.EntitlementId) {
-		toSerialize["entitlementId"] = o.EntitlementId
+	toSerialize["sourceRef"] = o.SourceRef.Get()
+	if o.EntitlementId.IsSet() {
+		toSerialize["entitlementId"] = o.EntitlementId.Get()
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -290,15 +314,26 @@ func (o *GrantEntitlementRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varGrantEntitlementRequest := _GrantEntitlementRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGrantEntitlementRequest)
+	err = json.Unmarshal(data, &varGrantEntitlementRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GrantEntitlementRequest(varGrantEntitlementRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "customerId")
+		delete(additionalProperties, "billingAccountId")
+		delete(additionalProperties, "entitlementKey")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "sourceRef")
+		delete(additionalProperties, "entitlementId")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

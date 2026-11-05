@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,11 +20,12 @@ var _ MappedNullable = &MerchantSettlementBankAccount{}
 
 // MerchantSettlementBankAccount struct for MerchantSettlementBankAccount
 type MerchantSettlementBankAccount struct {
-	Name string `json:"name"`
-	AccountNumber string `json:"accountNumber"`
-	BankCode string `json:"bankCode"`
-	AccountType string `json:"accountType"`
-	AttemptValidationCheck *bool `json:"attemptValidationCheck,omitempty"`
+	Name NullableString `json:"name"`
+	AccountNumber NullableString `json:"accountNumber"`
+	BankCode NullableString `json:"bankCode"`
+	AccountType NullableString `json:"accountType"`
+	AttemptValidationCheck NullableBool `json:"attemptValidationCheck,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MerchantSettlementBankAccount MerchantSettlementBankAccount
@@ -34,7 +34,7 @@ type _MerchantSettlementBankAccount MerchantSettlementBankAccount
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantSettlementBankAccount(name string, accountNumber string, bankCode string, accountType string) *MerchantSettlementBankAccount {
+func NewMerchantSettlementBankAccount(name NullableString, accountNumber NullableString, bankCode NullableString, accountType NullableString) *MerchantSettlementBankAccount {
 	this := MerchantSettlementBankAccount{}
 	this.Name = name
 	this.AccountNumber = accountNumber
@@ -52,131 +52,149 @@ func NewMerchantSettlementBankAccountWithDefaults() *MerchantSettlementBankAccou
 }
 
 // GetName returns the Name field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantSettlementBankAccount) GetName() string {
-	if o == nil {
+	if o == nil || o.Name.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Name
+	return *o.Name.Get()
 }
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantSettlementBankAccount) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name.Get(), o.Name.IsSet()
 }
 
 // SetName sets field value
 func (o *MerchantSettlementBankAccount) SetName(v string) {
-	o.Name = v
+	o.Name.Set(&v)
 }
 
 // GetAccountNumber returns the AccountNumber field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantSettlementBankAccount) GetAccountNumber() string {
-	if o == nil {
+	if o == nil || o.AccountNumber.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.AccountNumber
+	return *o.AccountNumber.Get()
 }
 
 // GetAccountNumberOk returns a tuple with the AccountNumber field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantSettlementBankAccount) GetAccountNumberOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AccountNumber, true
+	return o.AccountNumber.Get(), o.AccountNumber.IsSet()
 }
 
 // SetAccountNumber sets field value
 func (o *MerchantSettlementBankAccount) SetAccountNumber(v string) {
-	o.AccountNumber = v
+	o.AccountNumber.Set(&v)
 }
 
 // GetBankCode returns the BankCode field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantSettlementBankAccount) GetBankCode() string {
-	if o == nil {
+	if o == nil || o.BankCode.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.BankCode
+	return *o.BankCode.Get()
 }
 
 // GetBankCodeOk returns a tuple with the BankCode field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantSettlementBankAccount) GetBankCodeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.BankCode, true
+	return o.BankCode.Get(), o.BankCode.IsSet()
 }
 
 // SetBankCode sets field value
 func (o *MerchantSettlementBankAccount) SetBankCode(v string) {
-	o.BankCode = v
+	o.BankCode.Set(&v)
 }
 
 // GetAccountType returns the AccountType field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantSettlementBankAccount) GetAccountType() string {
-	if o == nil {
+	if o == nil || o.AccountType.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.AccountType
+	return *o.AccountType.Get()
 }
 
 // GetAccountTypeOk returns a tuple with the AccountType field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantSettlementBankAccount) GetAccountTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AccountType, true
+	return o.AccountType.Get(), o.AccountType.IsSet()
 }
 
 // SetAccountType sets field value
 func (o *MerchantSettlementBankAccount) SetAccountType(v string) {
-	o.AccountType = v
+	o.AccountType.Set(&v)
 }
 
-// GetAttemptValidationCheck returns the AttemptValidationCheck field value if set, zero value otherwise.
+// GetAttemptValidationCheck returns the AttemptValidationCheck field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantSettlementBankAccount) GetAttemptValidationCheck() bool {
-	if o == nil || IsNil(o.AttemptValidationCheck) {
+	if o == nil || IsNil(o.AttemptValidationCheck.Get()) {
 		var ret bool
 		return ret
 	}
-	return *o.AttemptValidationCheck
+	return *o.AttemptValidationCheck.Get()
 }
 
 // GetAttemptValidationCheckOk returns a tuple with the AttemptValidationCheck field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantSettlementBankAccount) GetAttemptValidationCheckOk() (*bool, bool) {
-	if o == nil || IsNil(o.AttemptValidationCheck) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AttemptValidationCheck, true
+	return o.AttemptValidationCheck.Get(), o.AttemptValidationCheck.IsSet()
 }
 
 // HasAttemptValidationCheck returns a boolean if a field has been set.
 func (o *MerchantSettlementBankAccount) HasAttemptValidationCheck() bool {
-	if o != nil && !IsNil(o.AttemptValidationCheck) {
+	if o != nil && o.AttemptValidationCheck.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetAttemptValidationCheck gets a reference to the given bool and assigns it to the AttemptValidationCheck field.
+// SetAttemptValidationCheck gets a reference to the given NullableBool and assigns it to the AttemptValidationCheck field.
 func (o *MerchantSettlementBankAccount) SetAttemptValidationCheck(v bool) {
-	o.AttemptValidationCheck = &v
+	o.AttemptValidationCheck.Set(&v)
+}
+// SetAttemptValidationCheckNil sets the value for AttemptValidationCheck to be an explicit nil
+func (o *MerchantSettlementBankAccount) SetAttemptValidationCheckNil() {
+	o.AttemptValidationCheck.Set(nil)
+}
+
+// UnsetAttemptValidationCheck ensures that no value is present for AttemptValidationCheck, not even an explicit nil
+func (o *MerchantSettlementBankAccount) UnsetAttemptValidationCheck() {
+	o.AttemptValidationCheck.Unset()
 }
 
 func (o MerchantSettlementBankAccount) MarshalJSON() ([]byte, error) {
@@ -189,13 +207,18 @@ func (o MerchantSettlementBankAccount) MarshalJSON() ([]byte, error) {
 
 func (o MerchantSettlementBankAccount) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["name"] = o.Name
-	toSerialize["accountNumber"] = o.AccountNumber
-	toSerialize["bankCode"] = o.BankCode
-	toSerialize["accountType"] = o.AccountType
-	if !IsNil(o.AttemptValidationCheck) {
-		toSerialize["attemptValidationCheck"] = o.AttemptValidationCheck
+	toSerialize["name"] = o.Name.Get()
+	toSerialize["accountNumber"] = o.AccountNumber.Get()
+	toSerialize["bankCode"] = o.BankCode.Get()
+	toSerialize["accountType"] = o.AccountType.Get()
+	if o.AttemptValidationCheck.IsSet() {
+		toSerialize["attemptValidationCheck"] = o.AttemptValidationCheck.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -226,15 +249,24 @@ func (o *MerchantSettlementBankAccount) UnmarshalJSON(data []byte) (err error) {
 
 	varMerchantSettlementBankAccount := _MerchantSettlementBankAccount{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMerchantSettlementBankAccount)
+	err = json.Unmarshal(data, &varMerchantSettlementBankAccount)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MerchantSettlementBankAccount(varMerchantSettlementBankAccount)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "accountNumber")
+		delete(additionalProperties, "bankCode")
+		delete(additionalProperties, "accountType")
+		delete(additionalProperties, "attemptValidationCheck")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

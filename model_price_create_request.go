@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,16 +20,17 @@ var _ MappedNullable = &PriceCreateRequest{}
 
 // PriceCreateRequest struct for PriceCreateRequest
 type PriceCreateRequest struct {
-	PriceId string `json:"priceId"`
-	ProductId string `json:"productId"`
-	Name string `json:"name"`
+	PriceId NullableString `json:"priceId"`
+	ProductId NullableString `json:"productId"`
+	Name NullableString `json:"name"`
 	PriceType string `json:"priceType"`
 	Currency string `json:"currency"`
-	BillingInterval *string `json:"billingInterval,omitempty"`
+	BillingInterval NullableString `json:"billingInterval,omitempty"`
 	BillingIntervalCount *int32 `json:"billingIntervalCount,omitempty"`
 	UnitAmount *int32 `json:"unitAmount,omitempty"`
-	MeterId *string `json:"meterId,omitempty"`
+	MeterId NullableString `json:"meterId,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PriceCreateRequest PriceCreateRequest
@@ -39,7 +39,7 @@ type _PriceCreateRequest PriceCreateRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPriceCreateRequest(priceId string, productId string, name string, priceType string, currency string) *PriceCreateRequest {
+func NewPriceCreateRequest(priceId NullableString, productId NullableString, name NullableString, priceType string, currency string) *PriceCreateRequest {
 	this := PriceCreateRequest{}
 	this.PriceId = priceId
 	this.ProductId = productId
@@ -58,75 +58,81 @@ func NewPriceCreateRequestWithDefaults() *PriceCreateRequest {
 }
 
 // GetPriceId returns the PriceId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *PriceCreateRequest) GetPriceId() string {
-	if o == nil {
+	if o == nil || o.PriceId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.PriceId
+	return *o.PriceId.Get()
 }
 
 // GetPriceIdOk returns a tuple with the PriceId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PriceCreateRequest) GetPriceIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PriceId, true
+	return o.PriceId.Get(), o.PriceId.IsSet()
 }
 
 // SetPriceId sets field value
 func (o *PriceCreateRequest) SetPriceId(v string) {
-	o.PriceId = v
+	o.PriceId.Set(&v)
 }
 
 // GetProductId returns the ProductId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *PriceCreateRequest) GetProductId() string {
-	if o == nil {
+	if o == nil || o.ProductId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.ProductId
+	return *o.ProductId.Get()
 }
 
 // GetProductIdOk returns a tuple with the ProductId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PriceCreateRequest) GetProductIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ProductId, true
+	return o.ProductId.Get(), o.ProductId.IsSet()
 }
 
 // SetProductId sets field value
 func (o *PriceCreateRequest) SetProductId(v string) {
-	o.ProductId = v
+	o.ProductId.Set(&v)
 }
 
 // GetName returns the Name field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *PriceCreateRequest) GetName() string {
-	if o == nil {
+	if o == nil || o.Name.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Name
+	return *o.Name.Get()
 }
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PriceCreateRequest) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name.Get(), o.Name.IsSet()
 }
 
 // SetName sets field value
 func (o *PriceCreateRequest) SetName(v string) {
-	o.Name = v
+	o.Name.Set(&v)
 }
 
 // GetPriceType returns the PriceType field value
@@ -177,36 +183,46 @@ func (o *PriceCreateRequest) SetCurrency(v string) {
 	o.Currency = v
 }
 
-// GetBillingInterval returns the BillingInterval field value if set, zero value otherwise.
+// GetBillingInterval returns the BillingInterval field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PriceCreateRequest) GetBillingInterval() string {
-	if o == nil || IsNil(o.BillingInterval) {
+	if o == nil || IsNil(o.BillingInterval.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.BillingInterval
+	return *o.BillingInterval.Get()
 }
 
 // GetBillingIntervalOk returns a tuple with the BillingInterval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PriceCreateRequest) GetBillingIntervalOk() (*string, bool) {
-	if o == nil || IsNil(o.BillingInterval) {
+	if o == nil {
 		return nil, false
 	}
-	return o.BillingInterval, true
+	return o.BillingInterval.Get(), o.BillingInterval.IsSet()
 }
 
 // HasBillingInterval returns a boolean if a field has been set.
 func (o *PriceCreateRequest) HasBillingInterval() bool {
-	if o != nil && !IsNil(o.BillingInterval) {
+	if o != nil && o.BillingInterval.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetBillingInterval gets a reference to the given string and assigns it to the BillingInterval field.
+// SetBillingInterval gets a reference to the given NullableString and assigns it to the BillingInterval field.
 func (o *PriceCreateRequest) SetBillingInterval(v string) {
-	o.BillingInterval = &v
+	o.BillingInterval.Set(&v)
+}
+// SetBillingIntervalNil sets the value for BillingInterval to be an explicit nil
+func (o *PriceCreateRequest) SetBillingIntervalNil() {
+	o.BillingInterval.Set(nil)
+}
+
+// UnsetBillingInterval ensures that no value is present for BillingInterval, not even an explicit nil
+func (o *PriceCreateRequest) UnsetBillingInterval() {
+	o.BillingInterval.Unset()
 }
 
 // GetBillingIntervalCount returns the BillingIntervalCount field value if set, zero value otherwise.
@@ -273,41 +289,51 @@ func (o *PriceCreateRequest) SetUnitAmount(v int32) {
 	o.UnitAmount = &v
 }
 
-// GetMeterId returns the MeterId field value if set, zero value otherwise.
+// GetMeterId returns the MeterId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PriceCreateRequest) GetMeterId() string {
-	if o == nil || IsNil(o.MeterId) {
+	if o == nil || IsNil(o.MeterId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.MeterId
+	return *o.MeterId.Get()
 }
 
 // GetMeterIdOk returns a tuple with the MeterId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PriceCreateRequest) GetMeterIdOk() (*string, bool) {
-	if o == nil || IsNil(o.MeterId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.MeterId, true
+	return o.MeterId.Get(), o.MeterId.IsSet()
 }
 
 // HasMeterId returns a boolean if a field has been set.
 func (o *PriceCreateRequest) HasMeterId() bool {
-	if o != nil && !IsNil(o.MeterId) {
+	if o != nil && o.MeterId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetMeterId gets a reference to the given string and assigns it to the MeterId field.
+// SetMeterId gets a reference to the given NullableString and assigns it to the MeterId field.
 func (o *PriceCreateRequest) SetMeterId(v string) {
-	o.MeterId = &v
+	o.MeterId.Set(&v)
+}
+// SetMeterIdNil sets the value for MeterId to be an explicit nil
+func (o *PriceCreateRequest) SetMeterIdNil() {
+	o.MeterId.Set(nil)
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// UnsetMeterId ensures that no value is present for MeterId, not even an explicit nil
+func (o *PriceCreateRequest) UnsetMeterId() {
+	o.MeterId.Unset()
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PriceCreateRequest) GetMetadata() map[string]string {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -316,6 +342,7 @@ func (o *PriceCreateRequest) GetMetadata() map[string]string {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PriceCreateRequest) GetMetadataOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return map[string]string{}, false
@@ -347,13 +374,13 @@ func (o PriceCreateRequest) MarshalJSON() ([]byte, error) {
 
 func (o PriceCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["priceId"] = o.PriceId
-	toSerialize["productId"] = o.ProductId
-	toSerialize["name"] = o.Name
+	toSerialize["priceId"] = o.PriceId.Get()
+	toSerialize["productId"] = o.ProductId.Get()
+	toSerialize["name"] = o.Name.Get()
 	toSerialize["priceType"] = o.PriceType
 	toSerialize["currency"] = o.Currency
-	if !IsNil(o.BillingInterval) {
-		toSerialize["billingInterval"] = o.BillingInterval
+	if o.BillingInterval.IsSet() {
+		toSerialize["billingInterval"] = o.BillingInterval.Get()
 	}
 	if !IsNil(o.BillingIntervalCount) {
 		toSerialize["billingIntervalCount"] = o.BillingIntervalCount
@@ -361,12 +388,17 @@ func (o PriceCreateRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UnitAmount) {
 		toSerialize["unitAmount"] = o.UnitAmount
 	}
-	if !IsNil(o.MeterId) {
-		toSerialize["meterId"] = o.MeterId
+	if o.MeterId.IsSet() {
+		toSerialize["meterId"] = o.MeterId.Get()
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -398,15 +430,29 @@ func (o *PriceCreateRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varPriceCreateRequest := _PriceCreateRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPriceCreateRequest)
+	err = json.Unmarshal(data, &varPriceCreateRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PriceCreateRequest(varPriceCreateRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "priceId")
+		delete(additionalProperties, "productId")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "priceType")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "billingInterval")
+		delete(additionalProperties, "billingIntervalCount")
+		delete(additionalProperties, "unitAmount")
+		delete(additionalProperties, "meterId")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

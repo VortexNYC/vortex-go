@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,8 +20,9 @@ var _ MappedNullable = &MerchantOnboardingLinkRequest{}
 
 // MerchantOnboardingLinkRequest struct for MerchantOnboardingLinkRequest
 type MerchantOnboardingLinkRequest struct {
-	Environment string `json:"environment"`
-	CreatedByRef string `json:"createdByRef"`
+	Environment NullableString `json:"environment"`
+	CreatedByRef NullableString `json:"createdByRef"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MerchantOnboardingLinkRequest MerchantOnboardingLinkRequest
@@ -31,7 +31,7 @@ type _MerchantOnboardingLinkRequest MerchantOnboardingLinkRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantOnboardingLinkRequest(environment string, createdByRef string) *MerchantOnboardingLinkRequest {
+func NewMerchantOnboardingLinkRequest(environment NullableString, createdByRef NullableString) *MerchantOnboardingLinkRequest {
 	this := MerchantOnboardingLinkRequest{}
 	this.Environment = environment
 	this.CreatedByRef = createdByRef
@@ -47,51 +47,55 @@ func NewMerchantOnboardingLinkRequestWithDefaults() *MerchantOnboardingLinkReque
 }
 
 // GetEnvironment returns the Environment field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantOnboardingLinkRequest) GetEnvironment() string {
-	if o == nil {
+	if o == nil || o.Environment.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Environment
+	return *o.Environment.Get()
 }
 
 // GetEnvironmentOk returns a tuple with the Environment field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantOnboardingLinkRequest) GetEnvironmentOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Environment, true
+	return o.Environment.Get(), o.Environment.IsSet()
 }
 
 // SetEnvironment sets field value
 func (o *MerchantOnboardingLinkRequest) SetEnvironment(v string) {
-	o.Environment = v
+	o.Environment.Set(&v)
 }
 
 // GetCreatedByRef returns the CreatedByRef field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantOnboardingLinkRequest) GetCreatedByRef() string {
-	if o == nil {
+	if o == nil || o.CreatedByRef.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.CreatedByRef
+	return *o.CreatedByRef.Get()
 }
 
 // GetCreatedByRefOk returns a tuple with the CreatedByRef field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantOnboardingLinkRequest) GetCreatedByRefOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CreatedByRef, true
+	return o.CreatedByRef.Get(), o.CreatedByRef.IsSet()
 }
 
 // SetCreatedByRef sets field value
 func (o *MerchantOnboardingLinkRequest) SetCreatedByRef(v string) {
-	o.CreatedByRef = v
+	o.CreatedByRef.Set(&v)
 }
 
 func (o MerchantOnboardingLinkRequest) MarshalJSON() ([]byte, error) {
@@ -104,8 +108,13 @@ func (o MerchantOnboardingLinkRequest) MarshalJSON() ([]byte, error) {
 
 func (o MerchantOnboardingLinkRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["environment"] = o.Environment
-	toSerialize["createdByRef"] = o.CreatedByRef
+	toSerialize["environment"] = o.Environment.Get()
+	toSerialize["createdByRef"] = o.CreatedByRef.Get()
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -134,15 +143,21 @@ func (o *MerchantOnboardingLinkRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varMerchantOnboardingLinkRequest := _MerchantOnboardingLinkRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMerchantOnboardingLinkRequest)
+	err = json.Unmarshal(data, &varMerchantOnboardingLinkRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MerchantOnboardingLinkRequest(varMerchantOnboardingLinkRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "environment")
+		delete(additionalProperties, "createdByRef")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

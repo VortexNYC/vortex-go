@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,7 +20,8 @@ var _ MappedNullable = &BillingOrderFormVoidRequest{}
 
 // BillingOrderFormVoidRequest struct for BillingOrderFormVoidRequest
 type BillingOrderFormVoidRequest struct {
-	Reason string `json:"reason"`
+	Reason NullableString `json:"reason"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _BillingOrderFormVoidRequest BillingOrderFormVoidRequest
@@ -30,7 +30,7 @@ type _BillingOrderFormVoidRequest BillingOrderFormVoidRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBillingOrderFormVoidRequest(reason string) *BillingOrderFormVoidRequest {
+func NewBillingOrderFormVoidRequest(reason NullableString) *BillingOrderFormVoidRequest {
 	this := BillingOrderFormVoidRequest{}
 	this.Reason = reason
 	return &this
@@ -45,27 +45,29 @@ func NewBillingOrderFormVoidRequestWithDefaults() *BillingOrderFormVoidRequest {
 }
 
 // GetReason returns the Reason field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *BillingOrderFormVoidRequest) GetReason() string {
-	if o == nil {
+	if o == nil || o.Reason.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Reason
+	return *o.Reason.Get()
 }
 
 // GetReasonOk returns a tuple with the Reason field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BillingOrderFormVoidRequest) GetReasonOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Reason, true
+	return o.Reason.Get(), o.Reason.IsSet()
 }
 
 // SetReason sets field value
 func (o *BillingOrderFormVoidRequest) SetReason(v string) {
-	o.Reason = v
+	o.Reason.Set(&v)
 }
 
 func (o BillingOrderFormVoidRequest) MarshalJSON() ([]byte, error) {
@@ -78,7 +80,12 @@ func (o BillingOrderFormVoidRequest) MarshalJSON() ([]byte, error) {
 
 func (o BillingOrderFormVoidRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["reason"] = o.Reason
+	toSerialize["reason"] = o.Reason.Get()
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -106,15 +113,20 @@ func (o *BillingOrderFormVoidRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varBillingOrderFormVoidRequest := _BillingOrderFormVoidRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varBillingOrderFormVoidRequest)
+	err = json.Unmarshal(data, &varBillingOrderFormVoidRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = BillingOrderFormVoidRequest(varBillingOrderFormVoidRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "reason")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

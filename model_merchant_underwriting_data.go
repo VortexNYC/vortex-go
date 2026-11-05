@@ -22,12 +22,12 @@ type MerchantUnderwritingData struct {
 	AnnualAchVolume *float32 `json:"annualAchVolume,omitempty"`
 	AverageAchTransferAmount *float32 `json:"averageAchTransferAmount,omitempty"`
 	AverageCardTransferAmount *float32 `json:"averageCardTransferAmount,omitempty"`
-	BusinessDescription *string `json:"businessDescription,omitempty"`
-	CreditCheckAllowed *bool `json:"creditCheckAllowed,omitempty"`
-	CreditCheckIpAddress *string `json:"creditCheckIpAddress,omitempty"`
-	CreditCheckTimestamp *string `json:"creditCheckTimestamp,omitempty"`
-	CreditCheckUserAgent *string `json:"creditCheckUserAgent,omitempty"`
-	RefundPolicy *string `json:"refundPolicy,omitempty"`
+	BusinessDescription NullableString `json:"businessDescription,omitempty"`
+	CreditCheckAllowed NullableBool `json:"creditCheckAllowed,omitempty"`
+	CreditCheckIpAddress NullableString `json:"creditCheckIpAddress,omitempty"`
+	CreditCheckTimestamp NullableString `json:"creditCheckTimestamp,omitempty"`
+	CreditCheckUserAgent NullableString `json:"creditCheckUserAgent,omitempty"`
+	RefundPolicy NullableString `json:"refundPolicy,omitempty"`
 	CardVolumeDistribution *MerchantUnderwritingDataCardVolumeDistribution `json:"cardVolumeDistribution,omitempty"`
 	VolumeDistributionByBusinessType *MerchantUnderwritingDataVolumeDistributionByBusinessType `json:"volumeDistributionByBusinessType,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -148,196 +148,256 @@ func (o *MerchantUnderwritingData) SetAverageCardTransferAmount(v float32) {
 	o.AverageCardTransferAmount = &v
 }
 
-// GetBusinessDescription returns the BusinessDescription field value if set, zero value otherwise.
+// GetBusinessDescription returns the BusinessDescription field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantUnderwritingData) GetBusinessDescription() string {
-	if o == nil || IsNil(o.BusinessDescription) {
+	if o == nil || IsNil(o.BusinessDescription.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.BusinessDescription
+	return *o.BusinessDescription.Get()
 }
 
 // GetBusinessDescriptionOk returns a tuple with the BusinessDescription field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantUnderwritingData) GetBusinessDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.BusinessDescription) {
+	if o == nil {
 		return nil, false
 	}
-	return o.BusinessDescription, true
+	return o.BusinessDescription.Get(), o.BusinessDescription.IsSet()
 }
 
 // HasBusinessDescription returns a boolean if a field has been set.
 func (o *MerchantUnderwritingData) HasBusinessDescription() bool {
-	if o != nil && !IsNil(o.BusinessDescription) {
+	if o != nil && o.BusinessDescription.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetBusinessDescription gets a reference to the given string and assigns it to the BusinessDescription field.
+// SetBusinessDescription gets a reference to the given NullableString and assigns it to the BusinessDescription field.
 func (o *MerchantUnderwritingData) SetBusinessDescription(v string) {
-	o.BusinessDescription = &v
+	o.BusinessDescription.Set(&v)
+}
+// SetBusinessDescriptionNil sets the value for BusinessDescription to be an explicit nil
+func (o *MerchantUnderwritingData) SetBusinessDescriptionNil() {
+	o.BusinessDescription.Set(nil)
 }
 
-// GetCreditCheckAllowed returns the CreditCheckAllowed field value if set, zero value otherwise.
+// UnsetBusinessDescription ensures that no value is present for BusinessDescription, not even an explicit nil
+func (o *MerchantUnderwritingData) UnsetBusinessDescription() {
+	o.BusinessDescription.Unset()
+}
+
+// GetCreditCheckAllowed returns the CreditCheckAllowed field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantUnderwritingData) GetCreditCheckAllowed() bool {
-	if o == nil || IsNil(o.CreditCheckAllowed) {
+	if o == nil || IsNil(o.CreditCheckAllowed.Get()) {
 		var ret bool
 		return ret
 	}
-	return *o.CreditCheckAllowed
+	return *o.CreditCheckAllowed.Get()
 }
 
 // GetCreditCheckAllowedOk returns a tuple with the CreditCheckAllowed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantUnderwritingData) GetCreditCheckAllowedOk() (*bool, bool) {
-	if o == nil || IsNil(o.CreditCheckAllowed) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CreditCheckAllowed, true
+	return o.CreditCheckAllowed.Get(), o.CreditCheckAllowed.IsSet()
 }
 
 // HasCreditCheckAllowed returns a boolean if a field has been set.
 func (o *MerchantUnderwritingData) HasCreditCheckAllowed() bool {
-	if o != nil && !IsNil(o.CreditCheckAllowed) {
+	if o != nil && o.CreditCheckAllowed.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCreditCheckAllowed gets a reference to the given bool and assigns it to the CreditCheckAllowed field.
+// SetCreditCheckAllowed gets a reference to the given NullableBool and assigns it to the CreditCheckAllowed field.
 func (o *MerchantUnderwritingData) SetCreditCheckAllowed(v bool) {
-	o.CreditCheckAllowed = &v
+	o.CreditCheckAllowed.Set(&v)
+}
+// SetCreditCheckAllowedNil sets the value for CreditCheckAllowed to be an explicit nil
+func (o *MerchantUnderwritingData) SetCreditCheckAllowedNil() {
+	o.CreditCheckAllowed.Set(nil)
 }
 
-// GetCreditCheckIpAddress returns the CreditCheckIpAddress field value if set, zero value otherwise.
+// UnsetCreditCheckAllowed ensures that no value is present for CreditCheckAllowed, not even an explicit nil
+func (o *MerchantUnderwritingData) UnsetCreditCheckAllowed() {
+	o.CreditCheckAllowed.Unset()
+}
+
+// GetCreditCheckIpAddress returns the CreditCheckIpAddress field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantUnderwritingData) GetCreditCheckIpAddress() string {
-	if o == nil || IsNil(o.CreditCheckIpAddress) {
+	if o == nil || IsNil(o.CreditCheckIpAddress.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CreditCheckIpAddress
+	return *o.CreditCheckIpAddress.Get()
 }
 
 // GetCreditCheckIpAddressOk returns a tuple with the CreditCheckIpAddress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantUnderwritingData) GetCreditCheckIpAddressOk() (*string, bool) {
-	if o == nil || IsNil(o.CreditCheckIpAddress) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CreditCheckIpAddress, true
+	return o.CreditCheckIpAddress.Get(), o.CreditCheckIpAddress.IsSet()
 }
 
 // HasCreditCheckIpAddress returns a boolean if a field has been set.
 func (o *MerchantUnderwritingData) HasCreditCheckIpAddress() bool {
-	if o != nil && !IsNil(o.CreditCheckIpAddress) {
+	if o != nil && o.CreditCheckIpAddress.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCreditCheckIpAddress gets a reference to the given string and assigns it to the CreditCheckIpAddress field.
+// SetCreditCheckIpAddress gets a reference to the given NullableString and assigns it to the CreditCheckIpAddress field.
 func (o *MerchantUnderwritingData) SetCreditCheckIpAddress(v string) {
-	o.CreditCheckIpAddress = &v
+	o.CreditCheckIpAddress.Set(&v)
+}
+// SetCreditCheckIpAddressNil sets the value for CreditCheckIpAddress to be an explicit nil
+func (o *MerchantUnderwritingData) SetCreditCheckIpAddressNil() {
+	o.CreditCheckIpAddress.Set(nil)
 }
 
-// GetCreditCheckTimestamp returns the CreditCheckTimestamp field value if set, zero value otherwise.
+// UnsetCreditCheckIpAddress ensures that no value is present for CreditCheckIpAddress, not even an explicit nil
+func (o *MerchantUnderwritingData) UnsetCreditCheckIpAddress() {
+	o.CreditCheckIpAddress.Unset()
+}
+
+// GetCreditCheckTimestamp returns the CreditCheckTimestamp field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantUnderwritingData) GetCreditCheckTimestamp() string {
-	if o == nil || IsNil(o.CreditCheckTimestamp) {
+	if o == nil || IsNil(o.CreditCheckTimestamp.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CreditCheckTimestamp
+	return *o.CreditCheckTimestamp.Get()
 }
 
 // GetCreditCheckTimestampOk returns a tuple with the CreditCheckTimestamp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantUnderwritingData) GetCreditCheckTimestampOk() (*string, bool) {
-	if o == nil || IsNil(o.CreditCheckTimestamp) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CreditCheckTimestamp, true
+	return o.CreditCheckTimestamp.Get(), o.CreditCheckTimestamp.IsSet()
 }
 
 // HasCreditCheckTimestamp returns a boolean if a field has been set.
 func (o *MerchantUnderwritingData) HasCreditCheckTimestamp() bool {
-	if o != nil && !IsNil(o.CreditCheckTimestamp) {
+	if o != nil && o.CreditCheckTimestamp.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCreditCheckTimestamp gets a reference to the given string and assigns it to the CreditCheckTimestamp field.
+// SetCreditCheckTimestamp gets a reference to the given NullableString and assigns it to the CreditCheckTimestamp field.
 func (o *MerchantUnderwritingData) SetCreditCheckTimestamp(v string) {
-	o.CreditCheckTimestamp = &v
+	o.CreditCheckTimestamp.Set(&v)
+}
+// SetCreditCheckTimestampNil sets the value for CreditCheckTimestamp to be an explicit nil
+func (o *MerchantUnderwritingData) SetCreditCheckTimestampNil() {
+	o.CreditCheckTimestamp.Set(nil)
 }
 
-// GetCreditCheckUserAgent returns the CreditCheckUserAgent field value if set, zero value otherwise.
+// UnsetCreditCheckTimestamp ensures that no value is present for CreditCheckTimestamp, not even an explicit nil
+func (o *MerchantUnderwritingData) UnsetCreditCheckTimestamp() {
+	o.CreditCheckTimestamp.Unset()
+}
+
+// GetCreditCheckUserAgent returns the CreditCheckUserAgent field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantUnderwritingData) GetCreditCheckUserAgent() string {
-	if o == nil || IsNil(o.CreditCheckUserAgent) {
+	if o == nil || IsNil(o.CreditCheckUserAgent.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CreditCheckUserAgent
+	return *o.CreditCheckUserAgent.Get()
 }
 
 // GetCreditCheckUserAgentOk returns a tuple with the CreditCheckUserAgent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantUnderwritingData) GetCreditCheckUserAgentOk() (*string, bool) {
-	if o == nil || IsNil(o.CreditCheckUserAgent) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CreditCheckUserAgent, true
+	return o.CreditCheckUserAgent.Get(), o.CreditCheckUserAgent.IsSet()
 }
 
 // HasCreditCheckUserAgent returns a boolean if a field has been set.
 func (o *MerchantUnderwritingData) HasCreditCheckUserAgent() bool {
-	if o != nil && !IsNil(o.CreditCheckUserAgent) {
+	if o != nil && o.CreditCheckUserAgent.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCreditCheckUserAgent gets a reference to the given string and assigns it to the CreditCheckUserAgent field.
+// SetCreditCheckUserAgent gets a reference to the given NullableString and assigns it to the CreditCheckUserAgent field.
 func (o *MerchantUnderwritingData) SetCreditCheckUserAgent(v string) {
-	o.CreditCheckUserAgent = &v
+	o.CreditCheckUserAgent.Set(&v)
+}
+// SetCreditCheckUserAgentNil sets the value for CreditCheckUserAgent to be an explicit nil
+func (o *MerchantUnderwritingData) SetCreditCheckUserAgentNil() {
+	o.CreditCheckUserAgent.Set(nil)
 }
 
-// GetRefundPolicy returns the RefundPolicy field value if set, zero value otherwise.
+// UnsetCreditCheckUserAgent ensures that no value is present for CreditCheckUserAgent, not even an explicit nil
+func (o *MerchantUnderwritingData) UnsetCreditCheckUserAgent() {
+	o.CreditCheckUserAgent.Unset()
+}
+
+// GetRefundPolicy returns the RefundPolicy field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantUnderwritingData) GetRefundPolicy() string {
-	if o == nil || IsNil(o.RefundPolicy) {
+	if o == nil || IsNil(o.RefundPolicy.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.RefundPolicy
+	return *o.RefundPolicy.Get()
 }
 
 // GetRefundPolicyOk returns a tuple with the RefundPolicy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantUnderwritingData) GetRefundPolicyOk() (*string, bool) {
-	if o == nil || IsNil(o.RefundPolicy) {
+	if o == nil {
 		return nil, false
 	}
-	return o.RefundPolicy, true
+	return o.RefundPolicy.Get(), o.RefundPolicy.IsSet()
 }
 
 // HasRefundPolicy returns a boolean if a field has been set.
 func (o *MerchantUnderwritingData) HasRefundPolicy() bool {
-	if o != nil && !IsNil(o.RefundPolicy) {
+	if o != nil && o.RefundPolicy.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetRefundPolicy gets a reference to the given string and assigns it to the RefundPolicy field.
+// SetRefundPolicy gets a reference to the given NullableString and assigns it to the RefundPolicy field.
 func (o *MerchantUnderwritingData) SetRefundPolicy(v string) {
-	o.RefundPolicy = &v
+	o.RefundPolicy.Set(&v)
+}
+// SetRefundPolicyNil sets the value for RefundPolicy to be an explicit nil
+func (o *MerchantUnderwritingData) SetRefundPolicyNil() {
+	o.RefundPolicy.Set(nil)
+}
+
+// UnsetRefundPolicy ensures that no value is present for RefundPolicy, not even an explicit nil
+func (o *MerchantUnderwritingData) UnsetRefundPolicy() {
+	o.RefundPolicy.Unset()
 }
 
 // GetCardVolumeDistribution returns the CardVolumeDistribution field value if set, zero value otherwise.
@@ -423,23 +483,23 @@ func (o MerchantUnderwritingData) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AverageCardTransferAmount) {
 		toSerialize["averageCardTransferAmount"] = o.AverageCardTransferAmount
 	}
-	if !IsNil(o.BusinessDescription) {
-		toSerialize["businessDescription"] = o.BusinessDescription
+	if o.BusinessDescription.IsSet() {
+		toSerialize["businessDescription"] = o.BusinessDescription.Get()
 	}
-	if !IsNil(o.CreditCheckAllowed) {
-		toSerialize["creditCheckAllowed"] = o.CreditCheckAllowed
+	if o.CreditCheckAllowed.IsSet() {
+		toSerialize["creditCheckAllowed"] = o.CreditCheckAllowed.Get()
 	}
-	if !IsNil(o.CreditCheckIpAddress) {
-		toSerialize["creditCheckIpAddress"] = o.CreditCheckIpAddress
+	if o.CreditCheckIpAddress.IsSet() {
+		toSerialize["creditCheckIpAddress"] = o.CreditCheckIpAddress.Get()
 	}
-	if !IsNil(o.CreditCheckTimestamp) {
-		toSerialize["creditCheckTimestamp"] = o.CreditCheckTimestamp
+	if o.CreditCheckTimestamp.IsSet() {
+		toSerialize["creditCheckTimestamp"] = o.CreditCheckTimestamp.Get()
 	}
-	if !IsNil(o.CreditCheckUserAgent) {
-		toSerialize["creditCheckUserAgent"] = o.CreditCheckUserAgent
+	if o.CreditCheckUserAgent.IsSet() {
+		toSerialize["creditCheckUserAgent"] = o.CreditCheckUserAgent.Get()
 	}
-	if !IsNil(o.RefundPolicy) {
-		toSerialize["refundPolicy"] = o.RefundPolicy
+	if o.RefundPolicy.IsSet() {
+		toSerialize["refundPolicy"] = o.RefundPolicy.Get()
 	}
 	if !IsNil(o.CardVolumeDistribution) {
 		toSerialize["cardVolumeDistribution"] = o.CardVolumeDistribution

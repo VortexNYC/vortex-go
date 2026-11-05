@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,13 +20,14 @@ var _ MappedNullable = &StatementUploadRequest{}
 
 // StatementUploadRequest A processing statement export — CSV/TSV text or a base64-encoded binary (PDF). Parsed server-side: deterministic rules first, document-parse + AI extraction as the fallback. Metrics are internal-only; the merchant never sees them.
 type StatementUploadRequest struct {
-	Environment string `json:"environment"`
+	Environment NullableString `json:"environment"`
 	// Must match the path merchantAccountId
 	MerchantAccountId string `json:"merchantAccountId"`
-	Filename string `json:"filename"`
+	Filename NullableString `json:"filename"`
 	ContentType string `json:"contentType"`
 	// Raw text for text/_* uploads (control characters other than \\b\\t\\n\\f\\r are not accepted); base64-encoded bytes for binary types (application/pdf, application/octet-stream). Max 10 MiB decoded.
 	Body string `json:"body"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _StatementUploadRequest StatementUploadRequest
@@ -36,7 +36,7 @@ type _StatementUploadRequest StatementUploadRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStatementUploadRequest(environment string, merchantAccountId string, filename string, contentType string, body string) *StatementUploadRequest {
+func NewStatementUploadRequest(environment NullableString, merchantAccountId string, filename NullableString, contentType string, body string) *StatementUploadRequest {
 	this := StatementUploadRequest{}
 	this.Environment = environment
 	this.MerchantAccountId = merchantAccountId
@@ -55,27 +55,29 @@ func NewStatementUploadRequestWithDefaults() *StatementUploadRequest {
 }
 
 // GetEnvironment returns the Environment field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *StatementUploadRequest) GetEnvironment() string {
-	if o == nil {
+	if o == nil || o.Environment.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Environment
+	return *o.Environment.Get()
 }
 
 // GetEnvironmentOk returns a tuple with the Environment field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *StatementUploadRequest) GetEnvironmentOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Environment, true
+	return o.Environment.Get(), o.Environment.IsSet()
 }
 
 // SetEnvironment sets field value
 func (o *StatementUploadRequest) SetEnvironment(v string) {
-	o.Environment = v
+	o.Environment.Set(&v)
 }
 
 // GetMerchantAccountId returns the MerchantAccountId field value
@@ -103,27 +105,29 @@ func (o *StatementUploadRequest) SetMerchantAccountId(v string) {
 }
 
 // GetFilename returns the Filename field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *StatementUploadRequest) GetFilename() string {
-	if o == nil {
+	if o == nil || o.Filename.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Filename
+	return *o.Filename.Get()
 }
 
 // GetFilenameOk returns a tuple with the Filename field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *StatementUploadRequest) GetFilenameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Filename, true
+	return o.Filename.Get(), o.Filename.IsSet()
 }
 
 // SetFilename sets field value
 func (o *StatementUploadRequest) SetFilename(v string) {
-	o.Filename = v
+	o.Filename.Set(&v)
 }
 
 // GetContentType returns the ContentType field value
@@ -184,11 +188,16 @@ func (o StatementUploadRequest) MarshalJSON() ([]byte, error) {
 
 func (o StatementUploadRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["environment"] = o.Environment
+	toSerialize["environment"] = o.Environment.Get()
 	toSerialize["merchantAccountId"] = o.MerchantAccountId
-	toSerialize["filename"] = o.Filename
+	toSerialize["filename"] = o.Filename.Get()
 	toSerialize["contentType"] = o.ContentType
 	toSerialize["body"] = o.Body
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -220,15 +229,24 @@ func (o *StatementUploadRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varStatementUploadRequest := _StatementUploadRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varStatementUploadRequest)
+	err = json.Unmarshal(data, &varStatementUploadRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = StatementUploadRequest(varStatementUploadRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "environment")
+		delete(additionalProperties, "merchantAccountId")
+		delete(additionalProperties, "filename")
+		delete(additionalProperties, "contentType")
+		delete(additionalProperties, "body")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

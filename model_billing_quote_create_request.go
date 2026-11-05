@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,18 +20,19 @@ var _ MappedNullable = &BillingQuoteCreateRequest{}
 
 // BillingQuoteCreateRequest struct for BillingQuoteCreateRequest
 type BillingQuoteCreateRequest struct {
-	QuoteId *string `json:"quoteId,omitempty"`
+	QuoteId NullableString `json:"quoteId,omitempty"`
 	OrderType string `json:"orderType"`
-	CustomerId string `json:"customerId"`
-	BillingAccountId string `json:"billingAccountId"`
+	CustomerId NullableString `json:"customerId"`
+	BillingAccountId NullableString `json:"billingAccountId"`
 	// Required for subscription_amendment quotes; the subscription being amended.
 	SubscriptionId *string `json:"subscriptionId,omitempty"`
 	// ISO 4217 alpha-3; only currencies processable on current rails are accepted
 	Currency string `json:"currency"`
 	Lines []BillingQuoteLineInput `json:"lines"`
 	CouponIds []string `json:"couponIds,omitempty"`
-	Terms *string `json:"terms,omitempty"`
+	Terms NullableString `json:"terms,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _BillingQuoteCreateRequest BillingQuoteCreateRequest
@@ -41,7 +41,7 @@ type _BillingQuoteCreateRequest BillingQuoteCreateRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBillingQuoteCreateRequest(orderType string, customerId string, billingAccountId string, currency string, lines []BillingQuoteLineInput) *BillingQuoteCreateRequest {
+func NewBillingQuoteCreateRequest(orderType string, customerId NullableString, billingAccountId NullableString, currency string, lines []BillingQuoteLineInput) *BillingQuoteCreateRequest {
 	this := BillingQuoteCreateRequest{}
 	this.OrderType = orderType
 	this.CustomerId = customerId
@@ -59,36 +59,46 @@ func NewBillingQuoteCreateRequestWithDefaults() *BillingQuoteCreateRequest {
 	return &this
 }
 
-// GetQuoteId returns the QuoteId field value if set, zero value otherwise.
+// GetQuoteId returns the QuoteId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *BillingQuoteCreateRequest) GetQuoteId() string {
-	if o == nil || IsNil(o.QuoteId) {
+	if o == nil || IsNil(o.QuoteId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.QuoteId
+	return *o.QuoteId.Get()
 }
 
 // GetQuoteIdOk returns a tuple with the QuoteId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BillingQuoteCreateRequest) GetQuoteIdOk() (*string, bool) {
-	if o == nil || IsNil(o.QuoteId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.QuoteId, true
+	return o.QuoteId.Get(), o.QuoteId.IsSet()
 }
 
 // HasQuoteId returns a boolean if a field has been set.
 func (o *BillingQuoteCreateRequest) HasQuoteId() bool {
-	if o != nil && !IsNil(o.QuoteId) {
+	if o != nil && o.QuoteId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetQuoteId gets a reference to the given string and assigns it to the QuoteId field.
+// SetQuoteId gets a reference to the given NullableString and assigns it to the QuoteId field.
 func (o *BillingQuoteCreateRequest) SetQuoteId(v string) {
-	o.QuoteId = &v
+	o.QuoteId.Set(&v)
+}
+// SetQuoteIdNil sets the value for QuoteId to be an explicit nil
+func (o *BillingQuoteCreateRequest) SetQuoteIdNil() {
+	o.QuoteId.Set(nil)
+}
+
+// UnsetQuoteId ensures that no value is present for QuoteId, not even an explicit nil
+func (o *BillingQuoteCreateRequest) UnsetQuoteId() {
+	o.QuoteId.Unset()
 }
 
 // GetOrderType returns the OrderType field value
@@ -116,51 +126,55 @@ func (o *BillingQuoteCreateRequest) SetOrderType(v string) {
 }
 
 // GetCustomerId returns the CustomerId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *BillingQuoteCreateRequest) GetCustomerId() string {
-	if o == nil {
+	if o == nil || o.CustomerId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.CustomerId
+	return *o.CustomerId.Get()
 }
 
 // GetCustomerIdOk returns a tuple with the CustomerId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BillingQuoteCreateRequest) GetCustomerIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CustomerId, true
+	return o.CustomerId.Get(), o.CustomerId.IsSet()
 }
 
 // SetCustomerId sets field value
 func (o *BillingQuoteCreateRequest) SetCustomerId(v string) {
-	o.CustomerId = v
+	o.CustomerId.Set(&v)
 }
 
 // GetBillingAccountId returns the BillingAccountId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *BillingQuoteCreateRequest) GetBillingAccountId() string {
-	if o == nil {
+	if o == nil || o.BillingAccountId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.BillingAccountId
+	return *o.BillingAccountId.Get()
 }
 
 // GetBillingAccountIdOk returns a tuple with the BillingAccountId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BillingQuoteCreateRequest) GetBillingAccountIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.BillingAccountId, true
+	return o.BillingAccountId.Get(), o.BillingAccountId.IsSet()
 }
 
 // SetBillingAccountId sets field value
 func (o *BillingQuoteCreateRequest) SetBillingAccountId(v string) {
-	o.BillingAccountId = v
+	o.BillingAccountId.Set(&v)
 }
 
 // GetSubscriptionId returns the SubscriptionId field value if set, zero value otherwise.
@@ -275,41 +289,51 @@ func (o *BillingQuoteCreateRequest) SetCouponIds(v []string) {
 	o.CouponIds = v
 }
 
-// GetTerms returns the Terms field value if set, zero value otherwise.
+// GetTerms returns the Terms field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *BillingQuoteCreateRequest) GetTerms() string {
-	if o == nil || IsNil(o.Terms) {
+	if o == nil || IsNil(o.Terms.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Terms
+	return *o.Terms.Get()
 }
 
 // GetTermsOk returns a tuple with the Terms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BillingQuoteCreateRequest) GetTermsOk() (*string, bool) {
-	if o == nil || IsNil(o.Terms) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Terms, true
+	return o.Terms.Get(), o.Terms.IsSet()
 }
 
 // HasTerms returns a boolean if a field has been set.
 func (o *BillingQuoteCreateRequest) HasTerms() bool {
-	if o != nil && !IsNil(o.Terms) {
+	if o != nil && o.Terms.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetTerms gets a reference to the given string and assigns it to the Terms field.
+// SetTerms gets a reference to the given NullableString and assigns it to the Terms field.
 func (o *BillingQuoteCreateRequest) SetTerms(v string) {
-	o.Terms = &v
+	o.Terms.Set(&v)
+}
+// SetTermsNil sets the value for Terms to be an explicit nil
+func (o *BillingQuoteCreateRequest) SetTermsNil() {
+	o.Terms.Set(nil)
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// UnsetTerms ensures that no value is present for Terms, not even an explicit nil
+func (o *BillingQuoteCreateRequest) UnsetTerms() {
+	o.Terms.Unset()
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *BillingQuoteCreateRequest) GetMetadata() map[string]string {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -318,6 +342,7 @@ func (o *BillingQuoteCreateRequest) GetMetadata() map[string]string {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BillingQuoteCreateRequest) GetMetadataOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return map[string]string{}, false
@@ -349,12 +374,12 @@ func (o BillingQuoteCreateRequest) MarshalJSON() ([]byte, error) {
 
 func (o BillingQuoteCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.QuoteId) {
-		toSerialize["quoteId"] = o.QuoteId
+	if o.QuoteId.IsSet() {
+		toSerialize["quoteId"] = o.QuoteId.Get()
 	}
 	toSerialize["orderType"] = o.OrderType
-	toSerialize["customerId"] = o.CustomerId
-	toSerialize["billingAccountId"] = o.BillingAccountId
+	toSerialize["customerId"] = o.CustomerId.Get()
+	toSerialize["billingAccountId"] = o.BillingAccountId.Get()
 	if !IsNil(o.SubscriptionId) {
 		toSerialize["subscriptionId"] = o.SubscriptionId
 	}
@@ -363,12 +388,17 @@ func (o BillingQuoteCreateRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CouponIds) {
 		toSerialize["couponIds"] = o.CouponIds
 	}
-	if !IsNil(o.Terms) {
-		toSerialize["terms"] = o.Terms
+	if o.Terms.IsSet() {
+		toSerialize["terms"] = o.Terms.Get()
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -400,15 +430,29 @@ func (o *BillingQuoteCreateRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varBillingQuoteCreateRequest := _BillingQuoteCreateRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varBillingQuoteCreateRequest)
+	err = json.Unmarshal(data, &varBillingQuoteCreateRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = BillingQuoteCreateRequest(varBillingQuoteCreateRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "quoteId")
+		delete(additionalProperties, "orderType")
+		delete(additionalProperties, "customerId")
+		delete(additionalProperties, "billingAccountId")
+		delete(additionalProperties, "subscriptionId")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "lines")
+		delete(additionalProperties, "couponIds")
+		delete(additionalProperties, "terms")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

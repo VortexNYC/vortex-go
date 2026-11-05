@@ -22,7 +22,7 @@ var _ MappedNullable = &OpenApiInvoiceTaxResponseAllOfData{}
 // OpenApiInvoiceTaxResponseAllOfData struct for OpenApiInvoiceTaxResponseAllOfData
 type OpenApiInvoiceTaxResponseAllOfData struct {
 	Tax InvoiceTax `json:"tax"`
-	Replayed bool `json:"replayed"`
+	Replayed NullableBool `json:"replayed"`
 }
 
 type _OpenApiInvoiceTaxResponseAllOfData OpenApiInvoiceTaxResponseAllOfData
@@ -31,7 +31,7 @@ type _OpenApiInvoiceTaxResponseAllOfData OpenApiInvoiceTaxResponseAllOfData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOpenApiInvoiceTaxResponseAllOfData(tax InvoiceTax, replayed bool) *OpenApiInvoiceTaxResponseAllOfData {
+func NewOpenApiInvoiceTaxResponseAllOfData(tax InvoiceTax, replayed NullableBool) *OpenApiInvoiceTaxResponseAllOfData {
 	this := OpenApiInvoiceTaxResponseAllOfData{}
 	this.Tax = tax
 	this.Replayed = replayed
@@ -71,27 +71,29 @@ func (o *OpenApiInvoiceTaxResponseAllOfData) SetTax(v InvoiceTax) {
 }
 
 // GetReplayed returns the Replayed field value
+// If the value is explicit nil, the zero value for bool will be returned
 func (o *OpenApiInvoiceTaxResponseAllOfData) GetReplayed() bool {
-	if o == nil {
+	if o == nil || o.Replayed.Get() == nil {
 		var ret bool
 		return ret
 	}
 
-	return o.Replayed
+	return *o.Replayed.Get()
 }
 
 // GetReplayedOk returns a tuple with the Replayed field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *OpenApiInvoiceTaxResponseAllOfData) GetReplayedOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Replayed, true
+	return o.Replayed.Get(), o.Replayed.IsSet()
 }
 
 // SetReplayed sets field value
 func (o *OpenApiInvoiceTaxResponseAllOfData) SetReplayed(v bool) {
-	o.Replayed = v
+	o.Replayed.Set(&v)
 }
 
 func (o OpenApiInvoiceTaxResponseAllOfData) MarshalJSON() ([]byte, error) {
@@ -105,7 +107,7 @@ func (o OpenApiInvoiceTaxResponseAllOfData) MarshalJSON() ([]byte, error) {
 func (o OpenApiInvoiceTaxResponseAllOfData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["tax"] = o.Tax
-	toSerialize["replayed"] = o.Replayed
+	toSerialize["replayed"] = o.Replayed.Get()
 	return toSerialize, nil
 }
 

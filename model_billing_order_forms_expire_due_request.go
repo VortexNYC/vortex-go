@@ -22,7 +22,10 @@ var _ MappedNullable = &BillingOrderFormsExpireDueRequest{}
 type BillingOrderFormsExpireDueRequest struct {
 	Now *time.Time `json:"now,omitempty"`
 	Limit *int32 `json:"limit,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _BillingOrderFormsExpireDueRequest BillingOrderFormsExpireDueRequest
 
 // NewBillingOrderFormsExpireDueRequest instantiates a new BillingOrderFormsExpireDueRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o BillingOrderFormsExpireDueRequest) ToMap() (map[string]interface{}, erro
 	if !IsNil(o.Limit) {
 		toSerialize["limit"] = o.Limit
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *BillingOrderFormsExpireDueRequest) UnmarshalJSON(data []byte) (err error) {
+	varBillingOrderFormsExpireDueRequest := _BillingOrderFormsExpireDueRequest{}
+
+	err = json.Unmarshal(data, &varBillingOrderFormsExpireDueRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BillingOrderFormsExpireDueRequest(varBillingOrderFormsExpireDueRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "now")
+		delete(additionalProperties, "limit")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableBillingOrderFormsExpireDueRequest struct {

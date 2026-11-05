@@ -13,7 +13,6 @@ package vortex
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -22,11 +21,12 @@ var _ MappedNullable = &MerchantRatePlanResponse{}
 
 // MerchantRatePlanResponse The merchant's active rate plan — the pricing they pay. Platform fees and provider internals are not in this shape.
 type MerchantRatePlanResponse struct {
-	RatePlanId string `json:"ratePlanId"`
-	DisplayName string `json:"displayName"`
-	PricingStrategy string `json:"pricingStrategy"`
+	RatePlanId NullableString `json:"ratePlanId"`
+	DisplayName NullableString `json:"displayName"`
+	PricingStrategy NullableString `json:"pricingStrategy"`
 	EffectiveAt *time.Time `json:"effectiveAt,omitempty"`
 	Rate MerchantRatePlanResponseRate `json:"rate"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MerchantRatePlanResponse MerchantRatePlanResponse
@@ -35,7 +35,7 @@ type _MerchantRatePlanResponse MerchantRatePlanResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantRatePlanResponse(ratePlanId string, displayName string, pricingStrategy string, rate MerchantRatePlanResponseRate) *MerchantRatePlanResponse {
+func NewMerchantRatePlanResponse(ratePlanId NullableString, displayName NullableString, pricingStrategy NullableString, rate MerchantRatePlanResponseRate) *MerchantRatePlanResponse {
 	this := MerchantRatePlanResponse{}
 	this.RatePlanId = ratePlanId
 	this.DisplayName = displayName
@@ -53,75 +53,81 @@ func NewMerchantRatePlanResponseWithDefaults() *MerchantRatePlanResponse {
 }
 
 // GetRatePlanId returns the RatePlanId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantRatePlanResponse) GetRatePlanId() string {
-	if o == nil {
+	if o == nil || o.RatePlanId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.RatePlanId
+	return *o.RatePlanId.Get()
 }
 
 // GetRatePlanIdOk returns a tuple with the RatePlanId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantRatePlanResponse) GetRatePlanIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RatePlanId, true
+	return o.RatePlanId.Get(), o.RatePlanId.IsSet()
 }
 
 // SetRatePlanId sets field value
 func (o *MerchantRatePlanResponse) SetRatePlanId(v string) {
-	o.RatePlanId = v
+	o.RatePlanId.Set(&v)
 }
 
 // GetDisplayName returns the DisplayName field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantRatePlanResponse) GetDisplayName() string {
-	if o == nil {
+	if o == nil || o.DisplayName.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.DisplayName
+	return *o.DisplayName.Get()
 }
 
 // GetDisplayNameOk returns a tuple with the DisplayName field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantRatePlanResponse) GetDisplayNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.DisplayName, true
+	return o.DisplayName.Get(), o.DisplayName.IsSet()
 }
 
 // SetDisplayName sets field value
 func (o *MerchantRatePlanResponse) SetDisplayName(v string) {
-	o.DisplayName = v
+	o.DisplayName.Set(&v)
 }
 
 // GetPricingStrategy returns the PricingStrategy field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantRatePlanResponse) GetPricingStrategy() string {
-	if o == nil {
+	if o == nil || o.PricingStrategy.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.PricingStrategy
+	return *o.PricingStrategy.Get()
 }
 
 // GetPricingStrategyOk returns a tuple with the PricingStrategy field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantRatePlanResponse) GetPricingStrategyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PricingStrategy, true
+	return o.PricingStrategy.Get(), o.PricingStrategy.IsSet()
 }
 
 // SetPricingStrategy sets field value
 func (o *MerchantRatePlanResponse) SetPricingStrategy(v string) {
-	o.PricingStrategy = v
+	o.PricingStrategy.Set(&v)
 }
 
 // GetEffectiveAt returns the EffectiveAt field value if set, zero value otherwise.
@@ -190,13 +196,18 @@ func (o MerchantRatePlanResponse) MarshalJSON() ([]byte, error) {
 
 func (o MerchantRatePlanResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["ratePlanId"] = o.RatePlanId
-	toSerialize["displayName"] = o.DisplayName
-	toSerialize["pricingStrategy"] = o.PricingStrategy
+	toSerialize["ratePlanId"] = o.RatePlanId.Get()
+	toSerialize["displayName"] = o.DisplayName.Get()
+	toSerialize["pricingStrategy"] = o.PricingStrategy.Get()
 	if !IsNil(o.EffectiveAt) {
 		toSerialize["effectiveAt"] = o.EffectiveAt
 	}
 	toSerialize["rate"] = o.Rate
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -227,15 +238,24 @@ func (o *MerchantRatePlanResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varMerchantRatePlanResponse := _MerchantRatePlanResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMerchantRatePlanResponse)
+	err = json.Unmarshal(data, &varMerchantRatePlanResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MerchantRatePlanResponse(varMerchantRatePlanResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "ratePlanId")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "pricingStrategy")
+		delete(additionalProperties, "effectiveAt")
+		delete(additionalProperties, "rate")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

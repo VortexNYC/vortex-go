@@ -26,7 +26,7 @@ type QuoteRequestCreateRequestApplication struct {
 	DoingBusinessAs string `json:"doingBusinessAs"`
 	LegalEntityType string `json:"legalEntityType"`
 	Mcc string `json:"mcc" validate:"regexp=^\\\\d{4}$"`
-	EinProvided bool `json:"einProvided"`
+	EinProvided NullableBool `json:"einProvided"`
 	EinLast4 *string `json:"einLast4,omitempty" validate:"regexp=^\\\\d{4}$"`
 	Phone string `json:"phone"`
 	BusinessAddress QuoteRequestCreateRequestApplicationBusinessAddress `json:"businessAddress"`
@@ -41,7 +41,7 @@ type _QuoteRequestCreateRequestApplication QuoteRequestCreateRequestApplication
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewQuoteRequestCreateRequestApplication(ratePlan string, legalName string, doingBusinessAs string, legalEntityType string, mcc string, einProvided bool, phone string, businessAddress QuoteRequestCreateRequestApplicationBusinessAddress, channel string, monthlyVolumeCents int32) *QuoteRequestCreateRequestApplication {
+func NewQuoteRequestCreateRequestApplication(ratePlan string, legalName string, doingBusinessAs string, legalEntityType string, mcc string, einProvided NullableBool, phone string, businessAddress QuoteRequestCreateRequestApplicationBusinessAddress, channel string, monthlyVolumeCents int32) *QuoteRequestCreateRequestApplication {
 	this := QuoteRequestCreateRequestApplication{}
 	this.RatePlan = ratePlan
 	this.LegalName = legalName
@@ -185,27 +185,29 @@ func (o *QuoteRequestCreateRequestApplication) SetMcc(v string) {
 }
 
 // GetEinProvided returns the EinProvided field value
+// If the value is explicit nil, the zero value for bool will be returned
 func (o *QuoteRequestCreateRequestApplication) GetEinProvided() bool {
-	if o == nil {
+	if o == nil || o.EinProvided.Get() == nil {
 		var ret bool
 		return ret
 	}
 
-	return o.EinProvided
+	return *o.EinProvided.Get()
 }
 
 // GetEinProvidedOk returns a tuple with the EinProvided field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *QuoteRequestCreateRequestApplication) GetEinProvidedOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.EinProvided, true
+	return o.EinProvided.Get(), o.EinProvided.IsSet()
 }
 
 // SetEinProvided sets field value
 func (o *QuoteRequestCreateRequestApplication) SetEinProvided(v bool) {
-	o.EinProvided = v
+	o.EinProvided.Set(&v)
 }
 
 // GetEinLast4 returns the EinLast4 field value if set, zero value otherwise.
@@ -383,7 +385,7 @@ func (o QuoteRequestCreateRequestApplication) ToMap() (map[string]interface{}, e
 	toSerialize["doingBusinessAs"] = o.DoingBusinessAs
 	toSerialize["legalEntityType"] = o.LegalEntityType
 	toSerialize["mcc"] = o.Mcc
-	toSerialize["einProvided"] = o.EinProvided
+	toSerialize["einProvided"] = o.EinProvided.Get()
 	if !IsNil(o.EinLast4) {
 		toSerialize["einLast4"] = o.EinLast4
 	}

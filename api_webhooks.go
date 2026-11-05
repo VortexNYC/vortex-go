@@ -431,25 +431,12 @@ func (a *WebhooksAPIService) CliListenNextExecute(r WebhooksAPICliListenNextRequ
 type WebhooksAPICreateWebhookEndpointRequest struct {
 	ctx context.Context
 	ApiService *WebhooksAPIService
-	environment *string
-	merchantAccountId *string
-	webhookEndpointCreateRequest *WebhookEndpointCreateRequest
+	createWebhookEndpointRequest *CreateWebhookEndpointRequest
 	idempotencyKey *string
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
-func (r WebhooksAPICreateWebhookEndpointRequest) Environment(environment string) WebhooksAPICreateWebhookEndpointRequest {
-	r.environment = &environment
-	return r
-}
-
-func (r WebhooksAPICreateWebhookEndpointRequest) MerchantAccountId(merchantAccountId string) WebhooksAPICreateWebhookEndpointRequest {
-	r.merchantAccountId = &merchantAccountId
-	return r
-}
-
-func (r WebhooksAPICreateWebhookEndpointRequest) WebhookEndpointCreateRequest(webhookEndpointCreateRequest WebhookEndpointCreateRequest) WebhooksAPICreateWebhookEndpointRequest {
-	r.webhookEndpointCreateRequest = &webhookEndpointCreateRequest
+func (r WebhooksAPICreateWebhookEndpointRequest) CreateWebhookEndpointRequest(createWebhookEndpointRequest CreateWebhookEndpointRequest) WebhooksAPICreateWebhookEndpointRequest {
+	r.createWebhookEndpointRequest = &createWebhookEndpointRequest
 	return r
 }
 
@@ -459,14 +446,12 @@ func (r WebhooksAPICreateWebhookEndpointRequest) IdempotencyKey(idempotencyKey s
 	return r
 }
 
-func (r WebhooksAPICreateWebhookEndpointRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
+func (r WebhooksAPICreateWebhookEndpointRequest) Execute() (*CreateWebhookEndpoint201Response, *http.Response, error) {
 	return r.ApiService.CreateWebhookEndpointExecute(r)
 }
 
 /*
-CreateWebhookEndpoint Create an outbound webhook endpoint
-
-The response carries the endpoint's `whsec_` signing secret once — persist it. Every delivery POSTs the JSON event envelope with `Vortex-Signature: t=<ms>,v1=<hex>` (v1 is the hex HMAC-SHA256 of `{t}.{raw body}` under the whsec_ secret; reject timestamps beyond ~5 minutes of drift) plus `Vortex-Event-Id` — the event's stable id, identical across retries and replays, so dedupe on it — and `Vortex-Delivery-Id`, unique per delivery attempt.
+CreateWebhookEndpoint Method for CreateWebhookEndpoint
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return WebhooksAPICreateWebhookEndpointRequest
@@ -479,13 +464,13 @@ func (a *WebhooksAPIService) CreateWebhookEndpoint(ctx context.Context) Webhooks
 }
 
 // Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *WebhooksAPIService) CreateWebhookEndpointExecute(r WebhooksAPICreateWebhookEndpointRequest) (*ApiWriteEnvelope, *http.Response, error) {
+//  @return CreateWebhookEndpoint201Response
+func (a *WebhooksAPIService) CreateWebhookEndpointExecute(r WebhooksAPICreateWebhookEndpointRequest) (*CreateWebhookEndpoint201Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
+		localVarReturnValue  *CreateWebhookEndpoint201Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhooksAPIService.CreateWebhookEndpoint")
@@ -498,18 +483,10 @@ func (a *WebhooksAPIService) CreateWebhookEndpointExecute(r WebhooksAPICreateWeb
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
-	if r.webhookEndpointCreateRequest == nil {
-		return localVarReturnValue, nil, reportError("webhookEndpointCreateRequest is required and must be specified")
+	if r.createWebhookEndpointRequest == nil {
+		return localVarReturnValue, nil, reportError("createWebhookEndpointRequest is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -531,7 +508,7 @@ func (a *WebhooksAPIService) CreateWebhookEndpointExecute(r WebhooksAPICreateWeb
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
 	}
 	// body params
-	localVarPostBody = r.webhookEndpointCreateRequest
+	localVarPostBody = r.createWebhookEndpointRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -554,69 +531,6 @@ func (a *WebhooksAPIService) CreateWebhookEndpointExecute(r WebhooksAPICreateWeb
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -841,25 +755,12 @@ func (a *WebhooksAPIService) DeleteWebhookEndpointExecute(r WebhooksAPIDeleteWeb
 type WebhooksAPIDispatchWebhookDeliveriesRequest struct {
 	ctx context.Context
 	ApiService *WebhooksAPIService
-	environment *string
-	merchantAccountId *string
-	webhookDeliveriesDispatchRequest *WebhookDeliveriesDispatchRequest
+	dispatchWebhookDeliveriesRequest *DispatchWebhookDeliveriesRequest
 	idempotencyKey *string
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
-func (r WebhooksAPIDispatchWebhookDeliveriesRequest) Environment(environment string) WebhooksAPIDispatchWebhookDeliveriesRequest {
-	r.environment = &environment
-	return r
-}
-
-func (r WebhooksAPIDispatchWebhookDeliveriesRequest) MerchantAccountId(merchantAccountId string) WebhooksAPIDispatchWebhookDeliveriesRequest {
-	r.merchantAccountId = &merchantAccountId
-	return r
-}
-
-func (r WebhooksAPIDispatchWebhookDeliveriesRequest) WebhookDeliveriesDispatchRequest(webhookDeliveriesDispatchRequest WebhookDeliveriesDispatchRequest) WebhooksAPIDispatchWebhookDeliveriesRequest {
-	r.webhookDeliveriesDispatchRequest = &webhookDeliveriesDispatchRequest
+func (r WebhooksAPIDispatchWebhookDeliveriesRequest) DispatchWebhookDeliveriesRequest(dispatchWebhookDeliveriesRequest DispatchWebhookDeliveriesRequest) WebhooksAPIDispatchWebhookDeliveriesRequest {
+	r.dispatchWebhookDeliveriesRequest = &dispatchWebhookDeliveriesRequest
 	return r
 }
 
@@ -869,12 +770,12 @@ func (r WebhooksAPIDispatchWebhookDeliveriesRequest) IdempotencyKey(idempotencyK
 	return r
 }
 
-func (r WebhooksAPIDispatchWebhookDeliveriesRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
+func (r WebhooksAPIDispatchWebhookDeliveriesRequest) Execute() (*DispatchWebhookDeliveries200Response, *http.Response, error) {
 	return r.ApiService.DispatchWebhookDeliveriesExecute(r)
 }
 
 /*
-DispatchWebhookDeliveries Dispatch pending outbound webhook deliveries
+DispatchWebhookDeliveries Method for DispatchWebhookDeliveries
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return WebhooksAPIDispatchWebhookDeliveriesRequest
@@ -887,13 +788,13 @@ func (a *WebhooksAPIService) DispatchWebhookDeliveries(ctx context.Context) Webh
 }
 
 // Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *WebhooksAPIService) DispatchWebhookDeliveriesExecute(r WebhooksAPIDispatchWebhookDeliveriesRequest) (*ApiWriteEnvelope, *http.Response, error) {
+//  @return DispatchWebhookDeliveries200Response
+func (a *WebhooksAPIService) DispatchWebhookDeliveriesExecute(r WebhooksAPIDispatchWebhookDeliveriesRequest) (*DispatchWebhookDeliveries200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
+		localVarReturnValue  *DispatchWebhookDeliveries200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhooksAPIService.DispatchWebhookDeliveries")
@@ -906,18 +807,10 @@ func (a *WebhooksAPIService) DispatchWebhookDeliveriesExecute(r WebhooksAPIDispa
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
-	if r.webhookDeliveriesDispatchRequest == nil {
-		return localVarReturnValue, nil, reportError("webhookDeliveriesDispatchRequest is required and must be specified")
+	if r.dispatchWebhookDeliveriesRequest == nil {
+		return localVarReturnValue, nil, reportError("dispatchWebhookDeliveriesRequest is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -939,7 +832,7 @@ func (a *WebhooksAPIService) DispatchWebhookDeliveriesExecute(r WebhooksAPIDispa
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
 	}
 	// body params
-	localVarPostBody = r.webhookDeliveriesDispatchRequest
+	localVarPostBody = r.dispatchWebhookDeliveriesRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -962,69 +855,6 @@ func (a *WebhooksAPIService) DispatchWebhookDeliveriesExecute(r WebhooksAPIDispa
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1048,7 +878,6 @@ type WebhooksAPIGetWebhookDeliveryRequest struct {
 	merchantAccountId *string
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r WebhooksAPIGetWebhookDeliveryRequest) Environment(environment string) WebhooksAPIGetWebhookDeliveryRequest {
 	r.environment = &environment
 	return r
@@ -1059,12 +888,12 @@ func (r WebhooksAPIGetWebhookDeliveryRequest) MerchantAccountId(merchantAccountI
 	return r
 }
 
-func (r WebhooksAPIGetWebhookDeliveryRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
+func (r WebhooksAPIGetWebhookDeliveryRequest) Execute() (*TestWebhookEndpoint200Response, *http.Response, error) {
 	return r.ApiService.GetWebhookDeliveryExecute(r)
 }
 
 /*
-GetWebhookDelivery Inspect an outbound webhook delivery
+GetWebhookDelivery Method for GetWebhookDelivery
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param deliveryId
@@ -1079,13 +908,13 @@ func (a *WebhooksAPIService) GetWebhookDelivery(ctx context.Context, deliveryId 
 }
 
 // Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *WebhooksAPIService) GetWebhookDeliveryExecute(r WebhooksAPIGetWebhookDeliveryRequest) (*ApiWriteEnvelope, *http.Response, error) {
+//  @return TestWebhookEndpoint200Response
+func (a *WebhooksAPIService) GetWebhookDeliveryExecute(r WebhooksAPIGetWebhookDeliveryRequest) (*TestWebhookEndpoint200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
+		localVarReturnValue  *TestWebhookEndpoint200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhooksAPIService.GetWebhookDelivery")
@@ -1099,15 +928,16 @@ func (a *WebhooksAPIService) GetWebhookDeliveryExecute(r WebhooksAPIGetWebhookDe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
+	if strlen(r.deliveryId) < 1 {
+		return localVarReturnValue, nil, reportError("deliveryId must have at least 1 elements")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1147,69 +977,121 @@ func (a *WebhooksAPIService) GetWebhookDeliveryExecute(r WebhooksAPIGetWebhookDe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
 		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type WebhooksAPIGetWebhookEndpointsHealthRequest struct {
+	ctx context.Context
+	ApiService *WebhooksAPIService
+	environment *string
+	merchantAccountId *string
+}
+
+func (r WebhooksAPIGetWebhookEndpointsHealthRequest) Environment(environment string) WebhooksAPIGetWebhookEndpointsHealthRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r WebhooksAPIGetWebhookEndpointsHealthRequest) MerchantAccountId(merchantAccountId string) WebhooksAPIGetWebhookEndpointsHealthRequest {
+	r.merchantAccountId = &merchantAccountId
+	return r
+}
+
+func (r WebhooksAPIGetWebhookEndpointsHealthRequest) Execute() (*GetWebhookEndpointsHealth200Response, *http.Response, error) {
+	return r.ApiService.GetWebhookEndpointsHealthExecute(r)
+}
+
+/*
+GetWebhookEndpointsHealth Method for GetWebhookEndpointsHealth
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return WebhooksAPIGetWebhookEndpointsHealthRequest
+*/
+func (a *WebhooksAPIService) GetWebhookEndpointsHealth(ctx context.Context) WebhooksAPIGetWebhookEndpointsHealthRequest {
+	return WebhooksAPIGetWebhookEndpointsHealthRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return GetWebhookEndpointsHealth200Response
+func (a *WebhooksAPIService) GetWebhookEndpointsHealthExecute(r WebhooksAPIGetWebhookEndpointsHealthRequest) (*GetWebhookEndpointsHealth200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *GetWebhookEndpointsHealth200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhooksAPIService.GetWebhookEndpointsHealth")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/webhook-endpoints/health"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1415,9 +1297,13 @@ type WebhooksAPIListWebhookDeliveriesRequest struct {
 	ApiService *WebhooksAPIService
 	environment *string
 	merchantAccountId *string
+	status *string
+	eventId *string
+	endpointId *string
+	failureKind *string
+	limit *ListCustomersLimitParameter
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r WebhooksAPIListWebhookDeliveriesRequest) Environment(environment string) WebhooksAPIListWebhookDeliveriesRequest {
 	r.environment = &environment
 	return r
@@ -1428,12 +1314,37 @@ func (r WebhooksAPIListWebhookDeliveriesRequest) MerchantAccountId(merchantAccou
 	return r
 }
 
-func (r WebhooksAPIListWebhookDeliveriesRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
+func (r WebhooksAPIListWebhookDeliveriesRequest) Status(status string) WebhooksAPIListWebhookDeliveriesRequest {
+	r.status = &status
+	return r
+}
+
+func (r WebhooksAPIListWebhookDeliveriesRequest) EventId(eventId string) WebhooksAPIListWebhookDeliveriesRequest {
+	r.eventId = &eventId
+	return r
+}
+
+func (r WebhooksAPIListWebhookDeliveriesRequest) EndpointId(endpointId string) WebhooksAPIListWebhookDeliveriesRequest {
+	r.endpointId = &endpointId
+	return r
+}
+
+func (r WebhooksAPIListWebhookDeliveriesRequest) FailureKind(failureKind string) WebhooksAPIListWebhookDeliveriesRequest {
+	r.failureKind = &failureKind
+	return r
+}
+
+func (r WebhooksAPIListWebhookDeliveriesRequest) Limit(limit ListCustomersLimitParameter) WebhooksAPIListWebhookDeliveriesRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r WebhooksAPIListWebhookDeliveriesRequest) Execute() (*ListWebhookDeliveries200Response, *http.Response, error) {
 	return r.ApiService.ListWebhookDeliveriesExecute(r)
 }
 
 /*
-ListWebhookDeliveries List outbound webhook deliveries
+ListWebhookDeliveries Method for ListWebhookDeliveries
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return WebhooksAPIListWebhookDeliveriesRequest
@@ -1446,13 +1357,13 @@ func (a *WebhooksAPIService) ListWebhookDeliveries(ctx context.Context) Webhooks
 }
 
 // Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *WebhooksAPIService) ListWebhookDeliveriesExecute(r WebhooksAPIListWebhookDeliveriesRequest) (*ApiWriteEnvelope, *http.Response, error) {
+//  @return ListWebhookDeliveries200Response
+func (a *WebhooksAPIService) ListWebhookDeliveriesExecute(r WebhooksAPIListWebhookDeliveriesRequest) (*ListWebhookDeliveries200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
+		localVarReturnValue  *ListWebhookDeliveries200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhooksAPIService.ListWebhookDeliveries")
@@ -1465,15 +1376,28 @@ func (a *WebhooksAPIService) ListWebhookDeliveriesExecute(r WebhooksAPIListWebho
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
+	if r.status != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")
+	}
+	if r.eventId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "eventId", r.eventId, "form", "")
+	}
+	if r.endpointId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "endpointId", r.endpointId, "form", "")
+	}
+	if r.failureKind != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "failureKind", r.failureKind, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1513,69 +1437,6 @@ func (a *WebhooksAPIService) ListWebhookDeliveriesExecute(r WebhooksAPIListWebho
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1596,9 +1457,14 @@ type WebhooksAPIListWebhookEndpointsRequest struct {
 	ApiService *WebhooksAPIService
 	environment *string
 	merchantAccountId *string
+	status *string
+	endpointId *string
+	eventId *string
+	failureKind *string
+	cursor *string
+	limit *ListCustomersLimitParameter
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r WebhooksAPIListWebhookEndpointsRequest) Environment(environment string) WebhooksAPIListWebhookEndpointsRequest {
 	r.environment = &environment
 	return r
@@ -1609,12 +1475,42 @@ func (r WebhooksAPIListWebhookEndpointsRequest) MerchantAccountId(merchantAccoun
 	return r
 }
 
-func (r WebhooksAPIListWebhookEndpointsRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
+func (r WebhooksAPIListWebhookEndpointsRequest) Status(status string) WebhooksAPIListWebhookEndpointsRequest {
+	r.status = &status
+	return r
+}
+
+func (r WebhooksAPIListWebhookEndpointsRequest) EndpointId(endpointId string) WebhooksAPIListWebhookEndpointsRequest {
+	r.endpointId = &endpointId
+	return r
+}
+
+func (r WebhooksAPIListWebhookEndpointsRequest) EventId(eventId string) WebhooksAPIListWebhookEndpointsRequest {
+	r.eventId = &eventId
+	return r
+}
+
+func (r WebhooksAPIListWebhookEndpointsRequest) FailureKind(failureKind string) WebhooksAPIListWebhookEndpointsRequest {
+	r.failureKind = &failureKind
+	return r
+}
+
+func (r WebhooksAPIListWebhookEndpointsRequest) Cursor(cursor string) WebhooksAPIListWebhookEndpointsRequest {
+	r.cursor = &cursor
+	return r
+}
+
+func (r WebhooksAPIListWebhookEndpointsRequest) Limit(limit ListCustomersLimitParameter) WebhooksAPIListWebhookEndpointsRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r WebhooksAPIListWebhookEndpointsRequest) Execute() (*ListWebhookEndpoints200Response, *http.Response, error) {
 	return r.ApiService.ListWebhookEndpointsExecute(r)
 }
 
 /*
-ListWebhookEndpoints List outbound webhook endpoints
+ListWebhookEndpoints Method for ListWebhookEndpoints
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return WebhooksAPIListWebhookEndpointsRequest
@@ -1627,13 +1523,13 @@ func (a *WebhooksAPIService) ListWebhookEndpoints(ctx context.Context) WebhooksA
 }
 
 // Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *WebhooksAPIService) ListWebhookEndpointsExecute(r WebhooksAPIListWebhookEndpointsRequest) (*ApiWriteEnvelope, *http.Response, error) {
+//  @return ListWebhookEndpoints200Response
+func (a *WebhooksAPIService) ListWebhookEndpointsExecute(r WebhooksAPIListWebhookEndpointsRequest) (*ListWebhookEndpoints200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
+		localVarReturnValue  *ListWebhookEndpoints200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhooksAPIService.ListWebhookEndpoints")
@@ -1646,15 +1542,31 @@ func (a *WebhooksAPIService) ListWebhookEndpointsExecute(r WebhooksAPIListWebhoo
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
+	if r.status != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")
+	}
+	if r.endpointId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "endpointId", r.endpointId, "form", "")
+	}
+	if r.eventId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "eventId", r.eventId, "form", "")
+	}
+	if r.failureKind != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "failureKind", r.failureKind, "form", "")
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1694,69 +1606,6 @@ func (a *WebhooksAPIService) ListWebhookEndpointsExecute(r WebhooksAPIListWebhoo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1823,187 +1672,6 @@ func (a *WebhooksAPIService) ListWebhookEventTypesExecute(r WebhooksAPIListWebho
 	}
 
 	localVarPath := localBasePath + "/v1/webhook-event-types"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
-
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type WebhooksAPIListWebhookEventsRequest struct {
-	ctx context.Context
-	ApiService *WebhooksAPIService
-	environment *string
-	merchantAccountId *string
-}
-
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
-func (r WebhooksAPIListWebhookEventsRequest) Environment(environment string) WebhooksAPIListWebhookEventsRequest {
-	r.environment = &environment
-	return r
-}
-
-func (r WebhooksAPIListWebhookEventsRequest) MerchantAccountId(merchantAccountId string) WebhooksAPIListWebhookEventsRequest {
-	r.merchantAccountId = &merchantAccountId
-	return r
-}
-
-func (r WebhooksAPIListWebhookEventsRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
-	return r.ApiService.ListWebhookEventsExecute(r)
-}
-
-/*
-ListWebhookEvents List outbound webhook events
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return WebhooksAPIListWebhookEventsRequest
-*/
-func (a *WebhooksAPIService) ListWebhookEvents(ctx context.Context) WebhooksAPIListWebhookEventsRequest {
-	return WebhooksAPIListWebhookEventsRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *WebhooksAPIService) ListWebhookEventsExecute(r WebhooksAPIListWebhookEventsRequest) (*ApiWriteEnvelope, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhooksAPIService.ListWebhookEvents")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/events"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2541,13 +2209,17 @@ type WebhooksAPIReplayWebhookDeliveryRequest struct {
 	ctx context.Context
 	ApiService *WebhooksAPIService
 	deliveryId string
+	replayWebhookDeliveryRequest *ReplayWebhookDeliveryRequest
 	environment *string
 	merchantAccountId *string
-	webhookDeliveryReplayRequest *WebhookDeliveryReplayRequest
 	idempotencyKey *string
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
+func (r WebhooksAPIReplayWebhookDeliveryRequest) ReplayWebhookDeliveryRequest(replayWebhookDeliveryRequest ReplayWebhookDeliveryRequest) WebhooksAPIReplayWebhookDeliveryRequest {
+	r.replayWebhookDeliveryRequest = &replayWebhookDeliveryRequest
+	return r
+}
+
 func (r WebhooksAPIReplayWebhookDeliveryRequest) Environment(environment string) WebhooksAPIReplayWebhookDeliveryRequest {
 	r.environment = &environment
 	return r
@@ -2558,23 +2230,18 @@ func (r WebhooksAPIReplayWebhookDeliveryRequest) MerchantAccountId(merchantAccou
 	return r
 }
 
-func (r WebhooksAPIReplayWebhookDeliveryRequest) WebhookDeliveryReplayRequest(webhookDeliveryReplayRequest WebhookDeliveryReplayRequest) WebhooksAPIReplayWebhookDeliveryRequest {
-	r.webhookDeliveryReplayRequest = &webhookDeliveryReplayRequest
-	return r
-}
-
 // Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
 func (r WebhooksAPIReplayWebhookDeliveryRequest) IdempotencyKey(idempotencyKey string) WebhooksAPIReplayWebhookDeliveryRequest {
 	r.idempotencyKey = &idempotencyKey
 	return r
 }
 
-func (r WebhooksAPIReplayWebhookDeliveryRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
+func (r WebhooksAPIReplayWebhookDeliveryRequest) Execute() (*TestWebhookEndpoint200Response, *http.Response, error) {
 	return r.ApiService.ReplayWebhookDeliveryExecute(r)
 }
 
 /*
-ReplayWebhookDelivery Replay a failed outbound webhook delivery
+ReplayWebhookDelivery Method for ReplayWebhookDelivery
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param deliveryId
@@ -2589,13 +2256,13 @@ func (a *WebhooksAPIService) ReplayWebhookDelivery(ctx context.Context, delivery
 }
 
 // Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *WebhooksAPIService) ReplayWebhookDeliveryExecute(r WebhooksAPIReplayWebhookDeliveryRequest) (*ApiWriteEnvelope, *http.Response, error) {
+//  @return TestWebhookEndpoint200Response
+func (a *WebhooksAPIService) ReplayWebhookDeliveryExecute(r WebhooksAPIReplayWebhookDeliveryRequest) (*TestWebhookEndpoint200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
+		localVarReturnValue  *TestWebhookEndpoint200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhooksAPIService.ReplayWebhookDelivery")
@@ -2609,18 +2276,19 @@ func (a *WebhooksAPIService) ReplayWebhookDeliveryExecute(r WebhooksAPIReplayWeb
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
+	if strlen(r.deliveryId) < 1 {
+		return localVarReturnValue, nil, reportError("deliveryId must have at least 1 elements")
 	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
-	if r.webhookDeliveryReplayRequest == nil {
-		return localVarReturnValue, nil, reportError("webhookDeliveryReplayRequest is required and must be specified")
+	if r.replayWebhookDeliveryRequest == nil {
+		return localVarReturnValue, nil, reportError("replayWebhookDeliveryRequest is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -2642,7 +2310,7 @@ func (a *WebhooksAPIService) ReplayWebhookDeliveryExecute(r WebhooksAPIReplayWeb
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
 	}
 	// body params
-	localVarPostBody = r.webhookDeliveryReplayRequest
+	localVarPostBody = r.replayWebhookDeliveryRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2665,69 +2333,6 @@ func (a *WebhooksAPIService) ReplayWebhookDeliveryExecute(r WebhooksAPIReplayWeb
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3159,25 +2764,12 @@ type WebhooksAPITestWebhookEndpointRequest struct {
 	ctx context.Context
 	ApiService *WebhooksAPIService
 	endpointId string
-	environment *string
-	merchantAccountId *string
-	webhookEndpointTestRequest *WebhookEndpointTestRequest
+	testWebhookEndpointRequest *TestWebhookEndpointRequest
 	idempotencyKey *string
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
-func (r WebhooksAPITestWebhookEndpointRequest) Environment(environment string) WebhooksAPITestWebhookEndpointRequest {
-	r.environment = &environment
-	return r
-}
-
-func (r WebhooksAPITestWebhookEndpointRequest) MerchantAccountId(merchantAccountId string) WebhooksAPITestWebhookEndpointRequest {
-	r.merchantAccountId = &merchantAccountId
-	return r
-}
-
-func (r WebhooksAPITestWebhookEndpointRequest) WebhookEndpointTestRequest(webhookEndpointTestRequest WebhookEndpointTestRequest) WebhooksAPITestWebhookEndpointRequest {
-	r.webhookEndpointTestRequest = &webhookEndpointTestRequest
+func (r WebhooksAPITestWebhookEndpointRequest) TestWebhookEndpointRequest(testWebhookEndpointRequest TestWebhookEndpointRequest) WebhooksAPITestWebhookEndpointRequest {
+	r.testWebhookEndpointRequest = &testWebhookEndpointRequest
 	return r
 }
 
@@ -3187,12 +2779,12 @@ func (r WebhooksAPITestWebhookEndpointRequest) IdempotencyKey(idempotencyKey str
 	return r
 }
 
-func (r WebhooksAPITestWebhookEndpointRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
+func (r WebhooksAPITestWebhookEndpointRequest) Execute() (*TestWebhookEndpoint200Response, *http.Response, error) {
 	return r.ApiService.TestWebhookEndpointExecute(r)
 }
 
 /*
-TestWebhookEndpoint Create and optionally dispatch a test webhook delivery
+TestWebhookEndpoint Method for TestWebhookEndpoint
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param endpointId
@@ -3207,13 +2799,13 @@ func (a *WebhooksAPIService) TestWebhookEndpoint(ctx context.Context, endpointId
 }
 
 // Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *WebhooksAPIService) TestWebhookEndpointExecute(r WebhooksAPITestWebhookEndpointRequest) (*ApiWriteEnvelope, *http.Response, error) {
+//  @return TestWebhookEndpoint200Response
+func (a *WebhooksAPIService) TestWebhookEndpointExecute(r WebhooksAPITestWebhookEndpointRequest) (*TestWebhookEndpoint200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
+		localVarReturnValue  *TestWebhookEndpoint200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhooksAPIService.TestWebhookEndpoint")
@@ -3227,18 +2819,13 @@ func (a *WebhooksAPIService) TestWebhookEndpointExecute(r WebhooksAPITestWebhook
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
+	if strlen(r.endpointId) < 1 {
+		return localVarReturnValue, nil, reportError("endpointId must have at least 1 elements")
 	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
-	if r.webhookEndpointTestRequest == nil {
-		return localVarReturnValue, nil, reportError("webhookEndpointTestRequest is required and must be specified")
+	if r.testWebhookEndpointRequest == nil {
+		return localVarReturnValue, nil, reportError("testWebhookEndpointRequest is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -3260,7 +2847,7 @@ func (a *WebhooksAPIService) TestWebhookEndpointExecute(r WebhooksAPITestWebhook
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
 	}
 	// body params
-	localVarPostBody = r.webhookEndpointTestRequest
+	localVarPostBody = r.testWebhookEndpointRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3283,69 +2870,6 @@ func (a *WebhooksAPIService) TestWebhookEndpointExecute(r WebhooksAPITestWebhook
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

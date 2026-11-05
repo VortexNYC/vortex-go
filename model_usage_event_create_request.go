@@ -13,7 +13,6 @@ package vortex
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -22,17 +21,18 @@ var _ MappedNullable = &UsageEventCreateRequest{}
 
 // UsageEventCreateRequest struct for UsageEventCreateRequest
 type UsageEventCreateRequest struct {
-	CustomerId string `json:"customerId"`
-	BillingAccountId string `json:"billingAccountId"`
-	MeterId string `json:"meterId"`
-	EventName string `json:"eventName"`
+	CustomerId NullableString `json:"customerId"`
+	BillingAccountId NullableString `json:"billingAccountId"`
+	MeterId NullableString `json:"meterId"`
+	EventName NullableString `json:"eventName"`
 	Quantity float32 `json:"quantity"`
 	OccurredAt time.Time `json:"occurredAt"`
-	IdempotencyKey string `json:"idempotencyKey"`
-	UsageEventId *string `json:"usageEventId,omitempty"`
-	SubscriptionId *string `json:"subscriptionId,omitempty"`
-	SubscriptionItemId *string `json:"subscriptionItemId,omitempty"`
+	IdempotencyKey NullableString `json:"idempotencyKey"`
+	UsageEventId NullableString `json:"usageEventId,omitempty"`
+	SubscriptionId NullableString `json:"subscriptionId,omitempty"`
+	SubscriptionItemId NullableString `json:"subscriptionItemId,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _UsageEventCreateRequest UsageEventCreateRequest
@@ -41,7 +41,7 @@ type _UsageEventCreateRequest UsageEventCreateRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUsageEventCreateRequest(customerId string, billingAccountId string, meterId string, eventName string, quantity float32, occurredAt time.Time, idempotencyKey string) *UsageEventCreateRequest {
+func NewUsageEventCreateRequest(customerId NullableString, billingAccountId NullableString, meterId NullableString, eventName NullableString, quantity float32, occurredAt time.Time, idempotencyKey NullableString) *UsageEventCreateRequest {
 	this := UsageEventCreateRequest{}
 	this.CustomerId = customerId
 	this.BillingAccountId = billingAccountId
@@ -62,99 +62,107 @@ func NewUsageEventCreateRequestWithDefaults() *UsageEventCreateRequest {
 }
 
 // GetCustomerId returns the CustomerId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *UsageEventCreateRequest) GetCustomerId() string {
-	if o == nil {
+	if o == nil || o.CustomerId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.CustomerId
+	return *o.CustomerId.Get()
 }
 
 // GetCustomerIdOk returns a tuple with the CustomerId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UsageEventCreateRequest) GetCustomerIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CustomerId, true
+	return o.CustomerId.Get(), o.CustomerId.IsSet()
 }
 
 // SetCustomerId sets field value
 func (o *UsageEventCreateRequest) SetCustomerId(v string) {
-	o.CustomerId = v
+	o.CustomerId.Set(&v)
 }
 
 // GetBillingAccountId returns the BillingAccountId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *UsageEventCreateRequest) GetBillingAccountId() string {
-	if o == nil {
+	if o == nil || o.BillingAccountId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.BillingAccountId
+	return *o.BillingAccountId.Get()
 }
 
 // GetBillingAccountIdOk returns a tuple with the BillingAccountId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UsageEventCreateRequest) GetBillingAccountIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.BillingAccountId, true
+	return o.BillingAccountId.Get(), o.BillingAccountId.IsSet()
 }
 
 // SetBillingAccountId sets field value
 func (o *UsageEventCreateRequest) SetBillingAccountId(v string) {
-	o.BillingAccountId = v
+	o.BillingAccountId.Set(&v)
 }
 
 // GetMeterId returns the MeterId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *UsageEventCreateRequest) GetMeterId() string {
-	if o == nil {
+	if o == nil || o.MeterId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.MeterId
+	return *o.MeterId.Get()
 }
 
 // GetMeterIdOk returns a tuple with the MeterId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UsageEventCreateRequest) GetMeterIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.MeterId, true
+	return o.MeterId.Get(), o.MeterId.IsSet()
 }
 
 // SetMeterId sets field value
 func (o *UsageEventCreateRequest) SetMeterId(v string) {
-	o.MeterId = v
+	o.MeterId.Set(&v)
 }
 
 // GetEventName returns the EventName field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *UsageEventCreateRequest) GetEventName() string {
-	if o == nil {
+	if o == nil || o.EventName.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.EventName
+	return *o.EventName.Get()
 }
 
 // GetEventNameOk returns a tuple with the EventName field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UsageEventCreateRequest) GetEventNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.EventName, true
+	return o.EventName.Get(), o.EventName.IsSet()
 }
 
 // SetEventName sets field value
 func (o *UsageEventCreateRequest) SetEventName(v string) {
-	o.EventName = v
+	o.EventName.Set(&v)
 }
 
 // GetQuantity returns the Quantity field value
@@ -206,128 +214,160 @@ func (o *UsageEventCreateRequest) SetOccurredAt(v time.Time) {
 }
 
 // GetIdempotencyKey returns the IdempotencyKey field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *UsageEventCreateRequest) GetIdempotencyKey() string {
-	if o == nil {
+	if o == nil || o.IdempotencyKey.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.IdempotencyKey
+	return *o.IdempotencyKey.Get()
 }
 
 // GetIdempotencyKeyOk returns a tuple with the IdempotencyKey field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UsageEventCreateRequest) GetIdempotencyKeyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.IdempotencyKey, true
+	return o.IdempotencyKey.Get(), o.IdempotencyKey.IsSet()
 }
 
 // SetIdempotencyKey sets field value
 func (o *UsageEventCreateRequest) SetIdempotencyKey(v string) {
-	o.IdempotencyKey = v
+	o.IdempotencyKey.Set(&v)
 }
 
-// GetUsageEventId returns the UsageEventId field value if set, zero value otherwise.
+// GetUsageEventId returns the UsageEventId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UsageEventCreateRequest) GetUsageEventId() string {
-	if o == nil || IsNil(o.UsageEventId) {
+	if o == nil || IsNil(o.UsageEventId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.UsageEventId
+	return *o.UsageEventId.Get()
 }
 
 // GetUsageEventIdOk returns a tuple with the UsageEventId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UsageEventCreateRequest) GetUsageEventIdOk() (*string, bool) {
-	if o == nil || IsNil(o.UsageEventId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.UsageEventId, true
+	return o.UsageEventId.Get(), o.UsageEventId.IsSet()
 }
 
 // HasUsageEventId returns a boolean if a field has been set.
 func (o *UsageEventCreateRequest) HasUsageEventId() bool {
-	if o != nil && !IsNil(o.UsageEventId) {
+	if o != nil && o.UsageEventId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetUsageEventId gets a reference to the given string and assigns it to the UsageEventId field.
+// SetUsageEventId gets a reference to the given NullableString and assigns it to the UsageEventId field.
 func (o *UsageEventCreateRequest) SetUsageEventId(v string) {
-	o.UsageEventId = &v
+	o.UsageEventId.Set(&v)
+}
+// SetUsageEventIdNil sets the value for UsageEventId to be an explicit nil
+func (o *UsageEventCreateRequest) SetUsageEventIdNil() {
+	o.UsageEventId.Set(nil)
 }
 
-// GetSubscriptionId returns the SubscriptionId field value if set, zero value otherwise.
+// UnsetUsageEventId ensures that no value is present for UsageEventId, not even an explicit nil
+func (o *UsageEventCreateRequest) UnsetUsageEventId() {
+	o.UsageEventId.Unset()
+}
+
+// GetSubscriptionId returns the SubscriptionId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UsageEventCreateRequest) GetSubscriptionId() string {
-	if o == nil || IsNil(o.SubscriptionId) {
+	if o == nil || IsNil(o.SubscriptionId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.SubscriptionId
+	return *o.SubscriptionId.Get()
 }
 
 // GetSubscriptionIdOk returns a tuple with the SubscriptionId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UsageEventCreateRequest) GetSubscriptionIdOk() (*string, bool) {
-	if o == nil || IsNil(o.SubscriptionId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.SubscriptionId, true
+	return o.SubscriptionId.Get(), o.SubscriptionId.IsSet()
 }
 
 // HasSubscriptionId returns a boolean if a field has been set.
 func (o *UsageEventCreateRequest) HasSubscriptionId() bool {
-	if o != nil && !IsNil(o.SubscriptionId) {
+	if o != nil && o.SubscriptionId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetSubscriptionId gets a reference to the given string and assigns it to the SubscriptionId field.
+// SetSubscriptionId gets a reference to the given NullableString and assigns it to the SubscriptionId field.
 func (o *UsageEventCreateRequest) SetSubscriptionId(v string) {
-	o.SubscriptionId = &v
+	o.SubscriptionId.Set(&v)
+}
+// SetSubscriptionIdNil sets the value for SubscriptionId to be an explicit nil
+func (o *UsageEventCreateRequest) SetSubscriptionIdNil() {
+	o.SubscriptionId.Set(nil)
 }
 
-// GetSubscriptionItemId returns the SubscriptionItemId field value if set, zero value otherwise.
+// UnsetSubscriptionId ensures that no value is present for SubscriptionId, not even an explicit nil
+func (o *UsageEventCreateRequest) UnsetSubscriptionId() {
+	o.SubscriptionId.Unset()
+}
+
+// GetSubscriptionItemId returns the SubscriptionItemId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UsageEventCreateRequest) GetSubscriptionItemId() string {
-	if o == nil || IsNil(o.SubscriptionItemId) {
+	if o == nil || IsNil(o.SubscriptionItemId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.SubscriptionItemId
+	return *o.SubscriptionItemId.Get()
 }
 
 // GetSubscriptionItemIdOk returns a tuple with the SubscriptionItemId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UsageEventCreateRequest) GetSubscriptionItemIdOk() (*string, bool) {
-	if o == nil || IsNil(o.SubscriptionItemId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.SubscriptionItemId, true
+	return o.SubscriptionItemId.Get(), o.SubscriptionItemId.IsSet()
 }
 
 // HasSubscriptionItemId returns a boolean if a field has been set.
 func (o *UsageEventCreateRequest) HasSubscriptionItemId() bool {
-	if o != nil && !IsNil(o.SubscriptionItemId) {
+	if o != nil && o.SubscriptionItemId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetSubscriptionItemId gets a reference to the given string and assigns it to the SubscriptionItemId field.
+// SetSubscriptionItemId gets a reference to the given NullableString and assigns it to the SubscriptionItemId field.
 func (o *UsageEventCreateRequest) SetSubscriptionItemId(v string) {
-	o.SubscriptionItemId = &v
+	o.SubscriptionItemId.Set(&v)
+}
+// SetSubscriptionItemIdNil sets the value for SubscriptionItemId to be an explicit nil
+func (o *UsageEventCreateRequest) SetSubscriptionItemIdNil() {
+	o.SubscriptionItemId.Set(nil)
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// UnsetSubscriptionItemId ensures that no value is present for SubscriptionItemId, not even an explicit nil
+func (o *UsageEventCreateRequest) UnsetSubscriptionItemId() {
+	o.SubscriptionItemId.Unset()
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UsageEventCreateRequest) GetMetadata() map[string]string {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -336,6 +376,7 @@ func (o *UsageEventCreateRequest) GetMetadata() map[string]string {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UsageEventCreateRequest) GetMetadataOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return map[string]string{}, false
@@ -367,25 +408,30 @@ func (o UsageEventCreateRequest) MarshalJSON() ([]byte, error) {
 
 func (o UsageEventCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["customerId"] = o.CustomerId
-	toSerialize["billingAccountId"] = o.BillingAccountId
-	toSerialize["meterId"] = o.MeterId
-	toSerialize["eventName"] = o.EventName
+	toSerialize["customerId"] = o.CustomerId.Get()
+	toSerialize["billingAccountId"] = o.BillingAccountId.Get()
+	toSerialize["meterId"] = o.MeterId.Get()
+	toSerialize["eventName"] = o.EventName.Get()
 	toSerialize["quantity"] = o.Quantity
 	toSerialize["occurredAt"] = o.OccurredAt
-	toSerialize["idempotencyKey"] = o.IdempotencyKey
-	if !IsNil(o.UsageEventId) {
-		toSerialize["usageEventId"] = o.UsageEventId
+	toSerialize["idempotencyKey"] = o.IdempotencyKey.Get()
+	if o.UsageEventId.IsSet() {
+		toSerialize["usageEventId"] = o.UsageEventId.Get()
 	}
-	if !IsNil(o.SubscriptionId) {
-		toSerialize["subscriptionId"] = o.SubscriptionId
+	if o.SubscriptionId.IsSet() {
+		toSerialize["subscriptionId"] = o.SubscriptionId.Get()
 	}
-	if !IsNil(o.SubscriptionItemId) {
-		toSerialize["subscriptionItemId"] = o.SubscriptionItemId
+	if o.SubscriptionItemId.IsSet() {
+		toSerialize["subscriptionItemId"] = o.SubscriptionItemId.Get()
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -419,15 +465,30 @@ func (o *UsageEventCreateRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varUsageEventCreateRequest := _UsageEventCreateRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varUsageEventCreateRequest)
+	err = json.Unmarshal(data, &varUsageEventCreateRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = UsageEventCreateRequest(varUsageEventCreateRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "customerId")
+		delete(additionalProperties, "billingAccountId")
+		delete(additionalProperties, "meterId")
+		delete(additionalProperties, "eventName")
+		delete(additionalProperties, "quantity")
+		delete(additionalProperties, "occurredAt")
+		delete(additionalProperties, "idempotencyKey")
+		delete(additionalProperties, "usageEventId")
+		delete(additionalProperties, "subscriptionId")
+		delete(additionalProperties, "subscriptionItemId")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

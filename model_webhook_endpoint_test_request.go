@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,8 +20,9 @@ var _ MappedNullable = &WebhookEndpointTestRequest{}
 
 // WebhookEndpointTestRequest struct for WebhookEndpointTestRequest
 type WebhookEndpointTestRequest struct {
-	EventType string `json:"eventType"`
-	Dispatch *bool `json:"dispatch,omitempty"`
+	EventType NullableString `json:"eventType"`
+	Dispatch NullableBool `json:"dispatch,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _WebhookEndpointTestRequest WebhookEndpointTestRequest
@@ -31,7 +31,7 @@ type _WebhookEndpointTestRequest WebhookEndpointTestRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewWebhookEndpointTestRequest(eventType string) *WebhookEndpointTestRequest {
+func NewWebhookEndpointTestRequest(eventType NullableString) *WebhookEndpointTestRequest {
 	this := WebhookEndpointTestRequest{}
 	this.EventType = eventType
 	return &this
@@ -46,59 +46,71 @@ func NewWebhookEndpointTestRequestWithDefaults() *WebhookEndpointTestRequest {
 }
 
 // GetEventType returns the EventType field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *WebhookEndpointTestRequest) GetEventType() string {
-	if o == nil {
+	if o == nil || o.EventType.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.EventType
+	return *o.EventType.Get()
 }
 
 // GetEventTypeOk returns a tuple with the EventType field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *WebhookEndpointTestRequest) GetEventTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.EventType, true
+	return o.EventType.Get(), o.EventType.IsSet()
 }
 
 // SetEventType sets field value
 func (o *WebhookEndpointTestRequest) SetEventType(v string) {
-	o.EventType = v
+	o.EventType.Set(&v)
 }
 
-// GetDispatch returns the Dispatch field value if set, zero value otherwise.
+// GetDispatch returns the Dispatch field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *WebhookEndpointTestRequest) GetDispatch() bool {
-	if o == nil || IsNil(o.Dispatch) {
+	if o == nil || IsNil(o.Dispatch.Get()) {
 		var ret bool
 		return ret
 	}
-	return *o.Dispatch
+	return *o.Dispatch.Get()
 }
 
 // GetDispatchOk returns a tuple with the Dispatch field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *WebhookEndpointTestRequest) GetDispatchOk() (*bool, bool) {
-	if o == nil || IsNil(o.Dispatch) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Dispatch, true
+	return o.Dispatch.Get(), o.Dispatch.IsSet()
 }
 
 // HasDispatch returns a boolean if a field has been set.
 func (o *WebhookEndpointTestRequest) HasDispatch() bool {
-	if o != nil && !IsNil(o.Dispatch) {
+	if o != nil && o.Dispatch.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDispatch gets a reference to the given bool and assigns it to the Dispatch field.
+// SetDispatch gets a reference to the given NullableBool and assigns it to the Dispatch field.
 func (o *WebhookEndpointTestRequest) SetDispatch(v bool) {
-	o.Dispatch = &v
+	o.Dispatch.Set(&v)
+}
+// SetDispatchNil sets the value for Dispatch to be an explicit nil
+func (o *WebhookEndpointTestRequest) SetDispatchNil() {
+	o.Dispatch.Set(nil)
+}
+
+// UnsetDispatch ensures that no value is present for Dispatch, not even an explicit nil
+func (o *WebhookEndpointTestRequest) UnsetDispatch() {
+	o.Dispatch.Unset()
 }
 
 func (o WebhookEndpointTestRequest) MarshalJSON() ([]byte, error) {
@@ -111,10 +123,15 @@ func (o WebhookEndpointTestRequest) MarshalJSON() ([]byte, error) {
 
 func (o WebhookEndpointTestRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["eventType"] = o.EventType
-	if !IsNil(o.Dispatch) {
-		toSerialize["dispatch"] = o.Dispatch
+	toSerialize["eventType"] = o.EventType.Get()
+	if o.Dispatch.IsSet() {
+		toSerialize["dispatch"] = o.Dispatch.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -142,15 +159,21 @@ func (o *WebhookEndpointTestRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varWebhookEndpointTestRequest := _WebhookEndpointTestRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varWebhookEndpointTestRequest)
+	err = json.Unmarshal(data, &varWebhookEndpointTestRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = WebhookEndpointTestRequest(varWebhookEndpointTestRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "eventType")
+		delete(additionalProperties, "dispatch")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

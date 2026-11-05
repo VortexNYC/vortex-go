@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -23,15 +22,16 @@ var _ MappedNullable = &BillingAccountCreateRequest{}
 type BillingAccountCreateRequest struct {
 	// Caller-chosen billing account id (bacc_…); omit to auto-mint.
 	BillingAccountId *string `json:"billingAccountId,omitempty"`
-	InvoiceDeliveryMode string `json:"invoiceDeliveryMode"`
-	CollectionMode string `json:"collectionMode"`
-	AutoCollectionEnabled bool `json:"autoCollectionEnabled"`
-	CustomerProfileId *string `json:"customerProfileId,omitempty"`
-	DefaultPaymentMethodId *string `json:"defaultPaymentMethodId,omitempty"`
+	InvoiceDeliveryMode NullableString `json:"invoiceDeliveryMode"`
+	CollectionMode NullableString `json:"collectionMode"`
+	AutoCollectionEnabled NullableBool `json:"autoCollectionEnabled"`
+	CustomerProfileId NullableString `json:"customerProfileId,omitempty"`
+	DefaultPaymentMethodId NullableString `json:"defaultPaymentMethodId,omitempty"`
 	RenewalTiming *string `json:"renewalTiming,omitempty"`
 	NetTermsDays *int32 `json:"netTermsDays,omitempty"`
-	DunningCampaignId *string `json:"dunningCampaignId,omitempty"`
+	DunningCampaignId NullableString `json:"dunningCampaignId,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _BillingAccountCreateRequest BillingAccountCreateRequest
@@ -40,7 +40,7 @@ type _BillingAccountCreateRequest BillingAccountCreateRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBillingAccountCreateRequest(invoiceDeliveryMode string, collectionMode string, autoCollectionEnabled bool) *BillingAccountCreateRequest {
+func NewBillingAccountCreateRequest(invoiceDeliveryMode NullableString, collectionMode NullableString, autoCollectionEnabled NullableBool) *BillingAccountCreateRequest {
 	this := BillingAccountCreateRequest{}
 	this.InvoiceDeliveryMode = invoiceDeliveryMode
 	this.CollectionMode = collectionMode
@@ -89,139 +89,165 @@ func (o *BillingAccountCreateRequest) SetBillingAccountId(v string) {
 }
 
 // GetInvoiceDeliveryMode returns the InvoiceDeliveryMode field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *BillingAccountCreateRequest) GetInvoiceDeliveryMode() string {
-	if o == nil {
+	if o == nil || o.InvoiceDeliveryMode.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.InvoiceDeliveryMode
+	return *o.InvoiceDeliveryMode.Get()
 }
 
 // GetInvoiceDeliveryModeOk returns a tuple with the InvoiceDeliveryMode field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BillingAccountCreateRequest) GetInvoiceDeliveryModeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.InvoiceDeliveryMode, true
+	return o.InvoiceDeliveryMode.Get(), o.InvoiceDeliveryMode.IsSet()
 }
 
 // SetInvoiceDeliveryMode sets field value
 func (o *BillingAccountCreateRequest) SetInvoiceDeliveryMode(v string) {
-	o.InvoiceDeliveryMode = v
+	o.InvoiceDeliveryMode.Set(&v)
 }
 
 // GetCollectionMode returns the CollectionMode field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *BillingAccountCreateRequest) GetCollectionMode() string {
-	if o == nil {
+	if o == nil || o.CollectionMode.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.CollectionMode
+	return *o.CollectionMode.Get()
 }
 
 // GetCollectionModeOk returns a tuple with the CollectionMode field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BillingAccountCreateRequest) GetCollectionModeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CollectionMode, true
+	return o.CollectionMode.Get(), o.CollectionMode.IsSet()
 }
 
 // SetCollectionMode sets field value
 func (o *BillingAccountCreateRequest) SetCollectionMode(v string) {
-	o.CollectionMode = v
+	o.CollectionMode.Set(&v)
 }
 
 // GetAutoCollectionEnabled returns the AutoCollectionEnabled field value
+// If the value is explicit nil, the zero value for bool will be returned
 func (o *BillingAccountCreateRequest) GetAutoCollectionEnabled() bool {
-	if o == nil {
+	if o == nil || o.AutoCollectionEnabled.Get() == nil {
 		var ret bool
 		return ret
 	}
 
-	return o.AutoCollectionEnabled
+	return *o.AutoCollectionEnabled.Get()
 }
 
 // GetAutoCollectionEnabledOk returns a tuple with the AutoCollectionEnabled field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BillingAccountCreateRequest) GetAutoCollectionEnabledOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AutoCollectionEnabled, true
+	return o.AutoCollectionEnabled.Get(), o.AutoCollectionEnabled.IsSet()
 }
 
 // SetAutoCollectionEnabled sets field value
 func (o *BillingAccountCreateRequest) SetAutoCollectionEnabled(v bool) {
-	o.AutoCollectionEnabled = v
+	o.AutoCollectionEnabled.Set(&v)
 }
 
-// GetCustomerProfileId returns the CustomerProfileId field value if set, zero value otherwise.
+// GetCustomerProfileId returns the CustomerProfileId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *BillingAccountCreateRequest) GetCustomerProfileId() string {
-	if o == nil || IsNil(o.CustomerProfileId) {
+	if o == nil || IsNil(o.CustomerProfileId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CustomerProfileId
+	return *o.CustomerProfileId.Get()
 }
 
 // GetCustomerProfileIdOk returns a tuple with the CustomerProfileId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BillingAccountCreateRequest) GetCustomerProfileIdOk() (*string, bool) {
-	if o == nil || IsNil(o.CustomerProfileId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CustomerProfileId, true
+	return o.CustomerProfileId.Get(), o.CustomerProfileId.IsSet()
 }
 
 // HasCustomerProfileId returns a boolean if a field has been set.
 func (o *BillingAccountCreateRequest) HasCustomerProfileId() bool {
-	if o != nil && !IsNil(o.CustomerProfileId) {
+	if o != nil && o.CustomerProfileId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCustomerProfileId gets a reference to the given string and assigns it to the CustomerProfileId field.
+// SetCustomerProfileId gets a reference to the given NullableString and assigns it to the CustomerProfileId field.
 func (o *BillingAccountCreateRequest) SetCustomerProfileId(v string) {
-	o.CustomerProfileId = &v
+	o.CustomerProfileId.Set(&v)
+}
+// SetCustomerProfileIdNil sets the value for CustomerProfileId to be an explicit nil
+func (o *BillingAccountCreateRequest) SetCustomerProfileIdNil() {
+	o.CustomerProfileId.Set(nil)
 }
 
-// GetDefaultPaymentMethodId returns the DefaultPaymentMethodId field value if set, zero value otherwise.
+// UnsetCustomerProfileId ensures that no value is present for CustomerProfileId, not even an explicit nil
+func (o *BillingAccountCreateRequest) UnsetCustomerProfileId() {
+	o.CustomerProfileId.Unset()
+}
+
+// GetDefaultPaymentMethodId returns the DefaultPaymentMethodId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *BillingAccountCreateRequest) GetDefaultPaymentMethodId() string {
-	if o == nil || IsNil(o.DefaultPaymentMethodId) {
+	if o == nil || IsNil(o.DefaultPaymentMethodId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.DefaultPaymentMethodId
+	return *o.DefaultPaymentMethodId.Get()
 }
 
 // GetDefaultPaymentMethodIdOk returns a tuple with the DefaultPaymentMethodId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BillingAccountCreateRequest) GetDefaultPaymentMethodIdOk() (*string, bool) {
-	if o == nil || IsNil(o.DefaultPaymentMethodId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DefaultPaymentMethodId, true
+	return o.DefaultPaymentMethodId.Get(), o.DefaultPaymentMethodId.IsSet()
 }
 
 // HasDefaultPaymentMethodId returns a boolean if a field has been set.
 func (o *BillingAccountCreateRequest) HasDefaultPaymentMethodId() bool {
-	if o != nil && !IsNil(o.DefaultPaymentMethodId) {
+	if o != nil && o.DefaultPaymentMethodId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDefaultPaymentMethodId gets a reference to the given string and assigns it to the DefaultPaymentMethodId field.
+// SetDefaultPaymentMethodId gets a reference to the given NullableString and assigns it to the DefaultPaymentMethodId field.
 func (o *BillingAccountCreateRequest) SetDefaultPaymentMethodId(v string) {
-	o.DefaultPaymentMethodId = &v
+	o.DefaultPaymentMethodId.Set(&v)
+}
+// SetDefaultPaymentMethodIdNil sets the value for DefaultPaymentMethodId to be an explicit nil
+func (o *BillingAccountCreateRequest) SetDefaultPaymentMethodIdNil() {
+	o.DefaultPaymentMethodId.Set(nil)
+}
+
+// UnsetDefaultPaymentMethodId ensures that no value is present for DefaultPaymentMethodId, not even an explicit nil
+func (o *BillingAccountCreateRequest) UnsetDefaultPaymentMethodId() {
+	o.DefaultPaymentMethodId.Unset()
 }
 
 // GetRenewalTiming returns the RenewalTiming field value if set, zero value otherwise.
@@ -288,41 +314,51 @@ func (o *BillingAccountCreateRequest) SetNetTermsDays(v int32) {
 	o.NetTermsDays = &v
 }
 
-// GetDunningCampaignId returns the DunningCampaignId field value if set, zero value otherwise.
+// GetDunningCampaignId returns the DunningCampaignId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *BillingAccountCreateRequest) GetDunningCampaignId() string {
-	if o == nil || IsNil(o.DunningCampaignId) {
+	if o == nil || IsNil(o.DunningCampaignId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.DunningCampaignId
+	return *o.DunningCampaignId.Get()
 }
 
 // GetDunningCampaignIdOk returns a tuple with the DunningCampaignId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BillingAccountCreateRequest) GetDunningCampaignIdOk() (*string, bool) {
-	if o == nil || IsNil(o.DunningCampaignId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DunningCampaignId, true
+	return o.DunningCampaignId.Get(), o.DunningCampaignId.IsSet()
 }
 
 // HasDunningCampaignId returns a boolean if a field has been set.
 func (o *BillingAccountCreateRequest) HasDunningCampaignId() bool {
-	if o != nil && !IsNil(o.DunningCampaignId) {
+	if o != nil && o.DunningCampaignId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDunningCampaignId gets a reference to the given string and assigns it to the DunningCampaignId field.
+// SetDunningCampaignId gets a reference to the given NullableString and assigns it to the DunningCampaignId field.
 func (o *BillingAccountCreateRequest) SetDunningCampaignId(v string) {
-	o.DunningCampaignId = &v
+	o.DunningCampaignId.Set(&v)
+}
+// SetDunningCampaignIdNil sets the value for DunningCampaignId to be an explicit nil
+func (o *BillingAccountCreateRequest) SetDunningCampaignIdNil() {
+	o.DunningCampaignId.Set(nil)
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// UnsetDunningCampaignId ensures that no value is present for DunningCampaignId, not even an explicit nil
+func (o *BillingAccountCreateRequest) UnsetDunningCampaignId() {
+	o.DunningCampaignId.Unset()
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *BillingAccountCreateRequest) GetMetadata() map[string]string {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -331,6 +367,7 @@ func (o *BillingAccountCreateRequest) GetMetadata() map[string]string {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BillingAccountCreateRequest) GetMetadataOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return map[string]string{}, false
@@ -365,14 +402,14 @@ func (o BillingAccountCreateRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.BillingAccountId) {
 		toSerialize["billingAccountId"] = o.BillingAccountId
 	}
-	toSerialize["invoiceDeliveryMode"] = o.InvoiceDeliveryMode
-	toSerialize["collectionMode"] = o.CollectionMode
-	toSerialize["autoCollectionEnabled"] = o.AutoCollectionEnabled
-	if !IsNil(o.CustomerProfileId) {
-		toSerialize["customerProfileId"] = o.CustomerProfileId
+	toSerialize["invoiceDeliveryMode"] = o.InvoiceDeliveryMode.Get()
+	toSerialize["collectionMode"] = o.CollectionMode.Get()
+	toSerialize["autoCollectionEnabled"] = o.AutoCollectionEnabled.Get()
+	if o.CustomerProfileId.IsSet() {
+		toSerialize["customerProfileId"] = o.CustomerProfileId.Get()
 	}
-	if !IsNil(o.DefaultPaymentMethodId) {
-		toSerialize["defaultPaymentMethodId"] = o.DefaultPaymentMethodId
+	if o.DefaultPaymentMethodId.IsSet() {
+		toSerialize["defaultPaymentMethodId"] = o.DefaultPaymentMethodId.Get()
 	}
 	if !IsNil(o.RenewalTiming) {
 		toSerialize["renewalTiming"] = o.RenewalTiming
@@ -380,12 +417,17 @@ func (o BillingAccountCreateRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.NetTermsDays) {
 		toSerialize["netTermsDays"] = o.NetTermsDays
 	}
-	if !IsNil(o.DunningCampaignId) {
-		toSerialize["dunningCampaignId"] = o.DunningCampaignId
+	if o.DunningCampaignId.IsSet() {
+		toSerialize["dunningCampaignId"] = o.DunningCampaignId.Get()
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -415,15 +457,29 @@ func (o *BillingAccountCreateRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varBillingAccountCreateRequest := _BillingAccountCreateRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varBillingAccountCreateRequest)
+	err = json.Unmarshal(data, &varBillingAccountCreateRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = BillingAccountCreateRequest(varBillingAccountCreateRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "billingAccountId")
+		delete(additionalProperties, "invoiceDeliveryMode")
+		delete(additionalProperties, "collectionMode")
+		delete(additionalProperties, "autoCollectionEnabled")
+		delete(additionalProperties, "customerProfileId")
+		delete(additionalProperties, "defaultPaymentMethodId")
+		delete(additionalProperties, "renewalTiming")
+		delete(additionalProperties, "netTermsDays")
+		delete(additionalProperties, "dunningCampaignId")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

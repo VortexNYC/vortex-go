@@ -21,7 +21,10 @@ var _ MappedNullable = &BillingQuoteVersionApproveRequest{}
 // BillingQuoteVersionApproveRequest struct for BillingQuoteVersionApproveRequest
 type BillingQuoteVersionApproveRequest struct {
 	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _BillingQuoteVersionApproveRequest BillingQuoteVersionApproveRequest
 
 // NewBillingQuoteVersionApproveRequest instantiates a new BillingQuoteVersionApproveRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o BillingQuoteVersionApproveRequest) ToMap() (map[string]interface{}, erro
 	if !IsNil(o.ExpiresAt) {
 		toSerialize["expiresAt"] = o.ExpiresAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *BillingQuoteVersionApproveRequest) UnmarshalJSON(data []byte) (err error) {
+	varBillingQuoteVersionApproveRequest := _BillingQuoteVersionApproveRequest{}
+
+	err = json.Unmarshal(data, &varBillingQuoteVersionApproveRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BillingQuoteVersionApproveRequest(varBillingQuoteVersionApproveRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "expiresAt")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableBillingQuoteVersionApproveRequest struct {

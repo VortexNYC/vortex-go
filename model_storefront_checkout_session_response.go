@@ -21,7 +21,7 @@ var _ MappedNullable = &StorefrontCheckoutSessionResponse{}
 // StorefrontCheckoutSessionResponse struct for StorefrontCheckoutSessionResponse
 type StorefrontCheckoutSessionResponse struct {
 	Data StorefrontCheckoutSessionResponseData `json:"data"`
-	RequestId string `json:"requestId"`
+	RequestId NullableString `json:"requestId"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,7 +31,7 @@ type _StorefrontCheckoutSessionResponse StorefrontCheckoutSessionResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStorefrontCheckoutSessionResponse(data StorefrontCheckoutSessionResponseData, requestId string) *StorefrontCheckoutSessionResponse {
+func NewStorefrontCheckoutSessionResponse(data StorefrontCheckoutSessionResponseData, requestId NullableString) *StorefrontCheckoutSessionResponse {
 	this := StorefrontCheckoutSessionResponse{}
 	this.Data = data
 	this.RequestId = requestId
@@ -71,27 +71,29 @@ func (o *StorefrontCheckoutSessionResponse) SetData(v StorefrontCheckoutSessionR
 }
 
 // GetRequestId returns the RequestId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *StorefrontCheckoutSessionResponse) GetRequestId() string {
-	if o == nil {
+	if o == nil || o.RequestId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.RequestId
+	return *o.RequestId.Get()
 }
 
 // GetRequestIdOk returns a tuple with the RequestId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *StorefrontCheckoutSessionResponse) GetRequestIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RequestId, true
+	return o.RequestId.Get(), o.RequestId.IsSet()
 }
 
 // SetRequestId sets field value
 func (o *StorefrontCheckoutSessionResponse) SetRequestId(v string) {
-	o.RequestId = v
+	o.RequestId.Set(&v)
 }
 
 func (o StorefrontCheckoutSessionResponse) MarshalJSON() ([]byte, error) {
@@ -105,7 +107,7 @@ func (o StorefrontCheckoutSessionResponse) MarshalJSON() ([]byte, error) {
 func (o StorefrontCheckoutSessionResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["data"] = o.Data
-	toSerialize["requestId"] = o.RequestId
+	toSerialize["requestId"] = o.RequestId.Get()
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

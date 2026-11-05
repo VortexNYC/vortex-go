@@ -233,6 +233,145 @@ func (a *PaymentMethodsAPIService) ArchiveCustomerPaymentMethodExecute(r Payment
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type PaymentMethodsAPIArchiveMerchantCustomerPaymentMethodRequest struct {
+	ctx context.Context
+	ApiService *PaymentMethodsAPIService
+	merchantAccountId string
+	customerId string
+	paymentMethodId string
+	archiveMerchantCustomerPaymentMethodRequest *ArchiveMerchantCustomerPaymentMethodRequest
+	idempotencyKey *string
+}
+
+func (r PaymentMethodsAPIArchiveMerchantCustomerPaymentMethodRequest) ArchiveMerchantCustomerPaymentMethodRequest(archiveMerchantCustomerPaymentMethodRequest ArchiveMerchantCustomerPaymentMethodRequest) PaymentMethodsAPIArchiveMerchantCustomerPaymentMethodRequest {
+	r.archiveMerchantCustomerPaymentMethodRequest = &archiveMerchantCustomerPaymentMethodRequest
+	return r
+}
+
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r PaymentMethodsAPIArchiveMerchantCustomerPaymentMethodRequest) IdempotencyKey(idempotencyKey string) PaymentMethodsAPIArchiveMerchantCustomerPaymentMethodRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r PaymentMethodsAPIArchiveMerchantCustomerPaymentMethodRequest) Execute() (*ArchiveMerchantCustomerPaymentMethod200Response, *http.Response, error) {
+	return r.ApiService.ArchiveMerchantCustomerPaymentMethodExecute(r)
+}
+
+/*
+ArchiveMerchantCustomerPaymentMethod Method for ArchiveMerchantCustomerPaymentMethod
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param merchantAccountId
+ @param customerId
+ @param paymentMethodId
+ @return PaymentMethodsAPIArchiveMerchantCustomerPaymentMethodRequest
+*/
+func (a *PaymentMethodsAPIService) ArchiveMerchantCustomerPaymentMethod(ctx context.Context, merchantAccountId string, customerId string, paymentMethodId string) PaymentMethodsAPIArchiveMerchantCustomerPaymentMethodRequest {
+	return PaymentMethodsAPIArchiveMerchantCustomerPaymentMethodRequest{
+		ApiService: a,
+		ctx: ctx,
+		merchantAccountId: merchantAccountId,
+		customerId: customerId,
+		paymentMethodId: paymentMethodId,
+	}
+}
+
+// Execute executes the request
+//  @return ArchiveMerchantCustomerPaymentMethod200Response
+func (a *PaymentMethodsAPIService) ArchiveMerchantCustomerPaymentMethodExecute(r PaymentMethodsAPIArchiveMerchantCustomerPaymentMethodRequest) (*ArchiveMerchantCustomerPaymentMethod200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ArchiveMerchantCustomerPaymentMethod200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentMethodsAPIService.ArchiveMerchantCustomerPaymentMethod")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/merchant-accounts/{merchantAccountId}/customers/{customerId}/payment-methods/{paymentMethodId}/archive"
+	localVarPath = strings.Replace(localVarPath, "{"+"merchantAccountId"+"}", url.PathEscape(parameterValueToString(r.merchantAccountId, "merchantAccountId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"customerId"+"}", url.PathEscape(parameterValueToString(r.customerId, "customerId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentMethodId"+"}", url.PathEscape(parameterValueToString(r.paymentMethodId, "paymentMethodId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.merchantAccountId) < 1 {
+		return localVarReturnValue, nil, reportError("merchantAccountId must have at least 1 elements")
+	}
+	if strlen(r.customerId) < 1 {
+		return localVarReturnValue, nil, reportError("customerId must have at least 1 elements")
+	}
+	if strlen(r.paymentMethodId) < 1 {
+		return localVarReturnValue, nil, reportError("paymentMethodId must have at least 1 elements")
+	}
+	if r.archiveMerchantCustomerPaymentMethodRequest == nil {
+		return localVarReturnValue, nil, reportError("archiveMerchantCustomerPaymentMethodRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.archiveMerchantCustomerPaymentMethodRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type PaymentMethodsAPIAttachCustomerPaymentMethodRequest struct {
 	ctx context.Context
 	ApiService *PaymentMethodsAPIService
@@ -645,6 +784,631 @@ func (a *PaymentMethodsAPIService) CreateCustomerPaymentMethodSetupExecute(r Pay
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type PaymentMethodsAPICreateMerchantCustomerProfileRequest struct {
+	ctx context.Context
+	ApiService *PaymentMethodsAPIService
+	merchantAccountId string
+	createMerchantCustomerProfileRequest *CreateMerchantCustomerProfileRequest
+	idempotencyKey *string
+}
+
+func (r PaymentMethodsAPICreateMerchantCustomerProfileRequest) CreateMerchantCustomerProfileRequest(createMerchantCustomerProfileRequest CreateMerchantCustomerProfileRequest) PaymentMethodsAPICreateMerchantCustomerProfileRequest {
+	r.createMerchantCustomerProfileRequest = &createMerchantCustomerProfileRequest
+	return r
+}
+
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r PaymentMethodsAPICreateMerchantCustomerProfileRequest) IdempotencyKey(idempotencyKey string) PaymentMethodsAPICreateMerchantCustomerProfileRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r PaymentMethodsAPICreateMerchantCustomerProfileRequest) Execute() (*CreateMerchantCustomerProfile201Response, *http.Response, error) {
+	return r.ApiService.CreateMerchantCustomerProfileExecute(r)
+}
+
+/*
+CreateMerchantCustomerProfile Method for CreateMerchantCustomerProfile
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param merchantAccountId
+ @return PaymentMethodsAPICreateMerchantCustomerProfileRequest
+*/
+func (a *PaymentMethodsAPIService) CreateMerchantCustomerProfile(ctx context.Context, merchantAccountId string) PaymentMethodsAPICreateMerchantCustomerProfileRequest {
+	return PaymentMethodsAPICreateMerchantCustomerProfileRequest{
+		ApiService: a,
+		ctx: ctx,
+		merchantAccountId: merchantAccountId,
+	}
+}
+
+// Execute executes the request
+//  @return CreateMerchantCustomerProfile201Response
+func (a *PaymentMethodsAPIService) CreateMerchantCustomerProfileExecute(r PaymentMethodsAPICreateMerchantCustomerProfileRequest) (*CreateMerchantCustomerProfile201Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *CreateMerchantCustomerProfile201Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentMethodsAPIService.CreateMerchantCustomerProfile")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/merchant-accounts/{merchantAccountId}/customers"
+	localVarPath = strings.Replace(localVarPath, "{"+"merchantAccountId"+"}", url.PathEscape(parameterValueToString(r.merchantAccountId, "merchantAccountId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.merchantAccountId) < 1 {
+		return localVarReturnValue, nil, reportError("merchantAccountId must have at least 1 elements")
+	}
+	if r.createMerchantCustomerProfileRequest == nil {
+		return localVarReturnValue, nil, reportError("createMerchantCustomerProfileRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.createMerchantCustomerProfileRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PaymentMethodsAPICreatePaymentMethodRequest struct {
+	ctx context.Context
+	ApiService *PaymentMethodsAPIService
+	createPaymentMethodRequest *CreatePaymentMethodRequest
+	idempotencyKey *string
+}
+
+func (r PaymentMethodsAPICreatePaymentMethodRequest) CreatePaymentMethodRequest(createPaymentMethodRequest CreatePaymentMethodRequest) PaymentMethodsAPICreatePaymentMethodRequest {
+	r.createPaymentMethodRequest = &createPaymentMethodRequest
+	return r
+}
+
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r PaymentMethodsAPICreatePaymentMethodRequest) IdempotencyKey(idempotencyKey string) PaymentMethodsAPICreatePaymentMethodRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r PaymentMethodsAPICreatePaymentMethodRequest) Execute() (*CreatePaymentMethod201Response, *http.Response, error) {
+	return r.ApiService.CreatePaymentMethodExecute(r)
+}
+
+/*
+CreatePaymentMethod Method for CreatePaymentMethod
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return PaymentMethodsAPICreatePaymentMethodRequest
+*/
+func (a *PaymentMethodsAPIService) CreatePaymentMethod(ctx context.Context) PaymentMethodsAPICreatePaymentMethodRequest {
+	return PaymentMethodsAPICreatePaymentMethodRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return CreatePaymentMethod201Response
+func (a *PaymentMethodsAPIService) CreatePaymentMethodExecute(r PaymentMethodsAPICreatePaymentMethodRequest) (*CreatePaymentMethod201Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *CreatePaymentMethod201Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentMethodsAPIService.CreatePaymentMethod")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/payment-methods"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.createPaymentMethodRequest == nil {
+		return localVarReturnValue, nil, reportError("createPaymentMethodRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.createPaymentMethodRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PaymentMethodsAPICreatePaymentMethodSetupSessionRequest struct {
+	ctx context.Context
+	ApiService *PaymentMethodsAPIService
+	createPaymentMethodSetupSessionRequest *CreatePaymentMethodSetupSessionRequest
+	idempotencyKey *string
+}
+
+func (r PaymentMethodsAPICreatePaymentMethodSetupSessionRequest) CreatePaymentMethodSetupSessionRequest(createPaymentMethodSetupSessionRequest CreatePaymentMethodSetupSessionRequest) PaymentMethodsAPICreatePaymentMethodSetupSessionRequest {
+	r.createPaymentMethodSetupSessionRequest = &createPaymentMethodSetupSessionRequest
+	return r
+}
+
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r PaymentMethodsAPICreatePaymentMethodSetupSessionRequest) IdempotencyKey(idempotencyKey string) PaymentMethodsAPICreatePaymentMethodSetupSessionRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r PaymentMethodsAPICreatePaymentMethodSetupSessionRequest) Execute() (*CreatePaymentMethodSetupSession201Response, *http.Response, error) {
+	return r.ApiService.CreatePaymentMethodSetupSessionExecute(r)
+}
+
+/*
+CreatePaymentMethodSetupSession Method for CreatePaymentMethodSetupSession
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return PaymentMethodsAPICreatePaymentMethodSetupSessionRequest
+*/
+func (a *PaymentMethodsAPIService) CreatePaymentMethodSetupSession(ctx context.Context) PaymentMethodsAPICreatePaymentMethodSetupSessionRequest {
+	return PaymentMethodsAPICreatePaymentMethodSetupSessionRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return CreatePaymentMethodSetupSession201Response
+func (a *PaymentMethodsAPIService) CreatePaymentMethodSetupSessionExecute(r PaymentMethodsAPICreatePaymentMethodSetupSessionRequest) (*CreatePaymentMethodSetupSession201Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *CreatePaymentMethodSetupSession201Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentMethodsAPIService.CreatePaymentMethodSetupSession")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/payment-method-setup-sessions"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.createPaymentMethodSetupSessionRequest == nil {
+		return localVarReturnValue, nil, reportError("createPaymentMethodSetupSessionRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.createPaymentMethodSetupSessionRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PaymentMethodsAPIDisableMerchantCustomerPaymentMethodRequest struct {
+	ctx context.Context
+	ApiService *PaymentMethodsAPIService
+	merchantAccountId string
+	customerId string
+	paymentMethodId string
+	archiveMerchantCustomerPaymentMethodRequest *ArchiveMerchantCustomerPaymentMethodRequest
+	idempotencyKey *string
+}
+
+func (r PaymentMethodsAPIDisableMerchantCustomerPaymentMethodRequest) ArchiveMerchantCustomerPaymentMethodRequest(archiveMerchantCustomerPaymentMethodRequest ArchiveMerchantCustomerPaymentMethodRequest) PaymentMethodsAPIDisableMerchantCustomerPaymentMethodRequest {
+	r.archiveMerchantCustomerPaymentMethodRequest = &archiveMerchantCustomerPaymentMethodRequest
+	return r
+}
+
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r PaymentMethodsAPIDisableMerchantCustomerPaymentMethodRequest) IdempotencyKey(idempotencyKey string) PaymentMethodsAPIDisableMerchantCustomerPaymentMethodRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r PaymentMethodsAPIDisableMerchantCustomerPaymentMethodRequest) Execute() (*ArchiveMerchantCustomerPaymentMethod200Response, *http.Response, error) {
+	return r.ApiService.DisableMerchantCustomerPaymentMethodExecute(r)
+}
+
+/*
+DisableMerchantCustomerPaymentMethod Method for DisableMerchantCustomerPaymentMethod
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param merchantAccountId
+ @param customerId
+ @param paymentMethodId
+ @return PaymentMethodsAPIDisableMerchantCustomerPaymentMethodRequest
+*/
+func (a *PaymentMethodsAPIService) DisableMerchantCustomerPaymentMethod(ctx context.Context, merchantAccountId string, customerId string, paymentMethodId string) PaymentMethodsAPIDisableMerchantCustomerPaymentMethodRequest {
+	return PaymentMethodsAPIDisableMerchantCustomerPaymentMethodRequest{
+		ApiService: a,
+		ctx: ctx,
+		merchantAccountId: merchantAccountId,
+		customerId: customerId,
+		paymentMethodId: paymentMethodId,
+	}
+}
+
+// Execute executes the request
+//  @return ArchiveMerchantCustomerPaymentMethod200Response
+func (a *PaymentMethodsAPIService) DisableMerchantCustomerPaymentMethodExecute(r PaymentMethodsAPIDisableMerchantCustomerPaymentMethodRequest) (*ArchiveMerchantCustomerPaymentMethod200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ArchiveMerchantCustomerPaymentMethod200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentMethodsAPIService.DisableMerchantCustomerPaymentMethod")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/merchant-accounts/{merchantAccountId}/customers/{customerId}/payment-methods/{paymentMethodId}/disable"
+	localVarPath = strings.Replace(localVarPath, "{"+"merchantAccountId"+"}", url.PathEscape(parameterValueToString(r.merchantAccountId, "merchantAccountId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"customerId"+"}", url.PathEscape(parameterValueToString(r.customerId, "customerId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentMethodId"+"}", url.PathEscape(parameterValueToString(r.paymentMethodId, "paymentMethodId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.merchantAccountId) < 1 {
+		return localVarReturnValue, nil, reportError("merchantAccountId must have at least 1 elements")
+	}
+	if strlen(r.customerId) < 1 {
+		return localVarReturnValue, nil, reportError("customerId must have at least 1 elements")
+	}
+	if strlen(r.paymentMethodId) < 1 {
+		return localVarReturnValue, nil, reportError("paymentMethodId must have at least 1 elements")
+	}
+	if r.archiveMerchantCustomerPaymentMethodRequest == nil {
+		return localVarReturnValue, nil, reportError("archiveMerchantCustomerPaymentMethodRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.archiveMerchantCustomerPaymentMethodRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PaymentMethodsAPIExchangePaymentMethodSetupSessionRequest struct {
+	ctx context.Context
+	ApiService *PaymentMethodsAPIService
+	paymentMethodSetupSessionId string
+	exchangePaymentMethodSetupSessionRequest *ExchangePaymentMethodSetupSessionRequest
+	idempotencyKey *string
+}
+
+func (r PaymentMethodsAPIExchangePaymentMethodSetupSessionRequest) ExchangePaymentMethodSetupSessionRequest(exchangePaymentMethodSetupSessionRequest ExchangePaymentMethodSetupSessionRequest) PaymentMethodsAPIExchangePaymentMethodSetupSessionRequest {
+	r.exchangePaymentMethodSetupSessionRequest = &exchangePaymentMethodSetupSessionRequest
+	return r
+}
+
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r PaymentMethodsAPIExchangePaymentMethodSetupSessionRequest) IdempotencyKey(idempotencyKey string) PaymentMethodsAPIExchangePaymentMethodSetupSessionRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r PaymentMethodsAPIExchangePaymentMethodSetupSessionRequest) Execute() (*CreatePaymentMethod201Response, *http.Response, error) {
+	return r.ApiService.ExchangePaymentMethodSetupSessionExecute(r)
+}
+
+/*
+ExchangePaymentMethodSetupSession Method for ExchangePaymentMethodSetupSession
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param paymentMethodSetupSessionId
+ @return PaymentMethodsAPIExchangePaymentMethodSetupSessionRequest
+*/
+func (a *PaymentMethodsAPIService) ExchangePaymentMethodSetupSession(ctx context.Context, paymentMethodSetupSessionId string) PaymentMethodsAPIExchangePaymentMethodSetupSessionRequest {
+	return PaymentMethodsAPIExchangePaymentMethodSetupSessionRequest{
+		ApiService: a,
+		ctx: ctx,
+		paymentMethodSetupSessionId: paymentMethodSetupSessionId,
+	}
+}
+
+// Execute executes the request
+//  @return CreatePaymentMethod201Response
+func (a *PaymentMethodsAPIService) ExchangePaymentMethodSetupSessionExecute(r PaymentMethodsAPIExchangePaymentMethodSetupSessionRequest) (*CreatePaymentMethod201Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *CreatePaymentMethod201Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentMethodsAPIService.ExchangePaymentMethodSetupSession")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/payment-method-setup-sessions/{paymentMethodSetupSessionId}/exchange"
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentMethodSetupSessionId"+"}", url.PathEscape(parameterValueToString(r.paymentMethodSetupSessionId, "paymentMethodSetupSessionId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.paymentMethodSetupSessionId) < 1 {
+		return localVarReturnValue, nil, reportError("paymentMethodSetupSessionId must have at least 1 elements")
+	}
+	if r.exchangePaymentMethodSetupSessionRequest == nil {
+		return localVarReturnValue, nil, reportError("exchangePaymentMethodSetupSessionRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.exchangePaymentMethodSetupSessionRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type PaymentMethodsAPIGetCustomerPaymentMethodMicrodepositStatusRequest struct {
 	ctx context.Context
 	ApiService *PaymentMethodsAPIService
@@ -1019,6 +1783,622 @@ func (a *PaymentMethodsAPIService) GetCustomerPaymentStateExecute(r PaymentMetho
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type PaymentMethodsAPIGetMerchantCustomerPaymentMethodRequest struct {
+	ctx context.Context
+	ApiService *PaymentMethodsAPIService
+	merchantAccountId string
+	customerId string
+	paymentMethodId string
+	environment *string
+}
+
+func (r PaymentMethodsAPIGetMerchantCustomerPaymentMethodRequest) Environment(environment string) PaymentMethodsAPIGetMerchantCustomerPaymentMethodRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r PaymentMethodsAPIGetMerchantCustomerPaymentMethodRequest) Execute() (*ArchiveMerchantCustomerPaymentMethod200Response, *http.Response, error) {
+	return r.ApiService.GetMerchantCustomerPaymentMethodExecute(r)
+}
+
+/*
+GetMerchantCustomerPaymentMethod Method for GetMerchantCustomerPaymentMethod
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param merchantAccountId
+ @param customerId
+ @param paymentMethodId
+ @return PaymentMethodsAPIGetMerchantCustomerPaymentMethodRequest
+*/
+func (a *PaymentMethodsAPIService) GetMerchantCustomerPaymentMethod(ctx context.Context, merchantAccountId string, customerId string, paymentMethodId string) PaymentMethodsAPIGetMerchantCustomerPaymentMethodRequest {
+	return PaymentMethodsAPIGetMerchantCustomerPaymentMethodRequest{
+		ApiService: a,
+		ctx: ctx,
+		merchantAccountId: merchantAccountId,
+		customerId: customerId,
+		paymentMethodId: paymentMethodId,
+	}
+}
+
+// Execute executes the request
+//  @return ArchiveMerchantCustomerPaymentMethod200Response
+func (a *PaymentMethodsAPIService) GetMerchantCustomerPaymentMethodExecute(r PaymentMethodsAPIGetMerchantCustomerPaymentMethodRequest) (*ArchiveMerchantCustomerPaymentMethod200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ArchiveMerchantCustomerPaymentMethod200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentMethodsAPIService.GetMerchantCustomerPaymentMethod")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/merchant-accounts/{merchantAccountId}/customers/{customerId}/payment-methods/{paymentMethodId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"merchantAccountId"+"}", url.PathEscape(parameterValueToString(r.merchantAccountId, "merchantAccountId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"customerId"+"}", url.PathEscape(parameterValueToString(r.customerId, "customerId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentMethodId"+"}", url.PathEscape(parameterValueToString(r.paymentMethodId, "paymentMethodId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.merchantAccountId) < 1 {
+		return localVarReturnValue, nil, reportError("merchantAccountId must have at least 1 elements")
+	}
+	if strlen(r.customerId) < 1 {
+		return localVarReturnValue, nil, reportError("customerId must have at least 1 elements")
+	}
+	if strlen(r.paymentMethodId) < 1 {
+		return localVarReturnValue, nil, reportError("paymentMethodId must have at least 1 elements")
+	}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PaymentMethodsAPIGetMerchantCustomerPaymentMethodMicrodepositStatusRequest struct {
+	ctx context.Context
+	ApiService *PaymentMethodsAPIService
+	merchantAccountId string
+	customerId string
+	paymentMethodId string
+	environment *string
+}
+
+func (r PaymentMethodsAPIGetMerchantCustomerPaymentMethodMicrodepositStatusRequest) Environment(environment string) PaymentMethodsAPIGetMerchantCustomerPaymentMethodMicrodepositStatusRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r PaymentMethodsAPIGetMerchantCustomerPaymentMethodMicrodepositStatusRequest) Execute() (*GetMerchantCustomerPaymentMethodMicrodepositStatus200Response, *http.Response, error) {
+	return r.ApiService.GetMerchantCustomerPaymentMethodMicrodepositStatusExecute(r)
+}
+
+/*
+GetMerchantCustomerPaymentMethodMicrodepositStatus Method for GetMerchantCustomerPaymentMethodMicrodepositStatus
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param merchantAccountId
+ @param customerId
+ @param paymentMethodId
+ @return PaymentMethodsAPIGetMerchantCustomerPaymentMethodMicrodepositStatusRequest
+*/
+func (a *PaymentMethodsAPIService) GetMerchantCustomerPaymentMethodMicrodepositStatus(ctx context.Context, merchantAccountId string, customerId string, paymentMethodId string) PaymentMethodsAPIGetMerchantCustomerPaymentMethodMicrodepositStatusRequest {
+	return PaymentMethodsAPIGetMerchantCustomerPaymentMethodMicrodepositStatusRequest{
+		ApiService: a,
+		ctx: ctx,
+		merchantAccountId: merchantAccountId,
+		customerId: customerId,
+		paymentMethodId: paymentMethodId,
+	}
+}
+
+// Execute executes the request
+//  @return GetMerchantCustomerPaymentMethodMicrodepositStatus200Response
+func (a *PaymentMethodsAPIService) GetMerchantCustomerPaymentMethodMicrodepositStatusExecute(r PaymentMethodsAPIGetMerchantCustomerPaymentMethodMicrodepositStatusRequest) (*GetMerchantCustomerPaymentMethodMicrodepositStatus200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *GetMerchantCustomerPaymentMethodMicrodepositStatus200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentMethodsAPIService.GetMerchantCustomerPaymentMethodMicrodepositStatus")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/merchant-accounts/{merchantAccountId}/customers/{customerId}/payment-methods/{paymentMethodId}/microdeposit-status"
+	localVarPath = strings.Replace(localVarPath, "{"+"merchantAccountId"+"}", url.PathEscape(parameterValueToString(r.merchantAccountId, "merchantAccountId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"customerId"+"}", url.PathEscape(parameterValueToString(r.customerId, "customerId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentMethodId"+"}", url.PathEscape(parameterValueToString(r.paymentMethodId, "paymentMethodId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.merchantAccountId) < 1 {
+		return localVarReturnValue, nil, reportError("merchantAccountId must have at least 1 elements")
+	}
+	if strlen(r.customerId) < 1 {
+		return localVarReturnValue, nil, reportError("customerId must have at least 1 elements")
+	}
+	if strlen(r.paymentMethodId) < 1 {
+		return localVarReturnValue, nil, reportError("paymentMethodId must have at least 1 elements")
+	}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PaymentMethodsAPIGetMerchantCustomerPaymentStateRequest struct {
+	ctx context.Context
+	ApiService *PaymentMethodsAPIService
+	merchantAccountId string
+	customerId string
+	environment *string
+}
+
+func (r PaymentMethodsAPIGetMerchantCustomerPaymentStateRequest) Environment(environment string) PaymentMethodsAPIGetMerchantCustomerPaymentStateRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r PaymentMethodsAPIGetMerchantCustomerPaymentStateRequest) Execute() (*GetMerchantCustomerPaymentState200Response, *http.Response, error) {
+	return r.ApiService.GetMerchantCustomerPaymentStateExecute(r)
+}
+
+/*
+GetMerchantCustomerPaymentState Method for GetMerchantCustomerPaymentState
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param merchantAccountId
+ @param customerId
+ @return PaymentMethodsAPIGetMerchantCustomerPaymentStateRequest
+*/
+func (a *PaymentMethodsAPIService) GetMerchantCustomerPaymentState(ctx context.Context, merchantAccountId string, customerId string) PaymentMethodsAPIGetMerchantCustomerPaymentStateRequest {
+	return PaymentMethodsAPIGetMerchantCustomerPaymentStateRequest{
+		ApiService: a,
+		ctx: ctx,
+		merchantAccountId: merchantAccountId,
+		customerId: customerId,
+	}
+}
+
+// Execute executes the request
+//  @return GetMerchantCustomerPaymentState200Response
+func (a *PaymentMethodsAPIService) GetMerchantCustomerPaymentStateExecute(r PaymentMethodsAPIGetMerchantCustomerPaymentStateRequest) (*GetMerchantCustomerPaymentState200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *GetMerchantCustomerPaymentState200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentMethodsAPIService.GetMerchantCustomerPaymentState")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/merchant-accounts/{merchantAccountId}/customers/{customerId}/payment-state"
+	localVarPath = strings.Replace(localVarPath, "{"+"merchantAccountId"+"}", url.PathEscape(parameterValueToString(r.merchantAccountId, "merchantAccountId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"customerId"+"}", url.PathEscape(parameterValueToString(r.customerId, "customerId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.merchantAccountId) < 1 {
+		return localVarReturnValue, nil, reportError("merchantAccountId must have at least 1 elements")
+	}
+	if strlen(r.customerId) < 1 {
+		return localVarReturnValue, nil, reportError("customerId must have at least 1 elements")
+	}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PaymentMethodsAPIGetMerchantCustomerProfileRequest struct {
+	ctx context.Context
+	ApiService *PaymentMethodsAPIService
+	merchantAccountId string
+	customerId string
+	environment *string
+}
+
+func (r PaymentMethodsAPIGetMerchantCustomerProfileRequest) Environment(environment string) PaymentMethodsAPIGetMerchantCustomerProfileRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r PaymentMethodsAPIGetMerchantCustomerProfileRequest) Execute() (*GetMerchantCustomerProfile200Response, *http.Response, error) {
+	return r.ApiService.GetMerchantCustomerProfileExecute(r)
+}
+
+/*
+GetMerchantCustomerProfile Method for GetMerchantCustomerProfile
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param merchantAccountId
+ @param customerId
+ @return PaymentMethodsAPIGetMerchantCustomerProfileRequest
+*/
+func (a *PaymentMethodsAPIService) GetMerchantCustomerProfile(ctx context.Context, merchantAccountId string, customerId string) PaymentMethodsAPIGetMerchantCustomerProfileRequest {
+	return PaymentMethodsAPIGetMerchantCustomerProfileRequest{
+		ApiService: a,
+		ctx: ctx,
+		merchantAccountId: merchantAccountId,
+		customerId: customerId,
+	}
+}
+
+// Execute executes the request
+//  @return GetMerchantCustomerProfile200Response
+func (a *PaymentMethodsAPIService) GetMerchantCustomerProfileExecute(r PaymentMethodsAPIGetMerchantCustomerProfileRequest) (*GetMerchantCustomerProfile200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *GetMerchantCustomerProfile200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentMethodsAPIService.GetMerchantCustomerProfile")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/merchant-accounts/{merchantAccountId}/customers/{customerId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"merchantAccountId"+"}", url.PathEscape(parameterValueToString(r.merchantAccountId, "merchantAccountId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"customerId"+"}", url.PathEscape(parameterValueToString(r.customerId, "customerId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.merchantAccountId) < 1 {
+		return localVarReturnValue, nil, reportError("merchantAccountId must have at least 1 elements")
+	}
+	if strlen(r.customerId) < 1 {
+		return localVarReturnValue, nil, reportError("customerId must have at least 1 elements")
+	}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PaymentMethodsAPIGetPaymentMethodSetupSessionRequest struct {
+	ctx context.Context
+	ApiService *PaymentMethodsAPIService
+	paymentMethodSetupSessionId string
+	environment *string
+	merchantAccountId *string
+}
+
+func (r PaymentMethodsAPIGetPaymentMethodSetupSessionRequest) Environment(environment string) PaymentMethodsAPIGetPaymentMethodSetupSessionRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r PaymentMethodsAPIGetPaymentMethodSetupSessionRequest) MerchantAccountId(merchantAccountId string) PaymentMethodsAPIGetPaymentMethodSetupSessionRequest {
+	r.merchantAccountId = &merchantAccountId
+	return r
+}
+
+func (r PaymentMethodsAPIGetPaymentMethodSetupSessionRequest) Execute() (*GetPaymentMethodSetupSession200Response, *http.Response, error) {
+	return r.ApiService.GetPaymentMethodSetupSessionExecute(r)
+}
+
+/*
+GetPaymentMethodSetupSession Method for GetPaymentMethodSetupSession
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param paymentMethodSetupSessionId
+ @return PaymentMethodsAPIGetPaymentMethodSetupSessionRequest
+*/
+func (a *PaymentMethodsAPIService) GetPaymentMethodSetupSession(ctx context.Context, paymentMethodSetupSessionId string) PaymentMethodsAPIGetPaymentMethodSetupSessionRequest {
+	return PaymentMethodsAPIGetPaymentMethodSetupSessionRequest{
+		ApiService: a,
+		ctx: ctx,
+		paymentMethodSetupSessionId: paymentMethodSetupSessionId,
+	}
+}
+
+// Execute executes the request
+//  @return GetPaymentMethodSetupSession200Response
+func (a *PaymentMethodsAPIService) GetPaymentMethodSetupSessionExecute(r PaymentMethodsAPIGetPaymentMethodSetupSessionRequest) (*GetPaymentMethodSetupSession200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *GetPaymentMethodSetupSession200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentMethodsAPIService.GetPaymentMethodSetupSession")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/payment-method-setup-sessions/{paymentMethodSetupSessionId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentMethodSetupSessionId"+"}", url.PathEscape(parameterValueToString(r.paymentMethodSetupSessionId, "paymentMethodSetupSessionId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.paymentMethodSetupSessionId) < 1 {
+		return localVarReturnValue, nil, reportError("paymentMethodSetupSessionId must have at least 1 elements")
+	}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type PaymentMethodsAPIListCustomerPaymentMethodsRequest struct {
 	ctx context.Context
 	ApiService *PaymentMethodsAPIService
@@ -1189,6 +2569,511 @@ func (a *PaymentMethodsAPIService) ListCustomerPaymentMethodsExecute(r PaymentMe
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PaymentMethodsAPIListMerchantCustomerPaymentMethodsRequest struct {
+	ctx context.Context
+	ApiService *PaymentMethodsAPIService
+	merchantAccountId string
+	customerId string
+	environment *string
+	limit *ListCustomersLimitParameter
+	cursor *string
+}
+
+func (r PaymentMethodsAPIListMerchantCustomerPaymentMethodsRequest) Environment(environment string) PaymentMethodsAPIListMerchantCustomerPaymentMethodsRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r PaymentMethodsAPIListMerchantCustomerPaymentMethodsRequest) Limit(limit ListCustomersLimitParameter) PaymentMethodsAPIListMerchantCustomerPaymentMethodsRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r PaymentMethodsAPIListMerchantCustomerPaymentMethodsRequest) Cursor(cursor string) PaymentMethodsAPIListMerchantCustomerPaymentMethodsRequest {
+	r.cursor = &cursor
+	return r
+}
+
+func (r PaymentMethodsAPIListMerchantCustomerPaymentMethodsRequest) Execute() (*ListMerchantCustomerPaymentMethods200Response, *http.Response, error) {
+	return r.ApiService.ListMerchantCustomerPaymentMethodsExecute(r)
+}
+
+/*
+ListMerchantCustomerPaymentMethods Method for ListMerchantCustomerPaymentMethods
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param merchantAccountId
+ @param customerId
+ @return PaymentMethodsAPIListMerchantCustomerPaymentMethodsRequest
+*/
+func (a *PaymentMethodsAPIService) ListMerchantCustomerPaymentMethods(ctx context.Context, merchantAccountId string, customerId string) PaymentMethodsAPIListMerchantCustomerPaymentMethodsRequest {
+	return PaymentMethodsAPIListMerchantCustomerPaymentMethodsRequest{
+		ApiService: a,
+		ctx: ctx,
+		merchantAccountId: merchantAccountId,
+		customerId: customerId,
+	}
+}
+
+// Execute executes the request
+//  @return ListMerchantCustomerPaymentMethods200Response
+func (a *PaymentMethodsAPIService) ListMerchantCustomerPaymentMethodsExecute(r PaymentMethodsAPIListMerchantCustomerPaymentMethodsRequest) (*ListMerchantCustomerPaymentMethods200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ListMerchantCustomerPaymentMethods200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentMethodsAPIService.ListMerchantCustomerPaymentMethods")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/merchant-accounts/{merchantAccountId}/customers/{customerId}/payment-methods"
+	localVarPath = strings.Replace(localVarPath, "{"+"merchantAccountId"+"}", url.PathEscape(parameterValueToString(r.merchantAccountId, "merchantAccountId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"customerId"+"}", url.PathEscape(parameterValueToString(r.customerId, "customerId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.merchantAccountId) < 1 {
+		return localVarReturnValue, nil, reportError("merchantAccountId must have at least 1 elements")
+	}
+	if strlen(r.customerId) < 1 {
+		return localVarReturnValue, nil, reportError("customerId must have at least 1 elements")
+	}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PaymentMethodsAPIListPlatformCustomerPaymentMethodsRequest struct {
+	ctx context.Context
+	ApiService *PaymentMethodsAPIService
+	environment *string
+	platformMerchantAccountId *string
+	externalCustomerId *string
+}
+
+func (r PaymentMethodsAPIListPlatformCustomerPaymentMethodsRequest) Environment(environment string) PaymentMethodsAPIListPlatformCustomerPaymentMethodsRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r PaymentMethodsAPIListPlatformCustomerPaymentMethodsRequest) PlatformMerchantAccountId(platformMerchantAccountId string) PaymentMethodsAPIListPlatformCustomerPaymentMethodsRequest {
+	r.platformMerchantAccountId = &platformMerchantAccountId
+	return r
+}
+
+func (r PaymentMethodsAPIListPlatformCustomerPaymentMethodsRequest) ExternalCustomerId(externalCustomerId string) PaymentMethodsAPIListPlatformCustomerPaymentMethodsRequest {
+	r.externalCustomerId = &externalCustomerId
+	return r
+}
+
+func (r PaymentMethodsAPIListPlatformCustomerPaymentMethodsRequest) Execute() (*ListPlatformCustomerPaymentMethods200Response, *http.Response, error) {
+	return r.ApiService.ListPlatformCustomerPaymentMethodsExecute(r)
+}
+
+/*
+ListPlatformCustomerPaymentMethods Method for ListPlatformCustomerPaymentMethods
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return PaymentMethodsAPIListPlatformCustomerPaymentMethodsRequest
+*/
+func (a *PaymentMethodsAPIService) ListPlatformCustomerPaymentMethods(ctx context.Context) PaymentMethodsAPIListPlatformCustomerPaymentMethodsRequest {
+	return PaymentMethodsAPIListPlatformCustomerPaymentMethodsRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return ListPlatformCustomerPaymentMethods200Response
+func (a *PaymentMethodsAPIService) ListPlatformCustomerPaymentMethodsExecute(r PaymentMethodsAPIListPlatformCustomerPaymentMethodsRequest) (*ListPlatformCustomerPaymentMethods200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ListPlatformCustomerPaymentMethods200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentMethodsAPIService.ListPlatformCustomerPaymentMethods")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/platform-customers/payment-methods"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.platformMerchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "platformMerchantAccountId", r.platformMerchantAccountId, "form", "")
+	}
+	if r.externalCustomerId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "externalCustomerId", r.externalCustomerId, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PaymentMethodsAPISavePaymentMethodRequest struct {
+	ctx context.Context
+	ApiService *PaymentMethodsAPIService
+	paymentMethodId string
+	savePaymentMethodRequest *SavePaymentMethodRequest
+	idempotencyKey *string
+}
+
+func (r PaymentMethodsAPISavePaymentMethodRequest) SavePaymentMethodRequest(savePaymentMethodRequest SavePaymentMethodRequest) PaymentMethodsAPISavePaymentMethodRequest {
+	r.savePaymentMethodRequest = &savePaymentMethodRequest
+	return r
+}
+
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r PaymentMethodsAPISavePaymentMethodRequest) IdempotencyKey(idempotencyKey string) PaymentMethodsAPISavePaymentMethodRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r PaymentMethodsAPISavePaymentMethodRequest) Execute() (*SaveDispute200Response, *http.Response, error) {
+	return r.ApiService.SavePaymentMethodExecute(r)
+}
+
+/*
+SavePaymentMethod Method for SavePaymentMethod
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param paymentMethodId
+ @return PaymentMethodsAPISavePaymentMethodRequest
+*/
+func (a *PaymentMethodsAPIService) SavePaymentMethod(ctx context.Context, paymentMethodId string) PaymentMethodsAPISavePaymentMethodRequest {
+	return PaymentMethodsAPISavePaymentMethodRequest{
+		ApiService: a,
+		ctx: ctx,
+		paymentMethodId: paymentMethodId,
+	}
+}
+
+// Execute executes the request
+//  @return SaveDispute200Response
+func (a *PaymentMethodsAPIService) SavePaymentMethodExecute(r PaymentMethodsAPISavePaymentMethodRequest) (*SaveDispute200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SaveDispute200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentMethodsAPIService.SavePaymentMethod")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/payment-methods/{paymentMethodId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentMethodId"+"}", url.PathEscape(parameterValueToString(r.paymentMethodId, "paymentMethodId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.paymentMethodId) < 1 {
+		return localVarReturnValue, nil, reportError("paymentMethodId must have at least 1 elements")
+	}
+	if r.savePaymentMethodRequest == nil {
+		return localVarReturnValue, nil, reportError("savePaymentMethodRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.savePaymentMethodRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PaymentMethodsAPISavePlatformPaymentMethodRequest struct {
+	ctx context.Context
+	ApiService *PaymentMethodsAPIService
+	savePlatformPaymentMethodRequest *SavePlatformPaymentMethodRequest
+	idempotencyKey *string
+}
+
+func (r PaymentMethodsAPISavePlatformPaymentMethodRequest) SavePlatformPaymentMethodRequest(savePlatformPaymentMethodRequest SavePlatformPaymentMethodRequest) PaymentMethodsAPISavePlatformPaymentMethodRequest {
+	r.savePlatformPaymentMethodRequest = &savePlatformPaymentMethodRequest
+	return r
+}
+
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r PaymentMethodsAPISavePlatformPaymentMethodRequest) IdempotencyKey(idempotencyKey string) PaymentMethodsAPISavePlatformPaymentMethodRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r PaymentMethodsAPISavePlatformPaymentMethodRequest) Execute() (*SavePlatformPaymentMethod201Response, *http.Response, error) {
+	return r.ApiService.SavePlatformPaymentMethodExecute(r)
+}
+
+/*
+SavePlatformPaymentMethod Method for SavePlatformPaymentMethod
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return PaymentMethodsAPISavePlatformPaymentMethodRequest
+*/
+func (a *PaymentMethodsAPIService) SavePlatformPaymentMethod(ctx context.Context) PaymentMethodsAPISavePlatformPaymentMethodRequest {
+	return PaymentMethodsAPISavePlatformPaymentMethodRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return SavePlatformPaymentMethod201Response
+func (a *PaymentMethodsAPIService) SavePlatformPaymentMethodExecute(r PaymentMethodsAPISavePlatformPaymentMethodRequest) (*SavePlatformPaymentMethod201Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SavePlatformPaymentMethod201Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentMethodsAPIService.SavePlatformPaymentMethod")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/platform-customers/payment-methods"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.savePlatformPaymentMethodRequest == nil {
+		return localVarReturnValue, nil, reportError("savePlatformPaymentMethodRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.savePlatformPaymentMethodRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1410,6 +3295,388 @@ func (a *PaymentMethodsAPIService) SetCustomerDefaultPaymentMethodExecute(r Paym
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type PaymentMethodsAPISetMerchantCustomerDefaultPaymentMethodRequest struct {
+	ctx context.Context
+	ApiService *PaymentMethodsAPIService
+	merchantAccountId string
+	customerId string
+	setMerchantCustomerDefaultPaymentMethodRequest *SetMerchantCustomerDefaultPaymentMethodRequest
+	idempotencyKey *string
+}
+
+func (r PaymentMethodsAPISetMerchantCustomerDefaultPaymentMethodRequest) SetMerchantCustomerDefaultPaymentMethodRequest(setMerchantCustomerDefaultPaymentMethodRequest SetMerchantCustomerDefaultPaymentMethodRequest) PaymentMethodsAPISetMerchantCustomerDefaultPaymentMethodRequest {
+	r.setMerchantCustomerDefaultPaymentMethodRequest = &setMerchantCustomerDefaultPaymentMethodRequest
+	return r
+}
+
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r PaymentMethodsAPISetMerchantCustomerDefaultPaymentMethodRequest) IdempotencyKey(idempotencyKey string) PaymentMethodsAPISetMerchantCustomerDefaultPaymentMethodRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r PaymentMethodsAPISetMerchantCustomerDefaultPaymentMethodRequest) Execute() (*SetMerchantCustomerDefaultPaymentMethod200Response, *http.Response, error) {
+	return r.ApiService.SetMerchantCustomerDefaultPaymentMethodExecute(r)
+}
+
+/*
+SetMerchantCustomerDefaultPaymentMethod Method for SetMerchantCustomerDefaultPaymentMethod
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param merchantAccountId
+ @param customerId
+ @return PaymentMethodsAPISetMerchantCustomerDefaultPaymentMethodRequest
+*/
+func (a *PaymentMethodsAPIService) SetMerchantCustomerDefaultPaymentMethod(ctx context.Context, merchantAccountId string, customerId string) PaymentMethodsAPISetMerchantCustomerDefaultPaymentMethodRequest {
+	return PaymentMethodsAPISetMerchantCustomerDefaultPaymentMethodRequest{
+		ApiService: a,
+		ctx: ctx,
+		merchantAccountId: merchantAccountId,
+		customerId: customerId,
+	}
+}
+
+// Execute executes the request
+//  @return SetMerchantCustomerDefaultPaymentMethod200Response
+func (a *PaymentMethodsAPIService) SetMerchantCustomerDefaultPaymentMethodExecute(r PaymentMethodsAPISetMerchantCustomerDefaultPaymentMethodRequest) (*SetMerchantCustomerDefaultPaymentMethod200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SetMerchantCustomerDefaultPaymentMethod200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentMethodsAPIService.SetMerchantCustomerDefaultPaymentMethod")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/merchant-accounts/{merchantAccountId}/customers/{customerId}/payment-methods/default"
+	localVarPath = strings.Replace(localVarPath, "{"+"merchantAccountId"+"}", url.PathEscape(parameterValueToString(r.merchantAccountId, "merchantAccountId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"customerId"+"}", url.PathEscape(parameterValueToString(r.customerId, "customerId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.merchantAccountId) < 1 {
+		return localVarReturnValue, nil, reportError("merchantAccountId must have at least 1 elements")
+	}
+	if strlen(r.customerId) < 1 {
+		return localVarReturnValue, nil, reportError("customerId must have at least 1 elements")
+	}
+	if r.setMerchantCustomerDefaultPaymentMethodRequest == nil {
+		return localVarReturnValue, nil, reportError("setMerchantCustomerDefaultPaymentMethodRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.setMerchantCustomerDefaultPaymentMethodRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PaymentMethodsAPIUpdateMerchantCustomerProfileRequest struct {
+	ctx context.Context
+	ApiService *PaymentMethodsAPIService
+	merchantAccountId string
+	customerId string
+	updateMerchantCustomerProfileRequest *UpdateMerchantCustomerProfileRequest
+	idempotencyKey *string
+}
+
+func (r PaymentMethodsAPIUpdateMerchantCustomerProfileRequest) UpdateMerchantCustomerProfileRequest(updateMerchantCustomerProfileRequest UpdateMerchantCustomerProfileRequest) PaymentMethodsAPIUpdateMerchantCustomerProfileRequest {
+	r.updateMerchantCustomerProfileRequest = &updateMerchantCustomerProfileRequest
+	return r
+}
+
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r PaymentMethodsAPIUpdateMerchantCustomerProfileRequest) IdempotencyKey(idempotencyKey string) PaymentMethodsAPIUpdateMerchantCustomerProfileRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r PaymentMethodsAPIUpdateMerchantCustomerProfileRequest) Execute() (*GetMerchantCustomerProfile200Response, *http.Response, error) {
+	return r.ApiService.UpdateMerchantCustomerProfileExecute(r)
+}
+
+/*
+UpdateMerchantCustomerProfile Method for UpdateMerchantCustomerProfile
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param merchantAccountId
+ @param customerId
+ @return PaymentMethodsAPIUpdateMerchantCustomerProfileRequest
+*/
+func (a *PaymentMethodsAPIService) UpdateMerchantCustomerProfile(ctx context.Context, merchantAccountId string, customerId string) PaymentMethodsAPIUpdateMerchantCustomerProfileRequest {
+	return PaymentMethodsAPIUpdateMerchantCustomerProfileRequest{
+		ApiService: a,
+		ctx: ctx,
+		merchantAccountId: merchantAccountId,
+		customerId: customerId,
+	}
+}
+
+// Execute executes the request
+//  @return GetMerchantCustomerProfile200Response
+func (a *PaymentMethodsAPIService) UpdateMerchantCustomerProfileExecute(r PaymentMethodsAPIUpdateMerchantCustomerProfileRequest) (*GetMerchantCustomerProfile200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPatch
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *GetMerchantCustomerProfile200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentMethodsAPIService.UpdateMerchantCustomerProfile")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/merchant-accounts/{merchantAccountId}/customers/{customerId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"merchantAccountId"+"}", url.PathEscape(parameterValueToString(r.merchantAccountId, "merchantAccountId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"customerId"+"}", url.PathEscape(parameterValueToString(r.customerId, "customerId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.merchantAccountId) < 1 {
+		return localVarReturnValue, nil, reportError("merchantAccountId must have at least 1 elements")
+	}
+	if strlen(r.customerId) < 1 {
+		return localVarReturnValue, nil, reportError("customerId must have at least 1 elements")
+	}
+	if r.updateMerchantCustomerProfileRequest == nil {
+		return localVarReturnValue, nil, reportError("updateMerchantCustomerProfileRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.updateMerchantCustomerProfileRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PaymentMethodsAPIUpsertPlatformCustomerRequest struct {
+	ctx context.Context
+	ApiService *PaymentMethodsAPIService
+	upsertPlatformCustomerRequest *UpsertPlatformCustomerRequest
+	idempotencyKey *string
+}
+
+func (r PaymentMethodsAPIUpsertPlatformCustomerRequest) UpsertPlatformCustomerRequest(upsertPlatformCustomerRequest UpsertPlatformCustomerRequest) PaymentMethodsAPIUpsertPlatformCustomerRequest {
+	r.upsertPlatformCustomerRequest = &upsertPlatformCustomerRequest
+	return r
+}
+
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r PaymentMethodsAPIUpsertPlatformCustomerRequest) IdempotencyKey(idempotencyKey string) PaymentMethodsAPIUpsertPlatformCustomerRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r PaymentMethodsAPIUpsertPlatformCustomerRequest) Execute() (*UpsertPlatformCustomer201Response, *http.Response, error) {
+	return r.ApiService.UpsertPlatformCustomerExecute(r)
+}
+
+/*
+UpsertPlatformCustomer Method for UpsertPlatformCustomer
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return PaymentMethodsAPIUpsertPlatformCustomerRequest
+*/
+func (a *PaymentMethodsAPIService) UpsertPlatformCustomer(ctx context.Context) PaymentMethodsAPIUpsertPlatformCustomerRequest {
+	return PaymentMethodsAPIUpsertPlatformCustomerRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return UpsertPlatformCustomer201Response
+func (a *PaymentMethodsAPIService) UpsertPlatformCustomerExecute(r PaymentMethodsAPIUpsertPlatformCustomerRequest) (*UpsertPlatformCustomer201Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *UpsertPlatformCustomer201Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentMethodsAPIService.UpsertPlatformCustomer")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/platform-customers"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.upsertPlatformCustomerRequest == nil {
+		return localVarReturnValue, nil, reportError("upsertPlatformCustomerRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.upsertPlatformCustomerRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type PaymentMethodsAPIVerifyCustomerPaymentMethodMicrodepositRequest struct {
 	ctx context.Context
 	ApiService *PaymentMethodsAPIService
@@ -1605,6 +3872,145 @@ func (a *PaymentMethodsAPIService) VerifyCustomerPaymentMethodMicrodepositExecut
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PaymentMethodsAPIVerifyMerchantCustomerPaymentMethodMicrodepositRequest struct {
+	ctx context.Context
+	ApiService *PaymentMethodsAPIService
+	merchantAccountId string
+	customerId string
+	paymentMethodId string
+	verifyMerchantCustomerPaymentMethodMicrodepositRequest *VerifyMerchantCustomerPaymentMethodMicrodepositRequest
+	idempotencyKey *string
+}
+
+func (r PaymentMethodsAPIVerifyMerchantCustomerPaymentMethodMicrodepositRequest) VerifyMerchantCustomerPaymentMethodMicrodepositRequest(verifyMerchantCustomerPaymentMethodMicrodepositRequest VerifyMerchantCustomerPaymentMethodMicrodepositRequest) PaymentMethodsAPIVerifyMerchantCustomerPaymentMethodMicrodepositRequest {
+	r.verifyMerchantCustomerPaymentMethodMicrodepositRequest = &verifyMerchantCustomerPaymentMethodMicrodepositRequest
+	return r
+}
+
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r PaymentMethodsAPIVerifyMerchantCustomerPaymentMethodMicrodepositRequest) IdempotencyKey(idempotencyKey string) PaymentMethodsAPIVerifyMerchantCustomerPaymentMethodMicrodepositRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r PaymentMethodsAPIVerifyMerchantCustomerPaymentMethodMicrodepositRequest) Execute() (*VerifyMerchantCustomerPaymentMethodMicrodeposit200Response, *http.Response, error) {
+	return r.ApiService.VerifyMerchantCustomerPaymentMethodMicrodepositExecute(r)
+}
+
+/*
+VerifyMerchantCustomerPaymentMethodMicrodeposit Method for VerifyMerchantCustomerPaymentMethodMicrodeposit
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param merchantAccountId
+ @param customerId
+ @param paymentMethodId
+ @return PaymentMethodsAPIVerifyMerchantCustomerPaymentMethodMicrodepositRequest
+*/
+func (a *PaymentMethodsAPIService) VerifyMerchantCustomerPaymentMethodMicrodeposit(ctx context.Context, merchantAccountId string, customerId string, paymentMethodId string) PaymentMethodsAPIVerifyMerchantCustomerPaymentMethodMicrodepositRequest {
+	return PaymentMethodsAPIVerifyMerchantCustomerPaymentMethodMicrodepositRequest{
+		ApiService: a,
+		ctx: ctx,
+		merchantAccountId: merchantAccountId,
+		customerId: customerId,
+		paymentMethodId: paymentMethodId,
+	}
+}
+
+// Execute executes the request
+//  @return VerifyMerchantCustomerPaymentMethodMicrodeposit200Response
+func (a *PaymentMethodsAPIService) VerifyMerchantCustomerPaymentMethodMicrodepositExecute(r PaymentMethodsAPIVerifyMerchantCustomerPaymentMethodMicrodepositRequest) (*VerifyMerchantCustomerPaymentMethodMicrodeposit200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *VerifyMerchantCustomerPaymentMethodMicrodeposit200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentMethodsAPIService.VerifyMerchantCustomerPaymentMethodMicrodeposit")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/merchant-accounts/{merchantAccountId}/customers/{customerId}/payment-methods/{paymentMethodId}/verify-microdeposit"
+	localVarPath = strings.Replace(localVarPath, "{"+"merchantAccountId"+"}", url.PathEscape(parameterValueToString(r.merchantAccountId, "merchantAccountId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"customerId"+"}", url.PathEscape(parameterValueToString(r.customerId, "customerId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentMethodId"+"}", url.PathEscape(parameterValueToString(r.paymentMethodId, "paymentMethodId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.merchantAccountId) < 1 {
+		return localVarReturnValue, nil, reportError("merchantAccountId must have at least 1 elements")
+	}
+	if strlen(r.customerId) < 1 {
+		return localVarReturnValue, nil, reportError("customerId must have at least 1 elements")
+	}
+	if strlen(r.paymentMethodId) < 1 {
+		return localVarReturnValue, nil, reportError("paymentMethodId must have at least 1 elements")
+	}
+	if r.verifyMerchantCustomerPaymentMethodMicrodepositRequest == nil {
+		return localVarReturnValue, nil, reportError("verifyMerchantCustomerPaymentMethodMicrodepositRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.verifyMerchantCustomerPaymentMethodMicrodepositRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

@@ -21,10 +21,10 @@ var _ MappedNullable = &StorefrontMerchantReadinessResponseData{}
 
 // StorefrontMerchantReadinessResponseData struct for StorefrontMerchantReadinessResponseData
 type StorefrontMerchantReadinessResponseData struct {
-	MerchantAccountId string `json:"merchantAccountId"`
-	DisplayName string `json:"displayName"`
-	Environment string `json:"environment"`
-	CanAcceptPayments bool `json:"canAcceptPayments"`
+	MerchantAccountId NullableString `json:"merchantAccountId"`
+	DisplayName NullableString `json:"displayName"`
+	Environment NullableString `json:"environment"`
+	CanAcceptPayments NullableBool `json:"canAcceptPayments"`
 }
 
 type _StorefrontMerchantReadinessResponseData StorefrontMerchantReadinessResponseData
@@ -33,7 +33,7 @@ type _StorefrontMerchantReadinessResponseData StorefrontMerchantReadinessRespons
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStorefrontMerchantReadinessResponseData(merchantAccountId string, displayName string, environment string, canAcceptPayments bool) *StorefrontMerchantReadinessResponseData {
+func NewStorefrontMerchantReadinessResponseData(merchantAccountId NullableString, displayName NullableString, environment NullableString, canAcceptPayments NullableBool) *StorefrontMerchantReadinessResponseData {
 	this := StorefrontMerchantReadinessResponseData{}
 	this.MerchantAccountId = merchantAccountId
 	this.DisplayName = displayName
@@ -51,99 +51,107 @@ func NewStorefrontMerchantReadinessResponseDataWithDefaults() *StorefrontMerchan
 }
 
 // GetMerchantAccountId returns the MerchantAccountId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *StorefrontMerchantReadinessResponseData) GetMerchantAccountId() string {
-	if o == nil {
+	if o == nil || o.MerchantAccountId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.MerchantAccountId
+	return *o.MerchantAccountId.Get()
 }
 
 // GetMerchantAccountIdOk returns a tuple with the MerchantAccountId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *StorefrontMerchantReadinessResponseData) GetMerchantAccountIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.MerchantAccountId, true
+	return o.MerchantAccountId.Get(), o.MerchantAccountId.IsSet()
 }
 
 // SetMerchantAccountId sets field value
 func (o *StorefrontMerchantReadinessResponseData) SetMerchantAccountId(v string) {
-	o.MerchantAccountId = v
+	o.MerchantAccountId.Set(&v)
 }
 
 // GetDisplayName returns the DisplayName field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *StorefrontMerchantReadinessResponseData) GetDisplayName() string {
-	if o == nil {
+	if o == nil || o.DisplayName.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.DisplayName
+	return *o.DisplayName.Get()
 }
 
 // GetDisplayNameOk returns a tuple with the DisplayName field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *StorefrontMerchantReadinessResponseData) GetDisplayNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.DisplayName, true
+	return o.DisplayName.Get(), o.DisplayName.IsSet()
 }
 
 // SetDisplayName sets field value
 func (o *StorefrontMerchantReadinessResponseData) SetDisplayName(v string) {
-	o.DisplayName = v
+	o.DisplayName.Set(&v)
 }
 
 // GetEnvironment returns the Environment field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *StorefrontMerchantReadinessResponseData) GetEnvironment() string {
-	if o == nil {
+	if o == nil || o.Environment.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Environment
+	return *o.Environment.Get()
 }
 
 // GetEnvironmentOk returns a tuple with the Environment field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *StorefrontMerchantReadinessResponseData) GetEnvironmentOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Environment, true
+	return o.Environment.Get(), o.Environment.IsSet()
 }
 
 // SetEnvironment sets field value
 func (o *StorefrontMerchantReadinessResponseData) SetEnvironment(v string) {
-	o.Environment = v
+	o.Environment.Set(&v)
 }
 
 // GetCanAcceptPayments returns the CanAcceptPayments field value
+// If the value is explicit nil, the zero value for bool will be returned
 func (o *StorefrontMerchantReadinessResponseData) GetCanAcceptPayments() bool {
-	if o == nil {
+	if o == nil || o.CanAcceptPayments.Get() == nil {
 		var ret bool
 		return ret
 	}
 
-	return o.CanAcceptPayments
+	return *o.CanAcceptPayments.Get()
 }
 
 // GetCanAcceptPaymentsOk returns a tuple with the CanAcceptPayments field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *StorefrontMerchantReadinessResponseData) GetCanAcceptPaymentsOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CanAcceptPayments, true
+	return o.CanAcceptPayments.Get(), o.CanAcceptPayments.IsSet()
 }
 
 // SetCanAcceptPayments sets field value
 func (o *StorefrontMerchantReadinessResponseData) SetCanAcceptPayments(v bool) {
-	o.CanAcceptPayments = v
+	o.CanAcceptPayments.Set(&v)
 }
 
 func (o StorefrontMerchantReadinessResponseData) MarshalJSON() ([]byte, error) {
@@ -156,10 +164,10 @@ func (o StorefrontMerchantReadinessResponseData) MarshalJSON() ([]byte, error) {
 
 func (o StorefrontMerchantReadinessResponseData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["merchantAccountId"] = o.MerchantAccountId
-	toSerialize["displayName"] = o.DisplayName
-	toSerialize["environment"] = o.Environment
-	toSerialize["canAcceptPayments"] = o.CanAcceptPayments
+	toSerialize["merchantAccountId"] = o.MerchantAccountId.Get()
+	toSerialize["displayName"] = o.DisplayName.Get()
+	toSerialize["environment"] = o.Environment.Get()
+	toSerialize["canAcceptPayments"] = o.CanAcceptPayments.Get()
 	return toSerialize, nil
 }
 

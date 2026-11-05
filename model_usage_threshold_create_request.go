@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,10 +20,11 @@ var _ MappedNullable = &UsageThresholdCreateRequest{}
 
 // UsageThresholdCreateRequest struct for UsageThresholdCreateRequest
 type UsageThresholdCreateRequest struct {
-	MeterId string `json:"meterId"`
-	CustomerId *string `json:"customerId,omitempty"`
+	MeterId NullableString `json:"meterId"`
+	CustomerId NullableString `json:"customerId,omitempty"`
 	ThresholdValue int32 `json:"thresholdValue"`
-	ThresholdId *string `json:"thresholdId,omitempty"`
+	ThresholdId NullableString `json:"thresholdId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _UsageThresholdCreateRequest UsageThresholdCreateRequest
@@ -33,7 +33,7 @@ type _UsageThresholdCreateRequest UsageThresholdCreateRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUsageThresholdCreateRequest(meterId string, thresholdValue int32) *UsageThresholdCreateRequest {
+func NewUsageThresholdCreateRequest(meterId NullableString, thresholdValue int32) *UsageThresholdCreateRequest {
 	this := UsageThresholdCreateRequest{}
 	this.MeterId = meterId
 	this.ThresholdValue = thresholdValue
@@ -49,59 +49,71 @@ func NewUsageThresholdCreateRequestWithDefaults() *UsageThresholdCreateRequest {
 }
 
 // GetMeterId returns the MeterId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *UsageThresholdCreateRequest) GetMeterId() string {
-	if o == nil {
+	if o == nil || o.MeterId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.MeterId
+	return *o.MeterId.Get()
 }
 
 // GetMeterIdOk returns a tuple with the MeterId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UsageThresholdCreateRequest) GetMeterIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.MeterId, true
+	return o.MeterId.Get(), o.MeterId.IsSet()
 }
 
 // SetMeterId sets field value
 func (o *UsageThresholdCreateRequest) SetMeterId(v string) {
-	o.MeterId = v
+	o.MeterId.Set(&v)
 }
 
-// GetCustomerId returns the CustomerId field value if set, zero value otherwise.
+// GetCustomerId returns the CustomerId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UsageThresholdCreateRequest) GetCustomerId() string {
-	if o == nil || IsNil(o.CustomerId) {
+	if o == nil || IsNil(o.CustomerId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CustomerId
+	return *o.CustomerId.Get()
 }
 
 // GetCustomerIdOk returns a tuple with the CustomerId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UsageThresholdCreateRequest) GetCustomerIdOk() (*string, bool) {
-	if o == nil || IsNil(o.CustomerId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CustomerId, true
+	return o.CustomerId.Get(), o.CustomerId.IsSet()
 }
 
 // HasCustomerId returns a boolean if a field has been set.
 func (o *UsageThresholdCreateRequest) HasCustomerId() bool {
-	if o != nil && !IsNil(o.CustomerId) {
+	if o != nil && o.CustomerId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCustomerId gets a reference to the given string and assigns it to the CustomerId field.
+// SetCustomerId gets a reference to the given NullableString and assigns it to the CustomerId field.
 func (o *UsageThresholdCreateRequest) SetCustomerId(v string) {
-	o.CustomerId = &v
+	o.CustomerId.Set(&v)
+}
+// SetCustomerIdNil sets the value for CustomerId to be an explicit nil
+func (o *UsageThresholdCreateRequest) SetCustomerIdNil() {
+	o.CustomerId.Set(nil)
+}
+
+// UnsetCustomerId ensures that no value is present for CustomerId, not even an explicit nil
+func (o *UsageThresholdCreateRequest) UnsetCustomerId() {
+	o.CustomerId.Unset()
 }
 
 // GetThresholdValue returns the ThresholdValue field value
@@ -128,36 +140,46 @@ func (o *UsageThresholdCreateRequest) SetThresholdValue(v int32) {
 	o.ThresholdValue = v
 }
 
-// GetThresholdId returns the ThresholdId field value if set, zero value otherwise.
+// GetThresholdId returns the ThresholdId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UsageThresholdCreateRequest) GetThresholdId() string {
-	if o == nil || IsNil(o.ThresholdId) {
+	if o == nil || IsNil(o.ThresholdId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.ThresholdId
+	return *o.ThresholdId.Get()
 }
 
 // GetThresholdIdOk returns a tuple with the ThresholdId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UsageThresholdCreateRequest) GetThresholdIdOk() (*string, bool) {
-	if o == nil || IsNil(o.ThresholdId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ThresholdId, true
+	return o.ThresholdId.Get(), o.ThresholdId.IsSet()
 }
 
 // HasThresholdId returns a boolean if a field has been set.
 func (o *UsageThresholdCreateRequest) HasThresholdId() bool {
-	if o != nil && !IsNil(o.ThresholdId) {
+	if o != nil && o.ThresholdId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetThresholdId gets a reference to the given string and assigns it to the ThresholdId field.
+// SetThresholdId gets a reference to the given NullableString and assigns it to the ThresholdId field.
 func (o *UsageThresholdCreateRequest) SetThresholdId(v string) {
-	o.ThresholdId = &v
+	o.ThresholdId.Set(&v)
+}
+// SetThresholdIdNil sets the value for ThresholdId to be an explicit nil
+func (o *UsageThresholdCreateRequest) SetThresholdIdNil() {
+	o.ThresholdId.Set(nil)
+}
+
+// UnsetThresholdId ensures that no value is present for ThresholdId, not even an explicit nil
+func (o *UsageThresholdCreateRequest) UnsetThresholdId() {
+	o.ThresholdId.Unset()
 }
 
 func (o UsageThresholdCreateRequest) MarshalJSON() ([]byte, error) {
@@ -170,14 +192,19 @@ func (o UsageThresholdCreateRequest) MarshalJSON() ([]byte, error) {
 
 func (o UsageThresholdCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["meterId"] = o.MeterId
-	if !IsNil(o.CustomerId) {
-		toSerialize["customerId"] = o.CustomerId
+	toSerialize["meterId"] = o.MeterId.Get()
+	if o.CustomerId.IsSet() {
+		toSerialize["customerId"] = o.CustomerId.Get()
 	}
 	toSerialize["thresholdValue"] = o.ThresholdValue
-	if !IsNil(o.ThresholdId) {
-		toSerialize["thresholdId"] = o.ThresholdId
+	if o.ThresholdId.IsSet() {
+		toSerialize["thresholdId"] = o.ThresholdId.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -206,15 +233,23 @@ func (o *UsageThresholdCreateRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varUsageThresholdCreateRequest := _UsageThresholdCreateRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varUsageThresholdCreateRequest)
+	err = json.Unmarshal(data, &varUsageThresholdCreateRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = UsageThresholdCreateRequest(varUsageThresholdCreateRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "meterId")
+		delete(additionalProperties, "customerId")
+		delete(additionalProperties, "thresholdValue")
+		delete(additionalProperties, "thresholdId")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

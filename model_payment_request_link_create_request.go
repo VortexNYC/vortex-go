@@ -21,8 +21,11 @@ var _ MappedNullable = &PaymentRequestLinkCreateRequest{}
 // PaymentRequestLinkCreateRequest struct for PaymentRequestLinkCreateRequest
 type PaymentRequestLinkCreateRequest struct {
 	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
-	CreatedByRef *string `json:"createdByRef,omitempty"`
+	CreatedByRef NullableString `json:"createdByRef,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PaymentRequestLinkCreateRequest PaymentRequestLinkCreateRequest
 
 // NewPaymentRequestLinkCreateRequest instantiates a new PaymentRequestLinkCreateRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -73,36 +76,46 @@ func (o *PaymentRequestLinkCreateRequest) SetExpiresAt(v time.Time) {
 	o.ExpiresAt = &v
 }
 
-// GetCreatedByRef returns the CreatedByRef field value if set, zero value otherwise.
+// GetCreatedByRef returns the CreatedByRef field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PaymentRequestLinkCreateRequest) GetCreatedByRef() string {
-	if o == nil || IsNil(o.CreatedByRef) {
+	if o == nil || IsNil(o.CreatedByRef.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CreatedByRef
+	return *o.CreatedByRef.Get()
 }
 
 // GetCreatedByRefOk returns a tuple with the CreatedByRef field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PaymentRequestLinkCreateRequest) GetCreatedByRefOk() (*string, bool) {
-	if o == nil || IsNil(o.CreatedByRef) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CreatedByRef, true
+	return o.CreatedByRef.Get(), o.CreatedByRef.IsSet()
 }
 
 // HasCreatedByRef returns a boolean if a field has been set.
 func (o *PaymentRequestLinkCreateRequest) HasCreatedByRef() bool {
-	if o != nil && !IsNil(o.CreatedByRef) {
+	if o != nil && o.CreatedByRef.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCreatedByRef gets a reference to the given string and assigns it to the CreatedByRef field.
+// SetCreatedByRef gets a reference to the given NullableString and assigns it to the CreatedByRef field.
 func (o *PaymentRequestLinkCreateRequest) SetCreatedByRef(v string) {
-	o.CreatedByRef = &v
+	o.CreatedByRef.Set(&v)
+}
+// SetCreatedByRefNil sets the value for CreatedByRef to be an explicit nil
+func (o *PaymentRequestLinkCreateRequest) SetCreatedByRefNil() {
+	o.CreatedByRef.Set(nil)
+}
+
+// UnsetCreatedByRef ensures that no value is present for CreatedByRef, not even an explicit nil
+func (o *PaymentRequestLinkCreateRequest) UnsetCreatedByRef() {
+	o.CreatedByRef.Unset()
 }
 
 func (o PaymentRequestLinkCreateRequest) MarshalJSON() ([]byte, error) {
@@ -118,10 +131,37 @@ func (o PaymentRequestLinkCreateRequest) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.ExpiresAt) {
 		toSerialize["expiresAt"] = o.ExpiresAt
 	}
-	if !IsNil(o.CreatedByRef) {
-		toSerialize["createdByRef"] = o.CreatedByRef
+	if o.CreatedByRef.IsSet() {
+		toSerialize["createdByRef"] = o.CreatedByRef.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PaymentRequestLinkCreateRequest) UnmarshalJSON(data []byte) (err error) {
+	varPaymentRequestLinkCreateRequest := _PaymentRequestLinkCreateRequest{}
+
+	err = json.Unmarshal(data, &varPaymentRequestLinkCreateRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PaymentRequestLinkCreateRequest(varPaymentRequestLinkCreateRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "expiresAt")
+		delete(additionalProperties, "createdByRef")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePaymentRequestLinkCreateRequest struct {

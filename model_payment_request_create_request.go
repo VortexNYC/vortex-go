@@ -20,14 +20,17 @@ var _ MappedNullable = &PaymentRequestCreateRequest{}
 
 // PaymentRequestCreateRequest struct for PaymentRequestCreateRequest
 type PaymentRequestCreateRequest struct {
-	PaymentRequestId *string `json:"paymentRequestId,omitempty"`
-	InvoiceId *string `json:"invoiceId,omitempty"`
+	PaymentRequestId NullableString `json:"paymentRequestId,omitempty"`
+	InvoiceId NullableString `json:"invoiceId,omitempty"`
 	InvoiceNumbers []string `json:"invoiceNumbers,omitempty"`
-	CreatedByRef *string `json:"createdByRef,omitempty"`
+	CreatedByRef NullableString `json:"createdByRef,omitempty"`
 	DueAt *time.Time `json:"dueAt,omitempty"`
 	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PaymentRequestCreateRequest PaymentRequestCreateRequest
 
 // NewPaymentRequestCreateRequest instantiates a new PaymentRequestCreateRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -46,68 +49,88 @@ func NewPaymentRequestCreateRequestWithDefaults() *PaymentRequestCreateRequest {
 	return &this
 }
 
-// GetPaymentRequestId returns the PaymentRequestId field value if set, zero value otherwise.
+// GetPaymentRequestId returns the PaymentRequestId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PaymentRequestCreateRequest) GetPaymentRequestId() string {
-	if o == nil || IsNil(o.PaymentRequestId) {
+	if o == nil || IsNil(o.PaymentRequestId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.PaymentRequestId
+	return *o.PaymentRequestId.Get()
 }
 
 // GetPaymentRequestIdOk returns a tuple with the PaymentRequestId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PaymentRequestCreateRequest) GetPaymentRequestIdOk() (*string, bool) {
-	if o == nil || IsNil(o.PaymentRequestId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.PaymentRequestId, true
+	return o.PaymentRequestId.Get(), o.PaymentRequestId.IsSet()
 }
 
 // HasPaymentRequestId returns a boolean if a field has been set.
 func (o *PaymentRequestCreateRequest) HasPaymentRequestId() bool {
-	if o != nil && !IsNil(o.PaymentRequestId) {
+	if o != nil && o.PaymentRequestId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetPaymentRequestId gets a reference to the given string and assigns it to the PaymentRequestId field.
+// SetPaymentRequestId gets a reference to the given NullableString and assigns it to the PaymentRequestId field.
 func (o *PaymentRequestCreateRequest) SetPaymentRequestId(v string) {
-	o.PaymentRequestId = &v
+	o.PaymentRequestId.Set(&v)
+}
+// SetPaymentRequestIdNil sets the value for PaymentRequestId to be an explicit nil
+func (o *PaymentRequestCreateRequest) SetPaymentRequestIdNil() {
+	o.PaymentRequestId.Set(nil)
 }
 
-// GetInvoiceId returns the InvoiceId field value if set, zero value otherwise.
+// UnsetPaymentRequestId ensures that no value is present for PaymentRequestId, not even an explicit nil
+func (o *PaymentRequestCreateRequest) UnsetPaymentRequestId() {
+	o.PaymentRequestId.Unset()
+}
+
+// GetInvoiceId returns the InvoiceId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PaymentRequestCreateRequest) GetInvoiceId() string {
-	if o == nil || IsNil(o.InvoiceId) {
+	if o == nil || IsNil(o.InvoiceId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.InvoiceId
+	return *o.InvoiceId.Get()
 }
 
 // GetInvoiceIdOk returns a tuple with the InvoiceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PaymentRequestCreateRequest) GetInvoiceIdOk() (*string, bool) {
-	if o == nil || IsNil(o.InvoiceId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.InvoiceId, true
+	return o.InvoiceId.Get(), o.InvoiceId.IsSet()
 }
 
 // HasInvoiceId returns a boolean if a field has been set.
 func (o *PaymentRequestCreateRequest) HasInvoiceId() bool {
-	if o != nil && !IsNil(o.InvoiceId) {
+	if o != nil && o.InvoiceId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetInvoiceId gets a reference to the given string and assigns it to the InvoiceId field.
+// SetInvoiceId gets a reference to the given NullableString and assigns it to the InvoiceId field.
 func (o *PaymentRequestCreateRequest) SetInvoiceId(v string) {
-	o.InvoiceId = &v
+	o.InvoiceId.Set(&v)
+}
+// SetInvoiceIdNil sets the value for InvoiceId to be an explicit nil
+func (o *PaymentRequestCreateRequest) SetInvoiceIdNil() {
+	o.InvoiceId.Set(nil)
+}
+
+// UnsetInvoiceId ensures that no value is present for InvoiceId, not even an explicit nil
+func (o *PaymentRequestCreateRequest) UnsetInvoiceId() {
+	o.InvoiceId.Unset()
 }
 
 // GetInvoiceNumbers returns the InvoiceNumbers field value if set, zero value otherwise.
@@ -142,36 +165,46 @@ func (o *PaymentRequestCreateRequest) SetInvoiceNumbers(v []string) {
 	o.InvoiceNumbers = v
 }
 
-// GetCreatedByRef returns the CreatedByRef field value if set, zero value otherwise.
+// GetCreatedByRef returns the CreatedByRef field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PaymentRequestCreateRequest) GetCreatedByRef() string {
-	if o == nil || IsNil(o.CreatedByRef) {
+	if o == nil || IsNil(o.CreatedByRef.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CreatedByRef
+	return *o.CreatedByRef.Get()
 }
 
 // GetCreatedByRefOk returns a tuple with the CreatedByRef field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PaymentRequestCreateRequest) GetCreatedByRefOk() (*string, bool) {
-	if o == nil || IsNil(o.CreatedByRef) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CreatedByRef, true
+	return o.CreatedByRef.Get(), o.CreatedByRef.IsSet()
 }
 
 // HasCreatedByRef returns a boolean if a field has been set.
 func (o *PaymentRequestCreateRequest) HasCreatedByRef() bool {
-	if o != nil && !IsNil(o.CreatedByRef) {
+	if o != nil && o.CreatedByRef.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCreatedByRef gets a reference to the given string and assigns it to the CreatedByRef field.
+// SetCreatedByRef gets a reference to the given NullableString and assigns it to the CreatedByRef field.
 func (o *PaymentRequestCreateRequest) SetCreatedByRef(v string) {
-	o.CreatedByRef = &v
+	o.CreatedByRef.Set(&v)
+}
+// SetCreatedByRefNil sets the value for CreatedByRef to be an explicit nil
+func (o *PaymentRequestCreateRequest) SetCreatedByRefNil() {
+	o.CreatedByRef.Set(nil)
+}
+
+// UnsetCreatedByRef ensures that no value is present for CreatedByRef, not even an explicit nil
+func (o *PaymentRequestCreateRequest) UnsetCreatedByRef() {
+	o.CreatedByRef.Unset()
 }
 
 // GetDueAt returns the DueAt field value if set, zero value otherwise.
@@ -238,9 +271,9 @@ func (o *PaymentRequestCreateRequest) SetExpiresAt(v time.Time) {
 	o.ExpiresAt = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PaymentRequestCreateRequest) GetMetadata() map[string]string {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -249,6 +282,7 @@ func (o *PaymentRequestCreateRequest) GetMetadata() map[string]string {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PaymentRequestCreateRequest) GetMetadataOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return map[string]string{}, false
@@ -280,17 +314,17 @@ func (o PaymentRequestCreateRequest) MarshalJSON() ([]byte, error) {
 
 func (o PaymentRequestCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.PaymentRequestId) {
-		toSerialize["paymentRequestId"] = o.PaymentRequestId
+	if o.PaymentRequestId.IsSet() {
+		toSerialize["paymentRequestId"] = o.PaymentRequestId.Get()
 	}
-	if !IsNil(o.InvoiceId) {
-		toSerialize["invoiceId"] = o.InvoiceId
+	if o.InvoiceId.IsSet() {
+		toSerialize["invoiceId"] = o.InvoiceId.Get()
 	}
 	if !IsNil(o.InvoiceNumbers) {
 		toSerialize["invoiceNumbers"] = o.InvoiceNumbers
 	}
-	if !IsNil(o.CreatedByRef) {
-		toSerialize["createdByRef"] = o.CreatedByRef
+	if o.CreatedByRef.IsSet() {
+		toSerialize["createdByRef"] = o.CreatedByRef.Get()
 	}
 	if !IsNil(o.DueAt) {
 		toSerialize["dueAt"] = o.DueAt
@@ -298,10 +332,42 @@ func (o PaymentRequestCreateRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ExpiresAt) {
 		toSerialize["expiresAt"] = o.ExpiresAt
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PaymentRequestCreateRequest) UnmarshalJSON(data []byte) (err error) {
+	varPaymentRequestCreateRequest := _PaymentRequestCreateRequest{}
+
+	err = json.Unmarshal(data, &varPaymentRequestCreateRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PaymentRequestCreateRequest(varPaymentRequestCreateRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "paymentRequestId")
+		delete(additionalProperties, "invoiceId")
+		delete(additionalProperties, "invoiceNumbers")
+		delete(additionalProperties, "createdByRef")
+		delete(additionalProperties, "dueAt")
+		delete(additionalProperties, "expiresAt")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePaymentRequestCreateRequest struct {

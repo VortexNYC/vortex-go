@@ -23,51 +23,50 @@ import (
 // PaymentRequestsAPIService PaymentRequestsAPI service
 type PaymentRequestsAPIService service
 
-type PaymentRequestsAPICollectPaymentRequestRequest struct {
+type PaymentRequestsAPICancelPaymentRequestRequest struct {
 	ctx context.Context
 	ApiService *PaymentRequestsAPIService
 	paymentRequestId string
+	cancelPaymentRequestRequest *CancelPaymentRequestRequest
 	environment *string
 	merchantAccountId *string
-	paymentRequestCollectRequest *PaymentRequestCollectRequest
 	idempotencyKey *string
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
-func (r PaymentRequestsAPICollectPaymentRequestRequest) Environment(environment string) PaymentRequestsAPICollectPaymentRequestRequest {
+func (r PaymentRequestsAPICancelPaymentRequestRequest) CancelPaymentRequestRequest(cancelPaymentRequestRequest CancelPaymentRequestRequest) PaymentRequestsAPICancelPaymentRequestRequest {
+	r.cancelPaymentRequestRequest = &cancelPaymentRequestRequest
+	return r
+}
+
+func (r PaymentRequestsAPICancelPaymentRequestRequest) Environment(environment string) PaymentRequestsAPICancelPaymentRequestRequest {
 	r.environment = &environment
 	return r
 }
 
-func (r PaymentRequestsAPICollectPaymentRequestRequest) MerchantAccountId(merchantAccountId string) PaymentRequestsAPICollectPaymentRequestRequest {
+func (r PaymentRequestsAPICancelPaymentRequestRequest) MerchantAccountId(merchantAccountId string) PaymentRequestsAPICancelPaymentRequestRequest {
 	r.merchantAccountId = &merchantAccountId
 	return r
 }
 
-func (r PaymentRequestsAPICollectPaymentRequestRequest) PaymentRequestCollectRequest(paymentRequestCollectRequest PaymentRequestCollectRequest) PaymentRequestsAPICollectPaymentRequestRequest {
-	r.paymentRequestCollectRequest = &paymentRequestCollectRequest
-	return r
-}
-
 // Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
-func (r PaymentRequestsAPICollectPaymentRequestRequest) IdempotencyKey(idempotencyKey string) PaymentRequestsAPICollectPaymentRequestRequest {
+func (r PaymentRequestsAPICancelPaymentRequestRequest) IdempotencyKey(idempotencyKey string) PaymentRequestsAPICancelPaymentRequestRequest {
 	r.idempotencyKey = &idempotencyKey
 	return r
 }
 
-func (r PaymentRequestsAPICollectPaymentRequestRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
-	return r.ApiService.CollectPaymentRequestExecute(r)
+func (r PaymentRequestsAPICancelPaymentRequestRequest) Execute() (*GetPaymentRequest200Response, *http.Response, error) {
+	return r.ApiService.CancelPaymentRequestExecute(r)
 }
 
 /*
-CollectPaymentRequest Collect all eligible invoices in a payment request
+CancelPaymentRequest Method for CancelPaymentRequest
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param paymentRequestId
- @return PaymentRequestsAPICollectPaymentRequestRequest
+ @return PaymentRequestsAPICancelPaymentRequestRequest
 */
-func (a *PaymentRequestsAPIService) CollectPaymentRequest(ctx context.Context, paymentRequestId string) PaymentRequestsAPICollectPaymentRequestRequest {
-	return PaymentRequestsAPICollectPaymentRequestRequest{
+func (a *PaymentRequestsAPIService) CancelPaymentRequest(ctx context.Context, paymentRequestId string) PaymentRequestsAPICancelPaymentRequestRequest {
+	return PaymentRequestsAPICancelPaymentRequestRequest{
 		ApiService: a,
 		ctx: ctx,
 		paymentRequestId: paymentRequestId,
@@ -75,38 +74,39 @@ func (a *PaymentRequestsAPIService) CollectPaymentRequest(ctx context.Context, p
 }
 
 // Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *PaymentRequestsAPIService) CollectPaymentRequestExecute(r PaymentRequestsAPICollectPaymentRequestRequest) (*ApiWriteEnvelope, *http.Response, error) {
+//  @return GetPaymentRequest200Response
+func (a *PaymentRequestsAPIService) CancelPaymentRequestExecute(r PaymentRequestsAPICancelPaymentRequestRequest) (*GetPaymentRequest200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
+		localVarReturnValue  *GetPaymentRequest200Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentRequestsAPIService.CollectPaymentRequest")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentRequestsAPIService.CancelPaymentRequest")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/payment-requests/{paymentRequestId}/collect"
+	localVarPath := localBasePath + "/v1/payment-requests/{paymentRequestId}/cancel"
 	localVarPath = strings.Replace(localVarPath, "{"+"paymentRequestId"+"}", url.PathEscape(parameterValueToString(r.paymentRequestId, "paymentRequestId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
+	if strlen(r.paymentRequestId) < 1 {
+		return localVarReturnValue, nil, reportError("paymentRequestId must have at least 1 elements")
 	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
-	if r.paymentRequestCollectRequest == nil {
-		return localVarReturnValue, nil, reportError("paymentRequestCollectRequest is required and must be specified")
+	if r.cancelPaymentRequestRequest == nil {
+		return localVarReturnValue, nil, reportError("cancelPaymentRequestRequest is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -128,7 +128,7 @@ func (a *PaymentRequestsAPIService) CollectPaymentRequestExecute(r PaymentReques
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
 	}
 	// body params
-	localVarPostBody = r.paymentRequestCollectRequest
+	localVarPostBody = r.cancelPaymentRequestRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -151,69 +151,149 @@ func (a *PaymentRequestsAPIService) CollectPaymentRequestExecute(r PaymentReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
 		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PaymentRequestsAPICollectPaymentRequestRequest struct {
+	ctx context.Context
+	ApiService *PaymentRequestsAPIService
+	paymentRequestId string
+	collectPaymentRequestRequest *CollectPaymentRequestRequest
+	environment *string
+	merchantAccountId *string
+	idempotencyKey *string
+}
+
+func (r PaymentRequestsAPICollectPaymentRequestRequest) CollectPaymentRequestRequest(collectPaymentRequestRequest CollectPaymentRequestRequest) PaymentRequestsAPICollectPaymentRequestRequest {
+	r.collectPaymentRequestRequest = &collectPaymentRequestRequest
+	return r
+}
+
+func (r PaymentRequestsAPICollectPaymentRequestRequest) Environment(environment string) PaymentRequestsAPICollectPaymentRequestRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r PaymentRequestsAPICollectPaymentRequestRequest) MerchantAccountId(merchantAccountId string) PaymentRequestsAPICollectPaymentRequestRequest {
+	r.merchantAccountId = &merchantAccountId
+	return r
+}
+
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r PaymentRequestsAPICollectPaymentRequestRequest) IdempotencyKey(idempotencyKey string) PaymentRequestsAPICollectPaymentRequestRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r PaymentRequestsAPICollectPaymentRequestRequest) Execute() (*GetPaymentRequest200Response, *http.Response, error) {
+	return r.ApiService.CollectPaymentRequestExecute(r)
+}
+
+/*
+CollectPaymentRequest Method for CollectPaymentRequest
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param paymentRequestId
+ @return PaymentRequestsAPICollectPaymentRequestRequest
+*/
+func (a *PaymentRequestsAPIService) CollectPaymentRequest(ctx context.Context, paymentRequestId string) PaymentRequestsAPICollectPaymentRequestRequest {
+	return PaymentRequestsAPICollectPaymentRequestRequest{
+		ApiService: a,
+		ctx: ctx,
+		paymentRequestId: paymentRequestId,
+	}
+}
+
+// Execute executes the request
+//  @return GetPaymentRequest200Response
+func (a *PaymentRequestsAPIService) CollectPaymentRequestExecute(r PaymentRequestsAPICollectPaymentRequestRequest) (*GetPaymentRequest200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *GetPaymentRequest200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentRequestsAPIService.CollectPaymentRequest")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/payment-requests/{paymentRequestId}/collect"
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentRequestId"+"}", url.PathEscape(parameterValueToString(r.paymentRequestId, "paymentRequestId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.paymentRequestId) < 1 {
+		return localVarReturnValue, nil, reportError("paymentRequestId must have at least 1 elements")
+	}
+	if r.collectPaymentRequestRequest == nil {
+		return localVarReturnValue, nil, reportError("collectPaymentRequestRequest is required and must be specified")
+	}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.collectPaymentRequestRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -232,13 +312,17 @@ func (a *PaymentRequestsAPIService) CollectPaymentRequestExecute(r PaymentReques
 type PaymentRequestsAPICreatePaymentRequestRequest struct {
 	ctx context.Context
 	ApiService *PaymentRequestsAPIService
+	createPaymentRequestRequest *CreatePaymentRequestRequest
 	environment *string
 	merchantAccountId *string
-	paymentRequestCreateRequest *PaymentRequestCreateRequest
 	idempotencyKey *string
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
+func (r PaymentRequestsAPICreatePaymentRequestRequest) CreatePaymentRequestRequest(createPaymentRequestRequest CreatePaymentRequestRequest) PaymentRequestsAPICreatePaymentRequestRequest {
+	r.createPaymentRequestRequest = &createPaymentRequestRequest
+	return r
+}
+
 func (r PaymentRequestsAPICreatePaymentRequestRequest) Environment(environment string) PaymentRequestsAPICreatePaymentRequestRequest {
 	r.environment = &environment
 	return r
@@ -249,23 +333,18 @@ func (r PaymentRequestsAPICreatePaymentRequestRequest) MerchantAccountId(merchan
 	return r
 }
 
-func (r PaymentRequestsAPICreatePaymentRequestRequest) PaymentRequestCreateRequest(paymentRequestCreateRequest PaymentRequestCreateRequest) PaymentRequestsAPICreatePaymentRequestRequest {
-	r.paymentRequestCreateRequest = &paymentRequestCreateRequest
-	return r
-}
-
 // Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
 func (r PaymentRequestsAPICreatePaymentRequestRequest) IdempotencyKey(idempotencyKey string) PaymentRequestsAPICreatePaymentRequestRequest {
 	r.idempotencyKey = &idempotencyKey
 	return r
 }
 
-func (r PaymentRequestsAPICreatePaymentRequestRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
+func (r PaymentRequestsAPICreatePaymentRequestRequest) Execute() (*CreatePaymentRequest201Response, *http.Response, error) {
 	return r.ApiService.CreatePaymentRequestExecute(r)
 }
 
 /*
-CreatePaymentRequest Create a hosted payment request for one or more recoverable invoices
+CreatePaymentRequest Method for CreatePaymentRequest
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return PaymentRequestsAPICreatePaymentRequestRequest
@@ -278,13 +357,13 @@ func (a *PaymentRequestsAPIService) CreatePaymentRequest(ctx context.Context) Pa
 }
 
 // Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *PaymentRequestsAPIService) CreatePaymentRequestExecute(r PaymentRequestsAPICreatePaymentRequestRequest) (*ApiWriteEnvelope, *http.Response, error) {
+//  @return CreatePaymentRequest201Response
+func (a *PaymentRequestsAPIService) CreatePaymentRequestExecute(r PaymentRequestsAPICreatePaymentRequestRequest) (*CreatePaymentRequest201Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
+		localVarReturnValue  *CreatePaymentRequest201Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentRequestsAPIService.CreatePaymentRequest")
@@ -297,18 +376,16 @@ func (a *PaymentRequestsAPIService) CreatePaymentRequestExecute(r PaymentRequest
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
-	if r.paymentRequestCreateRequest == nil {
-		return localVarReturnValue, nil, reportError("paymentRequestCreateRequest is required and must be specified")
+	if r.createPaymentRequestRequest == nil {
+		return localVarReturnValue, nil, reportError("createPaymentRequestRequest is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -330,7 +407,7 @@ func (a *PaymentRequestsAPIService) CreatePaymentRequestExecute(r PaymentRequest
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
 	}
 	// body params
-	localVarPostBody = r.paymentRequestCreateRequest
+	localVarPostBody = r.createPaymentRequestRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -353,69 +430,6 @@ func (a *PaymentRequestsAPIService) CreatePaymentRequestExecute(r PaymentRequest
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -435,13 +449,17 @@ type PaymentRequestsAPICreatePaymentRequestLinkRequest struct {
 	ctx context.Context
 	ApiService *PaymentRequestsAPIService
 	paymentRequestId string
+	createPaymentRequestLinkRequest *CreatePaymentRequestLinkRequest
 	environment *string
 	merchantAccountId *string
-	paymentRequestLinkCreateRequest *PaymentRequestLinkCreateRequest
 	idempotencyKey *string
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
+func (r PaymentRequestsAPICreatePaymentRequestLinkRequest) CreatePaymentRequestLinkRequest(createPaymentRequestLinkRequest CreatePaymentRequestLinkRequest) PaymentRequestsAPICreatePaymentRequestLinkRequest {
+	r.createPaymentRequestLinkRequest = &createPaymentRequestLinkRequest
+	return r
+}
+
 func (r PaymentRequestsAPICreatePaymentRequestLinkRequest) Environment(environment string) PaymentRequestsAPICreatePaymentRequestLinkRequest {
 	r.environment = &environment
 	return r
@@ -452,23 +470,18 @@ func (r PaymentRequestsAPICreatePaymentRequestLinkRequest) MerchantAccountId(mer
 	return r
 }
 
-func (r PaymentRequestsAPICreatePaymentRequestLinkRequest) PaymentRequestLinkCreateRequest(paymentRequestLinkCreateRequest PaymentRequestLinkCreateRequest) PaymentRequestsAPICreatePaymentRequestLinkRequest {
-	r.paymentRequestLinkCreateRequest = &paymentRequestLinkCreateRequest
-	return r
-}
-
 // Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
 func (r PaymentRequestsAPICreatePaymentRequestLinkRequest) IdempotencyKey(idempotencyKey string) PaymentRequestsAPICreatePaymentRequestLinkRequest {
 	r.idempotencyKey = &idempotencyKey
 	return r
 }
 
-func (r PaymentRequestsAPICreatePaymentRequestLinkRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
+func (r PaymentRequestsAPICreatePaymentRequestLinkRequest) Execute() (*CreatePaymentRequestLink201Response, *http.Response, error) {
 	return r.ApiService.CreatePaymentRequestLinkExecute(r)
 }
 
 /*
-CreatePaymentRequestLink Create an expiring hosted payment link for a payment request
+CreatePaymentRequestLink Method for CreatePaymentRequestLink
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param paymentRequestId
@@ -483,13 +496,13 @@ func (a *PaymentRequestsAPIService) CreatePaymentRequestLink(ctx context.Context
 }
 
 // Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *PaymentRequestsAPIService) CreatePaymentRequestLinkExecute(r PaymentRequestsAPICreatePaymentRequestLinkRequest) (*ApiWriteEnvelope, *http.Response, error) {
+//  @return CreatePaymentRequestLink201Response
+func (a *PaymentRequestsAPIService) CreatePaymentRequestLinkExecute(r PaymentRequestsAPICreatePaymentRequestLinkRequest) (*CreatePaymentRequestLink201Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
+		localVarReturnValue  *CreatePaymentRequestLink201Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentRequestsAPIService.CreatePaymentRequestLink")
@@ -503,18 +516,19 @@ func (a *PaymentRequestsAPIService) CreatePaymentRequestLinkExecute(r PaymentReq
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
+	if strlen(r.paymentRequestId) < 1 {
+		return localVarReturnValue, nil, reportError("paymentRequestId must have at least 1 elements")
 	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
-	if r.paymentRequestLinkCreateRequest == nil {
-		return localVarReturnValue, nil, reportError("paymentRequestLinkCreateRequest is required and must be specified")
+	if r.createPaymentRequestLinkRequest == nil {
+		return localVarReturnValue, nil, reportError("createPaymentRequestLinkRequest is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -536,7 +550,7 @@ func (a *PaymentRequestsAPIService) CreatePaymentRequestLinkExecute(r PaymentReq
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
 	}
 	// body params
-	localVarPostBody = r.paymentRequestLinkCreateRequest
+	localVarPostBody = r.createPaymentRequestLinkRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -559,69 +573,285 @@ func (a *PaymentRequestsAPIService) CreatePaymentRequestLinkExecute(r PaymentReq
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
 		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PaymentRequestsAPIExpireDuePaymentRequestsRequest struct {
+	ctx context.Context
+	ApiService *PaymentRequestsAPIService
+	executeDueBillingOrdersRequest *ExecuteDueBillingOrdersRequest
+	environment *string
+	merchantAccountId *string
+	idempotencyKey *string
+}
+
+func (r PaymentRequestsAPIExpireDuePaymentRequestsRequest) ExecuteDueBillingOrdersRequest(executeDueBillingOrdersRequest ExecuteDueBillingOrdersRequest) PaymentRequestsAPIExpireDuePaymentRequestsRequest {
+	r.executeDueBillingOrdersRequest = &executeDueBillingOrdersRequest
+	return r
+}
+
+func (r PaymentRequestsAPIExpireDuePaymentRequestsRequest) Environment(environment string) PaymentRequestsAPIExpireDuePaymentRequestsRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r PaymentRequestsAPIExpireDuePaymentRequestsRequest) MerchantAccountId(merchantAccountId string) PaymentRequestsAPIExpireDuePaymentRequestsRequest {
+	r.merchantAccountId = &merchantAccountId
+	return r
+}
+
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r PaymentRequestsAPIExpireDuePaymentRequestsRequest) IdempotencyKey(idempotencyKey string) PaymentRequestsAPIExpireDuePaymentRequestsRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r PaymentRequestsAPIExpireDuePaymentRequestsRequest) Execute() (*ExpireDuePaymentRequests200Response, *http.Response, error) {
+	return r.ApiService.ExpireDuePaymentRequestsExecute(r)
+}
+
+/*
+ExpireDuePaymentRequests Method for ExpireDuePaymentRequests
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return PaymentRequestsAPIExpireDuePaymentRequestsRequest
+*/
+func (a *PaymentRequestsAPIService) ExpireDuePaymentRequests(ctx context.Context) PaymentRequestsAPIExpireDuePaymentRequestsRequest {
+	return PaymentRequestsAPIExpireDuePaymentRequestsRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return ExpireDuePaymentRequests200Response
+func (a *PaymentRequestsAPIService) ExpireDuePaymentRequestsExecute(r PaymentRequestsAPIExpireDuePaymentRequestsRequest) (*ExpireDuePaymentRequests200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ExpireDuePaymentRequests200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentRequestsAPIService.ExpireDuePaymentRequests")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/payment-requests/expire-due"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.executeDueBillingOrdersRequest == nil {
+		return localVarReturnValue, nil, reportError("executeDueBillingOrdersRequest is required and must be specified")
+	}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.executeDueBillingOrdersRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
 		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PaymentRequestsAPIExpirePaymentRequestRequest struct {
+	ctx context.Context
+	ApiService *PaymentRequestsAPIService
+	paymentRequestId string
+	expirePaymentRequestRequest *ExpirePaymentRequestRequest
+	environment *string
+	merchantAccountId *string
+	idempotencyKey *string
+}
+
+func (r PaymentRequestsAPIExpirePaymentRequestRequest) ExpirePaymentRequestRequest(expirePaymentRequestRequest ExpirePaymentRequestRequest) PaymentRequestsAPIExpirePaymentRequestRequest {
+	r.expirePaymentRequestRequest = &expirePaymentRequestRequest
+	return r
+}
+
+func (r PaymentRequestsAPIExpirePaymentRequestRequest) Environment(environment string) PaymentRequestsAPIExpirePaymentRequestRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r PaymentRequestsAPIExpirePaymentRequestRequest) MerchantAccountId(merchantAccountId string) PaymentRequestsAPIExpirePaymentRequestRequest {
+	r.merchantAccountId = &merchantAccountId
+	return r
+}
+
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r PaymentRequestsAPIExpirePaymentRequestRequest) IdempotencyKey(idempotencyKey string) PaymentRequestsAPIExpirePaymentRequestRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r PaymentRequestsAPIExpirePaymentRequestRequest) Execute() (*GetPaymentRequest200Response, *http.Response, error) {
+	return r.ApiService.ExpirePaymentRequestExecute(r)
+}
+
+/*
+ExpirePaymentRequest Method for ExpirePaymentRequest
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param paymentRequestId
+ @return PaymentRequestsAPIExpirePaymentRequestRequest
+*/
+func (a *PaymentRequestsAPIService) ExpirePaymentRequest(ctx context.Context, paymentRequestId string) PaymentRequestsAPIExpirePaymentRequestRequest {
+	return PaymentRequestsAPIExpirePaymentRequestRequest{
+		ApiService: a,
+		ctx: ctx,
+		paymentRequestId: paymentRequestId,
+	}
+}
+
+// Execute executes the request
+//  @return GetPaymentRequest200Response
+func (a *PaymentRequestsAPIService) ExpirePaymentRequestExecute(r PaymentRequestsAPIExpirePaymentRequestRequest) (*GetPaymentRequest200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *GetPaymentRequest200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentRequestsAPIService.ExpirePaymentRequest")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/payment-requests/{paymentRequestId}/expire"
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentRequestId"+"}", url.PathEscape(parameterValueToString(r.paymentRequestId, "paymentRequestId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.paymentRequestId) < 1 {
+		return localVarReturnValue, nil, reportError("paymentRequestId must have at least 1 elements")
+	}
+	if r.expirePaymentRequestRequest == nil {
+		return localVarReturnValue, nil, reportError("expirePaymentRequestRequest is required and must be specified")
+	}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.expirePaymentRequestRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -645,7 +875,6 @@ type PaymentRequestsAPIGetPaymentRequestRequest struct {
 	merchantAccountId *string
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r PaymentRequestsAPIGetPaymentRequestRequest) Environment(environment string) PaymentRequestsAPIGetPaymentRequestRequest {
 	r.environment = &environment
 	return r
@@ -656,12 +885,12 @@ func (r PaymentRequestsAPIGetPaymentRequestRequest) MerchantAccountId(merchantAc
 	return r
 }
 
-func (r PaymentRequestsAPIGetPaymentRequestRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
+func (r PaymentRequestsAPIGetPaymentRequestRequest) Execute() (*GetPaymentRequest200Response, *http.Response, error) {
 	return r.ApiService.GetPaymentRequestExecute(r)
 }
 
 /*
-GetPaymentRequest Inspect a payment request and its grouped invoices
+GetPaymentRequest Method for GetPaymentRequest
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param paymentRequestId
@@ -676,13 +905,13 @@ func (a *PaymentRequestsAPIService) GetPaymentRequest(ctx context.Context, payme
 }
 
 // Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *PaymentRequestsAPIService) GetPaymentRequestExecute(r PaymentRequestsAPIGetPaymentRequestRequest) (*ApiWriteEnvelope, *http.Response, error) {
+//  @return GetPaymentRequest200Response
+func (a *PaymentRequestsAPIService) GetPaymentRequestExecute(r PaymentRequestsAPIGetPaymentRequestRequest) (*GetPaymentRequest200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
+		localVarReturnValue  *GetPaymentRequest200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentRequestsAPIService.GetPaymentRequest")
@@ -696,15 +925,16 @@ func (a *PaymentRequestsAPIService) GetPaymentRequestExecute(r PaymentRequestsAP
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
+	if strlen(r.paymentRequestId) < 1 {
+		return localVarReturnValue, nil, reportError("paymentRequestId must have at least 1 elements")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -744,69 +974,6 @@ func (a *PaymentRequestsAPIService) GetPaymentRequestExecute(r PaymentRequestsAP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -827,21 +994,20 @@ type PaymentRequestsAPIListPaymentRequestsRequest struct {
 	ApiService *PaymentRequestsAPIService
 	environment *string
 	merchantAccountId *string
-	customer *string
 	customerExternalId *string
+	customer *string
 	billingAccountId *string
-	invoice *string
 	invoiceId *string
+	invoice *string
 	paymentIntentId *string
 	paymentId *string
 	createdByRef *string
 	status *string
 	lastAttemptStatus *string
-	limit *string
-	offset *string
+	limit *ListCustomersLimitParameter
+	offset *ListCustomersLimitParameter
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r PaymentRequestsAPIListPaymentRequestsRequest) Environment(environment string) PaymentRequestsAPIListPaymentRequestsRequest {
 	r.environment = &environment
 	return r
@@ -852,13 +1018,13 @@ func (r PaymentRequestsAPIListPaymentRequestsRequest) MerchantAccountId(merchant
 	return r
 }
 
-func (r PaymentRequestsAPIListPaymentRequestsRequest) Customer(customer string) PaymentRequestsAPIListPaymentRequestsRequest {
-	r.customer = &customer
+func (r PaymentRequestsAPIListPaymentRequestsRequest) CustomerExternalId(customerExternalId string) PaymentRequestsAPIListPaymentRequestsRequest {
+	r.customerExternalId = &customerExternalId
 	return r
 }
 
-func (r PaymentRequestsAPIListPaymentRequestsRequest) CustomerExternalId(customerExternalId string) PaymentRequestsAPIListPaymentRequestsRequest {
-	r.customerExternalId = &customerExternalId
+func (r PaymentRequestsAPIListPaymentRequestsRequest) Customer(customer string) PaymentRequestsAPIListPaymentRequestsRequest {
+	r.customer = &customer
 	return r
 }
 
@@ -867,13 +1033,13 @@ func (r PaymentRequestsAPIListPaymentRequestsRequest) BillingAccountId(billingAc
 	return r
 }
 
-func (r PaymentRequestsAPIListPaymentRequestsRequest) Invoice(invoice string) PaymentRequestsAPIListPaymentRequestsRequest {
-	r.invoice = &invoice
+func (r PaymentRequestsAPIListPaymentRequestsRequest) InvoiceId(invoiceId string) PaymentRequestsAPIListPaymentRequestsRequest {
+	r.invoiceId = &invoiceId
 	return r
 }
 
-func (r PaymentRequestsAPIListPaymentRequestsRequest) InvoiceId(invoiceId string) PaymentRequestsAPIListPaymentRequestsRequest {
-	r.invoiceId = &invoiceId
+func (r PaymentRequestsAPIListPaymentRequestsRequest) Invoice(invoice string) PaymentRequestsAPIListPaymentRequestsRequest {
+	r.invoice = &invoice
 	return r
 }
 
@@ -902,22 +1068,22 @@ func (r PaymentRequestsAPIListPaymentRequestsRequest) LastAttemptStatus(lastAtte
 	return r
 }
 
-func (r PaymentRequestsAPIListPaymentRequestsRequest) Limit(limit string) PaymentRequestsAPIListPaymentRequestsRequest {
+func (r PaymentRequestsAPIListPaymentRequestsRequest) Limit(limit ListCustomersLimitParameter) PaymentRequestsAPIListPaymentRequestsRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r PaymentRequestsAPIListPaymentRequestsRequest) Offset(offset string) PaymentRequestsAPIListPaymentRequestsRequest {
+func (r PaymentRequestsAPIListPaymentRequestsRequest) Offset(offset ListCustomersLimitParameter) PaymentRequestsAPIListPaymentRequestsRequest {
 	r.offset = &offset
 	return r
 }
 
-func (r PaymentRequestsAPIListPaymentRequestsRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
+func (r PaymentRequestsAPIListPaymentRequestsRequest) Execute() (*ListPaymentRequests200Response, *http.Response, error) {
 	return r.ApiService.ListPaymentRequestsExecute(r)
 }
 
 /*
-ListPaymentRequests List payment requests by customer, account, request status, or latest attempt status
+ListPaymentRequests Method for ListPaymentRequests
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return PaymentRequestsAPIListPaymentRequestsRequest
@@ -930,13 +1096,13 @@ func (a *PaymentRequestsAPIService) ListPaymentRequests(ctx context.Context) Pay
 }
 
 // Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *PaymentRequestsAPIService) ListPaymentRequestsExecute(r PaymentRequestsAPIListPaymentRequestsRequest) (*ApiWriteEnvelope, *http.Response, error) {
+//  @return ListPaymentRequests200Response
+func (a *PaymentRequestsAPIService) ListPaymentRequestsExecute(r PaymentRequestsAPIListPaymentRequestsRequest) (*ListPaymentRequests200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
+		localVarReturnValue  *ListPaymentRequests200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentRequestsAPIService.ListPaymentRequests")
@@ -949,29 +1115,27 @@ func (a *PaymentRequestsAPIService) ListPaymentRequestsExecute(r PaymentRequests
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
-	if r.customer != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "customer", r.customer, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
 	}
 	if r.customerExternalId != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "customerExternalId", r.customerExternalId, "form", "")
 	}
+	if r.customer != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "customer", r.customer, "form", "")
+	}
 	if r.billingAccountId != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "billingAccountId", r.billingAccountId, "form", "")
 	}
-	if r.invoice != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "invoice", r.invoice, "form", "")
-	}
 	if r.invoiceId != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "invoiceId", r.invoiceId, "form", "")
+	}
+	if r.invoice != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "invoice", r.invoice, "form", "")
 	}
 	if r.paymentIntentId != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "paymentIntentId", r.paymentIntentId, "form", "")
@@ -1033,69 +1197,156 @@ func (a *PaymentRequestsAPIService) ListPaymentRequestsExecute(r PaymentRequests
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
 		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PaymentRequestsAPIRevokePaymentRequestLinkRequest struct {
+	ctx context.Context
+	ApiService *PaymentRequestsAPIService
+	paymentRequestId string
+	linkId string
+	revokePaymentRequestLinkRequest *RevokePaymentRequestLinkRequest
+	environment *string
+	merchantAccountId *string
+	idempotencyKey *string
+}
+
+func (r PaymentRequestsAPIRevokePaymentRequestLinkRequest) RevokePaymentRequestLinkRequest(revokePaymentRequestLinkRequest RevokePaymentRequestLinkRequest) PaymentRequestsAPIRevokePaymentRequestLinkRequest {
+	r.revokePaymentRequestLinkRequest = &revokePaymentRequestLinkRequest
+	return r
+}
+
+func (r PaymentRequestsAPIRevokePaymentRequestLinkRequest) Environment(environment string) PaymentRequestsAPIRevokePaymentRequestLinkRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r PaymentRequestsAPIRevokePaymentRequestLinkRequest) MerchantAccountId(merchantAccountId string) PaymentRequestsAPIRevokePaymentRequestLinkRequest {
+	r.merchantAccountId = &merchantAccountId
+	return r
+}
+
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r PaymentRequestsAPIRevokePaymentRequestLinkRequest) IdempotencyKey(idempotencyKey string) PaymentRequestsAPIRevokePaymentRequestLinkRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r PaymentRequestsAPIRevokePaymentRequestLinkRequest) Execute() (*RevokePaymentRequestLink200Response, *http.Response, error) {
+	return r.ApiService.RevokePaymentRequestLinkExecute(r)
+}
+
+/*
+RevokePaymentRequestLink Method for RevokePaymentRequestLink
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param paymentRequestId
+ @param linkId
+ @return PaymentRequestsAPIRevokePaymentRequestLinkRequest
+*/
+func (a *PaymentRequestsAPIService) RevokePaymentRequestLink(ctx context.Context, paymentRequestId string, linkId string) PaymentRequestsAPIRevokePaymentRequestLinkRequest {
+	return PaymentRequestsAPIRevokePaymentRequestLinkRequest{
+		ApiService: a,
+		ctx: ctx,
+		paymentRequestId: paymentRequestId,
+		linkId: linkId,
+	}
+}
+
+// Execute executes the request
+//  @return RevokePaymentRequestLink200Response
+func (a *PaymentRequestsAPIService) RevokePaymentRequestLinkExecute(r PaymentRequestsAPIRevokePaymentRequestLinkRequest) (*RevokePaymentRequestLink200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *RevokePaymentRequestLink200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentRequestsAPIService.RevokePaymentRequestLink")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/payment-requests/{paymentRequestId}/links/{linkId}/revoke"
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentRequestId"+"}", url.PathEscape(parameterValueToString(r.paymentRequestId, "paymentRequestId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"linkId"+"}", url.PathEscape(parameterValueToString(r.linkId, "linkId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.paymentRequestId) < 1 {
+		return localVarReturnValue, nil, reportError("paymentRequestId must have at least 1 elements")
+	}
+	if strlen(r.linkId) < 1 {
+		return localVarReturnValue, nil, reportError("linkId must have at least 1 elements")
+	}
+	if r.revokePaymentRequestLinkRequest == nil {
+		return localVarReturnValue, nil, reportError("revokePaymentRequestLinkRequest is required and must be specified")
+	}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.revokePaymentRequestLinkRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,7 +20,7 @@ var _ MappedNullable = &PromoteMerchantResponse{}
 
 // PromoteMerchantResponse struct for PromoteMerchantResponse
 type PromoteMerchantResponse struct {
-	OrganizationId string `json:"organizationId"`
+	OrganizationId NullableString `json:"organizationId"`
 	// The production twin merchant — separate provider underwriting runs against it
 	MerchantAccountId string `json:"merchantAccountId"`
 	// True when the live twin already existed (idempotent replay)
@@ -29,6 +28,7 @@ type PromoteMerchantResponse struct {
 	// The org's first vp_live_ key — null when one already exists or on replay
 	ApiKey NullableString `json:"apiKey,omitempty"`
 	ApiKeyNote NullableString `json:"apiKeyNote,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PromoteMerchantResponse PromoteMerchantResponse
@@ -37,7 +37,7 @@ type _PromoteMerchantResponse PromoteMerchantResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPromoteMerchantResponse(organizationId string, merchantAccountId string, alreadyPromoted bool) *PromoteMerchantResponse {
+func NewPromoteMerchantResponse(organizationId NullableString, merchantAccountId string, alreadyPromoted bool) *PromoteMerchantResponse {
 	this := PromoteMerchantResponse{}
 	this.OrganizationId = organizationId
 	this.MerchantAccountId = merchantAccountId
@@ -54,27 +54,29 @@ func NewPromoteMerchantResponseWithDefaults() *PromoteMerchantResponse {
 }
 
 // GetOrganizationId returns the OrganizationId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *PromoteMerchantResponse) GetOrganizationId() string {
-	if o == nil {
+	if o == nil || o.OrganizationId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.OrganizationId
+	return *o.OrganizationId.Get()
 }
 
 // GetOrganizationIdOk returns a tuple with the OrganizationId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PromoteMerchantResponse) GetOrganizationIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.OrganizationId, true
+	return o.OrganizationId.Get(), o.OrganizationId.IsSet()
 }
 
 // SetOrganizationId sets field value
 func (o *PromoteMerchantResponse) SetOrganizationId(v string) {
-	o.OrganizationId = v
+	o.OrganizationId.Set(&v)
 }
 
 // GetMerchantAccountId returns the MerchantAccountId field value
@@ -219,7 +221,7 @@ func (o PromoteMerchantResponse) MarshalJSON() ([]byte, error) {
 
 func (o PromoteMerchantResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["organizationId"] = o.OrganizationId
+	toSerialize["organizationId"] = o.OrganizationId.Get()
 	toSerialize["merchantAccountId"] = o.MerchantAccountId
 	toSerialize["alreadyPromoted"] = o.AlreadyPromoted
 	if o.ApiKey.IsSet() {
@@ -228,6 +230,11 @@ func (o PromoteMerchantResponse) ToMap() (map[string]interface{}, error) {
 	if o.ApiKeyNote.IsSet() {
 		toSerialize["apiKeyNote"] = o.ApiKeyNote.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -257,15 +264,24 @@ func (o *PromoteMerchantResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varPromoteMerchantResponse := _PromoteMerchantResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPromoteMerchantResponse)
+	err = json.Unmarshal(data, &varPromoteMerchantResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PromoteMerchantResponse(varPromoteMerchantResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "organizationId")
+		delete(additionalProperties, "merchantAccountId")
+		delete(additionalProperties, "alreadyPromoted")
+		delete(additionalProperties, "apiKey")
+		delete(additionalProperties, "apiKeyNote")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

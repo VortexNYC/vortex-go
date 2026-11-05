@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -23,10 +22,11 @@ var _ MappedNullable = &BillingQuoteVersionCreateRequest{}
 type BillingQuoteVersionCreateRequest struct {
 	Lines []BillingQuoteLineInput `json:"lines"`
 	CouponIds []string `json:"couponIds,omitempty"`
-	Terms *string `json:"terms,omitempty"`
+	Terms NullableString `json:"terms,omitempty"`
 	// ISO 4217 alpha-3; only currencies processable on current rails are accepted
 	Currency *string `json:"currency,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _BillingQuoteVersionCreateRequest BillingQuoteVersionCreateRequest
@@ -105,36 +105,46 @@ func (o *BillingQuoteVersionCreateRequest) SetCouponIds(v []string) {
 	o.CouponIds = v
 }
 
-// GetTerms returns the Terms field value if set, zero value otherwise.
+// GetTerms returns the Terms field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *BillingQuoteVersionCreateRequest) GetTerms() string {
-	if o == nil || IsNil(o.Terms) {
+	if o == nil || IsNil(o.Terms.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Terms
+	return *o.Terms.Get()
 }
 
 // GetTermsOk returns a tuple with the Terms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BillingQuoteVersionCreateRequest) GetTermsOk() (*string, bool) {
-	if o == nil || IsNil(o.Terms) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Terms, true
+	return o.Terms.Get(), o.Terms.IsSet()
 }
 
 // HasTerms returns a boolean if a field has been set.
 func (o *BillingQuoteVersionCreateRequest) HasTerms() bool {
-	if o != nil && !IsNil(o.Terms) {
+	if o != nil && o.Terms.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetTerms gets a reference to the given string and assigns it to the Terms field.
+// SetTerms gets a reference to the given NullableString and assigns it to the Terms field.
 func (o *BillingQuoteVersionCreateRequest) SetTerms(v string) {
-	o.Terms = &v
+	o.Terms.Set(&v)
+}
+// SetTermsNil sets the value for Terms to be an explicit nil
+func (o *BillingQuoteVersionCreateRequest) SetTermsNil() {
+	o.Terms.Set(nil)
+}
+
+// UnsetTerms ensures that no value is present for Terms, not even an explicit nil
+func (o *BillingQuoteVersionCreateRequest) UnsetTerms() {
+	o.Terms.Unset()
 }
 
 // GetCurrency returns the Currency field value if set, zero value otherwise.
@@ -169,9 +179,9 @@ func (o *BillingQuoteVersionCreateRequest) SetCurrency(v string) {
 	o.Currency = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *BillingQuoteVersionCreateRequest) GetMetadata() map[string]string {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -180,6 +190,7 @@ func (o *BillingQuoteVersionCreateRequest) GetMetadata() map[string]string {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BillingQuoteVersionCreateRequest) GetMetadataOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return map[string]string{}, false
@@ -215,15 +226,20 @@ func (o BillingQuoteVersionCreateRequest) ToMap() (map[string]interface{}, error
 	if !IsNil(o.CouponIds) {
 		toSerialize["couponIds"] = o.CouponIds
 	}
-	if !IsNil(o.Terms) {
-		toSerialize["terms"] = o.Terms
+	if o.Terms.IsSet() {
+		toSerialize["terms"] = o.Terms.Get()
 	}
 	if !IsNil(o.Currency) {
 		toSerialize["currency"] = o.Currency
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -251,15 +267,24 @@ func (o *BillingQuoteVersionCreateRequest) UnmarshalJSON(data []byte) (err error
 
 	varBillingQuoteVersionCreateRequest := _BillingQuoteVersionCreateRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varBillingQuoteVersionCreateRequest)
+	err = json.Unmarshal(data, &varBillingQuoteVersionCreateRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = BillingQuoteVersionCreateRequest(varBillingQuoteVersionCreateRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "lines")
+		delete(additionalProperties, "couponIds")
+		delete(additionalProperties, "terms")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

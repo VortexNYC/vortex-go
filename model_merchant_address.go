@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,12 +20,13 @@ var _ MappedNullable = &MerchantAddress{}
 
 // MerchantAddress struct for MerchantAddress
 type MerchantAddress struct {
-	Line1 string `json:"line1"`
-	Line2 *string `json:"line2,omitempty"`
-	City string `json:"city"`
-	Region *string `json:"region,omitempty"`
-	PostalCode string `json:"postalCode"`
-	Country string `json:"country"`
+	Line1 NullableString `json:"line1"`
+	Line2 NullableString `json:"line2,omitempty"`
+	City NullableString `json:"city"`
+	Region NullableString `json:"region,omitempty"`
+	PostalCode NullableString `json:"postalCode"`
+	Country NullableString `json:"country"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MerchantAddress MerchantAddress
@@ -35,7 +35,7 @@ type _MerchantAddress MerchantAddress
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantAddress(line1 string, city string, postalCode string, country string) *MerchantAddress {
+func NewMerchantAddress(line1 NullableString, city NullableString, postalCode NullableString, country NullableString) *MerchantAddress {
 	this := MerchantAddress{}
 	this.Line1 = line1
 	this.City = city
@@ -53,163 +53,191 @@ func NewMerchantAddressWithDefaults() *MerchantAddress {
 }
 
 // GetLine1 returns the Line1 field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantAddress) GetLine1() string {
-	if o == nil {
+	if o == nil || o.Line1.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Line1
+	return *o.Line1.Get()
 }
 
 // GetLine1Ok returns a tuple with the Line1 field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAddress) GetLine1Ok() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Line1, true
+	return o.Line1.Get(), o.Line1.IsSet()
 }
 
 // SetLine1 sets field value
 func (o *MerchantAddress) SetLine1(v string) {
-	o.Line1 = v
+	o.Line1.Set(&v)
 }
 
-// GetLine2 returns the Line2 field value if set, zero value otherwise.
+// GetLine2 returns the Line2 field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantAddress) GetLine2() string {
-	if o == nil || IsNil(o.Line2) {
+	if o == nil || IsNil(o.Line2.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Line2
+	return *o.Line2.Get()
 }
 
 // GetLine2Ok returns a tuple with the Line2 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAddress) GetLine2Ok() (*string, bool) {
-	if o == nil || IsNil(o.Line2) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Line2, true
+	return o.Line2.Get(), o.Line2.IsSet()
 }
 
 // HasLine2 returns a boolean if a field has been set.
 func (o *MerchantAddress) HasLine2() bool {
-	if o != nil && !IsNil(o.Line2) {
+	if o != nil && o.Line2.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetLine2 gets a reference to the given string and assigns it to the Line2 field.
+// SetLine2 gets a reference to the given NullableString and assigns it to the Line2 field.
 func (o *MerchantAddress) SetLine2(v string) {
-	o.Line2 = &v
+	o.Line2.Set(&v)
+}
+// SetLine2Nil sets the value for Line2 to be an explicit nil
+func (o *MerchantAddress) SetLine2Nil() {
+	o.Line2.Set(nil)
+}
+
+// UnsetLine2 ensures that no value is present for Line2, not even an explicit nil
+func (o *MerchantAddress) UnsetLine2() {
+	o.Line2.Unset()
 }
 
 // GetCity returns the City field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantAddress) GetCity() string {
-	if o == nil {
+	if o == nil || o.City.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.City
+	return *o.City.Get()
 }
 
 // GetCityOk returns a tuple with the City field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAddress) GetCityOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.City, true
+	return o.City.Get(), o.City.IsSet()
 }
 
 // SetCity sets field value
 func (o *MerchantAddress) SetCity(v string) {
-	o.City = v
+	o.City.Set(&v)
 }
 
-// GetRegion returns the Region field value if set, zero value otherwise.
+// GetRegion returns the Region field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantAddress) GetRegion() string {
-	if o == nil || IsNil(o.Region) {
+	if o == nil || IsNil(o.Region.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Region
+	return *o.Region.Get()
 }
 
 // GetRegionOk returns a tuple with the Region field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAddress) GetRegionOk() (*string, bool) {
-	if o == nil || IsNil(o.Region) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Region, true
+	return o.Region.Get(), o.Region.IsSet()
 }
 
 // HasRegion returns a boolean if a field has been set.
 func (o *MerchantAddress) HasRegion() bool {
-	if o != nil && !IsNil(o.Region) {
+	if o != nil && o.Region.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetRegion gets a reference to the given string and assigns it to the Region field.
+// SetRegion gets a reference to the given NullableString and assigns it to the Region field.
 func (o *MerchantAddress) SetRegion(v string) {
-	o.Region = &v
+	o.Region.Set(&v)
+}
+// SetRegionNil sets the value for Region to be an explicit nil
+func (o *MerchantAddress) SetRegionNil() {
+	o.Region.Set(nil)
+}
+
+// UnsetRegion ensures that no value is present for Region, not even an explicit nil
+func (o *MerchantAddress) UnsetRegion() {
+	o.Region.Unset()
 }
 
 // GetPostalCode returns the PostalCode field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantAddress) GetPostalCode() string {
-	if o == nil {
+	if o == nil || o.PostalCode.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.PostalCode
+	return *o.PostalCode.Get()
 }
 
 // GetPostalCodeOk returns a tuple with the PostalCode field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAddress) GetPostalCodeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PostalCode, true
+	return o.PostalCode.Get(), o.PostalCode.IsSet()
 }
 
 // SetPostalCode sets field value
 func (o *MerchantAddress) SetPostalCode(v string) {
-	o.PostalCode = v
+	o.PostalCode.Set(&v)
 }
 
 // GetCountry returns the Country field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantAddress) GetCountry() string {
-	if o == nil {
+	if o == nil || o.Country.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Country
+	return *o.Country.Get()
 }
 
 // GetCountryOk returns a tuple with the Country field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAddress) GetCountryOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Country, true
+	return o.Country.Get(), o.Country.IsSet()
 }
 
 // SetCountry sets field value
 func (o *MerchantAddress) SetCountry(v string) {
-	o.Country = v
+	o.Country.Set(&v)
 }
 
 func (o MerchantAddress) MarshalJSON() ([]byte, error) {
@@ -222,16 +250,21 @@ func (o MerchantAddress) MarshalJSON() ([]byte, error) {
 
 func (o MerchantAddress) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["line1"] = o.Line1
-	if !IsNil(o.Line2) {
-		toSerialize["line2"] = o.Line2
+	toSerialize["line1"] = o.Line1.Get()
+	if o.Line2.IsSet() {
+		toSerialize["line2"] = o.Line2.Get()
 	}
-	toSerialize["city"] = o.City
-	if !IsNil(o.Region) {
-		toSerialize["region"] = o.Region
+	toSerialize["city"] = o.City.Get()
+	if o.Region.IsSet() {
+		toSerialize["region"] = o.Region.Get()
 	}
-	toSerialize["postalCode"] = o.PostalCode
-	toSerialize["country"] = o.Country
+	toSerialize["postalCode"] = o.PostalCode.Get()
+	toSerialize["country"] = o.Country.Get()
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -262,15 +295,25 @@ func (o *MerchantAddress) UnmarshalJSON(data []byte) (err error) {
 
 	varMerchantAddress := _MerchantAddress{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMerchantAddress)
+	err = json.Unmarshal(data, &varMerchantAddress)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MerchantAddress(varMerchantAddress)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "line1")
+		delete(additionalProperties, "line2")
+		delete(additionalProperties, "city")
+		delete(additionalProperties, "region")
+		delete(additionalProperties, "postalCode")
+		delete(additionalProperties, "country")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

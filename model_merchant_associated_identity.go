@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -22,16 +21,17 @@ var _ MappedNullable = &MerchantAssociatedIdentity{}
 // MerchantAssociatedIdentity struct for MerchantAssociatedIdentity
 type MerchantAssociatedIdentity struct {
 	IdentityRoles []string `json:"identityRoles"`
-	RelationType *string `json:"relationType,omitempty"`
-	FirstName *string `json:"firstName,omitempty"`
-	LastName *string `json:"lastName,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Email *string `json:"email,omitempty"`
-	Phone *string `json:"phone,omitempty"`
-	TaxId *string `json:"taxId,omitempty"`
+	RelationType NullableString `json:"relationType,omitempty"`
+	FirstName NullableString `json:"firstName,omitempty"`
+	LastName NullableString `json:"lastName,omitempty"`
+	Title NullableString `json:"title,omitempty"`
+	Email NullableString `json:"email,omitempty"`
+	Phone NullableString `json:"phone,omitempty"`
+	TaxId NullableString `json:"taxId,omitempty"`
 	PrincipalPercentageOwnership *float32 `json:"principalPercentageOwnership,omitempty"`
-	DateOfBirth *MerchantProfileDate `json:"dateOfBirth,omitempty"`
-	PersonalAddress *MerchantAddress `json:"personalAddress,omitempty"`
+	DateOfBirth NullableMerchantProfileDate `json:"dateOfBirth,omitempty"`
+	PersonalAddress NullableMerchantAddress `json:"personalAddress,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MerchantAssociatedIdentity MerchantAssociatedIdentity
@@ -78,228 +78,298 @@ func (o *MerchantAssociatedIdentity) SetIdentityRoles(v []string) {
 	o.IdentityRoles = v
 }
 
-// GetRelationType returns the RelationType field value if set, zero value otherwise.
+// GetRelationType returns the RelationType field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantAssociatedIdentity) GetRelationType() string {
-	if o == nil || IsNil(o.RelationType) {
+	if o == nil || IsNil(o.RelationType.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.RelationType
+	return *o.RelationType.Get()
 }
 
 // GetRelationTypeOk returns a tuple with the RelationType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAssociatedIdentity) GetRelationTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.RelationType) {
+	if o == nil {
 		return nil, false
 	}
-	return o.RelationType, true
+	return o.RelationType.Get(), o.RelationType.IsSet()
 }
 
 // HasRelationType returns a boolean if a field has been set.
 func (o *MerchantAssociatedIdentity) HasRelationType() bool {
-	if o != nil && !IsNil(o.RelationType) {
+	if o != nil && o.RelationType.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetRelationType gets a reference to the given string and assigns it to the RelationType field.
+// SetRelationType gets a reference to the given NullableString and assigns it to the RelationType field.
 func (o *MerchantAssociatedIdentity) SetRelationType(v string) {
-	o.RelationType = &v
+	o.RelationType.Set(&v)
+}
+// SetRelationTypeNil sets the value for RelationType to be an explicit nil
+func (o *MerchantAssociatedIdentity) SetRelationTypeNil() {
+	o.RelationType.Set(nil)
 }
 
-// GetFirstName returns the FirstName field value if set, zero value otherwise.
+// UnsetRelationType ensures that no value is present for RelationType, not even an explicit nil
+func (o *MerchantAssociatedIdentity) UnsetRelationType() {
+	o.RelationType.Unset()
+}
+
+// GetFirstName returns the FirstName field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantAssociatedIdentity) GetFirstName() string {
-	if o == nil || IsNil(o.FirstName) {
+	if o == nil || IsNil(o.FirstName.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.FirstName
+	return *o.FirstName.Get()
 }
 
 // GetFirstNameOk returns a tuple with the FirstName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAssociatedIdentity) GetFirstNameOk() (*string, bool) {
-	if o == nil || IsNil(o.FirstName) {
+	if o == nil {
 		return nil, false
 	}
-	return o.FirstName, true
+	return o.FirstName.Get(), o.FirstName.IsSet()
 }
 
 // HasFirstName returns a boolean if a field has been set.
 func (o *MerchantAssociatedIdentity) HasFirstName() bool {
-	if o != nil && !IsNil(o.FirstName) {
+	if o != nil && o.FirstName.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetFirstName gets a reference to the given string and assigns it to the FirstName field.
+// SetFirstName gets a reference to the given NullableString and assigns it to the FirstName field.
 func (o *MerchantAssociatedIdentity) SetFirstName(v string) {
-	o.FirstName = &v
+	o.FirstName.Set(&v)
+}
+// SetFirstNameNil sets the value for FirstName to be an explicit nil
+func (o *MerchantAssociatedIdentity) SetFirstNameNil() {
+	o.FirstName.Set(nil)
 }
 
-// GetLastName returns the LastName field value if set, zero value otherwise.
+// UnsetFirstName ensures that no value is present for FirstName, not even an explicit nil
+func (o *MerchantAssociatedIdentity) UnsetFirstName() {
+	o.FirstName.Unset()
+}
+
+// GetLastName returns the LastName field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantAssociatedIdentity) GetLastName() string {
-	if o == nil || IsNil(o.LastName) {
+	if o == nil || IsNil(o.LastName.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.LastName
+	return *o.LastName.Get()
 }
 
 // GetLastNameOk returns a tuple with the LastName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAssociatedIdentity) GetLastNameOk() (*string, bool) {
-	if o == nil || IsNil(o.LastName) {
+	if o == nil {
 		return nil, false
 	}
-	return o.LastName, true
+	return o.LastName.Get(), o.LastName.IsSet()
 }
 
 // HasLastName returns a boolean if a field has been set.
 func (o *MerchantAssociatedIdentity) HasLastName() bool {
-	if o != nil && !IsNil(o.LastName) {
+	if o != nil && o.LastName.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetLastName gets a reference to the given string and assigns it to the LastName field.
+// SetLastName gets a reference to the given NullableString and assigns it to the LastName field.
 func (o *MerchantAssociatedIdentity) SetLastName(v string) {
-	o.LastName = &v
+	o.LastName.Set(&v)
+}
+// SetLastNameNil sets the value for LastName to be an explicit nil
+func (o *MerchantAssociatedIdentity) SetLastNameNil() {
+	o.LastName.Set(nil)
 }
 
-// GetTitle returns the Title field value if set, zero value otherwise.
+// UnsetLastName ensures that no value is present for LastName, not even an explicit nil
+func (o *MerchantAssociatedIdentity) UnsetLastName() {
+	o.LastName.Unset()
+}
+
+// GetTitle returns the Title field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantAssociatedIdentity) GetTitle() string {
-	if o == nil || IsNil(o.Title) {
+	if o == nil || IsNil(o.Title.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Title
+	return *o.Title.Get()
 }
 
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAssociatedIdentity) GetTitleOk() (*string, bool) {
-	if o == nil || IsNil(o.Title) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Title, true
+	return o.Title.Get(), o.Title.IsSet()
 }
 
 // HasTitle returns a boolean if a field has been set.
 func (o *MerchantAssociatedIdentity) HasTitle() bool {
-	if o != nil && !IsNil(o.Title) {
+	if o != nil && o.Title.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetTitle gets a reference to the given string and assigns it to the Title field.
+// SetTitle gets a reference to the given NullableString and assigns it to the Title field.
 func (o *MerchantAssociatedIdentity) SetTitle(v string) {
-	o.Title = &v
+	o.Title.Set(&v)
+}
+// SetTitleNil sets the value for Title to be an explicit nil
+func (o *MerchantAssociatedIdentity) SetTitleNil() {
+	o.Title.Set(nil)
 }
 
-// GetEmail returns the Email field value if set, zero value otherwise.
+// UnsetTitle ensures that no value is present for Title, not even an explicit nil
+func (o *MerchantAssociatedIdentity) UnsetTitle() {
+	o.Title.Unset()
+}
+
+// GetEmail returns the Email field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantAssociatedIdentity) GetEmail() string {
-	if o == nil || IsNil(o.Email) {
+	if o == nil || IsNil(o.Email.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Email
+	return *o.Email.Get()
 }
 
 // GetEmailOk returns a tuple with the Email field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAssociatedIdentity) GetEmailOk() (*string, bool) {
-	if o == nil || IsNil(o.Email) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Email, true
+	return o.Email.Get(), o.Email.IsSet()
 }
 
 // HasEmail returns a boolean if a field has been set.
 func (o *MerchantAssociatedIdentity) HasEmail() bool {
-	if o != nil && !IsNil(o.Email) {
+	if o != nil && o.Email.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetEmail gets a reference to the given string and assigns it to the Email field.
+// SetEmail gets a reference to the given NullableString and assigns it to the Email field.
 func (o *MerchantAssociatedIdentity) SetEmail(v string) {
-	o.Email = &v
+	o.Email.Set(&v)
+}
+// SetEmailNil sets the value for Email to be an explicit nil
+func (o *MerchantAssociatedIdentity) SetEmailNil() {
+	o.Email.Set(nil)
 }
 
-// GetPhone returns the Phone field value if set, zero value otherwise.
+// UnsetEmail ensures that no value is present for Email, not even an explicit nil
+func (o *MerchantAssociatedIdentity) UnsetEmail() {
+	o.Email.Unset()
+}
+
+// GetPhone returns the Phone field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantAssociatedIdentity) GetPhone() string {
-	if o == nil || IsNil(o.Phone) {
+	if o == nil || IsNil(o.Phone.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Phone
+	return *o.Phone.Get()
 }
 
 // GetPhoneOk returns a tuple with the Phone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAssociatedIdentity) GetPhoneOk() (*string, bool) {
-	if o == nil || IsNil(o.Phone) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Phone, true
+	return o.Phone.Get(), o.Phone.IsSet()
 }
 
 // HasPhone returns a boolean if a field has been set.
 func (o *MerchantAssociatedIdentity) HasPhone() bool {
-	if o != nil && !IsNil(o.Phone) {
+	if o != nil && o.Phone.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetPhone gets a reference to the given string and assigns it to the Phone field.
+// SetPhone gets a reference to the given NullableString and assigns it to the Phone field.
 func (o *MerchantAssociatedIdentity) SetPhone(v string) {
-	o.Phone = &v
+	o.Phone.Set(&v)
+}
+// SetPhoneNil sets the value for Phone to be an explicit nil
+func (o *MerchantAssociatedIdentity) SetPhoneNil() {
+	o.Phone.Set(nil)
 }
 
-// GetTaxId returns the TaxId field value if set, zero value otherwise.
+// UnsetPhone ensures that no value is present for Phone, not even an explicit nil
+func (o *MerchantAssociatedIdentity) UnsetPhone() {
+	o.Phone.Unset()
+}
+
+// GetTaxId returns the TaxId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantAssociatedIdentity) GetTaxId() string {
-	if o == nil || IsNil(o.TaxId) {
+	if o == nil || IsNil(o.TaxId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.TaxId
+	return *o.TaxId.Get()
 }
 
 // GetTaxIdOk returns a tuple with the TaxId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAssociatedIdentity) GetTaxIdOk() (*string, bool) {
-	if o == nil || IsNil(o.TaxId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.TaxId, true
+	return o.TaxId.Get(), o.TaxId.IsSet()
 }
 
 // HasTaxId returns a boolean if a field has been set.
 func (o *MerchantAssociatedIdentity) HasTaxId() bool {
-	if o != nil && !IsNil(o.TaxId) {
+	if o != nil && o.TaxId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetTaxId gets a reference to the given string and assigns it to the TaxId field.
+// SetTaxId gets a reference to the given NullableString and assigns it to the TaxId field.
 func (o *MerchantAssociatedIdentity) SetTaxId(v string) {
-	o.TaxId = &v
+	o.TaxId.Set(&v)
+}
+// SetTaxIdNil sets the value for TaxId to be an explicit nil
+func (o *MerchantAssociatedIdentity) SetTaxIdNil() {
+	o.TaxId.Set(nil)
+}
+
+// UnsetTaxId ensures that no value is present for TaxId, not even an explicit nil
+func (o *MerchantAssociatedIdentity) UnsetTaxId() {
+	o.TaxId.Unset()
 }
 
 // GetPrincipalPercentageOwnership returns the PrincipalPercentageOwnership field value if set, zero value otherwise.
@@ -334,68 +404,88 @@ func (o *MerchantAssociatedIdentity) SetPrincipalPercentageOwnership(v float32) 
 	o.PrincipalPercentageOwnership = &v
 }
 
-// GetDateOfBirth returns the DateOfBirth field value if set, zero value otherwise.
+// GetDateOfBirth returns the DateOfBirth field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantAssociatedIdentity) GetDateOfBirth() MerchantProfileDate {
-	if o == nil || IsNil(o.DateOfBirth) {
+	if o == nil || IsNil(o.DateOfBirth.Get()) {
 		var ret MerchantProfileDate
 		return ret
 	}
-	return *o.DateOfBirth
+	return *o.DateOfBirth.Get()
 }
 
 // GetDateOfBirthOk returns a tuple with the DateOfBirth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAssociatedIdentity) GetDateOfBirthOk() (*MerchantProfileDate, bool) {
-	if o == nil || IsNil(o.DateOfBirth) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DateOfBirth, true
+	return o.DateOfBirth.Get(), o.DateOfBirth.IsSet()
 }
 
 // HasDateOfBirth returns a boolean if a field has been set.
 func (o *MerchantAssociatedIdentity) HasDateOfBirth() bool {
-	if o != nil && !IsNil(o.DateOfBirth) {
+	if o != nil && o.DateOfBirth.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDateOfBirth gets a reference to the given MerchantProfileDate and assigns it to the DateOfBirth field.
+// SetDateOfBirth gets a reference to the given NullableMerchantProfileDate and assigns it to the DateOfBirth field.
 func (o *MerchantAssociatedIdentity) SetDateOfBirth(v MerchantProfileDate) {
-	o.DateOfBirth = &v
+	o.DateOfBirth.Set(&v)
+}
+// SetDateOfBirthNil sets the value for DateOfBirth to be an explicit nil
+func (o *MerchantAssociatedIdentity) SetDateOfBirthNil() {
+	o.DateOfBirth.Set(nil)
 }
 
-// GetPersonalAddress returns the PersonalAddress field value if set, zero value otherwise.
+// UnsetDateOfBirth ensures that no value is present for DateOfBirth, not even an explicit nil
+func (o *MerchantAssociatedIdentity) UnsetDateOfBirth() {
+	o.DateOfBirth.Unset()
+}
+
+// GetPersonalAddress returns the PersonalAddress field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantAssociatedIdentity) GetPersonalAddress() MerchantAddress {
-	if o == nil || IsNil(o.PersonalAddress) {
+	if o == nil || IsNil(o.PersonalAddress.Get()) {
 		var ret MerchantAddress
 		return ret
 	}
-	return *o.PersonalAddress
+	return *o.PersonalAddress.Get()
 }
 
 // GetPersonalAddressOk returns a tuple with the PersonalAddress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAssociatedIdentity) GetPersonalAddressOk() (*MerchantAddress, bool) {
-	if o == nil || IsNil(o.PersonalAddress) {
+	if o == nil {
 		return nil, false
 	}
-	return o.PersonalAddress, true
+	return o.PersonalAddress.Get(), o.PersonalAddress.IsSet()
 }
 
 // HasPersonalAddress returns a boolean if a field has been set.
 func (o *MerchantAssociatedIdentity) HasPersonalAddress() bool {
-	if o != nil && !IsNil(o.PersonalAddress) {
+	if o != nil && o.PersonalAddress.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetPersonalAddress gets a reference to the given MerchantAddress and assigns it to the PersonalAddress field.
+// SetPersonalAddress gets a reference to the given NullableMerchantAddress and assigns it to the PersonalAddress field.
 func (o *MerchantAssociatedIdentity) SetPersonalAddress(v MerchantAddress) {
-	o.PersonalAddress = &v
+	o.PersonalAddress.Set(&v)
+}
+// SetPersonalAddressNil sets the value for PersonalAddress to be an explicit nil
+func (o *MerchantAssociatedIdentity) SetPersonalAddressNil() {
+	o.PersonalAddress.Set(nil)
+}
+
+// UnsetPersonalAddress ensures that no value is present for PersonalAddress, not even an explicit nil
+func (o *MerchantAssociatedIdentity) UnsetPersonalAddress() {
+	o.PersonalAddress.Unset()
 }
 
 func (o MerchantAssociatedIdentity) MarshalJSON() ([]byte, error) {
@@ -409,36 +499,41 @@ func (o MerchantAssociatedIdentity) MarshalJSON() ([]byte, error) {
 func (o MerchantAssociatedIdentity) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["identityRoles"] = o.IdentityRoles
-	if !IsNil(o.RelationType) {
-		toSerialize["relationType"] = o.RelationType
+	if o.RelationType.IsSet() {
+		toSerialize["relationType"] = o.RelationType.Get()
 	}
-	if !IsNil(o.FirstName) {
-		toSerialize["firstName"] = o.FirstName
+	if o.FirstName.IsSet() {
+		toSerialize["firstName"] = o.FirstName.Get()
 	}
-	if !IsNil(o.LastName) {
-		toSerialize["lastName"] = o.LastName
+	if o.LastName.IsSet() {
+		toSerialize["lastName"] = o.LastName.Get()
 	}
-	if !IsNil(o.Title) {
-		toSerialize["title"] = o.Title
+	if o.Title.IsSet() {
+		toSerialize["title"] = o.Title.Get()
 	}
-	if !IsNil(o.Email) {
-		toSerialize["email"] = o.Email
+	if o.Email.IsSet() {
+		toSerialize["email"] = o.Email.Get()
 	}
-	if !IsNil(o.Phone) {
-		toSerialize["phone"] = o.Phone
+	if o.Phone.IsSet() {
+		toSerialize["phone"] = o.Phone.Get()
 	}
-	if !IsNil(o.TaxId) {
-		toSerialize["taxId"] = o.TaxId
+	if o.TaxId.IsSet() {
+		toSerialize["taxId"] = o.TaxId.Get()
 	}
 	if !IsNil(o.PrincipalPercentageOwnership) {
 		toSerialize["principalPercentageOwnership"] = o.PrincipalPercentageOwnership
 	}
-	if !IsNil(o.DateOfBirth) {
-		toSerialize["dateOfBirth"] = o.DateOfBirth
+	if o.DateOfBirth.IsSet() {
+		toSerialize["dateOfBirth"] = o.DateOfBirth.Get()
 	}
-	if !IsNil(o.PersonalAddress) {
-		toSerialize["personalAddress"] = o.PersonalAddress
+	if o.PersonalAddress.IsSet() {
+		toSerialize["personalAddress"] = o.PersonalAddress.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -466,15 +561,30 @@ func (o *MerchantAssociatedIdentity) UnmarshalJSON(data []byte) (err error) {
 
 	varMerchantAssociatedIdentity := _MerchantAssociatedIdentity{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMerchantAssociatedIdentity)
+	err = json.Unmarshal(data, &varMerchantAssociatedIdentity)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MerchantAssociatedIdentity(varMerchantAssociatedIdentity)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "identityRoles")
+		delete(additionalProperties, "relationType")
+		delete(additionalProperties, "firstName")
+		delete(additionalProperties, "lastName")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "phone")
+		delete(additionalProperties, "taxId")
+		delete(additionalProperties, "principalPercentageOwnership")
+		delete(additionalProperties, "dateOfBirth")
+		delete(additionalProperties, "personalAddress")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

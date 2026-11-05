@@ -21,8 +21,8 @@ var _ MappedNullable = &InvoiceCreateRequestCustomerTaxIdsInner{}
 
 // InvoiceCreateRequestCustomerTaxIdsInner struct for InvoiceCreateRequestCustomerTaxIdsInner
 type InvoiceCreateRequestCustomerTaxIdsInner struct {
-	Type string `json:"type"`
-	Value string `json:"value"`
+	Type NullableString `json:"type"`
+	Value NullableString `json:"value"`
 }
 
 type _InvoiceCreateRequestCustomerTaxIdsInner InvoiceCreateRequestCustomerTaxIdsInner
@@ -31,7 +31,7 @@ type _InvoiceCreateRequestCustomerTaxIdsInner InvoiceCreateRequestCustomerTaxIds
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInvoiceCreateRequestCustomerTaxIdsInner(type_ string, value string) *InvoiceCreateRequestCustomerTaxIdsInner {
+func NewInvoiceCreateRequestCustomerTaxIdsInner(type_ NullableString, value NullableString) *InvoiceCreateRequestCustomerTaxIdsInner {
 	this := InvoiceCreateRequestCustomerTaxIdsInner{}
 	this.Type = type_
 	this.Value = value
@@ -47,51 +47,55 @@ func NewInvoiceCreateRequestCustomerTaxIdsInnerWithDefaults() *InvoiceCreateRequ
 }
 
 // GetType returns the Type field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *InvoiceCreateRequestCustomerTaxIdsInner) GetType() string {
-	if o == nil {
+	if o == nil || o.Type.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Type
+	return *o.Type.Get()
 }
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *InvoiceCreateRequestCustomerTaxIdsInner) GetTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Type, true
+	return o.Type.Get(), o.Type.IsSet()
 }
 
 // SetType sets field value
 func (o *InvoiceCreateRequestCustomerTaxIdsInner) SetType(v string) {
-	o.Type = v
+	o.Type.Set(&v)
 }
 
 // GetValue returns the Value field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *InvoiceCreateRequestCustomerTaxIdsInner) GetValue() string {
-	if o == nil {
+	if o == nil || o.Value.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Value
+	return *o.Value.Get()
 }
 
 // GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *InvoiceCreateRequestCustomerTaxIdsInner) GetValueOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Value, true
+	return o.Value.Get(), o.Value.IsSet()
 }
 
 // SetValue sets field value
 func (o *InvoiceCreateRequestCustomerTaxIdsInner) SetValue(v string) {
-	o.Value = v
+	o.Value.Set(&v)
 }
 
 func (o InvoiceCreateRequestCustomerTaxIdsInner) MarshalJSON() ([]byte, error) {
@@ -104,8 +108,8 @@ func (o InvoiceCreateRequestCustomerTaxIdsInner) MarshalJSON() ([]byte, error) {
 
 func (o InvoiceCreateRequestCustomerTaxIdsInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["type"] = o.Type
-	toSerialize["value"] = o.Value
+	toSerialize["type"] = o.Type.Get()
+	toSerialize["value"] = o.Value.Get()
 	return toSerialize, nil
 }
 

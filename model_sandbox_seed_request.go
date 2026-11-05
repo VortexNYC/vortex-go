@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -25,6 +24,7 @@ type SandboxSeedRequest struct {
 	// Must match the path merchantAccountId
 	MerchantAccountId string `json:"merchantAccountId"`
 	Preset *string `json:"preset,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _SandboxSeedRequest SandboxSeedRequest
@@ -143,6 +143,11 @@ func (o SandboxSeedRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Preset) {
 		toSerialize["preset"] = o.Preset
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -171,15 +176,22 @@ func (o *SandboxSeedRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varSandboxSeedRequest := _SandboxSeedRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varSandboxSeedRequest)
+	err = json.Unmarshal(data, &varSandboxSeedRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = SandboxSeedRequest(varSandboxSeedRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "environment")
+		delete(additionalProperties, "merchantAccountId")
+		delete(additionalProperties, "preset")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

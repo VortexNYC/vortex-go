@@ -202,9 +202,9 @@ func (o *ApplyCouponRequest) SetAppliedAt(v time.Time) {
 	o.AppliedAt = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ApplyCouponRequest) GetMetadata() map[string]string {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -213,6 +213,7 @@ func (o *ApplyCouponRequest) GetMetadata() map[string]string {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ApplyCouponRequest) GetMetadataOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return map[string]string{}, false
@@ -257,7 +258,7 @@ func (o ApplyCouponRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AppliedAt) {
 		toSerialize["appliedAt"] = o.AppliedAt
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
 	return toSerialize, nil

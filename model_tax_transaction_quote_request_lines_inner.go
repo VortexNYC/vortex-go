@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,13 +20,14 @@ var _ MappedNullable = &TaxTransactionQuoteRequestLinesInner{}
 
 // TaxTransactionQuoteRequestLinesInner struct for TaxTransactionQuoteRequestLinesInner
 type TaxTransactionQuoteRequestLinesInner struct {
-	SourceLineId string `json:"sourceLineId"`
+	SourceLineId NullableString `json:"sourceLineId"`
 	Amount int32 `json:"amount"`
 	Quantity int32 `json:"quantity"`
-	Description *string `json:"description,omitempty"`
-	ClassificationKey *string `json:"classificationKey,omitempty"`
-	ProductExternalId *string `json:"productExternalId,omitempty"`
+	Description NullableString `json:"description,omitempty"`
+	ClassificationKey NullableString `json:"classificationKey,omitempty"`
+	ProductExternalId NullableString `json:"productExternalId,omitempty"`
 	TaxBehavior *TaxBehavior `json:"taxBehavior,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _TaxTransactionQuoteRequestLinesInner TaxTransactionQuoteRequestLinesInner
@@ -36,7 +36,7 @@ type _TaxTransactionQuoteRequestLinesInner TaxTransactionQuoteRequestLinesInner
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTaxTransactionQuoteRequestLinesInner(sourceLineId string, amount int32, quantity int32) *TaxTransactionQuoteRequestLinesInner {
+func NewTaxTransactionQuoteRequestLinesInner(sourceLineId NullableString, amount int32, quantity int32) *TaxTransactionQuoteRequestLinesInner {
 	this := TaxTransactionQuoteRequestLinesInner{}
 	this.SourceLineId = sourceLineId
 	this.Amount = amount
@@ -53,27 +53,29 @@ func NewTaxTransactionQuoteRequestLinesInnerWithDefaults() *TaxTransactionQuoteR
 }
 
 // GetSourceLineId returns the SourceLineId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *TaxTransactionQuoteRequestLinesInner) GetSourceLineId() string {
-	if o == nil {
+	if o == nil || o.SourceLineId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.SourceLineId
+	return *o.SourceLineId.Get()
 }
 
 // GetSourceLineIdOk returns a tuple with the SourceLineId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TaxTransactionQuoteRequestLinesInner) GetSourceLineIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SourceLineId, true
+	return o.SourceLineId.Get(), o.SourceLineId.IsSet()
 }
 
 // SetSourceLineId sets field value
 func (o *TaxTransactionQuoteRequestLinesInner) SetSourceLineId(v string) {
-	o.SourceLineId = v
+	o.SourceLineId.Set(&v)
 }
 
 // GetAmount returns the Amount field value
@@ -124,100 +126,130 @@ func (o *TaxTransactionQuoteRequestLinesInner) SetQuantity(v int32) {
 	o.Quantity = v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TaxTransactionQuoteRequestLinesInner) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+	if o == nil || IsNil(o.Description.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Description
+	return *o.Description.Get()
 }
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TaxTransactionQuoteRequestLinesInner) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return o.Description.Get(), o.Description.IsSet()
 }
 
 // HasDescription returns a boolean if a field has been set.
 func (o *TaxTransactionQuoteRequestLinesInner) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
+	if o != nil && o.Description.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription gets a reference to the given NullableString and assigns it to the Description field.
 func (o *TaxTransactionQuoteRequestLinesInner) SetDescription(v string) {
-	o.Description = &v
+	o.Description.Set(&v)
+}
+// SetDescriptionNil sets the value for Description to be an explicit nil
+func (o *TaxTransactionQuoteRequestLinesInner) SetDescriptionNil() {
+	o.Description.Set(nil)
 }
 
-// GetClassificationKey returns the ClassificationKey field value if set, zero value otherwise.
+// UnsetDescription ensures that no value is present for Description, not even an explicit nil
+func (o *TaxTransactionQuoteRequestLinesInner) UnsetDescription() {
+	o.Description.Unset()
+}
+
+// GetClassificationKey returns the ClassificationKey field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TaxTransactionQuoteRequestLinesInner) GetClassificationKey() string {
-	if o == nil || IsNil(o.ClassificationKey) {
+	if o == nil || IsNil(o.ClassificationKey.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.ClassificationKey
+	return *o.ClassificationKey.Get()
 }
 
 // GetClassificationKeyOk returns a tuple with the ClassificationKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TaxTransactionQuoteRequestLinesInner) GetClassificationKeyOk() (*string, bool) {
-	if o == nil || IsNil(o.ClassificationKey) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ClassificationKey, true
+	return o.ClassificationKey.Get(), o.ClassificationKey.IsSet()
 }
 
 // HasClassificationKey returns a boolean if a field has been set.
 func (o *TaxTransactionQuoteRequestLinesInner) HasClassificationKey() bool {
-	if o != nil && !IsNil(o.ClassificationKey) {
+	if o != nil && o.ClassificationKey.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetClassificationKey gets a reference to the given string and assigns it to the ClassificationKey field.
+// SetClassificationKey gets a reference to the given NullableString and assigns it to the ClassificationKey field.
 func (o *TaxTransactionQuoteRequestLinesInner) SetClassificationKey(v string) {
-	o.ClassificationKey = &v
+	o.ClassificationKey.Set(&v)
+}
+// SetClassificationKeyNil sets the value for ClassificationKey to be an explicit nil
+func (o *TaxTransactionQuoteRequestLinesInner) SetClassificationKeyNil() {
+	o.ClassificationKey.Set(nil)
 }
 
-// GetProductExternalId returns the ProductExternalId field value if set, zero value otherwise.
+// UnsetClassificationKey ensures that no value is present for ClassificationKey, not even an explicit nil
+func (o *TaxTransactionQuoteRequestLinesInner) UnsetClassificationKey() {
+	o.ClassificationKey.Unset()
+}
+
+// GetProductExternalId returns the ProductExternalId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TaxTransactionQuoteRequestLinesInner) GetProductExternalId() string {
-	if o == nil || IsNil(o.ProductExternalId) {
+	if o == nil || IsNil(o.ProductExternalId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.ProductExternalId
+	return *o.ProductExternalId.Get()
 }
 
 // GetProductExternalIdOk returns a tuple with the ProductExternalId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TaxTransactionQuoteRequestLinesInner) GetProductExternalIdOk() (*string, bool) {
-	if o == nil || IsNil(o.ProductExternalId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ProductExternalId, true
+	return o.ProductExternalId.Get(), o.ProductExternalId.IsSet()
 }
 
 // HasProductExternalId returns a boolean if a field has been set.
 func (o *TaxTransactionQuoteRequestLinesInner) HasProductExternalId() bool {
-	if o != nil && !IsNil(o.ProductExternalId) {
+	if o != nil && o.ProductExternalId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetProductExternalId gets a reference to the given string and assigns it to the ProductExternalId field.
+// SetProductExternalId gets a reference to the given NullableString and assigns it to the ProductExternalId field.
 func (o *TaxTransactionQuoteRequestLinesInner) SetProductExternalId(v string) {
-	o.ProductExternalId = &v
+	o.ProductExternalId.Set(&v)
+}
+// SetProductExternalIdNil sets the value for ProductExternalId to be an explicit nil
+func (o *TaxTransactionQuoteRequestLinesInner) SetProductExternalIdNil() {
+	o.ProductExternalId.Set(nil)
+}
+
+// UnsetProductExternalId ensures that no value is present for ProductExternalId, not even an explicit nil
+func (o *TaxTransactionQuoteRequestLinesInner) UnsetProductExternalId() {
+	o.ProductExternalId.Unset()
 }
 
 // GetTaxBehavior returns the TaxBehavior field value if set, zero value otherwise.
@@ -262,21 +294,26 @@ func (o TaxTransactionQuoteRequestLinesInner) MarshalJSON() ([]byte, error) {
 
 func (o TaxTransactionQuoteRequestLinesInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["sourceLineId"] = o.SourceLineId
+	toSerialize["sourceLineId"] = o.SourceLineId.Get()
 	toSerialize["amount"] = o.Amount
 	toSerialize["quantity"] = o.Quantity
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
+	if o.Description.IsSet() {
+		toSerialize["description"] = o.Description.Get()
 	}
-	if !IsNil(o.ClassificationKey) {
-		toSerialize["classificationKey"] = o.ClassificationKey
+	if o.ClassificationKey.IsSet() {
+		toSerialize["classificationKey"] = o.ClassificationKey.Get()
 	}
-	if !IsNil(o.ProductExternalId) {
-		toSerialize["productExternalId"] = o.ProductExternalId
+	if o.ProductExternalId.IsSet() {
+		toSerialize["productExternalId"] = o.ProductExternalId.Get()
 	}
 	if !IsNil(o.TaxBehavior) {
 		toSerialize["taxBehavior"] = o.TaxBehavior
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -306,15 +343,26 @@ func (o *TaxTransactionQuoteRequestLinesInner) UnmarshalJSON(data []byte) (err e
 
 	varTaxTransactionQuoteRequestLinesInner := _TaxTransactionQuoteRequestLinesInner{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTaxTransactionQuoteRequestLinesInner)
+	err = json.Unmarshal(data, &varTaxTransactionQuoteRequestLinesInner)
 
 	if err != nil {
 		return err
 	}
 
 	*o = TaxTransactionQuoteRequestLinesInner(varTaxTransactionQuoteRequestLinesInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "sourceLineId")
+		delete(additionalProperties, "amount")
+		delete(additionalProperties, "quantity")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "classificationKey")
+		delete(additionalProperties, "productExternalId")
+		delete(additionalProperties, "taxBehavior")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

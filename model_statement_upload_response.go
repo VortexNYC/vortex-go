@@ -13,7 +13,6 @@ package vortex
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -22,12 +21,13 @@ var _ MappedNullable = &StatementUploadResponse{}
 
 // StatementUploadResponse struct for StatementUploadResponse
 type StatementUploadResponse struct {
-	Id string `json:"id"`
-	Environment string `json:"environment"`
-	MerchantAccountId string `json:"merchantAccountId"`
-	Filename string `json:"filename"`
+	Id NullableString `json:"id"`
+	Environment NullableString `json:"environment"`
+	MerchantAccountId NullableString `json:"merchantAccountId"`
+	Filename NullableString `json:"filename"`
 	Status string `json:"status"`
 	CreatedAt time.Time `json:"createdAt"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _StatementUploadResponse StatementUploadResponse
@@ -36,7 +36,7 @@ type _StatementUploadResponse StatementUploadResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStatementUploadResponse(id string, environment string, merchantAccountId string, filename string, status string, createdAt time.Time) *StatementUploadResponse {
+func NewStatementUploadResponse(id NullableString, environment NullableString, merchantAccountId NullableString, filename NullableString, status string, createdAt time.Time) *StatementUploadResponse {
 	this := StatementUploadResponse{}
 	this.Id = id
 	this.Environment = environment
@@ -56,99 +56,107 @@ func NewStatementUploadResponseWithDefaults() *StatementUploadResponse {
 }
 
 // GetId returns the Id field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *StatementUploadResponse) GetId() string {
-	if o == nil {
+	if o == nil || o.Id.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Id
+	return *o.Id.Get()
 }
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *StatementUploadResponse) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id.Get(), o.Id.IsSet()
 }
 
 // SetId sets field value
 func (o *StatementUploadResponse) SetId(v string) {
-	o.Id = v
+	o.Id.Set(&v)
 }
 
 // GetEnvironment returns the Environment field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *StatementUploadResponse) GetEnvironment() string {
-	if o == nil {
+	if o == nil || o.Environment.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Environment
+	return *o.Environment.Get()
 }
 
 // GetEnvironmentOk returns a tuple with the Environment field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *StatementUploadResponse) GetEnvironmentOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Environment, true
+	return o.Environment.Get(), o.Environment.IsSet()
 }
 
 // SetEnvironment sets field value
 func (o *StatementUploadResponse) SetEnvironment(v string) {
-	o.Environment = v
+	o.Environment.Set(&v)
 }
 
 // GetMerchantAccountId returns the MerchantAccountId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *StatementUploadResponse) GetMerchantAccountId() string {
-	if o == nil {
+	if o == nil || o.MerchantAccountId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.MerchantAccountId
+	return *o.MerchantAccountId.Get()
 }
 
 // GetMerchantAccountIdOk returns a tuple with the MerchantAccountId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *StatementUploadResponse) GetMerchantAccountIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.MerchantAccountId, true
+	return o.MerchantAccountId.Get(), o.MerchantAccountId.IsSet()
 }
 
 // SetMerchantAccountId sets field value
 func (o *StatementUploadResponse) SetMerchantAccountId(v string) {
-	o.MerchantAccountId = v
+	o.MerchantAccountId.Set(&v)
 }
 
 // GetFilename returns the Filename field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *StatementUploadResponse) GetFilename() string {
-	if o == nil {
+	if o == nil || o.Filename.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Filename
+	return *o.Filename.Get()
 }
 
 // GetFilenameOk returns a tuple with the Filename field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *StatementUploadResponse) GetFilenameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Filename, true
+	return o.Filename.Get(), o.Filename.IsSet()
 }
 
 // SetFilename sets field value
 func (o *StatementUploadResponse) SetFilename(v string) {
-	o.Filename = v
+	o.Filename.Set(&v)
 }
 
 // GetStatus returns the Status field value
@@ -209,12 +217,17 @@ func (o StatementUploadResponse) MarshalJSON() ([]byte, error) {
 
 func (o StatementUploadResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
-	toSerialize["environment"] = o.Environment
-	toSerialize["merchantAccountId"] = o.MerchantAccountId
-	toSerialize["filename"] = o.Filename
+	toSerialize["id"] = o.Id.Get()
+	toSerialize["environment"] = o.Environment.Get()
+	toSerialize["merchantAccountId"] = o.MerchantAccountId.Get()
+	toSerialize["filename"] = o.Filename.Get()
 	toSerialize["status"] = o.Status
 	toSerialize["createdAt"] = o.CreatedAt
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -247,15 +260,25 @@ func (o *StatementUploadResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varStatementUploadResponse := _StatementUploadResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varStatementUploadResponse)
+	err = json.Unmarshal(data, &varStatementUploadResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = StatementUploadResponse(varStatementUploadResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "environment")
+		delete(additionalProperties, "merchantAccountId")
+		delete(additionalProperties, "filename")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "createdAt")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

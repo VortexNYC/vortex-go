@@ -23,7 +23,7 @@ var _ MappedNullable = &MerchantPortalActionRequestOneOf56{}
 type MerchantPortalActionRequestOneOf56 struct {
 	Action string `json:"action"`
 	DisplayName *string `json:"displayName,omitempty"`
-	OriginAddress CreatePayableRequestCustomerTaxAddress `json:"originAddress"`
+	OriginAddress MerchantPortalActionRequestOneOf56OriginAddress `json:"originAddress"`
 	Registrations []MerchantPortalActionRequestOneOf56RegistrationsInner `json:"registrations"`
 }
 
@@ -33,7 +33,7 @@ type _MerchantPortalActionRequestOneOf56 MerchantPortalActionRequestOneOf56
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalActionRequestOneOf56(action string, originAddress CreatePayableRequestCustomerTaxAddress, registrations []MerchantPortalActionRequestOneOf56RegistrationsInner) *MerchantPortalActionRequestOneOf56 {
+func NewMerchantPortalActionRequestOneOf56(action string, originAddress MerchantPortalActionRequestOneOf56OriginAddress, registrations []MerchantPortalActionRequestOneOf56RegistrationsInner) *MerchantPortalActionRequestOneOf56 {
 	this := MerchantPortalActionRequestOneOf56{}
 	this.Action = action
 	this.OriginAddress = originAddress
@@ -106,9 +106,9 @@ func (o *MerchantPortalActionRequestOneOf56) SetDisplayName(v string) {
 }
 
 // GetOriginAddress returns the OriginAddress field value
-func (o *MerchantPortalActionRequestOneOf56) GetOriginAddress() CreatePayableRequestCustomerTaxAddress {
+func (o *MerchantPortalActionRequestOneOf56) GetOriginAddress() MerchantPortalActionRequestOneOf56OriginAddress {
 	if o == nil {
-		var ret CreatePayableRequestCustomerTaxAddress
+		var ret MerchantPortalActionRequestOneOf56OriginAddress
 		return ret
 	}
 
@@ -117,7 +117,7 @@ func (o *MerchantPortalActionRequestOneOf56) GetOriginAddress() CreatePayableReq
 
 // GetOriginAddressOk returns a tuple with the OriginAddress field value
 // and a boolean to check if the value has been set.
-func (o *MerchantPortalActionRequestOneOf56) GetOriginAddressOk() (*CreatePayableRequestCustomerTaxAddress, bool) {
+func (o *MerchantPortalActionRequestOneOf56) GetOriginAddressOk() (*MerchantPortalActionRequestOneOf56OriginAddress, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -125,7 +125,7 @@ func (o *MerchantPortalActionRequestOneOf56) GetOriginAddressOk() (*CreatePayabl
 }
 
 // SetOriginAddress sets field value
-func (o *MerchantPortalActionRequestOneOf56) SetOriginAddress(v CreatePayableRequestCustomerTaxAddress) {
+func (o *MerchantPortalActionRequestOneOf56) SetOriginAddress(v MerchantPortalActionRequestOneOf56OriginAddress) {
 	o.OriginAddress = v
 }
 

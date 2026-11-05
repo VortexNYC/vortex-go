@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,7 +20,7 @@ var _ MappedNullable = &CustomerCreateRequest{}
 
 // CustomerCreateRequest struct for CustomerCreateRequest
 type CustomerCreateRequest struct {
-	Name string `json:"name"`
+	Name NullableString `json:"name"`
 	DefaultCurrency string `json:"defaultCurrency"`
 	// Caller-chosen Vortex customer id; omit to auto-mint.
 	CustomerId *string `json:"customerId,omitempty"`
@@ -29,6 +28,7 @@ type CustomerCreateRequest struct {
 	ExternalCustomerRef *string `json:"externalCustomerRef,omitempty"`
 	Email *string `json:"email,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CustomerCreateRequest CustomerCreateRequest
@@ -37,7 +37,7 @@ type _CustomerCreateRequest CustomerCreateRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCustomerCreateRequest(name string, defaultCurrency string) *CustomerCreateRequest {
+func NewCustomerCreateRequest(name NullableString, defaultCurrency string) *CustomerCreateRequest {
 	this := CustomerCreateRequest{}
 	this.Name = name
 	this.DefaultCurrency = defaultCurrency
@@ -53,27 +53,29 @@ func NewCustomerCreateRequestWithDefaults() *CustomerCreateRequest {
 }
 
 // GetName returns the Name field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *CustomerCreateRequest) GetName() string {
-	if o == nil {
+	if o == nil || o.Name.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Name
+	return *o.Name.Get()
 }
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CustomerCreateRequest) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name.Get(), o.Name.IsSet()
 }
 
 // SetName sets field value
 func (o *CustomerCreateRequest) SetName(v string) {
-	o.Name = v
+	o.Name.Set(&v)
 }
 
 // GetDefaultCurrency returns the DefaultCurrency field value
@@ -196,9 +198,9 @@ func (o *CustomerCreateRequest) SetEmail(v string) {
 	o.Email = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CustomerCreateRequest) GetMetadata() map[string]string {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -207,6 +209,7 @@ func (o *CustomerCreateRequest) GetMetadata() map[string]string {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CustomerCreateRequest) GetMetadataOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return map[string]string{}, false
@@ -238,7 +241,7 @@ func (o CustomerCreateRequest) MarshalJSON() ([]byte, error) {
 
 func (o CustomerCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["name"] = o.Name
+	toSerialize["name"] = o.Name.Get()
 	toSerialize["defaultCurrency"] = o.DefaultCurrency
 	if !IsNil(o.CustomerId) {
 		toSerialize["customerId"] = o.CustomerId
@@ -249,9 +252,14 @@ func (o CustomerCreateRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Email) {
 		toSerialize["email"] = o.Email
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -280,15 +288,25 @@ func (o *CustomerCreateRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varCustomerCreateRequest := _CustomerCreateRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCustomerCreateRequest)
+	err = json.Unmarshal(data, &varCustomerCreateRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CustomerCreateRequest(varCustomerCreateRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "defaultCurrency")
+		delete(additionalProperties, "customerId")
+		delete(additionalProperties, "externalCustomerRef")
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -21,10 +21,10 @@ var _ MappedNullable = &CliListenRegisterResponseData{}
 
 // CliListenRegisterResponseData struct for CliListenRegisterResponseData
 type CliListenRegisterResponseData struct {
-	EndpointId string `json:"endpointId"`
+	EndpointId NullableString `json:"endpointId"`
 	Environment string `json:"environment"`
-	MerchantAccountId string `json:"merchantAccountId"`
-	ApiVersion string `json:"apiVersion"`
+	MerchantAccountId NullableString `json:"merchantAccountId"`
+	ApiVersion NullableString `json:"apiVersion"`
 	// whsec_ endpoint signing secret — returned only here.
 	Secret string `json:"secret"`
 }
@@ -35,7 +35,7 @@ type _CliListenRegisterResponseData CliListenRegisterResponseData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCliListenRegisterResponseData(endpointId string, environment string, merchantAccountId string, apiVersion string, secret string) *CliListenRegisterResponseData {
+func NewCliListenRegisterResponseData(endpointId NullableString, environment string, merchantAccountId NullableString, apiVersion NullableString, secret string) *CliListenRegisterResponseData {
 	this := CliListenRegisterResponseData{}
 	this.EndpointId = endpointId
 	this.Environment = environment
@@ -54,27 +54,29 @@ func NewCliListenRegisterResponseDataWithDefaults() *CliListenRegisterResponseDa
 }
 
 // GetEndpointId returns the EndpointId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *CliListenRegisterResponseData) GetEndpointId() string {
-	if o == nil {
+	if o == nil || o.EndpointId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.EndpointId
+	return *o.EndpointId.Get()
 }
 
 // GetEndpointIdOk returns a tuple with the EndpointId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CliListenRegisterResponseData) GetEndpointIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.EndpointId, true
+	return o.EndpointId.Get(), o.EndpointId.IsSet()
 }
 
 // SetEndpointId sets field value
 func (o *CliListenRegisterResponseData) SetEndpointId(v string) {
-	o.EndpointId = v
+	o.EndpointId.Set(&v)
 }
 
 // GetEnvironment returns the Environment field value
@@ -102,51 +104,55 @@ func (o *CliListenRegisterResponseData) SetEnvironment(v string) {
 }
 
 // GetMerchantAccountId returns the MerchantAccountId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *CliListenRegisterResponseData) GetMerchantAccountId() string {
-	if o == nil {
+	if o == nil || o.MerchantAccountId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.MerchantAccountId
+	return *o.MerchantAccountId.Get()
 }
 
 // GetMerchantAccountIdOk returns a tuple with the MerchantAccountId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CliListenRegisterResponseData) GetMerchantAccountIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.MerchantAccountId, true
+	return o.MerchantAccountId.Get(), o.MerchantAccountId.IsSet()
 }
 
 // SetMerchantAccountId sets field value
 func (o *CliListenRegisterResponseData) SetMerchantAccountId(v string) {
-	o.MerchantAccountId = v
+	o.MerchantAccountId.Set(&v)
 }
 
 // GetApiVersion returns the ApiVersion field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *CliListenRegisterResponseData) GetApiVersion() string {
-	if o == nil {
+	if o == nil || o.ApiVersion.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.ApiVersion
+	return *o.ApiVersion.Get()
 }
 
 // GetApiVersionOk returns a tuple with the ApiVersion field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CliListenRegisterResponseData) GetApiVersionOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ApiVersion, true
+	return o.ApiVersion.Get(), o.ApiVersion.IsSet()
 }
 
 // SetApiVersion sets field value
 func (o *CliListenRegisterResponseData) SetApiVersion(v string) {
-	o.ApiVersion = v
+	o.ApiVersion.Set(&v)
 }
 
 // GetSecret returns the Secret field value
@@ -183,10 +189,10 @@ func (o CliListenRegisterResponseData) MarshalJSON() ([]byte, error) {
 
 func (o CliListenRegisterResponseData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["endpointId"] = o.EndpointId
+	toSerialize["endpointId"] = o.EndpointId.Get()
 	toSerialize["environment"] = o.Environment
-	toSerialize["merchantAccountId"] = o.MerchantAccountId
-	toSerialize["apiVersion"] = o.ApiVersion
+	toSerialize["merchantAccountId"] = o.MerchantAccountId.Get()
+	toSerialize["apiVersion"] = o.ApiVersion.Get()
 	toSerialize["secret"] = o.Secret
 	return toSerialize, nil
 }

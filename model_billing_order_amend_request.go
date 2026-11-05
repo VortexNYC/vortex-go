@@ -22,9 +22,12 @@ type BillingOrderAmendRequest struct {
 	// Restatement lines for the amendment's first draft version. Omit to clone the target subscription's live items; an empty array signs an early termination.
 	Lines []BillingQuoteLineInput `json:"lines,omitempty"`
 	CouponIds []string `json:"couponIds,omitempty"`
-	Terms *string `json:"terms,omitempty"`
+	Terms NullableString `json:"terms,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _BillingOrderAmendRequest BillingOrderAmendRequest
 
 // NewBillingOrderAmendRequest instantiates a new BillingOrderAmendRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -107,41 +110,51 @@ func (o *BillingOrderAmendRequest) SetCouponIds(v []string) {
 	o.CouponIds = v
 }
 
-// GetTerms returns the Terms field value if set, zero value otherwise.
+// GetTerms returns the Terms field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *BillingOrderAmendRequest) GetTerms() string {
-	if o == nil || IsNil(o.Terms) {
+	if o == nil || IsNil(o.Terms.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Terms
+	return *o.Terms.Get()
 }
 
 // GetTermsOk returns a tuple with the Terms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BillingOrderAmendRequest) GetTermsOk() (*string, bool) {
-	if o == nil || IsNil(o.Terms) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Terms, true
+	return o.Terms.Get(), o.Terms.IsSet()
 }
 
 // HasTerms returns a boolean if a field has been set.
 func (o *BillingOrderAmendRequest) HasTerms() bool {
-	if o != nil && !IsNil(o.Terms) {
+	if o != nil && o.Terms.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetTerms gets a reference to the given string and assigns it to the Terms field.
+// SetTerms gets a reference to the given NullableString and assigns it to the Terms field.
 func (o *BillingOrderAmendRequest) SetTerms(v string) {
-	o.Terms = &v
+	o.Terms.Set(&v)
+}
+// SetTermsNil sets the value for Terms to be an explicit nil
+func (o *BillingOrderAmendRequest) SetTermsNil() {
+	o.Terms.Set(nil)
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// UnsetTerms ensures that no value is present for Terms, not even an explicit nil
+func (o *BillingOrderAmendRequest) UnsetTerms() {
+	o.Terms.Unset()
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *BillingOrderAmendRequest) GetMetadata() map[string]string {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -150,6 +163,7 @@ func (o *BillingOrderAmendRequest) GetMetadata() map[string]string {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BillingOrderAmendRequest) GetMetadataOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return map[string]string{}, false
@@ -187,13 +201,42 @@ func (o BillingOrderAmendRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CouponIds) {
 		toSerialize["couponIds"] = o.CouponIds
 	}
-	if !IsNil(o.Terms) {
-		toSerialize["terms"] = o.Terms
+	if o.Terms.IsSet() {
+		toSerialize["terms"] = o.Terms.Get()
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *BillingOrderAmendRequest) UnmarshalJSON(data []byte) (err error) {
+	varBillingOrderAmendRequest := _BillingOrderAmendRequest{}
+
+	err = json.Unmarshal(data, &varBillingOrderAmendRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BillingOrderAmendRequest(varBillingOrderAmendRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "lines")
+		delete(additionalProperties, "couponIds")
+		delete(additionalProperties, "terms")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableBillingOrderAmendRequest struct {

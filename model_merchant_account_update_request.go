@@ -19,9 +19,9 @@ var _ MappedNullable = &MerchantAccountUpdateRequest{}
 
 // MerchantAccountUpdateRequest struct for MerchantAccountUpdateRequest
 type MerchantAccountUpdateRequest struct {
-	Environment *string `json:"environment,omitempty"`
-	DisplayName *string `json:"displayName,omitempty"`
-	MerchantMode *string `json:"merchantMode,omitempty"`
+	Environment NullableString `json:"environment,omitempty"`
+	DisplayName NullableString `json:"displayName,omitempty"`
+	MerchantMode NullableString `json:"merchantMode,omitempty"`
 	BusinessPhone NullableString `json:"businessPhone,omitempty"`
 	Mcc NullableString `json:"mcc,omitempty"`
 	Url NullableString `json:"url,omitempty"`
@@ -31,7 +31,10 @@ type MerchantAccountUpdateRequest struct {
 	AssociatedIdentities []MerchantAssociatedIdentity `json:"associatedIdentities,omitempty"`
 	Underwriting NullableMerchantUnderwritingData `json:"underwriting,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _MerchantAccountUpdateRequest MerchantAccountUpdateRequest
 
 // NewMerchantAccountUpdateRequest instantiates a new MerchantAccountUpdateRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -50,100 +53,130 @@ func NewMerchantAccountUpdateRequestWithDefaults() *MerchantAccountUpdateRequest
 	return &this
 }
 
-// GetEnvironment returns the Environment field value if set, zero value otherwise.
+// GetEnvironment returns the Environment field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantAccountUpdateRequest) GetEnvironment() string {
-	if o == nil || IsNil(o.Environment) {
+	if o == nil || IsNil(o.Environment.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Environment
+	return *o.Environment.Get()
 }
 
 // GetEnvironmentOk returns a tuple with the Environment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAccountUpdateRequest) GetEnvironmentOk() (*string, bool) {
-	if o == nil || IsNil(o.Environment) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Environment, true
+	return o.Environment.Get(), o.Environment.IsSet()
 }
 
 // HasEnvironment returns a boolean if a field has been set.
 func (o *MerchantAccountUpdateRequest) HasEnvironment() bool {
-	if o != nil && !IsNil(o.Environment) {
+	if o != nil && o.Environment.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetEnvironment gets a reference to the given string and assigns it to the Environment field.
+// SetEnvironment gets a reference to the given NullableString and assigns it to the Environment field.
 func (o *MerchantAccountUpdateRequest) SetEnvironment(v string) {
-	o.Environment = &v
+	o.Environment.Set(&v)
+}
+// SetEnvironmentNil sets the value for Environment to be an explicit nil
+func (o *MerchantAccountUpdateRequest) SetEnvironmentNil() {
+	o.Environment.Set(nil)
 }
 
-// GetDisplayName returns the DisplayName field value if set, zero value otherwise.
+// UnsetEnvironment ensures that no value is present for Environment, not even an explicit nil
+func (o *MerchantAccountUpdateRequest) UnsetEnvironment() {
+	o.Environment.Unset()
+}
+
+// GetDisplayName returns the DisplayName field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantAccountUpdateRequest) GetDisplayName() string {
-	if o == nil || IsNil(o.DisplayName) {
+	if o == nil || IsNil(o.DisplayName.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.DisplayName
+	return *o.DisplayName.Get()
 }
 
 // GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAccountUpdateRequest) GetDisplayNameOk() (*string, bool) {
-	if o == nil || IsNil(o.DisplayName) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DisplayName, true
+	return o.DisplayName.Get(), o.DisplayName.IsSet()
 }
 
 // HasDisplayName returns a boolean if a field has been set.
 func (o *MerchantAccountUpdateRequest) HasDisplayName() bool {
-	if o != nil && !IsNil(o.DisplayName) {
+	if o != nil && o.DisplayName.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
+// SetDisplayName gets a reference to the given NullableString and assigns it to the DisplayName field.
 func (o *MerchantAccountUpdateRequest) SetDisplayName(v string) {
-	o.DisplayName = &v
+	o.DisplayName.Set(&v)
+}
+// SetDisplayNameNil sets the value for DisplayName to be an explicit nil
+func (o *MerchantAccountUpdateRequest) SetDisplayNameNil() {
+	o.DisplayName.Set(nil)
 }
 
-// GetMerchantMode returns the MerchantMode field value if set, zero value otherwise.
+// UnsetDisplayName ensures that no value is present for DisplayName, not even an explicit nil
+func (o *MerchantAccountUpdateRequest) UnsetDisplayName() {
+	o.DisplayName.Unset()
+}
+
+// GetMerchantMode returns the MerchantMode field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantAccountUpdateRequest) GetMerchantMode() string {
-	if o == nil || IsNil(o.MerchantMode) {
+	if o == nil || IsNil(o.MerchantMode.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.MerchantMode
+	return *o.MerchantMode.Get()
 }
 
 // GetMerchantModeOk returns a tuple with the MerchantMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAccountUpdateRequest) GetMerchantModeOk() (*string, bool) {
-	if o == nil || IsNil(o.MerchantMode) {
+	if o == nil {
 		return nil, false
 	}
-	return o.MerchantMode, true
+	return o.MerchantMode.Get(), o.MerchantMode.IsSet()
 }
 
 // HasMerchantMode returns a boolean if a field has been set.
 func (o *MerchantAccountUpdateRequest) HasMerchantMode() bool {
-	if o != nil && !IsNil(o.MerchantMode) {
+	if o != nil && o.MerchantMode.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetMerchantMode gets a reference to the given string and assigns it to the MerchantMode field.
+// SetMerchantMode gets a reference to the given NullableString and assigns it to the MerchantMode field.
 func (o *MerchantAccountUpdateRequest) SetMerchantMode(v string) {
-	o.MerchantMode = &v
+	o.MerchantMode.Set(&v)
+}
+// SetMerchantModeNil sets the value for MerchantMode to be an explicit nil
+func (o *MerchantAccountUpdateRequest) SetMerchantModeNil() {
+	o.MerchantMode.Set(nil)
+}
+
+// UnsetMerchantMode ensures that no value is present for MerchantMode, not even an explicit nil
+func (o *MerchantAccountUpdateRequest) UnsetMerchantMode() {
+	o.MerchantMode.Unset()
 }
 
 // GetBusinessPhone returns the BusinessPhone field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -516,14 +549,14 @@ func (o MerchantAccountUpdateRequest) MarshalJSON() ([]byte, error) {
 
 func (o MerchantAccountUpdateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Environment) {
-		toSerialize["environment"] = o.Environment
+	if o.Environment.IsSet() {
+		toSerialize["environment"] = o.Environment.Get()
 	}
-	if !IsNil(o.DisplayName) {
-		toSerialize["displayName"] = o.DisplayName
+	if o.DisplayName.IsSet() {
+		toSerialize["displayName"] = o.DisplayName.Get()
 	}
-	if !IsNil(o.MerchantMode) {
-		toSerialize["merchantMode"] = o.MerchantMode
+	if o.MerchantMode.IsSet() {
+		toSerialize["merchantMode"] = o.MerchantMode.Get()
 	}
 	if o.BusinessPhone.IsSet() {
 		toSerialize["businessPhone"] = o.BusinessPhone.Get()
@@ -552,7 +585,44 @@ func (o MerchantAccountUpdateRequest) ToMap() (map[string]interface{}, error) {
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *MerchantAccountUpdateRequest) UnmarshalJSON(data []byte) (err error) {
+	varMerchantAccountUpdateRequest := _MerchantAccountUpdateRequest{}
+
+	err = json.Unmarshal(data, &varMerchantAccountUpdateRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MerchantAccountUpdateRequest(varMerchantAccountUpdateRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "environment")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "merchantMode")
+		delete(additionalProperties, "businessPhone")
+		delete(additionalProperties, "mcc")
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "maxTransactionAmount")
+		delete(additionalProperties, "achMaxTransactionAmount")
+		delete(additionalProperties, "acceptsAch")
+		delete(additionalProperties, "associatedIdentities")
+		delete(additionalProperties, "underwriting")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableMerchantAccountUpdateRequest struct {

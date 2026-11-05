@@ -19,9 +19,12 @@ var _ MappedNullable = &InvoiceVoidRequest{}
 
 // InvoiceVoidRequest struct for InvoiceVoidRequest
 type InvoiceVoidRequest struct {
-	VoidedByRef *string `json:"voidedByRef,omitempty"`
-	Reason *string `json:"reason,omitempty"`
+	VoidedByRef NullableString `json:"voidedByRef,omitempty"`
+	Reason NullableString `json:"reason,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _InvoiceVoidRequest InvoiceVoidRequest
 
 // NewInvoiceVoidRequest instantiates a new InvoiceVoidRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -40,68 +43,88 @@ func NewInvoiceVoidRequestWithDefaults() *InvoiceVoidRequest {
 	return &this
 }
 
-// GetVoidedByRef returns the VoidedByRef field value if set, zero value otherwise.
+// GetVoidedByRef returns the VoidedByRef field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *InvoiceVoidRequest) GetVoidedByRef() string {
-	if o == nil || IsNil(o.VoidedByRef) {
+	if o == nil || IsNil(o.VoidedByRef.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.VoidedByRef
+	return *o.VoidedByRef.Get()
 }
 
 // GetVoidedByRefOk returns a tuple with the VoidedByRef field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *InvoiceVoidRequest) GetVoidedByRefOk() (*string, bool) {
-	if o == nil || IsNil(o.VoidedByRef) {
+	if o == nil {
 		return nil, false
 	}
-	return o.VoidedByRef, true
+	return o.VoidedByRef.Get(), o.VoidedByRef.IsSet()
 }
 
 // HasVoidedByRef returns a boolean if a field has been set.
 func (o *InvoiceVoidRequest) HasVoidedByRef() bool {
-	if o != nil && !IsNil(o.VoidedByRef) {
+	if o != nil && o.VoidedByRef.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetVoidedByRef gets a reference to the given string and assigns it to the VoidedByRef field.
+// SetVoidedByRef gets a reference to the given NullableString and assigns it to the VoidedByRef field.
 func (o *InvoiceVoidRequest) SetVoidedByRef(v string) {
-	o.VoidedByRef = &v
+	o.VoidedByRef.Set(&v)
+}
+// SetVoidedByRefNil sets the value for VoidedByRef to be an explicit nil
+func (o *InvoiceVoidRequest) SetVoidedByRefNil() {
+	o.VoidedByRef.Set(nil)
 }
 
-// GetReason returns the Reason field value if set, zero value otherwise.
+// UnsetVoidedByRef ensures that no value is present for VoidedByRef, not even an explicit nil
+func (o *InvoiceVoidRequest) UnsetVoidedByRef() {
+	o.VoidedByRef.Unset()
+}
+
+// GetReason returns the Reason field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *InvoiceVoidRequest) GetReason() string {
-	if o == nil || IsNil(o.Reason) {
+	if o == nil || IsNil(o.Reason.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Reason
+	return *o.Reason.Get()
 }
 
 // GetReasonOk returns a tuple with the Reason field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *InvoiceVoidRequest) GetReasonOk() (*string, bool) {
-	if o == nil || IsNil(o.Reason) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Reason, true
+	return o.Reason.Get(), o.Reason.IsSet()
 }
 
 // HasReason returns a boolean if a field has been set.
 func (o *InvoiceVoidRequest) HasReason() bool {
-	if o != nil && !IsNil(o.Reason) {
+	if o != nil && o.Reason.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetReason gets a reference to the given string and assigns it to the Reason field.
+// SetReason gets a reference to the given NullableString and assigns it to the Reason field.
 func (o *InvoiceVoidRequest) SetReason(v string) {
-	o.Reason = &v
+	o.Reason.Set(&v)
+}
+// SetReasonNil sets the value for Reason to be an explicit nil
+func (o *InvoiceVoidRequest) SetReasonNil() {
+	o.Reason.Set(nil)
+}
+
+// UnsetReason ensures that no value is present for Reason, not even an explicit nil
+func (o *InvoiceVoidRequest) UnsetReason() {
+	o.Reason.Unset()
 }
 
 func (o InvoiceVoidRequest) MarshalJSON() ([]byte, error) {
@@ -114,13 +137,40 @@ func (o InvoiceVoidRequest) MarshalJSON() ([]byte, error) {
 
 func (o InvoiceVoidRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.VoidedByRef) {
-		toSerialize["voidedByRef"] = o.VoidedByRef
+	if o.VoidedByRef.IsSet() {
+		toSerialize["voidedByRef"] = o.VoidedByRef.Get()
 	}
-	if !IsNil(o.Reason) {
-		toSerialize["reason"] = o.Reason
+	if o.Reason.IsSet() {
+		toSerialize["reason"] = o.Reason.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *InvoiceVoidRequest) UnmarshalJSON(data []byte) (err error) {
+	varInvoiceVoidRequest := _InvoiceVoidRequest{}
+
+	err = json.Unmarshal(data, &varInvoiceVoidRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = InvoiceVoidRequest(varInvoiceVoidRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "voidedByRef")
+		delete(additionalProperties, "reason")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableInvoiceVoidRequest struct {

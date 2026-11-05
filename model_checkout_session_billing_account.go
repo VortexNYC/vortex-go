@@ -19,17 +19,20 @@ var _ MappedNullable = &CheckoutSessionBillingAccount{}
 
 // CheckoutSessionBillingAccount Inline billing-account create block for mode=subscription (mutually exclusive with billingAccountId). Omitted entirely, the session resolves the customer's first account or auto-provisions a default manual/api_only one.
 type CheckoutSessionBillingAccount struct {
-	BillingAccountId *string `json:"billingAccountId,omitempty"`
-	InvoiceDeliveryMode *string `json:"invoiceDeliveryMode,omitempty"`
-	CollectionMode *string `json:"collectionMode,omitempty"`
-	AutoCollectionEnabled *bool `json:"autoCollectionEnabled,omitempty"`
-	CustomerProfileId *string `json:"customerProfileId,omitempty"`
-	DefaultPaymentMethodId *string `json:"defaultPaymentMethodId,omitempty"`
+	BillingAccountId NullableString `json:"billingAccountId,omitempty"`
+	InvoiceDeliveryMode NullableString `json:"invoiceDeliveryMode,omitempty"`
+	CollectionMode NullableString `json:"collectionMode,omitempty"`
+	AutoCollectionEnabled NullableBool `json:"autoCollectionEnabled,omitempty"`
+	CustomerProfileId NullableString `json:"customerProfileId,omitempty"`
+	DefaultPaymentMethodId NullableString `json:"defaultPaymentMethodId,omitempty"`
 	RenewalTiming *string `json:"renewalTiming,omitempty"`
 	NetTermsDays *int32 `json:"netTermsDays,omitempty"`
-	DunningCampaignId *string `json:"dunningCampaignId,omitempty"`
+	DunningCampaignId NullableString `json:"dunningCampaignId,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CheckoutSessionBillingAccount CheckoutSessionBillingAccount
 
 // NewCheckoutSessionBillingAccount instantiates a new CheckoutSessionBillingAccount object
 // This constructor will assign default values to properties that have it defined,
@@ -48,196 +51,256 @@ func NewCheckoutSessionBillingAccountWithDefaults() *CheckoutSessionBillingAccou
 	return &this
 }
 
-// GetBillingAccountId returns the BillingAccountId field value if set, zero value otherwise.
+// GetBillingAccountId returns the BillingAccountId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CheckoutSessionBillingAccount) GetBillingAccountId() string {
-	if o == nil || IsNil(o.BillingAccountId) {
+	if o == nil || IsNil(o.BillingAccountId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.BillingAccountId
+	return *o.BillingAccountId.Get()
 }
 
 // GetBillingAccountIdOk returns a tuple with the BillingAccountId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CheckoutSessionBillingAccount) GetBillingAccountIdOk() (*string, bool) {
-	if o == nil || IsNil(o.BillingAccountId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.BillingAccountId, true
+	return o.BillingAccountId.Get(), o.BillingAccountId.IsSet()
 }
 
 // HasBillingAccountId returns a boolean if a field has been set.
 func (o *CheckoutSessionBillingAccount) HasBillingAccountId() bool {
-	if o != nil && !IsNil(o.BillingAccountId) {
+	if o != nil && o.BillingAccountId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetBillingAccountId gets a reference to the given string and assigns it to the BillingAccountId field.
+// SetBillingAccountId gets a reference to the given NullableString and assigns it to the BillingAccountId field.
 func (o *CheckoutSessionBillingAccount) SetBillingAccountId(v string) {
-	o.BillingAccountId = &v
+	o.BillingAccountId.Set(&v)
+}
+// SetBillingAccountIdNil sets the value for BillingAccountId to be an explicit nil
+func (o *CheckoutSessionBillingAccount) SetBillingAccountIdNil() {
+	o.BillingAccountId.Set(nil)
 }
 
-// GetInvoiceDeliveryMode returns the InvoiceDeliveryMode field value if set, zero value otherwise.
+// UnsetBillingAccountId ensures that no value is present for BillingAccountId, not even an explicit nil
+func (o *CheckoutSessionBillingAccount) UnsetBillingAccountId() {
+	o.BillingAccountId.Unset()
+}
+
+// GetInvoiceDeliveryMode returns the InvoiceDeliveryMode field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CheckoutSessionBillingAccount) GetInvoiceDeliveryMode() string {
-	if o == nil || IsNil(o.InvoiceDeliveryMode) {
+	if o == nil || IsNil(o.InvoiceDeliveryMode.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.InvoiceDeliveryMode
+	return *o.InvoiceDeliveryMode.Get()
 }
 
 // GetInvoiceDeliveryModeOk returns a tuple with the InvoiceDeliveryMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CheckoutSessionBillingAccount) GetInvoiceDeliveryModeOk() (*string, bool) {
-	if o == nil || IsNil(o.InvoiceDeliveryMode) {
+	if o == nil {
 		return nil, false
 	}
-	return o.InvoiceDeliveryMode, true
+	return o.InvoiceDeliveryMode.Get(), o.InvoiceDeliveryMode.IsSet()
 }
 
 // HasInvoiceDeliveryMode returns a boolean if a field has been set.
 func (o *CheckoutSessionBillingAccount) HasInvoiceDeliveryMode() bool {
-	if o != nil && !IsNil(o.InvoiceDeliveryMode) {
+	if o != nil && o.InvoiceDeliveryMode.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetInvoiceDeliveryMode gets a reference to the given string and assigns it to the InvoiceDeliveryMode field.
+// SetInvoiceDeliveryMode gets a reference to the given NullableString and assigns it to the InvoiceDeliveryMode field.
 func (o *CheckoutSessionBillingAccount) SetInvoiceDeliveryMode(v string) {
-	o.InvoiceDeliveryMode = &v
+	o.InvoiceDeliveryMode.Set(&v)
+}
+// SetInvoiceDeliveryModeNil sets the value for InvoiceDeliveryMode to be an explicit nil
+func (o *CheckoutSessionBillingAccount) SetInvoiceDeliveryModeNil() {
+	o.InvoiceDeliveryMode.Set(nil)
 }
 
-// GetCollectionMode returns the CollectionMode field value if set, zero value otherwise.
+// UnsetInvoiceDeliveryMode ensures that no value is present for InvoiceDeliveryMode, not even an explicit nil
+func (o *CheckoutSessionBillingAccount) UnsetInvoiceDeliveryMode() {
+	o.InvoiceDeliveryMode.Unset()
+}
+
+// GetCollectionMode returns the CollectionMode field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CheckoutSessionBillingAccount) GetCollectionMode() string {
-	if o == nil || IsNil(o.CollectionMode) {
+	if o == nil || IsNil(o.CollectionMode.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CollectionMode
+	return *o.CollectionMode.Get()
 }
 
 // GetCollectionModeOk returns a tuple with the CollectionMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CheckoutSessionBillingAccount) GetCollectionModeOk() (*string, bool) {
-	if o == nil || IsNil(o.CollectionMode) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CollectionMode, true
+	return o.CollectionMode.Get(), o.CollectionMode.IsSet()
 }
 
 // HasCollectionMode returns a boolean if a field has been set.
 func (o *CheckoutSessionBillingAccount) HasCollectionMode() bool {
-	if o != nil && !IsNil(o.CollectionMode) {
+	if o != nil && o.CollectionMode.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCollectionMode gets a reference to the given string and assigns it to the CollectionMode field.
+// SetCollectionMode gets a reference to the given NullableString and assigns it to the CollectionMode field.
 func (o *CheckoutSessionBillingAccount) SetCollectionMode(v string) {
-	o.CollectionMode = &v
+	o.CollectionMode.Set(&v)
+}
+// SetCollectionModeNil sets the value for CollectionMode to be an explicit nil
+func (o *CheckoutSessionBillingAccount) SetCollectionModeNil() {
+	o.CollectionMode.Set(nil)
 }
 
-// GetAutoCollectionEnabled returns the AutoCollectionEnabled field value if set, zero value otherwise.
+// UnsetCollectionMode ensures that no value is present for CollectionMode, not even an explicit nil
+func (o *CheckoutSessionBillingAccount) UnsetCollectionMode() {
+	o.CollectionMode.Unset()
+}
+
+// GetAutoCollectionEnabled returns the AutoCollectionEnabled field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CheckoutSessionBillingAccount) GetAutoCollectionEnabled() bool {
-	if o == nil || IsNil(o.AutoCollectionEnabled) {
+	if o == nil || IsNil(o.AutoCollectionEnabled.Get()) {
 		var ret bool
 		return ret
 	}
-	return *o.AutoCollectionEnabled
+	return *o.AutoCollectionEnabled.Get()
 }
 
 // GetAutoCollectionEnabledOk returns a tuple with the AutoCollectionEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CheckoutSessionBillingAccount) GetAutoCollectionEnabledOk() (*bool, bool) {
-	if o == nil || IsNil(o.AutoCollectionEnabled) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AutoCollectionEnabled, true
+	return o.AutoCollectionEnabled.Get(), o.AutoCollectionEnabled.IsSet()
 }
 
 // HasAutoCollectionEnabled returns a boolean if a field has been set.
 func (o *CheckoutSessionBillingAccount) HasAutoCollectionEnabled() bool {
-	if o != nil && !IsNil(o.AutoCollectionEnabled) {
+	if o != nil && o.AutoCollectionEnabled.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetAutoCollectionEnabled gets a reference to the given bool and assigns it to the AutoCollectionEnabled field.
+// SetAutoCollectionEnabled gets a reference to the given NullableBool and assigns it to the AutoCollectionEnabled field.
 func (o *CheckoutSessionBillingAccount) SetAutoCollectionEnabled(v bool) {
-	o.AutoCollectionEnabled = &v
+	o.AutoCollectionEnabled.Set(&v)
+}
+// SetAutoCollectionEnabledNil sets the value for AutoCollectionEnabled to be an explicit nil
+func (o *CheckoutSessionBillingAccount) SetAutoCollectionEnabledNil() {
+	o.AutoCollectionEnabled.Set(nil)
 }
 
-// GetCustomerProfileId returns the CustomerProfileId field value if set, zero value otherwise.
+// UnsetAutoCollectionEnabled ensures that no value is present for AutoCollectionEnabled, not even an explicit nil
+func (o *CheckoutSessionBillingAccount) UnsetAutoCollectionEnabled() {
+	o.AutoCollectionEnabled.Unset()
+}
+
+// GetCustomerProfileId returns the CustomerProfileId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CheckoutSessionBillingAccount) GetCustomerProfileId() string {
-	if o == nil || IsNil(o.CustomerProfileId) {
+	if o == nil || IsNil(o.CustomerProfileId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CustomerProfileId
+	return *o.CustomerProfileId.Get()
 }
 
 // GetCustomerProfileIdOk returns a tuple with the CustomerProfileId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CheckoutSessionBillingAccount) GetCustomerProfileIdOk() (*string, bool) {
-	if o == nil || IsNil(o.CustomerProfileId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CustomerProfileId, true
+	return o.CustomerProfileId.Get(), o.CustomerProfileId.IsSet()
 }
 
 // HasCustomerProfileId returns a boolean if a field has been set.
 func (o *CheckoutSessionBillingAccount) HasCustomerProfileId() bool {
-	if o != nil && !IsNil(o.CustomerProfileId) {
+	if o != nil && o.CustomerProfileId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCustomerProfileId gets a reference to the given string and assigns it to the CustomerProfileId field.
+// SetCustomerProfileId gets a reference to the given NullableString and assigns it to the CustomerProfileId field.
 func (o *CheckoutSessionBillingAccount) SetCustomerProfileId(v string) {
-	o.CustomerProfileId = &v
+	o.CustomerProfileId.Set(&v)
+}
+// SetCustomerProfileIdNil sets the value for CustomerProfileId to be an explicit nil
+func (o *CheckoutSessionBillingAccount) SetCustomerProfileIdNil() {
+	o.CustomerProfileId.Set(nil)
 }
 
-// GetDefaultPaymentMethodId returns the DefaultPaymentMethodId field value if set, zero value otherwise.
+// UnsetCustomerProfileId ensures that no value is present for CustomerProfileId, not even an explicit nil
+func (o *CheckoutSessionBillingAccount) UnsetCustomerProfileId() {
+	o.CustomerProfileId.Unset()
+}
+
+// GetDefaultPaymentMethodId returns the DefaultPaymentMethodId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CheckoutSessionBillingAccount) GetDefaultPaymentMethodId() string {
-	if o == nil || IsNil(o.DefaultPaymentMethodId) {
+	if o == nil || IsNil(o.DefaultPaymentMethodId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.DefaultPaymentMethodId
+	return *o.DefaultPaymentMethodId.Get()
 }
 
 // GetDefaultPaymentMethodIdOk returns a tuple with the DefaultPaymentMethodId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CheckoutSessionBillingAccount) GetDefaultPaymentMethodIdOk() (*string, bool) {
-	if o == nil || IsNil(o.DefaultPaymentMethodId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DefaultPaymentMethodId, true
+	return o.DefaultPaymentMethodId.Get(), o.DefaultPaymentMethodId.IsSet()
 }
 
 // HasDefaultPaymentMethodId returns a boolean if a field has been set.
 func (o *CheckoutSessionBillingAccount) HasDefaultPaymentMethodId() bool {
-	if o != nil && !IsNil(o.DefaultPaymentMethodId) {
+	if o != nil && o.DefaultPaymentMethodId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDefaultPaymentMethodId gets a reference to the given string and assigns it to the DefaultPaymentMethodId field.
+// SetDefaultPaymentMethodId gets a reference to the given NullableString and assigns it to the DefaultPaymentMethodId field.
 func (o *CheckoutSessionBillingAccount) SetDefaultPaymentMethodId(v string) {
-	o.DefaultPaymentMethodId = &v
+	o.DefaultPaymentMethodId.Set(&v)
+}
+// SetDefaultPaymentMethodIdNil sets the value for DefaultPaymentMethodId to be an explicit nil
+func (o *CheckoutSessionBillingAccount) SetDefaultPaymentMethodIdNil() {
+	o.DefaultPaymentMethodId.Set(nil)
+}
+
+// UnsetDefaultPaymentMethodId ensures that no value is present for DefaultPaymentMethodId, not even an explicit nil
+func (o *CheckoutSessionBillingAccount) UnsetDefaultPaymentMethodId() {
+	o.DefaultPaymentMethodId.Unset()
 }
 
 // GetRenewalTiming returns the RenewalTiming field value if set, zero value otherwise.
@@ -304,41 +367,51 @@ func (o *CheckoutSessionBillingAccount) SetNetTermsDays(v int32) {
 	o.NetTermsDays = &v
 }
 
-// GetDunningCampaignId returns the DunningCampaignId field value if set, zero value otherwise.
+// GetDunningCampaignId returns the DunningCampaignId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CheckoutSessionBillingAccount) GetDunningCampaignId() string {
-	if o == nil || IsNil(o.DunningCampaignId) {
+	if o == nil || IsNil(o.DunningCampaignId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.DunningCampaignId
+	return *o.DunningCampaignId.Get()
 }
 
 // GetDunningCampaignIdOk returns a tuple with the DunningCampaignId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CheckoutSessionBillingAccount) GetDunningCampaignIdOk() (*string, bool) {
-	if o == nil || IsNil(o.DunningCampaignId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DunningCampaignId, true
+	return o.DunningCampaignId.Get(), o.DunningCampaignId.IsSet()
 }
 
 // HasDunningCampaignId returns a boolean if a field has been set.
 func (o *CheckoutSessionBillingAccount) HasDunningCampaignId() bool {
-	if o != nil && !IsNil(o.DunningCampaignId) {
+	if o != nil && o.DunningCampaignId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDunningCampaignId gets a reference to the given string and assigns it to the DunningCampaignId field.
+// SetDunningCampaignId gets a reference to the given NullableString and assigns it to the DunningCampaignId field.
 func (o *CheckoutSessionBillingAccount) SetDunningCampaignId(v string) {
-	o.DunningCampaignId = &v
+	o.DunningCampaignId.Set(&v)
+}
+// SetDunningCampaignIdNil sets the value for DunningCampaignId to be an explicit nil
+func (o *CheckoutSessionBillingAccount) SetDunningCampaignIdNil() {
+	o.DunningCampaignId.Set(nil)
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// UnsetDunningCampaignId ensures that no value is present for DunningCampaignId, not even an explicit nil
+func (o *CheckoutSessionBillingAccount) UnsetDunningCampaignId() {
+	o.DunningCampaignId.Unset()
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CheckoutSessionBillingAccount) GetMetadata() map[string]string {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -347,6 +420,7 @@ func (o *CheckoutSessionBillingAccount) GetMetadata() map[string]string {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CheckoutSessionBillingAccount) GetMetadataOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return map[string]string{}, false
@@ -378,23 +452,23 @@ func (o CheckoutSessionBillingAccount) MarshalJSON() ([]byte, error) {
 
 func (o CheckoutSessionBillingAccount) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.BillingAccountId) {
-		toSerialize["billingAccountId"] = o.BillingAccountId
+	if o.BillingAccountId.IsSet() {
+		toSerialize["billingAccountId"] = o.BillingAccountId.Get()
 	}
-	if !IsNil(o.InvoiceDeliveryMode) {
-		toSerialize["invoiceDeliveryMode"] = o.InvoiceDeliveryMode
+	if o.InvoiceDeliveryMode.IsSet() {
+		toSerialize["invoiceDeliveryMode"] = o.InvoiceDeliveryMode.Get()
 	}
-	if !IsNil(o.CollectionMode) {
-		toSerialize["collectionMode"] = o.CollectionMode
+	if o.CollectionMode.IsSet() {
+		toSerialize["collectionMode"] = o.CollectionMode.Get()
 	}
-	if !IsNil(o.AutoCollectionEnabled) {
-		toSerialize["autoCollectionEnabled"] = o.AutoCollectionEnabled
+	if o.AutoCollectionEnabled.IsSet() {
+		toSerialize["autoCollectionEnabled"] = o.AutoCollectionEnabled.Get()
 	}
-	if !IsNil(o.CustomerProfileId) {
-		toSerialize["customerProfileId"] = o.CustomerProfileId
+	if o.CustomerProfileId.IsSet() {
+		toSerialize["customerProfileId"] = o.CustomerProfileId.Get()
 	}
-	if !IsNil(o.DefaultPaymentMethodId) {
-		toSerialize["defaultPaymentMethodId"] = o.DefaultPaymentMethodId
+	if o.DefaultPaymentMethodId.IsSet() {
+		toSerialize["defaultPaymentMethodId"] = o.DefaultPaymentMethodId.Get()
 	}
 	if !IsNil(o.RenewalTiming) {
 		toSerialize["renewalTiming"] = o.RenewalTiming
@@ -402,13 +476,48 @@ func (o CheckoutSessionBillingAccount) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.NetTermsDays) {
 		toSerialize["netTermsDays"] = o.NetTermsDays
 	}
-	if !IsNil(o.DunningCampaignId) {
-		toSerialize["dunningCampaignId"] = o.DunningCampaignId
+	if o.DunningCampaignId.IsSet() {
+		toSerialize["dunningCampaignId"] = o.DunningCampaignId.Get()
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CheckoutSessionBillingAccount) UnmarshalJSON(data []byte) (err error) {
+	varCheckoutSessionBillingAccount := _CheckoutSessionBillingAccount{}
+
+	err = json.Unmarshal(data, &varCheckoutSessionBillingAccount)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CheckoutSessionBillingAccount(varCheckoutSessionBillingAccount)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "billingAccountId")
+		delete(additionalProperties, "invoiceDeliveryMode")
+		delete(additionalProperties, "collectionMode")
+		delete(additionalProperties, "autoCollectionEnabled")
+		delete(additionalProperties, "customerProfileId")
+		delete(additionalProperties, "defaultPaymentMethodId")
+		delete(additionalProperties, "renewalTiming")
+		delete(additionalProperties, "netTermsDays")
+		delete(additionalProperties, "dunningCampaignId")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCheckoutSessionBillingAccount struct {

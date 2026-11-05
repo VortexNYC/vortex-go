@@ -23,7 +23,7 @@ var _ MappedNullable = &StorefrontCatalogResponseData{}
 type StorefrontCatalogResponseData struct {
 	Items []StorefrontProductSnapshot `json:"items"`
 	Total int32 `json:"total"`
-	HasMore bool `json:"hasMore"`
+	HasMore NullableBool `json:"hasMore"`
 	NextOffset *int32 `json:"nextOffset,omitempty"`
 }
 
@@ -33,7 +33,7 @@ type _StorefrontCatalogResponseData StorefrontCatalogResponseData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStorefrontCatalogResponseData(items []StorefrontProductSnapshot, total int32, hasMore bool) *StorefrontCatalogResponseData {
+func NewStorefrontCatalogResponseData(items []StorefrontProductSnapshot, total int32, hasMore NullableBool) *StorefrontCatalogResponseData {
 	this := StorefrontCatalogResponseData{}
 	this.Items = items
 	this.Total = total
@@ -98,27 +98,29 @@ func (o *StorefrontCatalogResponseData) SetTotal(v int32) {
 }
 
 // GetHasMore returns the HasMore field value
+// If the value is explicit nil, the zero value for bool will be returned
 func (o *StorefrontCatalogResponseData) GetHasMore() bool {
-	if o == nil {
+	if o == nil || o.HasMore.Get() == nil {
 		var ret bool
 		return ret
 	}
 
-	return o.HasMore
+	return *o.HasMore.Get()
 }
 
 // GetHasMoreOk returns a tuple with the HasMore field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *StorefrontCatalogResponseData) GetHasMoreOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.HasMore, true
+	return o.HasMore.Get(), o.HasMore.IsSet()
 }
 
 // SetHasMore sets field value
 func (o *StorefrontCatalogResponseData) SetHasMore(v bool) {
-	o.HasMore = v
+	o.HasMore.Set(&v)
 }
 
 // GetNextOffset returns the NextOffset field value if set, zero value otherwise.
@@ -165,7 +167,7 @@ func (o StorefrontCatalogResponseData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["items"] = o.Items
 	toSerialize["total"] = o.Total
-	toSerialize["hasMore"] = o.HasMore
+	toSerialize["hasMore"] = o.HasMore.Get()
 	if !IsNil(o.NextOffset) {
 		toSerialize["nextOffset"] = o.NextOffset
 	}

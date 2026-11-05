@@ -20,7 +20,7 @@ var _ MappedNullable = &MerchantFacingComparison{}
 
 // MerchantFacingComparison Published-rate comparison only — no platform margin or personalized pricing.
 type MerchantFacingComparison struct {
-	IsEstimate bool `json:"isEstimate"`
+	IsEstimate NullableBool `json:"isEstimate"`
 	Channel string `json:"channel"`
 	MonthlyVolumeCents int32 `json:"monthlyVolumeCents"`
 	MonthlyTransactions int32 `json:"monthlyTransactions"`
@@ -28,7 +28,7 @@ type MerchantFacingComparison struct {
 	Vortex MerchantFacingComparisonVortex `json:"vortex"`
 	MarketDefault MerchantFacingComparisonMarketDefault `json:"marketDefault"`
 	EstimatedAnnualSavingsCents int32 `json:"estimatedAnnualSavingsCents"`
-	BenchmarkedAt string `json:"benchmarkedAt"`
+	BenchmarkedAt NullableString `json:"benchmarkedAt"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -38,7 +38,7 @@ type _MerchantFacingComparison MerchantFacingComparison
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantFacingComparison(isEstimate bool, channel string, monthlyVolumeCents int32, monthlyTransactions int32, current MerchantFacingComparisonCurrent, vortex MerchantFacingComparisonVortex, marketDefault MerchantFacingComparisonMarketDefault, estimatedAnnualSavingsCents int32, benchmarkedAt string) *MerchantFacingComparison {
+func NewMerchantFacingComparison(isEstimate NullableBool, channel string, monthlyVolumeCents int32, monthlyTransactions int32, current MerchantFacingComparisonCurrent, vortex MerchantFacingComparisonVortex, marketDefault MerchantFacingComparisonMarketDefault, estimatedAnnualSavingsCents int32, benchmarkedAt NullableString) *MerchantFacingComparison {
 	this := MerchantFacingComparison{}
 	this.IsEstimate = isEstimate
 	this.Channel = channel
@@ -61,27 +61,29 @@ func NewMerchantFacingComparisonWithDefaults() *MerchantFacingComparison {
 }
 
 // GetIsEstimate returns the IsEstimate field value
+// If the value is explicit nil, the zero value for bool will be returned
 func (o *MerchantFacingComparison) GetIsEstimate() bool {
-	if o == nil {
+	if o == nil || o.IsEstimate.Get() == nil {
 		var ret bool
 		return ret
 	}
 
-	return o.IsEstimate
+	return *o.IsEstimate.Get()
 }
 
 // GetIsEstimateOk returns a tuple with the IsEstimate field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantFacingComparison) GetIsEstimateOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.IsEstimate, true
+	return o.IsEstimate.Get(), o.IsEstimate.IsSet()
 }
 
 // SetIsEstimate sets field value
 func (o *MerchantFacingComparison) SetIsEstimate(v bool) {
-	o.IsEstimate = v
+	o.IsEstimate.Set(&v)
 }
 
 // GetChannel returns the Channel field value
@@ -253,27 +255,29 @@ func (o *MerchantFacingComparison) SetEstimatedAnnualSavingsCents(v int32) {
 }
 
 // GetBenchmarkedAt returns the BenchmarkedAt field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantFacingComparison) GetBenchmarkedAt() string {
-	if o == nil {
+	if o == nil || o.BenchmarkedAt.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.BenchmarkedAt
+	return *o.BenchmarkedAt.Get()
 }
 
 // GetBenchmarkedAtOk returns a tuple with the BenchmarkedAt field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantFacingComparison) GetBenchmarkedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.BenchmarkedAt, true
+	return o.BenchmarkedAt.Get(), o.BenchmarkedAt.IsSet()
 }
 
 // SetBenchmarkedAt sets field value
 func (o *MerchantFacingComparison) SetBenchmarkedAt(v string) {
-	o.BenchmarkedAt = v
+	o.BenchmarkedAt.Set(&v)
 }
 
 func (o MerchantFacingComparison) MarshalJSON() ([]byte, error) {
@@ -286,7 +290,7 @@ func (o MerchantFacingComparison) MarshalJSON() ([]byte, error) {
 
 func (o MerchantFacingComparison) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["isEstimate"] = o.IsEstimate
+	toSerialize["isEstimate"] = o.IsEstimate.Get()
 	toSerialize["channel"] = o.Channel
 	toSerialize["monthlyVolumeCents"] = o.MonthlyVolumeCents
 	toSerialize["monthlyTransactions"] = o.MonthlyTransactions
@@ -294,7 +298,7 @@ func (o MerchantFacingComparison) ToMap() (map[string]interface{}, error) {
 	toSerialize["vortex"] = o.Vortex
 	toSerialize["marketDefault"] = o.MarketDefault
 	toSerialize["estimatedAnnualSavingsCents"] = o.EstimatedAnnualSavingsCents
-	toSerialize["benchmarkedAt"] = o.BenchmarkedAt
+	toSerialize["benchmarkedAt"] = o.BenchmarkedAt.Get()
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -22,10 +21,11 @@ var _ MappedNullable = &WebhookEndpointCreateRequest{}
 // WebhookEndpointCreateRequest struct for WebhookEndpointCreateRequest
 type WebhookEndpointCreateRequest struct {
 	Url string `json:"url"`
-	Description *string `json:"description,omitempty"`
+	Description NullableString `json:"description,omitempty"`
 	EventTypes []string `json:"eventTypes"`
 	// Delivery scope. Omit for the ordinary per-merchant scope (events owned by this merchant account). `platform` is only valid on an operator-activated platform account and receives events owned by its linked sub-merchants.
 	Scope *string `json:"scope,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _WebhookEndpointCreateRequest WebhookEndpointCreateRequest
@@ -73,36 +73,46 @@ func (o *WebhookEndpointCreateRequest) SetUrl(v string) {
 	o.Url = v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *WebhookEndpointCreateRequest) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+	if o == nil || IsNil(o.Description.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Description
+	return *o.Description.Get()
 }
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *WebhookEndpointCreateRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return o.Description.Get(), o.Description.IsSet()
 }
 
 // HasDescription returns a boolean if a field has been set.
 func (o *WebhookEndpointCreateRequest) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
+	if o != nil && o.Description.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription gets a reference to the given NullableString and assigns it to the Description field.
 func (o *WebhookEndpointCreateRequest) SetDescription(v string) {
-	o.Description = &v
+	o.Description.Set(&v)
+}
+// SetDescriptionNil sets the value for Description to be an explicit nil
+func (o *WebhookEndpointCreateRequest) SetDescriptionNil() {
+	o.Description.Set(nil)
+}
+
+// UnsetDescription ensures that no value is present for Description, not even an explicit nil
+func (o *WebhookEndpointCreateRequest) UnsetDescription() {
+	o.Description.Unset()
 }
 
 // GetEventTypes returns the EventTypes field value
@@ -172,13 +182,18 @@ func (o WebhookEndpointCreateRequest) MarshalJSON() ([]byte, error) {
 func (o WebhookEndpointCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["url"] = o.Url
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
+	if o.Description.IsSet() {
+		toSerialize["description"] = o.Description.Get()
 	}
 	toSerialize["eventTypes"] = o.EventTypes
 	if !IsNil(o.Scope) {
 		toSerialize["scope"] = o.Scope
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -207,15 +222,23 @@ func (o *WebhookEndpointCreateRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varWebhookEndpointCreateRequest := _WebhookEndpointCreateRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varWebhookEndpointCreateRequest)
+	err = json.Unmarshal(data, &varWebhookEndpointCreateRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = WebhookEndpointCreateRequest(varWebhookEndpointCreateRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "eventTypes")
+		delete(additionalProperties, "scope")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

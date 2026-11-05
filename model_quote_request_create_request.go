@@ -20,7 +20,7 @@ var _ MappedNullable = &QuoteRequestCreateRequest{}
 
 // QuoteRequestCreateRequest Queue a human-priced quote on a stored comparison. Anonymous; a fresh write may require an `x-captcha-response` token.
 type QuoteRequestCreateRequest struct {
-	ComparisonId string `json:"comparisonId"`
+	ComparisonId NullableString `json:"comparisonId"`
 	ContactEmail string `json:"contactEmail"`
 	ContactName *string `json:"contactName,omitempty"`
 	Note *string `json:"note,omitempty"`
@@ -34,7 +34,7 @@ type _QuoteRequestCreateRequest QuoteRequestCreateRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewQuoteRequestCreateRequest(comparisonId string, contactEmail string) *QuoteRequestCreateRequest {
+func NewQuoteRequestCreateRequest(comparisonId NullableString, contactEmail string) *QuoteRequestCreateRequest {
 	this := QuoteRequestCreateRequest{}
 	this.ComparisonId = comparisonId
 	this.ContactEmail = contactEmail
@@ -50,27 +50,29 @@ func NewQuoteRequestCreateRequestWithDefaults() *QuoteRequestCreateRequest {
 }
 
 // GetComparisonId returns the ComparisonId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *QuoteRequestCreateRequest) GetComparisonId() string {
-	if o == nil {
+	if o == nil || o.ComparisonId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.ComparisonId
+	return *o.ComparisonId.Get()
 }
 
 // GetComparisonIdOk returns a tuple with the ComparisonId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *QuoteRequestCreateRequest) GetComparisonIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ComparisonId, true
+	return o.ComparisonId.Get(), o.ComparisonId.IsSet()
 }
 
 // SetComparisonId sets field value
 func (o *QuoteRequestCreateRequest) SetComparisonId(v string) {
-	o.ComparisonId = v
+	o.ComparisonId.Set(&v)
 }
 
 // GetContactEmail returns the ContactEmail field value
@@ -203,7 +205,7 @@ func (o QuoteRequestCreateRequest) MarshalJSON() ([]byte, error) {
 
 func (o QuoteRequestCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["comparisonId"] = o.ComparisonId
+	toSerialize["comparisonId"] = o.ComparisonId.Get()
 	toSerialize["contactEmail"] = o.ContactEmail
 	if !IsNil(o.ContactName) {
 		toSerialize["contactName"] = o.ContactName

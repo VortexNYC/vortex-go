@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,8 +20,9 @@ var _ MappedNullable = &CheckoutSessionLineItemRequest{}
 
 // CheckoutSessionLineItemRequest struct for CheckoutSessionLineItemRequest
 type CheckoutSessionLineItemRequest struct {
-	PriceId string `json:"priceId"`
+	PriceId NullableString `json:"priceId"`
 	Quantity *int32 `json:"quantity,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CheckoutSessionLineItemRequest CheckoutSessionLineItemRequest
@@ -31,7 +31,7 @@ type _CheckoutSessionLineItemRequest CheckoutSessionLineItemRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCheckoutSessionLineItemRequest(priceId string) *CheckoutSessionLineItemRequest {
+func NewCheckoutSessionLineItemRequest(priceId NullableString) *CheckoutSessionLineItemRequest {
 	this := CheckoutSessionLineItemRequest{}
 	this.PriceId = priceId
 	return &this
@@ -46,27 +46,29 @@ func NewCheckoutSessionLineItemRequestWithDefaults() *CheckoutSessionLineItemReq
 }
 
 // GetPriceId returns the PriceId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *CheckoutSessionLineItemRequest) GetPriceId() string {
-	if o == nil {
+	if o == nil || o.PriceId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.PriceId
+	return *o.PriceId.Get()
 }
 
 // GetPriceIdOk returns a tuple with the PriceId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CheckoutSessionLineItemRequest) GetPriceIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PriceId, true
+	return o.PriceId.Get(), o.PriceId.IsSet()
 }
 
 // SetPriceId sets field value
 func (o *CheckoutSessionLineItemRequest) SetPriceId(v string) {
-	o.PriceId = v
+	o.PriceId.Set(&v)
 }
 
 // GetQuantity returns the Quantity field value if set, zero value otherwise.
@@ -111,10 +113,15 @@ func (o CheckoutSessionLineItemRequest) MarshalJSON() ([]byte, error) {
 
 func (o CheckoutSessionLineItemRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["priceId"] = o.PriceId
+	toSerialize["priceId"] = o.PriceId.Get()
 	if !IsNil(o.Quantity) {
 		toSerialize["quantity"] = o.Quantity
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -142,15 +149,21 @@ func (o *CheckoutSessionLineItemRequest) UnmarshalJSON(data []byte) (err error) 
 
 	varCheckoutSessionLineItemRequest := _CheckoutSessionLineItemRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCheckoutSessionLineItemRequest)
+	err = json.Unmarshal(data, &varCheckoutSessionLineItemRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CheckoutSessionLineItemRequest(varCheckoutSessionLineItemRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "priceId")
+		delete(additionalProperties, "quantity")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

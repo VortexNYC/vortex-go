@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,8 +20,9 @@ var _ MappedNullable = &TaxTransactionReverseRequest{}
 
 // TaxTransactionReverseRequest struct for TaxTransactionReverseRequest
 type TaxTransactionReverseRequest struct {
-	SourceDocumentId string `json:"sourceDocumentId"`
-	IdempotencyKey *string `json:"idempotencyKey,omitempty"`
+	SourceDocumentId NullableString `json:"sourceDocumentId"`
+	IdempotencyKey NullableString `json:"idempotencyKey,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _TaxTransactionReverseRequest TaxTransactionReverseRequest
@@ -31,7 +31,7 @@ type _TaxTransactionReverseRequest TaxTransactionReverseRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTaxTransactionReverseRequest(sourceDocumentId string) *TaxTransactionReverseRequest {
+func NewTaxTransactionReverseRequest(sourceDocumentId NullableString) *TaxTransactionReverseRequest {
 	this := TaxTransactionReverseRequest{}
 	this.SourceDocumentId = sourceDocumentId
 	return &this
@@ -46,59 +46,71 @@ func NewTaxTransactionReverseRequestWithDefaults() *TaxTransactionReverseRequest
 }
 
 // GetSourceDocumentId returns the SourceDocumentId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *TaxTransactionReverseRequest) GetSourceDocumentId() string {
-	if o == nil {
+	if o == nil || o.SourceDocumentId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.SourceDocumentId
+	return *o.SourceDocumentId.Get()
 }
 
 // GetSourceDocumentIdOk returns a tuple with the SourceDocumentId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TaxTransactionReverseRequest) GetSourceDocumentIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SourceDocumentId, true
+	return o.SourceDocumentId.Get(), o.SourceDocumentId.IsSet()
 }
 
 // SetSourceDocumentId sets field value
 func (o *TaxTransactionReverseRequest) SetSourceDocumentId(v string) {
-	o.SourceDocumentId = v
+	o.SourceDocumentId.Set(&v)
 }
 
-// GetIdempotencyKey returns the IdempotencyKey field value if set, zero value otherwise.
+// GetIdempotencyKey returns the IdempotencyKey field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TaxTransactionReverseRequest) GetIdempotencyKey() string {
-	if o == nil || IsNil(o.IdempotencyKey) {
+	if o == nil || IsNil(o.IdempotencyKey.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.IdempotencyKey
+	return *o.IdempotencyKey.Get()
 }
 
 // GetIdempotencyKeyOk returns a tuple with the IdempotencyKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TaxTransactionReverseRequest) GetIdempotencyKeyOk() (*string, bool) {
-	if o == nil || IsNil(o.IdempotencyKey) {
+	if o == nil {
 		return nil, false
 	}
-	return o.IdempotencyKey, true
+	return o.IdempotencyKey.Get(), o.IdempotencyKey.IsSet()
 }
 
 // HasIdempotencyKey returns a boolean if a field has been set.
 func (o *TaxTransactionReverseRequest) HasIdempotencyKey() bool {
-	if o != nil && !IsNil(o.IdempotencyKey) {
+	if o != nil && o.IdempotencyKey.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetIdempotencyKey gets a reference to the given string and assigns it to the IdempotencyKey field.
+// SetIdempotencyKey gets a reference to the given NullableString and assigns it to the IdempotencyKey field.
 func (o *TaxTransactionReverseRequest) SetIdempotencyKey(v string) {
-	o.IdempotencyKey = &v
+	o.IdempotencyKey.Set(&v)
+}
+// SetIdempotencyKeyNil sets the value for IdempotencyKey to be an explicit nil
+func (o *TaxTransactionReverseRequest) SetIdempotencyKeyNil() {
+	o.IdempotencyKey.Set(nil)
+}
+
+// UnsetIdempotencyKey ensures that no value is present for IdempotencyKey, not even an explicit nil
+func (o *TaxTransactionReverseRequest) UnsetIdempotencyKey() {
+	o.IdempotencyKey.Unset()
 }
 
 func (o TaxTransactionReverseRequest) MarshalJSON() ([]byte, error) {
@@ -111,10 +123,15 @@ func (o TaxTransactionReverseRequest) MarshalJSON() ([]byte, error) {
 
 func (o TaxTransactionReverseRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["sourceDocumentId"] = o.SourceDocumentId
-	if !IsNil(o.IdempotencyKey) {
-		toSerialize["idempotencyKey"] = o.IdempotencyKey
+	toSerialize["sourceDocumentId"] = o.SourceDocumentId.Get()
+	if o.IdempotencyKey.IsSet() {
+		toSerialize["idempotencyKey"] = o.IdempotencyKey.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -142,15 +159,21 @@ func (o *TaxTransactionReverseRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varTaxTransactionReverseRequest := _TaxTransactionReverseRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTaxTransactionReverseRequest)
+	err = json.Unmarshal(data, &varTaxTransactionReverseRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = TaxTransactionReverseRequest(varTaxTransactionReverseRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "sourceDocumentId")
+		delete(additionalProperties, "idempotencyKey")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

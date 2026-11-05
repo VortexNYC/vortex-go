@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -23,7 +22,8 @@ var _ MappedNullable = &TaxFinalizeRequest{}
 type TaxFinalizeRequest struct {
 	CustomerTaxAddress TaxAddress `json:"customerTaxAddress"`
 	TaxBehaviorPolicy *TaxBehaviorPolicyRequest `json:"taxBehaviorPolicy,omitempty"`
-	FinalizedByRef *string `json:"finalizedByRef,omitempty"`
+	FinalizedByRef NullableString `json:"finalizedByRef,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _TaxFinalizeRequest TaxFinalizeRequest
@@ -102,36 +102,46 @@ func (o *TaxFinalizeRequest) SetTaxBehaviorPolicy(v TaxBehaviorPolicyRequest) {
 	o.TaxBehaviorPolicy = &v
 }
 
-// GetFinalizedByRef returns the FinalizedByRef field value if set, zero value otherwise.
+// GetFinalizedByRef returns the FinalizedByRef field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TaxFinalizeRequest) GetFinalizedByRef() string {
-	if o == nil || IsNil(o.FinalizedByRef) {
+	if o == nil || IsNil(o.FinalizedByRef.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.FinalizedByRef
+	return *o.FinalizedByRef.Get()
 }
 
 // GetFinalizedByRefOk returns a tuple with the FinalizedByRef field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TaxFinalizeRequest) GetFinalizedByRefOk() (*string, bool) {
-	if o == nil || IsNil(o.FinalizedByRef) {
+	if o == nil {
 		return nil, false
 	}
-	return o.FinalizedByRef, true
+	return o.FinalizedByRef.Get(), o.FinalizedByRef.IsSet()
 }
 
 // HasFinalizedByRef returns a boolean if a field has been set.
 func (o *TaxFinalizeRequest) HasFinalizedByRef() bool {
-	if o != nil && !IsNil(o.FinalizedByRef) {
+	if o != nil && o.FinalizedByRef.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetFinalizedByRef gets a reference to the given string and assigns it to the FinalizedByRef field.
+// SetFinalizedByRef gets a reference to the given NullableString and assigns it to the FinalizedByRef field.
 func (o *TaxFinalizeRequest) SetFinalizedByRef(v string) {
-	o.FinalizedByRef = &v
+	o.FinalizedByRef.Set(&v)
+}
+// SetFinalizedByRefNil sets the value for FinalizedByRef to be an explicit nil
+func (o *TaxFinalizeRequest) SetFinalizedByRefNil() {
+	o.FinalizedByRef.Set(nil)
+}
+
+// UnsetFinalizedByRef ensures that no value is present for FinalizedByRef, not even an explicit nil
+func (o *TaxFinalizeRequest) UnsetFinalizedByRef() {
+	o.FinalizedByRef.Unset()
 }
 
 func (o TaxFinalizeRequest) MarshalJSON() ([]byte, error) {
@@ -148,9 +158,14 @@ func (o TaxFinalizeRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TaxBehaviorPolicy) {
 		toSerialize["taxBehaviorPolicy"] = o.TaxBehaviorPolicy
 	}
-	if !IsNil(o.FinalizedByRef) {
-		toSerialize["finalizedByRef"] = o.FinalizedByRef
+	if o.FinalizedByRef.IsSet() {
+		toSerialize["finalizedByRef"] = o.FinalizedByRef.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -178,15 +193,22 @@ func (o *TaxFinalizeRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varTaxFinalizeRequest := _TaxFinalizeRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTaxFinalizeRequest)
+	err = json.Unmarshal(data, &varTaxFinalizeRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = TaxFinalizeRequest(varTaxFinalizeRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "customerTaxAddress")
+		delete(additionalProperties, "taxBehaviorPolicy")
+		delete(additionalProperties, "finalizedByRef")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

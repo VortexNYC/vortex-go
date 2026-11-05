@@ -21,8 +21,8 @@ var _ MappedNullable = &MccSuggestResponseDataMatchesInner{}
 
 // MccSuggestResponseDataMatchesInner struct for MccSuggestResponseDataMatchesInner
 type MccSuggestResponseDataMatchesInner struct {
-	Code string `json:"code"`
-	Label string `json:"label"`
+	Code NullableString `json:"code"`
+	Label NullableString `json:"label"`
 }
 
 type _MccSuggestResponseDataMatchesInner MccSuggestResponseDataMatchesInner
@@ -31,7 +31,7 @@ type _MccSuggestResponseDataMatchesInner MccSuggestResponseDataMatchesInner
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMccSuggestResponseDataMatchesInner(code string, label string) *MccSuggestResponseDataMatchesInner {
+func NewMccSuggestResponseDataMatchesInner(code NullableString, label NullableString) *MccSuggestResponseDataMatchesInner {
 	this := MccSuggestResponseDataMatchesInner{}
 	this.Code = code
 	this.Label = label
@@ -47,51 +47,55 @@ func NewMccSuggestResponseDataMatchesInnerWithDefaults() *MccSuggestResponseData
 }
 
 // GetCode returns the Code field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MccSuggestResponseDataMatchesInner) GetCode() string {
-	if o == nil {
+	if o == nil || o.Code.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Code
+	return *o.Code.Get()
 }
 
 // GetCodeOk returns a tuple with the Code field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MccSuggestResponseDataMatchesInner) GetCodeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Code, true
+	return o.Code.Get(), o.Code.IsSet()
 }
 
 // SetCode sets field value
 func (o *MccSuggestResponseDataMatchesInner) SetCode(v string) {
-	o.Code = v
+	o.Code.Set(&v)
 }
 
 // GetLabel returns the Label field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MccSuggestResponseDataMatchesInner) GetLabel() string {
-	if o == nil {
+	if o == nil || o.Label.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Label
+	return *o.Label.Get()
 }
 
 // GetLabelOk returns a tuple with the Label field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MccSuggestResponseDataMatchesInner) GetLabelOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Label, true
+	return o.Label.Get(), o.Label.IsSet()
 }
 
 // SetLabel sets field value
 func (o *MccSuggestResponseDataMatchesInner) SetLabel(v string) {
-	o.Label = v
+	o.Label.Set(&v)
 }
 
 func (o MccSuggestResponseDataMatchesInner) MarshalJSON() ([]byte, error) {
@@ -104,8 +108,8 @@ func (o MccSuggestResponseDataMatchesInner) MarshalJSON() ([]byte, error) {
 
 func (o MccSuggestResponseDataMatchesInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["code"] = o.Code
-	toSerialize["label"] = o.Label
+	toSerialize["code"] = o.Code.Get()
+	toSerialize["label"] = o.Label.Get()
 	return toSerialize, nil
 }
 

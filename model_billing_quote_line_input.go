@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,11 +20,12 @@ var _ MappedNullable = &BillingQuoteLineInput{}
 
 // BillingQuoteLineInput struct for BillingQuoteLineInput
 type BillingQuoteLineInput struct {
-	PriceId string `json:"priceId"`
+	PriceId NullableString `json:"priceId"`
 	Quantity *int32 `json:"quantity,omitempty"`
 	// Negotiated minor-unit amount. Overrides the catalog price when set.
 	UnitAmount *int32 `json:"unitAmount,omitempty"`
-	Description *string `json:"description,omitempty"`
+	Description NullableString `json:"description,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _BillingQuoteLineInput BillingQuoteLineInput
@@ -34,7 +34,7 @@ type _BillingQuoteLineInput BillingQuoteLineInput
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBillingQuoteLineInput(priceId string) *BillingQuoteLineInput {
+func NewBillingQuoteLineInput(priceId NullableString) *BillingQuoteLineInput {
 	this := BillingQuoteLineInput{}
 	this.PriceId = priceId
 	return &this
@@ -49,27 +49,29 @@ func NewBillingQuoteLineInputWithDefaults() *BillingQuoteLineInput {
 }
 
 // GetPriceId returns the PriceId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *BillingQuoteLineInput) GetPriceId() string {
-	if o == nil {
+	if o == nil || o.PriceId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.PriceId
+	return *o.PriceId.Get()
 }
 
 // GetPriceIdOk returns a tuple with the PriceId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BillingQuoteLineInput) GetPriceIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PriceId, true
+	return o.PriceId.Get(), o.PriceId.IsSet()
 }
 
 // SetPriceId sets field value
 func (o *BillingQuoteLineInput) SetPriceId(v string) {
-	o.PriceId = v
+	o.PriceId.Set(&v)
 }
 
 // GetQuantity returns the Quantity field value if set, zero value otherwise.
@@ -136,36 +138,46 @@ func (o *BillingQuoteLineInput) SetUnitAmount(v int32) {
 	o.UnitAmount = &v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *BillingQuoteLineInput) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+	if o == nil || IsNil(o.Description.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Description
+	return *o.Description.Get()
 }
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BillingQuoteLineInput) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return o.Description.Get(), o.Description.IsSet()
 }
 
 // HasDescription returns a boolean if a field has been set.
 func (o *BillingQuoteLineInput) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
+	if o != nil && o.Description.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription gets a reference to the given NullableString and assigns it to the Description field.
 func (o *BillingQuoteLineInput) SetDescription(v string) {
-	o.Description = &v
+	o.Description.Set(&v)
+}
+// SetDescriptionNil sets the value for Description to be an explicit nil
+func (o *BillingQuoteLineInput) SetDescriptionNil() {
+	o.Description.Set(nil)
+}
+
+// UnsetDescription ensures that no value is present for Description, not even an explicit nil
+func (o *BillingQuoteLineInput) UnsetDescription() {
+	o.Description.Unset()
 }
 
 func (o BillingQuoteLineInput) MarshalJSON() ([]byte, error) {
@@ -178,16 +190,21 @@ func (o BillingQuoteLineInput) MarshalJSON() ([]byte, error) {
 
 func (o BillingQuoteLineInput) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["priceId"] = o.PriceId
+	toSerialize["priceId"] = o.PriceId.Get()
 	if !IsNil(o.Quantity) {
 		toSerialize["quantity"] = o.Quantity
 	}
 	if !IsNil(o.UnitAmount) {
 		toSerialize["unitAmount"] = o.UnitAmount
 	}
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
+	if o.Description.IsSet() {
+		toSerialize["description"] = o.Description.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -215,15 +232,23 @@ func (o *BillingQuoteLineInput) UnmarshalJSON(data []byte) (err error) {
 
 	varBillingQuoteLineInput := _BillingQuoteLineInput{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varBillingQuoteLineInput)
+	err = json.Unmarshal(data, &varBillingQuoteLineInput)
 
 	if err != nil {
 		return err
 	}
 
 	*o = BillingQuoteLineInput(varBillingQuoteLineInput)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "priceId")
+		delete(additionalProperties, "quantity")
+		delete(additionalProperties, "unitAmount")
+		delete(additionalProperties, "description")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

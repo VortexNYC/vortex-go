@@ -23,90 +23,92 @@ import (
 // SubscriptionsAPIService SubscriptionsAPI service
 type SubscriptionsAPIService service
 
-type SubscriptionsAPICancelSubscriptionRequest struct {
+type SubscriptionsAPIActivateDueSubscriptionsRequest struct {
 	ctx context.Context
 	ApiService *SubscriptionsAPIService
-	subscriptionId string
+	activateDueSubscriptionsRequest *ActivateDueSubscriptionsRequest
 	environment *string
 	merchantAccountId *string
-	subscriptionCancelRequest *SubscriptionCancelRequest
+	asOf *string
 	idempotencyKey *string
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
-func (r SubscriptionsAPICancelSubscriptionRequest) Environment(environment string) SubscriptionsAPICancelSubscriptionRequest {
+func (r SubscriptionsAPIActivateDueSubscriptionsRequest) ActivateDueSubscriptionsRequest(activateDueSubscriptionsRequest ActivateDueSubscriptionsRequest) SubscriptionsAPIActivateDueSubscriptionsRequest {
+	r.activateDueSubscriptionsRequest = &activateDueSubscriptionsRequest
+	return r
+}
+
+func (r SubscriptionsAPIActivateDueSubscriptionsRequest) Environment(environment string) SubscriptionsAPIActivateDueSubscriptionsRequest {
 	r.environment = &environment
 	return r
 }
 
-func (r SubscriptionsAPICancelSubscriptionRequest) MerchantAccountId(merchantAccountId string) SubscriptionsAPICancelSubscriptionRequest {
+func (r SubscriptionsAPIActivateDueSubscriptionsRequest) MerchantAccountId(merchantAccountId string) SubscriptionsAPIActivateDueSubscriptionsRequest {
 	r.merchantAccountId = &merchantAccountId
 	return r
 }
 
-func (r SubscriptionsAPICancelSubscriptionRequest) SubscriptionCancelRequest(subscriptionCancelRequest SubscriptionCancelRequest) SubscriptionsAPICancelSubscriptionRequest {
-	r.subscriptionCancelRequest = &subscriptionCancelRequest
+func (r SubscriptionsAPIActivateDueSubscriptionsRequest) AsOf(asOf string) SubscriptionsAPIActivateDueSubscriptionsRequest {
+	r.asOf = &asOf
 	return r
 }
 
 // Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
-func (r SubscriptionsAPICancelSubscriptionRequest) IdempotencyKey(idempotencyKey string) SubscriptionsAPICancelSubscriptionRequest {
+func (r SubscriptionsAPIActivateDueSubscriptionsRequest) IdempotencyKey(idempotencyKey string) SubscriptionsAPIActivateDueSubscriptionsRequest {
 	r.idempotencyKey = &idempotencyKey
 	return r
 }
 
-func (r SubscriptionsAPICancelSubscriptionRequest) Execute() (*SubscriptionDetailResponse, *http.Response, error) {
-	return r.ApiService.CancelSubscriptionExecute(r)
+func (r SubscriptionsAPIActivateDueSubscriptionsRequest) Execute() (*ActivateDueSubscriptions200Response, *http.Response, error) {
+	return r.ApiService.ActivateDueSubscriptionsExecute(r)
 }
 
 /*
-CancelSubscription Cancel a subscription (immediate, or scheduled via cancelAt)
+ActivateDueSubscriptions Method for ActivateDueSubscriptions
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param subscriptionId
- @return SubscriptionsAPICancelSubscriptionRequest
+ @return SubscriptionsAPIActivateDueSubscriptionsRequest
 */
-func (a *SubscriptionsAPIService) CancelSubscription(ctx context.Context, subscriptionId string) SubscriptionsAPICancelSubscriptionRequest {
-	return SubscriptionsAPICancelSubscriptionRequest{
+func (a *SubscriptionsAPIService) ActivateDueSubscriptions(ctx context.Context) SubscriptionsAPIActivateDueSubscriptionsRequest {
+	return SubscriptionsAPIActivateDueSubscriptionsRequest{
 		ApiService: a,
 		ctx: ctx,
-		subscriptionId: subscriptionId,
 	}
 }
 
 // Execute executes the request
-//  @return SubscriptionDetailResponse
-func (a *SubscriptionsAPIService) CancelSubscriptionExecute(r SubscriptionsAPICancelSubscriptionRequest) (*SubscriptionDetailResponse, *http.Response, error) {
+//  @return ActivateDueSubscriptions200Response
+func (a *SubscriptionsAPIService) ActivateDueSubscriptionsExecute(r SubscriptionsAPIActivateDueSubscriptionsRequest) (*ActivateDueSubscriptions200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *SubscriptionDetailResponse
+		localVarReturnValue  *ActivateDueSubscriptions200Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsAPIService.CancelSubscription")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsAPIService.ActivateDueSubscriptions")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/subscriptions/{subscriptionId}/cancel"
-	localVarPath = strings.Replace(localVarPath, "{"+"subscriptionId"+"}", url.PathEscape(parameterValueToString(r.subscriptionId, "subscriptionId")), -1)
+	localVarPath := localBasePath + "/v1/subscriptions/activate-due"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
-	if r.subscriptionCancelRequest == nil {
-		return localVarReturnValue, nil, reportError("subscriptionCancelRequest is required and must be specified")
+	if r.activateDueSubscriptionsRequest == nil {
+		return localVarReturnValue, nil, reportError("activateDueSubscriptionsRequest is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
+	if r.asOf != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "asOf", r.asOf, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -128,7 +130,7 @@ func (a *SubscriptionsAPIService) CancelSubscriptionExecute(r SubscriptionsAPICa
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
 	}
 	// body params
-	localVarPostBody = r.subscriptionCancelRequest
+	localVarPostBody = r.activateDueSubscriptionsRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -151,69 +153,149 @@ func (a *SubscriptionsAPIService) CancelSubscriptionExecute(r SubscriptionsAPICa
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
 		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type SubscriptionsAPICancelSubscriptionRequest struct {
+	ctx context.Context
+	ApiService *SubscriptionsAPIService
+	subscriptionId string
+	cancelSubscriptionRequest *CancelSubscriptionRequest
+	environment *string
+	merchantAccountId *string
+	idempotencyKey *string
+}
+
+func (r SubscriptionsAPICancelSubscriptionRequest) CancelSubscriptionRequest(cancelSubscriptionRequest CancelSubscriptionRequest) SubscriptionsAPICancelSubscriptionRequest {
+	r.cancelSubscriptionRequest = &cancelSubscriptionRequest
+	return r
+}
+
+func (r SubscriptionsAPICancelSubscriptionRequest) Environment(environment string) SubscriptionsAPICancelSubscriptionRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r SubscriptionsAPICancelSubscriptionRequest) MerchantAccountId(merchantAccountId string) SubscriptionsAPICancelSubscriptionRequest {
+	r.merchantAccountId = &merchantAccountId
+	return r
+}
+
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r SubscriptionsAPICancelSubscriptionRequest) IdempotencyKey(idempotencyKey string) SubscriptionsAPICancelSubscriptionRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r SubscriptionsAPICancelSubscriptionRequest) Execute() (*CreateSubscription201Response, *http.Response, error) {
+	return r.ApiService.CancelSubscriptionExecute(r)
+}
+
+/*
+CancelSubscription Method for CancelSubscription
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param subscriptionId
+ @return SubscriptionsAPICancelSubscriptionRequest
+*/
+func (a *SubscriptionsAPIService) CancelSubscription(ctx context.Context, subscriptionId string) SubscriptionsAPICancelSubscriptionRequest {
+	return SubscriptionsAPICancelSubscriptionRequest{
+		ApiService: a,
+		ctx: ctx,
+		subscriptionId: subscriptionId,
+	}
+}
+
+// Execute executes the request
+//  @return CreateSubscription201Response
+func (a *SubscriptionsAPIService) CancelSubscriptionExecute(r SubscriptionsAPICancelSubscriptionRequest) (*CreateSubscription201Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *CreateSubscription201Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsAPIService.CancelSubscription")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/subscriptions/{subscriptionId}/cancel"
+	localVarPath = strings.Replace(localVarPath, "{"+"subscriptionId"+"}", url.PathEscape(parameterValueToString(r.subscriptionId, "subscriptionId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.subscriptionId) < 1 {
+		return localVarReturnValue, nil, reportError("subscriptionId must have at least 1 elements")
+	}
+	if r.cancelSubscriptionRequest == nil {
+		return localVarReturnValue, nil, reportError("cancelSubscriptionRequest is required and must be specified")
+	}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.cancelSubscriptionRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -438,13 +520,17 @@ func (a *SubscriptionsAPIService) ChangeSubscriptionExecute(r SubscriptionsAPICh
 type SubscriptionsAPICreateSubscriptionRequest struct {
 	ctx context.Context
 	ApiService *SubscriptionsAPIService
+	createSubscriptionRequest *CreateSubscriptionRequest
 	environment *string
 	merchantAccountId *string
-	subscriptionCreateRequest *SubscriptionCreateRequest
 	idempotencyKey *string
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
+func (r SubscriptionsAPICreateSubscriptionRequest) CreateSubscriptionRequest(createSubscriptionRequest CreateSubscriptionRequest) SubscriptionsAPICreateSubscriptionRequest {
+	r.createSubscriptionRequest = &createSubscriptionRequest
+	return r
+}
+
 func (r SubscriptionsAPICreateSubscriptionRequest) Environment(environment string) SubscriptionsAPICreateSubscriptionRequest {
 	r.environment = &environment
 	return r
@@ -455,23 +541,18 @@ func (r SubscriptionsAPICreateSubscriptionRequest) MerchantAccountId(merchantAcc
 	return r
 }
 
-func (r SubscriptionsAPICreateSubscriptionRequest) SubscriptionCreateRequest(subscriptionCreateRequest SubscriptionCreateRequest) SubscriptionsAPICreateSubscriptionRequest {
-	r.subscriptionCreateRequest = &subscriptionCreateRequest
-	return r
-}
-
 // Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
 func (r SubscriptionsAPICreateSubscriptionRequest) IdempotencyKey(idempotencyKey string) SubscriptionsAPICreateSubscriptionRequest {
 	r.idempotencyKey = &idempotencyKey
 	return r
 }
 
-func (r SubscriptionsAPICreateSubscriptionRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
+func (r SubscriptionsAPICreateSubscriptionRequest) Execute() (*CreateSubscription201Response, *http.Response, error) {
 	return r.ApiService.CreateSubscriptionExecute(r)
 }
 
 /*
-CreateSubscription Create a subscription
+CreateSubscription Method for CreateSubscription
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return SubscriptionsAPICreateSubscriptionRequest
@@ -484,13 +565,13 @@ func (a *SubscriptionsAPIService) CreateSubscription(ctx context.Context) Subscr
 }
 
 // Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *SubscriptionsAPIService) CreateSubscriptionExecute(r SubscriptionsAPICreateSubscriptionRequest) (*ApiWriteEnvelope, *http.Response, error) {
+//  @return CreateSubscription201Response
+func (a *SubscriptionsAPIService) CreateSubscriptionExecute(r SubscriptionsAPICreateSubscriptionRequest) (*CreateSubscription201Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
+		localVarReturnValue  *CreateSubscription201Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsAPIService.CreateSubscription")
@@ -503,18 +584,16 @@ func (a *SubscriptionsAPIService) CreateSubscriptionExecute(r SubscriptionsAPICr
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
-	if r.subscriptionCreateRequest == nil {
-		return localVarReturnValue, nil, reportError("subscriptionCreateRequest is required and must be specified")
+	if r.createSubscriptionRequest == nil {
+		return localVarReturnValue, nil, reportError("createSubscriptionRequest is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -536,7 +615,7 @@ func (a *SubscriptionsAPIService) CreateSubscriptionExecute(r SubscriptionsAPICr
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
 	}
 	// body params
-	localVarPostBody = r.subscriptionCreateRequest
+	localVarPostBody = r.createSubscriptionRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -559,69 +638,253 @@ func (a *SubscriptionsAPIService) CreateSubscriptionExecute(r SubscriptionsAPICr
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
 		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type SubscriptionsAPICreateSubscriptionInvoiceRequest struct {
+	ctx context.Context
+	ApiService *SubscriptionsAPIService
+	subscriptionId string
+	createSubscriptionInvoiceRequest *CreateSubscriptionInvoiceRequest
+	idempotencyKey *string
+}
+
+func (r SubscriptionsAPICreateSubscriptionInvoiceRequest) CreateSubscriptionInvoiceRequest(createSubscriptionInvoiceRequest CreateSubscriptionInvoiceRequest) SubscriptionsAPICreateSubscriptionInvoiceRequest {
+	r.createSubscriptionInvoiceRequest = &createSubscriptionInvoiceRequest
+	return r
+}
+
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r SubscriptionsAPICreateSubscriptionInvoiceRequest) IdempotencyKey(idempotencyKey string) SubscriptionsAPICreateSubscriptionInvoiceRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r SubscriptionsAPICreateSubscriptionInvoiceRequest) Execute() (*CreateInvoice201Response, *http.Response, error) {
+	return r.ApiService.CreateSubscriptionInvoiceExecute(r)
+}
+
+/*
+CreateSubscriptionInvoice Method for CreateSubscriptionInvoice
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param subscriptionId
+ @return SubscriptionsAPICreateSubscriptionInvoiceRequest
+*/
+func (a *SubscriptionsAPIService) CreateSubscriptionInvoice(ctx context.Context, subscriptionId string) SubscriptionsAPICreateSubscriptionInvoiceRequest {
+	return SubscriptionsAPICreateSubscriptionInvoiceRequest{
+		ApiService: a,
+		ctx: ctx,
+		subscriptionId: subscriptionId,
+	}
+}
+
+// Execute executes the request
+//  @return CreateInvoice201Response
+func (a *SubscriptionsAPIService) CreateSubscriptionInvoiceExecute(r SubscriptionsAPICreateSubscriptionInvoiceRequest) (*CreateInvoice201Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *CreateInvoice201Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsAPIService.CreateSubscriptionInvoice")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/subscriptions/{subscriptionId}/invoices"
+	localVarPath = strings.Replace(localVarPath, "{"+"subscriptionId"+"}", url.PathEscape(parameterValueToString(r.subscriptionId, "subscriptionId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.subscriptionId) < 1 {
+		return localVarReturnValue, nil, reportError("subscriptionId must have at least 1 elements")
+	}
+	if r.createSubscriptionInvoiceRequest == nil {
+		return localVarReturnValue, nil, reportError("createSubscriptionInvoiceRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.createSubscriptionInvoiceRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
 		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type SubscriptionsAPIGetSubscriptionRequest struct {
+	ctx context.Context
+	ApiService *SubscriptionsAPIService
+	subscriptionId string
+	environment *string
+	merchantAccountId *string
+}
+
+func (r SubscriptionsAPIGetSubscriptionRequest) Environment(environment string) SubscriptionsAPIGetSubscriptionRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r SubscriptionsAPIGetSubscriptionRequest) MerchantAccountId(merchantAccountId string) SubscriptionsAPIGetSubscriptionRequest {
+	r.merchantAccountId = &merchantAccountId
+	return r
+}
+
+func (r SubscriptionsAPIGetSubscriptionRequest) Execute() (*CreateSubscription201Response, *http.Response, error) {
+	return r.ApiService.GetSubscriptionExecute(r)
+}
+
+/*
+GetSubscription Method for GetSubscription
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param subscriptionId
+ @return SubscriptionsAPIGetSubscriptionRequest
+*/
+func (a *SubscriptionsAPIService) GetSubscription(ctx context.Context, subscriptionId string) SubscriptionsAPIGetSubscriptionRequest {
+	return SubscriptionsAPIGetSubscriptionRequest{
+		ApiService: a,
+		ctx: ctx,
+		subscriptionId: subscriptionId,
+	}
+}
+
+// Execute executes the request
+//  @return CreateSubscription201Response
+func (a *SubscriptionsAPIService) GetSubscriptionExecute(r SubscriptionsAPIGetSubscriptionRequest) (*CreateSubscription201Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *CreateSubscription201Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsAPIService.GetSubscription")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/subscriptions/{subscriptionId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"subscriptionId"+"}", url.PathEscape(parameterValueToString(r.subscriptionId, "subscriptionId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.subscriptionId) < 1 {
+		return localVarReturnValue, nil, reportError("subscriptionId must have at least 1 elements")
+	}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -644,11 +907,12 @@ type SubscriptionsAPIListSubscriptionsRequest struct {
 	merchantAccountId *string
 	customerId *string
 	status *string
-	limit *string
+	createdGte *string
+	createdLte *string
+	limit *ListCustomersLimitParameter
 	cursor *string
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r SubscriptionsAPIListSubscriptionsRequest) Environment(environment string) SubscriptionsAPIListSubscriptionsRequest {
 	r.environment = &environment
 	return r
@@ -669,7 +933,17 @@ func (r SubscriptionsAPIListSubscriptionsRequest) Status(status string) Subscrip
 	return r
 }
 
-func (r SubscriptionsAPIListSubscriptionsRequest) Limit(limit string) SubscriptionsAPIListSubscriptionsRequest {
+func (r SubscriptionsAPIListSubscriptionsRequest) CreatedGte(createdGte string) SubscriptionsAPIListSubscriptionsRequest {
+	r.createdGte = &createdGte
+	return r
+}
+
+func (r SubscriptionsAPIListSubscriptionsRequest) CreatedLte(createdLte string) SubscriptionsAPIListSubscriptionsRequest {
+	r.createdLte = &createdLte
+	return r
+}
+
+func (r SubscriptionsAPIListSubscriptionsRequest) Limit(limit ListCustomersLimitParameter) SubscriptionsAPIListSubscriptionsRequest {
 	r.limit = &limit
 	return r
 }
@@ -679,12 +953,12 @@ func (r SubscriptionsAPIListSubscriptionsRequest) Cursor(cursor string) Subscrip
 	return r
 }
 
-func (r SubscriptionsAPIListSubscriptionsRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
+func (r SubscriptionsAPIListSubscriptionsRequest) Execute() (*ListSubscriptions200Response, *http.Response, error) {
 	return r.ApiService.ListSubscriptionsExecute(r)
 }
 
 /*
-ListSubscriptions List subscriptions across the merchant
+ListSubscriptions Method for ListSubscriptions
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return SubscriptionsAPIListSubscriptionsRequest
@@ -697,13 +971,13 @@ func (a *SubscriptionsAPIService) ListSubscriptions(ctx context.Context) Subscri
 }
 
 // Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *SubscriptionsAPIService) ListSubscriptionsExecute(r SubscriptionsAPIListSubscriptionsRequest) (*ApiWriteEnvelope, *http.Response, error) {
+//  @return ListSubscriptions200Response
+func (a *SubscriptionsAPIService) ListSubscriptionsExecute(r SubscriptionsAPIListSubscriptionsRequest) (*ListSubscriptions200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
+		localVarReturnValue  *ListSubscriptions200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsAPIService.ListSubscriptions")
@@ -716,20 +990,24 @@ func (a *SubscriptionsAPIService) ListSubscriptionsExecute(r SubscriptionsAPILis
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
 	if r.customerId != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "customerId", r.customerId, "form", "")
 	}
 	if r.status != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")
+	}
+	if r.createdGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "createdGte", r.createdGte, "form", "")
+	}
+	if r.createdLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "createdLte", r.createdLte, "form", "")
 	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
@@ -776,69 +1054,6 @@ func (a *SubscriptionsAPIService) ListSubscriptionsExecute(r SubscriptionsAPILis
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -858,13 +1073,17 @@ type SubscriptionsAPIPauseSubscriptionRequest struct {
 	ctx context.Context
 	ApiService *SubscriptionsAPIService
 	subscriptionId string
+	pauseSubscriptionRequest *PauseSubscriptionRequest
 	environment *string
 	merchantAccountId *string
-	subscriptionPauseRequest *SubscriptionPauseRequest
 	idempotencyKey *string
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
+func (r SubscriptionsAPIPauseSubscriptionRequest) PauseSubscriptionRequest(pauseSubscriptionRequest PauseSubscriptionRequest) SubscriptionsAPIPauseSubscriptionRequest {
+	r.pauseSubscriptionRequest = &pauseSubscriptionRequest
+	return r
+}
+
 func (r SubscriptionsAPIPauseSubscriptionRequest) Environment(environment string) SubscriptionsAPIPauseSubscriptionRequest {
 	r.environment = &environment
 	return r
@@ -875,23 +1094,18 @@ func (r SubscriptionsAPIPauseSubscriptionRequest) MerchantAccountId(merchantAcco
 	return r
 }
 
-func (r SubscriptionsAPIPauseSubscriptionRequest) SubscriptionPauseRequest(subscriptionPauseRequest SubscriptionPauseRequest) SubscriptionsAPIPauseSubscriptionRequest {
-	r.subscriptionPauseRequest = &subscriptionPauseRequest
-	return r
-}
-
 // Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
 func (r SubscriptionsAPIPauseSubscriptionRequest) IdempotencyKey(idempotencyKey string) SubscriptionsAPIPauseSubscriptionRequest {
 	r.idempotencyKey = &idempotencyKey
 	return r
 }
 
-func (r SubscriptionsAPIPauseSubscriptionRequest) Execute() (*SubscriptionDetailResponse, *http.Response, error) {
+func (r SubscriptionsAPIPauseSubscriptionRequest) Execute() (*CreateSubscription201Response, *http.Response, error) {
 	return r.ApiService.PauseSubscriptionExecute(r)
 }
 
 /*
-PauseSubscription Pause an active subscription
+PauseSubscription Method for PauseSubscription
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param subscriptionId
@@ -906,13 +1120,13 @@ func (a *SubscriptionsAPIService) PauseSubscription(ctx context.Context, subscri
 }
 
 // Execute executes the request
-//  @return SubscriptionDetailResponse
-func (a *SubscriptionsAPIService) PauseSubscriptionExecute(r SubscriptionsAPIPauseSubscriptionRequest) (*SubscriptionDetailResponse, *http.Response, error) {
+//  @return CreateSubscription201Response
+func (a *SubscriptionsAPIService) PauseSubscriptionExecute(r SubscriptionsAPIPauseSubscriptionRequest) (*CreateSubscription201Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *SubscriptionDetailResponse
+		localVarReturnValue  *CreateSubscription201Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsAPIService.PauseSubscription")
@@ -926,18 +1140,19 @@ func (a *SubscriptionsAPIService) PauseSubscriptionExecute(r SubscriptionsAPIPau
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
+	if strlen(r.subscriptionId) < 1 {
+		return localVarReturnValue, nil, reportError("subscriptionId must have at least 1 elements")
 	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
-	if r.subscriptionPauseRequest == nil {
-		return localVarReturnValue, nil, reportError("subscriptionPauseRequest is required and must be specified")
+	if r.pauseSubscriptionRequest == nil {
+		return localVarReturnValue, nil, reportError("pauseSubscriptionRequest is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -959,7 +1174,7 @@ func (a *SubscriptionsAPIService) PauseSubscriptionExecute(r SubscriptionsAPIPau
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
 	}
 	// body params
-	localVarPostBody = r.subscriptionPauseRequest
+	localVarPostBody = r.pauseSubscriptionRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -982,69 +1197,6 @@ func (a *SubscriptionsAPIService) PauseSubscriptionExecute(r SubscriptionsAPIPau
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1260,13 +1412,17 @@ type SubscriptionsAPIResumeSubscriptionRequest struct {
 	ctx context.Context
 	ApiService *SubscriptionsAPIService
 	subscriptionId string
+	resumeSubscriptionRequest *ResumeSubscriptionRequest
 	environment *string
 	merchantAccountId *string
-	subscriptionResumeRequest *SubscriptionResumeRequest
 	idempotencyKey *string
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
+func (r SubscriptionsAPIResumeSubscriptionRequest) ResumeSubscriptionRequest(resumeSubscriptionRequest ResumeSubscriptionRequest) SubscriptionsAPIResumeSubscriptionRequest {
+	r.resumeSubscriptionRequest = &resumeSubscriptionRequest
+	return r
+}
+
 func (r SubscriptionsAPIResumeSubscriptionRequest) Environment(environment string) SubscriptionsAPIResumeSubscriptionRequest {
 	r.environment = &environment
 	return r
@@ -1277,23 +1433,18 @@ func (r SubscriptionsAPIResumeSubscriptionRequest) MerchantAccountId(merchantAcc
 	return r
 }
 
-func (r SubscriptionsAPIResumeSubscriptionRequest) SubscriptionResumeRequest(subscriptionResumeRequest SubscriptionResumeRequest) SubscriptionsAPIResumeSubscriptionRequest {
-	r.subscriptionResumeRequest = &subscriptionResumeRequest
-	return r
-}
-
 // Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
 func (r SubscriptionsAPIResumeSubscriptionRequest) IdempotencyKey(idempotencyKey string) SubscriptionsAPIResumeSubscriptionRequest {
 	r.idempotencyKey = &idempotencyKey
 	return r
 }
 
-func (r SubscriptionsAPIResumeSubscriptionRequest) Execute() (*SubscriptionDetailResponse, *http.Response, error) {
+func (r SubscriptionsAPIResumeSubscriptionRequest) Execute() (*CreateSubscription201Response, *http.Response, error) {
 	return r.ApiService.ResumeSubscriptionExecute(r)
 }
 
 /*
-ResumeSubscription Resume a paused subscription
+ResumeSubscription Method for ResumeSubscription
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param subscriptionId
@@ -1308,13 +1459,13 @@ func (a *SubscriptionsAPIService) ResumeSubscription(ctx context.Context, subscr
 }
 
 // Execute executes the request
-//  @return SubscriptionDetailResponse
-func (a *SubscriptionsAPIService) ResumeSubscriptionExecute(r SubscriptionsAPIResumeSubscriptionRequest) (*SubscriptionDetailResponse, *http.Response, error) {
+//  @return CreateSubscription201Response
+func (a *SubscriptionsAPIService) ResumeSubscriptionExecute(r SubscriptionsAPIResumeSubscriptionRequest) (*CreateSubscription201Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *SubscriptionDetailResponse
+		localVarReturnValue  *CreateSubscription201Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsAPIService.ResumeSubscription")
@@ -1328,18 +1479,19 @@ func (a *SubscriptionsAPIService) ResumeSubscriptionExecute(r SubscriptionsAPIRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
+	if strlen(r.subscriptionId) < 1 {
+		return localVarReturnValue, nil, reportError("subscriptionId must have at least 1 elements")
 	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
-	if r.subscriptionResumeRequest == nil {
-		return localVarReturnValue, nil, reportError("subscriptionResumeRequest is required and must be specified")
+	if r.resumeSubscriptionRequest == nil {
+		return localVarReturnValue, nil, reportError("resumeSubscriptionRequest is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -1361,7 +1513,7 @@ func (a *SubscriptionsAPIService) ResumeSubscriptionExecute(r SubscriptionsAPIRe
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
 	}
 	// body params
-	localVarPostBody = r.subscriptionResumeRequest
+	localVarPostBody = r.resumeSubscriptionRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1384,69 +1536,6 @@ func (a *SubscriptionsAPIService) ResumeSubscriptionExecute(r SubscriptionsAPIRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

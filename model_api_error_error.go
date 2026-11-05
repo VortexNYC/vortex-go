@@ -21,11 +21,11 @@ var _ MappedNullable = &ApiErrorError{}
 // ApiErrorError struct for ApiErrorError
 type ApiErrorError struct {
 	Code string `json:"code"`
-	Message string `json:"message"`
+	Message NullableString `json:"message"`
 	Type *string `json:"type,omitempty"`
 	// The request field that failed validation (dot path), when the error is field-attributable.
 	Param *string `json:"param,omitempty"`
-	RequestId *string `json:"requestId,omitempty"`
+	RequestId NullableString `json:"requestId,omitempty"`
 	// Deep link to the errors guide section for this code.
 	DocsUrl *string `json:"docsUrl,omitempty"`
 	Details map[string]interface{} `json:"details,omitempty"`
@@ -38,7 +38,7 @@ type _ApiErrorError ApiErrorError
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApiErrorError(code string, message string) *ApiErrorError {
+func NewApiErrorError(code string, message NullableString) *ApiErrorError {
 	this := ApiErrorError{}
 	this.Code = code
 	this.Message = message
@@ -78,27 +78,29 @@ func (o *ApiErrorError) SetCode(v string) {
 }
 
 // GetMessage returns the Message field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *ApiErrorError) GetMessage() string {
-	if o == nil {
+	if o == nil || o.Message.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Message
+	return *o.Message.Get()
 }
 
 // GetMessageOk returns a tuple with the Message field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ApiErrorError) GetMessageOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Message, true
+	return o.Message.Get(), o.Message.IsSet()
 }
 
 // SetMessage sets field value
 func (o *ApiErrorError) SetMessage(v string) {
-	o.Message = v
+	o.Message.Set(&v)
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
@@ -165,36 +167,46 @@ func (o *ApiErrorError) SetParam(v string) {
 	o.Param = &v
 }
 
-// GetRequestId returns the RequestId field value if set, zero value otherwise.
+// GetRequestId returns the RequestId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ApiErrorError) GetRequestId() string {
-	if o == nil || IsNil(o.RequestId) {
+	if o == nil || IsNil(o.RequestId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.RequestId
+	return *o.RequestId.Get()
 }
 
 // GetRequestIdOk returns a tuple with the RequestId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ApiErrorError) GetRequestIdOk() (*string, bool) {
-	if o == nil || IsNil(o.RequestId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.RequestId, true
+	return o.RequestId.Get(), o.RequestId.IsSet()
 }
 
 // HasRequestId returns a boolean if a field has been set.
 func (o *ApiErrorError) HasRequestId() bool {
-	if o != nil && !IsNil(o.RequestId) {
+	if o != nil && o.RequestId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetRequestId gets a reference to the given string and assigns it to the RequestId field.
+// SetRequestId gets a reference to the given NullableString and assigns it to the RequestId field.
 func (o *ApiErrorError) SetRequestId(v string) {
-	o.RequestId = &v
+	o.RequestId.Set(&v)
+}
+// SetRequestIdNil sets the value for RequestId to be an explicit nil
+func (o *ApiErrorError) SetRequestIdNil() {
+	o.RequestId.Set(nil)
+}
+
+// UnsetRequestId ensures that no value is present for RequestId, not even an explicit nil
+func (o *ApiErrorError) UnsetRequestId() {
+	o.RequestId.Unset()
 }
 
 // GetDocsUrl returns the DocsUrl field value if set, zero value otherwise.
@@ -272,15 +284,15 @@ func (o ApiErrorError) MarshalJSON() ([]byte, error) {
 func (o ApiErrorError) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["code"] = o.Code
-	toSerialize["message"] = o.Message
+	toSerialize["message"] = o.Message.Get()
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 	if !IsNil(o.Param) {
 		toSerialize["param"] = o.Param
 	}
-	if !IsNil(o.RequestId) {
-		toSerialize["requestId"] = o.RequestId
+	if o.RequestId.IsSet() {
+		toSerialize["requestId"] = o.RequestId.Get()
 	}
 	if !IsNil(o.DocsUrl) {
 		toSerialize["docsUrl"] = o.DocsUrl

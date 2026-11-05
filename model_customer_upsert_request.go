@@ -20,13 +20,16 @@ var _ MappedNullable = &CustomerUpsertRequest{}
 // CustomerUpsertRequest struct for CustomerUpsertRequest
 type CustomerUpsertRequest struct {
 	Email *string `json:"email,omitempty"`
-	Name *string `json:"name,omitempty"`
+	Name NullableString `json:"name,omitempty"`
 	BillingCurrency *string `json:"billingCurrency,omitempty"`
 	// Vortex Payments customer profile id. No provider ids.
 	CustomerProfileId *string `json:"customerProfileId,omitempty"`
 	Timezone *string `json:"timezone,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CustomerUpsertRequest CustomerUpsertRequest
 
 // NewCustomerUpsertRequest instantiates a new CustomerUpsertRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -77,36 +80,46 @@ func (o *CustomerUpsertRequest) SetEmail(v string) {
 	o.Email = &v
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CustomerUpsertRequest) GetName() string {
-	if o == nil || IsNil(o.Name) {
+	if o == nil || IsNil(o.Name.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Name
+	return *o.Name.Get()
 }
 
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CustomerUpsertRequest) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return o.Name.Get(), o.Name.IsSet()
 }
 
 // HasName returns a boolean if a field has been set.
 func (o *CustomerUpsertRequest) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
+	if o != nil && o.Name.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName gets a reference to the given NullableString and assigns it to the Name field.
 func (o *CustomerUpsertRequest) SetName(v string) {
-	o.Name = &v
+	o.Name.Set(&v)
+}
+// SetNameNil sets the value for Name to be an explicit nil
+func (o *CustomerUpsertRequest) SetNameNil() {
+	o.Name.Set(nil)
+}
+
+// UnsetName ensures that no value is present for Name, not even an explicit nil
+func (o *CustomerUpsertRequest) UnsetName() {
+	o.Name.Unset()
 }
 
 // GetBillingCurrency returns the BillingCurrency field value if set, zero value otherwise.
@@ -205,9 +218,9 @@ func (o *CustomerUpsertRequest) SetTimezone(v string) {
 	o.Timezone = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CustomerUpsertRequest) GetMetadata() map[string]string {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -216,6 +229,7 @@ func (o *CustomerUpsertRequest) GetMetadata() map[string]string {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CustomerUpsertRequest) GetMetadataOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return map[string]string{}, false
@@ -250,8 +264,8 @@ func (o CustomerUpsertRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Email) {
 		toSerialize["email"] = o.Email
 	}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
+	if o.Name.IsSet() {
+		toSerialize["name"] = o.Name.Get()
 	}
 	if !IsNil(o.BillingCurrency) {
 		toSerialize["billingCurrency"] = o.BillingCurrency
@@ -262,10 +276,41 @@ func (o CustomerUpsertRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Timezone) {
 		toSerialize["timezone"] = o.Timezone
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CustomerUpsertRequest) UnmarshalJSON(data []byte) (err error) {
+	varCustomerUpsertRequest := _CustomerUpsertRequest{}
+
+	err = json.Unmarshal(data, &varCustomerUpsertRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CustomerUpsertRequest(varCustomerUpsertRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "billingCurrency")
+		delete(additionalProperties, "customerProfileId")
+		delete(additionalProperties, "timezone")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCustomerUpsertRequest struct {

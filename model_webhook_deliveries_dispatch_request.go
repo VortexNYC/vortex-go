@@ -19,10 +19,13 @@ var _ MappedNullable = &WebhookDeliveriesDispatchRequest{}
 
 // WebhookDeliveriesDispatchRequest struct for WebhookDeliveriesDispatchRequest
 type WebhookDeliveriesDispatchRequest struct {
-	DeliveryId *string `json:"deliveryId,omitempty"`
+	DeliveryId NullableString `json:"deliveryId,omitempty"`
 	Limit *int32 `json:"limit,omitempty"`
 	EndpointLimit *int32 `json:"endpointLimit,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _WebhookDeliveriesDispatchRequest WebhookDeliveriesDispatchRequest
 
 // NewWebhookDeliveriesDispatchRequest instantiates a new WebhookDeliveriesDispatchRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -41,36 +44,46 @@ func NewWebhookDeliveriesDispatchRequestWithDefaults() *WebhookDeliveriesDispatc
 	return &this
 }
 
-// GetDeliveryId returns the DeliveryId field value if set, zero value otherwise.
+// GetDeliveryId returns the DeliveryId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *WebhookDeliveriesDispatchRequest) GetDeliveryId() string {
-	if o == nil || IsNil(o.DeliveryId) {
+	if o == nil || IsNil(o.DeliveryId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.DeliveryId
+	return *o.DeliveryId.Get()
 }
 
 // GetDeliveryIdOk returns a tuple with the DeliveryId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *WebhookDeliveriesDispatchRequest) GetDeliveryIdOk() (*string, bool) {
-	if o == nil || IsNil(o.DeliveryId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DeliveryId, true
+	return o.DeliveryId.Get(), o.DeliveryId.IsSet()
 }
 
 // HasDeliveryId returns a boolean if a field has been set.
 func (o *WebhookDeliveriesDispatchRequest) HasDeliveryId() bool {
-	if o != nil && !IsNil(o.DeliveryId) {
+	if o != nil && o.DeliveryId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDeliveryId gets a reference to the given string and assigns it to the DeliveryId field.
+// SetDeliveryId gets a reference to the given NullableString and assigns it to the DeliveryId field.
 func (o *WebhookDeliveriesDispatchRequest) SetDeliveryId(v string) {
-	o.DeliveryId = &v
+	o.DeliveryId.Set(&v)
+}
+// SetDeliveryIdNil sets the value for DeliveryId to be an explicit nil
+func (o *WebhookDeliveriesDispatchRequest) SetDeliveryIdNil() {
+	o.DeliveryId.Set(nil)
+}
+
+// UnsetDeliveryId ensures that no value is present for DeliveryId, not even an explicit nil
+func (o *WebhookDeliveriesDispatchRequest) UnsetDeliveryId() {
+	o.DeliveryId.Unset()
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
@@ -147,8 +160,8 @@ func (o WebhookDeliveriesDispatchRequest) MarshalJSON() ([]byte, error) {
 
 func (o WebhookDeliveriesDispatchRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.DeliveryId) {
-		toSerialize["deliveryId"] = o.DeliveryId
+	if o.DeliveryId.IsSet() {
+		toSerialize["deliveryId"] = o.DeliveryId.Get()
 	}
 	if !IsNil(o.Limit) {
 		toSerialize["limit"] = o.Limit
@@ -156,7 +169,35 @@ func (o WebhookDeliveriesDispatchRequest) ToMap() (map[string]interface{}, error
 	if !IsNil(o.EndpointLimit) {
 		toSerialize["endpointLimit"] = o.EndpointLimit
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *WebhookDeliveriesDispatchRequest) UnmarshalJSON(data []byte) (err error) {
+	varWebhookDeliveriesDispatchRequest := _WebhookDeliveriesDispatchRequest{}
+
+	err = json.Unmarshal(data, &varWebhookDeliveriesDispatchRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = WebhookDeliveriesDispatchRequest(varWebhookDeliveriesDispatchRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "deliveryId")
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "endpointLimit")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableWebhookDeliveriesDispatchRequest struct {

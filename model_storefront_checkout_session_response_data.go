@@ -22,12 +22,12 @@ var _ MappedNullable = &StorefrontCheckoutSessionResponseData{}
 
 // StorefrontCheckoutSessionResponseData struct for StorefrontCheckoutSessionResponseData
 type StorefrontCheckoutSessionResponseData struct {
-	CheckoutSessionId string `json:"checkoutSessionId"`
-	Status string `json:"status"`
-	Mode *string `json:"mode,omitempty"`
+	CheckoutSessionId NullableString `json:"checkoutSessionId"`
+	Status NullableString `json:"status"`
+	Mode NullableString `json:"mode,omitempty"`
 	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
-	SuccessUrl *string `json:"successUrl,omitempty"`
-	CancelUrl *string `json:"cancelUrl,omitempty"`
+	SuccessUrl NullableString `json:"successUrl,omitempty"`
+	CancelUrl NullableString `json:"cancelUrl,omitempty"`
 }
 
 type _StorefrontCheckoutSessionResponseData StorefrontCheckoutSessionResponseData
@@ -36,7 +36,7 @@ type _StorefrontCheckoutSessionResponseData StorefrontCheckoutSessionResponseDat
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStorefrontCheckoutSessionResponseData(checkoutSessionId string, status string) *StorefrontCheckoutSessionResponseData {
+func NewStorefrontCheckoutSessionResponseData(checkoutSessionId NullableString, status NullableString) *StorefrontCheckoutSessionResponseData {
 	this := StorefrontCheckoutSessionResponseData{}
 	this.CheckoutSessionId = checkoutSessionId
 	this.Status = status
@@ -52,83 +52,97 @@ func NewStorefrontCheckoutSessionResponseDataWithDefaults() *StorefrontCheckoutS
 }
 
 // GetCheckoutSessionId returns the CheckoutSessionId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *StorefrontCheckoutSessionResponseData) GetCheckoutSessionId() string {
-	if o == nil {
+	if o == nil || o.CheckoutSessionId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.CheckoutSessionId
+	return *o.CheckoutSessionId.Get()
 }
 
 // GetCheckoutSessionIdOk returns a tuple with the CheckoutSessionId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *StorefrontCheckoutSessionResponseData) GetCheckoutSessionIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CheckoutSessionId, true
+	return o.CheckoutSessionId.Get(), o.CheckoutSessionId.IsSet()
 }
 
 // SetCheckoutSessionId sets field value
 func (o *StorefrontCheckoutSessionResponseData) SetCheckoutSessionId(v string) {
-	o.CheckoutSessionId = v
+	o.CheckoutSessionId.Set(&v)
 }
 
 // GetStatus returns the Status field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *StorefrontCheckoutSessionResponseData) GetStatus() string {
-	if o == nil {
+	if o == nil || o.Status.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Status
+	return *o.Status.Get()
 }
 
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *StorefrontCheckoutSessionResponseData) GetStatusOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Status, true
+	return o.Status.Get(), o.Status.IsSet()
 }
 
 // SetStatus sets field value
 func (o *StorefrontCheckoutSessionResponseData) SetStatus(v string) {
-	o.Status = v
+	o.Status.Set(&v)
 }
 
-// GetMode returns the Mode field value if set, zero value otherwise.
+// GetMode returns the Mode field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *StorefrontCheckoutSessionResponseData) GetMode() string {
-	if o == nil || IsNil(o.Mode) {
+	if o == nil || IsNil(o.Mode.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Mode
+	return *o.Mode.Get()
 }
 
 // GetModeOk returns a tuple with the Mode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *StorefrontCheckoutSessionResponseData) GetModeOk() (*string, bool) {
-	if o == nil || IsNil(o.Mode) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Mode, true
+	return o.Mode.Get(), o.Mode.IsSet()
 }
 
 // HasMode returns a boolean if a field has been set.
 func (o *StorefrontCheckoutSessionResponseData) HasMode() bool {
-	if o != nil && !IsNil(o.Mode) {
+	if o != nil && o.Mode.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetMode gets a reference to the given string and assigns it to the Mode field.
+// SetMode gets a reference to the given NullableString and assigns it to the Mode field.
 func (o *StorefrontCheckoutSessionResponseData) SetMode(v string) {
-	o.Mode = &v
+	o.Mode.Set(&v)
+}
+// SetModeNil sets the value for Mode to be an explicit nil
+func (o *StorefrontCheckoutSessionResponseData) SetModeNil() {
+	o.Mode.Set(nil)
+}
+
+// UnsetMode ensures that no value is present for Mode, not even an explicit nil
+func (o *StorefrontCheckoutSessionResponseData) UnsetMode() {
+	o.Mode.Unset()
 }
 
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
@@ -163,68 +177,88 @@ func (o *StorefrontCheckoutSessionResponseData) SetExpiresAt(v time.Time) {
 	o.ExpiresAt = &v
 }
 
-// GetSuccessUrl returns the SuccessUrl field value if set, zero value otherwise.
+// GetSuccessUrl returns the SuccessUrl field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *StorefrontCheckoutSessionResponseData) GetSuccessUrl() string {
-	if o == nil || IsNil(o.SuccessUrl) {
+	if o == nil || IsNil(o.SuccessUrl.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.SuccessUrl
+	return *o.SuccessUrl.Get()
 }
 
 // GetSuccessUrlOk returns a tuple with the SuccessUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *StorefrontCheckoutSessionResponseData) GetSuccessUrlOk() (*string, bool) {
-	if o == nil || IsNil(o.SuccessUrl) {
+	if o == nil {
 		return nil, false
 	}
-	return o.SuccessUrl, true
+	return o.SuccessUrl.Get(), o.SuccessUrl.IsSet()
 }
 
 // HasSuccessUrl returns a boolean if a field has been set.
 func (o *StorefrontCheckoutSessionResponseData) HasSuccessUrl() bool {
-	if o != nil && !IsNil(o.SuccessUrl) {
+	if o != nil && o.SuccessUrl.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetSuccessUrl gets a reference to the given string and assigns it to the SuccessUrl field.
+// SetSuccessUrl gets a reference to the given NullableString and assigns it to the SuccessUrl field.
 func (o *StorefrontCheckoutSessionResponseData) SetSuccessUrl(v string) {
-	o.SuccessUrl = &v
+	o.SuccessUrl.Set(&v)
+}
+// SetSuccessUrlNil sets the value for SuccessUrl to be an explicit nil
+func (o *StorefrontCheckoutSessionResponseData) SetSuccessUrlNil() {
+	o.SuccessUrl.Set(nil)
 }
 
-// GetCancelUrl returns the CancelUrl field value if set, zero value otherwise.
+// UnsetSuccessUrl ensures that no value is present for SuccessUrl, not even an explicit nil
+func (o *StorefrontCheckoutSessionResponseData) UnsetSuccessUrl() {
+	o.SuccessUrl.Unset()
+}
+
+// GetCancelUrl returns the CancelUrl field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *StorefrontCheckoutSessionResponseData) GetCancelUrl() string {
-	if o == nil || IsNil(o.CancelUrl) {
+	if o == nil || IsNil(o.CancelUrl.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CancelUrl
+	return *o.CancelUrl.Get()
 }
 
 // GetCancelUrlOk returns a tuple with the CancelUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *StorefrontCheckoutSessionResponseData) GetCancelUrlOk() (*string, bool) {
-	if o == nil || IsNil(o.CancelUrl) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CancelUrl, true
+	return o.CancelUrl.Get(), o.CancelUrl.IsSet()
 }
 
 // HasCancelUrl returns a boolean if a field has been set.
 func (o *StorefrontCheckoutSessionResponseData) HasCancelUrl() bool {
-	if o != nil && !IsNil(o.CancelUrl) {
+	if o != nil && o.CancelUrl.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCancelUrl gets a reference to the given string and assigns it to the CancelUrl field.
+// SetCancelUrl gets a reference to the given NullableString and assigns it to the CancelUrl field.
 func (o *StorefrontCheckoutSessionResponseData) SetCancelUrl(v string) {
-	o.CancelUrl = &v
+	o.CancelUrl.Set(&v)
+}
+// SetCancelUrlNil sets the value for CancelUrl to be an explicit nil
+func (o *StorefrontCheckoutSessionResponseData) SetCancelUrlNil() {
+	o.CancelUrl.Set(nil)
+}
+
+// UnsetCancelUrl ensures that no value is present for CancelUrl, not even an explicit nil
+func (o *StorefrontCheckoutSessionResponseData) UnsetCancelUrl() {
+	o.CancelUrl.Unset()
 }
 
 func (o StorefrontCheckoutSessionResponseData) MarshalJSON() ([]byte, error) {
@@ -237,19 +271,19 @@ func (o StorefrontCheckoutSessionResponseData) MarshalJSON() ([]byte, error) {
 
 func (o StorefrontCheckoutSessionResponseData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["checkoutSessionId"] = o.CheckoutSessionId
-	toSerialize["status"] = o.Status
-	if !IsNil(o.Mode) {
-		toSerialize["mode"] = o.Mode
+	toSerialize["checkoutSessionId"] = o.CheckoutSessionId.Get()
+	toSerialize["status"] = o.Status.Get()
+	if o.Mode.IsSet() {
+		toSerialize["mode"] = o.Mode.Get()
 	}
 	if !IsNil(o.ExpiresAt) {
 		toSerialize["expiresAt"] = o.ExpiresAt
 	}
-	if !IsNil(o.SuccessUrl) {
-		toSerialize["successUrl"] = o.SuccessUrl
+	if o.SuccessUrl.IsSet() {
+		toSerialize["successUrl"] = o.SuccessUrl.Get()
 	}
-	if !IsNil(o.CancelUrl) {
-		toSerialize["cancelUrl"] = o.CancelUrl
+	if o.CancelUrl.IsSet() {
+		toSerialize["cancelUrl"] = o.CancelUrl.Get()
 	}
 	return toSerialize, nil
 }

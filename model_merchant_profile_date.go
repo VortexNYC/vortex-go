@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,6 +23,7 @@ type MerchantProfileDate struct {
 	Day float32 `json:"day"`
 	Month float32 `json:"month"`
 	Year float32 `json:"year"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MerchantProfileDate MerchantProfileDate
@@ -133,6 +133,11 @@ func (o MerchantProfileDate) ToMap() (map[string]interface{}, error) {
 	toSerialize["day"] = o.Day
 	toSerialize["month"] = o.Month
 	toSerialize["year"] = o.Year
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -162,15 +167,22 @@ func (o *MerchantProfileDate) UnmarshalJSON(data []byte) (err error) {
 
 	varMerchantProfileDate := _MerchantProfileDate{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMerchantProfileDate)
+	err = json.Unmarshal(data, &varMerchantProfileDate)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MerchantProfileDate(varMerchantProfileDate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "day")
+		delete(additionalProperties, "month")
+		delete(additionalProperties, "year")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -23,38 +23,50 @@ import (
 // DisputesAPIService DisputesAPI service
 type DisputesAPIService service
 
-type DisputesAPIGetDisputeRequest struct {
+type DisputesAPIAcceptMerchantDisputeRequest struct {
 	ctx context.Context
 	ApiService *DisputesAPIService
 	disputeId string
+	acceptMerchantDisputeRequest *AcceptMerchantDisputeRequest
 	environment *string
 	merchantAccountId *string
+	idempotencyKey *string
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
-func (r DisputesAPIGetDisputeRequest) Environment(environment string) DisputesAPIGetDisputeRequest {
+func (r DisputesAPIAcceptMerchantDisputeRequest) AcceptMerchantDisputeRequest(acceptMerchantDisputeRequest AcceptMerchantDisputeRequest) DisputesAPIAcceptMerchantDisputeRequest {
+	r.acceptMerchantDisputeRequest = &acceptMerchantDisputeRequest
+	return r
+}
+
+func (r DisputesAPIAcceptMerchantDisputeRequest) Environment(environment string) DisputesAPIAcceptMerchantDisputeRequest {
 	r.environment = &environment
 	return r
 }
 
-func (r DisputesAPIGetDisputeRequest) MerchantAccountId(merchantAccountId string) DisputesAPIGetDisputeRequest {
+func (r DisputesAPIAcceptMerchantDisputeRequest) MerchantAccountId(merchantAccountId string) DisputesAPIAcceptMerchantDisputeRequest {
 	r.merchantAccountId = &merchantAccountId
 	return r
 }
 
-func (r DisputesAPIGetDisputeRequest) Execute() (*DisputeResponse, *http.Response, error) {
-	return r.ApiService.GetDisputeExecute(r)
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r DisputesAPIAcceptMerchantDisputeRequest) IdempotencyKey(idempotencyKey string) DisputesAPIAcceptMerchantDisputeRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r DisputesAPIAcceptMerchantDisputeRequest) Execute() (*AcceptMerchantDispute200Response, *http.Response, error) {
+	return r.ApiService.AcceptMerchantDisputeExecute(r)
 }
 
 /*
-GetDispute Get one dispute
+AcceptMerchantDispute Method for AcceptMerchantDispute
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param disputeId
- @return DisputesAPIGetDisputeRequest
+ @return DisputesAPIAcceptMerchantDisputeRequest
 */
-func (a *DisputesAPIService) GetDispute(ctx context.Context, disputeId string) DisputesAPIGetDisputeRequest {
-	return DisputesAPIGetDisputeRequest{
+func (a *DisputesAPIService) AcceptMerchantDispute(ctx context.Context, disputeId string) DisputesAPIAcceptMerchantDisputeRequest {
+	return DisputesAPIAcceptMerchantDisputeRequest{
 		ApiService: a,
 		ctx: ctx,
 		disputeId: disputeId,
@@ -62,37 +74,41 @@ func (a *DisputesAPIService) GetDispute(ctx context.Context, disputeId string) D
 }
 
 // Execute executes the request
-//  @return DisputeResponse
-func (a *DisputesAPIService) GetDisputeExecute(r DisputesAPIGetDisputeRequest) (*DisputeResponse, *http.Response, error) {
+//  @return AcceptMerchantDispute200Response
+func (a *DisputesAPIService) AcceptMerchantDisputeExecute(r DisputesAPIAcceptMerchantDisputeRequest) (*AcceptMerchantDispute200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DisputeResponse
+		localVarReturnValue  *AcceptMerchantDispute200Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DisputesAPIService.GetDispute")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DisputesAPIService.AcceptMerchantDispute")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/disputes/{disputeId}"
+	localVarPath := localBasePath + "/v1/disputes/{disputeId}/accept"
 	localVarPath = strings.Replace(localVarPath, "{"+"disputeId"+"}", url.PathEscape(parameterValueToString(r.disputeId, "disputeId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
+	if strlen(r.disputeId) < 1 {
+		return localVarReturnValue, nil, reportError("disputeId must have at least 1 elements")
 	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
+	if r.acceptMerchantDisputeRequest == nil {
+		return localVarReturnValue, nil, reportError("acceptMerchantDisputeRequest is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -108,6 +124,11 @@ func (a *DisputesAPIService) GetDisputeExecute(r DisputesAPIGetDisputeRequest) (
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.acceptMerchantDisputeRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -130,80 +151,6 @@ func (a *DisputesAPIService) GetDisputeExecute(r DisputesAPIGetDisputeRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -219,118 +166,216 @@ func (a *DisputesAPIService) GetDisputeExecute(r DisputesAPIGetDisputeRequest) (
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DisputesAPIListDisputesRequest struct {
+type DisputesAPICreateDisputePortalLinkRequest struct {
 	ctx context.Context
 	ApiService *DisputesAPIService
+	createOrderFormHostedLinkRequest *CreateOrderFormHostedLinkRequest
 	environment *string
 	merchantAccountId *string
-	actionableOnly *string
-	scope *string
-	sort *string
-	limit *int32
-	cursor *string
+	idempotencyKey *string
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
-func (r DisputesAPIListDisputesRequest) Environment(environment string) DisputesAPIListDisputesRequest {
+func (r DisputesAPICreateDisputePortalLinkRequest) CreateOrderFormHostedLinkRequest(createOrderFormHostedLinkRequest CreateOrderFormHostedLinkRequest) DisputesAPICreateDisputePortalLinkRequest {
+	r.createOrderFormHostedLinkRequest = &createOrderFormHostedLinkRequest
+	return r
+}
+
+func (r DisputesAPICreateDisputePortalLinkRequest) Environment(environment string) DisputesAPICreateDisputePortalLinkRequest {
 	r.environment = &environment
 	return r
 }
 
-func (r DisputesAPIListDisputesRequest) MerchantAccountId(merchantAccountId string) DisputesAPIListDisputesRequest {
+func (r DisputesAPICreateDisputePortalLinkRequest) MerchantAccountId(merchantAccountId string) DisputesAPICreateDisputePortalLinkRequest {
 	r.merchantAccountId = &merchantAccountId
 	return r
 }
 
-func (r DisputesAPIListDisputesRequest) ActionableOnly(actionableOnly string) DisputesAPIListDisputesRequest {
-	r.actionableOnly = &actionableOnly
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r DisputesAPICreateDisputePortalLinkRequest) IdempotencyKey(idempotencyKey string) DisputesAPICreateDisputePortalLinkRequest {
+	r.idempotencyKey = &idempotencyKey
 	return r
 }
 
-// &#x60;platform&#x60; lists disputes across every merchant account linked to this one via platformMerchantAccountId (Connect fleet view).
-func (r DisputesAPIListDisputesRequest) Scope(scope string) DisputesAPIListDisputesRequest {
-	r.scope = &scope
-	return r
-}
-
-// &#x60;deadline&#x60; orders nearest respond-by first (nulls last); &#x60;created&#x60; keeps insertion order.
-func (r DisputesAPIListDisputesRequest) Sort(sort string) DisputesAPIListDisputesRequest {
-	r.sort = &sort
-	return r
-}
-
-// Page size, 1-100. Omitting both limit and cursor returns the full unpaginated list.
-func (r DisputesAPIListDisputesRequest) Limit(limit int32) DisputesAPIListDisputesRequest {
-	r.limit = &limit
-	return r
-}
-
-// Opaque cursor from the previous page&#39;s nextCursor. Pass it back verbatim to fetch the next page.
-func (r DisputesAPIListDisputesRequest) Cursor(cursor string) DisputesAPIListDisputesRequest {
-	r.cursor = &cursor
-	return r
-}
-
-func (r DisputesAPIListDisputesRequest) Execute() (*DisputeListResponse, *http.Response, error) {
-	return r.ApiService.ListDisputesExecute(r)
+func (r DisputesAPICreateDisputePortalLinkRequest) Execute() (*CreateDisputePortalLink201Response, *http.Response, error) {
+	return r.ApiService.CreateDisputePortalLinkExecute(r)
 }
 
 /*
-ListDisputes List disputes for a merchant account
+CreateDisputePortalLink Method for CreateDisputePortalLink
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DisputesAPIListDisputesRequest
+ @return DisputesAPICreateDisputePortalLinkRequest
 */
-func (a *DisputesAPIService) ListDisputes(ctx context.Context) DisputesAPIListDisputesRequest {
-	return DisputesAPIListDisputesRequest{
+func (a *DisputesAPIService) CreateDisputePortalLink(ctx context.Context) DisputesAPICreateDisputePortalLinkRequest {
+	return DisputesAPICreateDisputePortalLinkRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//  @return DisputeListResponse
-func (a *DisputesAPIService) ListDisputesExecute(r DisputesAPIListDisputesRequest) (*DisputeListResponse, *http.Response, error) {
+//  @return CreateDisputePortalLink201Response
+func (a *DisputesAPIService) CreateDisputePortalLinkExecute(r DisputesAPICreateDisputePortalLinkRequest) (*CreateDisputePortalLink201Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DisputeListResponse
+		localVarReturnValue  *CreateDisputePortalLink201Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DisputesAPIService.ListDisputes")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DisputesAPIService.CreateDisputePortalLink")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/disputes"
+	localVarPath := localBasePath + "/v1/disputes/hosted-link"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
+	if r.createOrderFormHostedLinkRequest == nil {
+		return localVarReturnValue, nil, reportError("createOrderFormHostedLinkRequest is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
-	if r.actionableOnly != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "actionableOnly", r.actionableOnly, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
 	}
-	if r.scope != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "")
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
 	}
-	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
-	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.cursor != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.createOrderFormHostedLinkRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type DisputesAPIGetDisputeEvidenceRequest struct {
+	ctx context.Context
+	ApiService *DisputesAPIService
+	disputeId string
+	evidenceId string
+	environment *string
+	merchantAccountId *string
+}
+
+func (r DisputesAPIGetDisputeEvidenceRequest) Environment(environment string) DisputesAPIGetDisputeEvidenceRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r DisputesAPIGetDisputeEvidenceRequest) MerchantAccountId(merchantAccountId string) DisputesAPIGetDisputeEvidenceRequest {
+	r.merchantAccountId = &merchantAccountId
+	return r
+}
+
+func (r DisputesAPIGetDisputeEvidenceRequest) Execute() (*SubmitDisputeEvidence200Response, *http.Response, error) {
+	return r.ApiService.GetDisputeEvidenceExecute(r)
+}
+
+/*
+GetDisputeEvidence Method for GetDisputeEvidence
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param disputeId
+ @param evidenceId
+ @return DisputesAPIGetDisputeEvidenceRequest
+*/
+func (a *DisputesAPIService) GetDisputeEvidence(ctx context.Context, disputeId string, evidenceId string) DisputesAPIGetDisputeEvidenceRequest {
+	return DisputesAPIGetDisputeEvidenceRequest{
+		ApiService: a,
+		ctx: ctx,
+		disputeId: disputeId,
+		evidenceId: evidenceId,
+	}
+}
+
+// Execute executes the request
+//  @return SubmitDisputeEvidence200Response
+func (a *DisputesAPIService) GetDisputeEvidenceExecute(r DisputesAPIGetDisputeEvidenceRequest) (*SubmitDisputeEvidence200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SubmitDisputeEvidence200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DisputesAPIService.GetDisputeEvidence")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/disputes/{disputeId}/evidence/{evidenceId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"disputeId"+"}", url.PathEscape(parameterValueToString(r.disputeId, "disputeId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"evidenceId"+"}", url.PathEscape(parameterValueToString(r.evidenceId, "evidenceId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.disputeId) < 1 {
+		return localVarReturnValue, nil, reportError("disputeId must have at least 1 elements")
+	}
+	if strlen(r.evidenceId) < 1 {
+		return localVarReturnValue, nil, reportError("evidenceId must have at least 1 elements")
+	}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -371,69 +416,1212 @@ func (a *DisputesAPIService) ListDisputesExecute(r DisputesAPIListDisputesReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
 		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type DisputesAPIGetMerchantDisputeRequest struct {
+	ctx context.Context
+	ApiService *DisputesAPIService
+	disputeId string
+	environment *string
+	merchantAccountId *string
+}
+
+func (r DisputesAPIGetMerchantDisputeRequest) Environment(environment string) DisputesAPIGetMerchantDisputeRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r DisputesAPIGetMerchantDisputeRequest) MerchantAccountId(merchantAccountId string) DisputesAPIGetMerchantDisputeRequest {
+	r.merchantAccountId = &merchantAccountId
+	return r
+}
+
+func (r DisputesAPIGetMerchantDisputeRequest) Execute() (*GetMerchantDispute200Response, *http.Response, error) {
+	return r.ApiService.GetMerchantDisputeExecute(r)
+}
+
+/*
+GetMerchantDispute Method for GetMerchantDispute
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param disputeId
+ @return DisputesAPIGetMerchantDisputeRequest
+*/
+func (a *DisputesAPIService) GetMerchantDispute(ctx context.Context, disputeId string) DisputesAPIGetMerchantDisputeRequest {
+	return DisputesAPIGetMerchantDisputeRequest{
+		ApiService: a,
+		ctx: ctx,
+		disputeId: disputeId,
+	}
+}
+
+// Execute executes the request
+//  @return GetMerchantDispute200Response
+func (a *DisputesAPIService) GetMerchantDisputeExecute(r DisputesAPIGetMerchantDisputeRequest) (*GetMerchantDispute200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *GetMerchantDispute200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DisputesAPIService.GetMerchantDispute")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/disputes/{disputeId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"disputeId"+"}", url.PathEscape(parameterValueToString(r.disputeId, "disputeId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.disputeId) < 1 {
+		return localVarReturnValue, nil, reportError("disputeId must have at least 1 elements")
+	}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
 		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type DisputesAPIListDisputeAdjustmentTransfersRequest struct {
+	ctx context.Context
+	ApiService *DisputesAPIService
+	disputeId string
+	environment *string
+	merchantAccountId *string
+}
+
+func (r DisputesAPIListDisputeAdjustmentTransfersRequest) Environment(environment string) DisputesAPIListDisputeAdjustmentTransfersRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r DisputesAPIListDisputeAdjustmentTransfersRequest) MerchantAccountId(merchantAccountId string) DisputesAPIListDisputeAdjustmentTransfersRequest {
+	r.merchantAccountId = &merchantAccountId
+	return r
+}
+
+func (r DisputesAPIListDisputeAdjustmentTransfersRequest) Execute() (*ListDisputeAdjustmentTransfers200Response, *http.Response, error) {
+	return r.ApiService.ListDisputeAdjustmentTransfersExecute(r)
+}
+
+/*
+ListDisputeAdjustmentTransfers Method for ListDisputeAdjustmentTransfers
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param disputeId
+ @return DisputesAPIListDisputeAdjustmentTransfersRequest
+*/
+func (a *DisputesAPIService) ListDisputeAdjustmentTransfers(ctx context.Context, disputeId string) DisputesAPIListDisputeAdjustmentTransfersRequest {
+	return DisputesAPIListDisputeAdjustmentTransfersRequest{
+		ApiService: a,
+		ctx: ctx,
+		disputeId: disputeId,
+	}
+}
+
+// Execute executes the request
+//  @return ListDisputeAdjustmentTransfers200Response
+func (a *DisputesAPIService) ListDisputeAdjustmentTransfersExecute(r DisputesAPIListDisputeAdjustmentTransfersRequest) (*ListDisputeAdjustmentTransfers200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ListDisputeAdjustmentTransfers200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DisputesAPIService.ListDisputeAdjustmentTransfers")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/disputes/{disputeId}/adjustment-transfers"
+	localVarPath = strings.Replace(localVarPath, "{"+"disputeId"+"}", url.PathEscape(parameterValueToString(r.disputeId, "disputeId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.disputeId) < 1 {
+		return localVarReturnValue, nil, reportError("disputeId must have at least 1 elements")
+	}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
 		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type DisputesAPIListDisputeEvidenceRequest struct {
+	ctx context.Context
+	ApiService *DisputesAPIService
+	disputeId string
+	environment *string
+	merchantAccountId *string
+}
+
+func (r DisputesAPIListDisputeEvidenceRequest) Environment(environment string) DisputesAPIListDisputeEvidenceRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r DisputesAPIListDisputeEvidenceRequest) MerchantAccountId(merchantAccountId string) DisputesAPIListDisputeEvidenceRequest {
+	r.merchantAccountId = &merchantAccountId
+	return r
+}
+
+func (r DisputesAPIListDisputeEvidenceRequest) Execute() (*ListDisputeEvidence200Response, *http.Response, error) {
+	return r.ApiService.ListDisputeEvidenceExecute(r)
+}
+
+/*
+ListDisputeEvidence Method for ListDisputeEvidence
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param disputeId
+ @return DisputesAPIListDisputeEvidenceRequest
+*/
+func (a *DisputesAPIService) ListDisputeEvidence(ctx context.Context, disputeId string) DisputesAPIListDisputeEvidenceRequest {
+	return DisputesAPIListDisputeEvidenceRequest{
+		ApiService: a,
+		ctx: ctx,
+		disputeId: disputeId,
+	}
+}
+
+// Execute executes the request
+//  @return ListDisputeEvidence200Response
+func (a *DisputesAPIService) ListDisputeEvidenceExecute(r DisputesAPIListDisputeEvidenceRequest) (*ListDisputeEvidence200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ListDisputeEvidence200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DisputesAPIService.ListDisputeEvidence")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/disputes/{disputeId}/evidence"
+	localVarPath = strings.Replace(localVarPath, "{"+"disputeId"+"}", url.PathEscape(parameterValueToString(r.disputeId, "disputeId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.disputeId) < 1 {
+		return localVarReturnValue, nil, reportError("disputeId must have at least 1 elements")
+	}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type DisputesAPIListMerchantDisputesRequest struct {
+	ctx context.Context
+	ApiService *DisputesAPIService
+	environment *string
+	merchantAccountId *string
+	scope *string
+	limit *ListCustomersLimitParameter
+	cursor *string
+	sort *string
+	actionableOnly *string
+}
+
+func (r DisputesAPIListMerchantDisputesRequest) Environment(environment string) DisputesAPIListMerchantDisputesRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r DisputesAPIListMerchantDisputesRequest) MerchantAccountId(merchantAccountId string) DisputesAPIListMerchantDisputesRequest {
+	r.merchantAccountId = &merchantAccountId
+	return r
+}
+
+func (r DisputesAPIListMerchantDisputesRequest) Scope(scope string) DisputesAPIListMerchantDisputesRequest {
+	r.scope = &scope
+	return r
+}
+
+func (r DisputesAPIListMerchantDisputesRequest) Limit(limit ListCustomersLimitParameter) DisputesAPIListMerchantDisputesRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r DisputesAPIListMerchantDisputesRequest) Cursor(cursor string) DisputesAPIListMerchantDisputesRequest {
+	r.cursor = &cursor
+	return r
+}
+
+func (r DisputesAPIListMerchantDisputesRequest) Sort(sort string) DisputesAPIListMerchantDisputesRequest {
+	r.sort = &sort
+	return r
+}
+
+func (r DisputesAPIListMerchantDisputesRequest) ActionableOnly(actionableOnly string) DisputesAPIListMerchantDisputesRequest {
+	r.actionableOnly = &actionableOnly
+	return r
+}
+
+func (r DisputesAPIListMerchantDisputesRequest) Execute() (*ListMerchantDisputes200Response, *http.Response, error) {
+	return r.ApiService.ListMerchantDisputesExecute(r)
+}
+
+/*
+ListMerchantDisputes Method for ListMerchantDisputes
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return DisputesAPIListMerchantDisputesRequest
+*/
+func (a *DisputesAPIService) ListMerchantDisputes(ctx context.Context) DisputesAPIListMerchantDisputesRequest {
+	return DisputesAPIListMerchantDisputesRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return ListMerchantDisputes200Response
+func (a *DisputesAPIService) ListMerchantDisputesExecute(r DisputesAPIListMerchantDisputesRequest) (*ListMerchantDisputes200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ListMerchantDisputes200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DisputesAPIService.ListMerchantDisputes")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/disputes"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
+	if r.scope != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
+	}
+	if r.sort != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
+	}
+	if r.actionableOnly != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "actionableOnly", r.actionableOnly, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type DisputesAPIReconcileMerchantDisputesRequest struct {
+	ctx context.Context
+	ApiService *DisputesAPIService
+	reconcileMerchantDisputesRequest *ReconcileMerchantDisputesRequest
+	environment *string
+	merchantAccountId *string
+	idempotencyKey *string
+}
+
+func (r DisputesAPIReconcileMerchantDisputesRequest) ReconcileMerchantDisputesRequest(reconcileMerchantDisputesRequest ReconcileMerchantDisputesRequest) DisputesAPIReconcileMerchantDisputesRequest {
+	r.reconcileMerchantDisputesRequest = &reconcileMerchantDisputesRequest
+	return r
+}
+
+func (r DisputesAPIReconcileMerchantDisputesRequest) Environment(environment string) DisputesAPIReconcileMerchantDisputesRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r DisputesAPIReconcileMerchantDisputesRequest) MerchantAccountId(merchantAccountId string) DisputesAPIReconcileMerchantDisputesRequest {
+	r.merchantAccountId = &merchantAccountId
+	return r
+}
+
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r DisputesAPIReconcileMerchantDisputesRequest) IdempotencyKey(idempotencyKey string) DisputesAPIReconcileMerchantDisputesRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r DisputesAPIReconcileMerchantDisputesRequest) Execute() (*ReconcileMerchantDisputes200Response, *http.Response, error) {
+	return r.ApiService.ReconcileMerchantDisputesExecute(r)
+}
+
+/*
+ReconcileMerchantDisputes Method for ReconcileMerchantDisputes
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return DisputesAPIReconcileMerchantDisputesRequest
+*/
+func (a *DisputesAPIService) ReconcileMerchantDisputes(ctx context.Context) DisputesAPIReconcileMerchantDisputesRequest {
+	return DisputesAPIReconcileMerchantDisputesRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return ReconcileMerchantDisputes200Response
+func (a *DisputesAPIService) ReconcileMerchantDisputesExecute(r DisputesAPIReconcileMerchantDisputesRequest) (*ReconcileMerchantDisputes200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ReconcileMerchantDisputes200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DisputesAPIService.ReconcileMerchantDisputes")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/disputes/reconcile"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.reconcileMerchantDisputesRequest == nil {
+		return localVarReturnValue, nil, reportError("reconcileMerchantDisputesRequest is required and must be specified")
+	}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.reconcileMerchantDisputesRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type DisputesAPIRevokeDisputePortalLinkRequest struct {
+	ctx context.Context
+	ApiService *DisputesAPIService
+	linkId string
+	environment *string
+	merchantAccountId *string
+	idempotencyKey *string
+}
+
+func (r DisputesAPIRevokeDisputePortalLinkRequest) Environment(environment string) DisputesAPIRevokeDisputePortalLinkRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r DisputesAPIRevokeDisputePortalLinkRequest) MerchantAccountId(merchantAccountId string) DisputesAPIRevokeDisputePortalLinkRequest {
+	r.merchantAccountId = &merchantAccountId
+	return r
+}
+
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r DisputesAPIRevokeDisputePortalLinkRequest) IdempotencyKey(idempotencyKey string) DisputesAPIRevokeDisputePortalLinkRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r DisputesAPIRevokeDisputePortalLinkRequest) Execute() (*RevokeDisputePortalLink200Response, *http.Response, error) {
+	return r.ApiService.RevokeDisputePortalLinkExecute(r)
+}
+
+/*
+RevokeDisputePortalLink Method for RevokeDisputePortalLink
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param linkId
+ @return DisputesAPIRevokeDisputePortalLinkRequest
+*/
+func (a *DisputesAPIService) RevokeDisputePortalLink(ctx context.Context, linkId string) DisputesAPIRevokeDisputePortalLinkRequest {
+	return DisputesAPIRevokeDisputePortalLinkRequest{
+		ApiService: a,
+		ctx: ctx,
+		linkId: linkId,
+	}
+}
+
+// Execute executes the request
+//  @return RevokeDisputePortalLink200Response
+func (a *DisputesAPIService) RevokeDisputePortalLinkExecute(r DisputesAPIRevokeDisputePortalLinkRequest) (*RevokeDisputePortalLink200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *RevokeDisputePortalLink200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DisputesAPIService.RevokeDisputePortalLink")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/disputes/hosted-link/{linkId}/revoke"
+	localVarPath = strings.Replace(localVarPath, "{"+"linkId"+"}", url.PathEscape(parameterValueToString(r.linkId, "linkId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.linkId) < 1 {
+		return localVarReturnValue, nil, reportError("linkId must have at least 1 elements")
+	}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type DisputesAPISaveDisputeRequest struct {
+	ctx context.Context
+	ApiService *DisputesAPIService
+	disputeId string
+	saveDisputeRequest *SaveDisputeRequest
+	idempotencyKey *string
+}
+
+func (r DisputesAPISaveDisputeRequest) SaveDisputeRequest(saveDisputeRequest SaveDisputeRequest) DisputesAPISaveDisputeRequest {
+	r.saveDisputeRequest = &saveDisputeRequest
+	return r
+}
+
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r DisputesAPISaveDisputeRequest) IdempotencyKey(idempotencyKey string) DisputesAPISaveDisputeRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r DisputesAPISaveDisputeRequest) Execute() (*SaveDispute200Response, *http.Response, error) {
+	return r.ApiService.SaveDisputeExecute(r)
+}
+
+/*
+SaveDispute Method for SaveDispute
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param disputeId
+ @return DisputesAPISaveDisputeRequest
+*/
+func (a *DisputesAPIService) SaveDispute(ctx context.Context, disputeId string) DisputesAPISaveDisputeRequest {
+	return DisputesAPISaveDisputeRequest{
+		ApiService: a,
+		ctx: ctx,
+		disputeId: disputeId,
+	}
+}
+
+// Execute executes the request
+//  @return SaveDispute200Response
+func (a *DisputesAPIService) SaveDisputeExecute(r DisputesAPISaveDisputeRequest) (*SaveDispute200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SaveDispute200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DisputesAPIService.SaveDispute")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/disputes/{disputeId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"disputeId"+"}", url.PathEscape(parameterValueToString(r.disputeId, "disputeId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.disputeId) < 1 {
+		return localVarReturnValue, nil, reportError("disputeId must have at least 1 elements")
+	}
+	if r.saveDisputeRequest == nil {
+		return localVarReturnValue, nil, reportError("saveDisputeRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.saveDisputeRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type DisputesAPISubmitDisputeEvidenceRequest struct {
+	ctx context.Context
+	ApiService *DisputesAPIService
+	disputeId string
+	submitDisputeEvidenceRequest *SubmitDisputeEvidenceRequest
+	environment *string
+	merchantAccountId *string
+	idempotencyKey *string
+}
+
+func (r DisputesAPISubmitDisputeEvidenceRequest) SubmitDisputeEvidenceRequest(submitDisputeEvidenceRequest SubmitDisputeEvidenceRequest) DisputesAPISubmitDisputeEvidenceRequest {
+	r.submitDisputeEvidenceRequest = &submitDisputeEvidenceRequest
+	return r
+}
+
+func (r DisputesAPISubmitDisputeEvidenceRequest) Environment(environment string) DisputesAPISubmitDisputeEvidenceRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r DisputesAPISubmitDisputeEvidenceRequest) MerchantAccountId(merchantAccountId string) DisputesAPISubmitDisputeEvidenceRequest {
+	r.merchantAccountId = &merchantAccountId
+	return r
+}
+
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r DisputesAPISubmitDisputeEvidenceRequest) IdempotencyKey(idempotencyKey string) DisputesAPISubmitDisputeEvidenceRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r DisputesAPISubmitDisputeEvidenceRequest) Execute() (*SubmitDisputeEvidence200Response, *http.Response, error) {
+	return r.ApiService.SubmitDisputeEvidenceExecute(r)
+}
+
+/*
+SubmitDisputeEvidence Method for SubmitDisputeEvidence
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param disputeId
+ @return DisputesAPISubmitDisputeEvidenceRequest
+*/
+func (a *DisputesAPIService) SubmitDisputeEvidence(ctx context.Context, disputeId string) DisputesAPISubmitDisputeEvidenceRequest {
+	return DisputesAPISubmitDisputeEvidenceRequest{
+		ApiService: a,
+		ctx: ctx,
+		disputeId: disputeId,
+	}
+}
+
+// Execute executes the request
+//  @return SubmitDisputeEvidence200Response
+func (a *DisputesAPIService) SubmitDisputeEvidenceExecute(r DisputesAPISubmitDisputeEvidenceRequest) (*SubmitDisputeEvidence200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SubmitDisputeEvidence200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DisputesAPIService.SubmitDisputeEvidence")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/disputes/{disputeId}/evidence/submit"
+	localVarPath = strings.Replace(localVarPath, "{"+"disputeId"+"}", url.PathEscape(parameterValueToString(r.disputeId, "disputeId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.disputeId) < 1 {
+		return localVarReturnValue, nil, reportError("disputeId must have at least 1 elements")
+	}
+	if r.submitDisputeEvidenceRequest == nil {
+		return localVarReturnValue, nil, reportError("submitDisputeEvidenceRequest is required and must be specified")
+	}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.submitDisputeEvidenceRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type DisputesAPIUploadDisputeEvidenceFileRequest struct {
+	ctx context.Context
+	ApiService *DisputesAPIService
+	disputeId string
+	file *string
+	environment *string
+	merchantAccountId *string
+	idempotencyKey *string
+}
+
+func (r DisputesAPIUploadDisputeEvidenceFileRequest) File(file string) DisputesAPIUploadDisputeEvidenceFileRequest {
+	r.file = &file
+	return r
+}
+
+func (r DisputesAPIUploadDisputeEvidenceFileRequest) Environment(environment string) DisputesAPIUploadDisputeEvidenceFileRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r DisputesAPIUploadDisputeEvidenceFileRequest) MerchantAccountId(merchantAccountId string) DisputesAPIUploadDisputeEvidenceFileRequest {
+	r.merchantAccountId = &merchantAccountId
+	return r
+}
+
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r DisputesAPIUploadDisputeEvidenceFileRequest) IdempotencyKey(idempotencyKey string) DisputesAPIUploadDisputeEvidenceFileRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r DisputesAPIUploadDisputeEvidenceFileRequest) Execute() (*UploadDisputeEvidenceFile201Response, *http.Response, error) {
+	return r.ApiService.UploadDisputeEvidenceFileExecute(r)
+}
+
+/*
+UploadDisputeEvidenceFile Method for UploadDisputeEvidenceFile
+
+Uploads evidence as multipart/form-data (field: file).
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param disputeId
+ @return DisputesAPIUploadDisputeEvidenceFileRequest
+*/
+func (a *DisputesAPIService) UploadDisputeEvidenceFile(ctx context.Context, disputeId string) DisputesAPIUploadDisputeEvidenceFileRequest {
+	return DisputesAPIUploadDisputeEvidenceFileRequest{
+		ApiService: a,
+		ctx: ctx,
+		disputeId: disputeId,
+	}
+}
+
+// Execute executes the request
+//  @return UploadDisputeEvidenceFile201Response
+func (a *DisputesAPIService) UploadDisputeEvidenceFileExecute(r DisputesAPIUploadDisputeEvidenceFileRequest) (*UploadDisputeEvidenceFile201Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *UploadDisputeEvidenceFile201Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DisputesAPIService.UploadDisputeEvidenceFile")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/disputes/{disputeId}/evidence/files"
+	localVarPath = strings.Replace(localVarPath, "{"+"disputeId"+"}", url.PathEscape(parameterValueToString(r.disputeId, "disputeId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.disputeId) < 1 {
+		return localVarReturnValue, nil, reportError("disputeId must have at least 1 elements")
+	}
+	if r.file == nil {
+		return localVarReturnValue, nil, reportError("file is required and must be specified")
+	}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"multipart/form-data"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	parameterAddToHeaderOrQuery(localVarFormParams, "file", r.file, "", "")
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

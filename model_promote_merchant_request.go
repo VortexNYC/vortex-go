@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,6 +23,7 @@ type PromoteMerchantRequest struct {
 	Environment string `json:"environment"`
 	// Must match the path merchantAccountId
 	MerchantAccountId string `json:"merchantAccountId"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PromoteMerchantRequest PromoteMerchantRequest
@@ -107,6 +107,11 @@ func (o PromoteMerchantRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["environment"] = o.Environment
 	toSerialize["merchantAccountId"] = o.MerchantAccountId
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -135,15 +140,21 @@ func (o *PromoteMerchantRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varPromoteMerchantRequest := _PromoteMerchantRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPromoteMerchantRequest)
+	err = json.Unmarshal(data, &varPromoteMerchantRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PromoteMerchantRequest(varPromoteMerchantRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "environment")
+		delete(additionalProperties, "merchantAccountId")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

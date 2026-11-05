@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,28 +20,29 @@ var _ MappedNullable = &MerchantAccountCreateRequest{}
 
 // MerchantAccountCreateRequest struct for MerchantAccountCreateRequest
 type MerchantAccountCreateRequest struct {
-	Environment string `json:"environment"`
+	Environment NullableString `json:"environment"`
 	// Your stable reference for this merchant. Optional; generated when omitted.
 	ExternalMerchantRef *string `json:"externalMerchantRef,omitempty"`
-	DisplayName string `json:"displayName"`
-	LegalEntityType string `json:"legalEntityType"`
-	Country string `json:"country"`
-	MerchantMode string `json:"merchantMode"`
-	DefaultCurrency string `json:"defaultCurrency"`
+	DisplayName NullableString `json:"displayName"`
+	LegalEntityType NullableString `json:"legalEntityType"`
+	Country NullableString `json:"country"`
+	MerchantMode NullableString `json:"merchantMode"`
+	DefaultCurrency NullableString `json:"defaultCurrency"`
 	// Must match the caller's organization when present; rejected otherwise.
 	TenantId *string `json:"tenantId,omitempty"`
 	// Connect: provision this account as a linked sub-merchant under an operator-granted platform account the caller controls (sandbox only in v1). The account is created in a fresh claimable org; the response carries `claimUrl`/`claimExpiresAt` for handing ownership to the sub-merchant.
 	PlatformMerchantAccountId *string `json:"platformMerchantAccountId,omitempty"`
 	// Identity anchor (VOR-794): create this account as a same-tenant product sibling that shares the named merchant account's processor KYC identity at onboarding submit. Immutable; mutually exclusive with platformMerchantAccountId. The anchor must be in the caller's org and environment, already onboarded (a provider `seller_identity` ref exists), and neither a Connect sub-merchant nor itself anchored.
 	IdentityAnchorMerchantAccountId *string `json:"identityAnchorMerchantAccountId,omitempty"`
-	BusinessPhone *string `json:"businessPhone,omitempty"`
-	Mcc *string `json:"mcc,omitempty"`
-	Url *string `json:"url,omitempty"`
+	BusinessPhone NullableString `json:"businessPhone,omitempty"`
+	Mcc NullableString `json:"mcc,omitempty"`
+	Url NullableString `json:"url,omitempty"`
 	MaxTransactionAmount *float32 `json:"maxTransactionAmount,omitempty"`
 	AchMaxTransactionAmount *float32 `json:"achMaxTransactionAmount,omitempty"`
 	AssociatedIdentities []MerchantAssociatedIdentity `json:"associatedIdentities,omitempty"`
 	Underwriting *MerchantUnderwritingData `json:"underwriting,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MerchantAccountCreateRequest MerchantAccountCreateRequest
@@ -51,7 +51,7 @@ type _MerchantAccountCreateRequest MerchantAccountCreateRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantAccountCreateRequest(environment string, displayName string, legalEntityType string, country string, merchantMode string, defaultCurrency string) *MerchantAccountCreateRequest {
+func NewMerchantAccountCreateRequest(environment NullableString, displayName NullableString, legalEntityType NullableString, country NullableString, merchantMode NullableString, defaultCurrency NullableString) *MerchantAccountCreateRequest {
 	this := MerchantAccountCreateRequest{}
 	this.Environment = environment
 	this.DisplayName = displayName
@@ -71,27 +71,29 @@ func NewMerchantAccountCreateRequestWithDefaults() *MerchantAccountCreateRequest
 }
 
 // GetEnvironment returns the Environment field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantAccountCreateRequest) GetEnvironment() string {
-	if o == nil {
+	if o == nil || o.Environment.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Environment
+	return *o.Environment.Get()
 }
 
 // GetEnvironmentOk returns a tuple with the Environment field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAccountCreateRequest) GetEnvironmentOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Environment, true
+	return o.Environment.Get(), o.Environment.IsSet()
 }
 
 // SetEnvironment sets field value
 func (o *MerchantAccountCreateRequest) SetEnvironment(v string) {
-	o.Environment = v
+	o.Environment.Set(&v)
 }
 
 // GetExternalMerchantRef returns the ExternalMerchantRef field value if set, zero value otherwise.
@@ -127,123 +129,133 @@ func (o *MerchantAccountCreateRequest) SetExternalMerchantRef(v string) {
 }
 
 // GetDisplayName returns the DisplayName field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantAccountCreateRequest) GetDisplayName() string {
-	if o == nil {
+	if o == nil || o.DisplayName.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.DisplayName
+	return *o.DisplayName.Get()
 }
 
 // GetDisplayNameOk returns a tuple with the DisplayName field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAccountCreateRequest) GetDisplayNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.DisplayName, true
+	return o.DisplayName.Get(), o.DisplayName.IsSet()
 }
 
 // SetDisplayName sets field value
 func (o *MerchantAccountCreateRequest) SetDisplayName(v string) {
-	o.DisplayName = v
+	o.DisplayName.Set(&v)
 }
 
 // GetLegalEntityType returns the LegalEntityType field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantAccountCreateRequest) GetLegalEntityType() string {
-	if o == nil {
+	if o == nil || o.LegalEntityType.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.LegalEntityType
+	return *o.LegalEntityType.Get()
 }
 
 // GetLegalEntityTypeOk returns a tuple with the LegalEntityType field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAccountCreateRequest) GetLegalEntityTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.LegalEntityType, true
+	return o.LegalEntityType.Get(), o.LegalEntityType.IsSet()
 }
 
 // SetLegalEntityType sets field value
 func (o *MerchantAccountCreateRequest) SetLegalEntityType(v string) {
-	o.LegalEntityType = v
+	o.LegalEntityType.Set(&v)
 }
 
 // GetCountry returns the Country field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantAccountCreateRequest) GetCountry() string {
-	if o == nil {
+	if o == nil || o.Country.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Country
+	return *o.Country.Get()
 }
 
 // GetCountryOk returns a tuple with the Country field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAccountCreateRequest) GetCountryOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Country, true
+	return o.Country.Get(), o.Country.IsSet()
 }
 
 // SetCountry sets field value
 func (o *MerchantAccountCreateRequest) SetCountry(v string) {
-	o.Country = v
+	o.Country.Set(&v)
 }
 
 // GetMerchantMode returns the MerchantMode field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantAccountCreateRequest) GetMerchantMode() string {
-	if o == nil {
+	if o == nil || o.MerchantMode.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.MerchantMode
+	return *o.MerchantMode.Get()
 }
 
 // GetMerchantModeOk returns a tuple with the MerchantMode field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAccountCreateRequest) GetMerchantModeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.MerchantMode, true
+	return o.MerchantMode.Get(), o.MerchantMode.IsSet()
 }
 
 // SetMerchantMode sets field value
 func (o *MerchantAccountCreateRequest) SetMerchantMode(v string) {
-	o.MerchantMode = v
+	o.MerchantMode.Set(&v)
 }
 
 // GetDefaultCurrency returns the DefaultCurrency field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantAccountCreateRequest) GetDefaultCurrency() string {
-	if o == nil {
+	if o == nil || o.DefaultCurrency.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.DefaultCurrency
+	return *o.DefaultCurrency.Get()
 }
 
 // GetDefaultCurrencyOk returns a tuple with the DefaultCurrency field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAccountCreateRequest) GetDefaultCurrencyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.DefaultCurrency, true
+	return o.DefaultCurrency.Get(), o.DefaultCurrency.IsSet()
 }
 
 // SetDefaultCurrency sets field value
 func (o *MerchantAccountCreateRequest) SetDefaultCurrency(v string) {
-	o.DefaultCurrency = v
+	o.DefaultCurrency.Set(&v)
 }
 
 // GetTenantId returns the TenantId field value if set, zero value otherwise.
@@ -342,100 +354,130 @@ func (o *MerchantAccountCreateRequest) SetIdentityAnchorMerchantAccountId(v stri
 	o.IdentityAnchorMerchantAccountId = &v
 }
 
-// GetBusinessPhone returns the BusinessPhone field value if set, zero value otherwise.
+// GetBusinessPhone returns the BusinessPhone field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantAccountCreateRequest) GetBusinessPhone() string {
-	if o == nil || IsNil(o.BusinessPhone) {
+	if o == nil || IsNil(o.BusinessPhone.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.BusinessPhone
+	return *o.BusinessPhone.Get()
 }
 
 // GetBusinessPhoneOk returns a tuple with the BusinessPhone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAccountCreateRequest) GetBusinessPhoneOk() (*string, bool) {
-	if o == nil || IsNil(o.BusinessPhone) {
+	if o == nil {
 		return nil, false
 	}
-	return o.BusinessPhone, true
+	return o.BusinessPhone.Get(), o.BusinessPhone.IsSet()
 }
 
 // HasBusinessPhone returns a boolean if a field has been set.
 func (o *MerchantAccountCreateRequest) HasBusinessPhone() bool {
-	if o != nil && !IsNil(o.BusinessPhone) {
+	if o != nil && o.BusinessPhone.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetBusinessPhone gets a reference to the given string and assigns it to the BusinessPhone field.
+// SetBusinessPhone gets a reference to the given NullableString and assigns it to the BusinessPhone field.
 func (o *MerchantAccountCreateRequest) SetBusinessPhone(v string) {
-	o.BusinessPhone = &v
+	o.BusinessPhone.Set(&v)
+}
+// SetBusinessPhoneNil sets the value for BusinessPhone to be an explicit nil
+func (o *MerchantAccountCreateRequest) SetBusinessPhoneNil() {
+	o.BusinessPhone.Set(nil)
 }
 
-// GetMcc returns the Mcc field value if set, zero value otherwise.
+// UnsetBusinessPhone ensures that no value is present for BusinessPhone, not even an explicit nil
+func (o *MerchantAccountCreateRequest) UnsetBusinessPhone() {
+	o.BusinessPhone.Unset()
+}
+
+// GetMcc returns the Mcc field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantAccountCreateRequest) GetMcc() string {
-	if o == nil || IsNil(o.Mcc) {
+	if o == nil || IsNil(o.Mcc.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Mcc
+	return *o.Mcc.Get()
 }
 
 // GetMccOk returns a tuple with the Mcc field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAccountCreateRequest) GetMccOk() (*string, bool) {
-	if o == nil || IsNil(o.Mcc) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Mcc, true
+	return o.Mcc.Get(), o.Mcc.IsSet()
 }
 
 // HasMcc returns a boolean if a field has been set.
 func (o *MerchantAccountCreateRequest) HasMcc() bool {
-	if o != nil && !IsNil(o.Mcc) {
+	if o != nil && o.Mcc.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetMcc gets a reference to the given string and assigns it to the Mcc field.
+// SetMcc gets a reference to the given NullableString and assigns it to the Mcc field.
 func (o *MerchantAccountCreateRequest) SetMcc(v string) {
-	o.Mcc = &v
+	o.Mcc.Set(&v)
+}
+// SetMccNil sets the value for Mcc to be an explicit nil
+func (o *MerchantAccountCreateRequest) SetMccNil() {
+	o.Mcc.Set(nil)
 }
 
-// GetUrl returns the Url field value if set, zero value otherwise.
+// UnsetMcc ensures that no value is present for Mcc, not even an explicit nil
+func (o *MerchantAccountCreateRequest) UnsetMcc() {
+	o.Mcc.Unset()
+}
+
+// GetUrl returns the Url field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantAccountCreateRequest) GetUrl() string {
-	if o == nil || IsNil(o.Url) {
+	if o == nil || IsNil(o.Url.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Url
+	return *o.Url.Get()
 }
 
 // GetUrlOk returns a tuple with the Url field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAccountCreateRequest) GetUrlOk() (*string, bool) {
-	if o == nil || IsNil(o.Url) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Url, true
+	return o.Url.Get(), o.Url.IsSet()
 }
 
 // HasUrl returns a boolean if a field has been set.
 func (o *MerchantAccountCreateRequest) HasUrl() bool {
-	if o != nil && !IsNil(o.Url) {
+	if o != nil && o.Url.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetUrl gets a reference to the given string and assigns it to the Url field.
+// SetUrl gets a reference to the given NullableString and assigns it to the Url field.
 func (o *MerchantAccountCreateRequest) SetUrl(v string) {
-	o.Url = &v
+	o.Url.Set(&v)
+}
+// SetUrlNil sets the value for Url to be an explicit nil
+func (o *MerchantAccountCreateRequest) SetUrlNil() {
+	o.Url.Set(nil)
+}
+
+// UnsetUrl ensures that no value is present for Url, not even an explicit nil
+func (o *MerchantAccountCreateRequest) UnsetUrl() {
+	o.Url.Unset()
 }
 
 // GetMaxTransactionAmount returns the MaxTransactionAmount field value if set, zero value otherwise.
@@ -566,9 +608,9 @@ func (o *MerchantAccountCreateRequest) SetUnderwriting(v MerchantUnderwritingDat
 	o.Underwriting = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantAccountCreateRequest) GetMetadata() map[string]string {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -577,6 +619,7 @@ func (o *MerchantAccountCreateRequest) GetMetadata() map[string]string {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAccountCreateRequest) GetMetadataOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return map[string]string{}, false
@@ -608,15 +651,15 @@ func (o MerchantAccountCreateRequest) MarshalJSON() ([]byte, error) {
 
 func (o MerchantAccountCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["environment"] = o.Environment
+	toSerialize["environment"] = o.Environment.Get()
 	if !IsNil(o.ExternalMerchantRef) {
 		toSerialize["externalMerchantRef"] = o.ExternalMerchantRef
 	}
-	toSerialize["displayName"] = o.DisplayName
-	toSerialize["legalEntityType"] = o.LegalEntityType
-	toSerialize["country"] = o.Country
-	toSerialize["merchantMode"] = o.MerchantMode
-	toSerialize["defaultCurrency"] = o.DefaultCurrency
+	toSerialize["displayName"] = o.DisplayName.Get()
+	toSerialize["legalEntityType"] = o.LegalEntityType.Get()
+	toSerialize["country"] = o.Country.Get()
+	toSerialize["merchantMode"] = o.MerchantMode.Get()
+	toSerialize["defaultCurrency"] = o.DefaultCurrency.Get()
 	if !IsNil(o.TenantId) {
 		toSerialize["tenantId"] = o.TenantId
 	}
@@ -626,14 +669,14 @@ func (o MerchantAccountCreateRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.IdentityAnchorMerchantAccountId) {
 		toSerialize["identityAnchorMerchantAccountId"] = o.IdentityAnchorMerchantAccountId
 	}
-	if !IsNil(o.BusinessPhone) {
-		toSerialize["businessPhone"] = o.BusinessPhone
+	if o.BusinessPhone.IsSet() {
+		toSerialize["businessPhone"] = o.BusinessPhone.Get()
 	}
-	if !IsNil(o.Mcc) {
-		toSerialize["mcc"] = o.Mcc
+	if o.Mcc.IsSet() {
+		toSerialize["mcc"] = o.Mcc.Get()
 	}
-	if !IsNil(o.Url) {
-		toSerialize["url"] = o.Url
+	if o.Url.IsSet() {
+		toSerialize["url"] = o.Url.Get()
 	}
 	if !IsNil(o.MaxTransactionAmount) {
 		toSerialize["maxTransactionAmount"] = o.MaxTransactionAmount
@@ -647,9 +690,14 @@ func (o MerchantAccountCreateRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Underwriting) {
 		toSerialize["underwriting"] = o.Underwriting
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -682,15 +730,37 @@ func (o *MerchantAccountCreateRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varMerchantAccountCreateRequest := _MerchantAccountCreateRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMerchantAccountCreateRequest)
+	err = json.Unmarshal(data, &varMerchantAccountCreateRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MerchantAccountCreateRequest(varMerchantAccountCreateRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "environment")
+		delete(additionalProperties, "externalMerchantRef")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "legalEntityType")
+		delete(additionalProperties, "country")
+		delete(additionalProperties, "merchantMode")
+		delete(additionalProperties, "defaultCurrency")
+		delete(additionalProperties, "tenantId")
+		delete(additionalProperties, "platformMerchantAccountId")
+		delete(additionalProperties, "identityAnchorMerchantAccountId")
+		delete(additionalProperties, "businessPhone")
+		delete(additionalProperties, "mcc")
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "maxTransactionAmount")
+		delete(additionalProperties, "achMaxTransactionAmount")
+		delete(additionalProperties, "associatedIdentities")
+		delete(additionalProperties, "underwriting")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

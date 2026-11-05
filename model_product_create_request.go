@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,10 +20,11 @@ var _ MappedNullable = &ProductCreateRequest{}
 
 // ProductCreateRequest struct for ProductCreateRequest
 type ProductCreateRequest struct {
-	ProductId string `json:"productId"`
-	Name string `json:"name"`
-	Description *string `json:"description,omitempty"`
+	ProductId NullableString `json:"productId"`
+	Name NullableString `json:"name"`
+	Description NullableString `json:"description,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ProductCreateRequest ProductCreateRequest
@@ -33,7 +33,7 @@ type _ProductCreateRequest ProductCreateRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewProductCreateRequest(productId string, name string) *ProductCreateRequest {
+func NewProductCreateRequest(productId NullableString, name NullableString) *ProductCreateRequest {
 	this := ProductCreateRequest{}
 	this.ProductId = productId
 	this.Name = name
@@ -49,88 +49,102 @@ func NewProductCreateRequestWithDefaults() *ProductCreateRequest {
 }
 
 // GetProductId returns the ProductId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *ProductCreateRequest) GetProductId() string {
-	if o == nil {
+	if o == nil || o.ProductId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.ProductId
+	return *o.ProductId.Get()
 }
 
 // GetProductIdOk returns a tuple with the ProductId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ProductCreateRequest) GetProductIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ProductId, true
+	return o.ProductId.Get(), o.ProductId.IsSet()
 }
 
 // SetProductId sets field value
 func (o *ProductCreateRequest) SetProductId(v string) {
-	o.ProductId = v
+	o.ProductId.Set(&v)
 }
 
 // GetName returns the Name field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *ProductCreateRequest) GetName() string {
-	if o == nil {
+	if o == nil || o.Name.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Name
+	return *o.Name.Get()
 }
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ProductCreateRequest) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name.Get(), o.Name.IsSet()
 }
 
 // SetName sets field value
 func (o *ProductCreateRequest) SetName(v string) {
-	o.Name = v
+	o.Name.Set(&v)
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ProductCreateRequest) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+	if o == nil || IsNil(o.Description.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Description
+	return *o.Description.Get()
 }
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ProductCreateRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return o.Description.Get(), o.Description.IsSet()
 }
 
 // HasDescription returns a boolean if a field has been set.
 func (o *ProductCreateRequest) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
+	if o != nil && o.Description.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription gets a reference to the given NullableString and assigns it to the Description field.
 func (o *ProductCreateRequest) SetDescription(v string) {
-	o.Description = &v
+	o.Description.Set(&v)
+}
+// SetDescriptionNil sets the value for Description to be an explicit nil
+func (o *ProductCreateRequest) SetDescriptionNil() {
+	o.Description.Set(nil)
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// UnsetDescription ensures that no value is present for Description, not even an explicit nil
+func (o *ProductCreateRequest) UnsetDescription() {
+	o.Description.Unset()
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ProductCreateRequest) GetMetadata() map[string]string {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -139,6 +153,7 @@ func (o *ProductCreateRequest) GetMetadata() map[string]string {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ProductCreateRequest) GetMetadataOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return map[string]string{}, false
@@ -170,14 +185,19 @@ func (o ProductCreateRequest) MarshalJSON() ([]byte, error) {
 
 func (o ProductCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["productId"] = o.ProductId
-	toSerialize["name"] = o.Name
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
+	toSerialize["productId"] = o.ProductId.Get()
+	toSerialize["name"] = o.Name.Get()
+	if o.Description.IsSet() {
+		toSerialize["description"] = o.Description.Get()
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -206,15 +226,23 @@ func (o *ProductCreateRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varProductCreateRequest := _ProductCreateRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varProductCreateRequest)
+	err = json.Unmarshal(data, &varProductCreateRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ProductCreateRequest(varProductCreateRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "productId")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

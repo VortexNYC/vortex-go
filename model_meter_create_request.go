@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -23,12 +22,13 @@ var _ MappedNullable = &MeterCreateRequest{}
 type MeterCreateRequest struct {
 	// Caller-chosen meter id; omit to auto-mint.
 	MeterId *string `json:"meterId,omitempty"`
-	Name string `json:"name"`
+	Name NullableString `json:"name"`
 	// Usage-event name this meter aggregates — must match the eventName sent on POST /v1/usage-events.
 	EventName string `json:"eventName"`
 	AggregationType string `json:"aggregationType"`
 	WindowGrain string `json:"windowGrain"`
 	FilterSchema map[string]string `json:"filterSchema,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MeterCreateRequest MeterCreateRequest
@@ -37,7 +37,7 @@ type _MeterCreateRequest MeterCreateRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMeterCreateRequest(name string, eventName string, aggregationType string, windowGrain string) *MeterCreateRequest {
+func NewMeterCreateRequest(name NullableString, eventName string, aggregationType string, windowGrain string) *MeterCreateRequest {
 	this := MeterCreateRequest{}
 	this.Name = name
 	this.EventName = eventName
@@ -87,27 +87,29 @@ func (o *MeterCreateRequest) SetMeterId(v string) {
 }
 
 // GetName returns the Name field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MeterCreateRequest) GetName() string {
-	if o == nil {
+	if o == nil || o.Name.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Name
+	return *o.Name.Get()
 }
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MeterCreateRequest) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name.Get(), o.Name.IsSet()
 }
 
 // SetName sets field value
 func (o *MeterCreateRequest) SetName(v string) {
-	o.Name = v
+	o.Name.Set(&v)
 }
 
 // GetEventName returns the EventName field value
@@ -182,9 +184,9 @@ func (o *MeterCreateRequest) SetWindowGrain(v string) {
 	o.WindowGrain = v
 }
 
-// GetFilterSchema returns the FilterSchema field value if set, zero value otherwise.
+// GetFilterSchema returns the FilterSchema field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MeterCreateRequest) GetFilterSchema() map[string]string {
-	if o == nil || IsNil(o.FilterSchema) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -193,6 +195,7 @@ func (o *MeterCreateRequest) GetFilterSchema() map[string]string {
 
 // GetFilterSchemaOk returns a tuple with the FilterSchema field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MeterCreateRequest) GetFilterSchemaOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.FilterSchema) {
 		return map[string]string{}, false
@@ -227,13 +230,18 @@ func (o MeterCreateRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.MeterId) {
 		toSerialize["meterId"] = o.MeterId
 	}
-	toSerialize["name"] = o.Name
+	toSerialize["name"] = o.Name.Get()
 	toSerialize["eventName"] = o.EventName
 	toSerialize["aggregationType"] = o.AggregationType
 	toSerialize["windowGrain"] = o.WindowGrain
-	if !IsNil(o.FilterSchema) {
+	if o.FilterSchema != nil {
 		toSerialize["filterSchema"] = o.FilterSchema
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -264,15 +272,25 @@ func (o *MeterCreateRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varMeterCreateRequest := _MeterCreateRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMeterCreateRequest)
+	err = json.Unmarshal(data, &varMeterCreateRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MeterCreateRequest(varMeterCreateRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "meterId")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "eventName")
+		delete(additionalProperties, "aggregationType")
+		delete(additionalProperties, "windowGrain")
+		delete(additionalProperties, "filterSchema")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

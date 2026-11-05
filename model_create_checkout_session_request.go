@@ -12,43 +12,47 @@ package vortex
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // checks if the CreateCheckoutSessionRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &CreateCheckoutSessionRequest{}
 
-// CreateCheckoutSessionRequest mode=payment (the default): pass invoiceNumbers, or amount + currency plus one customer handle (customerEmail, customerId, or a customer ensure-block) for an ad-hoc payable — invoiceNumbers and amount are mutually exclusive. mode=subscription: items plus customerId or a customer ensure-block are required; billingAccountId or a billingAccount block is optional (omitted resolves the customer's first account or auto-provisions a default). trialEndAt is not supported for mode=subscription — trial checkout collects a payment method, not a first-period invoice.
+// CreateCheckoutSessionRequest struct for CreateCheckoutSessionRequest
 type CreateCheckoutSessionRequest struct {
-	Mode *string `json:"mode,omitempty"`
+	Environment NullableString `json:"environment,omitempty"`
+	MerchantAccountId NullableString `json:"merchantAccountId,omitempty"`
+	Mode NullableString `json:"mode,omitempty"`
 	InvoiceNumbers []string `json:"invoiceNumbers,omitempty"`
-	// Minor units — composes customer → billing account → one-time invoice → payment request → /pay link when invoiceNumbers is omitted on mode=payment.
-	Amount *int32 `json:"amount,omitempty"`
-	// Required when amount is provided.
-	Currency *string `json:"currency,omitempty"`
-	Description *string `json:"description,omitempty"`
-	CustomerId *string `json:"customerId,omitempty"`
-	BillingAccountId *string `json:"billingAccountId,omitempty"`
-	Customer *CheckoutSessionCustomerEnsure `json:"customer,omitempty"`
-	BillingAccount *CheckoutSessionBillingAccount `json:"billingAccount,omitempty"`
-	// Required for mode=subscription.
-	Items []CheckoutSessionLineItemRequest `json:"items,omitempty"`
-	TrialEndAt *time.Time `json:"trialEndAt,omitempty"`
-	TestClockId *string `json:"testClockId,omitempty"`
-	CollectionMode *string `json:"collectionMode,omitempty"`
-	SuccessUrl *string `json:"successUrl,omitempty"`
-	CancelUrl *string `json:"cancelUrl,omitempty"`
-	ReturnUrl *string `json:"returnUrl,omitempty"`
-	PaymentMethodId *string `json:"paymentMethodId,omitempty"`
-	CustomerEmail *string `json:"customerEmail,omitempty"`
-	BillingAddressCollection *string `json:"billingAddressCollection,omitempty"`
-	DueAt *time.Time `json:"dueAt,omitempty"`
-	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
+	InvoiceNumber NullableString `json:"invoiceNumber,omitempty"`
+	Amount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"amount,omitempty"`
+	AmountCents NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"amountCents,omitempty"`
+	Currency NullableString `json:"currency,omitempty"`
+	Description NullableString `json:"description,omitempty"`
+	CustomerId NullableString `json:"customerId,omitempty"`
+	BillingAccountId NullableString `json:"billingAccountId,omitempty"`
+	Customer NullableCreateCheckoutSessionRequestCustomer `json:"customer,omitempty"`
+	BillingAccount NullableCreateCheckoutSessionRequestBillingAccount `json:"billingAccount,omitempty"`
+	Items []CreateCheckoutSessionRequestItemsInner `json:"items,omitempty"`
+	TrialEndAt NullableString `json:"trialEndAt,omitempty"`
+	TestClockId NullableString `json:"testClockId,omitempty"`
+	CollectionMode NullableString `json:"collectionMode,omitempty"`
+	SuccessUrl NullableString `json:"successUrl,omitempty"`
+	CancelUrl NullableString `json:"cancelUrl,omitempty"`
+	ReturnUrl NullableString `json:"returnUrl,omitempty"`
+	PaymentMethodId NullableString `json:"paymentMethodId,omitempty"`
+	CustomerEmail NullableString `json:"customerEmail,omitempty"`
+	PayerEmail NullableString `json:"payerEmail,omitempty"`
+	BillingAddressCollection NullableString `json:"billingAddressCollection,omitempty"`
+	DueAt NullableString `json:"dueAt,omitempty"`
+	DueDate NullableString `json:"dueDate,omitempty"`
+	ExpiresAt NullableString `json:"expiresAt,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
-	// May instead ride the Idempotency-Key header.
-	IdempotencyKey *string `json:"idempotencyKey,omitempty"`
-	CreatedByRef *string `json:"createdByRef,omitempty"`
+	IdempotencyKey NullableString `json:"idempotencyKey,omitempty"`
+	CreatedByRef NullableString `json:"createdByRef,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CreateCheckoutSessionRequest CreateCheckoutSessionRequest
 
 // NewCreateCheckoutSessionRequest instantiates a new CreateCheckoutSessionRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -56,8 +60,6 @@ type CreateCheckoutSessionRequest struct {
 // will change when the set of required properties is changed
 func NewCreateCheckoutSessionRequest() *CreateCheckoutSessionRequest {
 	this := CreateCheckoutSessionRequest{}
-	var mode string = "payment"
-	this.Mode = &mode
 	return &this
 }
 
@@ -66,46 +68,138 @@ func NewCreateCheckoutSessionRequest() *CreateCheckoutSessionRequest {
 // but it doesn't guarantee that properties required by API are set
 func NewCreateCheckoutSessionRequestWithDefaults() *CreateCheckoutSessionRequest {
 	this := CreateCheckoutSessionRequest{}
-	var mode string = "payment"
-	this.Mode = &mode
 	return &this
 }
 
-// GetMode returns the Mode field value if set, zero value otherwise.
-func (o *CreateCheckoutSessionRequest) GetMode() string {
-	if o == nil || IsNil(o.Mode) {
+// GetEnvironment returns the Environment field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCheckoutSessionRequest) GetEnvironment() string {
+	if o == nil || IsNil(o.Environment.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Mode
+	return *o.Environment.Get()
 }
 
-// GetModeOk returns a tuple with the Mode field value if set, nil otherwise
+// GetEnvironmentOk returns a tuple with the Environment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCheckoutSessionRequest) GetModeOk() (*string, bool) {
-	if o == nil || IsNil(o.Mode) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCheckoutSessionRequest) GetEnvironmentOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Mode, true
+	return o.Environment.Get(), o.Environment.IsSet()
 }
 
-// HasMode returns a boolean if a field has been set.
-func (o *CreateCheckoutSessionRequest) HasMode() bool {
-	if o != nil && !IsNil(o.Mode) {
+// HasEnvironment returns a boolean if a field has been set.
+func (o *CreateCheckoutSessionRequest) HasEnvironment() bool {
+	if o != nil && o.Environment.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetMode gets a reference to the given string and assigns it to the Mode field.
-func (o *CreateCheckoutSessionRequest) SetMode(v string) {
-	o.Mode = &v
+// SetEnvironment gets a reference to the given NullableString and assigns it to the Environment field.
+func (o *CreateCheckoutSessionRequest) SetEnvironment(v string) {
+	o.Environment.Set(&v)
+}
+// SetEnvironmentNil sets the value for Environment to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetEnvironmentNil() {
+	o.Environment.Set(nil)
 }
 
-// GetInvoiceNumbers returns the InvoiceNumbers field value if set, zero value otherwise.
+// UnsetEnvironment ensures that no value is present for Environment, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetEnvironment() {
+	o.Environment.Unset()
+}
+
+// GetMerchantAccountId returns the MerchantAccountId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCheckoutSessionRequest) GetMerchantAccountId() string {
+	if o == nil || IsNil(o.MerchantAccountId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.MerchantAccountId.Get()
+}
+
+// GetMerchantAccountIdOk returns a tuple with the MerchantAccountId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCheckoutSessionRequest) GetMerchantAccountIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.MerchantAccountId.Get(), o.MerchantAccountId.IsSet()
+}
+
+// HasMerchantAccountId returns a boolean if a field has been set.
+func (o *CreateCheckoutSessionRequest) HasMerchantAccountId() bool {
+	if o != nil && o.MerchantAccountId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetMerchantAccountId gets a reference to the given NullableString and assigns it to the MerchantAccountId field.
+func (o *CreateCheckoutSessionRequest) SetMerchantAccountId(v string) {
+	o.MerchantAccountId.Set(&v)
+}
+// SetMerchantAccountIdNil sets the value for MerchantAccountId to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetMerchantAccountIdNil() {
+	o.MerchantAccountId.Set(nil)
+}
+
+// UnsetMerchantAccountId ensures that no value is present for MerchantAccountId, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetMerchantAccountId() {
+	o.MerchantAccountId.Unset()
+}
+
+// GetMode returns the Mode field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCheckoutSessionRequest) GetMode() string {
+	if o == nil || IsNil(o.Mode.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Mode.Get()
+}
+
+// GetModeOk returns a tuple with the Mode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCheckoutSessionRequest) GetModeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Mode.Get(), o.Mode.IsSet()
+}
+
+// HasMode returns a boolean if a field has been set.
+func (o *CreateCheckoutSessionRequest) HasMode() bool {
+	if o != nil && o.Mode.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetMode gets a reference to the given NullableString and assigns it to the Mode field.
+func (o *CreateCheckoutSessionRequest) SetMode(v string) {
+	o.Mode.Set(&v)
+}
+// SetModeNil sets the value for Mode to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetModeNil() {
+	o.Mode.Set(nil)
+}
+
+// UnsetMode ensures that no value is present for Mode, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetMode() {
+	o.Mode.Unset()
+}
+
+// GetInvoiceNumbers returns the InvoiceNumbers field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateCheckoutSessionRequest) GetInvoiceNumbers() []string {
-	if o == nil || IsNil(o.InvoiceNumbers) {
+	if o == nil {
 		var ret []string
 		return ret
 	}
@@ -114,6 +208,7 @@ func (o *CreateCheckoutSessionRequest) GetInvoiceNumbers() []string {
 
 // GetInvoiceNumbersOk returns a tuple with the InvoiceNumbers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateCheckoutSessionRequest) GetInvoiceNumbersOk() ([]string, bool) {
 	if o == nil || IsNil(o.InvoiceNumbers) {
 		return nil, false
@@ -135,234 +230,388 @@ func (o *CreateCheckoutSessionRequest) SetInvoiceNumbers(v []string) {
 	o.InvoiceNumbers = v
 }
 
-// GetAmount returns the Amount field value if set, zero value otherwise.
-func (o *CreateCheckoutSessionRequest) GetAmount() int32 {
-	if o == nil || IsNil(o.Amount) {
-		var ret int32
+// GetInvoiceNumber returns the InvoiceNumber field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCheckoutSessionRequest) GetInvoiceNumber() string {
+	if o == nil || IsNil(o.InvoiceNumber.Get()) {
+		var ret string
 		return ret
 	}
-	return *o.Amount
+	return *o.InvoiceNumber.Get()
+}
+
+// GetInvoiceNumberOk returns a tuple with the InvoiceNumber field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCheckoutSessionRequest) GetInvoiceNumberOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.InvoiceNumber.Get(), o.InvoiceNumber.IsSet()
+}
+
+// HasInvoiceNumber returns a boolean if a field has been set.
+func (o *CreateCheckoutSessionRequest) HasInvoiceNumber() bool {
+	if o != nil && o.InvoiceNumber.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetInvoiceNumber gets a reference to the given NullableString and assigns it to the InvoiceNumber field.
+func (o *CreateCheckoutSessionRequest) SetInvoiceNumber(v string) {
+	o.InvoiceNumber.Set(&v)
+}
+// SetInvoiceNumberNil sets the value for InvoiceNumber to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetInvoiceNumberNil() {
+	o.InvoiceNumber.Set(nil)
+}
+
+// UnsetInvoiceNumber ensures that no value is present for InvoiceNumber, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetInvoiceNumber() {
+	o.InvoiceNumber.Unset()
+}
+
+// GetAmount returns the Amount field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCheckoutSessionRequest) GetAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+	if o == nil || IsNil(o.Amount.Get()) {
+		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		return ret
+	}
+	return *o.Amount.Get()
 }
 
 // GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCheckoutSessionRequest) GetAmountOk() (*int32, bool) {
-	if o == nil || IsNil(o.Amount) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCheckoutSessionRequest) GetAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Amount, true
+	return o.Amount.Get(), o.Amount.IsSet()
 }
 
 // HasAmount returns a boolean if a field has been set.
 func (o *CreateCheckoutSessionRequest) HasAmount() bool {
-	if o != nil && !IsNil(o.Amount) {
+	if o != nil && o.Amount.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetAmount gets a reference to the given int32 and assigns it to the Amount field.
-func (o *CreateCheckoutSessionRequest) SetAmount(v int32) {
-	o.Amount = &v
+// SetAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the Amount field.
+func (o *CreateCheckoutSessionRequest) SetAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+	o.Amount.Set(&v)
+}
+// SetAmountNil sets the value for Amount to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetAmountNil() {
+	o.Amount.Set(nil)
 }
 
-// GetCurrency returns the Currency field value if set, zero value otherwise.
+// UnsetAmount ensures that no value is present for Amount, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetAmount() {
+	o.Amount.Unset()
+}
+
+// GetAmountCents returns the AmountCents field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCheckoutSessionRequest) GetAmountCents() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+	if o == nil || IsNil(o.AmountCents.Get()) {
+		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		return ret
+	}
+	return *o.AmountCents.Get()
+}
+
+// GetAmountCentsOk returns a tuple with the AmountCents field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCheckoutSessionRequest) GetAmountCentsOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.AmountCents.Get(), o.AmountCents.IsSet()
+}
+
+// HasAmountCents returns a boolean if a field has been set.
+func (o *CreateCheckoutSessionRequest) HasAmountCents() bool {
+	if o != nil && o.AmountCents.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetAmountCents gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the AmountCents field.
+func (o *CreateCheckoutSessionRequest) SetAmountCents(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+	o.AmountCents.Set(&v)
+}
+// SetAmountCentsNil sets the value for AmountCents to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetAmountCentsNil() {
+	o.AmountCents.Set(nil)
+}
+
+// UnsetAmountCents ensures that no value is present for AmountCents, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetAmountCents() {
+	o.AmountCents.Unset()
+}
+
+// GetCurrency returns the Currency field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateCheckoutSessionRequest) GetCurrency() string {
-	if o == nil || IsNil(o.Currency) {
+	if o == nil || IsNil(o.Currency.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Currency
+	return *o.Currency.Get()
 }
 
 // GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateCheckoutSessionRequest) GetCurrencyOk() (*string, bool) {
-	if o == nil || IsNil(o.Currency) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Currency, true
+	return o.Currency.Get(), o.Currency.IsSet()
 }
 
 // HasCurrency returns a boolean if a field has been set.
 func (o *CreateCheckoutSessionRequest) HasCurrency() bool {
-	if o != nil && !IsNil(o.Currency) {
+	if o != nil && o.Currency.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCurrency gets a reference to the given string and assigns it to the Currency field.
+// SetCurrency gets a reference to the given NullableString and assigns it to the Currency field.
 func (o *CreateCheckoutSessionRequest) SetCurrency(v string) {
-	o.Currency = &v
+	o.Currency.Set(&v)
+}
+// SetCurrencyNil sets the value for Currency to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetCurrencyNil() {
+	o.Currency.Set(nil)
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// UnsetCurrency ensures that no value is present for Currency, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetCurrency() {
+	o.Currency.Unset()
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateCheckoutSessionRequest) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+	if o == nil || IsNil(o.Description.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Description
+	return *o.Description.Get()
 }
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateCheckoutSessionRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return o.Description.Get(), o.Description.IsSet()
 }
 
 // HasDescription returns a boolean if a field has been set.
 func (o *CreateCheckoutSessionRequest) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
+	if o != nil && o.Description.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription gets a reference to the given NullableString and assigns it to the Description field.
 func (o *CreateCheckoutSessionRequest) SetDescription(v string) {
-	o.Description = &v
+	o.Description.Set(&v)
+}
+// SetDescriptionNil sets the value for Description to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetDescriptionNil() {
+	o.Description.Set(nil)
 }
 
-// GetCustomerId returns the CustomerId field value if set, zero value otherwise.
+// UnsetDescription ensures that no value is present for Description, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetDescription() {
+	o.Description.Unset()
+}
+
+// GetCustomerId returns the CustomerId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateCheckoutSessionRequest) GetCustomerId() string {
-	if o == nil || IsNil(o.CustomerId) {
+	if o == nil || IsNil(o.CustomerId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CustomerId
+	return *o.CustomerId.Get()
 }
 
 // GetCustomerIdOk returns a tuple with the CustomerId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateCheckoutSessionRequest) GetCustomerIdOk() (*string, bool) {
-	if o == nil || IsNil(o.CustomerId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CustomerId, true
+	return o.CustomerId.Get(), o.CustomerId.IsSet()
 }
 
 // HasCustomerId returns a boolean if a field has been set.
 func (o *CreateCheckoutSessionRequest) HasCustomerId() bool {
-	if o != nil && !IsNil(o.CustomerId) {
+	if o != nil && o.CustomerId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCustomerId gets a reference to the given string and assigns it to the CustomerId field.
+// SetCustomerId gets a reference to the given NullableString and assigns it to the CustomerId field.
 func (o *CreateCheckoutSessionRequest) SetCustomerId(v string) {
-	o.CustomerId = &v
+	o.CustomerId.Set(&v)
+}
+// SetCustomerIdNil sets the value for CustomerId to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetCustomerIdNil() {
+	o.CustomerId.Set(nil)
 }
 
-// GetBillingAccountId returns the BillingAccountId field value if set, zero value otherwise.
+// UnsetCustomerId ensures that no value is present for CustomerId, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetCustomerId() {
+	o.CustomerId.Unset()
+}
+
+// GetBillingAccountId returns the BillingAccountId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateCheckoutSessionRequest) GetBillingAccountId() string {
-	if o == nil || IsNil(o.BillingAccountId) {
+	if o == nil || IsNil(o.BillingAccountId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.BillingAccountId
+	return *o.BillingAccountId.Get()
 }
 
 // GetBillingAccountIdOk returns a tuple with the BillingAccountId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateCheckoutSessionRequest) GetBillingAccountIdOk() (*string, bool) {
-	if o == nil || IsNil(o.BillingAccountId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.BillingAccountId, true
+	return o.BillingAccountId.Get(), o.BillingAccountId.IsSet()
 }
 
 // HasBillingAccountId returns a boolean if a field has been set.
 func (o *CreateCheckoutSessionRequest) HasBillingAccountId() bool {
-	if o != nil && !IsNil(o.BillingAccountId) {
+	if o != nil && o.BillingAccountId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetBillingAccountId gets a reference to the given string and assigns it to the BillingAccountId field.
+// SetBillingAccountId gets a reference to the given NullableString and assigns it to the BillingAccountId field.
 func (o *CreateCheckoutSessionRequest) SetBillingAccountId(v string) {
-	o.BillingAccountId = &v
+	o.BillingAccountId.Set(&v)
+}
+// SetBillingAccountIdNil sets the value for BillingAccountId to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetBillingAccountIdNil() {
+	o.BillingAccountId.Set(nil)
 }
 
-// GetCustomer returns the Customer field value if set, zero value otherwise.
-func (o *CreateCheckoutSessionRequest) GetCustomer() CheckoutSessionCustomerEnsure {
-	if o == nil || IsNil(o.Customer) {
-		var ret CheckoutSessionCustomerEnsure
+// UnsetBillingAccountId ensures that no value is present for BillingAccountId, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetBillingAccountId() {
+	o.BillingAccountId.Unset()
+}
+
+// GetCustomer returns the Customer field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCheckoutSessionRequest) GetCustomer() CreateCheckoutSessionRequestCustomer {
+	if o == nil || IsNil(o.Customer.Get()) {
+		var ret CreateCheckoutSessionRequestCustomer
 		return ret
 	}
-	return *o.Customer
+	return *o.Customer.Get()
 }
 
 // GetCustomerOk returns a tuple with the Customer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCheckoutSessionRequest) GetCustomerOk() (*CheckoutSessionCustomerEnsure, bool) {
-	if o == nil || IsNil(o.Customer) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCheckoutSessionRequest) GetCustomerOk() (*CreateCheckoutSessionRequestCustomer, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Customer, true
+	return o.Customer.Get(), o.Customer.IsSet()
 }
 
 // HasCustomer returns a boolean if a field has been set.
 func (o *CreateCheckoutSessionRequest) HasCustomer() bool {
-	if o != nil && !IsNil(o.Customer) {
+	if o != nil && o.Customer.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCustomer gets a reference to the given CheckoutSessionCustomerEnsure and assigns it to the Customer field.
-func (o *CreateCheckoutSessionRequest) SetCustomer(v CheckoutSessionCustomerEnsure) {
-	o.Customer = &v
+// SetCustomer gets a reference to the given NullableCreateCheckoutSessionRequestCustomer and assigns it to the Customer field.
+func (o *CreateCheckoutSessionRequest) SetCustomer(v CreateCheckoutSessionRequestCustomer) {
+	o.Customer.Set(&v)
+}
+// SetCustomerNil sets the value for Customer to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetCustomerNil() {
+	o.Customer.Set(nil)
 }
 
-// GetBillingAccount returns the BillingAccount field value if set, zero value otherwise.
-func (o *CreateCheckoutSessionRequest) GetBillingAccount() CheckoutSessionBillingAccount {
-	if o == nil || IsNil(o.BillingAccount) {
-		var ret CheckoutSessionBillingAccount
+// UnsetCustomer ensures that no value is present for Customer, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetCustomer() {
+	o.Customer.Unset()
+}
+
+// GetBillingAccount returns the BillingAccount field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCheckoutSessionRequest) GetBillingAccount() CreateCheckoutSessionRequestBillingAccount {
+	if o == nil || IsNil(o.BillingAccount.Get()) {
+		var ret CreateCheckoutSessionRequestBillingAccount
 		return ret
 	}
-	return *o.BillingAccount
+	return *o.BillingAccount.Get()
 }
 
 // GetBillingAccountOk returns a tuple with the BillingAccount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCheckoutSessionRequest) GetBillingAccountOk() (*CheckoutSessionBillingAccount, bool) {
-	if o == nil || IsNil(o.BillingAccount) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCheckoutSessionRequest) GetBillingAccountOk() (*CreateCheckoutSessionRequestBillingAccount, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.BillingAccount, true
+	return o.BillingAccount.Get(), o.BillingAccount.IsSet()
 }
 
 // HasBillingAccount returns a boolean if a field has been set.
 func (o *CreateCheckoutSessionRequest) HasBillingAccount() bool {
-	if o != nil && !IsNil(o.BillingAccount) {
+	if o != nil && o.BillingAccount.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetBillingAccount gets a reference to the given CheckoutSessionBillingAccount and assigns it to the BillingAccount field.
-func (o *CreateCheckoutSessionRequest) SetBillingAccount(v CheckoutSessionBillingAccount) {
-	o.BillingAccount = &v
+// SetBillingAccount gets a reference to the given NullableCreateCheckoutSessionRequestBillingAccount and assigns it to the BillingAccount field.
+func (o *CreateCheckoutSessionRequest) SetBillingAccount(v CreateCheckoutSessionRequestBillingAccount) {
+	o.BillingAccount.Set(&v)
+}
+// SetBillingAccountNil sets the value for BillingAccount to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetBillingAccountNil() {
+	o.BillingAccount.Set(nil)
 }
 
-// GetItems returns the Items field value if set, zero value otherwise.
-func (o *CreateCheckoutSessionRequest) GetItems() []CheckoutSessionLineItemRequest {
-	if o == nil || IsNil(o.Items) {
-		var ret []CheckoutSessionLineItemRequest
+// UnsetBillingAccount ensures that no value is present for BillingAccount, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetBillingAccount() {
+	o.BillingAccount.Unset()
+}
+
+// GetItems returns the Items field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCheckoutSessionRequest) GetItems() []CreateCheckoutSessionRequestItemsInner {
+	if o == nil {
+		var ret []CreateCheckoutSessionRequestItemsInner
 		return ret
 	}
 	return o.Items
@@ -370,7 +619,8 @@ func (o *CreateCheckoutSessionRequest) GetItems() []CheckoutSessionLineItemReque
 
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCheckoutSessionRequest) GetItemsOk() ([]CheckoutSessionLineItemRequest, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCheckoutSessionRequest) GetItemsOk() ([]CreateCheckoutSessionRequestItemsInner, bool) {
 	if o == nil || IsNil(o.Items) {
 		return nil, false
 	}
@@ -386,366 +636,560 @@ func (o *CreateCheckoutSessionRequest) HasItems() bool {
 	return false
 }
 
-// SetItems gets a reference to the given []CheckoutSessionLineItemRequest and assigns it to the Items field.
-func (o *CreateCheckoutSessionRequest) SetItems(v []CheckoutSessionLineItemRequest) {
+// SetItems gets a reference to the given []CreateCheckoutSessionRequestItemsInner and assigns it to the Items field.
+func (o *CreateCheckoutSessionRequest) SetItems(v []CreateCheckoutSessionRequestItemsInner) {
 	o.Items = v
 }
 
-// GetTrialEndAt returns the TrialEndAt field value if set, zero value otherwise.
-func (o *CreateCheckoutSessionRequest) GetTrialEndAt() time.Time {
-	if o == nil || IsNil(o.TrialEndAt) {
-		var ret time.Time
+// GetTrialEndAt returns the TrialEndAt field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCheckoutSessionRequest) GetTrialEndAt() string {
+	if o == nil || IsNil(o.TrialEndAt.Get()) {
+		var ret string
 		return ret
 	}
-	return *o.TrialEndAt
+	return *o.TrialEndAt.Get()
 }
 
 // GetTrialEndAtOk returns a tuple with the TrialEndAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCheckoutSessionRequest) GetTrialEndAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.TrialEndAt) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCheckoutSessionRequest) GetTrialEndAtOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.TrialEndAt, true
+	return o.TrialEndAt.Get(), o.TrialEndAt.IsSet()
 }
 
 // HasTrialEndAt returns a boolean if a field has been set.
 func (o *CreateCheckoutSessionRequest) HasTrialEndAt() bool {
-	if o != nil && !IsNil(o.TrialEndAt) {
+	if o != nil && o.TrialEndAt.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetTrialEndAt gets a reference to the given time.Time and assigns it to the TrialEndAt field.
-func (o *CreateCheckoutSessionRequest) SetTrialEndAt(v time.Time) {
-	o.TrialEndAt = &v
+// SetTrialEndAt gets a reference to the given NullableString and assigns it to the TrialEndAt field.
+func (o *CreateCheckoutSessionRequest) SetTrialEndAt(v string) {
+	o.TrialEndAt.Set(&v)
+}
+// SetTrialEndAtNil sets the value for TrialEndAt to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetTrialEndAtNil() {
+	o.TrialEndAt.Set(nil)
 }
 
-// GetTestClockId returns the TestClockId field value if set, zero value otherwise.
+// UnsetTrialEndAt ensures that no value is present for TrialEndAt, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetTrialEndAt() {
+	o.TrialEndAt.Unset()
+}
+
+// GetTestClockId returns the TestClockId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateCheckoutSessionRequest) GetTestClockId() string {
-	if o == nil || IsNil(o.TestClockId) {
+	if o == nil || IsNil(o.TestClockId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.TestClockId
+	return *o.TestClockId.Get()
 }
 
 // GetTestClockIdOk returns a tuple with the TestClockId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateCheckoutSessionRequest) GetTestClockIdOk() (*string, bool) {
-	if o == nil || IsNil(o.TestClockId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.TestClockId, true
+	return o.TestClockId.Get(), o.TestClockId.IsSet()
 }
 
 // HasTestClockId returns a boolean if a field has been set.
 func (o *CreateCheckoutSessionRequest) HasTestClockId() bool {
-	if o != nil && !IsNil(o.TestClockId) {
+	if o != nil && o.TestClockId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetTestClockId gets a reference to the given string and assigns it to the TestClockId field.
+// SetTestClockId gets a reference to the given NullableString and assigns it to the TestClockId field.
 func (o *CreateCheckoutSessionRequest) SetTestClockId(v string) {
-	o.TestClockId = &v
+	o.TestClockId.Set(&v)
+}
+// SetTestClockIdNil sets the value for TestClockId to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetTestClockIdNil() {
+	o.TestClockId.Set(nil)
 }
 
-// GetCollectionMode returns the CollectionMode field value if set, zero value otherwise.
+// UnsetTestClockId ensures that no value is present for TestClockId, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetTestClockId() {
+	o.TestClockId.Unset()
+}
+
+// GetCollectionMode returns the CollectionMode field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateCheckoutSessionRequest) GetCollectionMode() string {
-	if o == nil || IsNil(o.CollectionMode) {
+	if o == nil || IsNil(o.CollectionMode.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CollectionMode
+	return *o.CollectionMode.Get()
 }
 
 // GetCollectionModeOk returns a tuple with the CollectionMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateCheckoutSessionRequest) GetCollectionModeOk() (*string, bool) {
-	if o == nil || IsNil(o.CollectionMode) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CollectionMode, true
+	return o.CollectionMode.Get(), o.CollectionMode.IsSet()
 }
 
 // HasCollectionMode returns a boolean if a field has been set.
 func (o *CreateCheckoutSessionRequest) HasCollectionMode() bool {
-	if o != nil && !IsNil(o.CollectionMode) {
+	if o != nil && o.CollectionMode.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCollectionMode gets a reference to the given string and assigns it to the CollectionMode field.
+// SetCollectionMode gets a reference to the given NullableString and assigns it to the CollectionMode field.
 func (o *CreateCheckoutSessionRequest) SetCollectionMode(v string) {
-	o.CollectionMode = &v
+	o.CollectionMode.Set(&v)
+}
+// SetCollectionModeNil sets the value for CollectionMode to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetCollectionModeNil() {
+	o.CollectionMode.Set(nil)
 }
 
-// GetSuccessUrl returns the SuccessUrl field value if set, zero value otherwise.
+// UnsetCollectionMode ensures that no value is present for CollectionMode, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetCollectionMode() {
+	o.CollectionMode.Unset()
+}
+
+// GetSuccessUrl returns the SuccessUrl field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateCheckoutSessionRequest) GetSuccessUrl() string {
-	if o == nil || IsNil(o.SuccessUrl) {
+	if o == nil || IsNil(o.SuccessUrl.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.SuccessUrl
+	return *o.SuccessUrl.Get()
 }
 
 // GetSuccessUrlOk returns a tuple with the SuccessUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateCheckoutSessionRequest) GetSuccessUrlOk() (*string, bool) {
-	if o == nil || IsNil(o.SuccessUrl) {
+	if o == nil {
 		return nil, false
 	}
-	return o.SuccessUrl, true
+	return o.SuccessUrl.Get(), o.SuccessUrl.IsSet()
 }
 
 // HasSuccessUrl returns a boolean if a field has been set.
 func (o *CreateCheckoutSessionRequest) HasSuccessUrl() bool {
-	if o != nil && !IsNil(o.SuccessUrl) {
+	if o != nil && o.SuccessUrl.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetSuccessUrl gets a reference to the given string and assigns it to the SuccessUrl field.
+// SetSuccessUrl gets a reference to the given NullableString and assigns it to the SuccessUrl field.
 func (o *CreateCheckoutSessionRequest) SetSuccessUrl(v string) {
-	o.SuccessUrl = &v
+	o.SuccessUrl.Set(&v)
+}
+// SetSuccessUrlNil sets the value for SuccessUrl to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetSuccessUrlNil() {
+	o.SuccessUrl.Set(nil)
 }
 
-// GetCancelUrl returns the CancelUrl field value if set, zero value otherwise.
+// UnsetSuccessUrl ensures that no value is present for SuccessUrl, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetSuccessUrl() {
+	o.SuccessUrl.Unset()
+}
+
+// GetCancelUrl returns the CancelUrl field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateCheckoutSessionRequest) GetCancelUrl() string {
-	if o == nil || IsNil(o.CancelUrl) {
+	if o == nil || IsNil(o.CancelUrl.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CancelUrl
+	return *o.CancelUrl.Get()
 }
 
 // GetCancelUrlOk returns a tuple with the CancelUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateCheckoutSessionRequest) GetCancelUrlOk() (*string, bool) {
-	if o == nil || IsNil(o.CancelUrl) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CancelUrl, true
+	return o.CancelUrl.Get(), o.CancelUrl.IsSet()
 }
 
 // HasCancelUrl returns a boolean if a field has been set.
 func (o *CreateCheckoutSessionRequest) HasCancelUrl() bool {
-	if o != nil && !IsNil(o.CancelUrl) {
+	if o != nil && o.CancelUrl.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCancelUrl gets a reference to the given string and assigns it to the CancelUrl field.
+// SetCancelUrl gets a reference to the given NullableString and assigns it to the CancelUrl field.
 func (o *CreateCheckoutSessionRequest) SetCancelUrl(v string) {
-	o.CancelUrl = &v
+	o.CancelUrl.Set(&v)
+}
+// SetCancelUrlNil sets the value for CancelUrl to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetCancelUrlNil() {
+	o.CancelUrl.Set(nil)
 }
 
-// GetReturnUrl returns the ReturnUrl field value if set, zero value otherwise.
+// UnsetCancelUrl ensures that no value is present for CancelUrl, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetCancelUrl() {
+	o.CancelUrl.Unset()
+}
+
+// GetReturnUrl returns the ReturnUrl field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateCheckoutSessionRequest) GetReturnUrl() string {
-	if o == nil || IsNil(o.ReturnUrl) {
+	if o == nil || IsNil(o.ReturnUrl.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.ReturnUrl
+	return *o.ReturnUrl.Get()
 }
 
 // GetReturnUrlOk returns a tuple with the ReturnUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateCheckoutSessionRequest) GetReturnUrlOk() (*string, bool) {
-	if o == nil || IsNil(o.ReturnUrl) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ReturnUrl, true
+	return o.ReturnUrl.Get(), o.ReturnUrl.IsSet()
 }
 
 // HasReturnUrl returns a boolean if a field has been set.
 func (o *CreateCheckoutSessionRequest) HasReturnUrl() bool {
-	if o != nil && !IsNil(o.ReturnUrl) {
+	if o != nil && o.ReturnUrl.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetReturnUrl gets a reference to the given string and assigns it to the ReturnUrl field.
+// SetReturnUrl gets a reference to the given NullableString and assigns it to the ReturnUrl field.
 func (o *CreateCheckoutSessionRequest) SetReturnUrl(v string) {
-	o.ReturnUrl = &v
+	o.ReturnUrl.Set(&v)
+}
+// SetReturnUrlNil sets the value for ReturnUrl to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetReturnUrlNil() {
+	o.ReturnUrl.Set(nil)
 }
 
-// GetPaymentMethodId returns the PaymentMethodId field value if set, zero value otherwise.
+// UnsetReturnUrl ensures that no value is present for ReturnUrl, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetReturnUrl() {
+	o.ReturnUrl.Unset()
+}
+
+// GetPaymentMethodId returns the PaymentMethodId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateCheckoutSessionRequest) GetPaymentMethodId() string {
-	if o == nil || IsNil(o.PaymentMethodId) {
+	if o == nil || IsNil(o.PaymentMethodId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.PaymentMethodId
+	return *o.PaymentMethodId.Get()
 }
 
 // GetPaymentMethodIdOk returns a tuple with the PaymentMethodId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateCheckoutSessionRequest) GetPaymentMethodIdOk() (*string, bool) {
-	if o == nil || IsNil(o.PaymentMethodId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.PaymentMethodId, true
+	return o.PaymentMethodId.Get(), o.PaymentMethodId.IsSet()
 }
 
 // HasPaymentMethodId returns a boolean if a field has been set.
 func (o *CreateCheckoutSessionRequest) HasPaymentMethodId() bool {
-	if o != nil && !IsNil(o.PaymentMethodId) {
+	if o != nil && o.PaymentMethodId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetPaymentMethodId gets a reference to the given string and assigns it to the PaymentMethodId field.
+// SetPaymentMethodId gets a reference to the given NullableString and assigns it to the PaymentMethodId field.
 func (o *CreateCheckoutSessionRequest) SetPaymentMethodId(v string) {
-	o.PaymentMethodId = &v
+	o.PaymentMethodId.Set(&v)
+}
+// SetPaymentMethodIdNil sets the value for PaymentMethodId to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetPaymentMethodIdNil() {
+	o.PaymentMethodId.Set(nil)
 }
 
-// GetCustomerEmail returns the CustomerEmail field value if set, zero value otherwise.
+// UnsetPaymentMethodId ensures that no value is present for PaymentMethodId, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetPaymentMethodId() {
+	o.PaymentMethodId.Unset()
+}
+
+// GetCustomerEmail returns the CustomerEmail field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateCheckoutSessionRequest) GetCustomerEmail() string {
-	if o == nil || IsNil(o.CustomerEmail) {
+	if o == nil || IsNil(o.CustomerEmail.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CustomerEmail
+	return *o.CustomerEmail.Get()
 }
 
 // GetCustomerEmailOk returns a tuple with the CustomerEmail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateCheckoutSessionRequest) GetCustomerEmailOk() (*string, bool) {
-	if o == nil || IsNil(o.CustomerEmail) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CustomerEmail, true
+	return o.CustomerEmail.Get(), o.CustomerEmail.IsSet()
 }
 
 // HasCustomerEmail returns a boolean if a field has been set.
 func (o *CreateCheckoutSessionRequest) HasCustomerEmail() bool {
-	if o != nil && !IsNil(o.CustomerEmail) {
+	if o != nil && o.CustomerEmail.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCustomerEmail gets a reference to the given string and assigns it to the CustomerEmail field.
+// SetCustomerEmail gets a reference to the given NullableString and assigns it to the CustomerEmail field.
 func (o *CreateCheckoutSessionRequest) SetCustomerEmail(v string) {
-	o.CustomerEmail = &v
+	o.CustomerEmail.Set(&v)
+}
+// SetCustomerEmailNil sets the value for CustomerEmail to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetCustomerEmailNil() {
+	o.CustomerEmail.Set(nil)
 }
 
-// GetBillingAddressCollection returns the BillingAddressCollection field value if set, zero value otherwise.
-func (o *CreateCheckoutSessionRequest) GetBillingAddressCollection() string {
-	if o == nil || IsNil(o.BillingAddressCollection) {
+// UnsetCustomerEmail ensures that no value is present for CustomerEmail, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetCustomerEmail() {
+	o.CustomerEmail.Unset()
+}
+
+// GetPayerEmail returns the PayerEmail field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCheckoutSessionRequest) GetPayerEmail() string {
+	if o == nil || IsNil(o.PayerEmail.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.BillingAddressCollection
+	return *o.PayerEmail.Get()
+}
+
+// GetPayerEmailOk returns a tuple with the PayerEmail field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCheckoutSessionRequest) GetPayerEmailOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.PayerEmail.Get(), o.PayerEmail.IsSet()
+}
+
+// HasPayerEmail returns a boolean if a field has been set.
+func (o *CreateCheckoutSessionRequest) HasPayerEmail() bool {
+	if o != nil && o.PayerEmail.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetPayerEmail gets a reference to the given NullableString and assigns it to the PayerEmail field.
+func (o *CreateCheckoutSessionRequest) SetPayerEmail(v string) {
+	o.PayerEmail.Set(&v)
+}
+// SetPayerEmailNil sets the value for PayerEmail to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetPayerEmailNil() {
+	o.PayerEmail.Set(nil)
+}
+
+// UnsetPayerEmail ensures that no value is present for PayerEmail, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetPayerEmail() {
+	o.PayerEmail.Unset()
+}
+
+// GetBillingAddressCollection returns the BillingAddressCollection field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCheckoutSessionRequest) GetBillingAddressCollection() string {
+	if o == nil || IsNil(o.BillingAddressCollection.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.BillingAddressCollection.Get()
 }
 
 // GetBillingAddressCollectionOk returns a tuple with the BillingAddressCollection field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateCheckoutSessionRequest) GetBillingAddressCollectionOk() (*string, bool) {
-	if o == nil || IsNil(o.BillingAddressCollection) {
+	if o == nil {
 		return nil, false
 	}
-	return o.BillingAddressCollection, true
+	return o.BillingAddressCollection.Get(), o.BillingAddressCollection.IsSet()
 }
 
 // HasBillingAddressCollection returns a boolean if a field has been set.
 func (o *CreateCheckoutSessionRequest) HasBillingAddressCollection() bool {
-	if o != nil && !IsNil(o.BillingAddressCollection) {
+	if o != nil && o.BillingAddressCollection.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetBillingAddressCollection gets a reference to the given string and assigns it to the BillingAddressCollection field.
+// SetBillingAddressCollection gets a reference to the given NullableString and assigns it to the BillingAddressCollection field.
 func (o *CreateCheckoutSessionRequest) SetBillingAddressCollection(v string) {
-	o.BillingAddressCollection = &v
+	o.BillingAddressCollection.Set(&v)
+}
+// SetBillingAddressCollectionNil sets the value for BillingAddressCollection to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetBillingAddressCollectionNil() {
+	o.BillingAddressCollection.Set(nil)
 }
 
-// GetDueAt returns the DueAt field value if set, zero value otherwise.
-func (o *CreateCheckoutSessionRequest) GetDueAt() time.Time {
-	if o == nil || IsNil(o.DueAt) {
-		var ret time.Time
+// UnsetBillingAddressCollection ensures that no value is present for BillingAddressCollection, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetBillingAddressCollection() {
+	o.BillingAddressCollection.Unset()
+}
+
+// GetDueAt returns the DueAt field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCheckoutSessionRequest) GetDueAt() string {
+	if o == nil || IsNil(o.DueAt.Get()) {
+		var ret string
 		return ret
 	}
-	return *o.DueAt
+	return *o.DueAt.Get()
 }
 
 // GetDueAtOk returns a tuple with the DueAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCheckoutSessionRequest) GetDueAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.DueAt) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCheckoutSessionRequest) GetDueAtOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DueAt, true
+	return o.DueAt.Get(), o.DueAt.IsSet()
 }
 
 // HasDueAt returns a boolean if a field has been set.
 func (o *CreateCheckoutSessionRequest) HasDueAt() bool {
-	if o != nil && !IsNil(o.DueAt) {
+	if o != nil && o.DueAt.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDueAt gets a reference to the given time.Time and assigns it to the DueAt field.
-func (o *CreateCheckoutSessionRequest) SetDueAt(v time.Time) {
-	o.DueAt = &v
+// SetDueAt gets a reference to the given NullableString and assigns it to the DueAt field.
+func (o *CreateCheckoutSessionRequest) SetDueAt(v string) {
+	o.DueAt.Set(&v)
+}
+// SetDueAtNil sets the value for DueAt to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetDueAtNil() {
+	o.DueAt.Set(nil)
 }
 
-// GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
-func (o *CreateCheckoutSessionRequest) GetExpiresAt() time.Time {
-	if o == nil || IsNil(o.ExpiresAt) {
-		var ret time.Time
+// UnsetDueAt ensures that no value is present for DueAt, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetDueAt() {
+	o.DueAt.Unset()
+}
+
+// GetDueDate returns the DueDate field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCheckoutSessionRequest) GetDueDate() string {
+	if o == nil || IsNil(o.DueDate.Get()) {
+		var ret string
 		return ret
 	}
-	return *o.ExpiresAt
+	return *o.DueDate.Get()
+}
+
+// GetDueDateOk returns a tuple with the DueDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCheckoutSessionRequest) GetDueDateOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.DueDate.Get(), o.DueDate.IsSet()
+}
+
+// HasDueDate returns a boolean if a field has been set.
+func (o *CreateCheckoutSessionRequest) HasDueDate() bool {
+	if o != nil && o.DueDate.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetDueDate gets a reference to the given NullableString and assigns it to the DueDate field.
+func (o *CreateCheckoutSessionRequest) SetDueDate(v string) {
+	o.DueDate.Set(&v)
+}
+// SetDueDateNil sets the value for DueDate to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetDueDateNil() {
+	o.DueDate.Set(nil)
+}
+
+// UnsetDueDate ensures that no value is present for DueDate, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetDueDate() {
+	o.DueDate.Unset()
+}
+
+// GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCheckoutSessionRequest) GetExpiresAt() string {
+	if o == nil || IsNil(o.ExpiresAt.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.ExpiresAt.Get()
 }
 
 // GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCheckoutSessionRequest) GetExpiresAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.ExpiresAt) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCheckoutSessionRequest) GetExpiresAtOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ExpiresAt, true
+	return o.ExpiresAt.Get(), o.ExpiresAt.IsSet()
 }
 
 // HasExpiresAt returns a boolean if a field has been set.
 func (o *CreateCheckoutSessionRequest) HasExpiresAt() bool {
-	if o != nil && !IsNil(o.ExpiresAt) {
+	if o != nil && o.ExpiresAt.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetExpiresAt gets a reference to the given time.Time and assigns it to the ExpiresAt field.
-func (o *CreateCheckoutSessionRequest) SetExpiresAt(v time.Time) {
-	o.ExpiresAt = &v
+// SetExpiresAt gets a reference to the given NullableString and assigns it to the ExpiresAt field.
+func (o *CreateCheckoutSessionRequest) SetExpiresAt(v string) {
+	o.ExpiresAt.Set(&v)
+}
+// SetExpiresAtNil sets the value for ExpiresAt to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetExpiresAtNil() {
+	o.ExpiresAt.Set(nil)
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// UnsetExpiresAt ensures that no value is present for ExpiresAt, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetExpiresAt() {
+	o.ExpiresAt.Unset()
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateCheckoutSessionRequest) GetMetadata() map[string]string {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -754,6 +1198,7 @@ func (o *CreateCheckoutSessionRequest) GetMetadata() map[string]string {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateCheckoutSessionRequest) GetMetadataOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return map[string]string{}, false
@@ -775,68 +1220,88 @@ func (o *CreateCheckoutSessionRequest) SetMetadata(v map[string]string) {
 	o.Metadata = v
 }
 
-// GetIdempotencyKey returns the IdempotencyKey field value if set, zero value otherwise.
+// GetIdempotencyKey returns the IdempotencyKey field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateCheckoutSessionRequest) GetIdempotencyKey() string {
-	if o == nil || IsNil(o.IdempotencyKey) {
+	if o == nil || IsNil(o.IdempotencyKey.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.IdempotencyKey
+	return *o.IdempotencyKey.Get()
 }
 
 // GetIdempotencyKeyOk returns a tuple with the IdempotencyKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateCheckoutSessionRequest) GetIdempotencyKeyOk() (*string, bool) {
-	if o == nil || IsNil(o.IdempotencyKey) {
+	if o == nil {
 		return nil, false
 	}
-	return o.IdempotencyKey, true
+	return o.IdempotencyKey.Get(), o.IdempotencyKey.IsSet()
 }
 
 // HasIdempotencyKey returns a boolean if a field has been set.
 func (o *CreateCheckoutSessionRequest) HasIdempotencyKey() bool {
-	if o != nil && !IsNil(o.IdempotencyKey) {
+	if o != nil && o.IdempotencyKey.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetIdempotencyKey gets a reference to the given string and assigns it to the IdempotencyKey field.
+// SetIdempotencyKey gets a reference to the given NullableString and assigns it to the IdempotencyKey field.
 func (o *CreateCheckoutSessionRequest) SetIdempotencyKey(v string) {
-	o.IdempotencyKey = &v
+	o.IdempotencyKey.Set(&v)
+}
+// SetIdempotencyKeyNil sets the value for IdempotencyKey to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetIdempotencyKeyNil() {
+	o.IdempotencyKey.Set(nil)
 }
 
-// GetCreatedByRef returns the CreatedByRef field value if set, zero value otherwise.
+// UnsetIdempotencyKey ensures that no value is present for IdempotencyKey, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetIdempotencyKey() {
+	o.IdempotencyKey.Unset()
+}
+
+// GetCreatedByRef returns the CreatedByRef field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateCheckoutSessionRequest) GetCreatedByRef() string {
-	if o == nil || IsNil(o.CreatedByRef) {
+	if o == nil || IsNil(o.CreatedByRef.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CreatedByRef
+	return *o.CreatedByRef.Get()
 }
 
 // GetCreatedByRefOk returns a tuple with the CreatedByRef field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateCheckoutSessionRequest) GetCreatedByRefOk() (*string, bool) {
-	if o == nil || IsNil(o.CreatedByRef) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CreatedByRef, true
+	return o.CreatedByRef.Get(), o.CreatedByRef.IsSet()
 }
 
 // HasCreatedByRef returns a boolean if a field has been set.
 func (o *CreateCheckoutSessionRequest) HasCreatedByRef() bool {
-	if o != nil && !IsNil(o.CreatedByRef) {
+	if o != nil && o.CreatedByRef.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCreatedByRef gets a reference to the given string and assigns it to the CreatedByRef field.
+// SetCreatedByRef gets a reference to the given NullableString and assigns it to the CreatedByRef field.
 func (o *CreateCheckoutSessionRequest) SetCreatedByRef(v string) {
-	o.CreatedByRef = &v
+	o.CreatedByRef.Set(&v)
+}
+// SetCreatedByRefNil sets the value for CreatedByRef to be an explicit nil
+func (o *CreateCheckoutSessionRequest) SetCreatedByRefNil() {
+	o.CreatedByRef.Set(nil)
+}
+
+// UnsetCreatedByRef ensures that no value is present for CreatedByRef, not even an explicit nil
+func (o *CreateCheckoutSessionRequest) UnsetCreatedByRef() {
+	o.CreatedByRef.Unset()
 }
 
 func (o CreateCheckoutSessionRequest) MarshalJSON() ([]byte, error) {
@@ -849,79 +1314,152 @@ func (o CreateCheckoutSessionRequest) MarshalJSON() ([]byte, error) {
 
 func (o CreateCheckoutSessionRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Mode) {
-		toSerialize["mode"] = o.Mode
+	if o.Environment.IsSet() {
+		toSerialize["environment"] = o.Environment.Get()
 	}
-	if !IsNil(o.InvoiceNumbers) {
+	if o.MerchantAccountId.IsSet() {
+		toSerialize["merchantAccountId"] = o.MerchantAccountId.Get()
+	}
+	if o.Mode.IsSet() {
+		toSerialize["mode"] = o.Mode.Get()
+	}
+	if o.InvoiceNumbers != nil {
 		toSerialize["invoiceNumbers"] = o.InvoiceNumbers
 	}
-	if !IsNil(o.Amount) {
-		toSerialize["amount"] = o.Amount
+	if o.InvoiceNumber.IsSet() {
+		toSerialize["invoiceNumber"] = o.InvoiceNumber.Get()
 	}
-	if !IsNil(o.Currency) {
-		toSerialize["currency"] = o.Currency
+	if o.Amount.IsSet() {
+		toSerialize["amount"] = o.Amount.Get()
 	}
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
+	if o.AmountCents.IsSet() {
+		toSerialize["amountCents"] = o.AmountCents.Get()
 	}
-	if !IsNil(o.CustomerId) {
-		toSerialize["customerId"] = o.CustomerId
+	if o.Currency.IsSet() {
+		toSerialize["currency"] = o.Currency.Get()
 	}
-	if !IsNil(o.BillingAccountId) {
-		toSerialize["billingAccountId"] = o.BillingAccountId
+	if o.Description.IsSet() {
+		toSerialize["description"] = o.Description.Get()
 	}
-	if !IsNil(o.Customer) {
-		toSerialize["customer"] = o.Customer
+	if o.CustomerId.IsSet() {
+		toSerialize["customerId"] = o.CustomerId.Get()
 	}
-	if !IsNil(o.BillingAccount) {
-		toSerialize["billingAccount"] = o.BillingAccount
+	if o.BillingAccountId.IsSet() {
+		toSerialize["billingAccountId"] = o.BillingAccountId.Get()
 	}
-	if !IsNil(o.Items) {
+	if o.Customer.IsSet() {
+		toSerialize["customer"] = o.Customer.Get()
+	}
+	if o.BillingAccount.IsSet() {
+		toSerialize["billingAccount"] = o.BillingAccount.Get()
+	}
+	if o.Items != nil {
 		toSerialize["items"] = o.Items
 	}
-	if !IsNil(o.TrialEndAt) {
-		toSerialize["trialEndAt"] = o.TrialEndAt
+	if o.TrialEndAt.IsSet() {
+		toSerialize["trialEndAt"] = o.TrialEndAt.Get()
 	}
-	if !IsNil(o.TestClockId) {
-		toSerialize["testClockId"] = o.TestClockId
+	if o.TestClockId.IsSet() {
+		toSerialize["testClockId"] = o.TestClockId.Get()
 	}
-	if !IsNil(o.CollectionMode) {
-		toSerialize["collectionMode"] = o.CollectionMode
+	if o.CollectionMode.IsSet() {
+		toSerialize["collectionMode"] = o.CollectionMode.Get()
 	}
-	if !IsNil(o.SuccessUrl) {
-		toSerialize["successUrl"] = o.SuccessUrl
+	if o.SuccessUrl.IsSet() {
+		toSerialize["successUrl"] = o.SuccessUrl.Get()
 	}
-	if !IsNil(o.CancelUrl) {
-		toSerialize["cancelUrl"] = o.CancelUrl
+	if o.CancelUrl.IsSet() {
+		toSerialize["cancelUrl"] = o.CancelUrl.Get()
 	}
-	if !IsNil(o.ReturnUrl) {
-		toSerialize["returnUrl"] = o.ReturnUrl
+	if o.ReturnUrl.IsSet() {
+		toSerialize["returnUrl"] = o.ReturnUrl.Get()
 	}
-	if !IsNil(o.PaymentMethodId) {
-		toSerialize["paymentMethodId"] = o.PaymentMethodId
+	if o.PaymentMethodId.IsSet() {
+		toSerialize["paymentMethodId"] = o.PaymentMethodId.Get()
 	}
-	if !IsNil(o.CustomerEmail) {
-		toSerialize["customerEmail"] = o.CustomerEmail
+	if o.CustomerEmail.IsSet() {
+		toSerialize["customerEmail"] = o.CustomerEmail.Get()
 	}
-	if !IsNil(o.BillingAddressCollection) {
-		toSerialize["billingAddressCollection"] = o.BillingAddressCollection
+	if o.PayerEmail.IsSet() {
+		toSerialize["payerEmail"] = o.PayerEmail.Get()
 	}
-	if !IsNil(o.DueAt) {
-		toSerialize["dueAt"] = o.DueAt
+	if o.BillingAddressCollection.IsSet() {
+		toSerialize["billingAddressCollection"] = o.BillingAddressCollection.Get()
 	}
-	if !IsNil(o.ExpiresAt) {
-		toSerialize["expiresAt"] = o.ExpiresAt
+	if o.DueAt.IsSet() {
+		toSerialize["dueAt"] = o.DueAt.Get()
 	}
-	if !IsNil(o.Metadata) {
+	if o.DueDate.IsSet() {
+		toSerialize["dueDate"] = o.DueDate.Get()
+	}
+	if o.ExpiresAt.IsSet() {
+		toSerialize["expiresAt"] = o.ExpiresAt.Get()
+	}
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
-	if !IsNil(o.IdempotencyKey) {
-		toSerialize["idempotencyKey"] = o.IdempotencyKey
+	if o.IdempotencyKey.IsSet() {
+		toSerialize["idempotencyKey"] = o.IdempotencyKey.Get()
 	}
-	if !IsNil(o.CreatedByRef) {
-		toSerialize["createdByRef"] = o.CreatedByRef
+	if o.CreatedByRef.IsSet() {
+		toSerialize["createdByRef"] = o.CreatedByRef.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CreateCheckoutSessionRequest) UnmarshalJSON(data []byte) (err error) {
+	varCreateCheckoutSessionRequest := _CreateCheckoutSessionRequest{}
+
+	err = json.Unmarshal(data, &varCreateCheckoutSessionRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateCheckoutSessionRequest(varCreateCheckoutSessionRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "environment")
+		delete(additionalProperties, "merchantAccountId")
+		delete(additionalProperties, "mode")
+		delete(additionalProperties, "invoiceNumbers")
+		delete(additionalProperties, "invoiceNumber")
+		delete(additionalProperties, "amount")
+		delete(additionalProperties, "amountCents")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "customerId")
+		delete(additionalProperties, "billingAccountId")
+		delete(additionalProperties, "customer")
+		delete(additionalProperties, "billingAccount")
+		delete(additionalProperties, "items")
+		delete(additionalProperties, "trialEndAt")
+		delete(additionalProperties, "testClockId")
+		delete(additionalProperties, "collectionMode")
+		delete(additionalProperties, "successUrl")
+		delete(additionalProperties, "cancelUrl")
+		delete(additionalProperties, "returnUrl")
+		delete(additionalProperties, "paymentMethodId")
+		delete(additionalProperties, "customerEmail")
+		delete(additionalProperties, "payerEmail")
+		delete(additionalProperties, "billingAddressCollection")
+		delete(additionalProperties, "dueAt")
+		delete(additionalProperties, "dueDate")
+		delete(additionalProperties, "expiresAt")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "idempotencyKey")
+		delete(additionalProperties, "createdByRef")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCreateCheckoutSessionRequest struct {

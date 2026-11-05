@@ -19,10 +19,13 @@ var _ MappedNullable = &InvoiceMarkUncollectibleRequest{}
 
 // InvoiceMarkUncollectibleRequest struct for InvoiceMarkUncollectibleRequest
 type InvoiceMarkUncollectibleRequest struct {
-	MarkedUncollectibleByRef *string `json:"markedUncollectibleByRef,omitempty"`
-	By *string `json:"by,omitempty"`
-	Reason *string `json:"reason,omitempty"`
+	MarkedUncollectibleByRef NullableString `json:"markedUncollectibleByRef,omitempty"`
+	By NullableString `json:"by,omitempty"`
+	Reason NullableString `json:"reason,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _InvoiceMarkUncollectibleRequest InvoiceMarkUncollectibleRequest
 
 // NewInvoiceMarkUncollectibleRequest instantiates a new InvoiceMarkUncollectibleRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -41,100 +44,130 @@ func NewInvoiceMarkUncollectibleRequestWithDefaults() *InvoiceMarkUncollectibleR
 	return &this
 }
 
-// GetMarkedUncollectibleByRef returns the MarkedUncollectibleByRef field value if set, zero value otherwise.
+// GetMarkedUncollectibleByRef returns the MarkedUncollectibleByRef field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *InvoiceMarkUncollectibleRequest) GetMarkedUncollectibleByRef() string {
-	if o == nil || IsNil(o.MarkedUncollectibleByRef) {
+	if o == nil || IsNil(o.MarkedUncollectibleByRef.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.MarkedUncollectibleByRef
+	return *o.MarkedUncollectibleByRef.Get()
 }
 
 // GetMarkedUncollectibleByRefOk returns a tuple with the MarkedUncollectibleByRef field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *InvoiceMarkUncollectibleRequest) GetMarkedUncollectibleByRefOk() (*string, bool) {
-	if o == nil || IsNil(o.MarkedUncollectibleByRef) {
+	if o == nil {
 		return nil, false
 	}
-	return o.MarkedUncollectibleByRef, true
+	return o.MarkedUncollectibleByRef.Get(), o.MarkedUncollectibleByRef.IsSet()
 }
 
 // HasMarkedUncollectibleByRef returns a boolean if a field has been set.
 func (o *InvoiceMarkUncollectibleRequest) HasMarkedUncollectibleByRef() bool {
-	if o != nil && !IsNil(o.MarkedUncollectibleByRef) {
+	if o != nil && o.MarkedUncollectibleByRef.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetMarkedUncollectibleByRef gets a reference to the given string and assigns it to the MarkedUncollectibleByRef field.
+// SetMarkedUncollectibleByRef gets a reference to the given NullableString and assigns it to the MarkedUncollectibleByRef field.
 func (o *InvoiceMarkUncollectibleRequest) SetMarkedUncollectibleByRef(v string) {
-	o.MarkedUncollectibleByRef = &v
+	o.MarkedUncollectibleByRef.Set(&v)
+}
+// SetMarkedUncollectibleByRefNil sets the value for MarkedUncollectibleByRef to be an explicit nil
+func (o *InvoiceMarkUncollectibleRequest) SetMarkedUncollectibleByRefNil() {
+	o.MarkedUncollectibleByRef.Set(nil)
 }
 
-// GetBy returns the By field value if set, zero value otherwise.
+// UnsetMarkedUncollectibleByRef ensures that no value is present for MarkedUncollectibleByRef, not even an explicit nil
+func (o *InvoiceMarkUncollectibleRequest) UnsetMarkedUncollectibleByRef() {
+	o.MarkedUncollectibleByRef.Unset()
+}
+
+// GetBy returns the By field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *InvoiceMarkUncollectibleRequest) GetBy() string {
-	if o == nil || IsNil(o.By) {
+	if o == nil || IsNil(o.By.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.By
+	return *o.By.Get()
 }
 
 // GetByOk returns a tuple with the By field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *InvoiceMarkUncollectibleRequest) GetByOk() (*string, bool) {
-	if o == nil || IsNil(o.By) {
+	if o == nil {
 		return nil, false
 	}
-	return o.By, true
+	return o.By.Get(), o.By.IsSet()
 }
 
 // HasBy returns a boolean if a field has been set.
 func (o *InvoiceMarkUncollectibleRequest) HasBy() bool {
-	if o != nil && !IsNil(o.By) {
+	if o != nil && o.By.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetBy gets a reference to the given string and assigns it to the By field.
+// SetBy gets a reference to the given NullableString and assigns it to the By field.
 func (o *InvoiceMarkUncollectibleRequest) SetBy(v string) {
-	o.By = &v
+	o.By.Set(&v)
+}
+// SetByNil sets the value for By to be an explicit nil
+func (o *InvoiceMarkUncollectibleRequest) SetByNil() {
+	o.By.Set(nil)
 }
 
-// GetReason returns the Reason field value if set, zero value otherwise.
+// UnsetBy ensures that no value is present for By, not even an explicit nil
+func (o *InvoiceMarkUncollectibleRequest) UnsetBy() {
+	o.By.Unset()
+}
+
+// GetReason returns the Reason field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *InvoiceMarkUncollectibleRequest) GetReason() string {
-	if o == nil || IsNil(o.Reason) {
+	if o == nil || IsNil(o.Reason.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Reason
+	return *o.Reason.Get()
 }
 
 // GetReasonOk returns a tuple with the Reason field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *InvoiceMarkUncollectibleRequest) GetReasonOk() (*string, bool) {
-	if o == nil || IsNil(o.Reason) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Reason, true
+	return o.Reason.Get(), o.Reason.IsSet()
 }
 
 // HasReason returns a boolean if a field has been set.
 func (o *InvoiceMarkUncollectibleRequest) HasReason() bool {
-	if o != nil && !IsNil(o.Reason) {
+	if o != nil && o.Reason.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetReason gets a reference to the given string and assigns it to the Reason field.
+// SetReason gets a reference to the given NullableString and assigns it to the Reason field.
 func (o *InvoiceMarkUncollectibleRequest) SetReason(v string) {
-	o.Reason = &v
+	o.Reason.Set(&v)
+}
+// SetReasonNil sets the value for Reason to be an explicit nil
+func (o *InvoiceMarkUncollectibleRequest) SetReasonNil() {
+	o.Reason.Set(nil)
+}
+
+// UnsetReason ensures that no value is present for Reason, not even an explicit nil
+func (o *InvoiceMarkUncollectibleRequest) UnsetReason() {
+	o.Reason.Unset()
 }
 
 func (o InvoiceMarkUncollectibleRequest) MarshalJSON() ([]byte, error) {
@@ -147,16 +180,44 @@ func (o InvoiceMarkUncollectibleRequest) MarshalJSON() ([]byte, error) {
 
 func (o InvoiceMarkUncollectibleRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.MarkedUncollectibleByRef) {
-		toSerialize["markedUncollectibleByRef"] = o.MarkedUncollectibleByRef
+	if o.MarkedUncollectibleByRef.IsSet() {
+		toSerialize["markedUncollectibleByRef"] = o.MarkedUncollectibleByRef.Get()
 	}
-	if !IsNil(o.By) {
-		toSerialize["by"] = o.By
+	if o.By.IsSet() {
+		toSerialize["by"] = o.By.Get()
 	}
-	if !IsNil(o.Reason) {
-		toSerialize["reason"] = o.Reason
+	if o.Reason.IsSet() {
+		toSerialize["reason"] = o.Reason.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *InvoiceMarkUncollectibleRequest) UnmarshalJSON(data []byte) (err error) {
+	varInvoiceMarkUncollectibleRequest := _InvoiceMarkUncollectibleRequest{}
+
+	err = json.Unmarshal(data, &varInvoiceMarkUncollectibleRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = InvoiceMarkUncollectibleRequest(varInvoiceMarkUncollectibleRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "markedUncollectibleByRef")
+		delete(additionalProperties, "by")
+		delete(additionalProperties, "reason")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableInvoiceMarkUncollectibleRequest struct {

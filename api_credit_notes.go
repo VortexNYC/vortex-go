@@ -23,65 +23,64 @@ import (
 // CreditNotesAPIService CreditNotesAPI service
 type CreditNotesAPIService service
 
-type CreditNotesAPICreateCreditNoteRequest struct {
+type CreditNotesAPICreateBillingCreditNoteRequest struct {
 	ctx context.Context
 	ApiService *CreditNotesAPIService
+	createBillingCreditNoteRequest *CreateBillingCreditNoteRequest
 	environment *string
 	merchantAccountId *string
-	creditNoteCreateRequest *CreditNoteCreateRequest
 	idempotencyKey *string
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
-func (r CreditNotesAPICreateCreditNoteRequest) Environment(environment string) CreditNotesAPICreateCreditNoteRequest {
+func (r CreditNotesAPICreateBillingCreditNoteRequest) CreateBillingCreditNoteRequest(createBillingCreditNoteRequest CreateBillingCreditNoteRequest) CreditNotesAPICreateBillingCreditNoteRequest {
+	r.createBillingCreditNoteRequest = &createBillingCreditNoteRequest
+	return r
+}
+
+func (r CreditNotesAPICreateBillingCreditNoteRequest) Environment(environment string) CreditNotesAPICreateBillingCreditNoteRequest {
 	r.environment = &environment
 	return r
 }
 
-func (r CreditNotesAPICreateCreditNoteRequest) MerchantAccountId(merchantAccountId string) CreditNotesAPICreateCreditNoteRequest {
+func (r CreditNotesAPICreateBillingCreditNoteRequest) MerchantAccountId(merchantAccountId string) CreditNotesAPICreateBillingCreditNoteRequest {
 	r.merchantAccountId = &merchantAccountId
 	return r
 }
 
-func (r CreditNotesAPICreateCreditNoteRequest) CreditNoteCreateRequest(creditNoteCreateRequest CreditNoteCreateRequest) CreditNotesAPICreateCreditNoteRequest {
-	r.creditNoteCreateRequest = &creditNoteCreateRequest
-	return r
-}
-
 // Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
-func (r CreditNotesAPICreateCreditNoteRequest) IdempotencyKey(idempotencyKey string) CreditNotesAPICreateCreditNoteRequest {
+func (r CreditNotesAPICreateBillingCreditNoteRequest) IdempotencyKey(idempotencyKey string) CreditNotesAPICreateBillingCreditNoteRequest {
 	r.idempotencyKey = &idempotencyKey
 	return r
 }
 
-func (r CreditNotesAPICreateCreditNoteRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
-	return r.ApiService.CreateCreditNoteExecute(r)
+func (r CreditNotesAPICreateBillingCreditNoteRequest) Execute() (*CreateBillingCreditNote201Response, *http.Response, error) {
+	return r.ApiService.CreateBillingCreditNoteExecute(r)
 }
 
 /*
-CreateCreditNote Create a credit note with explicit line attribution
+CreateBillingCreditNote Method for CreateBillingCreditNote
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return CreditNotesAPICreateCreditNoteRequest
+ @return CreditNotesAPICreateBillingCreditNoteRequest
 */
-func (a *CreditNotesAPIService) CreateCreditNote(ctx context.Context) CreditNotesAPICreateCreditNoteRequest {
-	return CreditNotesAPICreateCreditNoteRequest{
+func (a *CreditNotesAPIService) CreateBillingCreditNote(ctx context.Context) CreditNotesAPICreateBillingCreditNoteRequest {
+	return CreditNotesAPICreateBillingCreditNoteRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *CreditNotesAPIService) CreateCreditNoteExecute(r CreditNotesAPICreateCreditNoteRequest) (*ApiWriteEnvelope, *http.Response, error) {
+//  @return CreateBillingCreditNote201Response
+func (a *CreditNotesAPIService) CreateBillingCreditNoteExecute(r CreditNotesAPICreateBillingCreditNoteRequest) (*CreateBillingCreditNote201Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
+		localVarReturnValue  *CreateBillingCreditNote201Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CreditNotesAPIService.CreateCreditNote")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CreditNotesAPIService.CreateBillingCreditNote")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -91,18 +90,16 @@ func (a *CreditNotesAPIService) CreateCreditNoteExecute(r CreditNotesAPICreateCr
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
-	if r.creditNoteCreateRequest == nil {
-		return localVarReturnValue, nil, reportError("creditNoteCreateRequest is required and must be specified")
+	if r.createBillingCreditNoteRequest == nil {
+		return localVarReturnValue, nil, reportError("createBillingCreditNoteRequest is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -124,7 +121,7 @@ func (a *CreditNotesAPIService) CreateCreditNoteExecute(r CreditNotesAPICreateCr
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
 	}
 	// body params
-	localVarPostBody = r.creditNoteCreateRequest
+	localVarPostBody = r.createBillingCreditNoteRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -147,69 +144,6 @@ func (a *CreditNotesAPIService) CreateCreditNoteExecute(r CreditNotesAPICreateCr
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -225,7 +159,7 @@ func (a *CreditNotesAPIService) CreateCreditNoteExecute(r CreditNotesAPICreateCr
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CreditNotesAPIGetCreditNoteRequest struct {
+type CreditNotesAPIGetBillingCreditNoteRequest struct {
 	ctx context.Context
 	ApiService *CreditNotesAPIService
 	creditNoteId string
@@ -233,30 +167,29 @@ type CreditNotesAPIGetCreditNoteRequest struct {
 	merchantAccountId *string
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
-func (r CreditNotesAPIGetCreditNoteRequest) Environment(environment string) CreditNotesAPIGetCreditNoteRequest {
+func (r CreditNotesAPIGetBillingCreditNoteRequest) Environment(environment string) CreditNotesAPIGetBillingCreditNoteRequest {
 	r.environment = &environment
 	return r
 }
 
-func (r CreditNotesAPIGetCreditNoteRequest) MerchantAccountId(merchantAccountId string) CreditNotesAPIGetCreditNoteRequest {
+func (r CreditNotesAPIGetBillingCreditNoteRequest) MerchantAccountId(merchantAccountId string) CreditNotesAPIGetBillingCreditNoteRequest {
 	r.merchantAccountId = &merchantAccountId
 	return r
 }
 
-func (r CreditNotesAPIGetCreditNoteRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
-	return r.ApiService.GetCreditNoteExecute(r)
+func (r CreditNotesAPIGetBillingCreditNoteRequest) Execute() (*GetBillingCreditNote200Response, *http.Response, error) {
+	return r.ApiService.GetBillingCreditNoteExecute(r)
 }
 
 /*
-GetCreditNote Inspect a credit note and its tax reversal evidence
+GetBillingCreditNote Method for GetBillingCreditNote
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param creditNoteId
- @return CreditNotesAPIGetCreditNoteRequest
+ @return CreditNotesAPIGetBillingCreditNoteRequest
 */
-func (a *CreditNotesAPIService) GetCreditNote(ctx context.Context, creditNoteId string) CreditNotesAPIGetCreditNoteRequest {
-	return CreditNotesAPIGetCreditNoteRequest{
+func (a *CreditNotesAPIService) GetBillingCreditNote(ctx context.Context, creditNoteId string) CreditNotesAPIGetBillingCreditNoteRequest {
+	return CreditNotesAPIGetBillingCreditNoteRequest{
 		ApiService: a,
 		ctx: ctx,
 		creditNoteId: creditNoteId,
@@ -264,16 +197,16 @@ func (a *CreditNotesAPIService) GetCreditNote(ctx context.Context, creditNoteId 
 }
 
 // Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *CreditNotesAPIService) GetCreditNoteExecute(r CreditNotesAPIGetCreditNoteRequest) (*ApiWriteEnvelope, *http.Response, error) {
+//  @return GetBillingCreditNote200Response
+func (a *CreditNotesAPIService) GetBillingCreditNoteExecute(r CreditNotesAPIGetBillingCreditNoteRequest) (*GetBillingCreditNote200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
+		localVarReturnValue  *GetBillingCreditNote200Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CreditNotesAPIService.GetCreditNote")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CreditNotesAPIService.GetBillingCreditNote")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -284,15 +217,16 @@ func (a *CreditNotesAPIService) GetCreditNoteExecute(r CreditNotesAPIGetCreditNo
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
+	if strlen(r.creditNoteId) < 1 {
+		return localVarReturnValue, nil, reportError("creditNoteId must have at least 1 elements")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -332,69 +266,6 @@ func (a *CreditNotesAPIService) GetCreditNoteExecute(r CreditNotesAPIGetCreditNo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -801,51 +672,50 @@ func (a *CreditNotesAPIService) ReconcileCreditNoteRefundExecute(r CreditNotesAP
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CreditNotesAPIRefundCreditNoteRequest struct {
+type CreditNotesAPIRefundBillingCreditNoteRequest struct {
 	ctx context.Context
 	ApiService *CreditNotesAPIService
 	creditNoteId string
+	refundBillingCreditNoteRequest *RefundBillingCreditNoteRequest
 	environment *string
 	merchantAccountId *string
-	creditNoteRefundRequest *CreditNoteRefundRequest
 	idempotencyKey *string
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
-func (r CreditNotesAPIRefundCreditNoteRequest) Environment(environment string) CreditNotesAPIRefundCreditNoteRequest {
+func (r CreditNotesAPIRefundBillingCreditNoteRequest) RefundBillingCreditNoteRequest(refundBillingCreditNoteRequest RefundBillingCreditNoteRequest) CreditNotesAPIRefundBillingCreditNoteRequest {
+	r.refundBillingCreditNoteRequest = &refundBillingCreditNoteRequest
+	return r
+}
+
+func (r CreditNotesAPIRefundBillingCreditNoteRequest) Environment(environment string) CreditNotesAPIRefundBillingCreditNoteRequest {
 	r.environment = &environment
 	return r
 }
 
-func (r CreditNotesAPIRefundCreditNoteRequest) MerchantAccountId(merchantAccountId string) CreditNotesAPIRefundCreditNoteRequest {
+func (r CreditNotesAPIRefundBillingCreditNoteRequest) MerchantAccountId(merchantAccountId string) CreditNotesAPIRefundBillingCreditNoteRequest {
 	r.merchantAccountId = &merchantAccountId
 	return r
 }
 
-func (r CreditNotesAPIRefundCreditNoteRequest) CreditNoteRefundRequest(creditNoteRefundRequest CreditNoteRefundRequest) CreditNotesAPIRefundCreditNoteRequest {
-	r.creditNoteRefundRequest = &creditNoteRefundRequest
-	return r
-}
-
 // Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
-func (r CreditNotesAPIRefundCreditNoteRequest) IdempotencyKey(idempotencyKey string) CreditNotesAPIRefundCreditNoteRequest {
+func (r CreditNotesAPIRefundBillingCreditNoteRequest) IdempotencyKey(idempotencyKey string) CreditNotesAPIRefundBillingCreditNoteRequest {
 	r.idempotencyKey = &idempotencyKey
 	return r
 }
 
-func (r CreditNotesAPIRefundCreditNoteRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
-	return r.ApiService.RefundCreditNoteExecute(r)
+func (r CreditNotesAPIRefundBillingCreditNoteRequest) Execute() (*GetBillingCreditNote200Response, *http.Response, error) {
+	return r.ApiService.RefundBillingCreditNoteExecute(r)
 }
 
 /*
-RefundCreditNote Execute or record a credit-note refund
+RefundBillingCreditNote Method for RefundBillingCreditNote
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param creditNoteId
- @return CreditNotesAPIRefundCreditNoteRequest
+ @return CreditNotesAPIRefundBillingCreditNoteRequest
 */
-func (a *CreditNotesAPIService) RefundCreditNote(ctx context.Context, creditNoteId string) CreditNotesAPIRefundCreditNoteRequest {
-	return CreditNotesAPIRefundCreditNoteRequest{
+func (a *CreditNotesAPIService) RefundBillingCreditNote(ctx context.Context, creditNoteId string) CreditNotesAPIRefundBillingCreditNoteRequest {
+	return CreditNotesAPIRefundBillingCreditNoteRequest{
 		ApiService: a,
 		ctx: ctx,
 		creditNoteId: creditNoteId,
@@ -853,16 +723,16 @@ func (a *CreditNotesAPIService) RefundCreditNote(ctx context.Context, creditNote
 }
 
 // Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *CreditNotesAPIService) RefundCreditNoteExecute(r CreditNotesAPIRefundCreditNoteRequest) (*ApiWriteEnvelope, *http.Response, error) {
+//  @return GetBillingCreditNote200Response
+func (a *CreditNotesAPIService) RefundBillingCreditNoteExecute(r CreditNotesAPIRefundBillingCreditNoteRequest) (*GetBillingCreditNote200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
+		localVarReturnValue  *GetBillingCreditNote200Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CreditNotesAPIService.RefundCreditNote")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CreditNotesAPIService.RefundBillingCreditNote")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -873,18 +743,19 @@ func (a *CreditNotesAPIService) RefundCreditNoteExecute(r CreditNotesAPIRefundCr
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
+	if strlen(r.creditNoteId) < 1 {
+		return localVarReturnValue, nil, reportError("creditNoteId must have at least 1 elements")
 	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
-	if r.creditNoteRefundRequest == nil {
-		return localVarReturnValue, nil, reportError("creditNoteRefundRequest is required and must be specified")
+	if r.refundBillingCreditNoteRequest == nil {
+		return localVarReturnValue, nil, reportError("refundBillingCreditNoteRequest is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -906,7 +777,7 @@ func (a *CreditNotesAPIService) RefundCreditNoteExecute(r CreditNotesAPIRefundCr
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
 	}
 	// body params
-	localVarPostBody = r.creditNoteRefundRequest
+	localVarPostBody = r.refundBillingCreditNoteRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -929,69 +800,6 @@ func (a *CreditNotesAPIService) RefundCreditNoteExecute(r CreditNotesAPIRefundCr
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

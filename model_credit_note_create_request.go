@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,15 +20,16 @@ var _ MappedNullable = &CreditNoteCreateRequest{}
 
 // CreditNoteCreateRequest struct for CreditNoteCreateRequest
 type CreditNoteCreateRequest struct {
-	CreditNoteId *string `json:"creditNoteId,omitempty"`
-	InvoiceId string `json:"invoiceId"`
+	CreditNoteId NullableString `json:"creditNoteId,omitempty"`
+	InvoiceId NullableString `json:"invoiceId"`
 	Reason CreditNoteReason `json:"reason"`
-	Description *string `json:"description,omitempty"`
+	Description NullableString `json:"description,omitempty"`
 	CreditAmount *int32 `json:"creditAmount,omitempty"`
 	RefundAmount *int32 `json:"refundAmount,omitempty"`
 	OffsetAmount *int32 `json:"offsetAmount,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
 	Lines []CreditNoteCreateLine `json:"lines"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreditNoteCreateRequest CreditNoteCreateRequest
@@ -38,7 +38,7 @@ type _CreditNoteCreateRequest CreditNoteCreateRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreditNoteCreateRequest(invoiceId string, reason CreditNoteReason, lines []CreditNoteCreateLine) *CreditNoteCreateRequest {
+func NewCreditNoteCreateRequest(invoiceId NullableString, reason CreditNoteReason, lines []CreditNoteCreateLine) *CreditNoteCreateRequest {
 	this := CreditNoteCreateRequest{}
 	this.InvoiceId = invoiceId
 	this.Reason = reason
@@ -54,60 +54,72 @@ func NewCreditNoteCreateRequestWithDefaults() *CreditNoteCreateRequest {
 	return &this
 }
 
-// GetCreditNoteId returns the CreditNoteId field value if set, zero value otherwise.
+// GetCreditNoteId returns the CreditNoteId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreditNoteCreateRequest) GetCreditNoteId() string {
-	if o == nil || IsNil(o.CreditNoteId) {
+	if o == nil || IsNil(o.CreditNoteId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CreditNoteId
+	return *o.CreditNoteId.Get()
 }
 
 // GetCreditNoteIdOk returns a tuple with the CreditNoteId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreditNoteCreateRequest) GetCreditNoteIdOk() (*string, bool) {
-	if o == nil || IsNil(o.CreditNoteId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CreditNoteId, true
+	return o.CreditNoteId.Get(), o.CreditNoteId.IsSet()
 }
 
 // HasCreditNoteId returns a boolean if a field has been set.
 func (o *CreditNoteCreateRequest) HasCreditNoteId() bool {
-	if o != nil && !IsNil(o.CreditNoteId) {
+	if o != nil && o.CreditNoteId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCreditNoteId gets a reference to the given string and assigns it to the CreditNoteId field.
+// SetCreditNoteId gets a reference to the given NullableString and assigns it to the CreditNoteId field.
 func (o *CreditNoteCreateRequest) SetCreditNoteId(v string) {
-	o.CreditNoteId = &v
+	o.CreditNoteId.Set(&v)
+}
+// SetCreditNoteIdNil sets the value for CreditNoteId to be an explicit nil
+func (o *CreditNoteCreateRequest) SetCreditNoteIdNil() {
+	o.CreditNoteId.Set(nil)
+}
+
+// UnsetCreditNoteId ensures that no value is present for CreditNoteId, not even an explicit nil
+func (o *CreditNoteCreateRequest) UnsetCreditNoteId() {
+	o.CreditNoteId.Unset()
 }
 
 // GetInvoiceId returns the InvoiceId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *CreditNoteCreateRequest) GetInvoiceId() string {
-	if o == nil {
+	if o == nil || o.InvoiceId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.InvoiceId
+	return *o.InvoiceId.Get()
 }
 
 // GetInvoiceIdOk returns a tuple with the InvoiceId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreditNoteCreateRequest) GetInvoiceIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.InvoiceId, true
+	return o.InvoiceId.Get(), o.InvoiceId.IsSet()
 }
 
 // SetInvoiceId sets field value
 func (o *CreditNoteCreateRequest) SetInvoiceId(v string) {
-	o.InvoiceId = v
+	o.InvoiceId.Set(&v)
 }
 
 // GetReason returns the Reason field value
@@ -134,36 +146,46 @@ func (o *CreditNoteCreateRequest) SetReason(v CreditNoteReason) {
 	o.Reason = v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreditNoteCreateRequest) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+	if o == nil || IsNil(o.Description.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Description
+	return *o.Description.Get()
 }
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreditNoteCreateRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return o.Description.Get(), o.Description.IsSet()
 }
 
 // HasDescription returns a boolean if a field has been set.
 func (o *CreditNoteCreateRequest) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
+	if o != nil && o.Description.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription gets a reference to the given NullableString and assigns it to the Description field.
 func (o *CreditNoteCreateRequest) SetDescription(v string) {
-	o.Description = &v
+	o.Description.Set(&v)
+}
+// SetDescriptionNil sets the value for Description to be an explicit nil
+func (o *CreditNoteCreateRequest) SetDescriptionNil() {
+	o.Description.Set(nil)
+}
+
+// UnsetDescription ensures that no value is present for Description, not even an explicit nil
+func (o *CreditNoteCreateRequest) UnsetDescription() {
+	o.Description.Unset()
 }
 
 // GetCreditAmount returns the CreditAmount field value if set, zero value otherwise.
@@ -262,9 +284,9 @@ func (o *CreditNoteCreateRequest) SetOffsetAmount(v int32) {
 	o.OffsetAmount = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreditNoteCreateRequest) GetMetadata() map[string]string {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -273,6 +295,7 @@ func (o *CreditNoteCreateRequest) GetMetadata() map[string]string {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreditNoteCreateRequest) GetMetadataOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return map[string]string{}, false
@@ -328,13 +351,13 @@ func (o CreditNoteCreateRequest) MarshalJSON() ([]byte, error) {
 
 func (o CreditNoteCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.CreditNoteId) {
-		toSerialize["creditNoteId"] = o.CreditNoteId
+	if o.CreditNoteId.IsSet() {
+		toSerialize["creditNoteId"] = o.CreditNoteId.Get()
 	}
-	toSerialize["invoiceId"] = o.InvoiceId
+	toSerialize["invoiceId"] = o.InvoiceId.Get()
 	toSerialize["reason"] = o.Reason
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
+	if o.Description.IsSet() {
+		toSerialize["description"] = o.Description.Get()
 	}
 	if !IsNil(o.CreditAmount) {
 		toSerialize["creditAmount"] = o.CreditAmount
@@ -345,10 +368,15 @@ func (o CreditNoteCreateRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.OffsetAmount) {
 		toSerialize["offsetAmount"] = o.OffsetAmount
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
 	toSerialize["lines"] = o.Lines
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -378,15 +406,28 @@ func (o *CreditNoteCreateRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varCreditNoteCreateRequest := _CreditNoteCreateRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreditNoteCreateRequest)
+	err = json.Unmarshal(data, &varCreditNoteCreateRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreditNoteCreateRequest(varCreditNoteCreateRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "creditNoteId")
+		delete(additionalProperties, "invoiceId")
+		delete(additionalProperties, "reason")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "creditAmount")
+		delete(additionalProperties, "refundAmount")
+		delete(additionalProperties, "offsetAmount")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "lines")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

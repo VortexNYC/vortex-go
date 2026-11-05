@@ -19,8 +19,11 @@ var _ MappedNullable = &InvoiceFinalizeRequest{}
 
 // InvoiceFinalizeRequest struct for InvoiceFinalizeRequest
 type InvoiceFinalizeRequest struct {
-	FinalizedByRef *string `json:"finalizedByRef,omitempty"`
+	FinalizedByRef NullableString `json:"finalizedByRef,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _InvoiceFinalizeRequest InvoiceFinalizeRequest
 
 // NewInvoiceFinalizeRequest instantiates a new InvoiceFinalizeRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -39,36 +42,46 @@ func NewInvoiceFinalizeRequestWithDefaults() *InvoiceFinalizeRequest {
 	return &this
 }
 
-// GetFinalizedByRef returns the FinalizedByRef field value if set, zero value otherwise.
+// GetFinalizedByRef returns the FinalizedByRef field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *InvoiceFinalizeRequest) GetFinalizedByRef() string {
-	if o == nil || IsNil(o.FinalizedByRef) {
+	if o == nil || IsNil(o.FinalizedByRef.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.FinalizedByRef
+	return *o.FinalizedByRef.Get()
 }
 
 // GetFinalizedByRefOk returns a tuple with the FinalizedByRef field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *InvoiceFinalizeRequest) GetFinalizedByRefOk() (*string, bool) {
-	if o == nil || IsNil(o.FinalizedByRef) {
+	if o == nil {
 		return nil, false
 	}
-	return o.FinalizedByRef, true
+	return o.FinalizedByRef.Get(), o.FinalizedByRef.IsSet()
 }
 
 // HasFinalizedByRef returns a boolean if a field has been set.
 func (o *InvoiceFinalizeRequest) HasFinalizedByRef() bool {
-	if o != nil && !IsNil(o.FinalizedByRef) {
+	if o != nil && o.FinalizedByRef.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetFinalizedByRef gets a reference to the given string and assigns it to the FinalizedByRef field.
+// SetFinalizedByRef gets a reference to the given NullableString and assigns it to the FinalizedByRef field.
 func (o *InvoiceFinalizeRequest) SetFinalizedByRef(v string) {
-	o.FinalizedByRef = &v
+	o.FinalizedByRef.Set(&v)
+}
+// SetFinalizedByRefNil sets the value for FinalizedByRef to be an explicit nil
+func (o *InvoiceFinalizeRequest) SetFinalizedByRefNil() {
+	o.FinalizedByRef.Set(nil)
+}
+
+// UnsetFinalizedByRef ensures that no value is present for FinalizedByRef, not even an explicit nil
+func (o *InvoiceFinalizeRequest) UnsetFinalizedByRef() {
+	o.FinalizedByRef.Unset()
 }
 
 func (o InvoiceFinalizeRequest) MarshalJSON() ([]byte, error) {
@@ -81,10 +94,36 @@ func (o InvoiceFinalizeRequest) MarshalJSON() ([]byte, error) {
 
 func (o InvoiceFinalizeRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.FinalizedByRef) {
-		toSerialize["finalizedByRef"] = o.FinalizedByRef
+	if o.FinalizedByRef.IsSet() {
+		toSerialize["finalizedByRef"] = o.FinalizedByRef.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *InvoiceFinalizeRequest) UnmarshalJSON(data []byte) (err error) {
+	varInvoiceFinalizeRequest := _InvoiceFinalizeRequest{}
+
+	err = json.Unmarshal(data, &varInvoiceFinalizeRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = InvoiceFinalizeRequest(varInvoiceFinalizeRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "finalizedByRef")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableInvoiceFinalizeRequest struct {

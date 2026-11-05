@@ -26,7 +26,10 @@ type BillingOrderFormSignRequest struct {
 	SignedDocumentRef *string `json:"signedDocumentRef,omitempty"`
 	ExecutionMode *string `json:"executionMode,omitempty"`
 	ExecuteAt *time.Time `json:"executeAt,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _BillingOrderFormSignRequest BillingOrderFormSignRequest
 
 // NewBillingOrderFormSignRequest instantiates a new BillingOrderFormSignRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -195,7 +198,36 @@ func (o BillingOrderFormSignRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ExecuteAt) {
 		toSerialize["executeAt"] = o.ExecuteAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *BillingOrderFormSignRequest) UnmarshalJSON(data []byte) (err error) {
+	varBillingOrderFormSignRequest := _BillingOrderFormSignRequest{}
+
+	err = json.Unmarshal(data, &varBillingOrderFormSignRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BillingOrderFormSignRequest(varBillingOrderFormSignRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "signatureRequestRef")
+		delete(additionalProperties, "signedDocumentRef")
+		delete(additionalProperties, "executionMode")
+		delete(additionalProperties, "executeAt")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableBillingOrderFormSignRequest struct {

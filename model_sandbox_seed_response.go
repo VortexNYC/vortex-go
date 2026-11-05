@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -22,15 +21,16 @@ var _ MappedNullable = &SandboxSeedResponse{}
 // SandboxSeedResponse struct for SandboxSeedResponse
 type SandboxSeedResponse struct {
 	Environment string `json:"environment"`
-	MerchantAccountId string `json:"merchantAccountId"`
-	CustomerProfileId string `json:"customerProfileId"`
-	PaymentMethodId string `json:"paymentMethodId"`
-	PaymentInstrumentId string `json:"paymentInstrumentId"`
+	MerchantAccountId NullableString `json:"merchantAccountId"`
+	CustomerProfileId NullableString `json:"customerProfileId"`
+	PaymentMethodId NullableString `json:"paymentMethodId"`
+	PaymentInstrumentId NullableString `json:"paymentInstrumentId"`
 	// Null when the merchant isn't provider-linked yet — the charge leg is skipped, not failed
 	PaymentIntentId NullableString `json:"paymentIntentId,omitempty"`
 	PaymentIntentStatus NullableString `json:"paymentIntentStatus,omitempty"`
 	// Why the demo charge was skipped (e.g. merchant isn't processor-linked yet)
 	ChargeSkippedReason NullableString `json:"chargeSkippedReason,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _SandboxSeedResponse SandboxSeedResponse
@@ -39,7 +39,7 @@ type _SandboxSeedResponse SandboxSeedResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSandboxSeedResponse(environment string, merchantAccountId string, customerProfileId string, paymentMethodId string, paymentInstrumentId string) *SandboxSeedResponse {
+func NewSandboxSeedResponse(environment string, merchantAccountId NullableString, customerProfileId NullableString, paymentMethodId NullableString, paymentInstrumentId NullableString) *SandboxSeedResponse {
 	this := SandboxSeedResponse{}
 	this.Environment = environment
 	this.MerchantAccountId = merchantAccountId
@@ -82,99 +82,107 @@ func (o *SandboxSeedResponse) SetEnvironment(v string) {
 }
 
 // GetMerchantAccountId returns the MerchantAccountId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *SandboxSeedResponse) GetMerchantAccountId() string {
-	if o == nil {
+	if o == nil || o.MerchantAccountId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.MerchantAccountId
+	return *o.MerchantAccountId.Get()
 }
 
 // GetMerchantAccountIdOk returns a tuple with the MerchantAccountId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SandboxSeedResponse) GetMerchantAccountIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.MerchantAccountId, true
+	return o.MerchantAccountId.Get(), o.MerchantAccountId.IsSet()
 }
 
 // SetMerchantAccountId sets field value
 func (o *SandboxSeedResponse) SetMerchantAccountId(v string) {
-	o.MerchantAccountId = v
+	o.MerchantAccountId.Set(&v)
 }
 
 // GetCustomerProfileId returns the CustomerProfileId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *SandboxSeedResponse) GetCustomerProfileId() string {
-	if o == nil {
+	if o == nil || o.CustomerProfileId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.CustomerProfileId
+	return *o.CustomerProfileId.Get()
 }
 
 // GetCustomerProfileIdOk returns a tuple with the CustomerProfileId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SandboxSeedResponse) GetCustomerProfileIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CustomerProfileId, true
+	return o.CustomerProfileId.Get(), o.CustomerProfileId.IsSet()
 }
 
 // SetCustomerProfileId sets field value
 func (o *SandboxSeedResponse) SetCustomerProfileId(v string) {
-	o.CustomerProfileId = v
+	o.CustomerProfileId.Set(&v)
 }
 
 // GetPaymentMethodId returns the PaymentMethodId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *SandboxSeedResponse) GetPaymentMethodId() string {
-	if o == nil {
+	if o == nil || o.PaymentMethodId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.PaymentMethodId
+	return *o.PaymentMethodId.Get()
 }
 
 // GetPaymentMethodIdOk returns a tuple with the PaymentMethodId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SandboxSeedResponse) GetPaymentMethodIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PaymentMethodId, true
+	return o.PaymentMethodId.Get(), o.PaymentMethodId.IsSet()
 }
 
 // SetPaymentMethodId sets field value
 func (o *SandboxSeedResponse) SetPaymentMethodId(v string) {
-	o.PaymentMethodId = v
+	o.PaymentMethodId.Set(&v)
 }
 
 // GetPaymentInstrumentId returns the PaymentInstrumentId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *SandboxSeedResponse) GetPaymentInstrumentId() string {
-	if o == nil {
+	if o == nil || o.PaymentInstrumentId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.PaymentInstrumentId
+	return *o.PaymentInstrumentId.Get()
 }
 
 // GetPaymentInstrumentIdOk returns a tuple with the PaymentInstrumentId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SandboxSeedResponse) GetPaymentInstrumentIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PaymentInstrumentId, true
+	return o.PaymentInstrumentId.Get(), o.PaymentInstrumentId.IsSet()
 }
 
 // SetPaymentInstrumentId sets field value
 func (o *SandboxSeedResponse) SetPaymentInstrumentId(v string) {
-	o.PaymentInstrumentId = v
+	o.PaymentInstrumentId.Set(&v)
 }
 
 // GetPaymentIntentId returns the PaymentIntentId field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -314,10 +322,10 @@ func (o SandboxSeedResponse) MarshalJSON() ([]byte, error) {
 func (o SandboxSeedResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["environment"] = o.Environment
-	toSerialize["merchantAccountId"] = o.MerchantAccountId
-	toSerialize["customerProfileId"] = o.CustomerProfileId
-	toSerialize["paymentMethodId"] = o.PaymentMethodId
-	toSerialize["paymentInstrumentId"] = o.PaymentInstrumentId
+	toSerialize["merchantAccountId"] = o.MerchantAccountId.Get()
+	toSerialize["customerProfileId"] = o.CustomerProfileId.Get()
+	toSerialize["paymentMethodId"] = o.PaymentMethodId.Get()
+	toSerialize["paymentInstrumentId"] = o.PaymentInstrumentId.Get()
 	if o.PaymentIntentId.IsSet() {
 		toSerialize["paymentIntentId"] = o.PaymentIntentId.Get()
 	}
@@ -327,6 +335,11 @@ func (o SandboxSeedResponse) ToMap() (map[string]interface{}, error) {
 	if o.ChargeSkippedReason.IsSet() {
 		toSerialize["chargeSkippedReason"] = o.ChargeSkippedReason.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -358,15 +371,27 @@ func (o *SandboxSeedResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varSandboxSeedResponse := _SandboxSeedResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varSandboxSeedResponse)
+	err = json.Unmarshal(data, &varSandboxSeedResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = SandboxSeedResponse(varSandboxSeedResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "environment")
+		delete(additionalProperties, "merchantAccountId")
+		delete(additionalProperties, "customerProfileId")
+		delete(additionalProperties, "paymentMethodId")
+		delete(additionalProperties, "paymentInstrumentId")
+		delete(additionalProperties, "paymentIntentId")
+		delete(additionalProperties, "paymentIntentStatus")
+		delete(additionalProperties, "chargeSkippedReason")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

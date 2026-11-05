@@ -19,9 +19,12 @@ var _ MappedNullable = &WebhookDeliveryReplayRequest{}
 
 // WebhookDeliveryReplayRequest struct for WebhookDeliveryReplayRequest
 type WebhookDeliveryReplayRequest struct {
-	ReplayedByRef *string `json:"replayedByRef,omitempty"`
-	Dispatch *bool `json:"dispatch,omitempty"`
+	ReplayedByRef NullableString `json:"replayedByRef,omitempty"`
+	Dispatch NullableBool `json:"dispatch,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _WebhookDeliveryReplayRequest WebhookDeliveryReplayRequest
 
 // NewWebhookDeliveryReplayRequest instantiates a new WebhookDeliveryReplayRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -40,68 +43,88 @@ func NewWebhookDeliveryReplayRequestWithDefaults() *WebhookDeliveryReplayRequest
 	return &this
 }
 
-// GetReplayedByRef returns the ReplayedByRef field value if set, zero value otherwise.
+// GetReplayedByRef returns the ReplayedByRef field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *WebhookDeliveryReplayRequest) GetReplayedByRef() string {
-	if o == nil || IsNil(o.ReplayedByRef) {
+	if o == nil || IsNil(o.ReplayedByRef.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.ReplayedByRef
+	return *o.ReplayedByRef.Get()
 }
 
 // GetReplayedByRefOk returns a tuple with the ReplayedByRef field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *WebhookDeliveryReplayRequest) GetReplayedByRefOk() (*string, bool) {
-	if o == nil || IsNil(o.ReplayedByRef) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ReplayedByRef, true
+	return o.ReplayedByRef.Get(), o.ReplayedByRef.IsSet()
 }
 
 // HasReplayedByRef returns a boolean if a field has been set.
 func (o *WebhookDeliveryReplayRequest) HasReplayedByRef() bool {
-	if o != nil && !IsNil(o.ReplayedByRef) {
+	if o != nil && o.ReplayedByRef.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetReplayedByRef gets a reference to the given string and assigns it to the ReplayedByRef field.
+// SetReplayedByRef gets a reference to the given NullableString and assigns it to the ReplayedByRef field.
 func (o *WebhookDeliveryReplayRequest) SetReplayedByRef(v string) {
-	o.ReplayedByRef = &v
+	o.ReplayedByRef.Set(&v)
+}
+// SetReplayedByRefNil sets the value for ReplayedByRef to be an explicit nil
+func (o *WebhookDeliveryReplayRequest) SetReplayedByRefNil() {
+	o.ReplayedByRef.Set(nil)
 }
 
-// GetDispatch returns the Dispatch field value if set, zero value otherwise.
+// UnsetReplayedByRef ensures that no value is present for ReplayedByRef, not even an explicit nil
+func (o *WebhookDeliveryReplayRequest) UnsetReplayedByRef() {
+	o.ReplayedByRef.Unset()
+}
+
+// GetDispatch returns the Dispatch field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *WebhookDeliveryReplayRequest) GetDispatch() bool {
-	if o == nil || IsNil(o.Dispatch) {
+	if o == nil || IsNil(o.Dispatch.Get()) {
 		var ret bool
 		return ret
 	}
-	return *o.Dispatch
+	return *o.Dispatch.Get()
 }
 
 // GetDispatchOk returns a tuple with the Dispatch field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *WebhookDeliveryReplayRequest) GetDispatchOk() (*bool, bool) {
-	if o == nil || IsNil(o.Dispatch) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Dispatch, true
+	return o.Dispatch.Get(), o.Dispatch.IsSet()
 }
 
 // HasDispatch returns a boolean if a field has been set.
 func (o *WebhookDeliveryReplayRequest) HasDispatch() bool {
-	if o != nil && !IsNil(o.Dispatch) {
+	if o != nil && o.Dispatch.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDispatch gets a reference to the given bool and assigns it to the Dispatch field.
+// SetDispatch gets a reference to the given NullableBool and assigns it to the Dispatch field.
 func (o *WebhookDeliveryReplayRequest) SetDispatch(v bool) {
-	o.Dispatch = &v
+	o.Dispatch.Set(&v)
+}
+// SetDispatchNil sets the value for Dispatch to be an explicit nil
+func (o *WebhookDeliveryReplayRequest) SetDispatchNil() {
+	o.Dispatch.Set(nil)
+}
+
+// UnsetDispatch ensures that no value is present for Dispatch, not even an explicit nil
+func (o *WebhookDeliveryReplayRequest) UnsetDispatch() {
+	o.Dispatch.Unset()
 }
 
 func (o WebhookDeliveryReplayRequest) MarshalJSON() ([]byte, error) {
@@ -114,13 +137,40 @@ func (o WebhookDeliveryReplayRequest) MarshalJSON() ([]byte, error) {
 
 func (o WebhookDeliveryReplayRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.ReplayedByRef) {
-		toSerialize["replayedByRef"] = o.ReplayedByRef
+	if o.ReplayedByRef.IsSet() {
+		toSerialize["replayedByRef"] = o.ReplayedByRef.Get()
 	}
-	if !IsNil(o.Dispatch) {
-		toSerialize["dispatch"] = o.Dispatch
+	if o.Dispatch.IsSet() {
+		toSerialize["dispatch"] = o.Dispatch.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *WebhookDeliveryReplayRequest) UnmarshalJSON(data []byte) (err error) {
+	varWebhookDeliveryReplayRequest := _WebhookDeliveryReplayRequest{}
+
+	err = json.Unmarshal(data, &varWebhookDeliveryReplayRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = WebhookDeliveryReplayRequest(varWebhookDeliveryReplayRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "replayedByRef")
+		delete(additionalProperties, "dispatch")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableWebhookDeliveryReplayRequest struct {

@@ -22,8 +22,8 @@ var _ MappedNullable = &HostedCollectionRetryScheduleResponseData{}
 
 // HostedCollectionRetryScheduleResponseData struct for HostedCollectionRetryScheduleResponseData
 type HostedCollectionRetryScheduleResponseData struct {
-	RetryId string `json:"retryId"`
-	InvoiceId string `json:"invoiceId"`
+	RetryId NullableString `json:"retryId"`
+	InvoiceId NullableString `json:"invoiceId"`
 	Status string `json:"status"`
 	RetrySequence int32 `json:"retrySequence"`
 	RunAt time.Time `json:"runAt"`
@@ -35,7 +35,7 @@ type _HostedCollectionRetryScheduleResponseData HostedCollectionRetryScheduleRes
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewHostedCollectionRetryScheduleResponseData(retryId string, invoiceId string, status string, retrySequence int32, runAt time.Time) *HostedCollectionRetryScheduleResponseData {
+func NewHostedCollectionRetryScheduleResponseData(retryId NullableString, invoiceId NullableString, status string, retrySequence int32, runAt time.Time) *HostedCollectionRetryScheduleResponseData {
 	this := HostedCollectionRetryScheduleResponseData{}
 	this.RetryId = retryId
 	this.InvoiceId = invoiceId
@@ -54,51 +54,55 @@ func NewHostedCollectionRetryScheduleResponseDataWithDefaults() *HostedCollectio
 }
 
 // GetRetryId returns the RetryId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *HostedCollectionRetryScheduleResponseData) GetRetryId() string {
-	if o == nil {
+	if o == nil || o.RetryId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.RetryId
+	return *o.RetryId.Get()
 }
 
 // GetRetryIdOk returns a tuple with the RetryId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *HostedCollectionRetryScheduleResponseData) GetRetryIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RetryId, true
+	return o.RetryId.Get(), o.RetryId.IsSet()
 }
 
 // SetRetryId sets field value
 func (o *HostedCollectionRetryScheduleResponseData) SetRetryId(v string) {
-	o.RetryId = v
+	o.RetryId.Set(&v)
 }
 
 // GetInvoiceId returns the InvoiceId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *HostedCollectionRetryScheduleResponseData) GetInvoiceId() string {
-	if o == nil {
+	if o == nil || o.InvoiceId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.InvoiceId
+	return *o.InvoiceId.Get()
 }
 
 // GetInvoiceIdOk returns a tuple with the InvoiceId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *HostedCollectionRetryScheduleResponseData) GetInvoiceIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.InvoiceId, true
+	return o.InvoiceId.Get(), o.InvoiceId.IsSet()
 }
 
 // SetInvoiceId sets field value
 func (o *HostedCollectionRetryScheduleResponseData) SetInvoiceId(v string) {
-	o.InvoiceId = v
+	o.InvoiceId.Set(&v)
 }
 
 // GetStatus returns the Status field value
@@ -183,8 +187,8 @@ func (o HostedCollectionRetryScheduleResponseData) MarshalJSON() ([]byte, error)
 
 func (o HostedCollectionRetryScheduleResponseData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["retryId"] = o.RetryId
-	toSerialize["invoiceId"] = o.InvoiceId
+	toSerialize["retryId"] = o.RetryId.Get()
+	toSerialize["invoiceId"] = o.InvoiceId.Get()
 	toSerialize["status"] = o.Status
 	toSerialize["retrySequence"] = o.RetrySequence
 	toSerialize["runAt"] = o.RunAt

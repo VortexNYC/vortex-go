@@ -21,7 +21,10 @@ var _ MappedNullable = &CouponTargets{}
 type CouponTargets struct {
 	PriceIds []string `json:"priceIds,omitempty"`
 	MeterIds []string `json:"meterIds,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CouponTargets CouponTargets
 
 // NewCouponTargets instantiates a new CouponTargets object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o CouponTargets) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.MeterIds) {
 		toSerialize["meterIds"] = o.MeterIds
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CouponTargets) UnmarshalJSON(data []byte) (err error) {
+	varCouponTargets := _CouponTargets{}
+
+	err = json.Unmarshal(data, &varCouponTargets)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CouponTargets(varCouponTargets)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "priceIds")
+		delete(additionalProperties, "meterIds")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCouponTargets struct {

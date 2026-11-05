@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -23,6 +22,7 @@ var _ MappedNullable = &BillingOrderFormSignatureRequestRequest{}
 type BillingOrderFormSignatureRequestRequest struct {
 	// Opaque reference to the external signature request (e.g. a Vortex Sign envelope/session id). The sign call must present the same ref to complete.
 	SignatureRequestRef string `json:"signatureRequestRef"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _BillingOrderFormSignatureRequestRequest BillingOrderFormSignatureRequestRequest
@@ -80,6 +80,11 @@ func (o BillingOrderFormSignatureRequestRequest) MarshalJSON() ([]byte, error) {
 func (o BillingOrderFormSignatureRequestRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["signatureRequestRef"] = o.SignatureRequestRef
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -107,15 +112,20 @@ func (o *BillingOrderFormSignatureRequestRequest) UnmarshalJSON(data []byte) (er
 
 	varBillingOrderFormSignatureRequestRequest := _BillingOrderFormSignatureRequestRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varBillingOrderFormSignatureRequestRequest)
+	err = json.Unmarshal(data, &varBillingOrderFormSignatureRequestRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = BillingOrderFormSignatureRequestRequest(varBillingOrderFormSignatureRequestRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "signatureRequestRef")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

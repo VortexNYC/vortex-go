@@ -22,7 +22,10 @@ var _ MappedNullable = &BillingOrderUpdateRequest{}
 type BillingOrderUpdateRequest struct {
 	ExecutionMode *string `json:"executionMode,omitempty"`
 	ExecuteAt *time.Time `json:"executeAt,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _BillingOrderUpdateRequest BillingOrderUpdateRequest
 
 // NewBillingOrderUpdateRequest instantiates a new BillingOrderUpdateRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o BillingOrderUpdateRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ExecuteAt) {
 		toSerialize["executeAt"] = o.ExecuteAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *BillingOrderUpdateRequest) UnmarshalJSON(data []byte) (err error) {
+	varBillingOrderUpdateRequest := _BillingOrderUpdateRequest{}
+
+	err = json.Unmarshal(data, &varBillingOrderUpdateRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BillingOrderUpdateRequest(varBillingOrderUpdateRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "executionMode")
+		delete(additionalProperties, "executeAt")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableBillingOrderUpdateRequest struct {

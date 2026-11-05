@@ -20,8 +20,8 @@ var _ MappedNullable = &MerchantTaxProfileRequest{}
 
 // MerchantTaxProfileRequest struct for MerchantTaxProfileRequest
 type MerchantTaxProfileRequest struct {
-	Environment string `json:"environment"`
-	DisplayName *string `json:"displayName,omitempty"`
+	Environment NullableString `json:"environment"`
+	DisplayName NullableString `json:"displayName,omitempty"`
 	OriginAddress TaxAddress `json:"originAddress"`
 	Registrations []MerchantTaxProfileRequestRegistrationsInner `json:"registrations"`
 	AdditionalProperties map[string]interface{}
@@ -33,7 +33,7 @@ type _MerchantTaxProfileRequest MerchantTaxProfileRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantTaxProfileRequest(environment string, originAddress TaxAddress, registrations []MerchantTaxProfileRequestRegistrationsInner) *MerchantTaxProfileRequest {
+func NewMerchantTaxProfileRequest(environment NullableString, originAddress TaxAddress, registrations []MerchantTaxProfileRequestRegistrationsInner) *MerchantTaxProfileRequest {
 	this := MerchantTaxProfileRequest{}
 	this.Environment = environment
 	this.OriginAddress = originAddress
@@ -50,59 +50,71 @@ func NewMerchantTaxProfileRequestWithDefaults() *MerchantTaxProfileRequest {
 }
 
 // GetEnvironment returns the Environment field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantTaxProfileRequest) GetEnvironment() string {
-	if o == nil {
+	if o == nil || o.Environment.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Environment
+	return *o.Environment.Get()
 }
 
 // GetEnvironmentOk returns a tuple with the Environment field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantTaxProfileRequest) GetEnvironmentOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Environment, true
+	return o.Environment.Get(), o.Environment.IsSet()
 }
 
 // SetEnvironment sets field value
 func (o *MerchantTaxProfileRequest) SetEnvironment(v string) {
-	o.Environment = v
+	o.Environment.Set(&v)
 }
 
-// GetDisplayName returns the DisplayName field value if set, zero value otherwise.
+// GetDisplayName returns the DisplayName field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantTaxProfileRequest) GetDisplayName() string {
-	if o == nil || IsNil(o.DisplayName) {
+	if o == nil || IsNil(o.DisplayName.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.DisplayName
+	return *o.DisplayName.Get()
 }
 
 // GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantTaxProfileRequest) GetDisplayNameOk() (*string, bool) {
-	if o == nil || IsNil(o.DisplayName) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DisplayName, true
+	return o.DisplayName.Get(), o.DisplayName.IsSet()
 }
 
 // HasDisplayName returns a boolean if a field has been set.
 func (o *MerchantTaxProfileRequest) HasDisplayName() bool {
-	if o != nil && !IsNil(o.DisplayName) {
+	if o != nil && o.DisplayName.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
+// SetDisplayName gets a reference to the given NullableString and assigns it to the DisplayName field.
 func (o *MerchantTaxProfileRequest) SetDisplayName(v string) {
-	o.DisplayName = &v
+	o.DisplayName.Set(&v)
+}
+// SetDisplayNameNil sets the value for DisplayName to be an explicit nil
+func (o *MerchantTaxProfileRequest) SetDisplayNameNil() {
+	o.DisplayName.Set(nil)
+}
+
+// UnsetDisplayName ensures that no value is present for DisplayName, not even an explicit nil
+func (o *MerchantTaxProfileRequest) UnsetDisplayName() {
+	o.DisplayName.Unset()
 }
 
 // GetOriginAddress returns the OriginAddress field value
@@ -163,9 +175,9 @@ func (o MerchantTaxProfileRequest) MarshalJSON() ([]byte, error) {
 
 func (o MerchantTaxProfileRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["environment"] = o.Environment
-	if !IsNil(o.DisplayName) {
-		toSerialize["displayName"] = o.DisplayName
+	toSerialize["environment"] = o.Environment.Get()
+	if o.DisplayName.IsSet() {
+		toSerialize["displayName"] = o.DisplayName.Get()
 	}
 	toSerialize["originAddress"] = o.OriginAddress
 	toSerialize["registrations"] = o.Registrations

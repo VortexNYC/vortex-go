@@ -21,10 +21,10 @@ var _ MappedNullable = &MerchantPortalMeterUsageLegItemsInner{}
 
 // MerchantPortalMeterUsageLegItemsInner struct for MerchantPortalMeterUsageLegItemsInner
 type MerchantPortalMeterUsageLegItemsInner struct {
-	MeterId string `json:"meterId"`
-	Name string `json:"name"`
-	AggregationType string `json:"aggregationType"`
-	WindowGrain string `json:"windowGrain"`
+	MeterId NullableString `json:"meterId"`
+	Name NullableString `json:"name"`
+	AggregationType NullableString `json:"aggregationType"`
+	WindowGrain NullableString `json:"windowGrain"`
 	AggregatedQuantity float32 `json:"aggregatedQuantity"`
 }
 
@@ -34,7 +34,7 @@ type _MerchantPortalMeterUsageLegItemsInner MerchantPortalMeterUsageLegItemsInne
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalMeterUsageLegItemsInner(meterId string, name string, aggregationType string, windowGrain string, aggregatedQuantity float32) *MerchantPortalMeterUsageLegItemsInner {
+func NewMerchantPortalMeterUsageLegItemsInner(meterId NullableString, name NullableString, aggregationType NullableString, windowGrain NullableString, aggregatedQuantity float32) *MerchantPortalMeterUsageLegItemsInner {
 	this := MerchantPortalMeterUsageLegItemsInner{}
 	this.MeterId = meterId
 	this.Name = name
@@ -53,99 +53,107 @@ func NewMerchantPortalMeterUsageLegItemsInnerWithDefaults() *MerchantPortalMeter
 }
 
 // GetMeterId returns the MeterId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantPortalMeterUsageLegItemsInner) GetMeterId() string {
-	if o == nil {
+	if o == nil || o.MeterId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.MeterId
+	return *o.MeterId.Get()
 }
 
 // GetMeterIdOk returns a tuple with the MeterId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantPortalMeterUsageLegItemsInner) GetMeterIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.MeterId, true
+	return o.MeterId.Get(), o.MeterId.IsSet()
 }
 
 // SetMeterId sets field value
 func (o *MerchantPortalMeterUsageLegItemsInner) SetMeterId(v string) {
-	o.MeterId = v
+	o.MeterId.Set(&v)
 }
 
 // GetName returns the Name field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantPortalMeterUsageLegItemsInner) GetName() string {
-	if o == nil {
+	if o == nil || o.Name.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Name
+	return *o.Name.Get()
 }
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantPortalMeterUsageLegItemsInner) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name.Get(), o.Name.IsSet()
 }
 
 // SetName sets field value
 func (o *MerchantPortalMeterUsageLegItemsInner) SetName(v string) {
-	o.Name = v
+	o.Name.Set(&v)
 }
 
 // GetAggregationType returns the AggregationType field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantPortalMeterUsageLegItemsInner) GetAggregationType() string {
-	if o == nil {
+	if o == nil || o.AggregationType.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.AggregationType
+	return *o.AggregationType.Get()
 }
 
 // GetAggregationTypeOk returns a tuple with the AggregationType field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantPortalMeterUsageLegItemsInner) GetAggregationTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AggregationType, true
+	return o.AggregationType.Get(), o.AggregationType.IsSet()
 }
 
 // SetAggregationType sets field value
 func (o *MerchantPortalMeterUsageLegItemsInner) SetAggregationType(v string) {
-	o.AggregationType = v
+	o.AggregationType.Set(&v)
 }
 
 // GetWindowGrain returns the WindowGrain field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantPortalMeterUsageLegItemsInner) GetWindowGrain() string {
-	if o == nil {
+	if o == nil || o.WindowGrain.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.WindowGrain
+	return *o.WindowGrain.Get()
 }
 
 // GetWindowGrainOk returns a tuple with the WindowGrain field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantPortalMeterUsageLegItemsInner) GetWindowGrainOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.WindowGrain, true
+	return o.WindowGrain.Get(), o.WindowGrain.IsSet()
 }
 
 // SetWindowGrain sets field value
 func (o *MerchantPortalMeterUsageLegItemsInner) SetWindowGrain(v string) {
-	o.WindowGrain = v
+	o.WindowGrain.Set(&v)
 }
 
 // GetAggregatedQuantity returns the AggregatedQuantity field value
@@ -182,10 +190,10 @@ func (o MerchantPortalMeterUsageLegItemsInner) MarshalJSON() ([]byte, error) {
 
 func (o MerchantPortalMeterUsageLegItemsInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["meterId"] = o.MeterId
-	toSerialize["name"] = o.Name
-	toSerialize["aggregationType"] = o.AggregationType
-	toSerialize["windowGrain"] = o.WindowGrain
+	toSerialize["meterId"] = o.MeterId.Get()
+	toSerialize["name"] = o.Name.Get()
+	toSerialize["aggregationType"] = o.AggregationType.Get()
+	toSerialize["windowGrain"] = o.WindowGrain.Get()
 	toSerialize["aggregatedQuantity"] = o.AggregatedQuantity
 	return toSerialize, nil
 }

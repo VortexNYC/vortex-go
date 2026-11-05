@@ -21,8 +21,8 @@ var _ MappedNullable = &MerchantFacingComparisonCurrent{}
 
 // MerchantFacingComparisonCurrent struct for MerchantFacingComparisonCurrent
 type MerchantFacingComparisonCurrent struct {
-	ProcessorKey string `json:"processorKey"`
-	DisplayName string `json:"displayName"`
+	ProcessorKey NullableString `json:"processorKey"`
+	DisplayName NullableString `json:"displayName"`
 	MonthlyCostCents int32 `json:"monthlyCostCents"`
 	EffectiveRateBp int32 `json:"effectiveRateBp"`
 	Source string `json:"source"`
@@ -34,7 +34,7 @@ type _MerchantFacingComparisonCurrent MerchantFacingComparisonCurrent
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantFacingComparisonCurrent(processorKey string, displayName string, monthlyCostCents int32, effectiveRateBp int32, source string) *MerchantFacingComparisonCurrent {
+func NewMerchantFacingComparisonCurrent(processorKey NullableString, displayName NullableString, monthlyCostCents int32, effectiveRateBp int32, source string) *MerchantFacingComparisonCurrent {
 	this := MerchantFacingComparisonCurrent{}
 	this.ProcessorKey = processorKey
 	this.DisplayName = displayName
@@ -53,51 +53,55 @@ func NewMerchantFacingComparisonCurrentWithDefaults() *MerchantFacingComparisonC
 }
 
 // GetProcessorKey returns the ProcessorKey field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantFacingComparisonCurrent) GetProcessorKey() string {
-	if o == nil {
+	if o == nil || o.ProcessorKey.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.ProcessorKey
+	return *o.ProcessorKey.Get()
 }
 
 // GetProcessorKeyOk returns a tuple with the ProcessorKey field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantFacingComparisonCurrent) GetProcessorKeyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ProcessorKey, true
+	return o.ProcessorKey.Get(), o.ProcessorKey.IsSet()
 }
 
 // SetProcessorKey sets field value
 func (o *MerchantFacingComparisonCurrent) SetProcessorKey(v string) {
-	o.ProcessorKey = v
+	o.ProcessorKey.Set(&v)
 }
 
 // GetDisplayName returns the DisplayName field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantFacingComparisonCurrent) GetDisplayName() string {
-	if o == nil {
+	if o == nil || o.DisplayName.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.DisplayName
+	return *o.DisplayName.Get()
 }
 
 // GetDisplayNameOk returns a tuple with the DisplayName field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantFacingComparisonCurrent) GetDisplayNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.DisplayName, true
+	return o.DisplayName.Get(), o.DisplayName.IsSet()
 }
 
 // SetDisplayName sets field value
 func (o *MerchantFacingComparisonCurrent) SetDisplayName(v string) {
-	o.DisplayName = v
+	o.DisplayName.Set(&v)
 }
 
 // GetMonthlyCostCents returns the MonthlyCostCents field value
@@ -182,8 +186,8 @@ func (o MerchantFacingComparisonCurrent) MarshalJSON() ([]byte, error) {
 
 func (o MerchantFacingComparisonCurrent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["processorKey"] = o.ProcessorKey
-	toSerialize["displayName"] = o.DisplayName
+	toSerialize["processorKey"] = o.ProcessorKey.Get()
+	toSerialize["displayName"] = o.DisplayName.Get()
 	toSerialize["monthlyCostCents"] = o.MonthlyCostCents
 	toSerialize["effectiveRateBp"] = o.EffectiveRateBp
 	toSerialize["source"] = o.Source

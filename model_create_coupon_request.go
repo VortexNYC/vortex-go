@@ -13,7 +13,6 @@ package vortex
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -22,10 +21,10 @@ var _ MappedNullable = &CreateCouponRequest{}
 
 // CreateCouponRequest struct for CreateCouponRequest
 type CreateCouponRequest struct {
-	CouponId *string `json:"couponId,omitempty"`
-	Code string `json:"code"`
-	Name string `json:"name"`
-	Description *string `json:"description,omitempty"`
+	CouponId NullableString `json:"couponId,omitempty"`
+	Code NullableString `json:"code"`
+	Name NullableString `json:"name"`
+	Description NullableString `json:"description,omitempty"`
 	DiscountType string `json:"discountType"`
 	Amount *int32 `json:"amount,omitempty"`
 	// ISO 4217 alpha-3; only currencies processable on current rails are accepted
@@ -33,10 +32,11 @@ type CreateCouponRequest struct {
 	Percentage *float32 `json:"percentage,omitempty"`
 	Duration string `json:"duration"`
 	DurationInBillingPeriods *int32 `json:"durationInBillingPeriods,omitempty"`
-	Reusable *bool `json:"reusable,omitempty"`
+	Reusable NullableBool `json:"reusable,omitempty"`
 	Targets *CouponTargets `json:"targets,omitempty"`
 	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateCouponRequest CreateCouponRequest
@@ -45,7 +45,7 @@ type _CreateCouponRequest CreateCouponRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateCouponRequest(code string, name string, discountType string, duration string) *CreateCouponRequest {
+func NewCreateCouponRequest(code NullableString, name NullableString, discountType string, duration string) *CreateCouponRequest {
 	this := CreateCouponRequest{}
 	this.Code = code
 	this.Name = name
@@ -62,116 +62,140 @@ func NewCreateCouponRequestWithDefaults() *CreateCouponRequest {
 	return &this
 }
 
-// GetCouponId returns the CouponId field value if set, zero value otherwise.
+// GetCouponId returns the CouponId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateCouponRequest) GetCouponId() string {
-	if o == nil || IsNil(o.CouponId) {
+	if o == nil || IsNil(o.CouponId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CouponId
+	return *o.CouponId.Get()
 }
 
 // GetCouponIdOk returns a tuple with the CouponId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateCouponRequest) GetCouponIdOk() (*string, bool) {
-	if o == nil || IsNil(o.CouponId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CouponId, true
+	return o.CouponId.Get(), o.CouponId.IsSet()
 }
 
 // HasCouponId returns a boolean if a field has been set.
 func (o *CreateCouponRequest) HasCouponId() bool {
-	if o != nil && !IsNil(o.CouponId) {
+	if o != nil && o.CouponId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCouponId gets a reference to the given string and assigns it to the CouponId field.
+// SetCouponId gets a reference to the given NullableString and assigns it to the CouponId field.
 func (o *CreateCouponRequest) SetCouponId(v string) {
-	o.CouponId = &v
+	o.CouponId.Set(&v)
+}
+// SetCouponIdNil sets the value for CouponId to be an explicit nil
+func (o *CreateCouponRequest) SetCouponIdNil() {
+	o.CouponId.Set(nil)
+}
+
+// UnsetCouponId ensures that no value is present for CouponId, not even an explicit nil
+func (o *CreateCouponRequest) UnsetCouponId() {
+	o.CouponId.Unset()
 }
 
 // GetCode returns the Code field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *CreateCouponRequest) GetCode() string {
-	if o == nil {
+	if o == nil || o.Code.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Code
+	return *o.Code.Get()
 }
 
 // GetCodeOk returns a tuple with the Code field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateCouponRequest) GetCodeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Code, true
+	return o.Code.Get(), o.Code.IsSet()
 }
 
 // SetCode sets field value
 func (o *CreateCouponRequest) SetCode(v string) {
-	o.Code = v
+	o.Code.Set(&v)
 }
 
 // GetName returns the Name field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *CreateCouponRequest) GetName() string {
-	if o == nil {
+	if o == nil || o.Name.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Name
+	return *o.Name.Get()
 }
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateCouponRequest) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name.Get(), o.Name.IsSet()
 }
 
 // SetName sets field value
 func (o *CreateCouponRequest) SetName(v string) {
-	o.Name = v
+	o.Name.Set(&v)
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateCouponRequest) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+	if o == nil || IsNil(o.Description.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Description
+	return *o.Description.Get()
 }
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateCouponRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return o.Description.Get(), o.Description.IsSet()
 }
 
 // HasDescription returns a boolean if a field has been set.
 func (o *CreateCouponRequest) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
+	if o != nil && o.Description.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription gets a reference to the given NullableString and assigns it to the Description field.
 func (o *CreateCouponRequest) SetDescription(v string) {
-	o.Description = &v
+	o.Description.Set(&v)
+}
+// SetDescriptionNil sets the value for Description to be an explicit nil
+func (o *CreateCouponRequest) SetDescriptionNil() {
+	o.Description.Set(nil)
+}
+
+// UnsetDescription ensures that no value is present for Description, not even an explicit nil
+func (o *CreateCouponRequest) UnsetDescription() {
+	o.Description.Unset()
 }
 
 // GetDiscountType returns the DiscountType field value
@@ -350,36 +374,46 @@ func (o *CreateCouponRequest) SetDurationInBillingPeriods(v int32) {
 	o.DurationInBillingPeriods = &v
 }
 
-// GetReusable returns the Reusable field value if set, zero value otherwise.
+// GetReusable returns the Reusable field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateCouponRequest) GetReusable() bool {
-	if o == nil || IsNil(o.Reusable) {
+	if o == nil || IsNil(o.Reusable.Get()) {
 		var ret bool
 		return ret
 	}
-	return *o.Reusable
+	return *o.Reusable.Get()
 }
 
 // GetReusableOk returns a tuple with the Reusable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateCouponRequest) GetReusableOk() (*bool, bool) {
-	if o == nil || IsNil(o.Reusable) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Reusable, true
+	return o.Reusable.Get(), o.Reusable.IsSet()
 }
 
 // HasReusable returns a boolean if a field has been set.
 func (o *CreateCouponRequest) HasReusable() bool {
-	if o != nil && !IsNil(o.Reusable) {
+	if o != nil && o.Reusable.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetReusable gets a reference to the given bool and assigns it to the Reusable field.
+// SetReusable gets a reference to the given NullableBool and assigns it to the Reusable field.
 func (o *CreateCouponRequest) SetReusable(v bool) {
-	o.Reusable = &v
+	o.Reusable.Set(&v)
+}
+// SetReusableNil sets the value for Reusable to be an explicit nil
+func (o *CreateCouponRequest) SetReusableNil() {
+	o.Reusable.Set(nil)
+}
+
+// UnsetReusable ensures that no value is present for Reusable, not even an explicit nil
+func (o *CreateCouponRequest) UnsetReusable() {
+	o.Reusable.Unset()
 }
 
 // GetTargets returns the Targets field value if set, zero value otherwise.
@@ -446,9 +480,9 @@ func (o *CreateCouponRequest) SetExpiresAt(v time.Time) {
 	o.ExpiresAt = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateCouponRequest) GetMetadata() map[string]string {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -457,6 +491,7 @@ func (o *CreateCouponRequest) GetMetadata() map[string]string {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateCouponRequest) GetMetadataOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return map[string]string{}, false
@@ -488,13 +523,13 @@ func (o CreateCouponRequest) MarshalJSON() ([]byte, error) {
 
 func (o CreateCouponRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.CouponId) {
-		toSerialize["couponId"] = o.CouponId
+	if o.CouponId.IsSet() {
+		toSerialize["couponId"] = o.CouponId.Get()
 	}
-	toSerialize["code"] = o.Code
-	toSerialize["name"] = o.Name
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
+	toSerialize["code"] = o.Code.Get()
+	toSerialize["name"] = o.Name.Get()
+	if o.Description.IsSet() {
+		toSerialize["description"] = o.Description.Get()
 	}
 	toSerialize["discountType"] = o.DiscountType
 	if !IsNil(o.Amount) {
@@ -510,8 +545,8 @@ func (o CreateCouponRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DurationInBillingPeriods) {
 		toSerialize["durationInBillingPeriods"] = o.DurationInBillingPeriods
 	}
-	if !IsNil(o.Reusable) {
-		toSerialize["reusable"] = o.Reusable
+	if o.Reusable.IsSet() {
+		toSerialize["reusable"] = o.Reusable.Get()
 	}
 	if !IsNil(o.Targets) {
 		toSerialize["targets"] = o.Targets
@@ -519,9 +554,14 @@ func (o CreateCouponRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ExpiresAt) {
 		toSerialize["expiresAt"] = o.ExpiresAt
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -552,15 +592,33 @@ func (o *CreateCouponRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varCreateCouponRequest := _CreateCouponRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateCouponRequest)
+	err = json.Unmarshal(data, &varCreateCouponRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateCouponRequest(varCreateCouponRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "couponId")
+		delete(additionalProperties, "code")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "discountType")
+		delete(additionalProperties, "amount")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "percentage")
+		delete(additionalProperties, "duration")
+		delete(additionalProperties, "durationInBillingPeriods")
+		delete(additionalProperties, "reusable")
+		delete(additionalProperties, "targets")
+		delete(additionalProperties, "expiresAt")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

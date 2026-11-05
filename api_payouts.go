@@ -23,6 +23,142 @@ import (
 // PayoutsAPIService PayoutsAPI service
 type PayoutsAPIService service
 
+type PayoutsAPICreatePayoutRequest struct {
+	ctx context.Context
+	ApiService *PayoutsAPIService
+	createPayoutRequest *CreatePayoutRequest
+	environment *string
+	merchantAccountId *string
+	idempotencyKey *string
+}
+
+func (r PayoutsAPICreatePayoutRequest) CreatePayoutRequest(createPayoutRequest CreatePayoutRequest) PayoutsAPICreatePayoutRequest {
+	r.createPayoutRequest = &createPayoutRequest
+	return r
+}
+
+func (r PayoutsAPICreatePayoutRequest) Environment(environment string) PayoutsAPICreatePayoutRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r PayoutsAPICreatePayoutRequest) MerchantAccountId(merchantAccountId string) PayoutsAPICreatePayoutRequest {
+	r.merchantAccountId = &merchantAccountId
+	return r
+}
+
+// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
+func (r PayoutsAPICreatePayoutRequest) IdempotencyKey(idempotencyKey string) PayoutsAPICreatePayoutRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r PayoutsAPICreatePayoutRequest) Execute() (*CreatePayout201Response, *http.Response, error) {
+	return r.ApiService.CreatePayoutExecute(r)
+}
+
+/*
+CreatePayout Method for CreatePayout
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return PayoutsAPICreatePayoutRequest
+*/
+func (a *PayoutsAPIService) CreatePayout(ctx context.Context) PayoutsAPICreatePayoutRequest {
+	return PayoutsAPICreatePayoutRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return CreatePayout201Response
+func (a *PayoutsAPIService) CreatePayoutExecute(r PayoutsAPICreatePayoutRequest) (*CreatePayout201Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *CreatePayout201Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PayoutsAPIService.CreatePayout")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/payouts"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.createPayoutRequest == nil {
+		return localVarReturnValue, nil, reportError("createPayoutRequest is required and must be specified")
+	}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.createPayoutRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type PayoutsAPIGetPayoutRequest struct {
 	ctx context.Context
 	ApiService *PayoutsAPIService
@@ -31,7 +167,6 @@ type PayoutsAPIGetPayoutRequest struct {
 	merchantAccountId *string
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
 func (r PayoutsAPIGetPayoutRequest) Environment(environment string) PayoutsAPIGetPayoutRequest {
 	r.environment = &environment
 	return r
@@ -42,12 +177,12 @@ func (r PayoutsAPIGetPayoutRequest) MerchantAccountId(merchantAccountId string) 
 	return r
 }
 
-func (r PayoutsAPIGetPayoutRequest) Execute() (*PayoutResponse, *http.Response, error) {
+func (r PayoutsAPIGetPayoutRequest) Execute() (*CreatePayout201Response, *http.Response, error) {
 	return r.ApiService.GetPayoutExecute(r)
 }
 
 /*
-GetPayout Get one payout
+GetPayout Method for GetPayout
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param payoutId
@@ -62,13 +197,13 @@ func (a *PayoutsAPIService) GetPayout(ctx context.Context, payoutId string) Payo
 }
 
 // Execute executes the request
-//  @return PayoutResponse
-func (a *PayoutsAPIService) GetPayoutExecute(r PayoutsAPIGetPayoutRequest) (*PayoutResponse, *http.Response, error) {
+//  @return CreatePayout201Response
+func (a *PayoutsAPIService) GetPayoutExecute(r PayoutsAPIGetPayoutRequest) (*CreatePayout201Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *PayoutResponse
+		localVarReturnValue  *CreatePayout201Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PayoutsAPIService.GetPayout")
@@ -82,15 +217,16 @@ func (a *PayoutsAPIService) GetPayoutExecute(r PayoutsAPIGetPayoutRequest) (*Pay
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
+	if strlen(r.payoutId) < 1 {
+		return localVarReturnValue, nil, reportError("payoutId must have at least 1 elements")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -130,80 +266,6 @@ func (a *PayoutsAPIService) GetPayoutExecute(r PayoutsAPIGetPayoutRequest) (*Pay
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -219,79 +281,75 @@ func (a *PayoutsAPIService) GetPayoutExecute(r PayoutsAPIGetPayoutRequest) (*Pay
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type PayoutsAPIListPayoutsRequest struct {
+type PayoutsAPIListMerchantPayoutsRequest struct {
 	ctx context.Context
 	ApiService *PayoutsAPIService
 	environment *string
 	merchantAccountId *string
 	currency *string
 	scope *string
-	limit *int32
+	limit *ListCustomersLimitParameter
 	cursor *string
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
-func (r PayoutsAPIListPayoutsRequest) Environment(environment string) PayoutsAPIListPayoutsRequest {
+func (r PayoutsAPIListMerchantPayoutsRequest) Environment(environment string) PayoutsAPIListMerchantPayoutsRequest {
 	r.environment = &environment
 	return r
 }
 
-func (r PayoutsAPIListPayoutsRequest) MerchantAccountId(merchantAccountId string) PayoutsAPIListPayoutsRequest {
+func (r PayoutsAPIListMerchantPayoutsRequest) MerchantAccountId(merchantAccountId string) PayoutsAPIListMerchantPayoutsRequest {
 	r.merchantAccountId = &merchantAccountId
 	return r
 }
 
-func (r PayoutsAPIListPayoutsRequest) Currency(currency string) PayoutsAPIListPayoutsRequest {
+func (r PayoutsAPIListMerchantPayoutsRequest) Currency(currency string) PayoutsAPIListMerchantPayoutsRequest {
 	r.currency = &currency
 	return r
 }
 
-// &#x60;platform&#x60; lists payouts owned by every merchant account linked to this merchant via platformMerchantAccountId.
-func (r PayoutsAPIListPayoutsRequest) Scope(scope string) PayoutsAPIListPayoutsRequest {
+func (r PayoutsAPIListMerchantPayoutsRequest) Scope(scope string) PayoutsAPIListMerchantPayoutsRequest {
 	r.scope = &scope
 	return r
 }
 
-// Page size, 1-100. Omitting both limit and cursor returns the full unpaginated list.
-func (r PayoutsAPIListPayoutsRequest) Limit(limit int32) PayoutsAPIListPayoutsRequest {
+func (r PayoutsAPIListMerchantPayoutsRequest) Limit(limit ListCustomersLimitParameter) PayoutsAPIListMerchantPayoutsRequest {
 	r.limit = &limit
 	return r
 }
 
-// Opaque cursor from the previous page&#39;s nextCursor. Pass it back verbatim to fetch the next page.
-func (r PayoutsAPIListPayoutsRequest) Cursor(cursor string) PayoutsAPIListPayoutsRequest {
+func (r PayoutsAPIListMerchantPayoutsRequest) Cursor(cursor string) PayoutsAPIListMerchantPayoutsRequest {
 	r.cursor = &cursor
 	return r
 }
 
-func (r PayoutsAPIListPayoutsRequest) Execute() (*PayoutListResponse, *http.Response, error) {
-	return r.ApiService.ListPayoutsExecute(r)
+func (r PayoutsAPIListMerchantPayoutsRequest) Execute() (*ListMerchantPayouts200Response, *http.Response, error) {
+	return r.ApiService.ListMerchantPayoutsExecute(r)
 }
 
 /*
-ListPayouts List payouts for a merchant account
+ListMerchantPayouts Method for ListMerchantPayouts
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return PayoutsAPIListPayoutsRequest
+ @return PayoutsAPIListMerchantPayoutsRequest
 */
-func (a *PayoutsAPIService) ListPayouts(ctx context.Context) PayoutsAPIListPayoutsRequest {
-	return PayoutsAPIListPayoutsRequest{
+func (a *PayoutsAPIService) ListMerchantPayouts(ctx context.Context) PayoutsAPIListMerchantPayoutsRequest {
+	return PayoutsAPIListMerchantPayoutsRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//  @return PayoutListResponse
-func (a *PayoutsAPIService) ListPayoutsExecute(r PayoutsAPIListPayoutsRequest) (*PayoutListResponse, *http.Response, error) {
+//  @return ListMerchantPayouts200Response
+func (a *PayoutsAPIService) ListMerchantPayoutsExecute(r PayoutsAPIListMerchantPayoutsRequest) (*ListMerchantPayouts200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *PayoutListResponse
+		localVarReturnValue  *ListMerchantPayouts200Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PayoutsAPIService.ListPayouts")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PayoutsAPIService.ListMerchantPayouts")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -301,15 +359,13 @@ func (a *PayoutsAPIService) ListPayoutsExecute(r PayoutsAPIListPayoutsRequest) (
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
 	if r.currency != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "currency", r.currency, "form", "")
 	}
@@ -361,69 +417,6 @@ func (a *PayoutsAPIService) ListPayoutsExecute(r PayoutsAPIListPayoutsRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

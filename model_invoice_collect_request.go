@@ -19,8 +19,11 @@ var _ MappedNullable = &InvoiceCollectRequest{}
 
 // InvoiceCollectRequest struct for InvoiceCollectRequest
 type InvoiceCollectRequest struct {
-	PaymentMethodId *string `json:"paymentMethodId,omitempty"`
+	PaymentMethodId NullableString `json:"paymentMethodId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _InvoiceCollectRequest InvoiceCollectRequest
 
 // NewInvoiceCollectRequest instantiates a new InvoiceCollectRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -39,36 +42,46 @@ func NewInvoiceCollectRequestWithDefaults() *InvoiceCollectRequest {
 	return &this
 }
 
-// GetPaymentMethodId returns the PaymentMethodId field value if set, zero value otherwise.
+// GetPaymentMethodId returns the PaymentMethodId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *InvoiceCollectRequest) GetPaymentMethodId() string {
-	if o == nil || IsNil(o.PaymentMethodId) {
+	if o == nil || IsNil(o.PaymentMethodId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.PaymentMethodId
+	return *o.PaymentMethodId.Get()
 }
 
 // GetPaymentMethodIdOk returns a tuple with the PaymentMethodId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *InvoiceCollectRequest) GetPaymentMethodIdOk() (*string, bool) {
-	if o == nil || IsNil(o.PaymentMethodId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.PaymentMethodId, true
+	return o.PaymentMethodId.Get(), o.PaymentMethodId.IsSet()
 }
 
 // HasPaymentMethodId returns a boolean if a field has been set.
 func (o *InvoiceCollectRequest) HasPaymentMethodId() bool {
-	if o != nil && !IsNil(o.PaymentMethodId) {
+	if o != nil && o.PaymentMethodId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetPaymentMethodId gets a reference to the given string and assigns it to the PaymentMethodId field.
+// SetPaymentMethodId gets a reference to the given NullableString and assigns it to the PaymentMethodId field.
 func (o *InvoiceCollectRequest) SetPaymentMethodId(v string) {
-	o.PaymentMethodId = &v
+	o.PaymentMethodId.Set(&v)
+}
+// SetPaymentMethodIdNil sets the value for PaymentMethodId to be an explicit nil
+func (o *InvoiceCollectRequest) SetPaymentMethodIdNil() {
+	o.PaymentMethodId.Set(nil)
+}
+
+// UnsetPaymentMethodId ensures that no value is present for PaymentMethodId, not even an explicit nil
+func (o *InvoiceCollectRequest) UnsetPaymentMethodId() {
+	o.PaymentMethodId.Unset()
 }
 
 func (o InvoiceCollectRequest) MarshalJSON() ([]byte, error) {
@@ -81,10 +94,36 @@ func (o InvoiceCollectRequest) MarshalJSON() ([]byte, error) {
 
 func (o InvoiceCollectRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.PaymentMethodId) {
-		toSerialize["paymentMethodId"] = o.PaymentMethodId
+	if o.PaymentMethodId.IsSet() {
+		toSerialize["paymentMethodId"] = o.PaymentMethodId.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *InvoiceCollectRequest) UnmarshalJSON(data []byte) (err error) {
+	varInvoiceCollectRequest := _InvoiceCollectRequest{}
+
+	err = json.Unmarshal(data, &varInvoiceCollectRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = InvoiceCollectRequest(varInvoiceCollectRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "paymentMethodId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableInvoiceCollectRequest struct {

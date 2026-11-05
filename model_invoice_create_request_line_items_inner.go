@@ -21,7 +21,7 @@ var _ MappedNullable = &InvoiceCreateRequestLineItemsInner{}
 
 // InvoiceCreateRequestLineItemsInner struct for InvoiceCreateRequestLineItemsInner
 type InvoiceCreateRequestLineItemsInner struct {
-	PriceId string `json:"priceId"`
+	PriceId NullableString `json:"priceId"`
 	Quantity *float32 `json:"quantity,omitempty"`
 	UnitAmount *int32 `json:"unitAmount,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
@@ -33,7 +33,7 @@ type _InvoiceCreateRequestLineItemsInner InvoiceCreateRequestLineItemsInner
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInvoiceCreateRequestLineItemsInner(priceId string) *InvoiceCreateRequestLineItemsInner {
+func NewInvoiceCreateRequestLineItemsInner(priceId NullableString) *InvoiceCreateRequestLineItemsInner {
 	this := InvoiceCreateRequestLineItemsInner{}
 	this.PriceId = priceId
 	return &this
@@ -48,27 +48,29 @@ func NewInvoiceCreateRequestLineItemsInnerWithDefaults() *InvoiceCreateRequestLi
 }
 
 // GetPriceId returns the PriceId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *InvoiceCreateRequestLineItemsInner) GetPriceId() string {
-	if o == nil {
+	if o == nil || o.PriceId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.PriceId
+	return *o.PriceId.Get()
 }
 
 // GetPriceIdOk returns a tuple with the PriceId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *InvoiceCreateRequestLineItemsInner) GetPriceIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PriceId, true
+	return o.PriceId.Get(), o.PriceId.IsSet()
 }
 
 // SetPriceId sets field value
 func (o *InvoiceCreateRequestLineItemsInner) SetPriceId(v string) {
-	o.PriceId = v
+	o.PriceId.Set(&v)
 }
 
 // GetQuantity returns the Quantity field value if set, zero value otherwise.
@@ -135,9 +137,9 @@ func (o *InvoiceCreateRequestLineItemsInner) SetUnitAmount(v int32) {
 	o.UnitAmount = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *InvoiceCreateRequestLineItemsInner) GetMetadata() map[string]string {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -146,6 +148,7 @@ func (o *InvoiceCreateRequestLineItemsInner) GetMetadata() map[string]string {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *InvoiceCreateRequestLineItemsInner) GetMetadataOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return map[string]string{}, false
@@ -177,14 +180,14 @@ func (o InvoiceCreateRequestLineItemsInner) MarshalJSON() ([]byte, error) {
 
 func (o InvoiceCreateRequestLineItemsInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["priceId"] = o.PriceId
+	toSerialize["priceId"] = o.PriceId.Get()
 	if !IsNil(o.Quantity) {
 		toSerialize["quantity"] = o.Quantity
 	}
 	if !IsNil(o.UnitAmount) {
 		toSerialize["unitAmount"] = o.UnitAmount
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
 	return toSerialize, nil

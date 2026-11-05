@@ -51,11 +51,19 @@ type APIClient struct {
 
 	BillingAPI *BillingAPIService
 
+	BillingAccountsAPI *BillingAccountsAPIService
+
 	CatalogAPI *CatalogAPIService
 
 	CheckoutAPI *CheckoutAPIService
 
+	CheckoutSessionsAPI *CheckoutSessionsAPIService
+
+	CouponsAPI *CouponsAPIService
+
 	CreditNotesAPI *CreditNotesAPIService
+
+	CustomFieldsAPI *CustomFieldsAPIService
 
 	CustomerBalanceAPI *CustomerBalanceAPIService
 
@@ -65,17 +73,41 @@ type APIClient struct {
 
 	DisputesAPI *DisputesAPIService
 
+	DunningAPI *DunningAPIService
+
 	EntitlementsAPI *EntitlementsAPIService
+
+	EventsAPI *EventsAPIService
 
 	HostedAPI *HostedAPIService
 
 	InvoicesAPI *InvoicesAPIService
 
+	LicenseKeysAPI *LicenseKeysAPIService
+
+	MerchantAccountsAPI *MerchantAccountsAPIService
+
+	MerchantOnboardingAPI *MerchantOnboardingAPIService
+
+	MetersAPI *MetersAPIService
+
 	OnboardingAPI *OnboardingAPIService
+
+	OrderFormsAPI *OrderFormsAPIService
+
+	OrdersAPI *OrdersAPIService
+
+	OrganizationsAPI *OrganizationsAPIService
 
 	PayablesAPI *PayablesAPIService
 
+	PaymentIntentsAPI *PaymentIntentsAPIService
+
+	PaymentLinksAPI *PaymentLinksAPIService
+
 	PaymentMethodsAPI *PaymentMethodsAPIService
+
+	PaymentReceiptsAPI *PaymentReceiptsAPIService
 
 	PaymentRequestsAPI *PaymentRequestsAPIService
 
@@ -87,17 +119,37 @@ type APIClient struct {
 
 	PortalAPI *PortalAPIService
 
+	PortalLinksAPI *PortalLinksAPIService
+
+	PricesAPI *PricesAPIService
+
+	ProductsAPI *ProductsAPIService
+
 	QuotesAPI *QuotesAPIService
 
 	ReceiptsAPI *ReceiptsAPIService
+
+	RefundsAPI *RefundsAPIService
+
+	SettlementsAPI *SettlementsAPIService
 
 	StorefrontAPI *StorefrontAPIService
 
 	SubscriptionsAPI *SubscriptionsAPIService
 
+	SystemAPI *SystemAPIService
+
 	TaxAPI *TaxAPIService
 
+	TaxTransactionsAPI *TaxTransactionsAPIService
+
+	TerminalAPI *TerminalAPIService
+
+	TestClocksAPI *TestClocksAPIService
+
 	UsageAPI *UsageAPIService
+
+	WalletsAPI *WalletsAPIService
 
 	WebhooksAPI *WebhooksAPIService
 }
@@ -119,30 +171,56 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 
 	// API Services
 	c.BillingAPI = (*BillingAPIService)(&c.common)
+	c.BillingAccountsAPI = (*BillingAccountsAPIService)(&c.common)
 	c.CatalogAPI = (*CatalogAPIService)(&c.common)
 	c.CheckoutAPI = (*CheckoutAPIService)(&c.common)
+	c.CheckoutSessionsAPI = (*CheckoutSessionsAPIService)(&c.common)
+	c.CouponsAPI = (*CouponsAPIService)(&c.common)
 	c.CreditNotesAPI = (*CreditNotesAPIService)(&c.common)
+	c.CustomFieldsAPI = (*CustomFieldsAPIService)(&c.common)
 	c.CustomerBalanceAPI = (*CustomerBalanceAPIService)(&c.common)
 	c.CustomersAPI = (*CustomersAPIService)(&c.common)
 	c.DiscountsAPI = (*DiscountsAPIService)(&c.common)
 	c.DisputesAPI = (*DisputesAPIService)(&c.common)
+	c.DunningAPI = (*DunningAPIService)(&c.common)
 	c.EntitlementsAPI = (*EntitlementsAPIService)(&c.common)
+	c.EventsAPI = (*EventsAPIService)(&c.common)
 	c.HostedAPI = (*HostedAPIService)(&c.common)
 	c.InvoicesAPI = (*InvoicesAPIService)(&c.common)
+	c.LicenseKeysAPI = (*LicenseKeysAPIService)(&c.common)
+	c.MerchantAccountsAPI = (*MerchantAccountsAPIService)(&c.common)
+	c.MerchantOnboardingAPI = (*MerchantOnboardingAPIService)(&c.common)
+	c.MetersAPI = (*MetersAPIService)(&c.common)
 	c.OnboardingAPI = (*OnboardingAPIService)(&c.common)
+	c.OrderFormsAPI = (*OrderFormsAPIService)(&c.common)
+	c.OrdersAPI = (*OrdersAPIService)(&c.common)
+	c.OrganizationsAPI = (*OrganizationsAPIService)(&c.common)
 	c.PayablesAPI = (*PayablesAPIService)(&c.common)
+	c.PaymentIntentsAPI = (*PaymentIntentsAPIService)(&c.common)
+	c.PaymentLinksAPI = (*PaymentLinksAPIService)(&c.common)
 	c.PaymentMethodsAPI = (*PaymentMethodsAPIService)(&c.common)
+	c.PaymentReceiptsAPI = (*PaymentReceiptsAPIService)(&c.common)
 	c.PaymentRequestsAPI = (*PaymentRequestsAPIService)(&c.common)
 	c.PaymentsAPI = (*PaymentsAPIService)(&c.common)
 	c.PaymentsReadinessAPI = (*PaymentsReadinessAPIService)(&c.common)
 	c.PayoutsAPI = (*PayoutsAPIService)(&c.common)
 	c.PortalAPI = (*PortalAPIService)(&c.common)
+	c.PortalLinksAPI = (*PortalLinksAPIService)(&c.common)
+	c.PricesAPI = (*PricesAPIService)(&c.common)
+	c.ProductsAPI = (*ProductsAPIService)(&c.common)
 	c.QuotesAPI = (*QuotesAPIService)(&c.common)
 	c.ReceiptsAPI = (*ReceiptsAPIService)(&c.common)
+	c.RefundsAPI = (*RefundsAPIService)(&c.common)
+	c.SettlementsAPI = (*SettlementsAPIService)(&c.common)
 	c.StorefrontAPI = (*StorefrontAPIService)(&c.common)
 	c.SubscriptionsAPI = (*SubscriptionsAPIService)(&c.common)
+	c.SystemAPI = (*SystemAPIService)(&c.common)
 	c.TaxAPI = (*TaxAPIService)(&c.common)
+	c.TaxTransactionsAPI = (*TaxTransactionsAPIService)(&c.common)
+	c.TerminalAPI = (*TerminalAPIService)(&c.common)
+	c.TestClocksAPI = (*TestClocksAPIService)(&c.common)
 	c.UsageAPI = (*UsageAPIService)(&c.common)
+	c.WalletsAPI = (*WalletsAPIService)(&c.common)
 	c.WebhooksAPI = (*WebhooksAPIService)(&c.common)
 
 	return c

@@ -21,7 +21,7 @@ var _ MappedNullable = &StorefrontMerchantReadinessResponse{}
 // StorefrontMerchantReadinessResponse struct for StorefrontMerchantReadinessResponse
 type StorefrontMerchantReadinessResponse struct {
 	Data StorefrontMerchantReadinessResponseData `json:"data"`
-	RequestId string `json:"requestId"`
+	RequestId NullableString `json:"requestId"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,7 +31,7 @@ type _StorefrontMerchantReadinessResponse StorefrontMerchantReadinessResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStorefrontMerchantReadinessResponse(data StorefrontMerchantReadinessResponseData, requestId string) *StorefrontMerchantReadinessResponse {
+func NewStorefrontMerchantReadinessResponse(data StorefrontMerchantReadinessResponseData, requestId NullableString) *StorefrontMerchantReadinessResponse {
 	this := StorefrontMerchantReadinessResponse{}
 	this.Data = data
 	this.RequestId = requestId
@@ -71,27 +71,29 @@ func (o *StorefrontMerchantReadinessResponse) SetData(v StorefrontMerchantReadin
 }
 
 // GetRequestId returns the RequestId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *StorefrontMerchantReadinessResponse) GetRequestId() string {
-	if o == nil {
+	if o == nil || o.RequestId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.RequestId
+	return *o.RequestId.Get()
 }
 
 // GetRequestIdOk returns a tuple with the RequestId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *StorefrontMerchantReadinessResponse) GetRequestIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RequestId, true
+	return o.RequestId.Get(), o.RequestId.IsSet()
 }
 
 // SetRequestId sets field value
 func (o *StorefrontMerchantReadinessResponse) SetRequestId(v string) {
-	o.RequestId = v
+	o.RequestId.Set(&v)
 }
 
 func (o StorefrontMerchantReadinessResponse) MarshalJSON() ([]byte, error) {
@@ -105,7 +107,7 @@ func (o StorefrontMerchantReadinessResponse) MarshalJSON() ([]byte, error) {
 func (o StorefrontMerchantReadinessResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["data"] = o.Data
-	toSerialize["requestId"] = o.RequestId
+	toSerialize["requestId"] = o.RequestId.Get()
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

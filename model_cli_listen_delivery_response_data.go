@@ -21,8 +21,8 @@ var _ MappedNullable = &CliListenDeliveryResponseData{}
 
 // CliListenDeliveryResponseData struct for CliListenDeliveryResponseData
 type CliListenDeliveryResponseData struct {
-	DeliveryId string `json:"deliveryId"`
-	EventType string `json:"eventType"`
+	DeliveryId NullableString `json:"deliveryId"`
+	EventType NullableString `json:"eventType"`
 	// Claim epoch — echo it back in the ack to bind the outcome to this exact claim.
 	Attempt int32 `json:"attempt"`
 	// Exact signed envelope bytes to POST to the local handler.
@@ -37,7 +37,7 @@ type _CliListenDeliveryResponseData CliListenDeliveryResponseData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCliListenDeliveryResponseData(deliveryId string, eventType string, attempt int32, body string, headers map[string]string) *CliListenDeliveryResponseData {
+func NewCliListenDeliveryResponseData(deliveryId NullableString, eventType NullableString, attempt int32, body string, headers map[string]string) *CliListenDeliveryResponseData {
 	this := CliListenDeliveryResponseData{}
 	this.DeliveryId = deliveryId
 	this.EventType = eventType
@@ -56,51 +56,55 @@ func NewCliListenDeliveryResponseDataWithDefaults() *CliListenDeliveryResponseDa
 }
 
 // GetDeliveryId returns the DeliveryId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *CliListenDeliveryResponseData) GetDeliveryId() string {
-	if o == nil {
+	if o == nil || o.DeliveryId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.DeliveryId
+	return *o.DeliveryId.Get()
 }
 
 // GetDeliveryIdOk returns a tuple with the DeliveryId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CliListenDeliveryResponseData) GetDeliveryIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.DeliveryId, true
+	return o.DeliveryId.Get(), o.DeliveryId.IsSet()
 }
 
 // SetDeliveryId sets field value
 func (o *CliListenDeliveryResponseData) SetDeliveryId(v string) {
-	o.DeliveryId = v
+	o.DeliveryId.Set(&v)
 }
 
 // GetEventType returns the EventType field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *CliListenDeliveryResponseData) GetEventType() string {
-	if o == nil {
+	if o == nil || o.EventType.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.EventType
+	return *o.EventType.Get()
 }
 
 // GetEventTypeOk returns a tuple with the EventType field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CliListenDeliveryResponseData) GetEventTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.EventType, true
+	return o.EventType.Get(), o.EventType.IsSet()
 }
 
 // SetEventType sets field value
 func (o *CliListenDeliveryResponseData) SetEventType(v string) {
-	o.EventType = v
+	o.EventType.Set(&v)
 }
 
 // GetAttempt returns the Attempt field value
@@ -185,8 +189,8 @@ func (o CliListenDeliveryResponseData) MarshalJSON() ([]byte, error) {
 
 func (o CliListenDeliveryResponseData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["deliveryId"] = o.DeliveryId
-	toSerialize["eventType"] = o.EventType
+	toSerialize["deliveryId"] = o.DeliveryId.Get()
+	toSerialize["eventType"] = o.EventType.Get()
 	toSerialize["attempt"] = o.Attempt
 	toSerialize["body"] = o.Body
 	toSerialize["headers"] = o.Headers

@@ -23,485 +23,50 @@ import (
 // UsageAPIService UsageAPI service
 type UsageAPIService service
 
-type UsageAPIActivateMeterRequest struct {
-	ctx context.Context
-	ApiService *UsageAPIService
-	meterId string
-	environment *string
-	merchantAccountId *string
-	body *map[string]interface{}
-	idempotencyKey *string
-}
-
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
-func (r UsageAPIActivateMeterRequest) Environment(environment string) UsageAPIActivateMeterRequest {
-	r.environment = &environment
-	return r
-}
-
-func (r UsageAPIActivateMeterRequest) MerchantAccountId(merchantAccountId string) UsageAPIActivateMeterRequest {
-	r.merchantAccountId = &merchantAccountId
-	return r
-}
-
-func (r UsageAPIActivateMeterRequest) Body(body map[string]interface{}) UsageAPIActivateMeterRequest {
-	r.body = &body
-	return r
-}
-
-// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
-func (r UsageAPIActivateMeterRequest) IdempotencyKey(idempotencyKey string) UsageAPIActivateMeterRequest {
-	r.idempotencyKey = &idempotencyKey
-	return r
-}
-
-func (r UsageAPIActivateMeterRequest) Execute() (*MeterResponse, *http.Response, error) {
-	return r.ApiService.ActivateMeterExecute(r)
-}
-
-/*
-ActivateMeter Reactivate an archived billing meter
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param meterId
- @return UsageAPIActivateMeterRequest
-*/
-func (a *UsageAPIService) ActivateMeter(ctx context.Context, meterId string) UsageAPIActivateMeterRequest {
-	return UsageAPIActivateMeterRequest{
-		ApiService: a,
-		ctx: ctx,
-		meterId: meterId,
-	}
-}
-
-// Execute executes the request
-//  @return MeterResponse
-func (a *UsageAPIService) ActivateMeterExecute(r UsageAPIActivateMeterRequest) (*MeterResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPatch
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *MeterResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsageAPIService.ActivateMeter")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/meters/{meterId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"meterId"+"}", url.PathEscape(parameterValueToString(r.meterId, "meterId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
-
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.idempotencyKey != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
-	}
-	// body params
-	localVarPostBody = r.body
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type UsageAPIArchiveMeterRequest struct {
-	ctx context.Context
-	ApiService *UsageAPIService
-	meterId string
-	environment *string
-	merchantAccountId *string
-	body *map[string]interface{}
-	idempotencyKey *string
-}
-
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
-func (r UsageAPIArchiveMeterRequest) Environment(environment string) UsageAPIArchiveMeterRequest {
-	r.environment = &environment
-	return r
-}
-
-func (r UsageAPIArchiveMeterRequest) MerchantAccountId(merchantAccountId string) UsageAPIArchiveMeterRequest {
-	r.merchantAccountId = &merchantAccountId
-	return r
-}
-
-func (r UsageAPIArchiveMeterRequest) Body(body map[string]interface{}) UsageAPIArchiveMeterRequest {
-	r.body = &body
-	return r
-}
-
-// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
-func (r UsageAPIArchiveMeterRequest) IdempotencyKey(idempotencyKey string) UsageAPIArchiveMeterRequest {
-	r.idempotencyKey = &idempotencyKey
-	return r
-}
-
-func (r UsageAPIArchiveMeterRequest) Execute() (*MeterResponse, *http.Response, error) {
-	return r.ApiService.ArchiveMeterExecute(r)
-}
-
-/*
-ArchiveMeter Archive a billing meter (stops accepting usage events)
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param meterId
- @return UsageAPIArchiveMeterRequest
-*/
-func (a *UsageAPIService) ArchiveMeter(ctx context.Context, meterId string) UsageAPIArchiveMeterRequest {
-	return UsageAPIArchiveMeterRequest{
-		ApiService: a,
-		ctx: ctx,
-		meterId: meterId,
-	}
-}
-
-// Execute executes the request
-//  @return MeterResponse
-func (a *UsageAPIService) ArchiveMeterExecute(r UsageAPIArchiveMeterRequest) (*MeterResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *MeterResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsageAPIService.ArchiveMeter")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/meters/{meterId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"meterId"+"}", url.PathEscape(parameterValueToString(r.meterId, "meterId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
-
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.idempotencyKey != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
-	}
-	// body params
-	localVarPostBody = r.body
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type UsageAPIArchiveUsageThresholdRequest struct {
+type UsageAPIArchiveBillingUsageThresholdRequest struct {
 	ctx context.Context
 	ApiService *UsageAPIService
 	thresholdId string
+	archiveBillingUsageThresholdRequest *ArchiveBillingUsageThresholdRequest
 	environment *string
 	merchantAccountId *string
-	body *map[string]interface{}
 	idempotencyKey *string
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
-func (r UsageAPIArchiveUsageThresholdRequest) Environment(environment string) UsageAPIArchiveUsageThresholdRequest {
+func (r UsageAPIArchiveBillingUsageThresholdRequest) ArchiveBillingUsageThresholdRequest(archiveBillingUsageThresholdRequest ArchiveBillingUsageThresholdRequest) UsageAPIArchiveBillingUsageThresholdRequest {
+	r.archiveBillingUsageThresholdRequest = &archiveBillingUsageThresholdRequest
+	return r
+}
+
+func (r UsageAPIArchiveBillingUsageThresholdRequest) Environment(environment string) UsageAPIArchiveBillingUsageThresholdRequest {
 	r.environment = &environment
 	return r
 }
 
-func (r UsageAPIArchiveUsageThresholdRequest) MerchantAccountId(merchantAccountId string) UsageAPIArchiveUsageThresholdRequest {
+func (r UsageAPIArchiveBillingUsageThresholdRequest) MerchantAccountId(merchantAccountId string) UsageAPIArchiveBillingUsageThresholdRequest {
 	r.merchantAccountId = &merchantAccountId
 	return r
 }
 
-func (r UsageAPIArchiveUsageThresholdRequest) Body(body map[string]interface{}) UsageAPIArchiveUsageThresholdRequest {
-	r.body = &body
-	return r
-}
-
 // Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
-func (r UsageAPIArchiveUsageThresholdRequest) IdempotencyKey(idempotencyKey string) UsageAPIArchiveUsageThresholdRequest {
+func (r UsageAPIArchiveBillingUsageThresholdRequest) IdempotencyKey(idempotencyKey string) UsageAPIArchiveBillingUsageThresholdRequest {
 	r.idempotencyKey = &idempotencyKey
 	return r
 }
 
-func (r UsageAPIArchiveUsageThresholdRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
-	return r.ApiService.ArchiveUsageThresholdExecute(r)
+func (r UsageAPIArchiveBillingUsageThresholdRequest) Execute() (*CreateBillingUsageThreshold201Response, *http.Response, error) {
+	return r.ApiService.ArchiveBillingUsageThresholdExecute(r)
 }
 
 /*
-ArchiveUsageThreshold Archive a usage threshold (stops evaluation)
+ArchiveBillingUsageThreshold Method for ArchiveBillingUsageThreshold
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param thresholdId
- @return UsageAPIArchiveUsageThresholdRequest
+ @return UsageAPIArchiveBillingUsageThresholdRequest
 */
-func (a *UsageAPIService) ArchiveUsageThreshold(ctx context.Context, thresholdId string) UsageAPIArchiveUsageThresholdRequest {
-	return UsageAPIArchiveUsageThresholdRequest{
+func (a *UsageAPIService) ArchiveBillingUsageThreshold(ctx context.Context, thresholdId string) UsageAPIArchiveBillingUsageThresholdRequest {
+	return UsageAPIArchiveBillingUsageThresholdRequest{
 		ApiService: a,
 		ctx: ctx,
 		thresholdId: thresholdId,
@@ -509,16 +74,16 @@ func (a *UsageAPIService) ArchiveUsageThreshold(ctx context.Context, thresholdId
 }
 
 // Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *UsageAPIService) ArchiveUsageThresholdExecute(r UsageAPIArchiveUsageThresholdRequest) (*ApiWriteEnvelope, *http.Response, error) {
+//  @return CreateBillingUsageThreshold201Response
+func (a *UsageAPIService) ArchiveBillingUsageThresholdExecute(r UsageAPIArchiveBillingUsageThresholdRequest) (*CreateBillingUsageThreshold201Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
+		localVarReturnValue  *CreateBillingUsageThreshold201Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsageAPIService.ArchiveUsageThreshold")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsageAPIService.ArchiveBillingUsageThreshold")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -529,18 +94,19 @@ func (a *UsageAPIService) ArchiveUsageThresholdExecute(r UsageAPIArchiveUsageThr
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
+	if strlen(r.thresholdId) < 1 {
+		return localVarReturnValue, nil, reportError("thresholdId must have at least 1 elements")
 	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	if r.archiveBillingUsageThresholdRequest == nil {
+		return localVarReturnValue, nil, reportError("archiveBillingUsageThresholdRequest is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -562,7 +128,7 @@ func (a *UsageAPIService) ArchiveUsageThresholdExecute(r UsageAPIArchiveUsageThr
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
 	}
 	// body params
-	localVarPostBody = r.body
+	localVarPostBody = r.archiveBillingUsageThresholdRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -585,69 +151,6 @@ func (a *UsageAPIService) ArchiveUsageThresholdExecute(r UsageAPIArchiveUsageThr
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -663,267 +166,64 @@ func (a *UsageAPIService) ArchiveUsageThresholdExecute(r UsageAPIArchiveUsageThr
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UsageAPICreateMeterRequest struct {
+type UsageAPICreateBillingUsageEventRequest struct {
 	ctx context.Context
 	ApiService *UsageAPIService
+	createBillingUsageEventRequest *CreateBillingUsageEventRequest
 	environment *string
 	merchantAccountId *string
-	meterCreateRequest *MeterCreateRequest
 	idempotencyKey *string
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
-func (r UsageAPICreateMeterRequest) Environment(environment string) UsageAPICreateMeterRequest {
+func (r UsageAPICreateBillingUsageEventRequest) CreateBillingUsageEventRequest(createBillingUsageEventRequest CreateBillingUsageEventRequest) UsageAPICreateBillingUsageEventRequest {
+	r.createBillingUsageEventRequest = &createBillingUsageEventRequest
+	return r
+}
+
+func (r UsageAPICreateBillingUsageEventRequest) Environment(environment string) UsageAPICreateBillingUsageEventRequest {
 	r.environment = &environment
 	return r
 }
 
-func (r UsageAPICreateMeterRequest) MerchantAccountId(merchantAccountId string) UsageAPICreateMeterRequest {
+func (r UsageAPICreateBillingUsageEventRequest) MerchantAccountId(merchantAccountId string) UsageAPICreateBillingUsageEventRequest {
 	r.merchantAccountId = &merchantAccountId
 	return r
 }
 
-func (r UsageAPICreateMeterRequest) MeterCreateRequest(meterCreateRequest MeterCreateRequest) UsageAPICreateMeterRequest {
-	r.meterCreateRequest = &meterCreateRequest
-	return r
-}
-
 // Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
-func (r UsageAPICreateMeterRequest) IdempotencyKey(idempotencyKey string) UsageAPICreateMeterRequest {
+func (r UsageAPICreateBillingUsageEventRequest) IdempotencyKey(idempotencyKey string) UsageAPICreateBillingUsageEventRequest {
 	r.idempotencyKey = &idempotencyKey
 	return r
 }
 
-func (r UsageAPICreateMeterRequest) Execute() (*MeterResponse, *http.Response, error) {
-	return r.ApiService.CreateMeterExecute(r)
+func (r UsageAPICreateBillingUsageEventRequest) Execute() (*CreateBillingUsageEvent201Response, *http.Response, error) {
+	return r.ApiService.CreateBillingUsageEventExecute(r)
 }
 
 /*
-CreateMeter Create a billing meter that aggregates usage events
+CreateBillingUsageEvent Method for CreateBillingUsageEvent
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return UsageAPICreateMeterRequest
+ @return UsageAPICreateBillingUsageEventRequest
 */
-func (a *UsageAPIService) CreateMeter(ctx context.Context) UsageAPICreateMeterRequest {
-	return UsageAPICreateMeterRequest{
+func (a *UsageAPIService) CreateBillingUsageEvent(ctx context.Context) UsageAPICreateBillingUsageEventRequest {
+	return UsageAPICreateBillingUsageEventRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//  @return MeterResponse
-func (a *UsageAPIService) CreateMeterExecute(r UsageAPICreateMeterRequest) (*MeterResponse, *http.Response, error) {
+//  @return CreateBillingUsageEvent201Response
+func (a *UsageAPIService) CreateBillingUsageEventExecute(r UsageAPICreateBillingUsageEventRequest) (*CreateBillingUsageEvent201Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *MeterResponse
+		localVarReturnValue  *CreateBillingUsageEvent201Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsageAPIService.CreateMeter")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/meters"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
-	if r.meterCreateRequest == nil {
-		return localVarReturnValue, nil, reportError("meterCreateRequest is required and must be specified")
-	}
-
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.idempotencyKey != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
-	}
-	// body params
-	localVarPostBody = r.meterCreateRequest
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type UsageAPICreateUsageEventRequest struct {
-	ctx context.Context
-	ApiService *UsageAPIService
-	environment *string
-	merchantAccountId *string
-	usageEventCreateRequest *UsageEventCreateRequest
-	idempotencyKey *string
-}
-
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
-func (r UsageAPICreateUsageEventRequest) Environment(environment string) UsageAPICreateUsageEventRequest {
-	r.environment = &environment
-	return r
-}
-
-func (r UsageAPICreateUsageEventRequest) MerchantAccountId(merchantAccountId string) UsageAPICreateUsageEventRequest {
-	r.merchantAccountId = &merchantAccountId
-	return r
-}
-
-func (r UsageAPICreateUsageEventRequest) UsageEventCreateRequest(usageEventCreateRequest UsageEventCreateRequest) UsageAPICreateUsageEventRequest {
-	r.usageEventCreateRequest = &usageEventCreateRequest
-	return r
-}
-
-// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
-func (r UsageAPICreateUsageEventRequest) IdempotencyKey(idempotencyKey string) UsageAPICreateUsageEventRequest {
-	r.idempotencyKey = &idempotencyKey
-	return r
-}
-
-func (r UsageAPICreateUsageEventRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
-	return r.ApiService.CreateUsageEventExecute(r)
-}
-
-/*
-CreateUsageEvent Record a metered usage event (idempotent by key)
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return UsageAPICreateUsageEventRequest
-*/
-func (a *UsageAPIService) CreateUsageEvent(ctx context.Context) UsageAPICreateUsageEventRequest {
-	return UsageAPICreateUsageEventRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *UsageAPIService) CreateUsageEventExecute(r UsageAPICreateUsageEventRequest) (*ApiWriteEnvelope, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsageAPIService.CreateUsageEvent")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsageAPIService.CreateBillingUsageEvent")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -933,18 +233,16 @@ func (a *UsageAPIService) CreateUsageEventExecute(r UsageAPICreateUsageEventRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
-	if r.usageEventCreateRequest == nil {
-		return localVarReturnValue, nil, reportError("usageEventCreateRequest is required and must be specified")
+	if r.createBillingUsageEventRequest == nil {
+		return localVarReturnValue, nil, reportError("createBillingUsageEventRequest is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -966,7 +264,7 @@ func (a *UsageAPIService) CreateUsageEventExecute(r UsageAPICreateUsageEventRequ
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
 	}
 	// body params
-	localVarPostBody = r.usageEventCreateRequest
+	localVarPostBody = r.createBillingUsageEventRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -989,69 +287,6 @@ func (a *UsageAPIService) CreateUsageEventExecute(r UsageAPICreateUsageEventRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1067,65 +302,64 @@ func (a *UsageAPIService) CreateUsageEventExecute(r UsageAPICreateUsageEventRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UsageAPICreateUsageThresholdRequest struct {
+type UsageAPICreateBillingUsageThresholdRequest struct {
 	ctx context.Context
 	ApiService *UsageAPIService
+	createBillingUsageThresholdRequest *CreateBillingUsageThresholdRequest
 	environment *string
 	merchantAccountId *string
-	usageThresholdCreateRequest *UsageThresholdCreateRequest
 	idempotencyKey *string
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
-func (r UsageAPICreateUsageThresholdRequest) Environment(environment string) UsageAPICreateUsageThresholdRequest {
+func (r UsageAPICreateBillingUsageThresholdRequest) CreateBillingUsageThresholdRequest(createBillingUsageThresholdRequest CreateBillingUsageThresholdRequest) UsageAPICreateBillingUsageThresholdRequest {
+	r.createBillingUsageThresholdRequest = &createBillingUsageThresholdRequest
+	return r
+}
+
+func (r UsageAPICreateBillingUsageThresholdRequest) Environment(environment string) UsageAPICreateBillingUsageThresholdRequest {
 	r.environment = &environment
 	return r
 }
 
-func (r UsageAPICreateUsageThresholdRequest) MerchantAccountId(merchantAccountId string) UsageAPICreateUsageThresholdRequest {
+func (r UsageAPICreateBillingUsageThresholdRequest) MerchantAccountId(merchantAccountId string) UsageAPICreateBillingUsageThresholdRequest {
 	r.merchantAccountId = &merchantAccountId
 	return r
 }
 
-func (r UsageAPICreateUsageThresholdRequest) UsageThresholdCreateRequest(usageThresholdCreateRequest UsageThresholdCreateRequest) UsageAPICreateUsageThresholdRequest {
-	r.usageThresholdCreateRequest = &usageThresholdCreateRequest
-	return r
-}
-
 // Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
-func (r UsageAPICreateUsageThresholdRequest) IdempotencyKey(idempotencyKey string) UsageAPICreateUsageThresholdRequest {
+func (r UsageAPICreateBillingUsageThresholdRequest) IdempotencyKey(idempotencyKey string) UsageAPICreateBillingUsageThresholdRequest {
 	r.idempotencyKey = &idempotencyKey
 	return r
 }
 
-func (r UsageAPICreateUsageThresholdRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
-	return r.ApiService.CreateUsageThresholdExecute(r)
+func (r UsageAPICreateBillingUsageThresholdRequest) Execute() (*CreateBillingUsageThreshold201Response, *http.Response, error) {
+	return r.ApiService.CreateBillingUsageThresholdExecute(r)
 }
 
 /*
-CreateUsageThreshold Configure a usage threshold on a meter (customerId omitted = meter-wide); emits usage.threshold_reached when the windowed aggregate crosses
+CreateBillingUsageThreshold Method for CreateBillingUsageThreshold
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return UsageAPICreateUsageThresholdRequest
+ @return UsageAPICreateBillingUsageThresholdRequest
 */
-func (a *UsageAPIService) CreateUsageThreshold(ctx context.Context) UsageAPICreateUsageThresholdRequest {
-	return UsageAPICreateUsageThresholdRequest{
+func (a *UsageAPIService) CreateBillingUsageThreshold(ctx context.Context) UsageAPICreateBillingUsageThresholdRequest {
+	return UsageAPICreateBillingUsageThresholdRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *UsageAPIService) CreateUsageThresholdExecute(r UsageAPICreateUsageThresholdRequest) (*ApiWriteEnvelope, *http.Response, error) {
+//  @return CreateBillingUsageThreshold201Response
+func (a *UsageAPIService) CreateBillingUsageThresholdExecute(r UsageAPICreateBillingUsageThresholdRequest) (*CreateBillingUsageThreshold201Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
+		localVarReturnValue  *CreateBillingUsageThreshold201Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsageAPIService.CreateUsageThreshold")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsageAPIService.CreateBillingUsageThreshold")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1135,18 +369,16 @@ func (a *UsageAPIService) CreateUsageThresholdExecute(r UsageAPICreateUsageThres
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
-	if r.usageThresholdCreateRequest == nil {
-		return localVarReturnValue, nil, reportError("usageThresholdCreateRequest is required and must be specified")
+	if r.createBillingUsageThresholdRequest == nil {
+		return localVarReturnValue, nil, reportError("createBillingUsageThresholdRequest is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -1168,7 +400,7 @@ func (a *UsageAPIService) CreateUsageThresholdExecute(r UsageAPICreateUsageThres
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
 	}
 	// body params
-	localVarPostBody = r.usageThresholdCreateRequest
+	localVarPostBody = r.createBillingUsageThresholdRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1191,69 +423,6 @@ func (a *UsageAPIService) CreateUsageThresholdExecute(r UsageAPICreateUsageThres
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1269,636 +438,7 @@ func (a *UsageAPIService) CreateUsageThresholdExecute(r UsageAPICreateUsageThres
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UsageAPIGetMeterRequest struct {
-	ctx context.Context
-	ApiService *UsageAPIService
-	meterId string
-	environment *string
-	merchantAccountId *string
-}
-
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
-func (r UsageAPIGetMeterRequest) Environment(environment string) UsageAPIGetMeterRequest {
-	r.environment = &environment
-	return r
-}
-
-func (r UsageAPIGetMeterRequest) MerchantAccountId(merchantAccountId string) UsageAPIGetMeterRequest {
-	r.merchantAccountId = &merchantAccountId
-	return r
-}
-
-func (r UsageAPIGetMeterRequest) Execute() (*MeterResponse, *http.Response, error) {
-	return r.ApiService.GetMeterExecute(r)
-}
-
-/*
-GetMeter Get one billing meter
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param meterId
- @return UsageAPIGetMeterRequest
-*/
-func (a *UsageAPIService) GetMeter(ctx context.Context, meterId string) UsageAPIGetMeterRequest {
-	return UsageAPIGetMeterRequest{
-		ApiService: a,
-		ctx: ctx,
-		meterId: meterId,
-	}
-}
-
-// Execute executes the request
-//  @return MeterResponse
-func (a *UsageAPIService) GetMeterExecute(r UsageAPIGetMeterRequest) (*MeterResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *MeterResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsageAPIService.GetMeter")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/meters/{meterId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"meterId"+"}", url.PathEscape(parameterValueToString(r.meterId, "meterId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
-
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type UsageAPIGetMeterAggregateRequest struct {
-	ctx context.Context
-	ApiService *UsageAPIService
-	meterId string
-	environment *string
-	merchantAccountId *string
-	customerId *string
-	at *string
-	limit *int32
-	cursor *string
-}
-
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
-func (r UsageAPIGetMeterAggregateRequest) Environment(environment string) UsageAPIGetMeterAggregateRequest {
-	r.environment = &environment
-	return r
-}
-
-func (r UsageAPIGetMeterAggregateRequest) MerchantAccountId(merchantAccountId string) UsageAPIGetMeterAggregateRequest {
-	r.merchantAccountId = &merchantAccountId
-	return r
-}
-
-func (r UsageAPIGetMeterAggregateRequest) CustomerId(customerId string) UsageAPIGetMeterAggregateRequest {
-	r.customerId = &customerId
-	return r
-}
-
-func (r UsageAPIGetMeterAggregateRequest) At(at string) UsageAPIGetMeterAggregateRequest {
-	r.at = &at
-	return r
-}
-
-// Page size, 1-100. Omitting both limit and cursor returns the full unpaginated list.
-func (r UsageAPIGetMeterAggregateRequest) Limit(limit int32) UsageAPIGetMeterAggregateRequest {
-	r.limit = &limit
-	return r
-}
-
-// Opaque cursor from the previous page&#39;s nextCursor. Pass it back verbatim to fetch the next page.
-func (r UsageAPIGetMeterAggregateRequest) Cursor(cursor string) UsageAPIGetMeterAggregateRequest {
-	r.cursor = &cursor
-	return r
-}
-
-func (r UsageAPIGetMeterAggregateRequest) Execute() (*BillingMeterAggregateResponse, *http.Response, error) {
-	return r.ApiService.GetMeterAggregateExecute(r)
-}
-
-/*
-GetMeterAggregate Read a meter's grain-windowed aggregate — org rollup plus a paginated per-customer breakdown (`at` selects the window, `customerId` narrows the breakdown)
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param meterId
- @return UsageAPIGetMeterAggregateRequest
-*/
-func (a *UsageAPIService) GetMeterAggregate(ctx context.Context, meterId string) UsageAPIGetMeterAggregateRequest {
-	return UsageAPIGetMeterAggregateRequest{
-		ApiService: a,
-		ctx: ctx,
-		meterId: meterId,
-	}
-}
-
-// Execute executes the request
-//  @return BillingMeterAggregateResponse
-func (a *UsageAPIService) GetMeterAggregateExecute(r UsageAPIGetMeterAggregateRequest) (*BillingMeterAggregateResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *BillingMeterAggregateResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsageAPIService.GetMeterAggregate")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/meters/{meterId}/aggregate"
-	localVarPath = strings.Replace(localVarPath, "{"+"meterId"+"}", url.PathEscape(parameterValueToString(r.meterId, "meterId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
-
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
-	if r.customerId != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "customerId", r.customerId, "form", "")
-	}
-	if r.at != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "at", r.at, "form", "")
-	}
-	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
-	}
-	if r.cursor != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type UsageAPIListMetersRequest struct {
-	ctx context.Context
-	ApiService *UsageAPIService
-	environment *string
-	merchantAccountId *string
-	includeArchived *string
-	limit *int32
-	offset *int32
-}
-
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
-func (r UsageAPIListMetersRequest) Environment(environment string) UsageAPIListMetersRequest {
-	r.environment = &environment
-	return r
-}
-
-func (r UsageAPIListMetersRequest) MerchantAccountId(merchantAccountId string) UsageAPIListMetersRequest {
-	r.merchantAccountId = &merchantAccountId
-	return r
-}
-
-func (r UsageAPIListMetersRequest) IncludeArchived(includeArchived string) UsageAPIListMetersRequest {
-	r.includeArchived = &includeArchived
-	return r
-}
-
-// Page size — defaults to 100.
-func (r UsageAPIListMetersRequest) Limit(limit int32) UsageAPIListMetersRequest {
-	r.limit = &limit
-	return r
-}
-
-// Row offset into the meter list — defaults to 0.
-func (r UsageAPIListMetersRequest) Offset(offset int32) UsageAPIListMetersRequest {
-	r.offset = &offset
-	return r
-}
-
-func (r UsageAPIListMetersRequest) Execute() (*MeterListResponse, *http.Response, error) {
-	return r.ApiService.ListMetersExecute(r)
-}
-
-/*
-ListMeters List billing meters
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return UsageAPIListMetersRequest
-*/
-func (a *UsageAPIService) ListMeters(ctx context.Context) UsageAPIListMetersRequest {
-	return UsageAPIListMetersRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-//  @return MeterListResponse
-func (a *UsageAPIService) ListMetersExecute(r UsageAPIListMetersRequest) (*MeterListResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *MeterListResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsageAPIService.ListMeters")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/meters"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
-
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
-	if r.includeArchived != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "includeArchived", r.includeArchived, "form", "")
-	}
-	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
-	}
-	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type UsageAPIListUsageEventsRequest struct {
+type UsageAPIListBillingUsageEventsRequest struct {
 	ctx context.Context
 	ApiService *UsageAPIService
 	environment *string
@@ -1906,74 +446,73 @@ type UsageAPIListUsageEventsRequest struct {
 	customerId *string
 	meterId *string
 	eventName *string
-	limit *string
+	limit *ListCustomersLimitParameter
 	cursor *string
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
-func (r UsageAPIListUsageEventsRequest) Environment(environment string) UsageAPIListUsageEventsRequest {
+func (r UsageAPIListBillingUsageEventsRequest) Environment(environment string) UsageAPIListBillingUsageEventsRequest {
 	r.environment = &environment
 	return r
 }
 
-func (r UsageAPIListUsageEventsRequest) MerchantAccountId(merchantAccountId string) UsageAPIListUsageEventsRequest {
+func (r UsageAPIListBillingUsageEventsRequest) MerchantAccountId(merchantAccountId string) UsageAPIListBillingUsageEventsRequest {
 	r.merchantAccountId = &merchantAccountId
 	return r
 }
 
-func (r UsageAPIListUsageEventsRequest) CustomerId(customerId string) UsageAPIListUsageEventsRequest {
+func (r UsageAPIListBillingUsageEventsRequest) CustomerId(customerId string) UsageAPIListBillingUsageEventsRequest {
 	r.customerId = &customerId
 	return r
 }
 
-func (r UsageAPIListUsageEventsRequest) MeterId(meterId string) UsageAPIListUsageEventsRequest {
+func (r UsageAPIListBillingUsageEventsRequest) MeterId(meterId string) UsageAPIListBillingUsageEventsRequest {
 	r.meterId = &meterId
 	return r
 }
 
-func (r UsageAPIListUsageEventsRequest) EventName(eventName string) UsageAPIListUsageEventsRequest {
+func (r UsageAPIListBillingUsageEventsRequest) EventName(eventName string) UsageAPIListBillingUsageEventsRequest {
 	r.eventName = &eventName
 	return r
 }
 
-func (r UsageAPIListUsageEventsRequest) Limit(limit string) UsageAPIListUsageEventsRequest {
+func (r UsageAPIListBillingUsageEventsRequest) Limit(limit ListCustomersLimitParameter) UsageAPIListBillingUsageEventsRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r UsageAPIListUsageEventsRequest) Cursor(cursor string) UsageAPIListUsageEventsRequest {
+func (r UsageAPIListBillingUsageEventsRequest) Cursor(cursor string) UsageAPIListBillingUsageEventsRequest {
 	r.cursor = &cursor
 	return r
 }
 
-func (r UsageAPIListUsageEventsRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
-	return r.ApiService.ListUsageEventsExecute(r)
+func (r UsageAPIListBillingUsageEventsRequest) Execute() (*ListBillingUsageEvents200Response, *http.Response, error) {
+	return r.ApiService.ListBillingUsageEventsExecute(r)
 }
 
 /*
-ListUsageEvents List usage events across the merchant
+ListBillingUsageEvents Method for ListBillingUsageEvents
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return UsageAPIListUsageEventsRequest
+ @return UsageAPIListBillingUsageEventsRequest
 */
-func (a *UsageAPIService) ListUsageEvents(ctx context.Context) UsageAPIListUsageEventsRequest {
-	return UsageAPIListUsageEventsRequest{
+func (a *UsageAPIService) ListBillingUsageEvents(ctx context.Context) UsageAPIListBillingUsageEventsRequest {
+	return UsageAPIListBillingUsageEventsRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *UsageAPIService) ListUsageEventsExecute(r UsageAPIListUsageEventsRequest) (*ApiWriteEnvelope, *http.Response, error) {
+//  @return ListBillingUsageEvents200Response
+func (a *UsageAPIService) ListBillingUsageEventsExecute(r UsageAPIListBillingUsageEventsRequest) (*ListBillingUsageEvents200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
+		localVarReturnValue  *ListBillingUsageEvents200Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsageAPIService.ListUsageEvents")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsageAPIService.ListBillingUsageEvents")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1983,15 +522,13 @@ func (a *UsageAPIService) ListUsageEventsExecute(r UsageAPIListUsageEventsReques
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
 	if r.customerId != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "customerId", r.customerId, "form", "")
 	}
@@ -2046,69 +583,6 @@ func (a *UsageAPIService) ListUsageEventsExecute(r UsageAPIListUsageEventsReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2124,77 +598,69 @@ func (a *UsageAPIService) ListUsageEventsExecute(r UsageAPIListUsageEventsReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UsageAPIListUsageThresholdsRequest struct {
+type UsageAPIListBillingUsageThresholdsRequest struct {
 	ctx context.Context
 	ApiService *UsageAPIService
 	environment *string
 	merchantAccountId *string
 	includeArchived *string
-	limit *string
-	offset *string
-	cursor *string
+	limit *ListCustomersLimitParameter
+	offset *ListCustomersLimitParameter
 }
 
-// Merchant environment — key-bound keys resolve it from the credential; unbound callers default to sandbox.
-func (r UsageAPIListUsageThresholdsRequest) Environment(environment string) UsageAPIListUsageThresholdsRequest {
+func (r UsageAPIListBillingUsageThresholdsRequest) Environment(environment string) UsageAPIListBillingUsageThresholdsRequest {
 	r.environment = &environment
 	return r
 }
 
-func (r UsageAPIListUsageThresholdsRequest) MerchantAccountId(merchantAccountId string) UsageAPIListUsageThresholdsRequest {
+func (r UsageAPIListBillingUsageThresholdsRequest) MerchantAccountId(merchantAccountId string) UsageAPIListBillingUsageThresholdsRequest {
 	r.merchantAccountId = &merchantAccountId
 	return r
 }
 
-func (r UsageAPIListUsageThresholdsRequest) IncludeArchived(includeArchived string) UsageAPIListUsageThresholdsRequest {
+func (r UsageAPIListBillingUsageThresholdsRequest) IncludeArchived(includeArchived string) UsageAPIListBillingUsageThresholdsRequest {
 	r.includeArchived = &includeArchived
 	return r
 }
 
-func (r UsageAPIListUsageThresholdsRequest) Limit(limit string) UsageAPIListUsageThresholdsRequest {
+func (r UsageAPIListBillingUsageThresholdsRequest) Limit(limit ListCustomersLimitParameter) UsageAPIListBillingUsageThresholdsRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r UsageAPIListUsageThresholdsRequest) Offset(offset string) UsageAPIListUsageThresholdsRequest {
+func (r UsageAPIListBillingUsageThresholdsRequest) Offset(offset ListCustomersLimitParameter) UsageAPIListBillingUsageThresholdsRequest {
 	r.offset = &offset
 	return r
 }
 
-// Opaque cursor from the previous page&#39;s nextCursor. Pass it back verbatim to fetch the next page.
-func (r UsageAPIListUsageThresholdsRequest) Cursor(cursor string) UsageAPIListUsageThresholdsRequest {
-	r.cursor = &cursor
-	return r
-}
-
-func (r UsageAPIListUsageThresholdsRequest) Execute() (*ApiWriteEnvelope, *http.Response, error) {
-	return r.ApiService.ListUsageThresholdsExecute(r)
+func (r UsageAPIListBillingUsageThresholdsRequest) Execute() (*ListBillingUsageThresholds200Response, *http.Response, error) {
+	return r.ApiService.ListBillingUsageThresholdsExecute(r)
 }
 
 /*
-ListUsageThresholds List configured usage thresholds
+ListBillingUsageThresholds Method for ListBillingUsageThresholds
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return UsageAPIListUsageThresholdsRequest
+ @return UsageAPIListBillingUsageThresholdsRequest
 */
-func (a *UsageAPIService) ListUsageThresholds(ctx context.Context) UsageAPIListUsageThresholdsRequest {
-	return UsageAPIListUsageThresholdsRequest{
+func (a *UsageAPIService) ListBillingUsageThresholds(ctx context.Context) UsageAPIListBillingUsageThresholdsRequest {
+	return UsageAPIListBillingUsageThresholdsRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ApiWriteEnvelope
-func (a *UsageAPIService) ListUsageThresholdsExecute(r UsageAPIListUsageThresholdsRequest) (*ApiWriteEnvelope, *http.Response, error) {
+//  @return ListBillingUsageThresholds200Response
+func (a *UsageAPIService) ListBillingUsageThresholdsExecute(r UsageAPIListBillingUsageThresholdsRequest) (*ListBillingUsageThresholds200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiWriteEnvelope
+		localVarReturnValue  *ListBillingUsageThresholds200Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsageAPIService.ListUsageThresholds")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsageAPIService.ListBillingUsageThresholds")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2204,15 +670,13 @@ func (a *UsageAPIService) ListUsageThresholdsExecute(r UsageAPIListUsageThreshol
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environment == nil {
-		return localVarReturnValue, nil, reportError("environment is required and must be specified")
-	}
-	if r.merchantAccountId == nil {
-		return localVarReturnValue, nil, reportError("merchantAccountId is required and must be specified")
-	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.merchantAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
+	}
 	if r.includeArchived != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "includeArchived", r.includeArchived, "form", "")
 	}
@@ -2221,9 +685,6 @@ func (a *UsageAPIService) ListUsageThresholdsExecute(r UsageAPIListUsageThreshol
 	}
 	if r.offset != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
-	}
-	if r.cursor != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2264,69 +725,6 @@ func (a *UsageAPIService) ListUsageThresholdsExecute(r UsageAPIListUsageThreshol
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

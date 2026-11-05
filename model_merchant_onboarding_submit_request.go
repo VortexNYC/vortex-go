@@ -19,13 +19,16 @@ var _ MappedNullable = &MerchantOnboardingSubmitRequest{}
 
 // MerchantOnboardingSubmitRequest struct for MerchantOnboardingSubmitRequest
 type MerchantOnboardingSubmitRequest struct {
-	Environment *string `json:"environment,omitempty"`
+	Environment NullableString `json:"environment,omitempty"`
 	SubmittedByType *string `json:"submittedByType,omitempty"`
-	IdempotencyKey *string `json:"idempotencyKey,omitempty"`
+	IdempotencyKey NullableString `json:"idempotencyKey,omitempty"`
 	// Captured from request headers when omitted — explicit supply keeps hosted submits honest.
 	MerchantAgreementIpAddress *string `json:"merchantAgreementIpAddress,omitempty"`
-	MerchantAgreementUserAgent *string `json:"merchantAgreementUserAgent,omitempty"`
+	MerchantAgreementUserAgent NullableString `json:"merchantAgreementUserAgent,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _MerchantOnboardingSubmitRequest MerchantOnboardingSubmitRequest
 
 // NewMerchantOnboardingSubmitRequest instantiates a new MerchantOnboardingSubmitRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -44,36 +47,46 @@ func NewMerchantOnboardingSubmitRequestWithDefaults() *MerchantOnboardingSubmitR
 	return &this
 }
 
-// GetEnvironment returns the Environment field value if set, zero value otherwise.
+// GetEnvironment returns the Environment field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantOnboardingSubmitRequest) GetEnvironment() string {
-	if o == nil || IsNil(o.Environment) {
+	if o == nil || IsNil(o.Environment.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Environment
+	return *o.Environment.Get()
 }
 
 // GetEnvironmentOk returns a tuple with the Environment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantOnboardingSubmitRequest) GetEnvironmentOk() (*string, bool) {
-	if o == nil || IsNil(o.Environment) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Environment, true
+	return o.Environment.Get(), o.Environment.IsSet()
 }
 
 // HasEnvironment returns a boolean if a field has been set.
 func (o *MerchantOnboardingSubmitRequest) HasEnvironment() bool {
-	if o != nil && !IsNil(o.Environment) {
+	if o != nil && o.Environment.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetEnvironment gets a reference to the given string and assigns it to the Environment field.
+// SetEnvironment gets a reference to the given NullableString and assigns it to the Environment field.
 func (o *MerchantOnboardingSubmitRequest) SetEnvironment(v string) {
-	o.Environment = &v
+	o.Environment.Set(&v)
+}
+// SetEnvironmentNil sets the value for Environment to be an explicit nil
+func (o *MerchantOnboardingSubmitRequest) SetEnvironmentNil() {
+	o.Environment.Set(nil)
+}
+
+// UnsetEnvironment ensures that no value is present for Environment, not even an explicit nil
+func (o *MerchantOnboardingSubmitRequest) UnsetEnvironment() {
+	o.Environment.Unset()
 }
 
 // GetSubmittedByType returns the SubmittedByType field value if set, zero value otherwise.
@@ -108,36 +121,46 @@ func (o *MerchantOnboardingSubmitRequest) SetSubmittedByType(v string) {
 	o.SubmittedByType = &v
 }
 
-// GetIdempotencyKey returns the IdempotencyKey field value if set, zero value otherwise.
+// GetIdempotencyKey returns the IdempotencyKey field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantOnboardingSubmitRequest) GetIdempotencyKey() string {
-	if o == nil || IsNil(o.IdempotencyKey) {
+	if o == nil || IsNil(o.IdempotencyKey.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.IdempotencyKey
+	return *o.IdempotencyKey.Get()
 }
 
 // GetIdempotencyKeyOk returns a tuple with the IdempotencyKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantOnboardingSubmitRequest) GetIdempotencyKeyOk() (*string, bool) {
-	if o == nil || IsNil(o.IdempotencyKey) {
+	if o == nil {
 		return nil, false
 	}
-	return o.IdempotencyKey, true
+	return o.IdempotencyKey.Get(), o.IdempotencyKey.IsSet()
 }
 
 // HasIdempotencyKey returns a boolean if a field has been set.
 func (o *MerchantOnboardingSubmitRequest) HasIdempotencyKey() bool {
-	if o != nil && !IsNil(o.IdempotencyKey) {
+	if o != nil && o.IdempotencyKey.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetIdempotencyKey gets a reference to the given string and assigns it to the IdempotencyKey field.
+// SetIdempotencyKey gets a reference to the given NullableString and assigns it to the IdempotencyKey field.
 func (o *MerchantOnboardingSubmitRequest) SetIdempotencyKey(v string) {
-	o.IdempotencyKey = &v
+	o.IdempotencyKey.Set(&v)
+}
+// SetIdempotencyKeyNil sets the value for IdempotencyKey to be an explicit nil
+func (o *MerchantOnboardingSubmitRequest) SetIdempotencyKeyNil() {
+	o.IdempotencyKey.Set(nil)
+}
+
+// UnsetIdempotencyKey ensures that no value is present for IdempotencyKey, not even an explicit nil
+func (o *MerchantOnboardingSubmitRequest) UnsetIdempotencyKey() {
+	o.IdempotencyKey.Unset()
 }
 
 // GetMerchantAgreementIpAddress returns the MerchantAgreementIpAddress field value if set, zero value otherwise.
@@ -172,36 +195,46 @@ func (o *MerchantOnboardingSubmitRequest) SetMerchantAgreementIpAddress(v string
 	o.MerchantAgreementIpAddress = &v
 }
 
-// GetMerchantAgreementUserAgent returns the MerchantAgreementUserAgent field value if set, zero value otherwise.
+// GetMerchantAgreementUserAgent returns the MerchantAgreementUserAgent field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantOnboardingSubmitRequest) GetMerchantAgreementUserAgent() string {
-	if o == nil || IsNil(o.MerchantAgreementUserAgent) {
+	if o == nil || IsNil(o.MerchantAgreementUserAgent.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.MerchantAgreementUserAgent
+	return *o.MerchantAgreementUserAgent.Get()
 }
 
 // GetMerchantAgreementUserAgentOk returns a tuple with the MerchantAgreementUserAgent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantOnboardingSubmitRequest) GetMerchantAgreementUserAgentOk() (*string, bool) {
-	if o == nil || IsNil(o.MerchantAgreementUserAgent) {
+	if o == nil {
 		return nil, false
 	}
-	return o.MerchantAgreementUserAgent, true
+	return o.MerchantAgreementUserAgent.Get(), o.MerchantAgreementUserAgent.IsSet()
 }
 
 // HasMerchantAgreementUserAgent returns a boolean if a field has been set.
 func (o *MerchantOnboardingSubmitRequest) HasMerchantAgreementUserAgent() bool {
-	if o != nil && !IsNil(o.MerchantAgreementUserAgent) {
+	if o != nil && o.MerchantAgreementUserAgent.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetMerchantAgreementUserAgent gets a reference to the given string and assigns it to the MerchantAgreementUserAgent field.
+// SetMerchantAgreementUserAgent gets a reference to the given NullableString and assigns it to the MerchantAgreementUserAgent field.
 func (o *MerchantOnboardingSubmitRequest) SetMerchantAgreementUserAgent(v string) {
-	o.MerchantAgreementUserAgent = &v
+	o.MerchantAgreementUserAgent.Set(&v)
+}
+// SetMerchantAgreementUserAgentNil sets the value for MerchantAgreementUserAgent to be an explicit nil
+func (o *MerchantOnboardingSubmitRequest) SetMerchantAgreementUserAgentNil() {
+	o.MerchantAgreementUserAgent.Set(nil)
+}
+
+// UnsetMerchantAgreementUserAgent ensures that no value is present for MerchantAgreementUserAgent, not even an explicit nil
+func (o *MerchantOnboardingSubmitRequest) UnsetMerchantAgreementUserAgent() {
+	o.MerchantAgreementUserAgent.Unset()
 }
 
 func (o MerchantOnboardingSubmitRequest) MarshalJSON() ([]byte, error) {
@@ -214,22 +247,52 @@ func (o MerchantOnboardingSubmitRequest) MarshalJSON() ([]byte, error) {
 
 func (o MerchantOnboardingSubmitRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Environment) {
-		toSerialize["environment"] = o.Environment
+	if o.Environment.IsSet() {
+		toSerialize["environment"] = o.Environment.Get()
 	}
 	if !IsNil(o.SubmittedByType) {
 		toSerialize["submittedByType"] = o.SubmittedByType
 	}
-	if !IsNil(o.IdempotencyKey) {
-		toSerialize["idempotencyKey"] = o.IdempotencyKey
+	if o.IdempotencyKey.IsSet() {
+		toSerialize["idempotencyKey"] = o.IdempotencyKey.Get()
 	}
 	if !IsNil(o.MerchantAgreementIpAddress) {
 		toSerialize["merchantAgreementIpAddress"] = o.MerchantAgreementIpAddress
 	}
-	if !IsNil(o.MerchantAgreementUserAgent) {
-		toSerialize["merchantAgreementUserAgent"] = o.MerchantAgreementUserAgent
+	if o.MerchantAgreementUserAgent.IsSet() {
+		toSerialize["merchantAgreementUserAgent"] = o.MerchantAgreementUserAgent.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *MerchantOnboardingSubmitRequest) UnmarshalJSON(data []byte) (err error) {
+	varMerchantOnboardingSubmitRequest := _MerchantOnboardingSubmitRequest{}
+
+	err = json.Unmarshal(data, &varMerchantOnboardingSubmitRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MerchantOnboardingSubmitRequest(varMerchantOnboardingSubmitRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "environment")
+		delete(additionalProperties, "submittedByType")
+		delete(additionalProperties, "idempotencyKey")
+		delete(additionalProperties, "merchantAgreementIpAddress")
+		delete(additionalProperties, "merchantAgreementUserAgent")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableMerchantOnboardingSubmitRequest struct {

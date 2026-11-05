@@ -21,26 +21,26 @@ var _ MappedNullable = &InvoiceCreateRequest{}
 
 // InvoiceCreateRequest struct for InvoiceCreateRequest
 type InvoiceCreateRequest struct {
-	CustomerId string `json:"customerId"`
-	BillingAccountId string `json:"billingAccountId"`
+	CustomerId NullableString `json:"customerId"`
+	BillingAccountId NullableString `json:"billingAccountId"`
 	LineItems []InvoiceCreateRequestLineItemsInner `json:"lineItems"`
 	// Caller-chosen invoice id; omit to auto-mint.
 	InvoiceId *string `json:"invoiceId,omitempty"`
 	AsOf *time.Time `json:"asOf,omitempty"`
-	CouponId *string `json:"couponId,omitempty"`
-	TenantId *string `json:"tenantId,omitempty"`
-	TaxIdempotencyKey *string `json:"taxIdempotencyKey,omitempty"`
+	CouponId NullableString `json:"couponId,omitempty"`
+	TenantId NullableString `json:"tenantId,omitempty"`
+	TaxIdempotencyKey NullableString `json:"taxIdempotencyKey,omitempty"`
 	CustomerTaxAddress *TaxAddress `json:"customerTaxAddress,omitempty"`
 	CustomerTaxIds []InvoiceCreateRequestCustomerTaxIdsInner `json:"customerTaxIds,omitempty"`
 	CustomerType *string `json:"customerType,omitempty"`
-	CustomerTaxExempt *bool `json:"customerTaxExempt,omitempty"`
-	CustomerTaxExemptionRef *string `json:"customerTaxExemptionRef,omitempty"`
-	FallbackOnProviderUnavailable *bool `json:"fallbackOnProviderUnavailable,omitempty"`
+	CustomerTaxExempt NullableBool `json:"customerTaxExempt,omitempty"`
+	CustomerTaxExemptionRef NullableString `json:"customerTaxExemptionRef,omitempty"`
+	FallbackOnProviderUnavailable NullableBool `json:"fallbackOnProviderUnavailable,omitempty"`
 	TaxIdValidation *string `json:"taxIdValidation,omitempty"`
 	TaxIdUnverifiableTreatment *string `json:"taxIdUnverifiableTreatment,omitempty"`
 	ShipFromAddress *TaxAddress `json:"shipFromAddress,omitempty"`
 	TaxBehavior *string `json:"taxBehavior,omitempty"`
-	ClassificationKey *string `json:"classificationKey,omitempty"`
+	ClassificationKey NullableString `json:"classificationKey,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -51,7 +51,7 @@ type _InvoiceCreateRequest InvoiceCreateRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInvoiceCreateRequest(customerId string, billingAccountId string, lineItems []InvoiceCreateRequestLineItemsInner) *InvoiceCreateRequest {
+func NewInvoiceCreateRequest(customerId NullableString, billingAccountId NullableString, lineItems []InvoiceCreateRequestLineItemsInner) *InvoiceCreateRequest {
 	this := InvoiceCreateRequest{}
 	this.CustomerId = customerId
 	this.BillingAccountId = billingAccountId
@@ -68,51 +68,55 @@ func NewInvoiceCreateRequestWithDefaults() *InvoiceCreateRequest {
 }
 
 // GetCustomerId returns the CustomerId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *InvoiceCreateRequest) GetCustomerId() string {
-	if o == nil {
+	if o == nil || o.CustomerId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.CustomerId
+	return *o.CustomerId.Get()
 }
 
 // GetCustomerIdOk returns a tuple with the CustomerId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *InvoiceCreateRequest) GetCustomerIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CustomerId, true
+	return o.CustomerId.Get(), o.CustomerId.IsSet()
 }
 
 // SetCustomerId sets field value
 func (o *InvoiceCreateRequest) SetCustomerId(v string) {
-	o.CustomerId = v
+	o.CustomerId.Set(&v)
 }
 
 // GetBillingAccountId returns the BillingAccountId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *InvoiceCreateRequest) GetBillingAccountId() string {
-	if o == nil {
+	if o == nil || o.BillingAccountId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.BillingAccountId
+	return *o.BillingAccountId.Get()
 }
 
 // GetBillingAccountIdOk returns a tuple with the BillingAccountId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *InvoiceCreateRequest) GetBillingAccountIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.BillingAccountId, true
+	return o.BillingAccountId.Get(), o.BillingAccountId.IsSet()
 }
 
 // SetBillingAccountId sets field value
 func (o *InvoiceCreateRequest) SetBillingAccountId(v string) {
-	o.BillingAccountId = v
+	o.BillingAccountId.Set(&v)
 }
 
 // GetLineItems returns the LineItems field value
@@ -203,100 +207,130 @@ func (o *InvoiceCreateRequest) SetAsOf(v time.Time) {
 	o.AsOf = &v
 }
 
-// GetCouponId returns the CouponId field value if set, zero value otherwise.
+// GetCouponId returns the CouponId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *InvoiceCreateRequest) GetCouponId() string {
-	if o == nil || IsNil(o.CouponId) {
+	if o == nil || IsNil(o.CouponId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CouponId
+	return *o.CouponId.Get()
 }
 
 // GetCouponIdOk returns a tuple with the CouponId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *InvoiceCreateRequest) GetCouponIdOk() (*string, bool) {
-	if o == nil || IsNil(o.CouponId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CouponId, true
+	return o.CouponId.Get(), o.CouponId.IsSet()
 }
 
 // HasCouponId returns a boolean if a field has been set.
 func (o *InvoiceCreateRequest) HasCouponId() bool {
-	if o != nil && !IsNil(o.CouponId) {
+	if o != nil && o.CouponId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCouponId gets a reference to the given string and assigns it to the CouponId field.
+// SetCouponId gets a reference to the given NullableString and assigns it to the CouponId field.
 func (o *InvoiceCreateRequest) SetCouponId(v string) {
-	o.CouponId = &v
+	o.CouponId.Set(&v)
+}
+// SetCouponIdNil sets the value for CouponId to be an explicit nil
+func (o *InvoiceCreateRequest) SetCouponIdNil() {
+	o.CouponId.Set(nil)
 }
 
-// GetTenantId returns the TenantId field value if set, zero value otherwise.
+// UnsetCouponId ensures that no value is present for CouponId, not even an explicit nil
+func (o *InvoiceCreateRequest) UnsetCouponId() {
+	o.CouponId.Unset()
+}
+
+// GetTenantId returns the TenantId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *InvoiceCreateRequest) GetTenantId() string {
-	if o == nil || IsNil(o.TenantId) {
+	if o == nil || IsNil(o.TenantId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.TenantId
+	return *o.TenantId.Get()
 }
 
 // GetTenantIdOk returns a tuple with the TenantId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *InvoiceCreateRequest) GetTenantIdOk() (*string, bool) {
-	if o == nil || IsNil(o.TenantId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.TenantId, true
+	return o.TenantId.Get(), o.TenantId.IsSet()
 }
 
 // HasTenantId returns a boolean if a field has been set.
 func (o *InvoiceCreateRequest) HasTenantId() bool {
-	if o != nil && !IsNil(o.TenantId) {
+	if o != nil && o.TenantId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetTenantId gets a reference to the given string and assigns it to the TenantId field.
+// SetTenantId gets a reference to the given NullableString and assigns it to the TenantId field.
 func (o *InvoiceCreateRequest) SetTenantId(v string) {
-	o.TenantId = &v
+	o.TenantId.Set(&v)
+}
+// SetTenantIdNil sets the value for TenantId to be an explicit nil
+func (o *InvoiceCreateRequest) SetTenantIdNil() {
+	o.TenantId.Set(nil)
 }
 
-// GetTaxIdempotencyKey returns the TaxIdempotencyKey field value if set, zero value otherwise.
+// UnsetTenantId ensures that no value is present for TenantId, not even an explicit nil
+func (o *InvoiceCreateRequest) UnsetTenantId() {
+	o.TenantId.Unset()
+}
+
+// GetTaxIdempotencyKey returns the TaxIdempotencyKey field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *InvoiceCreateRequest) GetTaxIdempotencyKey() string {
-	if o == nil || IsNil(o.TaxIdempotencyKey) {
+	if o == nil || IsNil(o.TaxIdempotencyKey.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.TaxIdempotencyKey
+	return *o.TaxIdempotencyKey.Get()
 }
 
 // GetTaxIdempotencyKeyOk returns a tuple with the TaxIdempotencyKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *InvoiceCreateRequest) GetTaxIdempotencyKeyOk() (*string, bool) {
-	if o == nil || IsNil(o.TaxIdempotencyKey) {
+	if o == nil {
 		return nil, false
 	}
-	return o.TaxIdempotencyKey, true
+	return o.TaxIdempotencyKey.Get(), o.TaxIdempotencyKey.IsSet()
 }
 
 // HasTaxIdempotencyKey returns a boolean if a field has been set.
 func (o *InvoiceCreateRequest) HasTaxIdempotencyKey() bool {
-	if o != nil && !IsNil(o.TaxIdempotencyKey) {
+	if o != nil && o.TaxIdempotencyKey.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetTaxIdempotencyKey gets a reference to the given string and assigns it to the TaxIdempotencyKey field.
+// SetTaxIdempotencyKey gets a reference to the given NullableString and assigns it to the TaxIdempotencyKey field.
 func (o *InvoiceCreateRequest) SetTaxIdempotencyKey(v string) {
-	o.TaxIdempotencyKey = &v
+	o.TaxIdempotencyKey.Set(&v)
+}
+// SetTaxIdempotencyKeyNil sets the value for TaxIdempotencyKey to be an explicit nil
+func (o *InvoiceCreateRequest) SetTaxIdempotencyKeyNil() {
+	o.TaxIdempotencyKey.Set(nil)
+}
+
+// UnsetTaxIdempotencyKey ensures that no value is present for TaxIdempotencyKey, not even an explicit nil
+func (o *InvoiceCreateRequest) UnsetTaxIdempotencyKey() {
+	o.TaxIdempotencyKey.Unset()
 }
 
 // GetCustomerTaxAddress returns the CustomerTaxAddress field value if set, zero value otherwise.
@@ -395,100 +429,130 @@ func (o *InvoiceCreateRequest) SetCustomerType(v string) {
 	o.CustomerType = &v
 }
 
-// GetCustomerTaxExempt returns the CustomerTaxExempt field value if set, zero value otherwise.
+// GetCustomerTaxExempt returns the CustomerTaxExempt field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *InvoiceCreateRequest) GetCustomerTaxExempt() bool {
-	if o == nil || IsNil(o.CustomerTaxExempt) {
+	if o == nil || IsNil(o.CustomerTaxExempt.Get()) {
 		var ret bool
 		return ret
 	}
-	return *o.CustomerTaxExempt
+	return *o.CustomerTaxExempt.Get()
 }
 
 // GetCustomerTaxExemptOk returns a tuple with the CustomerTaxExempt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *InvoiceCreateRequest) GetCustomerTaxExemptOk() (*bool, bool) {
-	if o == nil || IsNil(o.CustomerTaxExempt) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CustomerTaxExempt, true
+	return o.CustomerTaxExempt.Get(), o.CustomerTaxExempt.IsSet()
 }
 
 // HasCustomerTaxExempt returns a boolean if a field has been set.
 func (o *InvoiceCreateRequest) HasCustomerTaxExempt() bool {
-	if o != nil && !IsNil(o.CustomerTaxExempt) {
+	if o != nil && o.CustomerTaxExempt.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCustomerTaxExempt gets a reference to the given bool and assigns it to the CustomerTaxExempt field.
+// SetCustomerTaxExempt gets a reference to the given NullableBool and assigns it to the CustomerTaxExempt field.
 func (o *InvoiceCreateRequest) SetCustomerTaxExempt(v bool) {
-	o.CustomerTaxExempt = &v
+	o.CustomerTaxExempt.Set(&v)
+}
+// SetCustomerTaxExemptNil sets the value for CustomerTaxExempt to be an explicit nil
+func (o *InvoiceCreateRequest) SetCustomerTaxExemptNil() {
+	o.CustomerTaxExempt.Set(nil)
 }
 
-// GetCustomerTaxExemptionRef returns the CustomerTaxExemptionRef field value if set, zero value otherwise.
+// UnsetCustomerTaxExempt ensures that no value is present for CustomerTaxExempt, not even an explicit nil
+func (o *InvoiceCreateRequest) UnsetCustomerTaxExempt() {
+	o.CustomerTaxExempt.Unset()
+}
+
+// GetCustomerTaxExemptionRef returns the CustomerTaxExemptionRef field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *InvoiceCreateRequest) GetCustomerTaxExemptionRef() string {
-	if o == nil || IsNil(o.CustomerTaxExemptionRef) {
+	if o == nil || IsNil(o.CustomerTaxExemptionRef.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CustomerTaxExemptionRef
+	return *o.CustomerTaxExemptionRef.Get()
 }
 
 // GetCustomerTaxExemptionRefOk returns a tuple with the CustomerTaxExemptionRef field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *InvoiceCreateRequest) GetCustomerTaxExemptionRefOk() (*string, bool) {
-	if o == nil || IsNil(o.CustomerTaxExemptionRef) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CustomerTaxExemptionRef, true
+	return o.CustomerTaxExemptionRef.Get(), o.CustomerTaxExemptionRef.IsSet()
 }
 
 // HasCustomerTaxExemptionRef returns a boolean if a field has been set.
 func (o *InvoiceCreateRequest) HasCustomerTaxExemptionRef() bool {
-	if o != nil && !IsNil(o.CustomerTaxExemptionRef) {
+	if o != nil && o.CustomerTaxExemptionRef.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCustomerTaxExemptionRef gets a reference to the given string and assigns it to the CustomerTaxExemptionRef field.
+// SetCustomerTaxExemptionRef gets a reference to the given NullableString and assigns it to the CustomerTaxExemptionRef field.
 func (o *InvoiceCreateRequest) SetCustomerTaxExemptionRef(v string) {
-	o.CustomerTaxExemptionRef = &v
+	o.CustomerTaxExemptionRef.Set(&v)
+}
+// SetCustomerTaxExemptionRefNil sets the value for CustomerTaxExemptionRef to be an explicit nil
+func (o *InvoiceCreateRequest) SetCustomerTaxExemptionRefNil() {
+	o.CustomerTaxExemptionRef.Set(nil)
 }
 
-// GetFallbackOnProviderUnavailable returns the FallbackOnProviderUnavailable field value if set, zero value otherwise.
+// UnsetCustomerTaxExemptionRef ensures that no value is present for CustomerTaxExemptionRef, not even an explicit nil
+func (o *InvoiceCreateRequest) UnsetCustomerTaxExemptionRef() {
+	o.CustomerTaxExemptionRef.Unset()
+}
+
+// GetFallbackOnProviderUnavailable returns the FallbackOnProviderUnavailable field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *InvoiceCreateRequest) GetFallbackOnProviderUnavailable() bool {
-	if o == nil || IsNil(o.FallbackOnProviderUnavailable) {
+	if o == nil || IsNil(o.FallbackOnProviderUnavailable.Get()) {
 		var ret bool
 		return ret
 	}
-	return *o.FallbackOnProviderUnavailable
+	return *o.FallbackOnProviderUnavailable.Get()
 }
 
 // GetFallbackOnProviderUnavailableOk returns a tuple with the FallbackOnProviderUnavailable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *InvoiceCreateRequest) GetFallbackOnProviderUnavailableOk() (*bool, bool) {
-	if o == nil || IsNil(o.FallbackOnProviderUnavailable) {
+	if o == nil {
 		return nil, false
 	}
-	return o.FallbackOnProviderUnavailable, true
+	return o.FallbackOnProviderUnavailable.Get(), o.FallbackOnProviderUnavailable.IsSet()
 }
 
 // HasFallbackOnProviderUnavailable returns a boolean if a field has been set.
 func (o *InvoiceCreateRequest) HasFallbackOnProviderUnavailable() bool {
-	if o != nil && !IsNil(o.FallbackOnProviderUnavailable) {
+	if o != nil && o.FallbackOnProviderUnavailable.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetFallbackOnProviderUnavailable gets a reference to the given bool and assigns it to the FallbackOnProviderUnavailable field.
+// SetFallbackOnProviderUnavailable gets a reference to the given NullableBool and assigns it to the FallbackOnProviderUnavailable field.
 func (o *InvoiceCreateRequest) SetFallbackOnProviderUnavailable(v bool) {
-	o.FallbackOnProviderUnavailable = &v
+	o.FallbackOnProviderUnavailable.Set(&v)
+}
+// SetFallbackOnProviderUnavailableNil sets the value for FallbackOnProviderUnavailable to be an explicit nil
+func (o *InvoiceCreateRequest) SetFallbackOnProviderUnavailableNil() {
+	o.FallbackOnProviderUnavailable.Set(nil)
+}
+
+// UnsetFallbackOnProviderUnavailable ensures that no value is present for FallbackOnProviderUnavailable, not even an explicit nil
+func (o *InvoiceCreateRequest) UnsetFallbackOnProviderUnavailable() {
+	o.FallbackOnProviderUnavailable.Unset()
 }
 
 // GetTaxIdValidation returns the TaxIdValidation field value if set, zero value otherwise.
@@ -619,41 +683,51 @@ func (o *InvoiceCreateRequest) SetTaxBehavior(v string) {
 	o.TaxBehavior = &v
 }
 
-// GetClassificationKey returns the ClassificationKey field value if set, zero value otherwise.
+// GetClassificationKey returns the ClassificationKey field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *InvoiceCreateRequest) GetClassificationKey() string {
-	if o == nil || IsNil(o.ClassificationKey) {
+	if o == nil || IsNil(o.ClassificationKey.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.ClassificationKey
+	return *o.ClassificationKey.Get()
 }
 
 // GetClassificationKeyOk returns a tuple with the ClassificationKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *InvoiceCreateRequest) GetClassificationKeyOk() (*string, bool) {
-	if o == nil || IsNil(o.ClassificationKey) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ClassificationKey, true
+	return o.ClassificationKey.Get(), o.ClassificationKey.IsSet()
 }
 
 // HasClassificationKey returns a boolean if a field has been set.
 func (o *InvoiceCreateRequest) HasClassificationKey() bool {
-	if o != nil && !IsNil(o.ClassificationKey) {
+	if o != nil && o.ClassificationKey.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetClassificationKey gets a reference to the given string and assigns it to the ClassificationKey field.
+// SetClassificationKey gets a reference to the given NullableString and assigns it to the ClassificationKey field.
 func (o *InvoiceCreateRequest) SetClassificationKey(v string) {
-	o.ClassificationKey = &v
+	o.ClassificationKey.Set(&v)
+}
+// SetClassificationKeyNil sets the value for ClassificationKey to be an explicit nil
+func (o *InvoiceCreateRequest) SetClassificationKeyNil() {
+	o.ClassificationKey.Set(nil)
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// UnsetClassificationKey ensures that no value is present for ClassificationKey, not even an explicit nil
+func (o *InvoiceCreateRequest) UnsetClassificationKey() {
+	o.ClassificationKey.Unset()
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *InvoiceCreateRequest) GetMetadata() map[string]string {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -662,6 +736,7 @@ func (o *InvoiceCreateRequest) GetMetadata() map[string]string {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *InvoiceCreateRequest) GetMetadataOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return map[string]string{}, false
@@ -693,8 +768,8 @@ func (o InvoiceCreateRequest) MarshalJSON() ([]byte, error) {
 
 func (o InvoiceCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["customerId"] = o.CustomerId
-	toSerialize["billingAccountId"] = o.BillingAccountId
+	toSerialize["customerId"] = o.CustomerId.Get()
+	toSerialize["billingAccountId"] = o.BillingAccountId.Get()
 	toSerialize["lineItems"] = o.LineItems
 	if !IsNil(o.InvoiceId) {
 		toSerialize["invoiceId"] = o.InvoiceId
@@ -702,14 +777,14 @@ func (o InvoiceCreateRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AsOf) {
 		toSerialize["asOf"] = o.AsOf
 	}
-	if !IsNil(o.CouponId) {
-		toSerialize["couponId"] = o.CouponId
+	if o.CouponId.IsSet() {
+		toSerialize["couponId"] = o.CouponId.Get()
 	}
-	if !IsNil(o.TenantId) {
-		toSerialize["tenantId"] = o.TenantId
+	if o.TenantId.IsSet() {
+		toSerialize["tenantId"] = o.TenantId.Get()
 	}
-	if !IsNil(o.TaxIdempotencyKey) {
-		toSerialize["taxIdempotencyKey"] = o.TaxIdempotencyKey
+	if o.TaxIdempotencyKey.IsSet() {
+		toSerialize["taxIdempotencyKey"] = o.TaxIdempotencyKey.Get()
 	}
 	if !IsNil(o.CustomerTaxAddress) {
 		toSerialize["customerTaxAddress"] = o.CustomerTaxAddress
@@ -720,14 +795,14 @@ func (o InvoiceCreateRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CustomerType) {
 		toSerialize["customerType"] = o.CustomerType
 	}
-	if !IsNil(o.CustomerTaxExempt) {
-		toSerialize["customerTaxExempt"] = o.CustomerTaxExempt
+	if o.CustomerTaxExempt.IsSet() {
+		toSerialize["customerTaxExempt"] = o.CustomerTaxExempt.Get()
 	}
-	if !IsNil(o.CustomerTaxExemptionRef) {
-		toSerialize["customerTaxExemptionRef"] = o.CustomerTaxExemptionRef
+	if o.CustomerTaxExemptionRef.IsSet() {
+		toSerialize["customerTaxExemptionRef"] = o.CustomerTaxExemptionRef.Get()
 	}
-	if !IsNil(o.FallbackOnProviderUnavailable) {
-		toSerialize["fallbackOnProviderUnavailable"] = o.FallbackOnProviderUnavailable
+	if o.FallbackOnProviderUnavailable.IsSet() {
+		toSerialize["fallbackOnProviderUnavailable"] = o.FallbackOnProviderUnavailable.Get()
 	}
 	if !IsNil(o.TaxIdValidation) {
 		toSerialize["taxIdValidation"] = o.TaxIdValidation
@@ -741,10 +816,10 @@ func (o InvoiceCreateRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TaxBehavior) {
 		toSerialize["taxBehavior"] = o.TaxBehavior
 	}
-	if !IsNil(o.ClassificationKey) {
-		toSerialize["classificationKey"] = o.ClassificationKey
+	if o.ClassificationKey.IsSet() {
+		toSerialize["classificationKey"] = o.ClassificationKey.Get()
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
 

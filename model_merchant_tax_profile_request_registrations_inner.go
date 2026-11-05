@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,8 +20,9 @@ var _ MappedNullable = &MerchantTaxProfileRequestRegistrationsInner{}
 
 // MerchantTaxProfileRequestRegistrationsInner struct for MerchantTaxProfileRequestRegistrationsInner
 type MerchantTaxProfileRequestRegistrationsInner struct {
-	Country string `json:"country"`
-	Region *string `json:"region,omitempty"`
+	Country NullableString `json:"country"`
+	Region NullableString `json:"region,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MerchantTaxProfileRequestRegistrationsInner MerchantTaxProfileRequestRegistrationsInner
@@ -31,7 +31,7 @@ type _MerchantTaxProfileRequestRegistrationsInner MerchantTaxProfileRequestRegis
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantTaxProfileRequestRegistrationsInner(country string) *MerchantTaxProfileRequestRegistrationsInner {
+func NewMerchantTaxProfileRequestRegistrationsInner(country NullableString) *MerchantTaxProfileRequestRegistrationsInner {
 	this := MerchantTaxProfileRequestRegistrationsInner{}
 	this.Country = country
 	return &this
@@ -46,59 +46,71 @@ func NewMerchantTaxProfileRequestRegistrationsInnerWithDefaults() *MerchantTaxPr
 }
 
 // GetCountry returns the Country field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *MerchantTaxProfileRequestRegistrationsInner) GetCountry() string {
-	if o == nil {
+	if o == nil || o.Country.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Country
+	return *o.Country.Get()
 }
 
 // GetCountryOk returns a tuple with the Country field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantTaxProfileRequestRegistrationsInner) GetCountryOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Country, true
+	return o.Country.Get(), o.Country.IsSet()
 }
 
 // SetCountry sets field value
 func (o *MerchantTaxProfileRequestRegistrationsInner) SetCountry(v string) {
-	o.Country = v
+	o.Country.Set(&v)
 }
 
-// GetRegion returns the Region field value if set, zero value otherwise.
+// GetRegion returns the Region field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantTaxProfileRequestRegistrationsInner) GetRegion() string {
-	if o == nil || IsNil(o.Region) {
+	if o == nil || IsNil(o.Region.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Region
+	return *o.Region.Get()
 }
 
 // GetRegionOk returns a tuple with the Region field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantTaxProfileRequestRegistrationsInner) GetRegionOk() (*string, bool) {
-	if o == nil || IsNil(o.Region) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Region, true
+	return o.Region.Get(), o.Region.IsSet()
 }
 
 // HasRegion returns a boolean if a field has been set.
 func (o *MerchantTaxProfileRequestRegistrationsInner) HasRegion() bool {
-	if o != nil && !IsNil(o.Region) {
+	if o != nil && o.Region.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetRegion gets a reference to the given string and assigns it to the Region field.
+// SetRegion gets a reference to the given NullableString and assigns it to the Region field.
 func (o *MerchantTaxProfileRequestRegistrationsInner) SetRegion(v string) {
-	o.Region = &v
+	o.Region.Set(&v)
+}
+// SetRegionNil sets the value for Region to be an explicit nil
+func (o *MerchantTaxProfileRequestRegistrationsInner) SetRegionNil() {
+	o.Region.Set(nil)
+}
+
+// UnsetRegion ensures that no value is present for Region, not even an explicit nil
+func (o *MerchantTaxProfileRequestRegistrationsInner) UnsetRegion() {
+	o.Region.Unset()
 }
 
 func (o MerchantTaxProfileRequestRegistrationsInner) MarshalJSON() ([]byte, error) {
@@ -111,10 +123,15 @@ func (o MerchantTaxProfileRequestRegistrationsInner) MarshalJSON() ([]byte, erro
 
 func (o MerchantTaxProfileRequestRegistrationsInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["country"] = o.Country
-	if !IsNil(o.Region) {
-		toSerialize["region"] = o.Region
+	toSerialize["country"] = o.Country.Get()
+	if o.Region.IsSet() {
+		toSerialize["region"] = o.Region.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -142,15 +159,21 @@ func (o *MerchantTaxProfileRequestRegistrationsInner) UnmarshalJSON(data []byte)
 
 	varMerchantTaxProfileRequestRegistrationsInner := _MerchantTaxProfileRequestRegistrationsInner{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMerchantTaxProfileRequestRegistrationsInner)
+	err = json.Unmarshal(data, &varMerchantTaxProfileRequestRegistrationsInner)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MerchantTaxProfileRequestRegistrationsInner(varMerchantTaxProfileRequestRegistrationsInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "country")
+		delete(additionalProperties, "region")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

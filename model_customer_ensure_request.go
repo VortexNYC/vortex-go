@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,12 +20,13 @@ var _ MappedNullable = &CustomerEnsureRequest{}
 
 // CustomerEnsureRequest Ensure-upsert: at least one dedupe key (externalCustomerRef or customerId) is required; resolves externalCustomerRef first.
 type CustomerEnsureRequest struct {
-	Name string
+	Name NullableString
 	DefaultCurrency string
-	CustomerId *string
-	ExternalCustomerRef *string
+	CustomerId NullableString
+	ExternalCustomerRef NullableString
 	Email *string
 	Metadata map[string]string
+	AdditionalProperties map[string]interface{}
 }
 
 type _CustomerEnsureRequest CustomerEnsureRequest
@@ -35,7 +35,7 @@ type _CustomerEnsureRequest CustomerEnsureRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCustomerEnsureRequest(name string, defaultCurrency string) *CustomerEnsureRequest {
+func NewCustomerEnsureRequest(name NullableString, defaultCurrency string) *CustomerEnsureRequest {
 	this := CustomerEnsureRequest{}
 	return &this
 }
@@ -49,27 +49,29 @@ func NewCustomerEnsureRequestWithDefaults() *CustomerEnsureRequest {
 }
 
 // GetName returns the Name field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *CustomerEnsureRequest) GetName() string {
-	if o == nil {
+	if o == nil || o.Name.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Name
+	return *o.Name.Get()
 }
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CustomerEnsureRequest) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name.Get(), o.Name.IsSet()
 }
 
 // SetName sets field value
 func (o *CustomerEnsureRequest) SetName(v string) {
-	o.Name = v
+	o.Name.Set(&v)
 }
 
 // GetDefaultCurrency returns the DefaultCurrency field value
@@ -96,68 +98,88 @@ func (o *CustomerEnsureRequest) SetDefaultCurrency(v string) {
 	o.DefaultCurrency = v
 }
 
-// GetCustomerId returns the CustomerId field value if set, zero value otherwise.
+// GetCustomerId returns the CustomerId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CustomerEnsureRequest) GetCustomerId() string {
-	if o == nil || IsNil(o.CustomerId) {
+	if o == nil || IsNil(o.CustomerId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CustomerId
+	return *o.CustomerId.Get()
 }
 
 // GetCustomerIdOk returns a tuple with the CustomerId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CustomerEnsureRequest) GetCustomerIdOk() (*string, bool) {
-	if o == nil || IsNil(o.CustomerId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CustomerId, true
+	return o.CustomerId.Get(), o.CustomerId.IsSet()
 }
 
 // HasCustomerId returns a boolean if a field has been set.
 func (o *CustomerEnsureRequest) HasCustomerId() bool {
-	if o != nil && !IsNil(o.CustomerId) {
+	if o != nil && o.CustomerId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCustomerId gets a reference to the given string and assigns it to the CustomerId field.
+// SetCustomerId gets a reference to the given NullableString and assigns it to the CustomerId field.
 func (o *CustomerEnsureRequest) SetCustomerId(v string) {
-	o.CustomerId = &v
+	o.CustomerId.Set(&v)
+}
+// SetCustomerIdNil sets the value for CustomerId to be an explicit nil
+func (o *CustomerEnsureRequest) SetCustomerIdNil() {
+	o.CustomerId.Set(nil)
 }
 
-// GetExternalCustomerRef returns the ExternalCustomerRef field value if set, zero value otherwise.
+// UnsetCustomerId ensures that no value is present for CustomerId, not even an explicit nil
+func (o *CustomerEnsureRequest) UnsetCustomerId() {
+	o.CustomerId.Unset()
+}
+
+// GetExternalCustomerRef returns the ExternalCustomerRef field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CustomerEnsureRequest) GetExternalCustomerRef() string {
-	if o == nil || IsNil(o.ExternalCustomerRef) {
+	if o == nil || IsNil(o.ExternalCustomerRef.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.ExternalCustomerRef
+	return *o.ExternalCustomerRef.Get()
 }
 
 // GetExternalCustomerRefOk returns a tuple with the ExternalCustomerRef field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CustomerEnsureRequest) GetExternalCustomerRefOk() (*string, bool) {
-	if o == nil || IsNil(o.ExternalCustomerRef) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ExternalCustomerRef, true
+	return o.ExternalCustomerRef.Get(), o.ExternalCustomerRef.IsSet()
 }
 
 // HasExternalCustomerRef returns a boolean if a field has been set.
 func (o *CustomerEnsureRequest) HasExternalCustomerRef() bool {
-	if o != nil && !IsNil(o.ExternalCustomerRef) {
+	if o != nil && o.ExternalCustomerRef.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetExternalCustomerRef gets a reference to the given string and assigns it to the ExternalCustomerRef field.
+// SetExternalCustomerRef gets a reference to the given NullableString and assigns it to the ExternalCustomerRef field.
 func (o *CustomerEnsureRequest) SetExternalCustomerRef(v string) {
-	o.ExternalCustomerRef = &v
+	o.ExternalCustomerRef.Set(&v)
+}
+// SetExternalCustomerRefNil sets the value for ExternalCustomerRef to be an explicit nil
+func (o *CustomerEnsureRequest) SetExternalCustomerRefNil() {
+	o.ExternalCustomerRef.Set(nil)
+}
+
+// UnsetExternalCustomerRef ensures that no value is present for ExternalCustomerRef, not even an explicit nil
+func (o *CustomerEnsureRequest) UnsetExternalCustomerRef() {
+	o.ExternalCustomerRef.Unset()
 }
 
 // GetEmail returns the Email field value if set, zero value otherwise.
@@ -192,9 +214,9 @@ func (o *CustomerEnsureRequest) SetEmail(v string) {
 	o.Email = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CustomerEnsureRequest) GetMetadata() map[string]string {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -203,6 +225,7 @@ func (o *CustomerEnsureRequest) GetMetadata() map[string]string {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CustomerEnsureRequest) GetMetadataOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return map[string]string{}, false
@@ -234,20 +257,25 @@ func (o CustomerEnsureRequest) MarshalJSON() ([]byte, error) {
 
 func (o CustomerEnsureRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["name"] = o.Name
+	toSerialize["name"] = o.Name.Get()
 	toSerialize["defaultCurrency"] = o.DefaultCurrency
-	if !IsNil(o.CustomerId) {
-		toSerialize["customerId"] = o.CustomerId
+	if o.CustomerId.IsSet() {
+		toSerialize["customerId"] = o.CustomerId.Get()
 	}
-	if !IsNil(o.ExternalCustomerRef) {
-		toSerialize["externalCustomerRef"] = o.ExternalCustomerRef
+	if o.ExternalCustomerRef.IsSet() {
+		toSerialize["externalCustomerRef"] = o.ExternalCustomerRef.Get()
 	}
 	if !IsNil(o.Email) {
 		toSerialize["email"] = o.Email
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -276,15 +304,25 @@ func (o *CustomerEnsureRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varCustomerEnsureRequest := _CustomerEnsureRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCustomerEnsureRequest)
+	err = json.Unmarshal(data, &varCustomerEnsureRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CustomerEnsureRequest(varCustomerEnsureRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "defaultCurrency")
+		delete(additionalProperties, "customerId")
+		delete(additionalProperties, "externalCustomerRef")
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

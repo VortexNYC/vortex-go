@@ -19,13 +19,16 @@ var _ MappedNullable = &CheckoutSessionCustomerEnsure{}
 
 // CheckoutSessionCustomerEnsure Inline customer ensure-block (mutually exclusive with the top-level customerId). Resolution order: customerId resolves an existing customer (miss = not found); externalCustomerRef ensure-upserts; otherwise a bare block creates one — name and defaultCurrency are then required.
 type CheckoutSessionCustomerEnsure struct {
-	CustomerId *string `json:"customerId,omitempty"`
-	ExternalCustomerRef *string `json:"externalCustomerRef,omitempty"`
-	Name *string `json:"name,omitempty"`
+	CustomerId NullableString `json:"customerId,omitempty"`
+	ExternalCustomerRef NullableString `json:"externalCustomerRef,omitempty"`
+	Name NullableString `json:"name,omitempty"`
 	Email *string `json:"email,omitempty"`
 	DefaultCurrency *string `json:"defaultCurrency,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CheckoutSessionCustomerEnsure CheckoutSessionCustomerEnsure
 
 // NewCheckoutSessionCustomerEnsure instantiates a new CheckoutSessionCustomerEnsure object
 // This constructor will assign default values to properties that have it defined,
@@ -44,100 +47,130 @@ func NewCheckoutSessionCustomerEnsureWithDefaults() *CheckoutSessionCustomerEnsu
 	return &this
 }
 
-// GetCustomerId returns the CustomerId field value if set, zero value otherwise.
+// GetCustomerId returns the CustomerId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CheckoutSessionCustomerEnsure) GetCustomerId() string {
-	if o == nil || IsNil(o.CustomerId) {
+	if o == nil || IsNil(o.CustomerId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CustomerId
+	return *o.CustomerId.Get()
 }
 
 // GetCustomerIdOk returns a tuple with the CustomerId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CheckoutSessionCustomerEnsure) GetCustomerIdOk() (*string, bool) {
-	if o == nil || IsNil(o.CustomerId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CustomerId, true
+	return o.CustomerId.Get(), o.CustomerId.IsSet()
 }
 
 // HasCustomerId returns a boolean if a field has been set.
 func (o *CheckoutSessionCustomerEnsure) HasCustomerId() bool {
-	if o != nil && !IsNil(o.CustomerId) {
+	if o != nil && o.CustomerId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCustomerId gets a reference to the given string and assigns it to the CustomerId field.
+// SetCustomerId gets a reference to the given NullableString and assigns it to the CustomerId field.
 func (o *CheckoutSessionCustomerEnsure) SetCustomerId(v string) {
-	o.CustomerId = &v
+	o.CustomerId.Set(&v)
+}
+// SetCustomerIdNil sets the value for CustomerId to be an explicit nil
+func (o *CheckoutSessionCustomerEnsure) SetCustomerIdNil() {
+	o.CustomerId.Set(nil)
 }
 
-// GetExternalCustomerRef returns the ExternalCustomerRef field value if set, zero value otherwise.
+// UnsetCustomerId ensures that no value is present for CustomerId, not even an explicit nil
+func (o *CheckoutSessionCustomerEnsure) UnsetCustomerId() {
+	o.CustomerId.Unset()
+}
+
+// GetExternalCustomerRef returns the ExternalCustomerRef field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CheckoutSessionCustomerEnsure) GetExternalCustomerRef() string {
-	if o == nil || IsNil(o.ExternalCustomerRef) {
+	if o == nil || IsNil(o.ExternalCustomerRef.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.ExternalCustomerRef
+	return *o.ExternalCustomerRef.Get()
 }
 
 // GetExternalCustomerRefOk returns a tuple with the ExternalCustomerRef field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CheckoutSessionCustomerEnsure) GetExternalCustomerRefOk() (*string, bool) {
-	if o == nil || IsNil(o.ExternalCustomerRef) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ExternalCustomerRef, true
+	return o.ExternalCustomerRef.Get(), o.ExternalCustomerRef.IsSet()
 }
 
 // HasExternalCustomerRef returns a boolean if a field has been set.
 func (o *CheckoutSessionCustomerEnsure) HasExternalCustomerRef() bool {
-	if o != nil && !IsNil(o.ExternalCustomerRef) {
+	if o != nil && o.ExternalCustomerRef.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetExternalCustomerRef gets a reference to the given string and assigns it to the ExternalCustomerRef field.
+// SetExternalCustomerRef gets a reference to the given NullableString and assigns it to the ExternalCustomerRef field.
 func (o *CheckoutSessionCustomerEnsure) SetExternalCustomerRef(v string) {
-	o.ExternalCustomerRef = &v
+	o.ExternalCustomerRef.Set(&v)
+}
+// SetExternalCustomerRefNil sets the value for ExternalCustomerRef to be an explicit nil
+func (o *CheckoutSessionCustomerEnsure) SetExternalCustomerRefNil() {
+	o.ExternalCustomerRef.Set(nil)
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// UnsetExternalCustomerRef ensures that no value is present for ExternalCustomerRef, not even an explicit nil
+func (o *CheckoutSessionCustomerEnsure) UnsetExternalCustomerRef() {
+	o.ExternalCustomerRef.Unset()
+}
+
+// GetName returns the Name field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CheckoutSessionCustomerEnsure) GetName() string {
-	if o == nil || IsNil(o.Name) {
+	if o == nil || IsNil(o.Name.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Name
+	return *o.Name.Get()
 }
 
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CheckoutSessionCustomerEnsure) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return o.Name.Get(), o.Name.IsSet()
 }
 
 // HasName returns a boolean if a field has been set.
 func (o *CheckoutSessionCustomerEnsure) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
+	if o != nil && o.Name.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName gets a reference to the given NullableString and assigns it to the Name field.
 func (o *CheckoutSessionCustomerEnsure) SetName(v string) {
-	o.Name = &v
+	o.Name.Set(&v)
+}
+// SetNameNil sets the value for Name to be an explicit nil
+func (o *CheckoutSessionCustomerEnsure) SetNameNil() {
+	o.Name.Set(nil)
+}
+
+// UnsetName ensures that no value is present for Name, not even an explicit nil
+func (o *CheckoutSessionCustomerEnsure) UnsetName() {
+	o.Name.Unset()
 }
 
 // GetEmail returns the Email field value if set, zero value otherwise.
@@ -204,9 +237,9 @@ func (o *CheckoutSessionCustomerEnsure) SetDefaultCurrency(v string) {
 	o.DefaultCurrency = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CheckoutSessionCustomerEnsure) GetMetadata() map[string]string {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -215,6 +248,7 @@ func (o *CheckoutSessionCustomerEnsure) GetMetadata() map[string]string {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CheckoutSessionCustomerEnsure) GetMetadataOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return map[string]string{}, false
@@ -246,14 +280,14 @@ func (o CheckoutSessionCustomerEnsure) MarshalJSON() ([]byte, error) {
 
 func (o CheckoutSessionCustomerEnsure) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.CustomerId) {
-		toSerialize["customerId"] = o.CustomerId
+	if o.CustomerId.IsSet() {
+		toSerialize["customerId"] = o.CustomerId.Get()
 	}
-	if !IsNil(o.ExternalCustomerRef) {
-		toSerialize["externalCustomerRef"] = o.ExternalCustomerRef
+	if o.ExternalCustomerRef.IsSet() {
+		toSerialize["externalCustomerRef"] = o.ExternalCustomerRef.Get()
 	}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
+	if o.Name.IsSet() {
+		toSerialize["name"] = o.Name.Get()
 	}
 	if !IsNil(o.Email) {
 		toSerialize["email"] = o.Email
@@ -261,10 +295,41 @@ func (o CheckoutSessionCustomerEnsure) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DefaultCurrency) {
 		toSerialize["defaultCurrency"] = o.DefaultCurrency
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CheckoutSessionCustomerEnsure) UnmarshalJSON(data []byte) (err error) {
+	varCheckoutSessionCustomerEnsure := _CheckoutSessionCustomerEnsure{}
+
+	err = json.Unmarshal(data, &varCheckoutSessionCustomerEnsure)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CheckoutSessionCustomerEnsure(varCheckoutSessionCustomerEnsure)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "customerId")
+		delete(additionalProperties, "externalCustomerRef")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "defaultCurrency")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCheckoutSessionCustomerEnsure struct {

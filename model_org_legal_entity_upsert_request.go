@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,7 +20,7 @@ var _ MappedNullable = &OrgLegalEntityUpsertRequest{}
 
 // OrgLegalEntityUpsertRequest struct for OrgLegalEntityUpsertRequest
 type OrgLegalEntityUpsertRequest struct {
-	Environment string `json:"environment"`
+	Environment NullableString `json:"environment"`
 	TaxId NullableString `json:"taxId,omitempty"`
 	BusinessTaxId NullableString `json:"businessTaxId,omitempty"`
 	SettlementBankAccount NullableMerchantSettlementBankAccount `json:"settlementBankAccount,omitempty"`
@@ -37,6 +36,7 @@ type OrgLegalEntityUpsertRequest struct {
 	DoingBusinessAs NullableString `json:"doingBusinessAs,omitempty"`
 	HasAcceptedCreditCardsPreviously NullableBool `json:"hasAcceptedCreditCardsPreviously,omitempty"`
 	AnnualCardVolume NullableFloat32 `json:"annualCardVolume,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _OrgLegalEntityUpsertRequest OrgLegalEntityUpsertRequest
@@ -45,7 +45,7 @@ type _OrgLegalEntityUpsertRequest OrgLegalEntityUpsertRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOrgLegalEntityUpsertRequest(environment string) *OrgLegalEntityUpsertRequest {
+func NewOrgLegalEntityUpsertRequest(environment NullableString) *OrgLegalEntityUpsertRequest {
 	this := OrgLegalEntityUpsertRequest{}
 	this.Environment = environment
 	return &this
@@ -60,27 +60,29 @@ func NewOrgLegalEntityUpsertRequestWithDefaults() *OrgLegalEntityUpsertRequest {
 }
 
 // GetEnvironment returns the Environment field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *OrgLegalEntityUpsertRequest) GetEnvironment() string {
-	if o == nil {
+	if o == nil || o.Environment.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Environment
+	return *o.Environment.Get()
 }
 
 // GetEnvironmentOk returns a tuple with the Environment field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *OrgLegalEntityUpsertRequest) GetEnvironmentOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Environment, true
+	return o.Environment.Get(), o.Environment.IsSet()
 }
 
 // SetEnvironment sets field value
 func (o *OrgLegalEntityUpsertRequest) SetEnvironment(v string) {
-	o.Environment = v
+	o.Environment.Set(&v)
 }
 
 // GetTaxId returns the TaxId field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -723,7 +725,7 @@ func (o OrgLegalEntityUpsertRequest) MarshalJSON() ([]byte, error) {
 
 func (o OrgLegalEntityUpsertRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["environment"] = o.Environment
+	toSerialize["environment"] = o.Environment.Get()
 	if o.TaxId.IsSet() {
 		toSerialize["taxId"] = o.TaxId.Get()
 	}
@@ -769,6 +771,11 @@ func (o OrgLegalEntityUpsertRequest) ToMap() (map[string]interface{}, error) {
 	if o.AnnualCardVolume.IsSet() {
 		toSerialize["annualCardVolume"] = o.AnnualCardVolume.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -796,15 +803,35 @@ func (o *OrgLegalEntityUpsertRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varOrgLegalEntityUpsertRequest := _OrgLegalEntityUpsertRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varOrgLegalEntityUpsertRequest)
+	err = json.Unmarshal(data, &varOrgLegalEntityUpsertRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = OrgLegalEntityUpsertRequest(varOrgLegalEntityUpsertRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "environment")
+		delete(additionalProperties, "taxId")
+		delete(additionalProperties, "businessTaxId")
+		delete(additionalProperties, "settlementBankAccount")
+		delete(additionalProperties, "incorporationDate")
+		delete(additionalProperties, "principalPercentageOwnership")
+		delete(additionalProperties, "personalAddress")
+		delete(additionalProperties, "businessAddress")
+		delete(additionalProperties, "firstName")
+		delete(additionalProperties, "lastName")
+		delete(additionalProperties, "dateOfBirth")
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "phone")
+		delete(additionalProperties, "doingBusinessAs")
+		delete(additionalProperties, "hasAcceptedCreditCardsPreviously")
+		delete(additionalProperties, "annualCardVolume")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

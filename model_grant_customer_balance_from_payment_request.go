@@ -235,9 +235,9 @@ func (o *GrantCustomerBalanceFromPaymentRequest) SetExpiresAt(v time.Time) {
 	o.ExpiresAt = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *GrantCustomerBalanceFromPaymentRequest) GetMetadata() map[string]string {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -246,6 +246,7 @@ func (o *GrantCustomerBalanceFromPaymentRequest) GetMetadata() map[string]string
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GrantCustomerBalanceFromPaymentRequest) GetMetadataOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return map[string]string{}, false
@@ -293,7 +294,7 @@ func (o GrantCustomerBalanceFromPaymentRequest) ToMap() (map[string]interface{},
 	if !IsNil(o.ExpiresAt) {
 		toSerialize["expiresAt"] = o.ExpiresAt
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
 	return toSerialize, nil

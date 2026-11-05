@@ -13,7 +13,6 @@ package vortex
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -22,8 +21,8 @@ var _ MappedNullable = &SubscriptionCreateRequest{}
 
 // SubscriptionCreateRequest struct for SubscriptionCreateRequest
 type SubscriptionCreateRequest struct {
-	CustomerId string `json:"customerId"`
-	BillingAccountId string `json:"billingAccountId"`
+	CustomerId NullableString `json:"customerId"`
+	BillingAccountId NullableString `json:"billingAccountId"`
 	CollectionMode string `json:"collectionMode"`
 	Items []SubscriptionItemChangeRequestItem `json:"items"`
 	// Caller-chosen subscription id; omit to auto-mint.
@@ -31,8 +30,9 @@ type SubscriptionCreateRequest struct {
 	StartAt *time.Time `json:"startAt,omitempty"`
 	TrialEndAt *time.Time `json:"trialEndAt,omitempty"`
 	InitialStatus *string `json:"initialStatus,omitempty"`
-	TestClockId *string `json:"testClockId,omitempty"`
+	TestClockId NullableString `json:"testClockId,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _SubscriptionCreateRequest SubscriptionCreateRequest
@@ -41,7 +41,7 @@ type _SubscriptionCreateRequest SubscriptionCreateRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSubscriptionCreateRequest(customerId string, billingAccountId string, collectionMode string, items []SubscriptionItemChangeRequestItem) *SubscriptionCreateRequest {
+func NewSubscriptionCreateRequest(customerId NullableString, billingAccountId NullableString, collectionMode string, items []SubscriptionItemChangeRequestItem) *SubscriptionCreateRequest {
 	this := SubscriptionCreateRequest{}
 	this.CustomerId = customerId
 	this.BillingAccountId = billingAccountId
@@ -59,51 +59,55 @@ func NewSubscriptionCreateRequestWithDefaults() *SubscriptionCreateRequest {
 }
 
 // GetCustomerId returns the CustomerId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *SubscriptionCreateRequest) GetCustomerId() string {
-	if o == nil {
+	if o == nil || o.CustomerId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.CustomerId
+	return *o.CustomerId.Get()
 }
 
 // GetCustomerIdOk returns a tuple with the CustomerId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SubscriptionCreateRequest) GetCustomerIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CustomerId, true
+	return o.CustomerId.Get(), o.CustomerId.IsSet()
 }
 
 // SetCustomerId sets field value
 func (o *SubscriptionCreateRequest) SetCustomerId(v string) {
-	o.CustomerId = v
+	o.CustomerId.Set(&v)
 }
 
 // GetBillingAccountId returns the BillingAccountId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *SubscriptionCreateRequest) GetBillingAccountId() string {
-	if o == nil {
+	if o == nil || o.BillingAccountId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.BillingAccountId
+	return *o.BillingAccountId.Get()
 }
 
 // GetBillingAccountIdOk returns a tuple with the BillingAccountId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SubscriptionCreateRequest) GetBillingAccountIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.BillingAccountId, true
+	return o.BillingAccountId.Get(), o.BillingAccountId.IsSet()
 }
 
 // SetBillingAccountId sets field value
 func (o *SubscriptionCreateRequest) SetBillingAccountId(v string) {
-	o.BillingAccountId = v
+	o.BillingAccountId.Set(&v)
 }
 
 // GetCollectionMode returns the CollectionMode field value
@@ -282,41 +286,51 @@ func (o *SubscriptionCreateRequest) SetInitialStatus(v string) {
 	o.InitialStatus = &v
 }
 
-// GetTestClockId returns the TestClockId field value if set, zero value otherwise.
+// GetTestClockId returns the TestClockId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SubscriptionCreateRequest) GetTestClockId() string {
-	if o == nil || IsNil(o.TestClockId) {
+	if o == nil || IsNil(o.TestClockId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.TestClockId
+	return *o.TestClockId.Get()
 }
 
 // GetTestClockIdOk returns a tuple with the TestClockId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SubscriptionCreateRequest) GetTestClockIdOk() (*string, bool) {
-	if o == nil || IsNil(o.TestClockId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.TestClockId, true
+	return o.TestClockId.Get(), o.TestClockId.IsSet()
 }
 
 // HasTestClockId returns a boolean if a field has been set.
 func (o *SubscriptionCreateRequest) HasTestClockId() bool {
-	if o != nil && !IsNil(o.TestClockId) {
+	if o != nil && o.TestClockId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetTestClockId gets a reference to the given string and assigns it to the TestClockId field.
+// SetTestClockId gets a reference to the given NullableString and assigns it to the TestClockId field.
 func (o *SubscriptionCreateRequest) SetTestClockId(v string) {
-	o.TestClockId = &v
+	o.TestClockId.Set(&v)
+}
+// SetTestClockIdNil sets the value for TestClockId to be an explicit nil
+func (o *SubscriptionCreateRequest) SetTestClockIdNil() {
+	o.TestClockId.Set(nil)
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// UnsetTestClockId ensures that no value is present for TestClockId, not even an explicit nil
+func (o *SubscriptionCreateRequest) UnsetTestClockId() {
+	o.TestClockId.Unset()
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SubscriptionCreateRequest) GetMetadata() map[string]string {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -325,6 +339,7 @@ func (o *SubscriptionCreateRequest) GetMetadata() map[string]string {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SubscriptionCreateRequest) GetMetadataOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return map[string]string{}, false
@@ -356,8 +371,8 @@ func (o SubscriptionCreateRequest) MarshalJSON() ([]byte, error) {
 
 func (o SubscriptionCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["customerId"] = o.CustomerId
-	toSerialize["billingAccountId"] = o.BillingAccountId
+	toSerialize["customerId"] = o.CustomerId.Get()
+	toSerialize["billingAccountId"] = o.BillingAccountId.Get()
 	toSerialize["collectionMode"] = o.CollectionMode
 	toSerialize["items"] = o.Items
 	if !IsNil(o.SubscriptionId) {
@@ -372,12 +387,17 @@ func (o SubscriptionCreateRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.InitialStatus) {
 		toSerialize["initialStatus"] = o.InitialStatus
 	}
-	if !IsNil(o.TestClockId) {
-		toSerialize["testClockId"] = o.TestClockId
+	if o.TestClockId.IsSet() {
+		toSerialize["testClockId"] = o.TestClockId.Get()
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -408,15 +428,29 @@ func (o *SubscriptionCreateRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varSubscriptionCreateRequest := _SubscriptionCreateRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varSubscriptionCreateRequest)
+	err = json.Unmarshal(data, &varSubscriptionCreateRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = SubscriptionCreateRequest(varSubscriptionCreateRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "customerId")
+		delete(additionalProperties, "billingAccountId")
+		delete(additionalProperties, "collectionMode")
+		delete(additionalProperties, "items")
+		delete(additionalProperties, "subscriptionId")
+		delete(additionalProperties, "startAt")
+		delete(additionalProperties, "trialEndAt")
+		delete(additionalProperties, "initialStatus")
+		delete(additionalProperties, "testClockId")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

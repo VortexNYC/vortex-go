@@ -161,9 +161,9 @@ func (o *CreditNoteCreateLine) SetAmount(v int32) {
 	o.Amount = v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreditNoteCreateLine) GetMetadata() map[string]string {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -172,6 +172,7 @@ func (o *CreditNoteCreateLine) GetMetadata() map[string]string {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreditNoteCreateLine) GetMetadataOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return map[string]string{}, false
@@ -211,7 +212,7 @@ func (o CreditNoteCreateLine) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["description"] = o.Description
 	toSerialize["amount"] = o.Amount
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
 	return toSerialize, nil

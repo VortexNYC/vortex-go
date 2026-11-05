@@ -21,7 +21,7 @@ var _ MappedNullable = &CliListenDeliveryResponse{}
 // CliListenDeliveryResponse struct for CliListenDeliveryResponse
 type CliListenDeliveryResponse struct {
 	Data CliListenDeliveryResponseData `json:"data"`
-	RequestId string `json:"requestId"`
+	RequestId NullableString `json:"requestId"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,7 +31,7 @@ type _CliListenDeliveryResponse CliListenDeliveryResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCliListenDeliveryResponse(data CliListenDeliveryResponseData, requestId string) *CliListenDeliveryResponse {
+func NewCliListenDeliveryResponse(data CliListenDeliveryResponseData, requestId NullableString) *CliListenDeliveryResponse {
 	this := CliListenDeliveryResponse{}
 	this.Data = data
 	this.RequestId = requestId
@@ -71,27 +71,29 @@ func (o *CliListenDeliveryResponse) SetData(v CliListenDeliveryResponseData) {
 }
 
 // GetRequestId returns the RequestId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *CliListenDeliveryResponse) GetRequestId() string {
-	if o == nil {
+	if o == nil || o.RequestId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.RequestId
+	return *o.RequestId.Get()
 }
 
 // GetRequestIdOk returns a tuple with the RequestId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CliListenDeliveryResponse) GetRequestIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RequestId, true
+	return o.RequestId.Get(), o.RequestId.IsSet()
 }
 
 // SetRequestId sets field value
 func (o *CliListenDeliveryResponse) SetRequestId(v string) {
-	o.RequestId = v
+	o.RequestId.Set(&v)
 }
 
 func (o CliListenDeliveryResponse) MarshalJSON() ([]byte, error) {
@@ -105,7 +107,7 @@ func (o CliListenDeliveryResponse) MarshalJSON() ([]byte, error) {
 func (o CliListenDeliveryResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["data"] = o.Data
-	toSerialize["requestId"] = o.RequestId
+	toSerialize["requestId"] = o.RequestId.Get()
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

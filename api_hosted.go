@@ -9520,15 +9520,15 @@ type HostedAPIUpdateHostedPaymentMethodRequest struct {
 	ctx context.Context
 	ApiService *HostedAPIService
 	tail string
-	hostedUpdatePaymentMethodActionRequest *HostedUpdatePaymentMethodActionRequest
+	body *interface{}
 }
 
-func (r HostedAPIUpdateHostedPaymentMethodRequest) HostedUpdatePaymentMethodActionRequest(hostedUpdatePaymentMethodActionRequest HostedUpdatePaymentMethodActionRequest) HostedAPIUpdateHostedPaymentMethodRequest {
-	r.hostedUpdatePaymentMethodActionRequest = &hostedUpdatePaymentMethodActionRequest
+func (r HostedAPIUpdateHostedPaymentMethodRequest) Body(body interface{}) HostedAPIUpdateHostedPaymentMethodRequest {
+	r.body = &body
 	return r
 }
 
-func (r HostedAPIUpdateHostedPaymentMethodRequest) Execute() (*HostedUpdatePaymentMethodActionResponse, *http.Response, error) {
+func (r HostedAPIUpdateHostedPaymentMethodRequest) Execute() (interface{}, *http.Response, error) {
 	return r.ApiService.UpdateHostedPaymentMethodExecute(r)
 }
 
@@ -9548,13 +9548,13 @@ func (a *HostedAPIService) UpdateHostedPaymentMethod(ctx context.Context, tail s
 }
 
 // Execute executes the request
-//  @return HostedUpdatePaymentMethodActionResponse
-func (a *HostedAPIService) UpdateHostedPaymentMethodExecute(r HostedAPIUpdateHostedPaymentMethodRequest) (*HostedUpdatePaymentMethodActionResponse, *http.Response, error) {
+//  @return interface{}
+func (a *HostedAPIService) UpdateHostedPaymentMethodExecute(r HostedAPIUpdateHostedPaymentMethodRequest) (interface{}, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *HostedUpdatePaymentMethodActionResponse
+		localVarReturnValue  interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HostedAPIService.UpdateHostedPaymentMethod")
@@ -9568,8 +9568,8 @@ func (a *HostedAPIService) UpdateHostedPaymentMethodExecute(r HostedAPIUpdateHos
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.hostedUpdatePaymentMethodActionRequest == nil {
-		return localVarReturnValue, nil, reportError("hostedUpdatePaymentMethodActionRequest is required and must be specified")
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -9590,7 +9590,7 @@ func (a *HostedAPIService) UpdateHostedPaymentMethodExecute(r HostedAPIUpdateHos
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.hostedUpdatePaymentMethodActionRequest
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

@@ -20,22 +20,22 @@ var _ MappedNullable = &TaxTransactionQuoteRequest{}
 
 // TaxTransactionQuoteRequest struct for TaxTransactionQuoteRequest
 type TaxTransactionQuoteRequest struct {
-	SourceDocumentId string `json:"sourceDocumentId"`
+	SourceDocumentId NullableString `json:"sourceDocumentId"`
 	SourceDocumentType *string `json:"sourceDocumentType,omitempty"`
-	IdempotencyKey string `json:"idempotencyKey"`
-	Currency string `json:"currency"`
+	IdempotencyKey NullableString `json:"idempotencyKey"`
+	Currency NullableString `json:"currency"`
 	Lines []TaxTransactionQuoteRequestLinesInner `json:"lines"`
 	CustomerTaxAddress TaxAddress `json:"customerTaxAddress"`
-	CustomerExternalId *string `json:"customerExternalId,omitempty"`
-	CustomerName *string `json:"customerName,omitempty"`
-	CustomerEmail *string `json:"customerEmail,omitempty"`
+	CustomerExternalId NullableString `json:"customerExternalId,omitempty"`
+	CustomerName NullableString `json:"customerName,omitempty"`
+	CustomerEmail NullableString `json:"customerEmail,omitempty"`
 	CustomerType *string `json:"customerType,omitempty"`
-	CustomerTaxExempt *bool `json:"customerTaxExempt,omitempty"`
-	CustomerTaxExemptionRef *string `json:"customerTaxExemptionRef,omitempty"`
+	CustomerTaxExempt NullableBool `json:"customerTaxExempt,omitempty"`
+	CustomerTaxExemptionRef NullableString `json:"customerTaxExemptionRef,omitempty"`
 	TaxBehavior *TaxBehavior `json:"taxBehavior,omitempty"`
 	TaxIdValidation *string `json:"taxIdValidation,omitempty"`
 	TaxIdUnverifiableTreatment *string `json:"taxIdUnverifiableTreatment,omitempty"`
-	FallbackOnProviderUnavailable *bool `json:"fallbackOnProviderUnavailable,omitempty"`
+	FallbackOnProviderUnavailable NullableBool `json:"fallbackOnProviderUnavailable,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -45,7 +45,7 @@ type _TaxTransactionQuoteRequest TaxTransactionQuoteRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTaxTransactionQuoteRequest(sourceDocumentId string, idempotencyKey string, currency string, lines []TaxTransactionQuoteRequestLinesInner, customerTaxAddress TaxAddress) *TaxTransactionQuoteRequest {
+func NewTaxTransactionQuoteRequest(sourceDocumentId NullableString, idempotencyKey NullableString, currency NullableString, lines []TaxTransactionQuoteRequestLinesInner, customerTaxAddress TaxAddress) *TaxTransactionQuoteRequest {
 	this := TaxTransactionQuoteRequest{}
 	this.SourceDocumentId = sourceDocumentId
 	this.IdempotencyKey = idempotencyKey
@@ -64,27 +64,29 @@ func NewTaxTransactionQuoteRequestWithDefaults() *TaxTransactionQuoteRequest {
 }
 
 // GetSourceDocumentId returns the SourceDocumentId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *TaxTransactionQuoteRequest) GetSourceDocumentId() string {
-	if o == nil {
+	if o == nil || o.SourceDocumentId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.SourceDocumentId
+	return *o.SourceDocumentId.Get()
 }
 
 // GetSourceDocumentIdOk returns a tuple with the SourceDocumentId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TaxTransactionQuoteRequest) GetSourceDocumentIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SourceDocumentId, true
+	return o.SourceDocumentId.Get(), o.SourceDocumentId.IsSet()
 }
 
 // SetSourceDocumentId sets field value
 func (o *TaxTransactionQuoteRequest) SetSourceDocumentId(v string) {
-	o.SourceDocumentId = v
+	o.SourceDocumentId.Set(&v)
 }
 
 // GetSourceDocumentType returns the SourceDocumentType field value if set, zero value otherwise.
@@ -120,51 +122,55 @@ func (o *TaxTransactionQuoteRequest) SetSourceDocumentType(v string) {
 }
 
 // GetIdempotencyKey returns the IdempotencyKey field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *TaxTransactionQuoteRequest) GetIdempotencyKey() string {
-	if o == nil {
+	if o == nil || o.IdempotencyKey.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.IdempotencyKey
+	return *o.IdempotencyKey.Get()
 }
 
 // GetIdempotencyKeyOk returns a tuple with the IdempotencyKey field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TaxTransactionQuoteRequest) GetIdempotencyKeyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.IdempotencyKey, true
+	return o.IdempotencyKey.Get(), o.IdempotencyKey.IsSet()
 }
 
 // SetIdempotencyKey sets field value
 func (o *TaxTransactionQuoteRequest) SetIdempotencyKey(v string) {
-	o.IdempotencyKey = v
+	o.IdempotencyKey.Set(&v)
 }
 
 // GetCurrency returns the Currency field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *TaxTransactionQuoteRequest) GetCurrency() string {
-	if o == nil {
+	if o == nil || o.Currency.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Currency
+	return *o.Currency.Get()
 }
 
 // GetCurrencyOk returns a tuple with the Currency field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TaxTransactionQuoteRequest) GetCurrencyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Currency, true
+	return o.Currency.Get(), o.Currency.IsSet()
 }
 
 // SetCurrency sets field value
 func (o *TaxTransactionQuoteRequest) SetCurrency(v string) {
-	o.Currency = v
+	o.Currency.Set(&v)
 }
 
 // GetLines returns the Lines field value
@@ -215,100 +221,130 @@ func (o *TaxTransactionQuoteRequest) SetCustomerTaxAddress(v TaxAddress) {
 	o.CustomerTaxAddress = v
 }
 
-// GetCustomerExternalId returns the CustomerExternalId field value if set, zero value otherwise.
+// GetCustomerExternalId returns the CustomerExternalId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TaxTransactionQuoteRequest) GetCustomerExternalId() string {
-	if o == nil || IsNil(o.CustomerExternalId) {
+	if o == nil || IsNil(o.CustomerExternalId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CustomerExternalId
+	return *o.CustomerExternalId.Get()
 }
 
 // GetCustomerExternalIdOk returns a tuple with the CustomerExternalId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TaxTransactionQuoteRequest) GetCustomerExternalIdOk() (*string, bool) {
-	if o == nil || IsNil(o.CustomerExternalId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CustomerExternalId, true
+	return o.CustomerExternalId.Get(), o.CustomerExternalId.IsSet()
 }
 
 // HasCustomerExternalId returns a boolean if a field has been set.
 func (o *TaxTransactionQuoteRequest) HasCustomerExternalId() bool {
-	if o != nil && !IsNil(o.CustomerExternalId) {
+	if o != nil && o.CustomerExternalId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCustomerExternalId gets a reference to the given string and assigns it to the CustomerExternalId field.
+// SetCustomerExternalId gets a reference to the given NullableString and assigns it to the CustomerExternalId field.
 func (o *TaxTransactionQuoteRequest) SetCustomerExternalId(v string) {
-	o.CustomerExternalId = &v
+	o.CustomerExternalId.Set(&v)
+}
+// SetCustomerExternalIdNil sets the value for CustomerExternalId to be an explicit nil
+func (o *TaxTransactionQuoteRequest) SetCustomerExternalIdNil() {
+	o.CustomerExternalId.Set(nil)
 }
 
-// GetCustomerName returns the CustomerName field value if set, zero value otherwise.
+// UnsetCustomerExternalId ensures that no value is present for CustomerExternalId, not even an explicit nil
+func (o *TaxTransactionQuoteRequest) UnsetCustomerExternalId() {
+	o.CustomerExternalId.Unset()
+}
+
+// GetCustomerName returns the CustomerName field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TaxTransactionQuoteRequest) GetCustomerName() string {
-	if o == nil || IsNil(o.CustomerName) {
+	if o == nil || IsNil(o.CustomerName.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CustomerName
+	return *o.CustomerName.Get()
 }
 
 // GetCustomerNameOk returns a tuple with the CustomerName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TaxTransactionQuoteRequest) GetCustomerNameOk() (*string, bool) {
-	if o == nil || IsNil(o.CustomerName) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CustomerName, true
+	return o.CustomerName.Get(), o.CustomerName.IsSet()
 }
 
 // HasCustomerName returns a boolean if a field has been set.
 func (o *TaxTransactionQuoteRequest) HasCustomerName() bool {
-	if o != nil && !IsNil(o.CustomerName) {
+	if o != nil && o.CustomerName.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCustomerName gets a reference to the given string and assigns it to the CustomerName field.
+// SetCustomerName gets a reference to the given NullableString and assigns it to the CustomerName field.
 func (o *TaxTransactionQuoteRequest) SetCustomerName(v string) {
-	o.CustomerName = &v
+	o.CustomerName.Set(&v)
+}
+// SetCustomerNameNil sets the value for CustomerName to be an explicit nil
+func (o *TaxTransactionQuoteRequest) SetCustomerNameNil() {
+	o.CustomerName.Set(nil)
 }
 
-// GetCustomerEmail returns the CustomerEmail field value if set, zero value otherwise.
+// UnsetCustomerName ensures that no value is present for CustomerName, not even an explicit nil
+func (o *TaxTransactionQuoteRequest) UnsetCustomerName() {
+	o.CustomerName.Unset()
+}
+
+// GetCustomerEmail returns the CustomerEmail field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TaxTransactionQuoteRequest) GetCustomerEmail() string {
-	if o == nil || IsNil(o.CustomerEmail) {
+	if o == nil || IsNil(o.CustomerEmail.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CustomerEmail
+	return *o.CustomerEmail.Get()
 }
 
 // GetCustomerEmailOk returns a tuple with the CustomerEmail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TaxTransactionQuoteRequest) GetCustomerEmailOk() (*string, bool) {
-	if o == nil || IsNil(o.CustomerEmail) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CustomerEmail, true
+	return o.CustomerEmail.Get(), o.CustomerEmail.IsSet()
 }
 
 // HasCustomerEmail returns a boolean if a field has been set.
 func (o *TaxTransactionQuoteRequest) HasCustomerEmail() bool {
-	if o != nil && !IsNil(o.CustomerEmail) {
+	if o != nil && o.CustomerEmail.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCustomerEmail gets a reference to the given string and assigns it to the CustomerEmail field.
+// SetCustomerEmail gets a reference to the given NullableString and assigns it to the CustomerEmail field.
 func (o *TaxTransactionQuoteRequest) SetCustomerEmail(v string) {
-	o.CustomerEmail = &v
+	o.CustomerEmail.Set(&v)
+}
+// SetCustomerEmailNil sets the value for CustomerEmail to be an explicit nil
+func (o *TaxTransactionQuoteRequest) SetCustomerEmailNil() {
+	o.CustomerEmail.Set(nil)
+}
+
+// UnsetCustomerEmail ensures that no value is present for CustomerEmail, not even an explicit nil
+func (o *TaxTransactionQuoteRequest) UnsetCustomerEmail() {
+	o.CustomerEmail.Unset()
 }
 
 // GetCustomerType returns the CustomerType field value if set, zero value otherwise.
@@ -343,68 +379,88 @@ func (o *TaxTransactionQuoteRequest) SetCustomerType(v string) {
 	o.CustomerType = &v
 }
 
-// GetCustomerTaxExempt returns the CustomerTaxExempt field value if set, zero value otherwise.
+// GetCustomerTaxExempt returns the CustomerTaxExempt field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TaxTransactionQuoteRequest) GetCustomerTaxExempt() bool {
-	if o == nil || IsNil(o.CustomerTaxExempt) {
+	if o == nil || IsNil(o.CustomerTaxExempt.Get()) {
 		var ret bool
 		return ret
 	}
-	return *o.CustomerTaxExempt
+	return *o.CustomerTaxExempt.Get()
 }
 
 // GetCustomerTaxExemptOk returns a tuple with the CustomerTaxExempt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TaxTransactionQuoteRequest) GetCustomerTaxExemptOk() (*bool, bool) {
-	if o == nil || IsNil(o.CustomerTaxExempt) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CustomerTaxExempt, true
+	return o.CustomerTaxExempt.Get(), o.CustomerTaxExempt.IsSet()
 }
 
 // HasCustomerTaxExempt returns a boolean if a field has been set.
 func (o *TaxTransactionQuoteRequest) HasCustomerTaxExempt() bool {
-	if o != nil && !IsNil(o.CustomerTaxExempt) {
+	if o != nil && o.CustomerTaxExempt.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCustomerTaxExempt gets a reference to the given bool and assigns it to the CustomerTaxExempt field.
+// SetCustomerTaxExempt gets a reference to the given NullableBool and assigns it to the CustomerTaxExempt field.
 func (o *TaxTransactionQuoteRequest) SetCustomerTaxExempt(v bool) {
-	o.CustomerTaxExempt = &v
+	o.CustomerTaxExempt.Set(&v)
+}
+// SetCustomerTaxExemptNil sets the value for CustomerTaxExempt to be an explicit nil
+func (o *TaxTransactionQuoteRequest) SetCustomerTaxExemptNil() {
+	o.CustomerTaxExempt.Set(nil)
 }
 
-// GetCustomerTaxExemptionRef returns the CustomerTaxExemptionRef field value if set, zero value otherwise.
+// UnsetCustomerTaxExempt ensures that no value is present for CustomerTaxExempt, not even an explicit nil
+func (o *TaxTransactionQuoteRequest) UnsetCustomerTaxExempt() {
+	o.CustomerTaxExempt.Unset()
+}
+
+// GetCustomerTaxExemptionRef returns the CustomerTaxExemptionRef field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TaxTransactionQuoteRequest) GetCustomerTaxExemptionRef() string {
-	if o == nil || IsNil(o.CustomerTaxExemptionRef) {
+	if o == nil || IsNil(o.CustomerTaxExemptionRef.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CustomerTaxExemptionRef
+	return *o.CustomerTaxExemptionRef.Get()
 }
 
 // GetCustomerTaxExemptionRefOk returns a tuple with the CustomerTaxExemptionRef field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TaxTransactionQuoteRequest) GetCustomerTaxExemptionRefOk() (*string, bool) {
-	if o == nil || IsNil(o.CustomerTaxExemptionRef) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CustomerTaxExemptionRef, true
+	return o.CustomerTaxExemptionRef.Get(), o.CustomerTaxExemptionRef.IsSet()
 }
 
 // HasCustomerTaxExemptionRef returns a boolean if a field has been set.
 func (o *TaxTransactionQuoteRequest) HasCustomerTaxExemptionRef() bool {
-	if o != nil && !IsNil(o.CustomerTaxExemptionRef) {
+	if o != nil && o.CustomerTaxExemptionRef.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCustomerTaxExemptionRef gets a reference to the given string and assigns it to the CustomerTaxExemptionRef field.
+// SetCustomerTaxExemptionRef gets a reference to the given NullableString and assigns it to the CustomerTaxExemptionRef field.
 func (o *TaxTransactionQuoteRequest) SetCustomerTaxExemptionRef(v string) {
-	o.CustomerTaxExemptionRef = &v
+	o.CustomerTaxExemptionRef.Set(&v)
+}
+// SetCustomerTaxExemptionRefNil sets the value for CustomerTaxExemptionRef to be an explicit nil
+func (o *TaxTransactionQuoteRequest) SetCustomerTaxExemptionRefNil() {
+	o.CustomerTaxExemptionRef.Set(nil)
+}
+
+// UnsetCustomerTaxExemptionRef ensures that no value is present for CustomerTaxExemptionRef, not even an explicit nil
+func (o *TaxTransactionQuoteRequest) UnsetCustomerTaxExemptionRef() {
+	o.CustomerTaxExemptionRef.Unset()
 }
 
 // GetTaxBehavior returns the TaxBehavior field value if set, zero value otherwise.
@@ -503,36 +559,46 @@ func (o *TaxTransactionQuoteRequest) SetTaxIdUnverifiableTreatment(v string) {
 	o.TaxIdUnverifiableTreatment = &v
 }
 
-// GetFallbackOnProviderUnavailable returns the FallbackOnProviderUnavailable field value if set, zero value otherwise.
+// GetFallbackOnProviderUnavailable returns the FallbackOnProviderUnavailable field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TaxTransactionQuoteRequest) GetFallbackOnProviderUnavailable() bool {
-	if o == nil || IsNil(o.FallbackOnProviderUnavailable) {
+	if o == nil || IsNil(o.FallbackOnProviderUnavailable.Get()) {
 		var ret bool
 		return ret
 	}
-	return *o.FallbackOnProviderUnavailable
+	return *o.FallbackOnProviderUnavailable.Get()
 }
 
 // GetFallbackOnProviderUnavailableOk returns a tuple with the FallbackOnProviderUnavailable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TaxTransactionQuoteRequest) GetFallbackOnProviderUnavailableOk() (*bool, bool) {
-	if o == nil || IsNil(o.FallbackOnProviderUnavailable) {
+	if o == nil {
 		return nil, false
 	}
-	return o.FallbackOnProviderUnavailable, true
+	return o.FallbackOnProviderUnavailable.Get(), o.FallbackOnProviderUnavailable.IsSet()
 }
 
 // HasFallbackOnProviderUnavailable returns a boolean if a field has been set.
 func (o *TaxTransactionQuoteRequest) HasFallbackOnProviderUnavailable() bool {
-	if o != nil && !IsNil(o.FallbackOnProviderUnavailable) {
+	if o != nil && o.FallbackOnProviderUnavailable.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetFallbackOnProviderUnavailable gets a reference to the given bool and assigns it to the FallbackOnProviderUnavailable field.
+// SetFallbackOnProviderUnavailable gets a reference to the given NullableBool and assigns it to the FallbackOnProviderUnavailable field.
 func (o *TaxTransactionQuoteRequest) SetFallbackOnProviderUnavailable(v bool) {
-	o.FallbackOnProviderUnavailable = &v
+	o.FallbackOnProviderUnavailable.Set(&v)
+}
+// SetFallbackOnProviderUnavailableNil sets the value for FallbackOnProviderUnavailable to be an explicit nil
+func (o *TaxTransactionQuoteRequest) SetFallbackOnProviderUnavailableNil() {
+	o.FallbackOnProviderUnavailable.Set(nil)
+}
+
+// UnsetFallbackOnProviderUnavailable ensures that no value is present for FallbackOnProviderUnavailable, not even an explicit nil
+func (o *TaxTransactionQuoteRequest) UnsetFallbackOnProviderUnavailable() {
+	o.FallbackOnProviderUnavailable.Unset()
 }
 
 func (o TaxTransactionQuoteRequest) MarshalJSON() ([]byte, error) {
@@ -545,31 +611,31 @@ func (o TaxTransactionQuoteRequest) MarshalJSON() ([]byte, error) {
 
 func (o TaxTransactionQuoteRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["sourceDocumentId"] = o.SourceDocumentId
+	toSerialize["sourceDocumentId"] = o.SourceDocumentId.Get()
 	if !IsNil(o.SourceDocumentType) {
 		toSerialize["sourceDocumentType"] = o.SourceDocumentType
 	}
-	toSerialize["idempotencyKey"] = o.IdempotencyKey
-	toSerialize["currency"] = o.Currency
+	toSerialize["idempotencyKey"] = o.IdempotencyKey.Get()
+	toSerialize["currency"] = o.Currency.Get()
 	toSerialize["lines"] = o.Lines
 	toSerialize["customerTaxAddress"] = o.CustomerTaxAddress
-	if !IsNil(o.CustomerExternalId) {
-		toSerialize["customerExternalId"] = o.CustomerExternalId
+	if o.CustomerExternalId.IsSet() {
+		toSerialize["customerExternalId"] = o.CustomerExternalId.Get()
 	}
-	if !IsNil(o.CustomerName) {
-		toSerialize["customerName"] = o.CustomerName
+	if o.CustomerName.IsSet() {
+		toSerialize["customerName"] = o.CustomerName.Get()
 	}
-	if !IsNil(o.CustomerEmail) {
-		toSerialize["customerEmail"] = o.CustomerEmail
+	if o.CustomerEmail.IsSet() {
+		toSerialize["customerEmail"] = o.CustomerEmail.Get()
 	}
 	if !IsNil(o.CustomerType) {
 		toSerialize["customerType"] = o.CustomerType
 	}
-	if !IsNil(o.CustomerTaxExempt) {
-		toSerialize["customerTaxExempt"] = o.CustomerTaxExempt
+	if o.CustomerTaxExempt.IsSet() {
+		toSerialize["customerTaxExempt"] = o.CustomerTaxExempt.Get()
 	}
-	if !IsNil(o.CustomerTaxExemptionRef) {
-		toSerialize["customerTaxExemptionRef"] = o.CustomerTaxExemptionRef
+	if o.CustomerTaxExemptionRef.IsSet() {
+		toSerialize["customerTaxExemptionRef"] = o.CustomerTaxExemptionRef.Get()
 	}
 	if !IsNil(o.TaxBehavior) {
 		toSerialize["taxBehavior"] = o.TaxBehavior
@@ -580,8 +646,8 @@ func (o TaxTransactionQuoteRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TaxIdUnverifiableTreatment) {
 		toSerialize["taxIdUnverifiableTreatment"] = o.TaxIdUnverifiableTreatment
 	}
-	if !IsNil(o.FallbackOnProviderUnavailable) {
-		toSerialize["fallbackOnProviderUnavailable"] = o.FallbackOnProviderUnavailable
+	if o.FallbackOnProviderUnavailable.IsSet() {
+		toSerialize["fallbackOnProviderUnavailable"] = o.FallbackOnProviderUnavailable.Get()
 	}
 
 	for key, value := range o.AdditionalProperties {

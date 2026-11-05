@@ -21,7 +21,7 @@ var _ MappedNullable = &CliListenAckResponseData{}
 
 // CliListenAckResponseData struct for CliListenAckResponseData
 type CliListenAckResponseData struct {
-	DeliveryId string `json:"deliveryId"`
+	DeliveryId NullableString `json:"deliveryId"`
 	Status string `json:"status"`
 }
 
@@ -31,7 +31,7 @@ type _CliListenAckResponseData CliListenAckResponseData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCliListenAckResponseData(deliveryId string, status string) *CliListenAckResponseData {
+func NewCliListenAckResponseData(deliveryId NullableString, status string) *CliListenAckResponseData {
 	this := CliListenAckResponseData{}
 	this.DeliveryId = deliveryId
 	this.Status = status
@@ -47,27 +47,29 @@ func NewCliListenAckResponseDataWithDefaults() *CliListenAckResponseData {
 }
 
 // GetDeliveryId returns the DeliveryId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *CliListenAckResponseData) GetDeliveryId() string {
-	if o == nil {
+	if o == nil || o.DeliveryId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.DeliveryId
+	return *o.DeliveryId.Get()
 }
 
 // GetDeliveryIdOk returns a tuple with the DeliveryId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CliListenAckResponseData) GetDeliveryIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.DeliveryId, true
+	return o.DeliveryId.Get(), o.DeliveryId.IsSet()
 }
 
 // SetDeliveryId sets field value
 func (o *CliListenAckResponseData) SetDeliveryId(v string) {
-	o.DeliveryId = v
+	o.DeliveryId.Set(&v)
 }
 
 // GetStatus returns the Status field value
@@ -104,7 +106,7 @@ func (o CliListenAckResponseData) MarshalJSON() ([]byte, error) {
 
 func (o CliListenAckResponseData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["deliveryId"] = o.DeliveryId
+	toSerialize["deliveryId"] = o.DeliveryId.Get()
 	toSerialize["status"] = o.Status
 	return toSerialize, nil
 }

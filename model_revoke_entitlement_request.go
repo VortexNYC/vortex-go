@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,12 +20,13 @@ var _ MappedNullable = &RevokeEntitlementRequest{}
 
 // RevokeEntitlementRequest struct for RevokeEntitlementRequest
 type RevokeEntitlementRequest struct {
-	CustomerId string `json:"customerId"`
-	BillingAccountId string `json:"billingAccountId"`
-	EntitlementKey string `json:"entitlementKey"`
+	CustomerId NullableString `json:"customerId"`
+	BillingAccountId NullableString `json:"billingAccountId"`
+	EntitlementKey NullableString `json:"entitlementKey"`
 	Source string `json:"source"`
-	SourceRef string `json:"sourceRef"`
-	Reason *string `json:"reason,omitempty"`
+	SourceRef NullableString `json:"sourceRef"`
+	Reason NullableString `json:"reason,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _RevokeEntitlementRequest RevokeEntitlementRequest
@@ -35,7 +35,7 @@ type _RevokeEntitlementRequest RevokeEntitlementRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRevokeEntitlementRequest(customerId string, billingAccountId string, entitlementKey string, source string, sourceRef string) *RevokeEntitlementRequest {
+func NewRevokeEntitlementRequest(customerId NullableString, billingAccountId NullableString, entitlementKey NullableString, source string, sourceRef NullableString) *RevokeEntitlementRequest {
 	this := RevokeEntitlementRequest{}
 	this.CustomerId = customerId
 	this.BillingAccountId = billingAccountId
@@ -54,75 +54,81 @@ func NewRevokeEntitlementRequestWithDefaults() *RevokeEntitlementRequest {
 }
 
 // GetCustomerId returns the CustomerId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *RevokeEntitlementRequest) GetCustomerId() string {
-	if o == nil {
+	if o == nil || o.CustomerId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.CustomerId
+	return *o.CustomerId.Get()
 }
 
 // GetCustomerIdOk returns a tuple with the CustomerId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RevokeEntitlementRequest) GetCustomerIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CustomerId, true
+	return o.CustomerId.Get(), o.CustomerId.IsSet()
 }
 
 // SetCustomerId sets field value
 func (o *RevokeEntitlementRequest) SetCustomerId(v string) {
-	o.CustomerId = v
+	o.CustomerId.Set(&v)
 }
 
 // GetBillingAccountId returns the BillingAccountId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *RevokeEntitlementRequest) GetBillingAccountId() string {
-	if o == nil {
+	if o == nil || o.BillingAccountId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.BillingAccountId
+	return *o.BillingAccountId.Get()
 }
 
 // GetBillingAccountIdOk returns a tuple with the BillingAccountId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RevokeEntitlementRequest) GetBillingAccountIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.BillingAccountId, true
+	return o.BillingAccountId.Get(), o.BillingAccountId.IsSet()
 }
 
 // SetBillingAccountId sets field value
 func (o *RevokeEntitlementRequest) SetBillingAccountId(v string) {
-	o.BillingAccountId = v
+	o.BillingAccountId.Set(&v)
 }
 
 // GetEntitlementKey returns the EntitlementKey field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *RevokeEntitlementRequest) GetEntitlementKey() string {
-	if o == nil {
+	if o == nil || o.EntitlementKey.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.EntitlementKey
+	return *o.EntitlementKey.Get()
 }
 
 // GetEntitlementKeyOk returns a tuple with the EntitlementKey field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RevokeEntitlementRequest) GetEntitlementKeyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.EntitlementKey, true
+	return o.EntitlementKey.Get(), o.EntitlementKey.IsSet()
 }
 
 // SetEntitlementKey sets field value
 func (o *RevokeEntitlementRequest) SetEntitlementKey(v string) {
-	o.EntitlementKey = v
+	o.EntitlementKey.Set(&v)
 }
 
 // GetSource returns the Source field value
@@ -150,59 +156,71 @@ func (o *RevokeEntitlementRequest) SetSource(v string) {
 }
 
 // GetSourceRef returns the SourceRef field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *RevokeEntitlementRequest) GetSourceRef() string {
-	if o == nil {
+	if o == nil || o.SourceRef.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.SourceRef
+	return *o.SourceRef.Get()
 }
 
 // GetSourceRefOk returns a tuple with the SourceRef field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RevokeEntitlementRequest) GetSourceRefOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SourceRef, true
+	return o.SourceRef.Get(), o.SourceRef.IsSet()
 }
 
 // SetSourceRef sets field value
 func (o *RevokeEntitlementRequest) SetSourceRef(v string) {
-	o.SourceRef = v
+	o.SourceRef.Set(&v)
 }
 
-// GetReason returns the Reason field value if set, zero value otherwise.
+// GetReason returns the Reason field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *RevokeEntitlementRequest) GetReason() string {
-	if o == nil || IsNil(o.Reason) {
+	if o == nil || IsNil(o.Reason.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Reason
+	return *o.Reason.Get()
 }
 
 // GetReasonOk returns a tuple with the Reason field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RevokeEntitlementRequest) GetReasonOk() (*string, bool) {
-	if o == nil || IsNil(o.Reason) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Reason, true
+	return o.Reason.Get(), o.Reason.IsSet()
 }
 
 // HasReason returns a boolean if a field has been set.
 func (o *RevokeEntitlementRequest) HasReason() bool {
-	if o != nil && !IsNil(o.Reason) {
+	if o != nil && o.Reason.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetReason gets a reference to the given string and assigns it to the Reason field.
+// SetReason gets a reference to the given NullableString and assigns it to the Reason field.
 func (o *RevokeEntitlementRequest) SetReason(v string) {
-	o.Reason = &v
+	o.Reason.Set(&v)
+}
+// SetReasonNil sets the value for Reason to be an explicit nil
+func (o *RevokeEntitlementRequest) SetReasonNil() {
+	o.Reason.Set(nil)
+}
+
+// UnsetReason ensures that no value is present for Reason, not even an explicit nil
+func (o *RevokeEntitlementRequest) UnsetReason() {
+	o.Reason.Unset()
 }
 
 func (o RevokeEntitlementRequest) MarshalJSON() ([]byte, error) {
@@ -215,14 +233,19 @@ func (o RevokeEntitlementRequest) MarshalJSON() ([]byte, error) {
 
 func (o RevokeEntitlementRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["customerId"] = o.CustomerId
-	toSerialize["billingAccountId"] = o.BillingAccountId
-	toSerialize["entitlementKey"] = o.EntitlementKey
+	toSerialize["customerId"] = o.CustomerId.Get()
+	toSerialize["billingAccountId"] = o.BillingAccountId.Get()
+	toSerialize["entitlementKey"] = o.EntitlementKey.Get()
 	toSerialize["source"] = o.Source
-	toSerialize["sourceRef"] = o.SourceRef
-	if !IsNil(o.Reason) {
-		toSerialize["reason"] = o.Reason
+	toSerialize["sourceRef"] = o.SourceRef.Get()
+	if o.Reason.IsSet() {
+		toSerialize["reason"] = o.Reason.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -254,15 +277,25 @@ func (o *RevokeEntitlementRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varRevokeEntitlementRequest := _RevokeEntitlementRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varRevokeEntitlementRequest)
+	err = json.Unmarshal(data, &varRevokeEntitlementRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = RevokeEntitlementRequest(varRevokeEntitlementRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "customerId")
+		delete(additionalProperties, "billingAccountId")
+		delete(additionalProperties, "entitlementKey")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "sourceRef")
+		delete(additionalProperties, "reason")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

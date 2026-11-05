@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,9 +20,10 @@ var _ MappedNullable = &CreditNoteRefundRequest{}
 
 // CreditNoteRefundRequest struct for CreditNoteRefundRequest
 type CreditNoteRefundRequest struct {
-	PaymentId string `json:"paymentId"`
-	IdempotencyKey *string `json:"idempotencyKey,omitempty"`
+	PaymentId NullableString `json:"paymentId"`
+	IdempotencyKey NullableString `json:"idempotencyKey,omitempty"`
 	CustomerTaxAddress *TaxAddress `json:"customerTaxAddress,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreditNoteRefundRequest CreditNoteRefundRequest
@@ -32,7 +32,7 @@ type _CreditNoteRefundRequest CreditNoteRefundRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreditNoteRefundRequest(paymentId string) *CreditNoteRefundRequest {
+func NewCreditNoteRefundRequest(paymentId NullableString) *CreditNoteRefundRequest {
 	this := CreditNoteRefundRequest{}
 	this.PaymentId = paymentId
 	return &this
@@ -47,59 +47,71 @@ func NewCreditNoteRefundRequestWithDefaults() *CreditNoteRefundRequest {
 }
 
 // GetPaymentId returns the PaymentId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *CreditNoteRefundRequest) GetPaymentId() string {
-	if o == nil {
+	if o == nil || o.PaymentId.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.PaymentId
+	return *o.PaymentId.Get()
 }
 
 // GetPaymentIdOk returns a tuple with the PaymentId field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreditNoteRefundRequest) GetPaymentIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PaymentId, true
+	return o.PaymentId.Get(), o.PaymentId.IsSet()
 }
 
 // SetPaymentId sets field value
 func (o *CreditNoteRefundRequest) SetPaymentId(v string) {
-	o.PaymentId = v
+	o.PaymentId.Set(&v)
 }
 
-// GetIdempotencyKey returns the IdempotencyKey field value if set, zero value otherwise.
+// GetIdempotencyKey returns the IdempotencyKey field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreditNoteRefundRequest) GetIdempotencyKey() string {
-	if o == nil || IsNil(o.IdempotencyKey) {
+	if o == nil || IsNil(o.IdempotencyKey.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.IdempotencyKey
+	return *o.IdempotencyKey.Get()
 }
 
 // GetIdempotencyKeyOk returns a tuple with the IdempotencyKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreditNoteRefundRequest) GetIdempotencyKeyOk() (*string, bool) {
-	if o == nil || IsNil(o.IdempotencyKey) {
+	if o == nil {
 		return nil, false
 	}
-	return o.IdempotencyKey, true
+	return o.IdempotencyKey.Get(), o.IdempotencyKey.IsSet()
 }
 
 // HasIdempotencyKey returns a boolean if a field has been set.
 func (o *CreditNoteRefundRequest) HasIdempotencyKey() bool {
-	if o != nil && !IsNil(o.IdempotencyKey) {
+	if o != nil && o.IdempotencyKey.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetIdempotencyKey gets a reference to the given string and assigns it to the IdempotencyKey field.
+// SetIdempotencyKey gets a reference to the given NullableString and assigns it to the IdempotencyKey field.
 func (o *CreditNoteRefundRequest) SetIdempotencyKey(v string) {
-	o.IdempotencyKey = &v
+	o.IdempotencyKey.Set(&v)
+}
+// SetIdempotencyKeyNil sets the value for IdempotencyKey to be an explicit nil
+func (o *CreditNoteRefundRequest) SetIdempotencyKeyNil() {
+	o.IdempotencyKey.Set(nil)
+}
+
+// UnsetIdempotencyKey ensures that no value is present for IdempotencyKey, not even an explicit nil
+func (o *CreditNoteRefundRequest) UnsetIdempotencyKey() {
+	o.IdempotencyKey.Unset()
 }
 
 // GetCustomerTaxAddress returns the CustomerTaxAddress field value if set, zero value otherwise.
@@ -144,13 +156,18 @@ func (o CreditNoteRefundRequest) MarshalJSON() ([]byte, error) {
 
 func (o CreditNoteRefundRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["paymentId"] = o.PaymentId
-	if !IsNil(o.IdempotencyKey) {
-		toSerialize["idempotencyKey"] = o.IdempotencyKey
+	toSerialize["paymentId"] = o.PaymentId.Get()
+	if o.IdempotencyKey.IsSet() {
+		toSerialize["idempotencyKey"] = o.IdempotencyKey.Get()
 	}
 	if !IsNil(o.CustomerTaxAddress) {
 		toSerialize["customerTaxAddress"] = o.CustomerTaxAddress
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -178,15 +195,22 @@ func (o *CreditNoteRefundRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varCreditNoteRefundRequest := _CreditNoteRefundRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreditNoteRefundRequest)
+	err = json.Unmarshal(data, &varCreditNoteRefundRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreditNoteRefundRequest(varCreditNoteRefundRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "paymentId")
+		delete(additionalProperties, "idempotencyKey")
+		delete(additionalProperties, "customerTaxAddress")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

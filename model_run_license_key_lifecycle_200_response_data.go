@@ -28,8 +28,8 @@ type RunLicenseKeyLifecycle200ResponseData struct {
 	BillingAccountId string `json:"billingAccountId"`
 	ProductRef NullableString `json:"productRef,omitempty"`
 	Serial string `json:"serial"`
-	SeatLimit NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"seatLimit,omitempty"`
-	UsesCount ListProducts200ResponseDataTotal `json:"usesCount"`
+	SeatLimit NullableFloat32 `json:"seatLimit,omitempty"`
+	UsesCount float32 `json:"usesCount"`
 	Status string `json:"status"`
 	DisabledAt NullableString `json:"disabledAt,omitempty"`
 	SourceRef NullableString `json:"sourceRef,omitempty"`
@@ -44,7 +44,7 @@ type _RunLicenseKeyLifecycle200ResponseData RunLicenseKeyLifecycle200ResponseDat
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRunLicenseKeyLifecycle200ResponseData(id string, environment string, merchantAccountId string, customerId string, billingAccountId string, serial string, usesCount ListProducts200ResponseDataTotal, status string, metadata map[string]string, createdAt string, updatedAt string) *RunLicenseKeyLifecycle200ResponseData {
+func NewRunLicenseKeyLifecycle200ResponseData(id string, environment string, merchantAccountId string, customerId string, billingAccountId string, serial string, usesCount float32, status string, metadata map[string]string, createdAt string, updatedAt string) *RunLicenseKeyLifecycle200ResponseData {
 	this := RunLicenseKeyLifecycle200ResponseData{}
 	this.Id = id
 	this.Environment = environment
@@ -255,9 +255,9 @@ func (o *RunLicenseKeyLifecycle200ResponseData) SetSerial(v string) {
 }
 
 // GetSeatLimit returns the SeatLimit field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *RunLicenseKeyLifecycle200ResponseData) GetSeatLimit() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *RunLicenseKeyLifecycle200ResponseData) GetSeatLimit() float32 {
 	if o == nil || IsNil(o.SeatLimit.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.SeatLimit.Get()
@@ -266,7 +266,7 @@ func (o *RunLicenseKeyLifecycle200ResponseData) GetSeatLimit() ListCustomerBilli
 // GetSeatLimitOk returns a tuple with the SeatLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *RunLicenseKeyLifecycle200ResponseData) GetSeatLimitOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *RunLicenseKeyLifecycle200ResponseData) GetSeatLimitOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -282,8 +282,8 @@ func (o *RunLicenseKeyLifecycle200ResponseData) HasSeatLimit() bool {
 	return false
 }
 
-// SetSeatLimit gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the SeatLimit field.
-func (o *RunLicenseKeyLifecycle200ResponseData) SetSeatLimit(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetSeatLimit gets a reference to the given NullableFloat32 and assigns it to the SeatLimit field.
+func (o *RunLicenseKeyLifecycle200ResponseData) SetSeatLimit(v float32) {
 	o.SeatLimit.Set(&v)
 }
 // SetSeatLimitNil sets the value for SeatLimit to be an explicit nil
@@ -297,9 +297,9 @@ func (o *RunLicenseKeyLifecycle200ResponseData) UnsetSeatLimit() {
 }
 
 // GetUsesCount returns the UsesCount field value
-func (o *RunLicenseKeyLifecycle200ResponseData) GetUsesCount() ListProducts200ResponseDataTotal {
+func (o *RunLicenseKeyLifecycle200ResponseData) GetUsesCount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -308,7 +308,7 @@ func (o *RunLicenseKeyLifecycle200ResponseData) GetUsesCount() ListProducts200Re
 
 // GetUsesCountOk returns a tuple with the UsesCount field value
 // and a boolean to check if the value has been set.
-func (o *RunLicenseKeyLifecycle200ResponseData) GetUsesCountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *RunLicenseKeyLifecycle200ResponseData) GetUsesCountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -316,7 +316,7 @@ func (o *RunLicenseKeyLifecycle200ResponseData) GetUsesCountOk() (*ListProducts2
 }
 
 // SetUsesCount sets field value
-func (o *RunLicenseKeyLifecycle200ResponseData) SetUsesCount(v ListProducts200ResponseDataTotal) {
+func (o *RunLicenseKeyLifecycle200ResponseData) SetUsesCount(v float32) {
 	o.UsesCount = v
 }
 

@@ -21,11 +21,11 @@ var _ MappedNullable = &CreateBillingQuote201ResponseDataVersionsInnerBillingIte
 // CreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPayload struct for CreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPayload
 type CreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPayload struct {
 	PriceId NullableString `json:"priceId"`
-	Quantity ListProducts200ResponseDataTotal `json:"quantity"`
+	Quantity NullableFloat32 `json:"quantity"`
 	ProductId NullableString `json:"productId,omitempty"`
 	ProductName NullableString `json:"productName,omitempty"`
 	PriceType NullableString `json:"priceType,omitempty"`
-	UnitAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"unitAmount,omitempty"`
+	UnitAmount NullableFloat32 `json:"unitAmount,omitempty"`
 	Description NullableString `json:"description,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -36,7 +36,7 @@ type _CreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPayloa
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPayload(priceId NullableString, quantity ListProducts200ResponseDataTotal) *CreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPayload {
+func NewCreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPayload(priceId NullableString, quantity NullableFloat32) *CreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPayload {
 	this := CreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPayload{}
 	this.PriceId = priceId
 	this.Quantity = quantity
@@ -78,27 +78,29 @@ func (o *CreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPay
 }
 
 // GetQuantity returns the Quantity field value
-func (o *CreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPayload) GetQuantity() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPayload) GetQuantity() float32 {
+	if o == nil || o.Quantity.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Quantity
+	return *o.Quantity.Get()
 }
 
 // GetQuantityOk returns a tuple with the Quantity field value
 // and a boolean to check if the value has been set.
-func (o *CreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPayload) GetQuantityOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPayload) GetQuantityOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Quantity, true
+	return o.Quantity.Get(), o.Quantity.IsSet()
 }
 
 // SetQuantity sets field value
-func (o *CreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPayload) SetQuantity(v ListProducts200ResponseDataTotal) {
-	o.Quantity = v
+func (o *CreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPayload) SetQuantity(v float32) {
+	o.Quantity.Set(&v)
 }
 
 // GetProductId returns the ProductId field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -228,9 +230,9 @@ func (o *CreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPay
 }
 
 // GetUnitAmount returns the UnitAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPayload) GetUnitAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPayload) GetUnitAmount() float32 {
 	if o == nil || IsNil(o.UnitAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.UnitAmount.Get()
@@ -239,7 +241,7 @@ func (o *CreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPay
 // GetUnitAmountOk returns a tuple with the UnitAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPayload) GetUnitAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPayload) GetUnitAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -255,8 +257,8 @@ func (o *CreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPay
 	return false
 }
 
-// SetUnitAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the UnitAmount field.
-func (o *CreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPayload) SetUnitAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetUnitAmount gets a reference to the given NullableFloat32 and assigns it to the UnitAmount field.
+func (o *CreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPayload) SetUnitAmount(v float32) {
 	o.UnitAmount.Set(&v)
 }
 // SetUnitAmountNil sets the value for UnitAmount to be an explicit nil
@@ -322,7 +324,7 @@ func (o CreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPayl
 func (o CreateBillingQuote201ResponseDataVersionsInnerBillingItemsLinesInnerPayload) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["priceId"] = o.PriceId.Get()
-	toSerialize["quantity"] = o.Quantity
+	toSerialize["quantity"] = o.Quantity.Get()
 	if o.ProductId.IsSet() {
 		toSerialize["productId"] = o.ProductId.Get()
 	}

@@ -20,9 +20,9 @@ var _ MappedNullable = &CreateMerchantAccountRequestAssociatedIdentitiesInnerDat
 
 // CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth struct for CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth
 type CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth struct {
-	Day ListProducts200ResponseDataTotal `json:"day"`
-	Month ListProducts200ResponseDataTotal `json:"month"`
-	Year ListProducts200ResponseDataTotal `json:"year"`
+	Day NullableFloat32 `json:"day"`
+	Month NullableFloat32 `json:"month"`
+	Year NullableFloat32 `json:"year"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,7 +32,7 @@ type _CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth CreateMer
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth(day ListProducts200ResponseDataTotal, month ListProducts200ResponseDataTotal, year ListProducts200ResponseDataTotal) *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth {
+func NewCreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth(day NullableFloat32, month NullableFloat32, year NullableFloat32) *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth {
 	this := CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth{}
 	this.Day = day
 	this.Month = month
@@ -49,75 +49,81 @@ func NewCreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirthWithDefa
 }
 
 // GetDay returns the Day field value
-func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) GetDay() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) GetDay() float32 {
+	if o == nil || o.Day.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Day
+	return *o.Day.Get()
 }
 
 // GetDayOk returns a tuple with the Day field value
 // and a boolean to check if the value has been set.
-func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) GetDayOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) GetDayOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Day, true
+	return o.Day.Get(), o.Day.IsSet()
 }
 
 // SetDay sets field value
-func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) SetDay(v ListProducts200ResponseDataTotal) {
-	o.Day = v
+func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) SetDay(v float32) {
+	o.Day.Set(&v)
 }
 
 // GetMonth returns the Month field value
-func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) GetMonth() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) GetMonth() float32 {
+	if o == nil || o.Month.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Month
+	return *o.Month.Get()
 }
 
 // GetMonthOk returns a tuple with the Month field value
 // and a boolean to check if the value has been set.
-func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) GetMonthOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) GetMonthOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Month, true
+	return o.Month.Get(), o.Month.IsSet()
 }
 
 // SetMonth sets field value
-func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) SetMonth(v ListProducts200ResponseDataTotal) {
-	o.Month = v
+func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) SetMonth(v float32) {
+	o.Month.Set(&v)
 }
 
 // GetYear returns the Year field value
-func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) GetYear() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) GetYear() float32 {
+	if o == nil || o.Year.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Year
+	return *o.Year.Get()
 }
 
 // GetYearOk returns a tuple with the Year field value
 // and a boolean to check if the value has been set.
-func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) GetYearOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) GetYearOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Year, true
+	return o.Year.Get(), o.Year.IsSet()
 }
 
 // SetYear sets field value
-func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) SetYear(v ListProducts200ResponseDataTotal) {
-	o.Year = v
+func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) SetYear(v float32) {
+	o.Year.Set(&v)
 }
 
 func (o CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) MarshalJSON() ([]byte, error) {
@@ -130,9 +136,9 @@ func (o CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) Marsha
 
 func (o CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["day"] = o.Day
-	toSerialize["month"] = o.Month
-	toSerialize["year"] = o.Year
+	toSerialize["day"] = o.Day.Get()
+	toSerialize["month"] = o.Month.Get()
+	toSerialize["year"] = o.Year.Get()
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

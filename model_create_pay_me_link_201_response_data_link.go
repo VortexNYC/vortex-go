@@ -22,7 +22,7 @@ var _ MappedNullable = &CreatePayMeLink201ResponseDataLink{}
 type CreatePayMeLink201ResponseDataLink struct {
 	LinkId NullableString `json:"linkId"`
 	TokenHash NullableString `json:"tokenHash"`
-	Amount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"amount,omitempty"`
+	Amount NullableFloat32 `json:"amount,omitempty"`
 	Currency NullableString `json:"currency"`
 	Label NullableString `json:"label,omitempty"`
 	Status string `json:"status"`
@@ -108,9 +108,9 @@ func (o *CreatePayMeLink201ResponseDataLink) SetTokenHash(v string) {
 }
 
 // GetAmount returns the Amount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreatePayMeLink201ResponseDataLink) GetAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreatePayMeLink201ResponseDataLink) GetAmount() float32 {
 	if o == nil || IsNil(o.Amount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.Amount.Get()
@@ -119,7 +119,7 @@ func (o *CreatePayMeLink201ResponseDataLink) GetAmount() ListCustomerBillingAcco
 // GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreatePayMeLink201ResponseDataLink) GetAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreatePayMeLink201ResponseDataLink) GetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *CreatePayMeLink201ResponseDataLink) HasAmount() bool {
 	return false
 }
 
-// SetAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the Amount field.
-func (o *CreatePayMeLink201ResponseDataLink) SetAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetAmount gets a reference to the given NullableFloat32 and assigns it to the Amount field.
+func (o *CreatePayMeLink201ResponseDataLink) SetAmount(v float32) {
 	o.Amount.Set(&v)
 }
 // SetAmountNil sets the value for Amount to be an explicit nil

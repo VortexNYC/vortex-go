@@ -24,8 +24,8 @@ type CreateBillingDunningCampaign201ResponseData struct {
 	CampaignId string `json:"campaignId"`
 	Code string `json:"code"`
 	Name string `json:"name"`
-	DaysBetweenAttempts ListProducts200ResponseDataTotal `json:"daysBetweenAttempts"`
-	MaxAttempts ListProducts200ResponseDataTotal `json:"maxAttempts"`
+	DaysBetweenAttempts float32 `json:"daysBetweenAttempts"`
+	MaxAttempts float32 `json:"maxAttempts"`
 	TerminalAction string `json:"terminalAction"`
 	Status string `json:"status"`
 	IsDefault bool `json:"isDefault"`
@@ -44,7 +44,7 @@ type _CreateBillingDunningCampaign201ResponseData CreateBillingDunningCampaign20
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateBillingDunningCampaign201ResponseData(campaignId string, code string, name string, daysBetweenAttempts ListProducts200ResponseDataTotal, maxAttempts ListProducts200ResponseDataTotal, terminalAction string, status string, isDefault bool, createdAt string, updatedAt string, metadata map[string]string) *CreateBillingDunningCampaign201ResponseData {
+func NewCreateBillingDunningCampaign201ResponseData(campaignId string, code string, name string, daysBetweenAttempts float32, maxAttempts float32, terminalAction string, status string, isDefault bool, createdAt string, updatedAt string, metadata map[string]string) *CreateBillingDunningCampaign201ResponseData {
 	this := CreateBillingDunningCampaign201ResponseData{}
 	this.CampaignId = campaignId
 	this.Code = code
@@ -141,9 +141,9 @@ func (o *CreateBillingDunningCampaign201ResponseData) SetName(v string) {
 }
 
 // GetDaysBetweenAttempts returns the DaysBetweenAttempts field value
-func (o *CreateBillingDunningCampaign201ResponseData) GetDaysBetweenAttempts() ListProducts200ResponseDataTotal {
+func (o *CreateBillingDunningCampaign201ResponseData) GetDaysBetweenAttempts() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -152,7 +152,7 @@ func (o *CreateBillingDunningCampaign201ResponseData) GetDaysBetweenAttempts() L
 
 // GetDaysBetweenAttemptsOk returns a tuple with the DaysBetweenAttempts field value
 // and a boolean to check if the value has been set.
-func (o *CreateBillingDunningCampaign201ResponseData) GetDaysBetweenAttemptsOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreateBillingDunningCampaign201ResponseData) GetDaysBetweenAttemptsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -160,14 +160,14 @@ func (o *CreateBillingDunningCampaign201ResponseData) GetDaysBetweenAttemptsOk()
 }
 
 // SetDaysBetweenAttempts sets field value
-func (o *CreateBillingDunningCampaign201ResponseData) SetDaysBetweenAttempts(v ListProducts200ResponseDataTotal) {
+func (o *CreateBillingDunningCampaign201ResponseData) SetDaysBetweenAttempts(v float32) {
 	o.DaysBetweenAttempts = v
 }
 
 // GetMaxAttempts returns the MaxAttempts field value
-func (o *CreateBillingDunningCampaign201ResponseData) GetMaxAttempts() ListProducts200ResponseDataTotal {
+func (o *CreateBillingDunningCampaign201ResponseData) GetMaxAttempts() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -176,7 +176,7 @@ func (o *CreateBillingDunningCampaign201ResponseData) GetMaxAttempts() ListProdu
 
 // GetMaxAttemptsOk returns a tuple with the MaxAttempts field value
 // and a boolean to check if the value has been set.
-func (o *CreateBillingDunningCampaign201ResponseData) GetMaxAttemptsOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreateBillingDunningCampaign201ResponseData) GetMaxAttemptsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -184,7 +184,7 @@ func (o *CreateBillingDunningCampaign201ResponseData) GetMaxAttemptsOk() (*ListP
 }
 
 // SetMaxAttempts sets field value
-func (o *CreateBillingDunningCampaign201ResponseData) SetMaxAttempts(v ListProducts200ResponseDataTotal) {
+func (o *CreateBillingDunningCampaign201ResponseData) SetMaxAttempts(v float32) {
 	o.MaxAttempts = v
 }
 

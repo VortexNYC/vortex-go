@@ -23,7 +23,7 @@ type ListSubscriptions200ResponseDataItemsInnerItemsInner struct {
 	SubscriptionItemId NullableString `json:"subscriptionItemId"`
 	SubscriptionId NullableString `json:"subscriptionId"`
 	PriceId NullableString `json:"priceId"`
-	Quantity ListProducts200ResponseDataTotal `json:"quantity"`
+	Quantity NullableFloat32 `json:"quantity"`
 	StartAt NullableString `json:"startAt"`
 	Metadata map[string]string `json:"metadata"`
 	EndAt NullableString `json:"endAt,omitempty"`
@@ -36,7 +36,7 @@ type _ListSubscriptions200ResponseDataItemsInnerItemsInner ListSubscriptions200R
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListSubscriptions200ResponseDataItemsInnerItemsInner(subscriptionItemId NullableString, subscriptionId NullableString, priceId NullableString, quantity ListProducts200ResponseDataTotal, startAt NullableString, metadata map[string]string) *ListSubscriptions200ResponseDataItemsInnerItemsInner {
+func NewListSubscriptions200ResponseDataItemsInnerItemsInner(subscriptionItemId NullableString, subscriptionId NullableString, priceId NullableString, quantity NullableFloat32, startAt NullableString, metadata map[string]string) *ListSubscriptions200ResponseDataItemsInnerItemsInner {
 	this := ListSubscriptions200ResponseDataItemsInnerItemsInner{}
 	this.SubscriptionItemId = subscriptionItemId
 	this.SubscriptionId = subscriptionId
@@ -134,27 +134,29 @@ func (o *ListSubscriptions200ResponseDataItemsInnerItemsInner) SetPriceId(v stri
 }
 
 // GetQuantity returns the Quantity field value
-func (o *ListSubscriptions200ResponseDataItemsInnerItemsInner) GetQuantity() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListSubscriptions200ResponseDataItemsInnerItemsInner) GetQuantity() float32 {
+	if o == nil || o.Quantity.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Quantity
+	return *o.Quantity.Get()
 }
 
 // GetQuantityOk returns a tuple with the Quantity field value
 // and a boolean to check if the value has been set.
-func (o *ListSubscriptions200ResponseDataItemsInnerItemsInner) GetQuantityOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListSubscriptions200ResponseDataItemsInnerItemsInner) GetQuantityOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Quantity, true
+	return o.Quantity.Get(), o.Quantity.IsSet()
 }
 
 // SetQuantity sets field value
-func (o *ListSubscriptions200ResponseDataItemsInnerItemsInner) SetQuantity(v ListProducts200ResponseDataTotal) {
-	o.Quantity = v
+func (o *ListSubscriptions200ResponseDataItemsInnerItemsInner) SetQuantity(v float32) {
+	o.Quantity.Set(&v)
 }
 
 // GetStartAt returns the StartAt field value
@@ -264,7 +266,7 @@ func (o ListSubscriptions200ResponseDataItemsInnerItemsInner) ToMap() (map[strin
 	toSerialize["subscriptionItemId"] = o.SubscriptionItemId.Get()
 	toSerialize["subscriptionId"] = o.SubscriptionId.Get()
 	toSerialize["priceId"] = o.PriceId.Get()
-	toSerialize["quantity"] = o.Quantity
+	toSerialize["quantity"] = o.Quantity.Get()
 	toSerialize["startAt"] = o.StartAt.Get()
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata

@@ -21,9 +21,9 @@ var _ MappedNullable = &GetPlatformFee200ResponseDataBalanceInner{}
 // GetPlatformFee200ResponseDataBalanceInner struct for GetPlatformFee200ResponseDataBalanceInner
 type GetPlatformFee200ResponseDataBalanceInner struct {
 	Currency NullableString `json:"currency"`
-	Accrued ListProducts200ResponseDataTotal `json:"accrued"`
-	Swept ListProducts200ResponseDataTotal `json:"swept"`
-	Owed ListProducts200ResponseDataTotal `json:"owed"`
+	Accrued NullableFloat32 `json:"accrued"`
+	Swept NullableFloat32 `json:"swept"`
+	Owed NullableFloat32 `json:"owed"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,7 +33,7 @@ type _GetPlatformFee200ResponseDataBalanceInner GetPlatformFee200ResponseDataBal
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetPlatformFee200ResponseDataBalanceInner(currency NullableString, accrued ListProducts200ResponseDataTotal, swept ListProducts200ResponseDataTotal, owed ListProducts200ResponseDataTotal) *GetPlatformFee200ResponseDataBalanceInner {
+func NewGetPlatformFee200ResponseDataBalanceInner(currency NullableString, accrued NullableFloat32, swept NullableFloat32, owed NullableFloat32) *GetPlatformFee200ResponseDataBalanceInner {
 	this := GetPlatformFee200ResponseDataBalanceInner{}
 	this.Currency = currency
 	this.Accrued = accrued
@@ -77,75 +77,81 @@ func (o *GetPlatformFee200ResponseDataBalanceInner) SetCurrency(v string) {
 }
 
 // GetAccrued returns the Accrued field value
-func (o *GetPlatformFee200ResponseDataBalanceInner) GetAccrued() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetPlatformFee200ResponseDataBalanceInner) GetAccrued() float32 {
+	if o == nil || o.Accrued.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Accrued
+	return *o.Accrued.Get()
 }
 
 // GetAccruedOk returns a tuple with the Accrued field value
 // and a boolean to check if the value has been set.
-func (o *GetPlatformFee200ResponseDataBalanceInner) GetAccruedOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetPlatformFee200ResponseDataBalanceInner) GetAccruedOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Accrued, true
+	return o.Accrued.Get(), o.Accrued.IsSet()
 }
 
 // SetAccrued sets field value
-func (o *GetPlatformFee200ResponseDataBalanceInner) SetAccrued(v ListProducts200ResponseDataTotal) {
-	o.Accrued = v
+func (o *GetPlatformFee200ResponseDataBalanceInner) SetAccrued(v float32) {
+	o.Accrued.Set(&v)
 }
 
 // GetSwept returns the Swept field value
-func (o *GetPlatformFee200ResponseDataBalanceInner) GetSwept() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetPlatformFee200ResponseDataBalanceInner) GetSwept() float32 {
+	if o == nil || o.Swept.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Swept
+	return *o.Swept.Get()
 }
 
 // GetSweptOk returns a tuple with the Swept field value
 // and a boolean to check if the value has been set.
-func (o *GetPlatformFee200ResponseDataBalanceInner) GetSweptOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetPlatformFee200ResponseDataBalanceInner) GetSweptOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Swept, true
+	return o.Swept.Get(), o.Swept.IsSet()
 }
 
 // SetSwept sets field value
-func (o *GetPlatformFee200ResponseDataBalanceInner) SetSwept(v ListProducts200ResponseDataTotal) {
-	o.Swept = v
+func (o *GetPlatformFee200ResponseDataBalanceInner) SetSwept(v float32) {
+	o.Swept.Set(&v)
 }
 
 // GetOwed returns the Owed field value
-func (o *GetPlatformFee200ResponseDataBalanceInner) GetOwed() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetPlatformFee200ResponseDataBalanceInner) GetOwed() float32 {
+	if o == nil || o.Owed.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Owed
+	return *o.Owed.Get()
 }
 
 // GetOwedOk returns a tuple with the Owed field value
 // and a boolean to check if the value has been set.
-func (o *GetPlatformFee200ResponseDataBalanceInner) GetOwedOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetPlatformFee200ResponseDataBalanceInner) GetOwedOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Owed, true
+	return o.Owed.Get(), o.Owed.IsSet()
 }
 
 // SetOwed sets field value
-func (o *GetPlatformFee200ResponseDataBalanceInner) SetOwed(v ListProducts200ResponseDataTotal) {
-	o.Owed = v
+func (o *GetPlatformFee200ResponseDataBalanceInner) SetOwed(v float32) {
+	o.Owed.Set(&v)
 }
 
 func (o GetPlatformFee200ResponseDataBalanceInner) MarshalJSON() ([]byte, error) {
@@ -159,9 +165,9 @@ func (o GetPlatformFee200ResponseDataBalanceInner) MarshalJSON() ([]byte, error)
 func (o GetPlatformFee200ResponseDataBalanceInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["currency"] = o.Currency.Get()
-	toSerialize["accrued"] = o.Accrued
-	toSerialize["swept"] = o.Swept
-	toSerialize["owed"] = o.Owed
+	toSerialize["accrued"] = o.Accrued.Get()
+	toSerialize["swept"] = o.Swept.Get()
+	toSerialize["owed"] = o.Owed.Get()
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

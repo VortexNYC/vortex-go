@@ -24,10 +24,10 @@ type UpsertMerchantAccountTaxProfileRequest struct {
 	DisplayName NullableString `json:"displayName,omitempty"`
 	OriginAddress GetMerchantAccountTaxProfile200ResponseDataOriginAddress `json:"originAddress"`
 	Registrations []UpsertMerchantAccountTaxProfileRequestRegistrationsInner `json:"registrations"`
-	CallPriceMinor NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"callPriceMinor,omitempty"`
-	CallCostMinor NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"callCostMinor,omitempty"`
-	FilingPriceMinor NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"filingPriceMinor,omitempty"`
-	FilingCostMinor NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"filingCostMinor,omitempty"`
+	CallPriceMinor NullableFloat32 `json:"callPriceMinor,omitempty"`
+	CallCostMinor NullableFloat32 `json:"callCostMinor,omitempty"`
+	FilingPriceMinor NullableFloat32 `json:"filingPriceMinor,omitempty"`
+	FilingCostMinor NullableFloat32 `json:"filingCostMinor,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -185,9 +185,9 @@ func (o *UpsertMerchantAccountTaxProfileRequest) SetRegistrations(v []UpsertMerc
 }
 
 // GetCallPriceMinor returns the CallPriceMinor field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UpsertMerchantAccountTaxProfileRequest) GetCallPriceMinor() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *UpsertMerchantAccountTaxProfileRequest) GetCallPriceMinor() float32 {
 	if o == nil || IsNil(o.CallPriceMinor.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.CallPriceMinor.Get()
@@ -196,7 +196,7 @@ func (o *UpsertMerchantAccountTaxProfileRequest) GetCallPriceMinor() ListCustome
 // GetCallPriceMinorOk returns a tuple with the CallPriceMinor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UpsertMerchantAccountTaxProfileRequest) GetCallPriceMinorOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *UpsertMerchantAccountTaxProfileRequest) GetCallPriceMinorOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -212,8 +212,8 @@ func (o *UpsertMerchantAccountTaxProfileRequest) HasCallPriceMinor() bool {
 	return false
 }
 
-// SetCallPriceMinor gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the CallPriceMinor field.
-func (o *UpsertMerchantAccountTaxProfileRequest) SetCallPriceMinor(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetCallPriceMinor gets a reference to the given NullableFloat32 and assigns it to the CallPriceMinor field.
+func (o *UpsertMerchantAccountTaxProfileRequest) SetCallPriceMinor(v float32) {
 	o.CallPriceMinor.Set(&v)
 }
 // SetCallPriceMinorNil sets the value for CallPriceMinor to be an explicit nil
@@ -227,9 +227,9 @@ func (o *UpsertMerchantAccountTaxProfileRequest) UnsetCallPriceMinor() {
 }
 
 // GetCallCostMinor returns the CallCostMinor field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UpsertMerchantAccountTaxProfileRequest) GetCallCostMinor() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *UpsertMerchantAccountTaxProfileRequest) GetCallCostMinor() float32 {
 	if o == nil || IsNil(o.CallCostMinor.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.CallCostMinor.Get()
@@ -238,7 +238,7 @@ func (o *UpsertMerchantAccountTaxProfileRequest) GetCallCostMinor() ListCustomer
 // GetCallCostMinorOk returns a tuple with the CallCostMinor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UpsertMerchantAccountTaxProfileRequest) GetCallCostMinorOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *UpsertMerchantAccountTaxProfileRequest) GetCallCostMinorOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -254,8 +254,8 @@ func (o *UpsertMerchantAccountTaxProfileRequest) HasCallCostMinor() bool {
 	return false
 }
 
-// SetCallCostMinor gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the CallCostMinor field.
-func (o *UpsertMerchantAccountTaxProfileRequest) SetCallCostMinor(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetCallCostMinor gets a reference to the given NullableFloat32 and assigns it to the CallCostMinor field.
+func (o *UpsertMerchantAccountTaxProfileRequest) SetCallCostMinor(v float32) {
 	o.CallCostMinor.Set(&v)
 }
 // SetCallCostMinorNil sets the value for CallCostMinor to be an explicit nil
@@ -269,9 +269,9 @@ func (o *UpsertMerchantAccountTaxProfileRequest) UnsetCallCostMinor() {
 }
 
 // GetFilingPriceMinor returns the FilingPriceMinor field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UpsertMerchantAccountTaxProfileRequest) GetFilingPriceMinor() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *UpsertMerchantAccountTaxProfileRequest) GetFilingPriceMinor() float32 {
 	if o == nil || IsNil(o.FilingPriceMinor.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.FilingPriceMinor.Get()
@@ -280,7 +280,7 @@ func (o *UpsertMerchantAccountTaxProfileRequest) GetFilingPriceMinor() ListCusto
 // GetFilingPriceMinorOk returns a tuple with the FilingPriceMinor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UpsertMerchantAccountTaxProfileRequest) GetFilingPriceMinorOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *UpsertMerchantAccountTaxProfileRequest) GetFilingPriceMinorOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -296,8 +296,8 @@ func (o *UpsertMerchantAccountTaxProfileRequest) HasFilingPriceMinor() bool {
 	return false
 }
 
-// SetFilingPriceMinor gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the FilingPriceMinor field.
-func (o *UpsertMerchantAccountTaxProfileRequest) SetFilingPriceMinor(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetFilingPriceMinor gets a reference to the given NullableFloat32 and assigns it to the FilingPriceMinor field.
+func (o *UpsertMerchantAccountTaxProfileRequest) SetFilingPriceMinor(v float32) {
 	o.FilingPriceMinor.Set(&v)
 }
 // SetFilingPriceMinorNil sets the value for FilingPriceMinor to be an explicit nil
@@ -311,9 +311,9 @@ func (o *UpsertMerchantAccountTaxProfileRequest) UnsetFilingPriceMinor() {
 }
 
 // GetFilingCostMinor returns the FilingCostMinor field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UpsertMerchantAccountTaxProfileRequest) GetFilingCostMinor() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *UpsertMerchantAccountTaxProfileRequest) GetFilingCostMinor() float32 {
 	if o == nil || IsNil(o.FilingCostMinor.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.FilingCostMinor.Get()
@@ -322,7 +322,7 @@ func (o *UpsertMerchantAccountTaxProfileRequest) GetFilingCostMinor() ListCustom
 // GetFilingCostMinorOk returns a tuple with the FilingCostMinor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UpsertMerchantAccountTaxProfileRequest) GetFilingCostMinorOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *UpsertMerchantAccountTaxProfileRequest) GetFilingCostMinorOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -338,8 +338,8 @@ func (o *UpsertMerchantAccountTaxProfileRequest) HasFilingCostMinor() bool {
 	return false
 }
 
-// SetFilingCostMinor gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the FilingCostMinor field.
-func (o *UpsertMerchantAccountTaxProfileRequest) SetFilingCostMinor(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetFilingCostMinor gets a reference to the given NullableFloat32 and assigns it to the FilingCostMinor field.
+func (o *UpsertMerchantAccountTaxProfileRequest) SetFilingCostMinor(v float32) {
 	o.FilingCostMinor.Set(&v)
 }
 // SetFilingCostMinorNil sets the value for FilingCostMinor to be an explicit nil

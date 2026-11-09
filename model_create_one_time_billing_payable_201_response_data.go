@@ -26,11 +26,11 @@ type CreateOneTimeBillingPayable201ResponseData struct {
 	BillingAccountId NullableString `json:"billingAccountId"`
 	MerchantAccountId NullableString `json:"merchantAccountId"`
 	Currency NullableString `json:"currency"`
-	Subtotal ListProducts200ResponseDataTotal `json:"subtotal"`
-	TaxTotal ListProducts200ResponseDataTotal `json:"taxTotal"`
-	Total ListProducts200ResponseDataTotal `json:"total"`
-	AmountPaid ListProducts200ResponseDataTotal `json:"amountPaid"`
-	AmountRemaining ListProducts200ResponseDataTotal `json:"amountRemaining"`
+	Subtotal NullableFloat32 `json:"subtotal"`
+	TaxTotal NullableFloat32 `json:"taxTotal"`
+	Total NullableFloat32 `json:"total"`
+	AmountPaid NullableFloat32 `json:"amountPaid"`
+	AmountRemaining NullableFloat32 `json:"amountRemaining"`
 	TaxMode string `json:"taxMode"`
 	Status string `json:"status"`
 	CollectionIntent NullableString `json:"collectionIntent"`
@@ -51,7 +51,7 @@ type _CreateOneTimeBillingPayable201ResponseData CreateOneTimeBillingPayable201R
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateOneTimeBillingPayable201ResponseData(payableId NullableString, source CreateOneTimeBillingPayable201ResponseDataSource, customerId NullableString, billingAccountId NullableString, merchantAccountId NullableString, currency NullableString, subtotal ListProducts200ResponseDataTotal, taxTotal ListProducts200ResponseDataTotal, total ListProducts200ResponseDataTotal, amountPaid ListProducts200ResponseDataTotal, amountRemaining ListProducts200ResponseDataTotal, taxMode string, status string, collectionIntent NullableString, feePolicy CreateOneTimeBillingPayable201ResponseDataFeePolicy, lineage CreateOneTimeBillingPayable201ResponseDataLineage, statusReason NullableString, operatorEvidence []string, metadata map[string]string, createdAt NullableString, updatedAt NullableString) *CreateOneTimeBillingPayable201ResponseData {
+func NewCreateOneTimeBillingPayable201ResponseData(payableId NullableString, source CreateOneTimeBillingPayable201ResponseDataSource, customerId NullableString, billingAccountId NullableString, merchantAccountId NullableString, currency NullableString, subtotal NullableFloat32, taxTotal NullableFloat32, total NullableFloat32, amountPaid NullableFloat32, amountRemaining NullableFloat32, taxMode string, status string, collectionIntent NullableString, feePolicy CreateOneTimeBillingPayable201ResponseDataFeePolicy, lineage CreateOneTimeBillingPayable201ResponseDataLineage, statusReason NullableString, operatorEvidence []string, metadata map[string]string, createdAt NullableString, updatedAt NullableString) *CreateOneTimeBillingPayable201ResponseData {
 	this := CreateOneTimeBillingPayable201ResponseData{}
 	this.PayableId = payableId
 	this.Source = source
@@ -240,123 +240,133 @@ func (o *CreateOneTimeBillingPayable201ResponseData) SetCurrency(v string) {
 }
 
 // GetSubtotal returns the Subtotal field value
-func (o *CreateOneTimeBillingPayable201ResponseData) GetSubtotal() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateOneTimeBillingPayable201ResponseData) GetSubtotal() float32 {
+	if o == nil || o.Subtotal.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Subtotal
+	return *o.Subtotal.Get()
 }
 
 // GetSubtotalOk returns a tuple with the Subtotal field value
 // and a boolean to check if the value has been set.
-func (o *CreateOneTimeBillingPayable201ResponseData) GetSubtotalOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateOneTimeBillingPayable201ResponseData) GetSubtotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Subtotal, true
+	return o.Subtotal.Get(), o.Subtotal.IsSet()
 }
 
 // SetSubtotal sets field value
-func (o *CreateOneTimeBillingPayable201ResponseData) SetSubtotal(v ListProducts200ResponseDataTotal) {
-	o.Subtotal = v
+func (o *CreateOneTimeBillingPayable201ResponseData) SetSubtotal(v float32) {
+	o.Subtotal.Set(&v)
 }
 
 // GetTaxTotal returns the TaxTotal field value
-func (o *CreateOneTimeBillingPayable201ResponseData) GetTaxTotal() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateOneTimeBillingPayable201ResponseData) GetTaxTotal() float32 {
+	if o == nil || o.TaxTotal.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.TaxTotal
+	return *o.TaxTotal.Get()
 }
 
 // GetTaxTotalOk returns a tuple with the TaxTotal field value
 // and a boolean to check if the value has been set.
-func (o *CreateOneTimeBillingPayable201ResponseData) GetTaxTotalOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateOneTimeBillingPayable201ResponseData) GetTaxTotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.TaxTotal, true
+	return o.TaxTotal.Get(), o.TaxTotal.IsSet()
 }
 
 // SetTaxTotal sets field value
-func (o *CreateOneTimeBillingPayable201ResponseData) SetTaxTotal(v ListProducts200ResponseDataTotal) {
-	o.TaxTotal = v
+func (o *CreateOneTimeBillingPayable201ResponseData) SetTaxTotal(v float32) {
+	o.TaxTotal.Set(&v)
 }
 
 // GetTotal returns the Total field value
-func (o *CreateOneTimeBillingPayable201ResponseData) GetTotal() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateOneTimeBillingPayable201ResponseData) GetTotal() float32 {
+	if o == nil || o.Total.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Total
+	return *o.Total.Get()
 }
 
 // GetTotalOk returns a tuple with the Total field value
 // and a boolean to check if the value has been set.
-func (o *CreateOneTimeBillingPayable201ResponseData) GetTotalOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateOneTimeBillingPayable201ResponseData) GetTotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Total, true
+	return o.Total.Get(), o.Total.IsSet()
 }
 
 // SetTotal sets field value
-func (o *CreateOneTimeBillingPayable201ResponseData) SetTotal(v ListProducts200ResponseDataTotal) {
-	o.Total = v
+func (o *CreateOneTimeBillingPayable201ResponseData) SetTotal(v float32) {
+	o.Total.Set(&v)
 }
 
 // GetAmountPaid returns the AmountPaid field value
-func (o *CreateOneTimeBillingPayable201ResponseData) GetAmountPaid() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateOneTimeBillingPayable201ResponseData) GetAmountPaid() float32 {
+	if o == nil || o.AmountPaid.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.AmountPaid
+	return *o.AmountPaid.Get()
 }
 
 // GetAmountPaidOk returns a tuple with the AmountPaid field value
 // and a boolean to check if the value has been set.
-func (o *CreateOneTimeBillingPayable201ResponseData) GetAmountPaidOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateOneTimeBillingPayable201ResponseData) GetAmountPaidOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AmountPaid, true
+	return o.AmountPaid.Get(), o.AmountPaid.IsSet()
 }
 
 // SetAmountPaid sets field value
-func (o *CreateOneTimeBillingPayable201ResponseData) SetAmountPaid(v ListProducts200ResponseDataTotal) {
-	o.AmountPaid = v
+func (o *CreateOneTimeBillingPayable201ResponseData) SetAmountPaid(v float32) {
+	o.AmountPaid.Set(&v)
 }
 
 // GetAmountRemaining returns the AmountRemaining field value
-func (o *CreateOneTimeBillingPayable201ResponseData) GetAmountRemaining() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateOneTimeBillingPayable201ResponseData) GetAmountRemaining() float32 {
+	if o == nil || o.AmountRemaining.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.AmountRemaining
+	return *o.AmountRemaining.Get()
 }
 
 // GetAmountRemainingOk returns a tuple with the AmountRemaining field value
 // and a boolean to check if the value has been set.
-func (o *CreateOneTimeBillingPayable201ResponseData) GetAmountRemainingOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateOneTimeBillingPayable201ResponseData) GetAmountRemainingOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AmountRemaining, true
+	return o.AmountRemaining.Get(), o.AmountRemaining.IsSet()
 }
 
 // SetAmountRemaining sets field value
-func (o *CreateOneTimeBillingPayable201ResponseData) SetAmountRemaining(v ListProducts200ResponseDataTotal) {
-	o.AmountRemaining = v
+func (o *CreateOneTimeBillingPayable201ResponseData) SetAmountRemaining(v float32) {
+	o.AmountRemaining.Set(&v)
 }
 
 // GetTaxMode returns the TaxMode field value
@@ -667,11 +677,11 @@ func (o CreateOneTimeBillingPayable201ResponseData) ToMap() (map[string]interfac
 	toSerialize["billingAccountId"] = o.BillingAccountId.Get()
 	toSerialize["merchantAccountId"] = o.MerchantAccountId.Get()
 	toSerialize["currency"] = o.Currency.Get()
-	toSerialize["subtotal"] = o.Subtotal
-	toSerialize["taxTotal"] = o.TaxTotal
-	toSerialize["total"] = o.Total
-	toSerialize["amountPaid"] = o.AmountPaid
-	toSerialize["amountRemaining"] = o.AmountRemaining
+	toSerialize["subtotal"] = o.Subtotal.Get()
+	toSerialize["taxTotal"] = o.TaxTotal.Get()
+	toSerialize["total"] = o.Total.Get()
+	toSerialize["amountPaid"] = o.AmountPaid.Get()
+	toSerialize["amountRemaining"] = o.AmountRemaining.Get()
 	toSerialize["taxMode"] = o.TaxMode
 	toSerialize["status"] = o.Status
 	toSerialize["collectionIntent"] = o.CollectionIntent.Get()

@@ -37,8 +37,8 @@ type MerchantAccountCreateRequest struct {
 	BusinessPhone NullableString `json:"businessPhone,omitempty"`
 	Mcc NullableString `json:"mcc,omitempty"`
 	Url NullableString `json:"url,omitempty"`
-	MaxTransactionAmount *float32 `json:"maxTransactionAmount,omitempty"`
-	AchMaxTransactionAmount *float32 `json:"achMaxTransactionAmount,omitempty"`
+	MaxTransactionAmount NullableFloat32 `json:"maxTransactionAmount,omitempty"`
+	AchMaxTransactionAmount NullableFloat32 `json:"achMaxTransactionAmount,omitempty"`
 	AssociatedIdentities []MerchantAssociatedIdentity `json:"associatedIdentities,omitempty"`
 	Underwriting *MerchantUnderwritingData `json:"underwriting,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
@@ -480,68 +480,88 @@ func (o *MerchantAccountCreateRequest) UnsetUrl() {
 	o.Url.Unset()
 }
 
-// GetMaxTransactionAmount returns the MaxTransactionAmount field value if set, zero value otherwise.
+// GetMaxTransactionAmount returns the MaxTransactionAmount field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantAccountCreateRequest) GetMaxTransactionAmount() float32 {
-	if o == nil || IsNil(o.MaxTransactionAmount) {
+	if o == nil || IsNil(o.MaxTransactionAmount.Get()) {
 		var ret float32
 		return ret
 	}
-	return *o.MaxTransactionAmount
+	return *o.MaxTransactionAmount.Get()
 }
 
 // GetMaxTransactionAmountOk returns a tuple with the MaxTransactionAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAccountCreateRequest) GetMaxTransactionAmountOk() (*float32, bool) {
-	if o == nil || IsNil(o.MaxTransactionAmount) {
+	if o == nil {
 		return nil, false
 	}
-	return o.MaxTransactionAmount, true
+	return o.MaxTransactionAmount.Get(), o.MaxTransactionAmount.IsSet()
 }
 
 // HasMaxTransactionAmount returns a boolean if a field has been set.
 func (o *MerchantAccountCreateRequest) HasMaxTransactionAmount() bool {
-	if o != nil && !IsNil(o.MaxTransactionAmount) {
+	if o != nil && o.MaxTransactionAmount.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetMaxTransactionAmount gets a reference to the given float32 and assigns it to the MaxTransactionAmount field.
+// SetMaxTransactionAmount gets a reference to the given NullableFloat32 and assigns it to the MaxTransactionAmount field.
 func (o *MerchantAccountCreateRequest) SetMaxTransactionAmount(v float32) {
-	o.MaxTransactionAmount = &v
+	o.MaxTransactionAmount.Set(&v)
+}
+// SetMaxTransactionAmountNil sets the value for MaxTransactionAmount to be an explicit nil
+func (o *MerchantAccountCreateRequest) SetMaxTransactionAmountNil() {
+	o.MaxTransactionAmount.Set(nil)
 }
 
-// GetAchMaxTransactionAmount returns the AchMaxTransactionAmount field value if set, zero value otherwise.
+// UnsetMaxTransactionAmount ensures that no value is present for MaxTransactionAmount, not even an explicit nil
+func (o *MerchantAccountCreateRequest) UnsetMaxTransactionAmount() {
+	o.MaxTransactionAmount.Unset()
+}
+
+// GetAchMaxTransactionAmount returns the AchMaxTransactionAmount field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantAccountCreateRequest) GetAchMaxTransactionAmount() float32 {
-	if o == nil || IsNil(o.AchMaxTransactionAmount) {
+	if o == nil || IsNil(o.AchMaxTransactionAmount.Get()) {
 		var ret float32
 		return ret
 	}
-	return *o.AchMaxTransactionAmount
+	return *o.AchMaxTransactionAmount.Get()
 }
 
 // GetAchMaxTransactionAmountOk returns a tuple with the AchMaxTransactionAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAccountCreateRequest) GetAchMaxTransactionAmountOk() (*float32, bool) {
-	if o == nil || IsNil(o.AchMaxTransactionAmount) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AchMaxTransactionAmount, true
+	return o.AchMaxTransactionAmount.Get(), o.AchMaxTransactionAmount.IsSet()
 }
 
 // HasAchMaxTransactionAmount returns a boolean if a field has been set.
 func (o *MerchantAccountCreateRequest) HasAchMaxTransactionAmount() bool {
-	if o != nil && !IsNil(o.AchMaxTransactionAmount) {
+	if o != nil && o.AchMaxTransactionAmount.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetAchMaxTransactionAmount gets a reference to the given float32 and assigns it to the AchMaxTransactionAmount field.
+// SetAchMaxTransactionAmount gets a reference to the given NullableFloat32 and assigns it to the AchMaxTransactionAmount field.
 func (o *MerchantAccountCreateRequest) SetAchMaxTransactionAmount(v float32) {
-	o.AchMaxTransactionAmount = &v
+	o.AchMaxTransactionAmount.Set(&v)
+}
+// SetAchMaxTransactionAmountNil sets the value for AchMaxTransactionAmount to be an explicit nil
+func (o *MerchantAccountCreateRequest) SetAchMaxTransactionAmountNil() {
+	o.AchMaxTransactionAmount.Set(nil)
+}
+
+// UnsetAchMaxTransactionAmount ensures that no value is present for AchMaxTransactionAmount, not even an explicit nil
+func (o *MerchantAccountCreateRequest) UnsetAchMaxTransactionAmount() {
+	o.AchMaxTransactionAmount.Unset()
 }
 
 // GetAssociatedIdentities returns the AssociatedIdentities field value if set, zero value otherwise.
@@ -678,11 +698,11 @@ func (o MerchantAccountCreateRequest) ToMap() (map[string]interface{}, error) {
 	if o.Url.IsSet() {
 		toSerialize["url"] = o.Url.Get()
 	}
-	if !IsNil(o.MaxTransactionAmount) {
-		toSerialize["maxTransactionAmount"] = o.MaxTransactionAmount
+	if o.MaxTransactionAmount.IsSet() {
+		toSerialize["maxTransactionAmount"] = o.MaxTransactionAmount.Get()
 	}
-	if !IsNil(o.AchMaxTransactionAmount) {
-		toSerialize["achMaxTransactionAmount"] = o.AchMaxTransactionAmount
+	if o.AchMaxTransactionAmount.IsSet() {
+		toSerialize["achMaxTransactionAmount"] = o.AchMaxTransactionAmount.Get()
 	}
 	if !IsNil(o.AssociatedIdentities) {
 		toSerialize["associatedIdentities"] = o.AssociatedIdentities

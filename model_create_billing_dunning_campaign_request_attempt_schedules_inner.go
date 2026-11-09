@@ -21,8 +21,8 @@ var _ MappedNullable = &CreateBillingDunningCampaignRequestAttemptSchedulesInner
 
 // CreateBillingDunningCampaignRequestAttemptSchedulesInner struct for CreateBillingDunningCampaignRequestAttemptSchedulesInner
 type CreateBillingDunningCampaignRequestAttemptSchedulesInner struct {
-	AttemptNumber ListProducts200ResponseDataTotal `json:"attemptNumber"`
-	DaysAfterPrevious ListProducts200ResponseDataTotal `json:"daysAfterPrevious"`
+	AttemptNumber float32 `json:"attemptNumber"`
+	DaysAfterPrevious float32 `json:"daysAfterPrevious"`
 }
 
 type _CreateBillingDunningCampaignRequestAttemptSchedulesInner CreateBillingDunningCampaignRequestAttemptSchedulesInner
@@ -31,7 +31,7 @@ type _CreateBillingDunningCampaignRequestAttemptSchedulesInner CreateBillingDunn
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateBillingDunningCampaignRequestAttemptSchedulesInner(attemptNumber ListProducts200ResponseDataTotal, daysAfterPrevious ListProducts200ResponseDataTotal) *CreateBillingDunningCampaignRequestAttemptSchedulesInner {
+func NewCreateBillingDunningCampaignRequestAttemptSchedulesInner(attemptNumber float32, daysAfterPrevious float32) *CreateBillingDunningCampaignRequestAttemptSchedulesInner {
 	this := CreateBillingDunningCampaignRequestAttemptSchedulesInner{}
 	this.AttemptNumber = attemptNumber
 	this.DaysAfterPrevious = daysAfterPrevious
@@ -47,9 +47,9 @@ func NewCreateBillingDunningCampaignRequestAttemptSchedulesInnerWithDefaults() *
 }
 
 // GetAttemptNumber returns the AttemptNumber field value
-func (o *CreateBillingDunningCampaignRequestAttemptSchedulesInner) GetAttemptNumber() ListProducts200ResponseDataTotal {
+func (o *CreateBillingDunningCampaignRequestAttemptSchedulesInner) GetAttemptNumber() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -58,7 +58,7 @@ func (o *CreateBillingDunningCampaignRequestAttemptSchedulesInner) GetAttemptNum
 
 // GetAttemptNumberOk returns a tuple with the AttemptNumber field value
 // and a boolean to check if the value has been set.
-func (o *CreateBillingDunningCampaignRequestAttemptSchedulesInner) GetAttemptNumberOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreateBillingDunningCampaignRequestAttemptSchedulesInner) GetAttemptNumberOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -66,14 +66,14 @@ func (o *CreateBillingDunningCampaignRequestAttemptSchedulesInner) GetAttemptNum
 }
 
 // SetAttemptNumber sets field value
-func (o *CreateBillingDunningCampaignRequestAttemptSchedulesInner) SetAttemptNumber(v ListProducts200ResponseDataTotal) {
+func (o *CreateBillingDunningCampaignRequestAttemptSchedulesInner) SetAttemptNumber(v float32) {
 	o.AttemptNumber = v
 }
 
 // GetDaysAfterPrevious returns the DaysAfterPrevious field value
-func (o *CreateBillingDunningCampaignRequestAttemptSchedulesInner) GetDaysAfterPrevious() ListProducts200ResponseDataTotal {
+func (o *CreateBillingDunningCampaignRequestAttemptSchedulesInner) GetDaysAfterPrevious() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -82,7 +82,7 @@ func (o *CreateBillingDunningCampaignRequestAttemptSchedulesInner) GetDaysAfterP
 
 // GetDaysAfterPreviousOk returns a tuple with the DaysAfterPrevious field value
 // and a boolean to check if the value has been set.
-func (o *CreateBillingDunningCampaignRequestAttemptSchedulesInner) GetDaysAfterPreviousOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreateBillingDunningCampaignRequestAttemptSchedulesInner) GetDaysAfterPreviousOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -90,7 +90,7 @@ func (o *CreateBillingDunningCampaignRequestAttemptSchedulesInner) GetDaysAfterP
 }
 
 // SetDaysAfterPrevious sets field value
-func (o *CreateBillingDunningCampaignRequestAttemptSchedulesInner) SetDaysAfterPrevious(v ListProducts200ResponseDataTotal) {
+func (o *CreateBillingDunningCampaignRequestAttemptSchedulesInner) SetDaysAfterPrevious(v float32) {
 	o.DaysAfterPrevious = v
 }
 

@@ -31,7 +31,7 @@ type SaveDisputeRequest struct {
 	CreatedAt NullableString `json:"createdAt"`
 	UpdatedAt NullableString `json:"updatedAt"`
 	ProcessorRefs []SaveDisputeRequestProcessorRefsInner `json:"processorRefs"`
-	Amount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"amount,omitempty"`
+	Amount NullableFloat32 `json:"amount,omitempty"`
 	Currency NullableString `json:"currency,omitempty"`
 	Network NullableString `json:"network,omitempty"`
 	ReasonCode NullableString `json:"reasonCode,omitempty"`
@@ -371,9 +371,9 @@ func (o *SaveDisputeRequest) SetProcessorRefs(v []SaveDisputeRequestProcessorRef
 }
 
 // GetAmount returns the Amount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *SaveDisputeRequest) GetAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *SaveDisputeRequest) GetAmount() float32 {
 	if o == nil || IsNil(o.Amount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.Amount.Get()
@@ -382,7 +382,7 @@ func (o *SaveDisputeRequest) GetAmount() ListCustomerBillingAccounts200ResponseD
 // GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *SaveDisputeRequest) GetAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *SaveDisputeRequest) GetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -398,8 +398,8 @@ func (o *SaveDisputeRequest) HasAmount() bool {
 	return false
 }
 
-// SetAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the Amount field.
-func (o *SaveDisputeRequest) SetAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetAmount gets a reference to the given NullableFloat32 and assigns it to the Amount field.
+func (o *SaveDisputeRequest) SetAmount(v float32) {
 	o.Amount.Set(&v)
 }
 // SetAmountNil sets the value for Amount to be an explicit nil

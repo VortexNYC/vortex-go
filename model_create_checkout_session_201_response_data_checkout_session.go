@@ -31,8 +31,8 @@ type CreateCheckoutSession201ResponseDataCheckoutSession struct {
 	CustomerExternalId string `json:"customerExternalId"`
 	BillingAccountId string `json:"billingAccountId"`
 	Currency string `json:"currency"`
-	AmountTotal ListProducts200ResponseDataTotal `json:"amountTotal"`
-	AmountRemaining ListProducts200ResponseDataTotal `json:"amountRemaining"`
+	AmountTotal float32 `json:"amountTotal"`
+	AmountRemaining float32 `json:"amountRemaining"`
 	InvoiceNumbers []string `json:"invoiceNumbers"`
 	ExpiresAt NullableString `json:"expiresAt"`
 	CreatedAt string `json:"createdAt"`
@@ -52,7 +52,7 @@ type _CreateCheckoutSession201ResponseDataCheckoutSession CreateCheckoutSession2
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateCheckoutSession201ResponseDataCheckoutSession(checkoutSessionId string, paymentRequestId string, checkoutUrl NullableString, token NullableString, mode string, status string, customerId string, customerExternalId string, billingAccountId string, currency string, amountTotal ListProducts200ResponseDataTotal, amountRemaining ListProducts200ResponseDataTotal, invoiceNumbers []string, expiresAt NullableString, createdAt string) *CreateCheckoutSession201ResponseDataCheckoutSession {
+func NewCreateCheckoutSession201ResponseDataCheckoutSession(checkoutSessionId string, paymentRequestId string, checkoutUrl NullableString, token NullableString, mode string, status string, customerId string, customerExternalId string, billingAccountId string, currency string, amountTotal float32, amountRemaining float32, invoiceNumbers []string, expiresAt NullableString, createdAt string) *CreateCheckoutSession201ResponseDataCheckoutSession {
 	this := CreateCheckoutSession201ResponseDataCheckoutSession{}
 	this.CheckoutSessionId = checkoutSessionId
 	this.PaymentRequestId = paymentRequestId
@@ -325,9 +325,9 @@ func (o *CreateCheckoutSession201ResponseDataCheckoutSession) SetCurrency(v stri
 }
 
 // GetAmountTotal returns the AmountTotal field value
-func (o *CreateCheckoutSession201ResponseDataCheckoutSession) GetAmountTotal() ListProducts200ResponseDataTotal {
+func (o *CreateCheckoutSession201ResponseDataCheckoutSession) GetAmountTotal() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -336,7 +336,7 @@ func (o *CreateCheckoutSession201ResponseDataCheckoutSession) GetAmountTotal() L
 
 // GetAmountTotalOk returns a tuple with the AmountTotal field value
 // and a boolean to check if the value has been set.
-func (o *CreateCheckoutSession201ResponseDataCheckoutSession) GetAmountTotalOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreateCheckoutSession201ResponseDataCheckoutSession) GetAmountTotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -344,14 +344,14 @@ func (o *CreateCheckoutSession201ResponseDataCheckoutSession) GetAmountTotalOk()
 }
 
 // SetAmountTotal sets field value
-func (o *CreateCheckoutSession201ResponseDataCheckoutSession) SetAmountTotal(v ListProducts200ResponseDataTotal) {
+func (o *CreateCheckoutSession201ResponseDataCheckoutSession) SetAmountTotal(v float32) {
 	o.AmountTotal = v
 }
 
 // GetAmountRemaining returns the AmountRemaining field value
-func (o *CreateCheckoutSession201ResponseDataCheckoutSession) GetAmountRemaining() ListProducts200ResponseDataTotal {
+func (o *CreateCheckoutSession201ResponseDataCheckoutSession) GetAmountRemaining() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -360,7 +360,7 @@ func (o *CreateCheckoutSession201ResponseDataCheckoutSession) GetAmountRemaining
 
 // GetAmountRemainingOk returns a tuple with the AmountRemaining field value
 // and a boolean to check if the value has been set.
-func (o *CreateCheckoutSession201ResponseDataCheckoutSession) GetAmountRemainingOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreateCheckoutSession201ResponseDataCheckoutSession) GetAmountRemainingOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -368,7 +368,7 @@ func (o *CreateCheckoutSession201ResponseDataCheckoutSession) GetAmountRemaining
 }
 
 // SetAmountRemaining sets field value
-func (o *CreateCheckoutSession201ResponseDataCheckoutSession) SetAmountRemaining(v ListProducts200ResponseDataTotal) {
+func (o *CreateCheckoutSession201ResponseDataCheckoutSession) SetAmountRemaining(v float32) {
 	o.AmountRemaining = v
 }
 

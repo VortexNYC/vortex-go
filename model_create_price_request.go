@@ -28,12 +28,12 @@ type CreatePriceRequest struct {
 	Currency NullableString `json:"currency"`
 	PriceId NullableString `json:"priceId,omitempty"`
 	BillingInterval NullableString `json:"billingInterval,omitempty"`
-	BillingIntervalCount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"billingIntervalCount,omitempty"`
-	UnitAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"unitAmount,omitempty"`
+	BillingIntervalCount NullableFloat32 `json:"billingIntervalCount,omitempty"`
+	UnitAmount NullableFloat32 `json:"unitAmount,omitempty"`
 	MeterId NullableString `json:"meterId,omitempty"`
 	Tiers []CreatePriceRequestTiersInner `json:"tiers,omitempty"`
-	PackageAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"packageAmount,omitempty"`
-	PackageSize NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"packageSize,omitempty"`
+	PackageAmount NullableFloat32 `json:"packageAmount,omitempty"`
+	PackageSize NullableFloat32 `json:"packageSize,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -332,9 +332,9 @@ func (o *CreatePriceRequest) UnsetBillingInterval() {
 }
 
 // GetBillingIntervalCount returns the BillingIntervalCount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreatePriceRequest) GetBillingIntervalCount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreatePriceRequest) GetBillingIntervalCount() float32 {
 	if o == nil || IsNil(o.BillingIntervalCount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.BillingIntervalCount.Get()
@@ -343,7 +343,7 @@ func (o *CreatePriceRequest) GetBillingIntervalCount() ListCustomerBillingAccoun
 // GetBillingIntervalCountOk returns a tuple with the BillingIntervalCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreatePriceRequest) GetBillingIntervalCountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreatePriceRequest) GetBillingIntervalCountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -359,8 +359,8 @@ func (o *CreatePriceRequest) HasBillingIntervalCount() bool {
 	return false
 }
 
-// SetBillingIntervalCount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the BillingIntervalCount field.
-func (o *CreatePriceRequest) SetBillingIntervalCount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetBillingIntervalCount gets a reference to the given NullableFloat32 and assigns it to the BillingIntervalCount field.
+func (o *CreatePriceRequest) SetBillingIntervalCount(v float32) {
 	o.BillingIntervalCount.Set(&v)
 }
 // SetBillingIntervalCountNil sets the value for BillingIntervalCount to be an explicit nil
@@ -374,9 +374,9 @@ func (o *CreatePriceRequest) UnsetBillingIntervalCount() {
 }
 
 // GetUnitAmount returns the UnitAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreatePriceRequest) GetUnitAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreatePriceRequest) GetUnitAmount() float32 {
 	if o == nil || IsNil(o.UnitAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.UnitAmount.Get()
@@ -385,7 +385,7 @@ func (o *CreatePriceRequest) GetUnitAmount() ListCustomerBillingAccounts200Respo
 // GetUnitAmountOk returns a tuple with the UnitAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreatePriceRequest) GetUnitAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreatePriceRequest) GetUnitAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -401,8 +401,8 @@ func (o *CreatePriceRequest) HasUnitAmount() bool {
 	return false
 }
 
-// SetUnitAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the UnitAmount field.
-func (o *CreatePriceRequest) SetUnitAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetUnitAmount gets a reference to the given NullableFloat32 and assigns it to the UnitAmount field.
+func (o *CreatePriceRequest) SetUnitAmount(v float32) {
 	o.UnitAmount.Set(&v)
 }
 // SetUnitAmountNil sets the value for UnitAmount to be an explicit nil
@@ -491,9 +491,9 @@ func (o *CreatePriceRequest) SetTiers(v []CreatePriceRequestTiersInner) {
 }
 
 // GetPackageAmount returns the PackageAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreatePriceRequest) GetPackageAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreatePriceRequest) GetPackageAmount() float32 {
 	if o == nil || IsNil(o.PackageAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.PackageAmount.Get()
@@ -502,7 +502,7 @@ func (o *CreatePriceRequest) GetPackageAmount() ListCustomerBillingAccounts200Re
 // GetPackageAmountOk returns a tuple with the PackageAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreatePriceRequest) GetPackageAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreatePriceRequest) GetPackageAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -518,8 +518,8 @@ func (o *CreatePriceRequest) HasPackageAmount() bool {
 	return false
 }
 
-// SetPackageAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the PackageAmount field.
-func (o *CreatePriceRequest) SetPackageAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetPackageAmount gets a reference to the given NullableFloat32 and assigns it to the PackageAmount field.
+func (o *CreatePriceRequest) SetPackageAmount(v float32) {
 	o.PackageAmount.Set(&v)
 }
 // SetPackageAmountNil sets the value for PackageAmount to be an explicit nil
@@ -533,9 +533,9 @@ func (o *CreatePriceRequest) UnsetPackageAmount() {
 }
 
 // GetPackageSize returns the PackageSize field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreatePriceRequest) GetPackageSize() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreatePriceRequest) GetPackageSize() float32 {
 	if o == nil || IsNil(o.PackageSize.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.PackageSize.Get()
@@ -544,7 +544,7 @@ func (o *CreatePriceRequest) GetPackageSize() ListCustomerBillingAccounts200Resp
 // GetPackageSizeOk returns a tuple with the PackageSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreatePriceRequest) GetPackageSizeOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreatePriceRequest) GetPackageSizeOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -560,8 +560,8 @@ func (o *CreatePriceRequest) HasPackageSize() bool {
 	return false
 }
 
-// SetPackageSize gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the PackageSize field.
-func (o *CreatePriceRequest) SetPackageSize(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetPackageSize gets a reference to the given NullableFloat32 and assigns it to the PackageSize field.
+func (o *CreatePriceRequest) SetPackageSize(v float32) {
 	o.PackageSize.Set(&v)
 }
 // SetPackageSizeNil sets the value for PackageSize to be an explicit nil

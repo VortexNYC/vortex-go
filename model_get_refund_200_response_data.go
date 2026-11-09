@@ -24,7 +24,7 @@ type GetRefund200ResponseData struct {
 	Id string `json:"id"`
 	MerchantAccountId string `json:"merchantAccountId"`
 	PaymentId string `json:"paymentId"`
-	Amount ListProducts200ResponseDataTotal `json:"amount"`
+	Amount float32 `json:"amount"`
 	Currency string `json:"currency"`
 	Status string `json:"status"`
 	Reason string `json:"reason"`
@@ -38,7 +38,7 @@ type _GetRefund200ResponseData GetRefund200ResponseData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetRefund200ResponseData(id string, merchantAccountId string, paymentId string, amount ListProducts200ResponseDataTotal, currency string, status string, reason string) *GetRefund200ResponseData {
+func NewGetRefund200ResponseData(id string, merchantAccountId string, paymentId string, amount float32, currency string, status string, reason string) *GetRefund200ResponseData {
 	this := GetRefund200ResponseData{}
 	this.Id = id
 	this.MerchantAccountId = merchantAccountId
@@ -131,9 +131,9 @@ func (o *GetRefund200ResponseData) SetPaymentId(v string) {
 }
 
 // GetAmount returns the Amount field value
-func (o *GetRefund200ResponseData) GetAmount() ListProducts200ResponseDataTotal {
+func (o *GetRefund200ResponseData) GetAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -142,7 +142,7 @@ func (o *GetRefund200ResponseData) GetAmount() ListProducts200ResponseDataTotal 
 
 // GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
-func (o *GetRefund200ResponseData) GetAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *GetRefund200ResponseData) GetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -150,7 +150,7 @@ func (o *GetRefund200ResponseData) GetAmountOk() (*ListProducts200ResponseDataTo
 }
 
 // SetAmount sets field value
-func (o *GetRefund200ResponseData) SetAmount(v ListProducts200ResponseDataTotal) {
+func (o *GetRefund200ResponseData) SetAmount(v float32) {
 	o.Amount = v
 }
 

@@ -23,10 +23,10 @@ type CreateCustomFieldRequestProperties struct {
 	FormHelpText NullableString `json:"formHelpText,omitempty"`
 	FormPlaceholder NullableString `json:"formPlaceholder,omitempty"`
 	Textarea NullableBool `json:"textarea,omitempty"`
-	MinLength NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"minLength,omitempty"`
-	MaxLength NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"maxLength,omitempty"`
-	Ge NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"ge,omitempty"`
-	Le NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"le,omitempty"`
+	MinLength NullableFloat32 `json:"minLength,omitempty"`
+	MaxLength NullableFloat32 `json:"maxLength,omitempty"`
+	Ge NullableFloat32 `json:"ge,omitempty"`
+	Le NullableFloat32 `json:"le,omitempty"`
 	Options []ListCustomFields200ResponseDataItemsInnerPropertiesOptionsInner `json:"options,omitempty"`
 }
 
@@ -216,9 +216,9 @@ func (o *CreateCustomFieldRequestProperties) UnsetTextarea() {
 }
 
 // GetMinLength returns the MinLength field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateCustomFieldRequestProperties) GetMinLength() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateCustomFieldRequestProperties) GetMinLength() float32 {
 	if o == nil || IsNil(o.MinLength.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.MinLength.Get()
@@ -227,7 +227,7 @@ func (o *CreateCustomFieldRequestProperties) GetMinLength() ListCustomerBillingA
 // GetMinLengthOk returns a tuple with the MinLength field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateCustomFieldRequestProperties) GetMinLengthOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateCustomFieldRequestProperties) GetMinLengthOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -243,8 +243,8 @@ func (o *CreateCustomFieldRequestProperties) HasMinLength() bool {
 	return false
 }
 
-// SetMinLength gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the MinLength field.
-func (o *CreateCustomFieldRequestProperties) SetMinLength(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetMinLength gets a reference to the given NullableFloat32 and assigns it to the MinLength field.
+func (o *CreateCustomFieldRequestProperties) SetMinLength(v float32) {
 	o.MinLength.Set(&v)
 }
 // SetMinLengthNil sets the value for MinLength to be an explicit nil
@@ -258,9 +258,9 @@ func (o *CreateCustomFieldRequestProperties) UnsetMinLength() {
 }
 
 // GetMaxLength returns the MaxLength field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateCustomFieldRequestProperties) GetMaxLength() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateCustomFieldRequestProperties) GetMaxLength() float32 {
 	if o == nil || IsNil(o.MaxLength.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.MaxLength.Get()
@@ -269,7 +269,7 @@ func (o *CreateCustomFieldRequestProperties) GetMaxLength() ListCustomerBillingA
 // GetMaxLengthOk returns a tuple with the MaxLength field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateCustomFieldRequestProperties) GetMaxLengthOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateCustomFieldRequestProperties) GetMaxLengthOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -285,8 +285,8 @@ func (o *CreateCustomFieldRequestProperties) HasMaxLength() bool {
 	return false
 }
 
-// SetMaxLength gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the MaxLength field.
-func (o *CreateCustomFieldRequestProperties) SetMaxLength(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetMaxLength gets a reference to the given NullableFloat32 and assigns it to the MaxLength field.
+func (o *CreateCustomFieldRequestProperties) SetMaxLength(v float32) {
 	o.MaxLength.Set(&v)
 }
 // SetMaxLengthNil sets the value for MaxLength to be an explicit nil
@@ -300,9 +300,9 @@ func (o *CreateCustomFieldRequestProperties) UnsetMaxLength() {
 }
 
 // GetGe returns the Ge field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateCustomFieldRequestProperties) GetGe() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateCustomFieldRequestProperties) GetGe() float32 {
 	if o == nil || IsNil(o.Ge.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.Ge.Get()
@@ -311,7 +311,7 @@ func (o *CreateCustomFieldRequestProperties) GetGe() ListCustomerBillingAccounts
 // GetGeOk returns a tuple with the Ge field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateCustomFieldRequestProperties) GetGeOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateCustomFieldRequestProperties) GetGeOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -327,8 +327,8 @@ func (o *CreateCustomFieldRequestProperties) HasGe() bool {
 	return false
 }
 
-// SetGe gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the Ge field.
-func (o *CreateCustomFieldRequestProperties) SetGe(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetGe gets a reference to the given NullableFloat32 and assigns it to the Ge field.
+func (o *CreateCustomFieldRequestProperties) SetGe(v float32) {
 	o.Ge.Set(&v)
 }
 // SetGeNil sets the value for Ge to be an explicit nil
@@ -342,9 +342,9 @@ func (o *CreateCustomFieldRequestProperties) UnsetGe() {
 }
 
 // GetLe returns the Le field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateCustomFieldRequestProperties) GetLe() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateCustomFieldRequestProperties) GetLe() float32 {
 	if o == nil || IsNil(o.Le.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.Le.Get()
@@ -353,7 +353,7 @@ func (o *CreateCustomFieldRequestProperties) GetLe() ListCustomerBillingAccounts
 // GetLeOk returns a tuple with the Le field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateCustomFieldRequestProperties) GetLeOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateCustomFieldRequestProperties) GetLeOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -369,8 +369,8 @@ func (o *CreateCustomFieldRequestProperties) HasLe() bool {
 	return false
 }
 
-// SetLe gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the Le field.
-func (o *CreateCustomFieldRequestProperties) SetLe(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetLe gets a reference to the given NullableFloat32 and assigns it to the Le field.
+func (o *CreateCustomFieldRequestProperties) SetLe(v float32) {
 	o.Le.Set(&v)
 }
 // SetLeNil sets the value for Le to be an explicit nil

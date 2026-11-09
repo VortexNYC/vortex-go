@@ -30,7 +30,7 @@ type CreateBillingCouponRequestAnyOf1 struct {
 	Reusable NullableBool `json:"reusable,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
 	DiscountType string `json:"discountType"`
-	Percentage ListProducts200ResponseDataTotal `json:"percentage"`
+	Percentage NullableFloat32 `json:"percentage"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -40,7 +40,7 @@ type _CreateBillingCouponRequestAnyOf1 CreateBillingCouponRequestAnyOf1
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateBillingCouponRequestAnyOf1(code NullableString, name NullableString, duration string, discountType string, percentage ListProducts200ResponseDataTotal) *CreateBillingCouponRequestAnyOf1 {
+func NewCreateBillingCouponRequestAnyOf1(code NullableString, name NullableString, duration string, discountType string, percentage NullableFloat32) *CreateBillingCouponRequestAnyOf1 {
 	this := CreateBillingCouponRequestAnyOf1{}
 	this.Code = code
 	this.Name = name
@@ -402,27 +402,29 @@ func (o *CreateBillingCouponRequestAnyOf1) SetDiscountType(v string) {
 }
 
 // GetPercentage returns the Percentage field value
-func (o *CreateBillingCouponRequestAnyOf1) GetPercentage() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateBillingCouponRequestAnyOf1) GetPercentage() float32 {
+	if o == nil || o.Percentage.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Percentage
+	return *o.Percentage.Get()
 }
 
 // GetPercentageOk returns a tuple with the Percentage field value
 // and a boolean to check if the value has been set.
-func (o *CreateBillingCouponRequestAnyOf1) GetPercentageOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateBillingCouponRequestAnyOf1) GetPercentageOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Percentage, true
+	return o.Percentage.Get(), o.Percentage.IsSet()
 }
 
 // SetPercentage sets field value
-func (o *CreateBillingCouponRequestAnyOf1) SetPercentage(v ListProducts200ResponseDataTotal) {
-	o.Percentage = v
+func (o *CreateBillingCouponRequestAnyOf1) SetPercentage(v float32) {
+	o.Percentage.Set(&v)
 }
 
 func (o CreateBillingCouponRequestAnyOf1) MarshalJSON() ([]byte, error) {
@@ -457,7 +459,7 @@ func (o CreateBillingCouponRequestAnyOf1) ToMap() (map[string]interface{}, error
 		toSerialize["metadata"] = o.Metadata
 	}
 	toSerialize["discountType"] = o.DiscountType
-	toSerialize["percentage"] = o.Percentage
+	toSerialize["percentage"] = o.Percentage.Get()
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

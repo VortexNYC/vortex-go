@@ -23,7 +23,7 @@ type CreateBillingUsageThresholdRequest struct {
 	Environment NullableString `json:"environment,omitempty"`
 	MerchantAccountId NullableString `json:"merchantAccountId,omitempty"`
 	MeterId NullableString `json:"meterId"`
-	ThresholdValue ListProducts200ResponseDataTotal `json:"thresholdValue"`
+	ThresholdValue NullableFloat32 `json:"thresholdValue"`
 	CustomerId NullableString `json:"customerId,omitempty"`
 	ThresholdId NullableString `json:"thresholdId,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -35,7 +35,7 @@ type _CreateBillingUsageThresholdRequest CreateBillingUsageThresholdRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateBillingUsageThresholdRequest(meterId NullableString, thresholdValue ListProducts200ResponseDataTotal) *CreateBillingUsageThresholdRequest {
+func NewCreateBillingUsageThresholdRequest(meterId NullableString, thresholdValue NullableFloat32) *CreateBillingUsageThresholdRequest {
 	this := CreateBillingUsageThresholdRequest{}
 	this.MeterId = meterId
 	this.ThresholdValue = thresholdValue
@@ -161,27 +161,29 @@ func (o *CreateBillingUsageThresholdRequest) SetMeterId(v string) {
 }
 
 // GetThresholdValue returns the ThresholdValue field value
-func (o *CreateBillingUsageThresholdRequest) GetThresholdValue() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateBillingUsageThresholdRequest) GetThresholdValue() float32 {
+	if o == nil || o.ThresholdValue.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.ThresholdValue
+	return *o.ThresholdValue.Get()
 }
 
 // GetThresholdValueOk returns a tuple with the ThresholdValue field value
 // and a boolean to check if the value has been set.
-func (o *CreateBillingUsageThresholdRequest) GetThresholdValueOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateBillingUsageThresholdRequest) GetThresholdValueOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ThresholdValue, true
+	return o.ThresholdValue.Get(), o.ThresholdValue.IsSet()
 }
 
 // SetThresholdValue sets field value
-func (o *CreateBillingUsageThresholdRequest) SetThresholdValue(v ListProducts200ResponseDataTotal) {
-	o.ThresholdValue = v
+func (o *CreateBillingUsageThresholdRequest) SetThresholdValue(v float32) {
+	o.ThresholdValue.Set(&v)
 }
 
 // GetCustomerId returns the CustomerId field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -285,7 +287,7 @@ func (o CreateBillingUsageThresholdRequest) ToMap() (map[string]interface{}, err
 		toSerialize["merchantAccountId"] = o.MerchantAccountId.Get()
 	}
 	toSerialize["meterId"] = o.MeterId.Get()
-	toSerialize["thresholdValue"] = o.ThresholdValue
+	toSerialize["thresholdValue"] = o.ThresholdValue.Get()
 	if o.CustomerId.IsSet() {
 		toSerialize["customerId"] = o.CustomerId.Get()
 	}

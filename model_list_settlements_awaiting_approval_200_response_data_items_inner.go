@@ -26,11 +26,11 @@ type ListSettlementsAwaitingApproval200ResponseDataItemsInner struct {
 	MerchantAccountId string `json:"merchantAccountId"`
 	Currency string `json:"currency"`
 	Status string `json:"status"`
-	GrossAmount ListProducts200ResponseDataTotal `json:"grossAmount"`
-	FeeAmount ListProducts200ResponseDataTotal `json:"feeAmount"`
-	RefundAmount ListProducts200ResponseDataTotal `json:"refundAmount"`
-	AdjustmentAmount ListProducts200ResponseDataTotal `json:"adjustmentAmount"`
-	NetAmount ListProducts200ResponseDataTotal `json:"netAmount"`
+	GrossAmount float32 `json:"grossAmount"`
+	FeeAmount float32 `json:"feeAmount"`
+	RefundAmount float32 `json:"refundAmount"`
+	AdjustmentAmount float32 `json:"adjustmentAmount"`
+	NetAmount float32 `json:"netAmount"`
 	Direction string `json:"direction"`
 	CreatedAt string `json:"createdAt"`
 	UpdatedAt string `json:"updatedAt"`
@@ -48,7 +48,7 @@ type _ListSettlementsAwaitingApproval200ResponseDataItemsInner ListSettlementsAw
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListSettlementsAwaitingApproval200ResponseDataItemsInner(id string, environment string, merchantAccountId string, currency string, status string, grossAmount ListProducts200ResponseDataTotal, feeAmount ListProducts200ResponseDataTotal, refundAmount ListProducts200ResponseDataTotal, adjustmentAmount ListProducts200ResponseDataTotal, netAmount ListProducts200ResponseDataTotal, direction string, createdAt string, updatedAt string) *ListSettlementsAwaitingApproval200ResponseDataItemsInner {
+func NewListSettlementsAwaitingApproval200ResponseDataItemsInner(id string, environment string, merchantAccountId string, currency string, status string, grossAmount float32, feeAmount float32, refundAmount float32, adjustmentAmount float32, netAmount float32, direction string, createdAt string, updatedAt string) *ListSettlementsAwaitingApproval200ResponseDataItemsInner {
 	this := ListSettlementsAwaitingApproval200ResponseDataItemsInner{}
 	this.Id = id
 	this.Environment = environment
@@ -195,9 +195,9 @@ func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) SetStatus(v s
 }
 
 // GetGrossAmount returns the GrossAmount field value
-func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetGrossAmount() ListProducts200ResponseDataTotal {
+func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetGrossAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -206,7 +206,7 @@ func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetGrossAmoun
 
 // GetGrossAmountOk returns a tuple with the GrossAmount field value
 // and a boolean to check if the value has been set.
-func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetGrossAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetGrossAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -214,14 +214,14 @@ func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetGrossAmoun
 }
 
 // SetGrossAmount sets field value
-func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) SetGrossAmount(v ListProducts200ResponseDataTotal) {
+func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) SetGrossAmount(v float32) {
 	o.GrossAmount = v
 }
 
 // GetFeeAmount returns the FeeAmount field value
-func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetFeeAmount() ListProducts200ResponseDataTotal {
+func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetFeeAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -230,7 +230,7 @@ func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetFeeAmount(
 
 // GetFeeAmountOk returns a tuple with the FeeAmount field value
 // and a boolean to check if the value has been set.
-func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetFeeAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetFeeAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -238,14 +238,14 @@ func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetFeeAmountO
 }
 
 // SetFeeAmount sets field value
-func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) SetFeeAmount(v ListProducts200ResponseDataTotal) {
+func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) SetFeeAmount(v float32) {
 	o.FeeAmount = v
 }
 
 // GetRefundAmount returns the RefundAmount field value
-func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetRefundAmount() ListProducts200ResponseDataTotal {
+func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetRefundAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -254,7 +254,7 @@ func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetRefundAmou
 
 // GetRefundAmountOk returns a tuple with the RefundAmount field value
 // and a boolean to check if the value has been set.
-func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetRefundAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetRefundAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -262,14 +262,14 @@ func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetRefundAmou
 }
 
 // SetRefundAmount sets field value
-func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) SetRefundAmount(v ListProducts200ResponseDataTotal) {
+func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) SetRefundAmount(v float32) {
 	o.RefundAmount = v
 }
 
 // GetAdjustmentAmount returns the AdjustmentAmount field value
-func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetAdjustmentAmount() ListProducts200ResponseDataTotal {
+func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetAdjustmentAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -278,7 +278,7 @@ func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetAdjustment
 
 // GetAdjustmentAmountOk returns a tuple with the AdjustmentAmount field value
 // and a boolean to check if the value has been set.
-func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetAdjustmentAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetAdjustmentAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -286,14 +286,14 @@ func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetAdjustment
 }
 
 // SetAdjustmentAmount sets field value
-func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) SetAdjustmentAmount(v ListProducts200ResponseDataTotal) {
+func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) SetAdjustmentAmount(v float32) {
 	o.AdjustmentAmount = v
 }
 
 // GetNetAmount returns the NetAmount field value
-func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetNetAmount() ListProducts200ResponseDataTotal {
+func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetNetAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -302,7 +302,7 @@ func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetNetAmount(
 
 // GetNetAmountOk returns a tuple with the NetAmount field value
 // and a boolean to check if the value has been set.
-func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetNetAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetNetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -310,7 +310,7 @@ func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) GetNetAmountO
 }
 
 // SetNetAmount sets field value
-func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) SetNetAmount(v ListProducts200ResponseDataTotal) {
+func (o *ListSettlementsAwaitingApproval200ResponseDataItemsInner) SetNetAmount(v float32) {
 	o.NetAmount = v
 }
 

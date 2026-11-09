@@ -24,8 +24,8 @@ type CreateCheckoutSessionRequest struct {
 	Mode NullableString `json:"mode,omitempty"`
 	InvoiceNumbers []string `json:"invoiceNumbers,omitempty"`
 	InvoiceNumber NullableString `json:"invoiceNumber,omitempty"`
-	Amount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"amount,omitempty"`
-	AmountCents NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"amountCents,omitempty"`
+	Amount NullableFloat32 `json:"amount,omitempty"`
+	AmountCents NullableFloat32 `json:"amountCents,omitempty"`
 	Currency NullableString `json:"currency,omitempty"`
 	Description NullableString `json:"description,omitempty"`
 	CustomerId NullableString `json:"customerId,omitempty"`
@@ -273,9 +273,9 @@ func (o *CreateCheckoutSessionRequest) UnsetInvoiceNumber() {
 }
 
 // GetAmount returns the Amount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateCheckoutSessionRequest) GetAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateCheckoutSessionRequest) GetAmount() float32 {
 	if o == nil || IsNil(o.Amount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.Amount.Get()
@@ -284,7 +284,7 @@ func (o *CreateCheckoutSessionRequest) GetAmount() ListCustomerBillingAccounts20
 // GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateCheckoutSessionRequest) GetAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateCheckoutSessionRequest) GetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -300,8 +300,8 @@ func (o *CreateCheckoutSessionRequest) HasAmount() bool {
 	return false
 }
 
-// SetAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the Amount field.
-func (o *CreateCheckoutSessionRequest) SetAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetAmount gets a reference to the given NullableFloat32 and assigns it to the Amount field.
+func (o *CreateCheckoutSessionRequest) SetAmount(v float32) {
 	o.Amount.Set(&v)
 }
 // SetAmountNil sets the value for Amount to be an explicit nil
@@ -315,9 +315,9 @@ func (o *CreateCheckoutSessionRequest) UnsetAmount() {
 }
 
 // GetAmountCents returns the AmountCents field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateCheckoutSessionRequest) GetAmountCents() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateCheckoutSessionRequest) GetAmountCents() float32 {
 	if o == nil || IsNil(o.AmountCents.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.AmountCents.Get()
@@ -326,7 +326,7 @@ func (o *CreateCheckoutSessionRequest) GetAmountCents() ListCustomerBillingAccou
 // GetAmountCentsOk returns a tuple with the AmountCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateCheckoutSessionRequest) GetAmountCentsOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateCheckoutSessionRequest) GetAmountCentsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -342,8 +342,8 @@ func (o *CreateCheckoutSessionRequest) HasAmountCents() bool {
 	return false
 }
 
-// SetAmountCents gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the AmountCents field.
-func (o *CreateCheckoutSessionRequest) SetAmountCents(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetAmountCents gets a reference to the given NullableFloat32 and assigns it to the AmountCents field.
+func (o *CreateCheckoutSessionRequest) SetAmountCents(v float32) {
 	o.AmountCents.Set(&v)
 }
 // SetAmountCentsNil sets the value for AmountCents to be an explicit nil

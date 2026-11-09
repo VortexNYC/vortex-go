@@ -22,8 +22,8 @@ var _ MappedNullable = &SetPlatformFee200ResponseDataUpdatesInner{}
 type SetPlatformFee200ResponseDataUpdatesInner struct {
 	RatePlanId NullableString `json:"ratePlanId"`
 	NewRatePlanId NullableString `json:"newRatePlanId"`
-	Version ListProducts200ResponseDataTotal `json:"version"`
-	ReassignedMerchantCount ListProducts200ResponseDataTotal `json:"reassignedMerchantCount"`
+	Version NullableFloat32 `json:"version"`
+	ReassignedMerchantCount NullableFloat32 `json:"reassignedMerchantCount"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,7 +33,7 @@ type _SetPlatformFee200ResponseDataUpdatesInner SetPlatformFee200ResponseDataUpd
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSetPlatformFee200ResponseDataUpdatesInner(ratePlanId NullableString, newRatePlanId NullableString, version ListProducts200ResponseDataTotal, reassignedMerchantCount ListProducts200ResponseDataTotal) *SetPlatformFee200ResponseDataUpdatesInner {
+func NewSetPlatformFee200ResponseDataUpdatesInner(ratePlanId NullableString, newRatePlanId NullableString, version NullableFloat32, reassignedMerchantCount NullableFloat32) *SetPlatformFee200ResponseDataUpdatesInner {
 	this := SetPlatformFee200ResponseDataUpdatesInner{}
 	this.RatePlanId = ratePlanId
 	this.NewRatePlanId = newRatePlanId
@@ -103,51 +103,55 @@ func (o *SetPlatformFee200ResponseDataUpdatesInner) SetNewRatePlanId(v string) {
 }
 
 // GetVersion returns the Version field value
-func (o *SetPlatformFee200ResponseDataUpdatesInner) GetVersion() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *SetPlatformFee200ResponseDataUpdatesInner) GetVersion() float32 {
+	if o == nil || o.Version.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Version
+	return *o.Version.Get()
 }
 
 // GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
-func (o *SetPlatformFee200ResponseDataUpdatesInner) GetVersionOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *SetPlatformFee200ResponseDataUpdatesInner) GetVersionOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Version, true
+	return o.Version.Get(), o.Version.IsSet()
 }
 
 // SetVersion sets field value
-func (o *SetPlatformFee200ResponseDataUpdatesInner) SetVersion(v ListProducts200ResponseDataTotal) {
-	o.Version = v
+func (o *SetPlatformFee200ResponseDataUpdatesInner) SetVersion(v float32) {
+	o.Version.Set(&v)
 }
 
 // GetReassignedMerchantCount returns the ReassignedMerchantCount field value
-func (o *SetPlatformFee200ResponseDataUpdatesInner) GetReassignedMerchantCount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *SetPlatformFee200ResponseDataUpdatesInner) GetReassignedMerchantCount() float32 {
+	if o == nil || o.ReassignedMerchantCount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.ReassignedMerchantCount
+	return *o.ReassignedMerchantCount.Get()
 }
 
 // GetReassignedMerchantCountOk returns a tuple with the ReassignedMerchantCount field value
 // and a boolean to check if the value has been set.
-func (o *SetPlatformFee200ResponseDataUpdatesInner) GetReassignedMerchantCountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *SetPlatformFee200ResponseDataUpdatesInner) GetReassignedMerchantCountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ReassignedMerchantCount, true
+	return o.ReassignedMerchantCount.Get(), o.ReassignedMerchantCount.IsSet()
 }
 
 // SetReassignedMerchantCount sets field value
-func (o *SetPlatformFee200ResponseDataUpdatesInner) SetReassignedMerchantCount(v ListProducts200ResponseDataTotal) {
-	o.ReassignedMerchantCount = v
+func (o *SetPlatformFee200ResponseDataUpdatesInner) SetReassignedMerchantCount(v float32) {
+	o.ReassignedMerchantCount.Set(&v)
 }
 
 func (o SetPlatformFee200ResponseDataUpdatesInner) MarshalJSON() ([]byte, error) {
@@ -162,8 +166,8 @@ func (o SetPlatformFee200ResponseDataUpdatesInner) ToMap() (map[string]interface
 	toSerialize := map[string]interface{}{}
 	toSerialize["ratePlanId"] = o.RatePlanId.Get()
 	toSerialize["newRatePlanId"] = o.NewRatePlanId.Get()
-	toSerialize["version"] = o.Version
-	toSerialize["reassignedMerchantCount"] = o.ReassignedMerchantCount
+	toSerialize["version"] = o.Version.Get()
+	toSerialize["reassignedMerchantCount"] = o.ReassignedMerchantCount.Get()
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

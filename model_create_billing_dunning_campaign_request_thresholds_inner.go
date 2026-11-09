@@ -22,7 +22,7 @@ var _ MappedNullable = &CreateBillingDunningCampaignRequestThresholdsInner{}
 // CreateBillingDunningCampaignRequestThresholdsInner struct for CreateBillingDunningCampaignRequestThresholdsInner
 type CreateBillingDunningCampaignRequestThresholdsInner struct {
 	Currency string `json:"currency"`
-	AmountCents ListProducts200ResponseDataTotal `json:"amountCents"`
+	AmountCents float32 `json:"amountCents"`
 }
 
 type _CreateBillingDunningCampaignRequestThresholdsInner CreateBillingDunningCampaignRequestThresholdsInner
@@ -31,7 +31,7 @@ type _CreateBillingDunningCampaignRequestThresholdsInner CreateBillingDunningCam
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateBillingDunningCampaignRequestThresholdsInner(currency string, amountCents ListProducts200ResponseDataTotal) *CreateBillingDunningCampaignRequestThresholdsInner {
+func NewCreateBillingDunningCampaignRequestThresholdsInner(currency string, amountCents float32) *CreateBillingDunningCampaignRequestThresholdsInner {
 	this := CreateBillingDunningCampaignRequestThresholdsInner{}
 	this.Currency = currency
 	this.AmountCents = amountCents
@@ -71,9 +71,9 @@ func (o *CreateBillingDunningCampaignRequestThresholdsInner) SetCurrency(v strin
 }
 
 // GetAmountCents returns the AmountCents field value
-func (o *CreateBillingDunningCampaignRequestThresholdsInner) GetAmountCents() ListProducts200ResponseDataTotal {
+func (o *CreateBillingDunningCampaignRequestThresholdsInner) GetAmountCents() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -82,7 +82,7 @@ func (o *CreateBillingDunningCampaignRequestThresholdsInner) GetAmountCents() Li
 
 // GetAmountCentsOk returns a tuple with the AmountCents field value
 // and a boolean to check if the value has been set.
-func (o *CreateBillingDunningCampaignRequestThresholdsInner) GetAmountCentsOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreateBillingDunningCampaignRequestThresholdsInner) GetAmountCentsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -90,7 +90,7 @@ func (o *CreateBillingDunningCampaignRequestThresholdsInner) GetAmountCentsOk() 
 }
 
 // SetAmountCents sets field value
-func (o *CreateBillingDunningCampaignRequestThresholdsInner) SetAmountCents(v ListProducts200ResponseDataTotal) {
+func (o *CreateBillingDunningCampaignRequestThresholdsInner) SetAmountCents(v float32) {
 	o.AmountCents = v
 }
 

@@ -20,7 +20,7 @@ var _ MappedNullable = &CollectInvoicePaymentRequest{}
 
 // CollectInvoicePaymentRequest struct for CollectInvoicePaymentRequest
 type CollectInvoicePaymentRequest struct {
-	Amount ListProducts200ResponseDataTotal `json:"amount"`
+	Amount NullableFloat32 `json:"amount"`
 	BillingAccountId NullableString `json:"billingAccountId"`
 	Currency NullableString `json:"currency"`
 	CustomerProfileId NullableString `json:"customerProfileId"`
@@ -46,7 +46,7 @@ type _CollectInvoicePaymentRequest CollectInvoicePaymentRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCollectInvoicePaymentRequest(amount ListProducts200ResponseDataTotal, billingAccountId NullableString, currency NullableString, customerProfileId NullableString, invoiceId NullableString) *CollectInvoicePaymentRequest {
+func NewCollectInvoicePaymentRequest(amount NullableFloat32, billingAccountId NullableString, currency NullableString, customerProfileId NullableString, invoiceId NullableString) *CollectInvoicePaymentRequest {
 	this := CollectInvoicePaymentRequest{}
 	this.Amount = amount
 	this.BillingAccountId = billingAccountId
@@ -65,27 +65,29 @@ func NewCollectInvoicePaymentRequestWithDefaults() *CollectInvoicePaymentRequest
 }
 
 // GetAmount returns the Amount field value
-func (o *CollectInvoicePaymentRequest) GetAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CollectInvoicePaymentRequest) GetAmount() float32 {
+	if o == nil || o.Amount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Amount
+	return *o.Amount.Get()
 }
 
 // GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
-func (o *CollectInvoicePaymentRequest) GetAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CollectInvoicePaymentRequest) GetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Amount, true
+	return o.Amount.Get(), o.Amount.IsSet()
 }
 
 // SetAmount sets field value
-func (o *CollectInvoicePaymentRequest) SetAmount(v ListProducts200ResponseDataTotal) {
-	o.Amount = v
+func (o *CollectInvoicePaymentRequest) SetAmount(v float32) {
+	o.Amount.Set(&v)
 }
 
 // GetBillingAccountId returns the BillingAccountId field value
@@ -706,7 +708,7 @@ func (o CollectInvoicePaymentRequest) MarshalJSON() ([]byte, error) {
 
 func (o CollectInvoicePaymentRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["amount"] = o.Amount
+	toSerialize["amount"] = o.Amount.Get()
 	toSerialize["billingAccountId"] = o.BillingAccountId.Get()
 	toSerialize["currency"] = o.Currency.Get()
 	toSerialize["customerProfileId"] = o.CustomerProfileId.Get()

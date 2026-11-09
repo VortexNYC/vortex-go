@@ -30,7 +30,7 @@ type CreateBillingCouponRequestAnyOf struct {
 	Reusable NullableBool `json:"reusable,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
 	DiscountType string `json:"discountType"`
-	Amount ListProducts200ResponseDataTotal `json:"amount"`
+	Amount NullableFloat32 `json:"amount"`
 	Currency NullableString `json:"currency"`
 	AdditionalProperties map[string]interface{}
 }
@@ -41,7 +41,7 @@ type _CreateBillingCouponRequestAnyOf CreateBillingCouponRequestAnyOf
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateBillingCouponRequestAnyOf(code NullableString, name NullableString, duration string, discountType string, amount ListProducts200ResponseDataTotal, currency NullableString) *CreateBillingCouponRequestAnyOf {
+func NewCreateBillingCouponRequestAnyOf(code NullableString, name NullableString, duration string, discountType string, amount NullableFloat32, currency NullableString) *CreateBillingCouponRequestAnyOf {
 	this := CreateBillingCouponRequestAnyOf{}
 	this.Code = code
 	this.Name = name
@@ -404,27 +404,29 @@ func (o *CreateBillingCouponRequestAnyOf) SetDiscountType(v string) {
 }
 
 // GetAmount returns the Amount field value
-func (o *CreateBillingCouponRequestAnyOf) GetAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateBillingCouponRequestAnyOf) GetAmount() float32 {
+	if o == nil || o.Amount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Amount
+	return *o.Amount.Get()
 }
 
 // GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
-func (o *CreateBillingCouponRequestAnyOf) GetAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateBillingCouponRequestAnyOf) GetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Amount, true
+	return o.Amount.Get(), o.Amount.IsSet()
 }
 
 // SetAmount sets field value
-func (o *CreateBillingCouponRequestAnyOf) SetAmount(v ListProducts200ResponseDataTotal) {
-	o.Amount = v
+func (o *CreateBillingCouponRequestAnyOf) SetAmount(v float32) {
+	o.Amount.Set(&v)
 }
 
 // GetCurrency returns the Currency field value
@@ -485,7 +487,7 @@ func (o CreateBillingCouponRequestAnyOf) ToMap() (map[string]interface{}, error)
 		toSerialize["metadata"] = o.Metadata
 	}
 	toSerialize["discountType"] = o.DiscountType
-	toSerialize["amount"] = o.Amount
+	toSerialize["amount"] = o.Amount.Get()
 	toSerialize["currency"] = o.Currency.Get()
 
 	for key, value := range o.AdditionalProperties {

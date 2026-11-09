@@ -29,9 +29,9 @@ type ListCardPresentPaymentIntents200ResponseDataItemsInner struct {
 	CustomerProfileId NullableString `json:"customerProfileId,omitempty"`
 	ExternalOrderRef NullableString `json:"externalOrderRef,omitempty"`
 	InvoiceId NullableString `json:"invoiceId,omitempty"`
-	Amount ListProducts200ResponseDataTotal `json:"amount"`
-	SubtotalAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"subtotalAmount,omitempty"`
-	TaxAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"taxAmount,omitempty"`
+	Amount NullableFloat32 `json:"amount"`
+	SubtotalAmount NullableFloat32 `json:"subtotalAmount,omitempty"`
+	TaxAmount NullableFloat32 `json:"taxAmount,omitempty"`
 	TaxTransactionId NullableString `json:"taxTransactionId,omitempty"`
 	TaxStatus NullableString `json:"taxStatus,omitempty"`
 	ReceiptEvidence NullableListCardPresentPaymentIntents200ResponseDataItemsInnerReceiptEvidence `json:"receiptEvidence,omitempty"`
@@ -57,7 +57,7 @@ type _ListCardPresentPaymentIntents200ResponseDataItemsInner ListCardPresentPaym
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListCardPresentPaymentIntents200ResponseDataItemsInner(id NullableString, merchantAccountId NullableString, locationId NullableString, readerId NullableString, amount ListProducts200ResponseDataTotal, currency NullableString, status string, capturePolicy ListCardPresentPaymentIntents200ResponseDataItemsInnerCapturePolicy, nextAction string, canCapture NullableBool, canCancel NullableBool, createdAt NullableString, updatedAt NullableString) *ListCardPresentPaymentIntents200ResponseDataItemsInner {
+func NewListCardPresentPaymentIntents200ResponseDataItemsInner(id NullableString, merchantAccountId NullableString, locationId NullableString, readerId NullableString, amount NullableFloat32, currency NullableString, status string, capturePolicy ListCardPresentPaymentIntents200ResponseDataItemsInnerCapturePolicy, nextAction string, canCapture NullableBool, canCancel NullableBool, createdAt NullableString, updatedAt NullableString) *ListCardPresentPaymentIntents200ResponseDataItemsInner {
 	this := ListCardPresentPaymentIntents200ResponseDataItemsInner{}
 	this.Id = id
 	this.MerchantAccountId = merchantAccountId
@@ -398,33 +398,35 @@ func (o *ListCardPresentPaymentIntents200ResponseDataItemsInner) UnsetInvoiceId(
 }
 
 // GetAmount returns the Amount field value
-func (o *ListCardPresentPaymentIntents200ResponseDataItemsInner) GetAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListCardPresentPaymentIntents200ResponseDataItemsInner) GetAmount() float32 {
+	if o == nil || o.Amount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Amount
+	return *o.Amount.Get()
 }
 
 // GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
-func (o *ListCardPresentPaymentIntents200ResponseDataItemsInner) GetAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListCardPresentPaymentIntents200ResponseDataItemsInner) GetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Amount, true
+	return o.Amount.Get(), o.Amount.IsSet()
 }
 
 // SetAmount sets field value
-func (o *ListCardPresentPaymentIntents200ResponseDataItemsInner) SetAmount(v ListProducts200ResponseDataTotal) {
-	o.Amount = v
+func (o *ListCardPresentPaymentIntents200ResponseDataItemsInner) SetAmount(v float32) {
+	o.Amount.Set(&v)
 }
 
 // GetSubtotalAmount returns the SubtotalAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ListCardPresentPaymentIntents200ResponseDataItemsInner) GetSubtotalAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ListCardPresentPaymentIntents200ResponseDataItemsInner) GetSubtotalAmount() float32 {
 	if o == nil || IsNil(o.SubtotalAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.SubtotalAmount.Get()
@@ -433,7 +435,7 @@ func (o *ListCardPresentPaymentIntents200ResponseDataItemsInner) GetSubtotalAmou
 // GetSubtotalAmountOk returns a tuple with the SubtotalAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ListCardPresentPaymentIntents200ResponseDataItemsInner) GetSubtotalAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ListCardPresentPaymentIntents200ResponseDataItemsInner) GetSubtotalAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -449,8 +451,8 @@ func (o *ListCardPresentPaymentIntents200ResponseDataItemsInner) HasSubtotalAmou
 	return false
 }
 
-// SetSubtotalAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the SubtotalAmount field.
-func (o *ListCardPresentPaymentIntents200ResponseDataItemsInner) SetSubtotalAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetSubtotalAmount gets a reference to the given NullableFloat32 and assigns it to the SubtotalAmount field.
+func (o *ListCardPresentPaymentIntents200ResponseDataItemsInner) SetSubtotalAmount(v float32) {
 	o.SubtotalAmount.Set(&v)
 }
 // SetSubtotalAmountNil sets the value for SubtotalAmount to be an explicit nil
@@ -464,9 +466,9 @@ func (o *ListCardPresentPaymentIntents200ResponseDataItemsInner) UnsetSubtotalAm
 }
 
 // GetTaxAmount returns the TaxAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ListCardPresentPaymentIntents200ResponseDataItemsInner) GetTaxAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ListCardPresentPaymentIntents200ResponseDataItemsInner) GetTaxAmount() float32 {
 	if o == nil || IsNil(o.TaxAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.TaxAmount.Get()
@@ -475,7 +477,7 @@ func (o *ListCardPresentPaymentIntents200ResponseDataItemsInner) GetTaxAmount() 
 // GetTaxAmountOk returns a tuple with the TaxAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ListCardPresentPaymentIntents200ResponseDataItemsInner) GetTaxAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ListCardPresentPaymentIntents200ResponseDataItemsInner) GetTaxAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -491,8 +493,8 @@ func (o *ListCardPresentPaymentIntents200ResponseDataItemsInner) HasTaxAmount() 
 	return false
 }
 
-// SetTaxAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the TaxAmount field.
-func (o *ListCardPresentPaymentIntents200ResponseDataItemsInner) SetTaxAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetTaxAmount gets a reference to the given NullableFloat32 and assigns it to the TaxAmount field.
+func (o *ListCardPresentPaymentIntents200ResponseDataItemsInner) SetTaxAmount(v float32) {
 	o.TaxAmount.Set(&v)
 }
 // SetTaxAmountNil sets the value for TaxAmount to be an explicit nil
@@ -1072,7 +1074,7 @@ func (o ListCardPresentPaymentIntents200ResponseDataItemsInner) ToMap() (map[str
 	if o.InvoiceId.IsSet() {
 		toSerialize["invoiceId"] = o.InvoiceId.Get()
 	}
-	toSerialize["amount"] = o.Amount
+	toSerialize["amount"] = o.Amount.Get()
 	if o.SubtotalAmount.IsSet() {
 		toSerialize["subtotalAmount"] = o.SubtotalAmount.Get()
 	}

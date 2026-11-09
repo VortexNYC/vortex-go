@@ -26,8 +26,8 @@ type GetPaymentRequest200ResponseDataLinksInner struct {
 	CustomerId string `json:"customerId"`
 	BillingAccountId string `json:"billingAccountId"`
 	Currency string `json:"currency"`
-	AmountRequested ListProducts200ResponseDataTotal `json:"amountRequested"`
-	AmountRemainingAtCreation ListProducts200ResponseDataTotal `json:"amountRemainingAtCreation"`
+	AmountRequested float32 `json:"amountRequested"`
+	AmountRemainingAtCreation float32 `json:"amountRemainingAtCreation"`
 	AppliedAt string `json:"appliedAt"`
 }
 
@@ -37,7 +37,7 @@ type _GetPaymentRequest200ResponseDataLinksInner GetPaymentRequest200ResponseDat
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetPaymentRequest200ResponseDataLinksInner(paymentRequestId string, invoiceId string, customerId string, billingAccountId string, currency string, amountRequested ListProducts200ResponseDataTotal, amountRemainingAtCreation ListProducts200ResponseDataTotal, appliedAt string) *GetPaymentRequest200ResponseDataLinksInner {
+func NewGetPaymentRequest200ResponseDataLinksInner(paymentRequestId string, invoiceId string, customerId string, billingAccountId string, currency string, amountRequested float32, amountRemainingAtCreation float32, appliedAt string) *GetPaymentRequest200ResponseDataLinksInner {
 	this := GetPaymentRequest200ResponseDataLinksInner{}
 	this.PaymentRequestId = paymentRequestId
 	this.InvoiceId = invoiceId
@@ -179,9 +179,9 @@ func (o *GetPaymentRequest200ResponseDataLinksInner) SetCurrency(v string) {
 }
 
 // GetAmountRequested returns the AmountRequested field value
-func (o *GetPaymentRequest200ResponseDataLinksInner) GetAmountRequested() ListProducts200ResponseDataTotal {
+func (o *GetPaymentRequest200ResponseDataLinksInner) GetAmountRequested() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -190,7 +190,7 @@ func (o *GetPaymentRequest200ResponseDataLinksInner) GetAmountRequested() ListPr
 
 // GetAmountRequestedOk returns a tuple with the AmountRequested field value
 // and a boolean to check if the value has been set.
-func (o *GetPaymentRequest200ResponseDataLinksInner) GetAmountRequestedOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *GetPaymentRequest200ResponseDataLinksInner) GetAmountRequestedOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -198,14 +198,14 @@ func (o *GetPaymentRequest200ResponseDataLinksInner) GetAmountRequestedOk() (*Li
 }
 
 // SetAmountRequested sets field value
-func (o *GetPaymentRequest200ResponseDataLinksInner) SetAmountRequested(v ListProducts200ResponseDataTotal) {
+func (o *GetPaymentRequest200ResponseDataLinksInner) SetAmountRequested(v float32) {
 	o.AmountRequested = v
 }
 
 // GetAmountRemainingAtCreation returns the AmountRemainingAtCreation field value
-func (o *GetPaymentRequest200ResponseDataLinksInner) GetAmountRemainingAtCreation() ListProducts200ResponseDataTotal {
+func (o *GetPaymentRequest200ResponseDataLinksInner) GetAmountRemainingAtCreation() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -214,7 +214,7 @@ func (o *GetPaymentRequest200ResponseDataLinksInner) GetAmountRemainingAtCreatio
 
 // GetAmountRemainingAtCreationOk returns a tuple with the AmountRemainingAtCreation field value
 // and a boolean to check if the value has been set.
-func (o *GetPaymentRequest200ResponseDataLinksInner) GetAmountRemainingAtCreationOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *GetPaymentRequest200ResponseDataLinksInner) GetAmountRemainingAtCreationOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -222,7 +222,7 @@ func (o *GetPaymentRequest200ResponseDataLinksInner) GetAmountRemainingAtCreatio
 }
 
 // SetAmountRemainingAtCreation sets field value
-func (o *GetPaymentRequest200ResponseDataLinksInner) SetAmountRemainingAtCreation(v ListProducts200ResponseDataTotal) {
+func (o *GetPaymentRequest200ResponseDataLinksInner) SetAmountRemainingAtCreation(v float32) {
 	o.AmountRemainingAtCreation = v
 }
 

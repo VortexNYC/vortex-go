@@ -25,11 +25,11 @@ type ListPaymentRequests200ResponseDataPaymentRequestsInner struct {
 	BillingAccountId NullableString `json:"billingAccountId"`
 	Status string `json:"status"`
 	Currency NullableString `json:"currency"`
-	AmountRequested ListProducts200ResponseDataTotal `json:"amountRequested"`
-	AmountPaid ListProducts200ResponseDataTotal `json:"amountPaid"`
-	AmountRemaining ListProducts200ResponseDataTotal `json:"amountRemaining"`
-	InvoiceCount ListProducts200ResponseDataTotal `json:"invoiceCount"`
-	AttemptCount ListProducts200ResponseDataTotal `json:"attemptCount"`
+	AmountRequested NullableFloat32 `json:"amountRequested"`
+	AmountPaid NullableFloat32 `json:"amountPaid"`
+	AmountRemaining NullableFloat32 `json:"amountRemaining"`
+	InvoiceCount NullableFloat32 `json:"invoiceCount"`
+	AttemptCount NullableFloat32 `json:"attemptCount"`
 	CreatedByType NullableString `json:"createdByType"`
 	CreatedByRef NullableString `json:"createdByRef"`
 	CreatedAt NullableString `json:"createdAt"`
@@ -55,7 +55,7 @@ type _ListPaymentRequests200ResponseDataPaymentRequestsInner ListPaymentRequests
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListPaymentRequests200ResponseDataPaymentRequestsInner(paymentRequestId NullableString, customerId NullableString, billingAccountId NullableString, status string, currency NullableString, amountRequested ListProducts200ResponseDataTotal, amountPaid ListProducts200ResponseDataTotal, amountRemaining ListProducts200ResponseDataTotal, invoiceCount ListProducts200ResponseDataTotal, attemptCount ListProducts200ResponseDataTotal, createdByType NullableString, createdByRef NullableString, createdAt NullableString, updatedAt NullableString, metadata map[string]string, invoiceNumbers []string, latestCheckoutLink NullableListPaymentRequests200ResponseDataPaymentRequestsInnerLatestCheckoutLink) *ListPaymentRequests200ResponseDataPaymentRequestsInner {
+func NewListPaymentRequests200ResponseDataPaymentRequestsInner(paymentRequestId NullableString, customerId NullableString, billingAccountId NullableString, status string, currency NullableString, amountRequested NullableFloat32, amountPaid NullableFloat32, amountRemaining NullableFloat32, invoiceCount NullableFloat32, attemptCount NullableFloat32, createdByType NullableString, createdByRef NullableString, createdAt NullableString, updatedAt NullableString, metadata map[string]string, invoiceNumbers []string, latestCheckoutLink NullableListPaymentRequests200ResponseDataPaymentRequestsInnerLatestCheckoutLink) *ListPaymentRequests200ResponseDataPaymentRequestsInner {
 	this := ListPaymentRequests200ResponseDataPaymentRequestsInner{}
 	this.PaymentRequestId = paymentRequestId
 	this.CustomerId = customerId
@@ -214,123 +214,133 @@ func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) SetCurrency(v s
 }
 
 // GetAmountRequested returns the AmountRequested field value
-func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) GetAmountRequested() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) GetAmountRequested() float32 {
+	if o == nil || o.AmountRequested.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.AmountRequested
+	return *o.AmountRequested.Get()
 }
 
 // GetAmountRequestedOk returns a tuple with the AmountRequested field value
 // and a boolean to check if the value has been set.
-func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) GetAmountRequestedOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) GetAmountRequestedOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AmountRequested, true
+	return o.AmountRequested.Get(), o.AmountRequested.IsSet()
 }
 
 // SetAmountRequested sets field value
-func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) SetAmountRequested(v ListProducts200ResponseDataTotal) {
-	o.AmountRequested = v
+func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) SetAmountRequested(v float32) {
+	o.AmountRequested.Set(&v)
 }
 
 // GetAmountPaid returns the AmountPaid field value
-func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) GetAmountPaid() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) GetAmountPaid() float32 {
+	if o == nil || o.AmountPaid.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.AmountPaid
+	return *o.AmountPaid.Get()
 }
 
 // GetAmountPaidOk returns a tuple with the AmountPaid field value
 // and a boolean to check if the value has been set.
-func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) GetAmountPaidOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) GetAmountPaidOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AmountPaid, true
+	return o.AmountPaid.Get(), o.AmountPaid.IsSet()
 }
 
 // SetAmountPaid sets field value
-func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) SetAmountPaid(v ListProducts200ResponseDataTotal) {
-	o.AmountPaid = v
+func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) SetAmountPaid(v float32) {
+	o.AmountPaid.Set(&v)
 }
 
 // GetAmountRemaining returns the AmountRemaining field value
-func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) GetAmountRemaining() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) GetAmountRemaining() float32 {
+	if o == nil || o.AmountRemaining.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.AmountRemaining
+	return *o.AmountRemaining.Get()
 }
 
 // GetAmountRemainingOk returns a tuple with the AmountRemaining field value
 // and a boolean to check if the value has been set.
-func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) GetAmountRemainingOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) GetAmountRemainingOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AmountRemaining, true
+	return o.AmountRemaining.Get(), o.AmountRemaining.IsSet()
 }
 
 // SetAmountRemaining sets field value
-func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) SetAmountRemaining(v ListProducts200ResponseDataTotal) {
-	o.AmountRemaining = v
+func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) SetAmountRemaining(v float32) {
+	o.AmountRemaining.Set(&v)
 }
 
 // GetInvoiceCount returns the InvoiceCount field value
-func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) GetInvoiceCount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) GetInvoiceCount() float32 {
+	if o == nil || o.InvoiceCount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.InvoiceCount
+	return *o.InvoiceCount.Get()
 }
 
 // GetInvoiceCountOk returns a tuple with the InvoiceCount field value
 // and a boolean to check if the value has been set.
-func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) GetInvoiceCountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) GetInvoiceCountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.InvoiceCount, true
+	return o.InvoiceCount.Get(), o.InvoiceCount.IsSet()
 }
 
 // SetInvoiceCount sets field value
-func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) SetInvoiceCount(v ListProducts200ResponseDataTotal) {
-	o.InvoiceCount = v
+func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) SetInvoiceCount(v float32) {
+	o.InvoiceCount.Set(&v)
 }
 
 // GetAttemptCount returns the AttemptCount field value
-func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) GetAttemptCount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) GetAttemptCount() float32 {
+	if o == nil || o.AttemptCount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.AttemptCount
+	return *o.AttemptCount.Get()
 }
 
 // GetAttemptCountOk returns a tuple with the AttemptCount field value
 // and a boolean to check if the value has been set.
-func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) GetAttemptCountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) GetAttemptCountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AttemptCount, true
+	return o.AttemptCount.Get(), o.AttemptCount.IsSet()
 }
 
 // SetAttemptCount sets field value
-func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) SetAttemptCount(v ListProducts200ResponseDataTotal) {
-	o.AttemptCount = v
+func (o *ListPaymentRequests200ResponseDataPaymentRequestsInner) SetAttemptCount(v float32) {
+	o.AttemptCount.Set(&v)
 }
 
 // GetCreatedByType returns the CreatedByType field value
@@ -906,11 +916,11 @@ func (o ListPaymentRequests200ResponseDataPaymentRequestsInner) ToMap() (map[str
 	toSerialize["billingAccountId"] = o.BillingAccountId.Get()
 	toSerialize["status"] = o.Status
 	toSerialize["currency"] = o.Currency.Get()
-	toSerialize["amountRequested"] = o.AmountRequested
-	toSerialize["amountPaid"] = o.AmountPaid
-	toSerialize["amountRemaining"] = o.AmountRemaining
-	toSerialize["invoiceCount"] = o.InvoiceCount
-	toSerialize["attemptCount"] = o.AttemptCount
+	toSerialize["amountRequested"] = o.AmountRequested.Get()
+	toSerialize["amountPaid"] = o.AmountPaid.Get()
+	toSerialize["amountRemaining"] = o.AmountRemaining.Get()
+	toSerialize["invoiceCount"] = o.InvoiceCount.Get()
+	toSerialize["attemptCount"] = o.AttemptCount.Get()
 	toSerialize["createdByType"] = o.CreatedByType.Get()
 	toSerialize["createdByRef"] = o.CreatedByRef.Get()
 	toSerialize["createdAt"] = o.CreatedAt.Get()

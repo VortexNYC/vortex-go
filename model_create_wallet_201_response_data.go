@@ -27,11 +27,11 @@ type CreateWallet201ResponseData struct {
 	Status string `json:"status"`
 	Currency string `json:"currency"`
 	RateAmount NullableString `json:"rateAmount"`
-	Priority ListProducts200ResponseDataTotal `json:"priority"`
+	Priority NullableFloat32 `json:"priority"`
 	InvoiceRequiresSuccessfulPayment NullableBool `json:"invoiceRequiresSuccessfulPayment"`
-	BalanceCents ListProducts200ResponseDataTotal `json:"balanceCents"`
-	PaidTopUpMinAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"paidTopUpMinAmount,omitempty"`
-	PaidTopUpMaxAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"paidTopUpMaxAmount,omitempty"`
+	BalanceCents NullableFloat32 `json:"balanceCents"`
+	PaidTopUpMinAmount NullableFloat32 `json:"paidTopUpMinAmount,omitempty"`
+	PaidTopUpMaxAmount NullableFloat32 `json:"paidTopUpMaxAmount,omitempty"`
 	ExpirationAt NullableString `json:"expirationAt,omitempty"`
 	TerminatedAt NullableString `json:"terminatedAt,omitempty"`
 	Metadata map[string]string `json:"metadata"`
@@ -46,7 +46,7 @@ type _CreateWallet201ResponseData CreateWallet201ResponseData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateWallet201ResponseData(walletId NullableString, customerId NullableString, status string, currency string, rateAmount NullableString, priority ListProducts200ResponseDataTotal, invoiceRequiresSuccessfulPayment NullableBool, balanceCents ListProducts200ResponseDataTotal, metadata map[string]string, createdAt NullableString, updatedAt NullableString) *CreateWallet201ResponseData {
+func NewCreateWallet201ResponseData(walletId NullableString, customerId NullableString, status string, currency string, rateAmount NullableString, priority NullableFloat32, invoiceRequiresSuccessfulPayment NullableBool, balanceCents NullableFloat32, metadata map[string]string, createdAt NullableString, updatedAt NullableString) *CreateWallet201ResponseData {
 	this := CreateWallet201ResponseData{}
 	this.WalletId = walletId
 	this.CustomerId = customerId
@@ -281,27 +281,29 @@ func (o *CreateWallet201ResponseData) SetRateAmount(v string) {
 }
 
 // GetPriority returns the Priority field value
-func (o *CreateWallet201ResponseData) GetPriority() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateWallet201ResponseData) GetPriority() float32 {
+	if o == nil || o.Priority.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Priority
+	return *o.Priority.Get()
 }
 
 // GetPriorityOk returns a tuple with the Priority field value
 // and a boolean to check if the value has been set.
-func (o *CreateWallet201ResponseData) GetPriorityOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateWallet201ResponseData) GetPriorityOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Priority, true
+	return o.Priority.Get(), o.Priority.IsSet()
 }
 
 // SetPriority sets field value
-func (o *CreateWallet201ResponseData) SetPriority(v ListProducts200ResponseDataTotal) {
-	o.Priority = v
+func (o *CreateWallet201ResponseData) SetPriority(v float32) {
+	o.Priority.Set(&v)
 }
 
 // GetInvoiceRequiresSuccessfulPayment returns the InvoiceRequiresSuccessfulPayment field value
@@ -331,33 +333,35 @@ func (o *CreateWallet201ResponseData) SetInvoiceRequiresSuccessfulPayment(v bool
 }
 
 // GetBalanceCents returns the BalanceCents field value
-func (o *CreateWallet201ResponseData) GetBalanceCents() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateWallet201ResponseData) GetBalanceCents() float32 {
+	if o == nil || o.BalanceCents.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.BalanceCents
+	return *o.BalanceCents.Get()
 }
 
 // GetBalanceCentsOk returns a tuple with the BalanceCents field value
 // and a boolean to check if the value has been set.
-func (o *CreateWallet201ResponseData) GetBalanceCentsOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateWallet201ResponseData) GetBalanceCentsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.BalanceCents, true
+	return o.BalanceCents.Get(), o.BalanceCents.IsSet()
 }
 
 // SetBalanceCents sets field value
-func (o *CreateWallet201ResponseData) SetBalanceCents(v ListProducts200ResponseDataTotal) {
-	o.BalanceCents = v
+func (o *CreateWallet201ResponseData) SetBalanceCents(v float32) {
+	o.BalanceCents.Set(&v)
 }
 
 // GetPaidTopUpMinAmount returns the PaidTopUpMinAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateWallet201ResponseData) GetPaidTopUpMinAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateWallet201ResponseData) GetPaidTopUpMinAmount() float32 {
 	if o == nil || IsNil(o.PaidTopUpMinAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.PaidTopUpMinAmount.Get()
@@ -366,7 +370,7 @@ func (o *CreateWallet201ResponseData) GetPaidTopUpMinAmount() ListCustomerBillin
 // GetPaidTopUpMinAmountOk returns a tuple with the PaidTopUpMinAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateWallet201ResponseData) GetPaidTopUpMinAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateWallet201ResponseData) GetPaidTopUpMinAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -382,8 +386,8 @@ func (o *CreateWallet201ResponseData) HasPaidTopUpMinAmount() bool {
 	return false
 }
 
-// SetPaidTopUpMinAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the PaidTopUpMinAmount field.
-func (o *CreateWallet201ResponseData) SetPaidTopUpMinAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetPaidTopUpMinAmount gets a reference to the given NullableFloat32 and assigns it to the PaidTopUpMinAmount field.
+func (o *CreateWallet201ResponseData) SetPaidTopUpMinAmount(v float32) {
 	o.PaidTopUpMinAmount.Set(&v)
 }
 // SetPaidTopUpMinAmountNil sets the value for PaidTopUpMinAmount to be an explicit nil
@@ -397,9 +401,9 @@ func (o *CreateWallet201ResponseData) UnsetPaidTopUpMinAmount() {
 }
 
 // GetPaidTopUpMaxAmount returns the PaidTopUpMaxAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateWallet201ResponseData) GetPaidTopUpMaxAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateWallet201ResponseData) GetPaidTopUpMaxAmount() float32 {
 	if o == nil || IsNil(o.PaidTopUpMaxAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.PaidTopUpMaxAmount.Get()
@@ -408,7 +412,7 @@ func (o *CreateWallet201ResponseData) GetPaidTopUpMaxAmount() ListCustomerBillin
 // GetPaidTopUpMaxAmountOk returns a tuple with the PaidTopUpMaxAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateWallet201ResponseData) GetPaidTopUpMaxAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateWallet201ResponseData) GetPaidTopUpMaxAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -424,8 +428,8 @@ func (o *CreateWallet201ResponseData) HasPaidTopUpMaxAmount() bool {
 	return false
 }
 
-// SetPaidTopUpMaxAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the PaidTopUpMaxAmount field.
-func (o *CreateWallet201ResponseData) SetPaidTopUpMaxAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetPaidTopUpMaxAmount gets a reference to the given NullableFloat32 and assigns it to the PaidTopUpMaxAmount field.
+func (o *CreateWallet201ResponseData) SetPaidTopUpMaxAmount(v float32) {
 	o.PaidTopUpMaxAmount.Set(&v)
 }
 // SetPaidTopUpMaxAmountNil sets the value for PaidTopUpMaxAmount to be an explicit nil
@@ -621,9 +625,9 @@ func (o CreateWallet201ResponseData) ToMap() (map[string]interface{}, error) {
 	toSerialize["status"] = o.Status
 	toSerialize["currency"] = o.Currency
 	toSerialize["rateAmount"] = o.RateAmount.Get()
-	toSerialize["priority"] = o.Priority
+	toSerialize["priority"] = o.Priority.Get()
 	toSerialize["invoiceRequiresSuccessfulPayment"] = o.InvoiceRequiresSuccessfulPayment.Get()
-	toSerialize["balanceCents"] = o.BalanceCents
+	toSerialize["balanceCents"] = o.BalanceCents.Get()
 	if o.PaidTopUpMinAmount.IsSet() {
 		toSerialize["paidTopUpMinAmount"] = o.PaidTopUpMinAmount.Get()
 	}

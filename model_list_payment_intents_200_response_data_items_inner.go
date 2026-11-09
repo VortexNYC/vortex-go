@@ -26,7 +26,7 @@ type ListPaymentIntents200ResponseDataItemsInner struct {
 	CustomerProfileId NullableString `json:"customerProfileId,omitempty"`
 	PaymentMethodId NullableString `json:"paymentMethodId,omitempty"`
 	Status NullableString `json:"status"`
-	Amount ListProducts200ResponseDataTotal `json:"amount"`
+	Amount NullableFloat32 `json:"amount"`
 	Currency NullableString `json:"currency"`
 	RequiresAction NullableBool `json:"requiresAction"`
 	CanCapture NullableBool `json:"canCapture"`
@@ -35,7 +35,7 @@ type ListPaymentIntents200ResponseDataItemsInner struct {
 	NextStep NullableString `json:"nextStep"`
 	NextActionType NullableString `json:"nextActionType,omitempty"`
 	HostedActionUrl NullableString `json:"hostedActionUrl,omitempty"`
-	PlatformFeeAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"platformFeeAmount,omitempty"`
+	PlatformFeeAmount NullableFloat32 `json:"platformFeeAmount,omitempty"`
 	CreatedAt NullableString `json:"createdAt,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -46,7 +46,7 @@ type _ListPaymentIntents200ResponseDataItemsInner ListPaymentIntents200ResponseD
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListPaymentIntents200ResponseDataItemsInner(id NullableString, merchantAccountId NullableString, status NullableString, amount ListProducts200ResponseDataTotal, currency NullableString, requiresAction NullableBool, canCapture NullableBool, canCancel NullableBool, canRetry NullableBool, nextStep NullableString) *ListPaymentIntents200ResponseDataItemsInner {
+func NewListPaymentIntents200ResponseDataItemsInner(id NullableString, merchantAccountId NullableString, status NullableString, amount NullableFloat32, currency NullableString, requiresAction NullableBool, canCapture NullableBool, canCancel NullableBool, canRetry NullableBool, nextStep NullableString) *ListPaymentIntents200ResponseDataItemsInner {
 	this := ListPaymentIntents200ResponseDataItemsInner{}
 	this.Id = id
 	this.MerchantAccountId = merchantAccountId
@@ -274,27 +274,29 @@ func (o *ListPaymentIntents200ResponseDataItemsInner) SetStatus(v string) {
 }
 
 // GetAmount returns the Amount field value
-func (o *ListPaymentIntents200ResponseDataItemsInner) GetAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListPaymentIntents200ResponseDataItemsInner) GetAmount() float32 {
+	if o == nil || o.Amount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Amount
+	return *o.Amount.Get()
 }
 
 // GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
-func (o *ListPaymentIntents200ResponseDataItemsInner) GetAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListPaymentIntents200ResponseDataItemsInner) GetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Amount, true
+	return o.Amount.Get(), o.Amount.IsSet()
 }
 
 // SetAmount sets field value
-func (o *ListPaymentIntents200ResponseDataItemsInner) SetAmount(v ListProducts200ResponseDataTotal) {
-	o.Amount = v
+func (o *ListPaymentIntents200ResponseDataItemsInner) SetAmount(v float32) {
+	o.Amount.Set(&v)
 }
 
 // GetCurrency returns the Currency field value
@@ -538,9 +540,9 @@ func (o *ListPaymentIntents200ResponseDataItemsInner) UnsetHostedActionUrl() {
 }
 
 // GetPlatformFeeAmount returns the PlatformFeeAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ListPaymentIntents200ResponseDataItemsInner) GetPlatformFeeAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ListPaymentIntents200ResponseDataItemsInner) GetPlatformFeeAmount() float32 {
 	if o == nil || IsNil(o.PlatformFeeAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.PlatformFeeAmount.Get()
@@ -549,7 +551,7 @@ func (o *ListPaymentIntents200ResponseDataItemsInner) GetPlatformFeeAmount() Lis
 // GetPlatformFeeAmountOk returns a tuple with the PlatformFeeAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ListPaymentIntents200ResponseDataItemsInner) GetPlatformFeeAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ListPaymentIntents200ResponseDataItemsInner) GetPlatformFeeAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -565,8 +567,8 @@ func (o *ListPaymentIntents200ResponseDataItemsInner) HasPlatformFeeAmount() boo
 	return false
 }
 
-// SetPlatformFeeAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the PlatformFeeAmount field.
-func (o *ListPaymentIntents200ResponseDataItemsInner) SetPlatformFeeAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetPlatformFeeAmount gets a reference to the given NullableFloat32 and assigns it to the PlatformFeeAmount field.
+func (o *ListPaymentIntents200ResponseDataItemsInner) SetPlatformFeeAmount(v float32) {
 	o.PlatformFeeAmount.Set(&v)
 }
 // SetPlatformFeeAmountNil sets the value for PlatformFeeAmount to be an explicit nil
@@ -643,7 +645,7 @@ func (o ListPaymentIntents200ResponseDataItemsInner) ToMap() (map[string]interfa
 		toSerialize["paymentMethodId"] = o.PaymentMethodId.Get()
 	}
 	toSerialize["status"] = o.Status.Get()
-	toSerialize["amount"] = o.Amount
+	toSerialize["amount"] = o.Amount.Get()
 	toSerialize["currency"] = o.Currency.Get()
 	toSerialize["requiresAction"] = o.RequiresAction.Get()
 	toSerialize["canCapture"] = o.CanCapture.Get()

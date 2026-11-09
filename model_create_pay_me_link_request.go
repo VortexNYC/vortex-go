@@ -22,7 +22,7 @@ var _ MappedNullable = &CreatePayMeLinkRequest{}
 type CreatePayMeLinkRequest struct {
 	Environment NullableString `json:"environment,omitempty"`
 	MerchantAccountId NullableString `json:"merchantAccountId,omitempty"`
-	Amount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"amount,omitempty"`
+	Amount NullableFloat32 `json:"amount,omitempty"`
 	Currency NullableString `json:"currency"`
 	Label NullableString `json:"label,omitempty"`
 	ExpiresAt NullableString `json:"expiresAt,omitempty"`
@@ -134,9 +134,9 @@ func (o *CreatePayMeLinkRequest) UnsetMerchantAccountId() {
 }
 
 // GetAmount returns the Amount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreatePayMeLinkRequest) GetAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreatePayMeLinkRequest) GetAmount() float32 {
 	if o == nil || IsNil(o.Amount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.Amount.Get()
@@ -145,7 +145,7 @@ func (o *CreatePayMeLinkRequest) GetAmount() ListCustomerBillingAccounts200Respo
 // GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreatePayMeLinkRequest) GetAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreatePayMeLinkRequest) GetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -161,8 +161,8 @@ func (o *CreatePayMeLinkRequest) HasAmount() bool {
 	return false
 }
 
-// SetAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the Amount field.
-func (o *CreatePayMeLinkRequest) SetAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetAmount gets a reference to the given NullableFloat32 and assigns it to the Amount field.
+func (o *CreatePayMeLinkRequest) SetAmount(v float32) {
 	o.Amount.Set(&v)
 }
 // SetAmountNil sets the value for Amount to be an explicit nil

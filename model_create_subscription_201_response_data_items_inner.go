@@ -24,7 +24,7 @@ type CreateSubscription201ResponseDataItemsInner struct {
 	SubscriptionItemId string `json:"subscriptionItemId"`
 	SubscriptionId string `json:"subscriptionId"`
 	PriceId string `json:"priceId"`
-	Quantity ListProducts200ResponseDataTotal `json:"quantity"`
+	Quantity float32 `json:"quantity"`
 	StartAt string `json:"startAt"`
 	Metadata map[string]string `json:"metadata"`
 	EndAt *string `json:"endAt,omitempty"`
@@ -36,7 +36,7 @@ type _CreateSubscription201ResponseDataItemsInner CreateSubscription201ResponseD
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateSubscription201ResponseDataItemsInner(subscriptionItemId string, subscriptionId string, priceId string, quantity ListProducts200ResponseDataTotal, startAt string, metadata map[string]string) *CreateSubscription201ResponseDataItemsInner {
+func NewCreateSubscription201ResponseDataItemsInner(subscriptionItemId string, subscriptionId string, priceId string, quantity float32, startAt string, metadata map[string]string) *CreateSubscription201ResponseDataItemsInner {
 	this := CreateSubscription201ResponseDataItemsInner{}
 	this.SubscriptionItemId = subscriptionItemId
 	this.SubscriptionId = subscriptionId
@@ -128,9 +128,9 @@ func (o *CreateSubscription201ResponseDataItemsInner) SetPriceId(v string) {
 }
 
 // GetQuantity returns the Quantity field value
-func (o *CreateSubscription201ResponseDataItemsInner) GetQuantity() ListProducts200ResponseDataTotal {
+func (o *CreateSubscription201ResponseDataItemsInner) GetQuantity() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -139,7 +139,7 @@ func (o *CreateSubscription201ResponseDataItemsInner) GetQuantity() ListProducts
 
 // GetQuantityOk returns a tuple with the Quantity field value
 // and a boolean to check if the value has been set.
-func (o *CreateSubscription201ResponseDataItemsInner) GetQuantityOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreateSubscription201ResponseDataItemsInner) GetQuantityOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -147,7 +147,7 @@ func (o *CreateSubscription201ResponseDataItemsInner) GetQuantityOk() (*ListProd
 }
 
 // SetQuantity sets field value
-func (o *CreateSubscription201ResponseDataItemsInner) SetQuantity(v ListProducts200ResponseDataTotal) {
+func (o *CreateSubscription201ResponseDataItemsInner) SetQuantity(v float32) {
 	o.Quantity = v
 }
 

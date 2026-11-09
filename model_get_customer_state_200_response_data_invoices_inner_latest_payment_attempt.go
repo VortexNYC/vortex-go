@@ -23,8 +23,8 @@ type GetCustomerState200ResponseDataInvoicesInnerLatestPaymentAttempt struct {
 	AttemptId NullableString `json:"attemptId"`
 	InvoiceNumber NullableString `json:"invoiceNumber"`
 	Status string `json:"status"`
-	RequestedAmount ListProducts200ResponseDataTotal `json:"requestedAmount"`
-	CollectedAmount ListProducts200ResponseDataTotal `json:"collectedAmount"`
+	RequestedAmount NullableFloat32 `json:"requestedAmount"`
+	CollectedAmount NullableFloat32 `json:"collectedAmount"`
 	CreatedAt NullableString `json:"createdAt"`
 	PaymentIntentId NullableString `json:"paymentIntentId"`
 	PaymentId NullableString `json:"paymentId"`
@@ -39,7 +39,7 @@ type _GetCustomerState200ResponseDataInvoicesInnerLatestPaymentAttempt GetCustom
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetCustomerState200ResponseDataInvoicesInnerLatestPaymentAttempt(attemptId NullableString, invoiceNumber NullableString, status string, requestedAmount ListProducts200ResponseDataTotal, collectedAmount ListProducts200ResponseDataTotal, createdAt NullableString, paymentIntentId NullableString, paymentId NullableString, failureReason NullableString, resolvedAt NullableString) *GetCustomerState200ResponseDataInvoicesInnerLatestPaymentAttempt {
+func NewGetCustomerState200ResponseDataInvoicesInnerLatestPaymentAttempt(attemptId NullableString, invoiceNumber NullableString, status string, requestedAmount NullableFloat32, collectedAmount NullableFloat32, createdAt NullableString, paymentIntentId NullableString, paymentId NullableString, failureReason NullableString, resolvedAt NullableString) *GetCustomerState200ResponseDataInvoicesInnerLatestPaymentAttempt {
 	this := GetCustomerState200ResponseDataInvoicesInnerLatestPaymentAttempt{}
 	this.AttemptId = attemptId
 	this.InvoiceNumber = invoiceNumber
@@ -139,51 +139,55 @@ func (o *GetCustomerState200ResponseDataInvoicesInnerLatestPaymentAttempt) SetSt
 }
 
 // GetRequestedAmount returns the RequestedAmount field value
-func (o *GetCustomerState200ResponseDataInvoicesInnerLatestPaymentAttempt) GetRequestedAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetCustomerState200ResponseDataInvoicesInnerLatestPaymentAttempt) GetRequestedAmount() float32 {
+	if o == nil || o.RequestedAmount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.RequestedAmount
+	return *o.RequestedAmount.Get()
 }
 
 // GetRequestedAmountOk returns a tuple with the RequestedAmount field value
 // and a boolean to check if the value has been set.
-func (o *GetCustomerState200ResponseDataInvoicesInnerLatestPaymentAttempt) GetRequestedAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetCustomerState200ResponseDataInvoicesInnerLatestPaymentAttempt) GetRequestedAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RequestedAmount, true
+	return o.RequestedAmount.Get(), o.RequestedAmount.IsSet()
 }
 
 // SetRequestedAmount sets field value
-func (o *GetCustomerState200ResponseDataInvoicesInnerLatestPaymentAttempt) SetRequestedAmount(v ListProducts200ResponseDataTotal) {
-	o.RequestedAmount = v
+func (o *GetCustomerState200ResponseDataInvoicesInnerLatestPaymentAttempt) SetRequestedAmount(v float32) {
+	o.RequestedAmount.Set(&v)
 }
 
 // GetCollectedAmount returns the CollectedAmount field value
-func (o *GetCustomerState200ResponseDataInvoicesInnerLatestPaymentAttempt) GetCollectedAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetCustomerState200ResponseDataInvoicesInnerLatestPaymentAttempt) GetCollectedAmount() float32 {
+	if o == nil || o.CollectedAmount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.CollectedAmount
+	return *o.CollectedAmount.Get()
 }
 
 // GetCollectedAmountOk returns a tuple with the CollectedAmount field value
 // and a boolean to check if the value has been set.
-func (o *GetCustomerState200ResponseDataInvoicesInnerLatestPaymentAttempt) GetCollectedAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetCustomerState200ResponseDataInvoicesInnerLatestPaymentAttempt) GetCollectedAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CollectedAmount, true
+	return o.CollectedAmount.Get(), o.CollectedAmount.IsSet()
 }
 
 // SetCollectedAmount sets field value
-func (o *GetCustomerState200ResponseDataInvoicesInnerLatestPaymentAttempt) SetCollectedAmount(v ListProducts200ResponseDataTotal) {
-	o.CollectedAmount = v
+func (o *GetCustomerState200ResponseDataInvoicesInnerLatestPaymentAttempt) SetCollectedAmount(v float32) {
+	o.CollectedAmount.Set(&v)
 }
 
 // GetCreatedAt returns the CreatedAt field value
@@ -329,8 +333,8 @@ func (o GetCustomerState200ResponseDataInvoicesInnerLatestPaymentAttempt) ToMap(
 	toSerialize["attemptId"] = o.AttemptId.Get()
 	toSerialize["invoiceNumber"] = o.InvoiceNumber.Get()
 	toSerialize["status"] = o.Status
-	toSerialize["requestedAmount"] = o.RequestedAmount
-	toSerialize["collectedAmount"] = o.CollectedAmount
+	toSerialize["requestedAmount"] = o.RequestedAmount.Get()
+	toSerialize["collectedAmount"] = o.CollectedAmount.Get()
 	toSerialize["createdAt"] = o.CreatedAt.Get()
 	toSerialize["paymentIntentId"] = o.PaymentIntentId.Get()
 	toSerialize["paymentId"] = o.PaymentId.Get()

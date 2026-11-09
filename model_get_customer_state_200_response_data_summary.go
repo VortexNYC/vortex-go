@@ -20,17 +20,17 @@ var _ MappedNullable = &GetCustomerState200ResponseDataSummary{}
 
 // GetCustomerState200ResponseDataSummary struct for GetCustomerState200ResponseDataSummary
 type GetCustomerState200ResponseDataSummary struct {
-	ActiveSubscriptions ListProducts200ResponseDataTotal `json:"activeSubscriptions"`
-	OpenInvoices ListProducts200ResponseDataTotal `json:"openInvoices"`
-	PastDueInvoices ListProducts200ResponseDataTotal `json:"pastDueInvoices"`
-	UncollectibleInvoices ListProducts200ResponseDataTotal `json:"uncollectibleInvoices"`
-	TotalAmountDue ListProducts200ResponseDataTotal `json:"totalAmountDue"`
-	PendingRetries ListProducts200ResponseDataTotal `json:"pendingRetries"`
-	PendingPaymentAttempts ListProducts200ResponseDataTotal `json:"pendingPaymentAttempts"`
-	PendingRefunds ListProducts200ResponseDataTotal `json:"pendingRefunds"`
-	FailedLatestPaymentAttempts ListProducts200ResponseDataTotal `json:"failedLatestPaymentAttempts"`
-	ActiveEntitlements ListProducts200ResponseDataTotal `json:"activeEntitlements"`
-	RevokedEntitlements ListProducts200ResponseDataTotal `json:"revokedEntitlements"`
+	ActiveSubscriptions NullableFloat32 `json:"activeSubscriptions"`
+	OpenInvoices NullableFloat32 `json:"openInvoices"`
+	PastDueInvoices NullableFloat32 `json:"pastDueInvoices"`
+	UncollectibleInvoices NullableFloat32 `json:"uncollectibleInvoices"`
+	TotalAmountDue NullableFloat32 `json:"totalAmountDue"`
+	PendingRetries NullableFloat32 `json:"pendingRetries"`
+	PendingPaymentAttempts NullableFloat32 `json:"pendingPaymentAttempts"`
+	PendingRefunds NullableFloat32 `json:"pendingRefunds"`
+	FailedLatestPaymentAttempts NullableFloat32 `json:"failedLatestPaymentAttempts"`
+	ActiveEntitlements NullableFloat32 `json:"activeEntitlements"`
+	RevokedEntitlements NullableFloat32 `json:"revokedEntitlements"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -40,7 +40,7 @@ type _GetCustomerState200ResponseDataSummary GetCustomerState200ResponseDataSumm
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetCustomerState200ResponseDataSummary(activeSubscriptions ListProducts200ResponseDataTotal, openInvoices ListProducts200ResponseDataTotal, pastDueInvoices ListProducts200ResponseDataTotal, uncollectibleInvoices ListProducts200ResponseDataTotal, totalAmountDue ListProducts200ResponseDataTotal, pendingRetries ListProducts200ResponseDataTotal, pendingPaymentAttempts ListProducts200ResponseDataTotal, pendingRefunds ListProducts200ResponseDataTotal, failedLatestPaymentAttempts ListProducts200ResponseDataTotal, activeEntitlements ListProducts200ResponseDataTotal, revokedEntitlements ListProducts200ResponseDataTotal) *GetCustomerState200ResponseDataSummary {
+func NewGetCustomerState200ResponseDataSummary(activeSubscriptions NullableFloat32, openInvoices NullableFloat32, pastDueInvoices NullableFloat32, uncollectibleInvoices NullableFloat32, totalAmountDue NullableFloat32, pendingRetries NullableFloat32, pendingPaymentAttempts NullableFloat32, pendingRefunds NullableFloat32, failedLatestPaymentAttempts NullableFloat32, activeEntitlements NullableFloat32, revokedEntitlements NullableFloat32) *GetCustomerState200ResponseDataSummary {
 	this := GetCustomerState200ResponseDataSummary{}
 	this.ActiveSubscriptions = activeSubscriptions
 	this.OpenInvoices = openInvoices
@@ -65,267 +65,289 @@ func NewGetCustomerState200ResponseDataSummaryWithDefaults() *GetCustomerState20
 }
 
 // GetActiveSubscriptions returns the ActiveSubscriptions field value
-func (o *GetCustomerState200ResponseDataSummary) GetActiveSubscriptions() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetCustomerState200ResponseDataSummary) GetActiveSubscriptions() float32 {
+	if o == nil || o.ActiveSubscriptions.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.ActiveSubscriptions
+	return *o.ActiveSubscriptions.Get()
 }
 
 // GetActiveSubscriptionsOk returns a tuple with the ActiveSubscriptions field value
 // and a boolean to check if the value has been set.
-func (o *GetCustomerState200ResponseDataSummary) GetActiveSubscriptionsOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetCustomerState200ResponseDataSummary) GetActiveSubscriptionsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ActiveSubscriptions, true
+	return o.ActiveSubscriptions.Get(), o.ActiveSubscriptions.IsSet()
 }
 
 // SetActiveSubscriptions sets field value
-func (o *GetCustomerState200ResponseDataSummary) SetActiveSubscriptions(v ListProducts200ResponseDataTotal) {
-	o.ActiveSubscriptions = v
+func (o *GetCustomerState200ResponseDataSummary) SetActiveSubscriptions(v float32) {
+	o.ActiveSubscriptions.Set(&v)
 }
 
 // GetOpenInvoices returns the OpenInvoices field value
-func (o *GetCustomerState200ResponseDataSummary) GetOpenInvoices() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetCustomerState200ResponseDataSummary) GetOpenInvoices() float32 {
+	if o == nil || o.OpenInvoices.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.OpenInvoices
+	return *o.OpenInvoices.Get()
 }
 
 // GetOpenInvoicesOk returns a tuple with the OpenInvoices field value
 // and a boolean to check if the value has been set.
-func (o *GetCustomerState200ResponseDataSummary) GetOpenInvoicesOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetCustomerState200ResponseDataSummary) GetOpenInvoicesOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.OpenInvoices, true
+	return o.OpenInvoices.Get(), o.OpenInvoices.IsSet()
 }
 
 // SetOpenInvoices sets field value
-func (o *GetCustomerState200ResponseDataSummary) SetOpenInvoices(v ListProducts200ResponseDataTotal) {
-	o.OpenInvoices = v
+func (o *GetCustomerState200ResponseDataSummary) SetOpenInvoices(v float32) {
+	o.OpenInvoices.Set(&v)
 }
 
 // GetPastDueInvoices returns the PastDueInvoices field value
-func (o *GetCustomerState200ResponseDataSummary) GetPastDueInvoices() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetCustomerState200ResponseDataSummary) GetPastDueInvoices() float32 {
+	if o == nil || o.PastDueInvoices.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.PastDueInvoices
+	return *o.PastDueInvoices.Get()
 }
 
 // GetPastDueInvoicesOk returns a tuple with the PastDueInvoices field value
 // and a boolean to check if the value has been set.
-func (o *GetCustomerState200ResponseDataSummary) GetPastDueInvoicesOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetCustomerState200ResponseDataSummary) GetPastDueInvoicesOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PastDueInvoices, true
+	return o.PastDueInvoices.Get(), o.PastDueInvoices.IsSet()
 }
 
 // SetPastDueInvoices sets field value
-func (o *GetCustomerState200ResponseDataSummary) SetPastDueInvoices(v ListProducts200ResponseDataTotal) {
-	o.PastDueInvoices = v
+func (o *GetCustomerState200ResponseDataSummary) SetPastDueInvoices(v float32) {
+	o.PastDueInvoices.Set(&v)
 }
 
 // GetUncollectibleInvoices returns the UncollectibleInvoices field value
-func (o *GetCustomerState200ResponseDataSummary) GetUncollectibleInvoices() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetCustomerState200ResponseDataSummary) GetUncollectibleInvoices() float32 {
+	if o == nil || o.UncollectibleInvoices.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.UncollectibleInvoices
+	return *o.UncollectibleInvoices.Get()
 }
 
 // GetUncollectibleInvoicesOk returns a tuple with the UncollectibleInvoices field value
 // and a boolean to check if the value has been set.
-func (o *GetCustomerState200ResponseDataSummary) GetUncollectibleInvoicesOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetCustomerState200ResponseDataSummary) GetUncollectibleInvoicesOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.UncollectibleInvoices, true
+	return o.UncollectibleInvoices.Get(), o.UncollectibleInvoices.IsSet()
 }
 
 // SetUncollectibleInvoices sets field value
-func (o *GetCustomerState200ResponseDataSummary) SetUncollectibleInvoices(v ListProducts200ResponseDataTotal) {
-	o.UncollectibleInvoices = v
+func (o *GetCustomerState200ResponseDataSummary) SetUncollectibleInvoices(v float32) {
+	o.UncollectibleInvoices.Set(&v)
 }
 
 // GetTotalAmountDue returns the TotalAmountDue field value
-func (o *GetCustomerState200ResponseDataSummary) GetTotalAmountDue() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetCustomerState200ResponseDataSummary) GetTotalAmountDue() float32 {
+	if o == nil || o.TotalAmountDue.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.TotalAmountDue
+	return *o.TotalAmountDue.Get()
 }
 
 // GetTotalAmountDueOk returns a tuple with the TotalAmountDue field value
 // and a boolean to check if the value has been set.
-func (o *GetCustomerState200ResponseDataSummary) GetTotalAmountDueOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetCustomerState200ResponseDataSummary) GetTotalAmountDueOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.TotalAmountDue, true
+	return o.TotalAmountDue.Get(), o.TotalAmountDue.IsSet()
 }
 
 // SetTotalAmountDue sets field value
-func (o *GetCustomerState200ResponseDataSummary) SetTotalAmountDue(v ListProducts200ResponseDataTotal) {
-	o.TotalAmountDue = v
+func (o *GetCustomerState200ResponseDataSummary) SetTotalAmountDue(v float32) {
+	o.TotalAmountDue.Set(&v)
 }
 
 // GetPendingRetries returns the PendingRetries field value
-func (o *GetCustomerState200ResponseDataSummary) GetPendingRetries() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetCustomerState200ResponseDataSummary) GetPendingRetries() float32 {
+	if o == nil || o.PendingRetries.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.PendingRetries
+	return *o.PendingRetries.Get()
 }
 
 // GetPendingRetriesOk returns a tuple with the PendingRetries field value
 // and a boolean to check if the value has been set.
-func (o *GetCustomerState200ResponseDataSummary) GetPendingRetriesOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetCustomerState200ResponseDataSummary) GetPendingRetriesOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PendingRetries, true
+	return o.PendingRetries.Get(), o.PendingRetries.IsSet()
 }
 
 // SetPendingRetries sets field value
-func (o *GetCustomerState200ResponseDataSummary) SetPendingRetries(v ListProducts200ResponseDataTotal) {
-	o.PendingRetries = v
+func (o *GetCustomerState200ResponseDataSummary) SetPendingRetries(v float32) {
+	o.PendingRetries.Set(&v)
 }
 
 // GetPendingPaymentAttempts returns the PendingPaymentAttempts field value
-func (o *GetCustomerState200ResponseDataSummary) GetPendingPaymentAttempts() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetCustomerState200ResponseDataSummary) GetPendingPaymentAttempts() float32 {
+	if o == nil || o.PendingPaymentAttempts.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.PendingPaymentAttempts
+	return *o.PendingPaymentAttempts.Get()
 }
 
 // GetPendingPaymentAttemptsOk returns a tuple with the PendingPaymentAttempts field value
 // and a boolean to check if the value has been set.
-func (o *GetCustomerState200ResponseDataSummary) GetPendingPaymentAttemptsOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetCustomerState200ResponseDataSummary) GetPendingPaymentAttemptsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PendingPaymentAttempts, true
+	return o.PendingPaymentAttempts.Get(), o.PendingPaymentAttempts.IsSet()
 }
 
 // SetPendingPaymentAttempts sets field value
-func (o *GetCustomerState200ResponseDataSummary) SetPendingPaymentAttempts(v ListProducts200ResponseDataTotal) {
-	o.PendingPaymentAttempts = v
+func (o *GetCustomerState200ResponseDataSummary) SetPendingPaymentAttempts(v float32) {
+	o.PendingPaymentAttempts.Set(&v)
 }
 
 // GetPendingRefunds returns the PendingRefunds field value
-func (o *GetCustomerState200ResponseDataSummary) GetPendingRefunds() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetCustomerState200ResponseDataSummary) GetPendingRefunds() float32 {
+	if o == nil || o.PendingRefunds.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.PendingRefunds
+	return *o.PendingRefunds.Get()
 }
 
 // GetPendingRefundsOk returns a tuple with the PendingRefunds field value
 // and a boolean to check if the value has been set.
-func (o *GetCustomerState200ResponseDataSummary) GetPendingRefundsOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetCustomerState200ResponseDataSummary) GetPendingRefundsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PendingRefunds, true
+	return o.PendingRefunds.Get(), o.PendingRefunds.IsSet()
 }
 
 // SetPendingRefunds sets field value
-func (o *GetCustomerState200ResponseDataSummary) SetPendingRefunds(v ListProducts200ResponseDataTotal) {
-	o.PendingRefunds = v
+func (o *GetCustomerState200ResponseDataSummary) SetPendingRefunds(v float32) {
+	o.PendingRefunds.Set(&v)
 }
 
 // GetFailedLatestPaymentAttempts returns the FailedLatestPaymentAttempts field value
-func (o *GetCustomerState200ResponseDataSummary) GetFailedLatestPaymentAttempts() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetCustomerState200ResponseDataSummary) GetFailedLatestPaymentAttempts() float32 {
+	if o == nil || o.FailedLatestPaymentAttempts.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.FailedLatestPaymentAttempts
+	return *o.FailedLatestPaymentAttempts.Get()
 }
 
 // GetFailedLatestPaymentAttemptsOk returns a tuple with the FailedLatestPaymentAttempts field value
 // and a boolean to check if the value has been set.
-func (o *GetCustomerState200ResponseDataSummary) GetFailedLatestPaymentAttemptsOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetCustomerState200ResponseDataSummary) GetFailedLatestPaymentAttemptsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.FailedLatestPaymentAttempts, true
+	return o.FailedLatestPaymentAttempts.Get(), o.FailedLatestPaymentAttempts.IsSet()
 }
 
 // SetFailedLatestPaymentAttempts sets field value
-func (o *GetCustomerState200ResponseDataSummary) SetFailedLatestPaymentAttempts(v ListProducts200ResponseDataTotal) {
-	o.FailedLatestPaymentAttempts = v
+func (o *GetCustomerState200ResponseDataSummary) SetFailedLatestPaymentAttempts(v float32) {
+	o.FailedLatestPaymentAttempts.Set(&v)
 }
 
 // GetActiveEntitlements returns the ActiveEntitlements field value
-func (o *GetCustomerState200ResponseDataSummary) GetActiveEntitlements() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetCustomerState200ResponseDataSummary) GetActiveEntitlements() float32 {
+	if o == nil || o.ActiveEntitlements.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.ActiveEntitlements
+	return *o.ActiveEntitlements.Get()
 }
 
 // GetActiveEntitlementsOk returns a tuple with the ActiveEntitlements field value
 // and a boolean to check if the value has been set.
-func (o *GetCustomerState200ResponseDataSummary) GetActiveEntitlementsOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetCustomerState200ResponseDataSummary) GetActiveEntitlementsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ActiveEntitlements, true
+	return o.ActiveEntitlements.Get(), o.ActiveEntitlements.IsSet()
 }
 
 // SetActiveEntitlements sets field value
-func (o *GetCustomerState200ResponseDataSummary) SetActiveEntitlements(v ListProducts200ResponseDataTotal) {
-	o.ActiveEntitlements = v
+func (o *GetCustomerState200ResponseDataSummary) SetActiveEntitlements(v float32) {
+	o.ActiveEntitlements.Set(&v)
 }
 
 // GetRevokedEntitlements returns the RevokedEntitlements field value
-func (o *GetCustomerState200ResponseDataSummary) GetRevokedEntitlements() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetCustomerState200ResponseDataSummary) GetRevokedEntitlements() float32 {
+	if o == nil || o.RevokedEntitlements.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.RevokedEntitlements
+	return *o.RevokedEntitlements.Get()
 }
 
 // GetRevokedEntitlementsOk returns a tuple with the RevokedEntitlements field value
 // and a boolean to check if the value has been set.
-func (o *GetCustomerState200ResponseDataSummary) GetRevokedEntitlementsOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetCustomerState200ResponseDataSummary) GetRevokedEntitlementsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RevokedEntitlements, true
+	return o.RevokedEntitlements.Get(), o.RevokedEntitlements.IsSet()
 }
 
 // SetRevokedEntitlements sets field value
-func (o *GetCustomerState200ResponseDataSummary) SetRevokedEntitlements(v ListProducts200ResponseDataTotal) {
-	o.RevokedEntitlements = v
+func (o *GetCustomerState200ResponseDataSummary) SetRevokedEntitlements(v float32) {
+	o.RevokedEntitlements.Set(&v)
 }
 
 func (o GetCustomerState200ResponseDataSummary) MarshalJSON() ([]byte, error) {
@@ -338,17 +360,17 @@ func (o GetCustomerState200ResponseDataSummary) MarshalJSON() ([]byte, error) {
 
 func (o GetCustomerState200ResponseDataSummary) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["activeSubscriptions"] = o.ActiveSubscriptions
-	toSerialize["openInvoices"] = o.OpenInvoices
-	toSerialize["pastDueInvoices"] = o.PastDueInvoices
-	toSerialize["uncollectibleInvoices"] = o.UncollectibleInvoices
-	toSerialize["totalAmountDue"] = o.TotalAmountDue
-	toSerialize["pendingRetries"] = o.PendingRetries
-	toSerialize["pendingPaymentAttempts"] = o.PendingPaymentAttempts
-	toSerialize["pendingRefunds"] = o.PendingRefunds
-	toSerialize["failedLatestPaymentAttempts"] = o.FailedLatestPaymentAttempts
-	toSerialize["activeEntitlements"] = o.ActiveEntitlements
-	toSerialize["revokedEntitlements"] = o.RevokedEntitlements
+	toSerialize["activeSubscriptions"] = o.ActiveSubscriptions.Get()
+	toSerialize["openInvoices"] = o.OpenInvoices.Get()
+	toSerialize["pastDueInvoices"] = o.PastDueInvoices.Get()
+	toSerialize["uncollectibleInvoices"] = o.UncollectibleInvoices.Get()
+	toSerialize["totalAmountDue"] = o.TotalAmountDue.Get()
+	toSerialize["pendingRetries"] = o.PendingRetries.Get()
+	toSerialize["pendingPaymentAttempts"] = o.PendingPaymentAttempts.Get()
+	toSerialize["pendingRefunds"] = o.PendingRefunds.Get()
+	toSerialize["failedLatestPaymentAttempts"] = o.FailedLatestPaymentAttempts.Get()
+	toSerialize["activeEntitlements"] = o.ActiveEntitlements.Get()
+	toSerialize["revokedEntitlements"] = o.RevokedEntitlements.Get()
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

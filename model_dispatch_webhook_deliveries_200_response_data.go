@@ -20,10 +20,10 @@ var _ MappedNullable = &DispatchWebhookDeliveries200ResponseData{}
 
 // DispatchWebhookDeliveries200ResponseData struct for DispatchWebhookDeliveries200ResponseData
 type DispatchWebhookDeliveries200ResponseData struct {
-	Attempted ListProducts200ResponseDataTotal `json:"attempted"`
-	Delivered ListProducts200ResponseDataTotal `json:"delivered"`
-	Pending ListProducts200ResponseDataTotal `json:"pending"`
-	Failed ListProducts200ResponseDataTotal `json:"failed"`
+	Attempted NullableFloat32 `json:"attempted"`
+	Delivered NullableFloat32 `json:"delivered"`
+	Pending NullableFloat32 `json:"pending"`
+	Failed NullableFloat32 `json:"failed"`
 	Outcomes []DispatchWebhookDeliveries200ResponseDataOutcomesInner `json:"outcomes"`
 	AdditionalProperties map[string]interface{}
 }
@@ -34,7 +34,7 @@ type _DispatchWebhookDeliveries200ResponseData DispatchWebhookDeliveries200Respo
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDispatchWebhookDeliveries200ResponseData(attempted ListProducts200ResponseDataTotal, delivered ListProducts200ResponseDataTotal, pending ListProducts200ResponseDataTotal, failed ListProducts200ResponseDataTotal, outcomes []DispatchWebhookDeliveries200ResponseDataOutcomesInner) *DispatchWebhookDeliveries200ResponseData {
+func NewDispatchWebhookDeliveries200ResponseData(attempted NullableFloat32, delivered NullableFloat32, pending NullableFloat32, failed NullableFloat32, outcomes []DispatchWebhookDeliveries200ResponseDataOutcomesInner) *DispatchWebhookDeliveries200ResponseData {
 	this := DispatchWebhookDeliveries200ResponseData{}
 	this.Attempted = attempted
 	this.Delivered = delivered
@@ -53,99 +53,107 @@ func NewDispatchWebhookDeliveries200ResponseDataWithDefaults() *DispatchWebhookD
 }
 
 // GetAttempted returns the Attempted field value
-func (o *DispatchWebhookDeliveries200ResponseData) GetAttempted() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *DispatchWebhookDeliveries200ResponseData) GetAttempted() float32 {
+	if o == nil || o.Attempted.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Attempted
+	return *o.Attempted.Get()
 }
 
 // GetAttemptedOk returns a tuple with the Attempted field value
 // and a boolean to check if the value has been set.
-func (o *DispatchWebhookDeliveries200ResponseData) GetAttemptedOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DispatchWebhookDeliveries200ResponseData) GetAttemptedOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Attempted, true
+	return o.Attempted.Get(), o.Attempted.IsSet()
 }
 
 // SetAttempted sets field value
-func (o *DispatchWebhookDeliveries200ResponseData) SetAttempted(v ListProducts200ResponseDataTotal) {
-	o.Attempted = v
+func (o *DispatchWebhookDeliveries200ResponseData) SetAttempted(v float32) {
+	o.Attempted.Set(&v)
 }
 
 // GetDelivered returns the Delivered field value
-func (o *DispatchWebhookDeliveries200ResponseData) GetDelivered() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *DispatchWebhookDeliveries200ResponseData) GetDelivered() float32 {
+	if o == nil || o.Delivered.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Delivered
+	return *o.Delivered.Get()
 }
 
 // GetDeliveredOk returns a tuple with the Delivered field value
 // and a boolean to check if the value has been set.
-func (o *DispatchWebhookDeliveries200ResponseData) GetDeliveredOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DispatchWebhookDeliveries200ResponseData) GetDeliveredOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Delivered, true
+	return o.Delivered.Get(), o.Delivered.IsSet()
 }
 
 // SetDelivered sets field value
-func (o *DispatchWebhookDeliveries200ResponseData) SetDelivered(v ListProducts200ResponseDataTotal) {
-	o.Delivered = v
+func (o *DispatchWebhookDeliveries200ResponseData) SetDelivered(v float32) {
+	o.Delivered.Set(&v)
 }
 
 // GetPending returns the Pending field value
-func (o *DispatchWebhookDeliveries200ResponseData) GetPending() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *DispatchWebhookDeliveries200ResponseData) GetPending() float32 {
+	if o == nil || o.Pending.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Pending
+	return *o.Pending.Get()
 }
 
 // GetPendingOk returns a tuple with the Pending field value
 // and a boolean to check if the value has been set.
-func (o *DispatchWebhookDeliveries200ResponseData) GetPendingOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DispatchWebhookDeliveries200ResponseData) GetPendingOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Pending, true
+	return o.Pending.Get(), o.Pending.IsSet()
 }
 
 // SetPending sets field value
-func (o *DispatchWebhookDeliveries200ResponseData) SetPending(v ListProducts200ResponseDataTotal) {
-	o.Pending = v
+func (o *DispatchWebhookDeliveries200ResponseData) SetPending(v float32) {
+	o.Pending.Set(&v)
 }
 
 // GetFailed returns the Failed field value
-func (o *DispatchWebhookDeliveries200ResponseData) GetFailed() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *DispatchWebhookDeliveries200ResponseData) GetFailed() float32 {
+	if o == nil || o.Failed.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Failed
+	return *o.Failed.Get()
 }
 
 // GetFailedOk returns a tuple with the Failed field value
 // and a boolean to check if the value has been set.
-func (o *DispatchWebhookDeliveries200ResponseData) GetFailedOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DispatchWebhookDeliveries200ResponseData) GetFailedOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Failed, true
+	return o.Failed.Get(), o.Failed.IsSet()
 }
 
 // SetFailed sets field value
-func (o *DispatchWebhookDeliveries200ResponseData) SetFailed(v ListProducts200ResponseDataTotal) {
-	o.Failed = v
+func (o *DispatchWebhookDeliveries200ResponseData) SetFailed(v float32) {
+	o.Failed.Set(&v)
 }
 
 // GetOutcomes returns the Outcomes field value
@@ -182,10 +190,10 @@ func (o DispatchWebhookDeliveries200ResponseData) MarshalJSON() ([]byte, error) 
 
 func (o DispatchWebhookDeliveries200ResponseData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["attempted"] = o.Attempted
-	toSerialize["delivered"] = o.Delivered
-	toSerialize["pending"] = o.Pending
-	toSerialize["failed"] = o.Failed
+	toSerialize["attempted"] = o.Attempted.Get()
+	toSerialize["delivered"] = o.Delivered.Get()
+	toSerialize["pending"] = o.Pending.Get()
+	toSerialize["failed"] = o.Failed.Get()
 	toSerialize["outcomes"] = o.Outcomes
 
 	for key, value := range o.AdditionalProperties {

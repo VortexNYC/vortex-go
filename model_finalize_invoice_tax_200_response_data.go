@@ -23,7 +23,7 @@ type FinalizeInvoiceTax200ResponseData struct {
 	Invoice ListInvoices200ResponseDataItemsInner `json:"invoice"`
 	Lines []CreateInvoice201ResponseDataLinesInner `json:"lines"`
 	TaxTransactionId NullableString `json:"taxTransactionId"`
-	TaxTotal ListProducts200ResponseDataTotal `json:"taxTotal"`
+	TaxTotal NullableFloat32 `json:"taxTotal"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,7 +33,7 @@ type _FinalizeInvoiceTax200ResponseData FinalizeInvoiceTax200ResponseData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFinalizeInvoiceTax200ResponseData(invoice ListInvoices200ResponseDataItemsInner, lines []CreateInvoice201ResponseDataLinesInner, taxTransactionId NullableString, taxTotal ListProducts200ResponseDataTotal) *FinalizeInvoiceTax200ResponseData {
+func NewFinalizeInvoiceTax200ResponseData(invoice ListInvoices200ResponseDataItemsInner, lines []CreateInvoice201ResponseDataLinesInner, taxTransactionId NullableString, taxTotal NullableFloat32) *FinalizeInvoiceTax200ResponseData {
 	this := FinalizeInvoiceTax200ResponseData{}
 	this.Invoice = invoice
 	this.Lines = lines
@@ -125,27 +125,29 @@ func (o *FinalizeInvoiceTax200ResponseData) SetTaxTransactionId(v string) {
 }
 
 // GetTaxTotal returns the TaxTotal field value
-func (o *FinalizeInvoiceTax200ResponseData) GetTaxTotal() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *FinalizeInvoiceTax200ResponseData) GetTaxTotal() float32 {
+	if o == nil || o.TaxTotal.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.TaxTotal
+	return *o.TaxTotal.Get()
 }
 
 // GetTaxTotalOk returns a tuple with the TaxTotal field value
 // and a boolean to check if the value has been set.
-func (o *FinalizeInvoiceTax200ResponseData) GetTaxTotalOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FinalizeInvoiceTax200ResponseData) GetTaxTotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.TaxTotal, true
+	return o.TaxTotal.Get(), o.TaxTotal.IsSet()
 }
 
 // SetTaxTotal sets field value
-func (o *FinalizeInvoiceTax200ResponseData) SetTaxTotal(v ListProducts200ResponseDataTotal) {
-	o.TaxTotal = v
+func (o *FinalizeInvoiceTax200ResponseData) SetTaxTotal(v float32) {
+	o.TaxTotal.Set(&v)
 }
 
 func (o FinalizeInvoiceTax200ResponseData) MarshalJSON() ([]byte, error) {
@@ -161,7 +163,7 @@ func (o FinalizeInvoiceTax200ResponseData) ToMap() (map[string]interface{}, erro
 	toSerialize["invoice"] = o.Invoice
 	toSerialize["lines"] = o.Lines
 	toSerialize["taxTransactionId"] = o.TaxTransactionId.Get()
-	toSerialize["taxTotal"] = o.TaxTotal
+	toSerialize["taxTotal"] = o.TaxTotal.Get()
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

@@ -25,12 +25,12 @@ type CreateInvoice201ResponseDataLinesInner struct {
 	InvoiceId string `json:"invoiceId"`
 	LineType string `json:"lineType"`
 	Description string `json:"description"`
-	Quantity ListProducts200ResponseDataTotal `json:"quantity"`
-	UnitAmount ListProducts200ResponseDataTotal `json:"unitAmount"`
-	Subtotal ListProducts200ResponseDataTotal `json:"subtotal"`
+	Quantity float32 `json:"quantity"`
+	UnitAmount float32 `json:"unitAmount"`
+	Subtotal float32 `json:"subtotal"`
 	PriceSnapshot map[string]string `json:"priceSnapshot"`
 	Metadata map[string]string `json:"metadata"`
-	SortOrder NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"sortOrder,omitempty"`
+	SortOrder NullableFloat32 `json:"sortOrder,omitempty"`
 	PriceId NullableString `json:"priceId,omitempty"`
 	MeterId NullableString `json:"meterId,omitempty"`
 	PeriodStartAt NullableString `json:"periodStartAt,omitempty"`
@@ -43,7 +43,7 @@ type _CreateInvoice201ResponseDataLinesInner CreateInvoice201ResponseDataLinesIn
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateInvoice201ResponseDataLinesInner(invoiceLineId string, invoiceId string, lineType string, description string, quantity ListProducts200ResponseDataTotal, unitAmount ListProducts200ResponseDataTotal, subtotal ListProducts200ResponseDataTotal, priceSnapshot map[string]string, metadata map[string]string) *CreateInvoice201ResponseDataLinesInner {
+func NewCreateInvoice201ResponseDataLinesInner(invoiceLineId string, invoiceId string, lineType string, description string, quantity float32, unitAmount float32, subtotal float32, priceSnapshot map[string]string, metadata map[string]string) *CreateInvoice201ResponseDataLinesInner {
 	this := CreateInvoice201ResponseDataLinesInner{}
 	this.InvoiceLineId = invoiceLineId
 	this.InvoiceId = invoiceId
@@ -162,9 +162,9 @@ func (o *CreateInvoice201ResponseDataLinesInner) SetDescription(v string) {
 }
 
 // GetQuantity returns the Quantity field value
-func (o *CreateInvoice201ResponseDataLinesInner) GetQuantity() ListProducts200ResponseDataTotal {
+func (o *CreateInvoice201ResponseDataLinesInner) GetQuantity() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -173,7 +173,7 @@ func (o *CreateInvoice201ResponseDataLinesInner) GetQuantity() ListProducts200Re
 
 // GetQuantityOk returns a tuple with the Quantity field value
 // and a boolean to check if the value has been set.
-func (o *CreateInvoice201ResponseDataLinesInner) GetQuantityOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreateInvoice201ResponseDataLinesInner) GetQuantityOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -181,14 +181,14 @@ func (o *CreateInvoice201ResponseDataLinesInner) GetQuantityOk() (*ListProducts2
 }
 
 // SetQuantity sets field value
-func (o *CreateInvoice201ResponseDataLinesInner) SetQuantity(v ListProducts200ResponseDataTotal) {
+func (o *CreateInvoice201ResponseDataLinesInner) SetQuantity(v float32) {
 	o.Quantity = v
 }
 
 // GetUnitAmount returns the UnitAmount field value
-func (o *CreateInvoice201ResponseDataLinesInner) GetUnitAmount() ListProducts200ResponseDataTotal {
+func (o *CreateInvoice201ResponseDataLinesInner) GetUnitAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -197,7 +197,7 @@ func (o *CreateInvoice201ResponseDataLinesInner) GetUnitAmount() ListProducts200
 
 // GetUnitAmountOk returns a tuple with the UnitAmount field value
 // and a boolean to check if the value has been set.
-func (o *CreateInvoice201ResponseDataLinesInner) GetUnitAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreateInvoice201ResponseDataLinesInner) GetUnitAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -205,14 +205,14 @@ func (o *CreateInvoice201ResponseDataLinesInner) GetUnitAmountOk() (*ListProduct
 }
 
 // SetUnitAmount sets field value
-func (o *CreateInvoice201ResponseDataLinesInner) SetUnitAmount(v ListProducts200ResponseDataTotal) {
+func (o *CreateInvoice201ResponseDataLinesInner) SetUnitAmount(v float32) {
 	o.UnitAmount = v
 }
 
 // GetSubtotal returns the Subtotal field value
-func (o *CreateInvoice201ResponseDataLinesInner) GetSubtotal() ListProducts200ResponseDataTotal {
+func (o *CreateInvoice201ResponseDataLinesInner) GetSubtotal() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -221,7 +221,7 @@ func (o *CreateInvoice201ResponseDataLinesInner) GetSubtotal() ListProducts200Re
 
 // GetSubtotalOk returns a tuple with the Subtotal field value
 // and a boolean to check if the value has been set.
-func (o *CreateInvoice201ResponseDataLinesInner) GetSubtotalOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreateInvoice201ResponseDataLinesInner) GetSubtotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -229,7 +229,7 @@ func (o *CreateInvoice201ResponseDataLinesInner) GetSubtotalOk() (*ListProducts2
 }
 
 // SetSubtotal sets field value
-func (o *CreateInvoice201ResponseDataLinesInner) SetSubtotal(v ListProducts200ResponseDataTotal) {
+func (o *CreateInvoice201ResponseDataLinesInner) SetSubtotal(v float32) {
 	o.Subtotal = v
 }
 
@@ -282,9 +282,9 @@ func (o *CreateInvoice201ResponseDataLinesInner) SetMetadata(v map[string]string
 }
 
 // GetSortOrder returns the SortOrder field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateInvoice201ResponseDataLinesInner) GetSortOrder() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateInvoice201ResponseDataLinesInner) GetSortOrder() float32 {
 	if o == nil || IsNil(o.SortOrder.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.SortOrder.Get()
@@ -293,7 +293,7 @@ func (o *CreateInvoice201ResponseDataLinesInner) GetSortOrder() ListCustomerBill
 // GetSortOrderOk returns a tuple with the SortOrder field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateInvoice201ResponseDataLinesInner) GetSortOrderOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateInvoice201ResponseDataLinesInner) GetSortOrderOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -309,8 +309,8 @@ func (o *CreateInvoice201ResponseDataLinesInner) HasSortOrder() bool {
 	return false
 }
 
-// SetSortOrder gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the SortOrder field.
-func (o *CreateInvoice201ResponseDataLinesInner) SetSortOrder(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetSortOrder gets a reference to the given NullableFloat32 and assigns it to the SortOrder field.
+func (o *CreateInvoice201ResponseDataLinesInner) SetSortOrder(v float32) {
 	o.SortOrder.Set(&v)
 }
 // SetSortOrderNil sets the value for SortOrder to be an explicit nil

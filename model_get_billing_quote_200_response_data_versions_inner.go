@@ -23,12 +23,12 @@ var _ MappedNullable = &GetBillingQuote200ResponseDataVersionsInner{}
 type GetBillingQuote200ResponseDataVersionsInner struct {
 	QuoteVersionId string `json:"quoteVersionId"`
 	QuoteId string `json:"quoteId"`
-	Version ListProducts200ResponseDataTotal `json:"version"`
+	Version float32 `json:"version"`
 	Status string `json:"status"`
 	Currency string `json:"currency"`
 	BillingItems CreateBillingQuote201ResponseDataCurrentVersionBillingItems `json:"billingItems"`
-	Subtotal ListProducts200ResponseDataTotal `json:"subtotal"`
-	Total ListProducts200ResponseDataTotal `json:"total"`
+	Subtotal float32 `json:"subtotal"`
+	Total float32 `json:"total"`
 	Metadata map[string]string `json:"metadata"`
 	CreatedAt string `json:"createdAt"`
 	UpdatedAt string `json:"updatedAt"`
@@ -44,7 +44,7 @@ type _GetBillingQuote200ResponseDataVersionsInner GetBillingQuote200ResponseData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetBillingQuote200ResponseDataVersionsInner(quoteVersionId string, quoteId string, version ListProducts200ResponseDataTotal, status string, currency string, billingItems CreateBillingQuote201ResponseDataCurrentVersionBillingItems, subtotal ListProducts200ResponseDataTotal, total ListProducts200ResponseDataTotal, metadata map[string]string, createdAt string, updatedAt string) *GetBillingQuote200ResponseDataVersionsInner {
+func NewGetBillingQuote200ResponseDataVersionsInner(quoteVersionId string, quoteId string, version float32, status string, currency string, billingItems CreateBillingQuote201ResponseDataCurrentVersionBillingItems, subtotal float32, total float32, metadata map[string]string, createdAt string, updatedAt string) *GetBillingQuote200ResponseDataVersionsInner {
 	this := GetBillingQuote200ResponseDataVersionsInner{}
 	this.QuoteVersionId = quoteVersionId
 	this.QuoteId = quoteId
@@ -117,9 +117,9 @@ func (o *GetBillingQuote200ResponseDataVersionsInner) SetQuoteId(v string) {
 }
 
 // GetVersion returns the Version field value
-func (o *GetBillingQuote200ResponseDataVersionsInner) GetVersion() ListProducts200ResponseDataTotal {
+func (o *GetBillingQuote200ResponseDataVersionsInner) GetVersion() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -128,7 +128,7 @@ func (o *GetBillingQuote200ResponseDataVersionsInner) GetVersion() ListProducts2
 
 // GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
-func (o *GetBillingQuote200ResponseDataVersionsInner) GetVersionOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *GetBillingQuote200ResponseDataVersionsInner) GetVersionOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -136,7 +136,7 @@ func (o *GetBillingQuote200ResponseDataVersionsInner) GetVersionOk() (*ListProdu
 }
 
 // SetVersion sets field value
-func (o *GetBillingQuote200ResponseDataVersionsInner) SetVersion(v ListProducts200ResponseDataTotal) {
+func (o *GetBillingQuote200ResponseDataVersionsInner) SetVersion(v float32) {
 	o.Version = v
 }
 
@@ -213,9 +213,9 @@ func (o *GetBillingQuote200ResponseDataVersionsInner) SetBillingItems(v CreateBi
 }
 
 // GetSubtotal returns the Subtotal field value
-func (o *GetBillingQuote200ResponseDataVersionsInner) GetSubtotal() ListProducts200ResponseDataTotal {
+func (o *GetBillingQuote200ResponseDataVersionsInner) GetSubtotal() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -224,7 +224,7 @@ func (o *GetBillingQuote200ResponseDataVersionsInner) GetSubtotal() ListProducts
 
 // GetSubtotalOk returns a tuple with the Subtotal field value
 // and a boolean to check if the value has been set.
-func (o *GetBillingQuote200ResponseDataVersionsInner) GetSubtotalOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *GetBillingQuote200ResponseDataVersionsInner) GetSubtotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -232,14 +232,14 @@ func (o *GetBillingQuote200ResponseDataVersionsInner) GetSubtotalOk() (*ListProd
 }
 
 // SetSubtotal sets field value
-func (o *GetBillingQuote200ResponseDataVersionsInner) SetSubtotal(v ListProducts200ResponseDataTotal) {
+func (o *GetBillingQuote200ResponseDataVersionsInner) SetSubtotal(v float32) {
 	o.Subtotal = v
 }
 
 // GetTotal returns the Total field value
-func (o *GetBillingQuote200ResponseDataVersionsInner) GetTotal() ListProducts200ResponseDataTotal {
+func (o *GetBillingQuote200ResponseDataVersionsInner) GetTotal() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -248,7 +248,7 @@ func (o *GetBillingQuote200ResponseDataVersionsInner) GetTotal() ListProducts200
 
 // GetTotalOk returns a tuple with the Total field value
 // and a boolean to check if the value has been set.
-func (o *GetBillingQuote200ResponseDataVersionsInner) GetTotalOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *GetBillingQuote200ResponseDataVersionsInner) GetTotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -256,7 +256,7 @@ func (o *GetBillingQuote200ResponseDataVersionsInner) GetTotalOk() (*ListProduct
 }
 
 // SetTotal sets field value
-func (o *GetBillingQuote200ResponseDataVersionsInner) SetTotal(v ListProducts200ResponseDataTotal) {
+func (o *GetBillingQuote200ResponseDataVersionsInner) SetTotal(v float32) {
 	o.Total = v
 }
 

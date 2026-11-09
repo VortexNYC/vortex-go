@@ -19,7 +19,7 @@ var _ MappedNullable = &ListDisputeAdjustmentTransfers200ResponseDataItemsInner{
 
 // ListDisputeAdjustmentTransfers200ResponseDataItemsInner struct for ListDisputeAdjustmentTransfers200ResponseDataItemsInner
 type ListDisputeAdjustmentTransfers200ResponseDataItemsInner struct {
-	Amount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"amount,omitempty"`
+	Amount NullableFloat32 `json:"amount,omitempty"`
 	Currency NullableString `json:"currency,omitempty"`
 	Type NullableString `json:"type,omitempty"`
 	CreatedAt NullableString `json:"createdAt,omitempty"`
@@ -47,9 +47,9 @@ func NewListDisputeAdjustmentTransfers200ResponseDataItemsInnerWithDefaults() *L
 }
 
 // GetAmount returns the Amount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ListDisputeAdjustmentTransfers200ResponseDataItemsInner) GetAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ListDisputeAdjustmentTransfers200ResponseDataItemsInner) GetAmount() float32 {
 	if o == nil || IsNil(o.Amount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.Amount.Get()
@@ -58,7 +58,7 @@ func (o *ListDisputeAdjustmentTransfers200ResponseDataItemsInner) GetAmount() Li
 // GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ListDisputeAdjustmentTransfers200ResponseDataItemsInner) GetAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ListDisputeAdjustmentTransfers200ResponseDataItemsInner) GetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -74,8 +74,8 @@ func (o *ListDisputeAdjustmentTransfers200ResponseDataItemsInner) HasAmount() bo
 	return false
 }
 
-// SetAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the Amount field.
-func (o *ListDisputeAdjustmentTransfers200ResponseDataItemsInner) SetAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetAmount gets a reference to the given NullableFloat32 and assigns it to the Amount field.
+func (o *ListDisputeAdjustmentTransfers200ResponseDataItemsInner) SetAmount(v float32) {
 	o.Amount.Set(&v)
 }
 // SetAmountNil sets the value for Amount to be an explicit nil

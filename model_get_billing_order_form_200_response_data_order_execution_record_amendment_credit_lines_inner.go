@@ -21,7 +21,7 @@ var _ MappedNullable = &GetBillingOrderForm200ResponseDataOrderExecutionRecordAm
 // GetBillingOrderForm200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner struct for GetBillingOrderForm200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner
 type GetBillingOrderForm200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner struct {
 	PriceId NullableString `json:"priceId"`
-	Amount ListProducts200ResponseDataTotal `json:"amount"`
+	Amount NullableFloat32 `json:"amount"`
 	Description NullableString `json:"description"`
 	InvoiceLineId NullableString `json:"invoiceLineId,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -33,7 +33,7 @@ type _GetBillingOrderForm200ResponseDataOrderExecutionRecordAmendmentCreditLines
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetBillingOrderForm200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner(priceId NullableString, amount ListProducts200ResponseDataTotal, description NullableString) *GetBillingOrderForm200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner {
+func NewGetBillingOrderForm200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner(priceId NullableString, amount NullableFloat32, description NullableString) *GetBillingOrderForm200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner {
 	this := GetBillingOrderForm200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner{}
 	this.PriceId = priceId
 	this.Amount = amount
@@ -76,27 +76,29 @@ func (o *GetBillingOrderForm200ResponseDataOrderExecutionRecordAmendmentCreditLi
 }
 
 // GetAmount returns the Amount field value
-func (o *GetBillingOrderForm200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner) GetAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetBillingOrderForm200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner) GetAmount() float32 {
+	if o == nil || o.Amount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Amount
+	return *o.Amount.Get()
 }
 
 // GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
-func (o *GetBillingOrderForm200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner) GetAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetBillingOrderForm200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner) GetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Amount, true
+	return o.Amount.Get(), o.Amount.IsSet()
 }
 
 // SetAmount sets field value
-func (o *GetBillingOrderForm200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner) SetAmount(v ListProducts200ResponseDataTotal) {
-	o.Amount = v
+func (o *GetBillingOrderForm200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner) SetAmount(v float32) {
+	o.Amount.Set(&v)
 }
 
 // GetDescription returns the Description field value
@@ -178,7 +180,7 @@ func (o GetBillingOrderForm200ResponseDataOrderExecutionRecordAmendmentCreditLin
 func (o GetBillingOrderForm200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["priceId"] = o.PriceId.Get()
-	toSerialize["amount"] = o.Amount
+	toSerialize["amount"] = o.Amount.Get()
 	toSerialize["description"] = o.Description.Get()
 	if o.InvoiceLineId.IsSet() {
 		toSerialize["invoiceLineId"] = o.InvoiceLineId.Get()

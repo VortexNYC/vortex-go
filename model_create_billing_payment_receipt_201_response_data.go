@@ -28,7 +28,7 @@ type CreateBillingPaymentReceipt201ResponseData struct {
 	InvoiceIds []string `json:"invoiceIds"`
 	PaymentId string `json:"paymentId"`
 	Currency string `json:"currency"`
-	Amount ListProducts200ResponseDataTotal `json:"amount"`
+	Amount float32 `json:"amount"`
 	Status string `json:"status"`
 	Metadata map[string]string `json:"metadata"`
 	CreatedAt string `json:"createdAt"`
@@ -44,7 +44,7 @@ type _CreateBillingPaymentReceipt201ResponseData CreateBillingPaymentReceipt201R
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateBillingPaymentReceipt201ResponseData(receiptId string, receiptNumber string, customerId string, billingAccountId string, invoiceIds []string, paymentId string, currency string, amount ListProducts200ResponseDataTotal, status string, metadata map[string]string, createdAt string) *CreateBillingPaymentReceipt201ResponseData {
+func NewCreateBillingPaymentReceipt201ResponseData(receiptId string, receiptNumber string, customerId string, billingAccountId string, invoiceIds []string, paymentId string, currency string, amount float32, status string, metadata map[string]string, createdAt string) *CreateBillingPaymentReceipt201ResponseData {
 	this := CreateBillingPaymentReceipt201ResponseData{}
 	this.ReceiptId = receiptId
 	this.ReceiptNumber = receiptNumber
@@ -237,9 +237,9 @@ func (o *CreateBillingPaymentReceipt201ResponseData) SetCurrency(v string) {
 }
 
 // GetAmount returns the Amount field value
-func (o *CreateBillingPaymentReceipt201ResponseData) GetAmount() ListProducts200ResponseDataTotal {
+func (o *CreateBillingPaymentReceipt201ResponseData) GetAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -248,7 +248,7 @@ func (o *CreateBillingPaymentReceipt201ResponseData) GetAmount() ListProducts200
 
 // GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
-func (o *CreateBillingPaymentReceipt201ResponseData) GetAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreateBillingPaymentReceipt201ResponseData) GetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -256,7 +256,7 @@ func (o *CreateBillingPaymentReceipt201ResponseData) GetAmountOk() (*ListProduct
 }
 
 // SetAmount sets field value
-func (o *CreateBillingPaymentReceipt201ResponseData) SetAmount(v ListProducts200ResponseDataTotal) {
+func (o *CreateBillingPaymentReceipt201ResponseData) SetAmount(v float32) {
 	o.Amount = v
 }
 

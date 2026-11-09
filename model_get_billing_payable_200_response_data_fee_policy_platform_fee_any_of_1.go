@@ -22,7 +22,7 @@ var _ MappedNullable = &GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyO
 // GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf1 struct for GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf1
 type GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf1 struct {
 	Mode string `json:"mode"`
-	Amount ListProducts200ResponseDataTotal `json:"amount"`
+	Amount float32 `json:"amount"`
 	Currency string `json:"currency"`
 	Rounding string `json:"rounding"`
 }
@@ -33,7 +33,7 @@ type _GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf1 GetBillingPayab
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf1(mode string, amount ListProducts200ResponseDataTotal, currency string, rounding string) *GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf1 {
+func NewGetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf1(mode string, amount float32, currency string, rounding string) *GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf1 {
 	this := GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf1{}
 	this.Mode = mode
 	this.Amount = amount
@@ -75,9 +75,9 @@ func (o *GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf1) SetMode(v s
 }
 
 // GetAmount returns the Amount field value
-func (o *GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf1) GetAmount() ListProducts200ResponseDataTotal {
+func (o *GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf1) GetAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -86,7 +86,7 @@ func (o *GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf1) GetAmount()
 
 // GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
-func (o *GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf1) GetAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf1) GetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -94,7 +94,7 @@ func (o *GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf1) GetAmountOk
 }
 
 // SetAmount sets field value
-func (o *GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf1) SetAmount(v ListProducts200ResponseDataTotal) {
+func (o *GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf1) SetAmount(v float32) {
 	o.Amount = v
 }
 

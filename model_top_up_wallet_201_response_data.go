@@ -25,10 +25,10 @@ type TopUpWallet201ResponseData struct {
 	CustomerId string `json:"customerId"`
 	Currency string `json:"currency"`
 	EntryType string `json:"entryType"`
-	Amount ListProducts200ResponseDataTotal `json:"amount"`
+	Amount float32 `json:"amount"`
 	EffectiveAt string `json:"effectiveAt"`
 	Metadata map[string]string `json:"metadata"`
-	RemainingAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"remainingAmount,omitempty"`
+	RemainingAmount NullableFloat32 `json:"remainingAmount,omitempty"`
 	InvoiceId NullableString `json:"invoiceId,omitempty"`
 	PaymentId NullableString `json:"paymentId,omitempty"`
 	WalletId NullableString `json:"walletId,omitempty"`
@@ -41,7 +41,7 @@ type _TopUpWallet201ResponseData TopUpWallet201ResponseData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTopUpWallet201ResponseData(entryId string, customerId string, currency string, entryType string, amount ListProducts200ResponseDataTotal, effectiveAt string, metadata map[string]string) *TopUpWallet201ResponseData {
+func NewTopUpWallet201ResponseData(entryId string, customerId string, currency string, entryType string, amount float32, effectiveAt string, metadata map[string]string) *TopUpWallet201ResponseData {
 	this := TopUpWallet201ResponseData{}
 	this.EntryId = entryId
 	this.CustomerId = customerId
@@ -158,9 +158,9 @@ func (o *TopUpWallet201ResponseData) SetEntryType(v string) {
 }
 
 // GetAmount returns the Amount field value
-func (o *TopUpWallet201ResponseData) GetAmount() ListProducts200ResponseDataTotal {
+func (o *TopUpWallet201ResponseData) GetAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -169,7 +169,7 @@ func (o *TopUpWallet201ResponseData) GetAmount() ListProducts200ResponseDataTota
 
 // GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
-func (o *TopUpWallet201ResponseData) GetAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *TopUpWallet201ResponseData) GetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -177,7 +177,7 @@ func (o *TopUpWallet201ResponseData) GetAmountOk() (*ListProducts200ResponseData
 }
 
 // SetAmount sets field value
-func (o *TopUpWallet201ResponseData) SetAmount(v ListProducts200ResponseDataTotal) {
+func (o *TopUpWallet201ResponseData) SetAmount(v float32) {
 	o.Amount = v
 }
 
@@ -230,9 +230,9 @@ func (o *TopUpWallet201ResponseData) SetMetadata(v map[string]string) {
 }
 
 // GetRemainingAmount returns the RemainingAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *TopUpWallet201ResponseData) GetRemainingAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *TopUpWallet201ResponseData) GetRemainingAmount() float32 {
 	if o == nil || IsNil(o.RemainingAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.RemainingAmount.Get()
@@ -241,7 +241,7 @@ func (o *TopUpWallet201ResponseData) GetRemainingAmount() ListCustomerBillingAcc
 // GetRemainingAmountOk returns a tuple with the RemainingAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TopUpWallet201ResponseData) GetRemainingAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *TopUpWallet201ResponseData) GetRemainingAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -257,8 +257,8 @@ func (o *TopUpWallet201ResponseData) HasRemainingAmount() bool {
 	return false
 }
 
-// SetRemainingAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the RemainingAmount field.
-func (o *TopUpWallet201ResponseData) SetRemainingAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetRemainingAmount gets a reference to the given NullableFloat32 and assigns it to the RemainingAmount field.
+func (o *TopUpWallet201ResponseData) SetRemainingAmount(v float32) {
 	o.RemainingAmount.Set(&v)
 }
 // SetRemainingAmountNil sets the value for RemainingAmount to be an explicit nil

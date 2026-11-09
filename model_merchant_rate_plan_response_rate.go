@@ -19,13 +19,13 @@ var _ MappedNullable = &MerchantRatePlanResponseRate{}
 
 // MerchantRatePlanResponseRate struct for MerchantRatePlanResponseRate
 type MerchantRatePlanResponseRate struct {
-	CardBasisPoints *float32 `json:"cardBasisPoints,omitempty"`
-	CardFixedFee *float32 `json:"cardFixedFee,omitempty"`
+	CardBasisPoints NullableFloat32 `json:"cardBasisPoints,omitempty"`
+	CardFixedFee NullableFloat32 `json:"cardFixedFee,omitempty"`
 	CardCrossBorderBasisPoints NullableFloat32 `json:"cardCrossBorderBasisPoints,omitempty"`
-	AchBasisPoints *float32 `json:"achBasisPoints,omitempty"`
+	AchBasisPoints NullableFloat32 `json:"achBasisPoints,omitempty"`
 	AchFixedFee NullableFloat32 `json:"achFixedFee,omitempty"`
 	DisputeFixedFee NullableFloat32 `json:"disputeFixedFee,omitempty"`
-	MonthlyFeeCents *float32 `json:"monthlyFeeCents,omitempty"`
+	MonthlyFeeCents NullableFloat32 `json:"monthlyFeeCents,omitempty"`
 }
 
 // NewMerchantRatePlanResponseRate instantiates a new MerchantRatePlanResponseRate object
@@ -45,68 +45,88 @@ func NewMerchantRatePlanResponseRateWithDefaults() *MerchantRatePlanResponseRate
 	return &this
 }
 
-// GetCardBasisPoints returns the CardBasisPoints field value if set, zero value otherwise.
+// GetCardBasisPoints returns the CardBasisPoints field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantRatePlanResponseRate) GetCardBasisPoints() float32 {
-	if o == nil || IsNil(o.CardBasisPoints) {
+	if o == nil || IsNil(o.CardBasisPoints.Get()) {
 		var ret float32
 		return ret
 	}
-	return *o.CardBasisPoints
+	return *o.CardBasisPoints.Get()
 }
 
 // GetCardBasisPointsOk returns a tuple with the CardBasisPoints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantRatePlanResponseRate) GetCardBasisPointsOk() (*float32, bool) {
-	if o == nil || IsNil(o.CardBasisPoints) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CardBasisPoints, true
+	return o.CardBasisPoints.Get(), o.CardBasisPoints.IsSet()
 }
 
 // HasCardBasisPoints returns a boolean if a field has been set.
 func (o *MerchantRatePlanResponseRate) HasCardBasisPoints() bool {
-	if o != nil && !IsNil(o.CardBasisPoints) {
+	if o != nil && o.CardBasisPoints.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCardBasisPoints gets a reference to the given float32 and assigns it to the CardBasisPoints field.
+// SetCardBasisPoints gets a reference to the given NullableFloat32 and assigns it to the CardBasisPoints field.
 func (o *MerchantRatePlanResponseRate) SetCardBasisPoints(v float32) {
-	o.CardBasisPoints = &v
+	o.CardBasisPoints.Set(&v)
+}
+// SetCardBasisPointsNil sets the value for CardBasisPoints to be an explicit nil
+func (o *MerchantRatePlanResponseRate) SetCardBasisPointsNil() {
+	o.CardBasisPoints.Set(nil)
 }
 
-// GetCardFixedFee returns the CardFixedFee field value if set, zero value otherwise.
+// UnsetCardBasisPoints ensures that no value is present for CardBasisPoints, not even an explicit nil
+func (o *MerchantRatePlanResponseRate) UnsetCardBasisPoints() {
+	o.CardBasisPoints.Unset()
+}
+
+// GetCardFixedFee returns the CardFixedFee field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantRatePlanResponseRate) GetCardFixedFee() float32 {
-	if o == nil || IsNil(o.CardFixedFee) {
+	if o == nil || IsNil(o.CardFixedFee.Get()) {
 		var ret float32
 		return ret
 	}
-	return *o.CardFixedFee
+	return *o.CardFixedFee.Get()
 }
 
 // GetCardFixedFeeOk returns a tuple with the CardFixedFee field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantRatePlanResponseRate) GetCardFixedFeeOk() (*float32, bool) {
-	if o == nil || IsNil(o.CardFixedFee) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CardFixedFee, true
+	return o.CardFixedFee.Get(), o.CardFixedFee.IsSet()
 }
 
 // HasCardFixedFee returns a boolean if a field has been set.
 func (o *MerchantRatePlanResponseRate) HasCardFixedFee() bool {
-	if o != nil && !IsNil(o.CardFixedFee) {
+	if o != nil && o.CardFixedFee.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCardFixedFee gets a reference to the given float32 and assigns it to the CardFixedFee field.
+// SetCardFixedFee gets a reference to the given NullableFloat32 and assigns it to the CardFixedFee field.
 func (o *MerchantRatePlanResponseRate) SetCardFixedFee(v float32) {
-	o.CardFixedFee = &v
+	o.CardFixedFee.Set(&v)
+}
+// SetCardFixedFeeNil sets the value for CardFixedFee to be an explicit nil
+func (o *MerchantRatePlanResponseRate) SetCardFixedFeeNil() {
+	o.CardFixedFee.Set(nil)
+}
+
+// UnsetCardFixedFee ensures that no value is present for CardFixedFee, not even an explicit nil
+func (o *MerchantRatePlanResponseRate) UnsetCardFixedFee() {
+	o.CardFixedFee.Unset()
 }
 
 // GetCardCrossBorderBasisPoints returns the CardCrossBorderBasisPoints field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -151,36 +171,46 @@ func (o *MerchantRatePlanResponseRate) UnsetCardCrossBorderBasisPoints() {
 	o.CardCrossBorderBasisPoints.Unset()
 }
 
-// GetAchBasisPoints returns the AchBasisPoints field value if set, zero value otherwise.
+// GetAchBasisPoints returns the AchBasisPoints field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantRatePlanResponseRate) GetAchBasisPoints() float32 {
-	if o == nil || IsNil(o.AchBasisPoints) {
+	if o == nil || IsNil(o.AchBasisPoints.Get()) {
 		var ret float32
 		return ret
 	}
-	return *o.AchBasisPoints
+	return *o.AchBasisPoints.Get()
 }
 
 // GetAchBasisPointsOk returns a tuple with the AchBasisPoints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantRatePlanResponseRate) GetAchBasisPointsOk() (*float32, bool) {
-	if o == nil || IsNil(o.AchBasisPoints) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AchBasisPoints, true
+	return o.AchBasisPoints.Get(), o.AchBasisPoints.IsSet()
 }
 
 // HasAchBasisPoints returns a boolean if a field has been set.
 func (o *MerchantRatePlanResponseRate) HasAchBasisPoints() bool {
-	if o != nil && !IsNil(o.AchBasisPoints) {
+	if o != nil && o.AchBasisPoints.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetAchBasisPoints gets a reference to the given float32 and assigns it to the AchBasisPoints field.
+// SetAchBasisPoints gets a reference to the given NullableFloat32 and assigns it to the AchBasisPoints field.
 func (o *MerchantRatePlanResponseRate) SetAchBasisPoints(v float32) {
-	o.AchBasisPoints = &v
+	o.AchBasisPoints.Set(&v)
+}
+// SetAchBasisPointsNil sets the value for AchBasisPoints to be an explicit nil
+func (o *MerchantRatePlanResponseRate) SetAchBasisPointsNil() {
+	o.AchBasisPoints.Set(nil)
+}
+
+// UnsetAchBasisPoints ensures that no value is present for AchBasisPoints, not even an explicit nil
+func (o *MerchantRatePlanResponseRate) UnsetAchBasisPoints() {
+	o.AchBasisPoints.Unset()
 }
 
 // GetAchFixedFee returns the AchFixedFee field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -267,36 +297,46 @@ func (o *MerchantRatePlanResponseRate) UnsetDisputeFixedFee() {
 	o.DisputeFixedFee.Unset()
 }
 
-// GetMonthlyFeeCents returns the MonthlyFeeCents field value if set, zero value otherwise.
+// GetMonthlyFeeCents returns the MonthlyFeeCents field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantRatePlanResponseRate) GetMonthlyFeeCents() float32 {
-	if o == nil || IsNil(o.MonthlyFeeCents) {
+	if o == nil || IsNil(o.MonthlyFeeCents.Get()) {
 		var ret float32
 		return ret
 	}
-	return *o.MonthlyFeeCents
+	return *o.MonthlyFeeCents.Get()
 }
 
 // GetMonthlyFeeCentsOk returns a tuple with the MonthlyFeeCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantRatePlanResponseRate) GetMonthlyFeeCentsOk() (*float32, bool) {
-	if o == nil || IsNil(o.MonthlyFeeCents) {
+	if o == nil {
 		return nil, false
 	}
-	return o.MonthlyFeeCents, true
+	return o.MonthlyFeeCents.Get(), o.MonthlyFeeCents.IsSet()
 }
 
 // HasMonthlyFeeCents returns a boolean if a field has been set.
 func (o *MerchantRatePlanResponseRate) HasMonthlyFeeCents() bool {
-	if o != nil && !IsNil(o.MonthlyFeeCents) {
+	if o != nil && o.MonthlyFeeCents.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetMonthlyFeeCents gets a reference to the given float32 and assigns it to the MonthlyFeeCents field.
+// SetMonthlyFeeCents gets a reference to the given NullableFloat32 and assigns it to the MonthlyFeeCents field.
 func (o *MerchantRatePlanResponseRate) SetMonthlyFeeCents(v float32) {
-	o.MonthlyFeeCents = &v
+	o.MonthlyFeeCents.Set(&v)
+}
+// SetMonthlyFeeCentsNil sets the value for MonthlyFeeCents to be an explicit nil
+func (o *MerchantRatePlanResponseRate) SetMonthlyFeeCentsNil() {
+	o.MonthlyFeeCents.Set(nil)
+}
+
+// UnsetMonthlyFeeCents ensures that no value is present for MonthlyFeeCents, not even an explicit nil
+func (o *MerchantRatePlanResponseRate) UnsetMonthlyFeeCents() {
+	o.MonthlyFeeCents.Unset()
 }
 
 func (o MerchantRatePlanResponseRate) MarshalJSON() ([]byte, error) {
@@ -309,17 +349,17 @@ func (o MerchantRatePlanResponseRate) MarshalJSON() ([]byte, error) {
 
 func (o MerchantRatePlanResponseRate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.CardBasisPoints) {
-		toSerialize["cardBasisPoints"] = o.CardBasisPoints
+	if o.CardBasisPoints.IsSet() {
+		toSerialize["cardBasisPoints"] = o.CardBasisPoints.Get()
 	}
-	if !IsNil(o.CardFixedFee) {
-		toSerialize["cardFixedFee"] = o.CardFixedFee
+	if o.CardFixedFee.IsSet() {
+		toSerialize["cardFixedFee"] = o.CardFixedFee.Get()
 	}
 	if o.CardCrossBorderBasisPoints.IsSet() {
 		toSerialize["cardCrossBorderBasisPoints"] = o.CardCrossBorderBasisPoints.Get()
 	}
-	if !IsNil(o.AchBasisPoints) {
-		toSerialize["achBasisPoints"] = o.AchBasisPoints
+	if o.AchBasisPoints.IsSet() {
+		toSerialize["achBasisPoints"] = o.AchBasisPoints.Get()
 	}
 	if o.AchFixedFee.IsSet() {
 		toSerialize["achFixedFee"] = o.AchFixedFee.Get()
@@ -327,8 +367,8 @@ func (o MerchantRatePlanResponseRate) ToMap() (map[string]interface{}, error) {
 	if o.DisputeFixedFee.IsSet() {
 		toSerialize["disputeFixedFee"] = o.DisputeFixedFee.Get()
 	}
-	if !IsNil(o.MonthlyFeeCents) {
-		toSerialize["monthlyFeeCents"] = o.MonthlyFeeCents
+	if o.MonthlyFeeCents.IsSet() {
+		toSerialize["monthlyFeeCents"] = o.MonthlyFeeCents.Get()
 	}
 	return toSerialize, nil
 }

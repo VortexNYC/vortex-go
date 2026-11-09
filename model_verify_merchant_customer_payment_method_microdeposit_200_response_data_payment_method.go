@@ -29,8 +29,8 @@ type VerifyMerchantCustomerPaymentMethodMicrodeposit200ResponseDataPaymentMethod
 	IsDefault NullableBool `json:"isDefault"`
 	BrandSummary NullableString `json:"brandSummary,omitempty"`
 	Last4 NullableString `json:"last4,omitempty"`
-	ExpiryMonth NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"expiryMonth,omitempty"`
-	ExpiryYear NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"expiryYear,omitempty"`
+	ExpiryMonth NullableFloat32 `json:"expiryMonth,omitempty"`
+	ExpiryYear NullableFloat32 `json:"expiryYear,omitempty"`
 	FraudSessionId NullableString `json:"fraudSessionId,omitempty"`
 	NetworkTokenEnabled NullableBool `json:"networkTokenEnabled,omitempty"`
 	NetworkTokenState NullableString `json:"networkTokenState,omitempty"`
@@ -344,9 +344,9 @@ func (o *VerifyMerchantCustomerPaymentMethodMicrodeposit200ResponseDataPaymentMe
 }
 
 // GetExpiryMonth returns the ExpiryMonth field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VerifyMerchantCustomerPaymentMethodMicrodeposit200ResponseDataPaymentMethod) GetExpiryMonth() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *VerifyMerchantCustomerPaymentMethodMicrodeposit200ResponseDataPaymentMethod) GetExpiryMonth() float32 {
 	if o == nil || IsNil(o.ExpiryMonth.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.ExpiryMonth.Get()
@@ -355,7 +355,7 @@ func (o *VerifyMerchantCustomerPaymentMethodMicrodeposit200ResponseDataPaymentMe
 // GetExpiryMonthOk returns a tuple with the ExpiryMonth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VerifyMerchantCustomerPaymentMethodMicrodeposit200ResponseDataPaymentMethod) GetExpiryMonthOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *VerifyMerchantCustomerPaymentMethodMicrodeposit200ResponseDataPaymentMethod) GetExpiryMonthOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -371,8 +371,8 @@ func (o *VerifyMerchantCustomerPaymentMethodMicrodeposit200ResponseDataPaymentMe
 	return false
 }
 
-// SetExpiryMonth gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the ExpiryMonth field.
-func (o *VerifyMerchantCustomerPaymentMethodMicrodeposit200ResponseDataPaymentMethod) SetExpiryMonth(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetExpiryMonth gets a reference to the given NullableFloat32 and assigns it to the ExpiryMonth field.
+func (o *VerifyMerchantCustomerPaymentMethodMicrodeposit200ResponseDataPaymentMethod) SetExpiryMonth(v float32) {
 	o.ExpiryMonth.Set(&v)
 }
 // SetExpiryMonthNil sets the value for ExpiryMonth to be an explicit nil
@@ -386,9 +386,9 @@ func (o *VerifyMerchantCustomerPaymentMethodMicrodeposit200ResponseDataPaymentMe
 }
 
 // GetExpiryYear returns the ExpiryYear field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VerifyMerchantCustomerPaymentMethodMicrodeposit200ResponseDataPaymentMethod) GetExpiryYear() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *VerifyMerchantCustomerPaymentMethodMicrodeposit200ResponseDataPaymentMethod) GetExpiryYear() float32 {
 	if o == nil || IsNil(o.ExpiryYear.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.ExpiryYear.Get()
@@ -397,7 +397,7 @@ func (o *VerifyMerchantCustomerPaymentMethodMicrodeposit200ResponseDataPaymentMe
 // GetExpiryYearOk returns a tuple with the ExpiryYear field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VerifyMerchantCustomerPaymentMethodMicrodeposit200ResponseDataPaymentMethod) GetExpiryYearOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *VerifyMerchantCustomerPaymentMethodMicrodeposit200ResponseDataPaymentMethod) GetExpiryYearOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -413,8 +413,8 @@ func (o *VerifyMerchantCustomerPaymentMethodMicrodeposit200ResponseDataPaymentMe
 	return false
 }
 
-// SetExpiryYear gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the ExpiryYear field.
-func (o *VerifyMerchantCustomerPaymentMethodMicrodeposit200ResponseDataPaymentMethod) SetExpiryYear(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetExpiryYear gets a reference to the given NullableFloat32 and assigns it to the ExpiryYear field.
+func (o *VerifyMerchantCustomerPaymentMethodMicrodeposit200ResponseDataPaymentMethod) SetExpiryYear(v float32) {
 	o.ExpiryYear.Set(&v)
 }
 // SetExpiryYearNil sets the value for ExpiryYear to be an explicit nil

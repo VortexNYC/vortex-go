@@ -129,6 +129,20 @@ func (a *OrdersAPIService) AmendBillingOrderExecute(r OrdersAPIAmendBillingOrder
 	}
 	// body params
 	localVarPostBody = r.amendBillingOrderRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -272,6 +286,20 @@ func (a *OrdersAPIService) ExecuteBillingOrderExecute(r OrdersAPIExecuteBillingO
 	}
 	// body params
 	localVarPostBody = r.executeBillingOrderRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -408,6 +436,20 @@ func (a *OrdersAPIService) ExecuteDueBillingOrdersExecute(r OrdersAPIExecuteDueB
 	}
 	// body params
 	localVarPostBody = r.executeDueBillingOrdersRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -530,6 +572,20 @@ func (a *OrdersAPIService) GetBillingOrderExecute(r OrdersAPIGetBillingOrderRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -574,8 +630,8 @@ type OrdersAPIListBillingOrdersRequest struct {
 	merchantAccountId *string
 	customerId *string
 	status *string
-	limit *ListCustomersLimitParameter
-	offset *ListCustomersLimitParameter
+	limit *string
+	offset *string
 }
 
 func (r OrdersAPIListBillingOrdersRequest) Environment(environment string) OrdersAPIListBillingOrdersRequest {
@@ -598,12 +654,12 @@ func (r OrdersAPIListBillingOrdersRequest) Status(status string) OrdersAPIListBi
 	return r
 }
 
-func (r OrdersAPIListBillingOrdersRequest) Limit(limit ListCustomersLimitParameter) OrdersAPIListBillingOrdersRequest {
+func (r OrdersAPIListBillingOrdersRequest) Limit(limit string) OrdersAPIListBillingOrdersRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r OrdersAPIListBillingOrdersRequest) Offset(offset ListCustomersLimitParameter) OrdersAPIListBillingOrdersRequest {
+func (r OrdersAPIListBillingOrdersRequest) Offset(offset string) OrdersAPIListBillingOrdersRequest {
 	r.offset = &offset
 	return r
 }
@@ -680,6 +736,20 @@ func (a *OrdersAPIService) ListBillingOrdersExecute(r OrdersAPIListBillingOrders
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -824,6 +894,20 @@ func (a *OrdersAPIService) UpdateBillingOrderExecute(r OrdersAPIUpdateBillingOrd
 	}
 	// body params
 	localVarPostBody = r.updateBillingOrderRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

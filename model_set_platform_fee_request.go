@@ -20,8 +20,8 @@ var _ MappedNullable = &SetPlatformFeeRequest{}
 // SetPlatformFeeRequest struct for SetPlatformFeeRequest
 type SetPlatformFeeRequest struct {
 	Environment NullableString `json:"environment,omitempty"`
-	PlatformBasisPoints NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"platformBasisPoints,omitempty"`
-	PlatformFixedFee NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"platformFixedFee,omitempty"`
+	PlatformBasisPoints NullableFloat32 `json:"platformBasisPoints,omitempty"`
+	PlatformFixedFee NullableFloat32 `json:"platformFixedFee,omitempty"`
 	ConfirmProduction NullableBool `json:"confirmProduction,omitempty"`
 	IdempotencyKey NullableString `json:"idempotencyKey,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -89,9 +89,9 @@ func (o *SetPlatformFeeRequest) UnsetEnvironment() {
 }
 
 // GetPlatformBasisPoints returns the PlatformBasisPoints field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *SetPlatformFeeRequest) GetPlatformBasisPoints() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *SetPlatformFeeRequest) GetPlatformBasisPoints() float32 {
 	if o == nil || IsNil(o.PlatformBasisPoints.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.PlatformBasisPoints.Get()
@@ -100,7 +100,7 @@ func (o *SetPlatformFeeRequest) GetPlatformBasisPoints() ListCustomerBillingAcco
 // GetPlatformBasisPointsOk returns a tuple with the PlatformBasisPoints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *SetPlatformFeeRequest) GetPlatformBasisPointsOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *SetPlatformFeeRequest) GetPlatformBasisPointsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -116,8 +116,8 @@ func (o *SetPlatformFeeRequest) HasPlatformBasisPoints() bool {
 	return false
 }
 
-// SetPlatformBasisPoints gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the PlatformBasisPoints field.
-func (o *SetPlatformFeeRequest) SetPlatformBasisPoints(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetPlatformBasisPoints gets a reference to the given NullableFloat32 and assigns it to the PlatformBasisPoints field.
+func (o *SetPlatformFeeRequest) SetPlatformBasisPoints(v float32) {
 	o.PlatformBasisPoints.Set(&v)
 }
 // SetPlatformBasisPointsNil sets the value for PlatformBasisPoints to be an explicit nil
@@ -131,9 +131,9 @@ func (o *SetPlatformFeeRequest) UnsetPlatformBasisPoints() {
 }
 
 // GetPlatformFixedFee returns the PlatformFixedFee field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *SetPlatformFeeRequest) GetPlatformFixedFee() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *SetPlatformFeeRequest) GetPlatformFixedFee() float32 {
 	if o == nil || IsNil(o.PlatformFixedFee.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.PlatformFixedFee.Get()
@@ -142,7 +142,7 @@ func (o *SetPlatformFeeRequest) GetPlatformFixedFee() ListCustomerBillingAccount
 // GetPlatformFixedFeeOk returns a tuple with the PlatformFixedFee field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *SetPlatformFeeRequest) GetPlatformFixedFeeOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *SetPlatformFeeRequest) GetPlatformFixedFeeOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -158,8 +158,8 @@ func (o *SetPlatformFeeRequest) HasPlatformFixedFee() bool {
 	return false
 }
 
-// SetPlatformFixedFee gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the PlatformFixedFee field.
-func (o *SetPlatformFeeRequest) SetPlatformFixedFee(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetPlatformFixedFee gets a reference to the given NullableFloat32 and assigns it to the PlatformFixedFee field.
+func (o *SetPlatformFeeRequest) SetPlatformFixedFee(v float32) {
 	o.PlatformFixedFee.Set(&v)
 }
 // SetPlatformFixedFeeNil sets the value for PlatformFixedFee to be an explicit nil

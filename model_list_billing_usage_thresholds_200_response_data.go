@@ -22,7 +22,7 @@ var _ MappedNullable = &ListBillingUsageThresholds200ResponseData{}
 type ListBillingUsageThresholds200ResponseData struct {
 	Items []ListBillingUsageThresholds200ResponseDataItemsInner `json:"items"`
 	HasMore NullableBool `json:"hasMore"`
-	Total ListProducts200ResponseDataTotal `json:"total"`
+	Total NullableFloat32 `json:"total"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,7 +32,7 @@ type _ListBillingUsageThresholds200ResponseData ListBillingUsageThresholds200Res
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListBillingUsageThresholds200ResponseData(items []ListBillingUsageThresholds200ResponseDataItemsInner, hasMore NullableBool, total ListProducts200ResponseDataTotal) *ListBillingUsageThresholds200ResponseData {
+func NewListBillingUsageThresholds200ResponseData(items []ListBillingUsageThresholds200ResponseDataItemsInner, hasMore NullableBool, total NullableFloat32) *ListBillingUsageThresholds200ResponseData {
 	this := ListBillingUsageThresholds200ResponseData{}
 	this.Items = items
 	this.HasMore = hasMore
@@ -99,27 +99,29 @@ func (o *ListBillingUsageThresholds200ResponseData) SetHasMore(v bool) {
 }
 
 // GetTotal returns the Total field value
-func (o *ListBillingUsageThresholds200ResponseData) GetTotal() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListBillingUsageThresholds200ResponseData) GetTotal() float32 {
+	if o == nil || o.Total.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Total
+	return *o.Total.Get()
 }
 
 // GetTotalOk returns a tuple with the Total field value
 // and a boolean to check if the value has been set.
-func (o *ListBillingUsageThresholds200ResponseData) GetTotalOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListBillingUsageThresholds200ResponseData) GetTotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Total, true
+	return o.Total.Get(), o.Total.IsSet()
 }
 
 // SetTotal sets field value
-func (o *ListBillingUsageThresholds200ResponseData) SetTotal(v ListProducts200ResponseDataTotal) {
-	o.Total = v
+func (o *ListBillingUsageThresholds200ResponseData) SetTotal(v float32) {
+	o.Total.Set(&v)
 }
 
 func (o ListBillingUsageThresholds200ResponseData) MarshalJSON() ([]byte, error) {
@@ -134,7 +136,7 @@ func (o ListBillingUsageThresholds200ResponseData) ToMap() (map[string]interface
 	toSerialize := map[string]interface{}{}
 	toSerialize["items"] = o.Items
 	toSerialize["hasMore"] = o.HasMore.Get()
-	toSerialize["total"] = o.Total
+	toSerialize["total"] = o.Total.Get()
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

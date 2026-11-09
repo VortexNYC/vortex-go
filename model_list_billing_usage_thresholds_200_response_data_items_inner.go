@@ -22,7 +22,7 @@ var _ MappedNullable = &ListBillingUsageThresholds200ResponseDataItemsInner{}
 type ListBillingUsageThresholds200ResponseDataItemsInner struct {
 	ThresholdId NullableString `json:"thresholdId"`
 	MeterId NullableString `json:"meterId"`
-	ThresholdValue ListProducts200ResponseDataTotal `json:"thresholdValue"`
+	ThresholdValue NullableFloat32 `json:"thresholdValue"`
 	CreatedAt NullableString `json:"createdAt"`
 	CustomerId NullableString `json:"customerId,omitempty"`
 	ArchivedAt NullableString `json:"archivedAt,omitempty"`
@@ -35,7 +35,7 @@ type _ListBillingUsageThresholds200ResponseDataItemsInner ListBillingUsageThresh
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListBillingUsageThresholds200ResponseDataItemsInner(thresholdId NullableString, meterId NullableString, thresholdValue ListProducts200ResponseDataTotal, createdAt NullableString) *ListBillingUsageThresholds200ResponseDataItemsInner {
+func NewListBillingUsageThresholds200ResponseDataItemsInner(thresholdId NullableString, meterId NullableString, thresholdValue NullableFloat32, createdAt NullableString) *ListBillingUsageThresholds200ResponseDataItemsInner {
 	this := ListBillingUsageThresholds200ResponseDataItemsInner{}
 	this.ThresholdId = thresholdId
 	this.MeterId = meterId
@@ -105,27 +105,29 @@ func (o *ListBillingUsageThresholds200ResponseDataItemsInner) SetMeterId(v strin
 }
 
 // GetThresholdValue returns the ThresholdValue field value
-func (o *ListBillingUsageThresholds200ResponseDataItemsInner) GetThresholdValue() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListBillingUsageThresholds200ResponseDataItemsInner) GetThresholdValue() float32 {
+	if o == nil || o.ThresholdValue.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.ThresholdValue
+	return *o.ThresholdValue.Get()
 }
 
 // GetThresholdValueOk returns a tuple with the ThresholdValue field value
 // and a boolean to check if the value has been set.
-func (o *ListBillingUsageThresholds200ResponseDataItemsInner) GetThresholdValueOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListBillingUsageThresholds200ResponseDataItemsInner) GetThresholdValueOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ThresholdValue, true
+	return o.ThresholdValue.Get(), o.ThresholdValue.IsSet()
 }
 
 // SetThresholdValue sets field value
-func (o *ListBillingUsageThresholds200ResponseDataItemsInner) SetThresholdValue(v ListProducts200ResponseDataTotal) {
-	o.ThresholdValue = v
+func (o *ListBillingUsageThresholds200ResponseDataItemsInner) SetThresholdValue(v float32) {
+	o.ThresholdValue.Set(&v)
 }
 
 // GetCreatedAt returns the CreatedAt field value
@@ -250,7 +252,7 @@ func (o ListBillingUsageThresholds200ResponseDataItemsInner) ToMap() (map[string
 	toSerialize := map[string]interface{}{}
 	toSerialize["thresholdId"] = o.ThresholdId.Get()
 	toSerialize["meterId"] = o.MeterId.Get()
-	toSerialize["thresholdValue"] = o.ThresholdValue
+	toSerialize["thresholdValue"] = o.ThresholdValue.Get()
 	toSerialize["createdAt"] = o.CreatedAt.Get()
 	if o.CustomerId.IsSet() {
 		toSerialize["customerId"] = o.CustomerId.Get()

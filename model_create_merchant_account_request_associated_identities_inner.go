@@ -30,7 +30,7 @@ type CreateMerchantAccountRequestAssociatedIdentitiesInner struct {
 	TaxId NullableString `json:"taxId,omitempty"`
 	DateOfBirth NullableCreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth `json:"dateOfBirth,omitempty"`
 	PersonalAddress NullableCreateMerchantAccountRequestAssociatedIdentitiesInnerPersonalAddress `json:"personalAddress,omitempty"`
-	PrincipalPercentageOwnership NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"principalPercentageOwnership,omitempty"`
+	PrincipalPercentageOwnership NullableFloat32 `json:"principalPercentageOwnership,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -457,9 +457,9 @@ func (o *CreateMerchantAccountRequestAssociatedIdentitiesInner) UnsetPersonalAdd
 }
 
 // GetPrincipalPercentageOwnership returns the PrincipalPercentageOwnership field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateMerchantAccountRequestAssociatedIdentitiesInner) GetPrincipalPercentageOwnership() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateMerchantAccountRequestAssociatedIdentitiesInner) GetPrincipalPercentageOwnership() float32 {
 	if o == nil || IsNil(o.PrincipalPercentageOwnership.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.PrincipalPercentageOwnership.Get()
@@ -468,7 +468,7 @@ func (o *CreateMerchantAccountRequestAssociatedIdentitiesInner) GetPrincipalPerc
 // GetPrincipalPercentageOwnershipOk returns a tuple with the PrincipalPercentageOwnership field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateMerchantAccountRequestAssociatedIdentitiesInner) GetPrincipalPercentageOwnershipOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateMerchantAccountRequestAssociatedIdentitiesInner) GetPrincipalPercentageOwnershipOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -484,8 +484,8 @@ func (o *CreateMerchantAccountRequestAssociatedIdentitiesInner) HasPrincipalPerc
 	return false
 }
 
-// SetPrincipalPercentageOwnership gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the PrincipalPercentageOwnership field.
-func (o *CreateMerchantAccountRequestAssociatedIdentitiesInner) SetPrincipalPercentageOwnership(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetPrincipalPercentageOwnership gets a reference to the given NullableFloat32 and assigns it to the PrincipalPercentageOwnership field.
+func (o *CreateMerchantAccountRequestAssociatedIdentitiesInner) SetPrincipalPercentageOwnership(v float32) {
 	o.PrincipalPercentageOwnership.Set(&v)
 }
 // SetPrincipalPercentageOwnershipNil sets the value for PrincipalPercentageOwnership to be an explicit nil

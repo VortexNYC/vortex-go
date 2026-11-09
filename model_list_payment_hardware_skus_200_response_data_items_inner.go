@@ -25,7 +25,7 @@ type ListPaymentHardwareSkus200ResponseDataItemsInner struct {
 	DisplayName NullableString `json:"displayName"`
 	DeviceType NullableString `json:"deviceType"`
 	Status string `json:"status"`
-	UnitAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"unitAmount,omitempty"`
+	UnitAmount NullableFloat32 `json:"unitAmount,omitempty"`
 	Currency NullableString `json:"currency,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
 	CreatedAt NullableString `json:"createdAt"`
@@ -188,9 +188,9 @@ func (o *ListPaymentHardwareSkus200ResponseDataItemsInner) SetStatus(v string) {
 }
 
 // GetUnitAmount returns the UnitAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ListPaymentHardwareSkus200ResponseDataItemsInner) GetUnitAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ListPaymentHardwareSkus200ResponseDataItemsInner) GetUnitAmount() float32 {
 	if o == nil || IsNil(o.UnitAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.UnitAmount.Get()
@@ -199,7 +199,7 @@ func (o *ListPaymentHardwareSkus200ResponseDataItemsInner) GetUnitAmount() ListC
 // GetUnitAmountOk returns a tuple with the UnitAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ListPaymentHardwareSkus200ResponseDataItemsInner) GetUnitAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ListPaymentHardwareSkus200ResponseDataItemsInner) GetUnitAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -215,8 +215,8 @@ func (o *ListPaymentHardwareSkus200ResponseDataItemsInner) HasUnitAmount() bool 
 	return false
 }
 
-// SetUnitAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the UnitAmount field.
-func (o *ListPaymentHardwareSkus200ResponseDataItemsInner) SetUnitAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetUnitAmount gets a reference to the given NullableFloat32 and assigns it to the UnitAmount field.
+func (o *ListPaymentHardwareSkus200ResponseDataItemsInner) SetUnitAmount(v float32) {
 	o.UnitAmount.Set(&v)
 }
 // SetUnitAmountNil sets the value for UnitAmount to be an explicit nil

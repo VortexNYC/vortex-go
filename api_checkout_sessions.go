@@ -122,6 +122,20 @@ func (a *CheckoutSessionsAPIService) CreateCheckoutSessionExecute(r CheckoutSess
 	}
 	// body params
 	localVarPostBody = r.createCheckoutSessionRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -244,6 +258,20 @@ func (a *CheckoutSessionsAPIService) GetCheckoutSessionExecute(r CheckoutSession
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -286,8 +314,8 @@ type CheckoutSessionsAPIListCheckoutSessionsRequest struct {
 	ApiService *CheckoutSessionsAPIService
 	environment *string
 	merchantAccountId *string
-	limit *ListCustomersLimitParameter
-	offset *ListCustomersLimitParameter
+	limit *string
+	offset *string
 }
 
 func (r CheckoutSessionsAPIListCheckoutSessionsRequest) Environment(environment string) CheckoutSessionsAPIListCheckoutSessionsRequest {
@@ -300,12 +328,12 @@ func (r CheckoutSessionsAPIListCheckoutSessionsRequest) MerchantAccountId(mercha
 	return r
 }
 
-func (r CheckoutSessionsAPIListCheckoutSessionsRequest) Limit(limit ListCustomersLimitParameter) CheckoutSessionsAPIListCheckoutSessionsRequest {
+func (r CheckoutSessionsAPIListCheckoutSessionsRequest) Limit(limit string) CheckoutSessionsAPIListCheckoutSessionsRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r CheckoutSessionsAPIListCheckoutSessionsRequest) Offset(offset ListCustomersLimitParameter) CheckoutSessionsAPIListCheckoutSessionsRequest {
+func (r CheckoutSessionsAPIListCheckoutSessionsRequest) Offset(offset string) CheckoutSessionsAPIListCheckoutSessionsRequest {
 	r.offset = &offset
 	return r
 }
@@ -376,6 +404,20 @@ func (a *CheckoutSessionsAPIService) ListCheckoutSessionsExecute(r CheckoutSessi
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {

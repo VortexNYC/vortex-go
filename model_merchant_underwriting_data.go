@@ -19,9 +19,9 @@ var _ MappedNullable = &MerchantUnderwritingData{}
 
 // MerchantUnderwritingData struct for MerchantUnderwritingData
 type MerchantUnderwritingData struct {
-	AnnualAchVolume *float32 `json:"annualAchVolume,omitempty"`
-	AverageAchTransferAmount *float32 `json:"averageAchTransferAmount,omitempty"`
-	AverageCardTransferAmount *float32 `json:"averageCardTransferAmount,omitempty"`
+	AnnualAchVolume NullableFloat32 `json:"annualAchVolume,omitempty"`
+	AverageAchTransferAmount NullableFloat32 `json:"averageAchTransferAmount,omitempty"`
+	AverageCardTransferAmount NullableFloat32 `json:"averageCardTransferAmount,omitempty"`
 	BusinessDescription NullableString `json:"businessDescription,omitempty"`
 	CreditCheckAllowed NullableBool `json:"creditCheckAllowed,omitempty"`
 	CreditCheckIpAddress NullableString `json:"creditCheckIpAddress,omitempty"`
@@ -52,100 +52,130 @@ func NewMerchantUnderwritingDataWithDefaults() *MerchantUnderwritingData {
 	return &this
 }
 
-// GetAnnualAchVolume returns the AnnualAchVolume field value if set, zero value otherwise.
+// GetAnnualAchVolume returns the AnnualAchVolume field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantUnderwritingData) GetAnnualAchVolume() float32 {
-	if o == nil || IsNil(o.AnnualAchVolume) {
+	if o == nil || IsNil(o.AnnualAchVolume.Get()) {
 		var ret float32
 		return ret
 	}
-	return *o.AnnualAchVolume
+	return *o.AnnualAchVolume.Get()
 }
 
 // GetAnnualAchVolumeOk returns a tuple with the AnnualAchVolume field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantUnderwritingData) GetAnnualAchVolumeOk() (*float32, bool) {
-	if o == nil || IsNil(o.AnnualAchVolume) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AnnualAchVolume, true
+	return o.AnnualAchVolume.Get(), o.AnnualAchVolume.IsSet()
 }
 
 // HasAnnualAchVolume returns a boolean if a field has been set.
 func (o *MerchantUnderwritingData) HasAnnualAchVolume() bool {
-	if o != nil && !IsNil(o.AnnualAchVolume) {
+	if o != nil && o.AnnualAchVolume.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetAnnualAchVolume gets a reference to the given float32 and assigns it to the AnnualAchVolume field.
+// SetAnnualAchVolume gets a reference to the given NullableFloat32 and assigns it to the AnnualAchVolume field.
 func (o *MerchantUnderwritingData) SetAnnualAchVolume(v float32) {
-	o.AnnualAchVolume = &v
+	o.AnnualAchVolume.Set(&v)
+}
+// SetAnnualAchVolumeNil sets the value for AnnualAchVolume to be an explicit nil
+func (o *MerchantUnderwritingData) SetAnnualAchVolumeNil() {
+	o.AnnualAchVolume.Set(nil)
 }
 
-// GetAverageAchTransferAmount returns the AverageAchTransferAmount field value if set, zero value otherwise.
+// UnsetAnnualAchVolume ensures that no value is present for AnnualAchVolume, not even an explicit nil
+func (o *MerchantUnderwritingData) UnsetAnnualAchVolume() {
+	o.AnnualAchVolume.Unset()
+}
+
+// GetAverageAchTransferAmount returns the AverageAchTransferAmount field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantUnderwritingData) GetAverageAchTransferAmount() float32 {
-	if o == nil || IsNil(o.AverageAchTransferAmount) {
+	if o == nil || IsNil(o.AverageAchTransferAmount.Get()) {
 		var ret float32
 		return ret
 	}
-	return *o.AverageAchTransferAmount
+	return *o.AverageAchTransferAmount.Get()
 }
 
 // GetAverageAchTransferAmountOk returns a tuple with the AverageAchTransferAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantUnderwritingData) GetAverageAchTransferAmountOk() (*float32, bool) {
-	if o == nil || IsNil(o.AverageAchTransferAmount) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AverageAchTransferAmount, true
+	return o.AverageAchTransferAmount.Get(), o.AverageAchTransferAmount.IsSet()
 }
 
 // HasAverageAchTransferAmount returns a boolean if a field has been set.
 func (o *MerchantUnderwritingData) HasAverageAchTransferAmount() bool {
-	if o != nil && !IsNil(o.AverageAchTransferAmount) {
+	if o != nil && o.AverageAchTransferAmount.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetAverageAchTransferAmount gets a reference to the given float32 and assigns it to the AverageAchTransferAmount field.
+// SetAverageAchTransferAmount gets a reference to the given NullableFloat32 and assigns it to the AverageAchTransferAmount field.
 func (o *MerchantUnderwritingData) SetAverageAchTransferAmount(v float32) {
-	o.AverageAchTransferAmount = &v
+	o.AverageAchTransferAmount.Set(&v)
+}
+// SetAverageAchTransferAmountNil sets the value for AverageAchTransferAmount to be an explicit nil
+func (o *MerchantUnderwritingData) SetAverageAchTransferAmountNil() {
+	o.AverageAchTransferAmount.Set(nil)
 }
 
-// GetAverageCardTransferAmount returns the AverageCardTransferAmount field value if set, zero value otherwise.
+// UnsetAverageAchTransferAmount ensures that no value is present for AverageAchTransferAmount, not even an explicit nil
+func (o *MerchantUnderwritingData) UnsetAverageAchTransferAmount() {
+	o.AverageAchTransferAmount.Unset()
+}
+
+// GetAverageCardTransferAmount returns the AverageCardTransferAmount field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantUnderwritingData) GetAverageCardTransferAmount() float32 {
-	if o == nil || IsNil(o.AverageCardTransferAmount) {
+	if o == nil || IsNil(o.AverageCardTransferAmount.Get()) {
 		var ret float32
 		return ret
 	}
-	return *o.AverageCardTransferAmount
+	return *o.AverageCardTransferAmount.Get()
 }
 
 // GetAverageCardTransferAmountOk returns a tuple with the AverageCardTransferAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantUnderwritingData) GetAverageCardTransferAmountOk() (*float32, bool) {
-	if o == nil || IsNil(o.AverageCardTransferAmount) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AverageCardTransferAmount, true
+	return o.AverageCardTransferAmount.Get(), o.AverageCardTransferAmount.IsSet()
 }
 
 // HasAverageCardTransferAmount returns a boolean if a field has been set.
 func (o *MerchantUnderwritingData) HasAverageCardTransferAmount() bool {
-	if o != nil && !IsNil(o.AverageCardTransferAmount) {
+	if o != nil && o.AverageCardTransferAmount.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetAverageCardTransferAmount gets a reference to the given float32 and assigns it to the AverageCardTransferAmount field.
+// SetAverageCardTransferAmount gets a reference to the given NullableFloat32 and assigns it to the AverageCardTransferAmount field.
 func (o *MerchantUnderwritingData) SetAverageCardTransferAmount(v float32) {
-	o.AverageCardTransferAmount = &v
+	o.AverageCardTransferAmount.Set(&v)
+}
+// SetAverageCardTransferAmountNil sets the value for AverageCardTransferAmount to be an explicit nil
+func (o *MerchantUnderwritingData) SetAverageCardTransferAmountNil() {
+	o.AverageCardTransferAmount.Set(nil)
+}
+
+// UnsetAverageCardTransferAmount ensures that no value is present for AverageCardTransferAmount, not even an explicit nil
+func (o *MerchantUnderwritingData) UnsetAverageCardTransferAmount() {
+	o.AverageCardTransferAmount.Unset()
 }
 
 // GetBusinessDescription returns the BusinessDescription field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -474,14 +504,14 @@ func (o MerchantUnderwritingData) MarshalJSON() ([]byte, error) {
 
 func (o MerchantUnderwritingData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.AnnualAchVolume) {
-		toSerialize["annualAchVolume"] = o.AnnualAchVolume
+	if o.AnnualAchVolume.IsSet() {
+		toSerialize["annualAchVolume"] = o.AnnualAchVolume.Get()
 	}
-	if !IsNil(o.AverageAchTransferAmount) {
-		toSerialize["averageAchTransferAmount"] = o.AverageAchTransferAmount
+	if o.AverageAchTransferAmount.IsSet() {
+		toSerialize["averageAchTransferAmount"] = o.AverageAchTransferAmount.Get()
 	}
-	if !IsNil(o.AverageCardTransferAmount) {
-		toSerialize["averageCardTransferAmount"] = o.AverageCardTransferAmount
+	if o.AverageCardTransferAmount.IsSet() {
+		toSerialize["averageCardTransferAmount"] = o.AverageCardTransferAmount.Get()
 	}
 	if o.BusinessDescription.IsSet() {
 		toSerialize["businessDescription"] = o.BusinessDescription.Get()

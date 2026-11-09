@@ -20,7 +20,7 @@ var _ MappedNullable = &RunBillingDunning200ResponseData{}
 
 // RunBillingDunning200ResponseData struct for RunBillingDunning200ResponseData
 type RunBillingDunning200ResponseData struct {
-	Considered ListProducts200ResponseDataTotal `json:"considered"`
+	Considered NullableFloat32 `json:"considered"`
 	Created []RunBillingDunning200ResponseDataCreatedInner `json:"created"`
 	Collections []RunBillingDunning200ResponseDataCollectionsInner `json:"collections"`
 	Skipped []RunBillingDunning200ResponseDataSkippedInner `json:"skipped"`
@@ -33,7 +33,7 @@ type _RunBillingDunning200ResponseData RunBillingDunning200ResponseData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRunBillingDunning200ResponseData(considered ListProducts200ResponseDataTotal, created []RunBillingDunning200ResponseDataCreatedInner, collections []RunBillingDunning200ResponseDataCollectionsInner, skipped []RunBillingDunning200ResponseDataSkippedInner) *RunBillingDunning200ResponseData {
+func NewRunBillingDunning200ResponseData(considered NullableFloat32, created []RunBillingDunning200ResponseDataCreatedInner, collections []RunBillingDunning200ResponseDataCollectionsInner, skipped []RunBillingDunning200ResponseDataSkippedInner) *RunBillingDunning200ResponseData {
 	this := RunBillingDunning200ResponseData{}
 	this.Considered = considered
 	this.Created = created
@@ -51,27 +51,29 @@ func NewRunBillingDunning200ResponseDataWithDefaults() *RunBillingDunning200Resp
 }
 
 // GetConsidered returns the Considered field value
-func (o *RunBillingDunning200ResponseData) GetConsidered() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *RunBillingDunning200ResponseData) GetConsidered() float32 {
+	if o == nil || o.Considered.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Considered
+	return *o.Considered.Get()
 }
 
 // GetConsideredOk returns a tuple with the Considered field value
 // and a boolean to check if the value has been set.
-func (o *RunBillingDunning200ResponseData) GetConsideredOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *RunBillingDunning200ResponseData) GetConsideredOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Considered, true
+	return o.Considered.Get(), o.Considered.IsSet()
 }
 
 // SetConsidered sets field value
-func (o *RunBillingDunning200ResponseData) SetConsidered(v ListProducts200ResponseDataTotal) {
-	o.Considered = v
+func (o *RunBillingDunning200ResponseData) SetConsidered(v float32) {
+	o.Considered.Set(&v)
 }
 
 // GetCreated returns the Created field value
@@ -156,7 +158,7 @@ func (o RunBillingDunning200ResponseData) MarshalJSON() ([]byte, error) {
 
 func (o RunBillingDunning200ResponseData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["considered"] = o.Considered
+	toSerialize["considered"] = o.Considered.Get()
 	toSerialize["created"] = o.Created
 	toSerialize["collections"] = o.Collections
 	toSerialize["skipped"] = o.Skipped

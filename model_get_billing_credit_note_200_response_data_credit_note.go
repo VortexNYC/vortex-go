@@ -29,14 +29,14 @@ type GetBillingCreditNote200ResponseDataCreditNote struct {
 	Status string `json:"status"`
 	Reason string `json:"reason"`
 	Currency string `json:"currency"`
-	Subtotal ListProducts200ResponseDataTotal `json:"subtotal"`
-	DiscountAdjustmentTotal ListProducts200ResponseDataTotal `json:"discountAdjustmentTotal"`
-	TaxTotal ListProducts200ResponseDataTotal `json:"taxTotal"`
-	Total ListProducts200ResponseDataTotal `json:"total"`
-	CreditAmount ListProducts200ResponseDataTotal `json:"creditAmount"`
-	RefundAmount ListProducts200ResponseDataTotal `json:"refundAmount"`
-	OffsetAmount ListProducts200ResponseDataTotal `json:"offsetAmount"`
-	BalanceAmount ListProducts200ResponseDataTotal `json:"balanceAmount"`
+	Subtotal float32 `json:"subtotal"`
+	DiscountAdjustmentTotal float32 `json:"discountAdjustmentTotal"`
+	TaxTotal float32 `json:"taxTotal"`
+	Total float32 `json:"total"`
+	CreditAmount float32 `json:"creditAmount"`
+	RefundAmount float32 `json:"refundAmount"`
+	OffsetAmount float32 `json:"offsetAmount"`
+	BalanceAmount float32 `json:"balanceAmount"`
 	IssuedAt string `json:"issuedAt"`
 	Metadata map[string]string `json:"metadata"`
 	SubscriptionId NullableString `json:"subscriptionId,omitempty"`
@@ -56,7 +56,7 @@ type _GetBillingCreditNote200ResponseDataCreditNote GetBillingCreditNote200Respo
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetBillingCreditNote200ResponseDataCreditNote(creditNoteId string, creditNoteNumber string, invoiceId string, customerId string, billingAccountId string, status string, reason string, currency string, subtotal ListProducts200ResponseDataTotal, discountAdjustmentTotal ListProducts200ResponseDataTotal, taxTotal ListProducts200ResponseDataTotal, total ListProducts200ResponseDataTotal, creditAmount ListProducts200ResponseDataTotal, refundAmount ListProducts200ResponseDataTotal, offsetAmount ListProducts200ResponseDataTotal, balanceAmount ListProducts200ResponseDataTotal, issuedAt string, metadata map[string]string) *GetBillingCreditNote200ResponseDataCreditNote {
+func NewGetBillingCreditNote200ResponseDataCreditNote(creditNoteId string, creditNoteNumber string, invoiceId string, customerId string, billingAccountId string, status string, reason string, currency string, subtotal float32, discountAdjustmentTotal float32, taxTotal float32, total float32, creditAmount float32, refundAmount float32, offsetAmount float32, balanceAmount float32, issuedAt string, metadata map[string]string) *GetBillingCreditNote200ResponseDataCreditNote {
 	this := GetBillingCreditNote200ResponseDataCreditNote{}
 	this.CreditNoteId = creditNoteId
 	this.CreditNoteNumber = creditNoteNumber
@@ -280,9 +280,9 @@ func (o *GetBillingCreditNote200ResponseDataCreditNote) SetCurrency(v string) {
 }
 
 // GetSubtotal returns the Subtotal field value
-func (o *GetBillingCreditNote200ResponseDataCreditNote) GetSubtotal() ListProducts200ResponseDataTotal {
+func (o *GetBillingCreditNote200ResponseDataCreditNote) GetSubtotal() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -291,7 +291,7 @@ func (o *GetBillingCreditNote200ResponseDataCreditNote) GetSubtotal() ListProduc
 
 // GetSubtotalOk returns a tuple with the Subtotal field value
 // and a boolean to check if the value has been set.
-func (o *GetBillingCreditNote200ResponseDataCreditNote) GetSubtotalOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *GetBillingCreditNote200ResponseDataCreditNote) GetSubtotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -299,14 +299,14 @@ func (o *GetBillingCreditNote200ResponseDataCreditNote) GetSubtotalOk() (*ListPr
 }
 
 // SetSubtotal sets field value
-func (o *GetBillingCreditNote200ResponseDataCreditNote) SetSubtotal(v ListProducts200ResponseDataTotal) {
+func (o *GetBillingCreditNote200ResponseDataCreditNote) SetSubtotal(v float32) {
 	o.Subtotal = v
 }
 
 // GetDiscountAdjustmentTotal returns the DiscountAdjustmentTotal field value
-func (o *GetBillingCreditNote200ResponseDataCreditNote) GetDiscountAdjustmentTotal() ListProducts200ResponseDataTotal {
+func (o *GetBillingCreditNote200ResponseDataCreditNote) GetDiscountAdjustmentTotal() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -315,7 +315,7 @@ func (o *GetBillingCreditNote200ResponseDataCreditNote) GetDiscountAdjustmentTot
 
 // GetDiscountAdjustmentTotalOk returns a tuple with the DiscountAdjustmentTotal field value
 // and a boolean to check if the value has been set.
-func (o *GetBillingCreditNote200ResponseDataCreditNote) GetDiscountAdjustmentTotalOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *GetBillingCreditNote200ResponseDataCreditNote) GetDiscountAdjustmentTotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -323,14 +323,14 @@ func (o *GetBillingCreditNote200ResponseDataCreditNote) GetDiscountAdjustmentTot
 }
 
 // SetDiscountAdjustmentTotal sets field value
-func (o *GetBillingCreditNote200ResponseDataCreditNote) SetDiscountAdjustmentTotal(v ListProducts200ResponseDataTotal) {
+func (o *GetBillingCreditNote200ResponseDataCreditNote) SetDiscountAdjustmentTotal(v float32) {
 	o.DiscountAdjustmentTotal = v
 }
 
 // GetTaxTotal returns the TaxTotal field value
-func (o *GetBillingCreditNote200ResponseDataCreditNote) GetTaxTotal() ListProducts200ResponseDataTotal {
+func (o *GetBillingCreditNote200ResponseDataCreditNote) GetTaxTotal() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -339,7 +339,7 @@ func (o *GetBillingCreditNote200ResponseDataCreditNote) GetTaxTotal() ListProduc
 
 // GetTaxTotalOk returns a tuple with the TaxTotal field value
 // and a boolean to check if the value has been set.
-func (o *GetBillingCreditNote200ResponseDataCreditNote) GetTaxTotalOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *GetBillingCreditNote200ResponseDataCreditNote) GetTaxTotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -347,14 +347,14 @@ func (o *GetBillingCreditNote200ResponseDataCreditNote) GetTaxTotalOk() (*ListPr
 }
 
 // SetTaxTotal sets field value
-func (o *GetBillingCreditNote200ResponseDataCreditNote) SetTaxTotal(v ListProducts200ResponseDataTotal) {
+func (o *GetBillingCreditNote200ResponseDataCreditNote) SetTaxTotal(v float32) {
 	o.TaxTotal = v
 }
 
 // GetTotal returns the Total field value
-func (o *GetBillingCreditNote200ResponseDataCreditNote) GetTotal() ListProducts200ResponseDataTotal {
+func (o *GetBillingCreditNote200ResponseDataCreditNote) GetTotal() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -363,7 +363,7 @@ func (o *GetBillingCreditNote200ResponseDataCreditNote) GetTotal() ListProducts2
 
 // GetTotalOk returns a tuple with the Total field value
 // and a boolean to check if the value has been set.
-func (o *GetBillingCreditNote200ResponseDataCreditNote) GetTotalOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *GetBillingCreditNote200ResponseDataCreditNote) GetTotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -371,14 +371,14 @@ func (o *GetBillingCreditNote200ResponseDataCreditNote) GetTotalOk() (*ListProdu
 }
 
 // SetTotal sets field value
-func (o *GetBillingCreditNote200ResponseDataCreditNote) SetTotal(v ListProducts200ResponseDataTotal) {
+func (o *GetBillingCreditNote200ResponseDataCreditNote) SetTotal(v float32) {
 	o.Total = v
 }
 
 // GetCreditAmount returns the CreditAmount field value
-func (o *GetBillingCreditNote200ResponseDataCreditNote) GetCreditAmount() ListProducts200ResponseDataTotal {
+func (o *GetBillingCreditNote200ResponseDataCreditNote) GetCreditAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -387,7 +387,7 @@ func (o *GetBillingCreditNote200ResponseDataCreditNote) GetCreditAmount() ListPr
 
 // GetCreditAmountOk returns a tuple with the CreditAmount field value
 // and a boolean to check if the value has been set.
-func (o *GetBillingCreditNote200ResponseDataCreditNote) GetCreditAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *GetBillingCreditNote200ResponseDataCreditNote) GetCreditAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -395,14 +395,14 @@ func (o *GetBillingCreditNote200ResponseDataCreditNote) GetCreditAmountOk() (*Li
 }
 
 // SetCreditAmount sets field value
-func (o *GetBillingCreditNote200ResponseDataCreditNote) SetCreditAmount(v ListProducts200ResponseDataTotal) {
+func (o *GetBillingCreditNote200ResponseDataCreditNote) SetCreditAmount(v float32) {
 	o.CreditAmount = v
 }
 
 // GetRefundAmount returns the RefundAmount field value
-func (o *GetBillingCreditNote200ResponseDataCreditNote) GetRefundAmount() ListProducts200ResponseDataTotal {
+func (o *GetBillingCreditNote200ResponseDataCreditNote) GetRefundAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -411,7 +411,7 @@ func (o *GetBillingCreditNote200ResponseDataCreditNote) GetRefundAmount() ListPr
 
 // GetRefundAmountOk returns a tuple with the RefundAmount field value
 // and a boolean to check if the value has been set.
-func (o *GetBillingCreditNote200ResponseDataCreditNote) GetRefundAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *GetBillingCreditNote200ResponseDataCreditNote) GetRefundAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -419,14 +419,14 @@ func (o *GetBillingCreditNote200ResponseDataCreditNote) GetRefundAmountOk() (*Li
 }
 
 // SetRefundAmount sets field value
-func (o *GetBillingCreditNote200ResponseDataCreditNote) SetRefundAmount(v ListProducts200ResponseDataTotal) {
+func (o *GetBillingCreditNote200ResponseDataCreditNote) SetRefundAmount(v float32) {
 	o.RefundAmount = v
 }
 
 // GetOffsetAmount returns the OffsetAmount field value
-func (o *GetBillingCreditNote200ResponseDataCreditNote) GetOffsetAmount() ListProducts200ResponseDataTotal {
+func (o *GetBillingCreditNote200ResponseDataCreditNote) GetOffsetAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -435,7 +435,7 @@ func (o *GetBillingCreditNote200ResponseDataCreditNote) GetOffsetAmount() ListPr
 
 // GetOffsetAmountOk returns a tuple with the OffsetAmount field value
 // and a boolean to check if the value has been set.
-func (o *GetBillingCreditNote200ResponseDataCreditNote) GetOffsetAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *GetBillingCreditNote200ResponseDataCreditNote) GetOffsetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -443,14 +443,14 @@ func (o *GetBillingCreditNote200ResponseDataCreditNote) GetOffsetAmountOk() (*Li
 }
 
 // SetOffsetAmount sets field value
-func (o *GetBillingCreditNote200ResponseDataCreditNote) SetOffsetAmount(v ListProducts200ResponseDataTotal) {
+func (o *GetBillingCreditNote200ResponseDataCreditNote) SetOffsetAmount(v float32) {
 	o.OffsetAmount = v
 }
 
 // GetBalanceAmount returns the BalanceAmount field value
-func (o *GetBillingCreditNote200ResponseDataCreditNote) GetBalanceAmount() ListProducts200ResponseDataTotal {
+func (o *GetBillingCreditNote200ResponseDataCreditNote) GetBalanceAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -459,7 +459,7 @@ func (o *GetBillingCreditNote200ResponseDataCreditNote) GetBalanceAmount() ListP
 
 // GetBalanceAmountOk returns a tuple with the BalanceAmount field value
 // and a boolean to check if the value has been set.
-func (o *GetBillingCreditNote200ResponseDataCreditNote) GetBalanceAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *GetBillingCreditNote200ResponseDataCreditNote) GetBalanceAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -467,7 +467,7 @@ func (o *GetBillingCreditNote200ResponseDataCreditNote) GetBalanceAmountOk() (*L
 }
 
 // SetBalanceAmount sets field value
-func (o *GetBillingCreditNote200ResponseDataCreditNote) SetBalanceAmount(v ListProducts200ResponseDataTotal) {
+func (o *GetBillingCreditNote200ResponseDataCreditNote) SetBalanceAmount(v float32) {
 	o.BalanceAmount = v
 }
 

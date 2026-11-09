@@ -122,6 +122,20 @@ func (a *PaymentReceiptsAPIService) CreateBillingPaymentReceiptExecute(r Payment
 	}
 	// body params
 	localVarPostBody = r.createBillingPaymentReceiptRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -244,6 +258,20 @@ func (a *PaymentReceiptsAPIService) GetBillingPaymentReceiptExecute(r PaymentRec
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -294,8 +322,8 @@ type PaymentReceiptsAPIListBillingPaymentReceiptsRequest struct {
 	paymentId *string
 	paymentIntentId *string
 	status *string
-	limit *ListCustomersLimitParameter
-	offset *ListCustomersLimitParameter
+	limit *string
+	offset *string
 }
 
 func (r PaymentReceiptsAPIListBillingPaymentReceiptsRequest) Environment(environment string) PaymentReceiptsAPIListBillingPaymentReceiptsRequest {
@@ -348,12 +376,12 @@ func (r PaymentReceiptsAPIListBillingPaymentReceiptsRequest) Status(status strin
 	return r
 }
 
-func (r PaymentReceiptsAPIListBillingPaymentReceiptsRequest) Limit(limit ListCustomersLimitParameter) PaymentReceiptsAPIListBillingPaymentReceiptsRequest {
+func (r PaymentReceiptsAPIListBillingPaymentReceiptsRequest) Limit(limit string) PaymentReceiptsAPIListBillingPaymentReceiptsRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r PaymentReceiptsAPIListBillingPaymentReceiptsRequest) Offset(offset ListCustomersLimitParameter) PaymentReceiptsAPIListBillingPaymentReceiptsRequest {
+func (r PaymentReceiptsAPIListBillingPaymentReceiptsRequest) Offset(offset string) PaymentReceiptsAPIListBillingPaymentReceiptsRequest {
 	r.offset = &offset
 	return r
 }
@@ -448,6 +476,20 @@ func (a *PaymentReceiptsAPIService) ListBillingPaymentReceiptsExecute(r PaymentR
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -592,6 +634,20 @@ func (a *PaymentReceiptsAPIService) MarkBillingPaymentReceiptGeneratedExecute(r 
 	}
 	// body params
 	localVarPostBody = r.markBillingPaymentReceiptGeneratedRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

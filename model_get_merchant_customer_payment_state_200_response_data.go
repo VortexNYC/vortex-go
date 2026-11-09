@@ -32,7 +32,7 @@ type GetMerchantCustomerPaymentState200ResponseData struct {
 	ReadinessReasons []string `json:"readinessReasons"`
 	PaymentMethods []GetMerchantCustomerPaymentState200ResponseDataPaymentMethodsInner `json:"paymentMethods"`
 	DefaultPaymentMethod NullableGetMerchantCustomerPaymentState200ResponseDataDefaultPaymentMethod `json:"defaultPaymentMethod,omitempty"`
-	RequiresActionPaymentIntentCount ListProducts200ResponseDataTotal `json:"requiresActionPaymentIntentCount"`
+	RequiresActionPaymentIntentCount NullableFloat32 `json:"requiresActionPaymentIntentCount"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -42,7 +42,7 @@ type _GetMerchantCustomerPaymentState200ResponseData GetMerchantCustomerPaymentS
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetMerchantCustomerPaymentState200ResponseData(customerProfileId NullableString, merchantAccountId NullableString, environment NullableString, activePaymentMethodIds []string, requiresActionPaymentIntentIds []string, readiness string, generatedAt NullableString, readinessReasons []string, paymentMethods []GetMerchantCustomerPaymentState200ResponseDataPaymentMethodsInner, requiresActionPaymentIntentCount ListProducts200ResponseDataTotal) *GetMerchantCustomerPaymentState200ResponseData {
+func NewGetMerchantCustomerPaymentState200ResponseData(customerProfileId NullableString, merchantAccountId NullableString, environment NullableString, activePaymentMethodIds []string, requiresActionPaymentIntentIds []string, readiness string, generatedAt NullableString, readinessReasons []string, paymentMethods []GetMerchantCustomerPaymentState200ResponseDataPaymentMethodsInner, requiresActionPaymentIntentCount NullableFloat32) *GetMerchantCustomerPaymentState200ResponseData {
 	this := GetMerchantCustomerPaymentState200ResponseData{}
 	this.CustomerProfileId = customerProfileId
 	this.MerchantAccountId = merchantAccountId
@@ -416,27 +416,29 @@ func (o *GetMerchantCustomerPaymentState200ResponseData) UnsetDefaultPaymentMeth
 }
 
 // GetRequiresActionPaymentIntentCount returns the RequiresActionPaymentIntentCount field value
-func (o *GetMerchantCustomerPaymentState200ResponseData) GetRequiresActionPaymentIntentCount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetMerchantCustomerPaymentState200ResponseData) GetRequiresActionPaymentIntentCount() float32 {
+	if o == nil || o.RequiresActionPaymentIntentCount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.RequiresActionPaymentIntentCount
+	return *o.RequiresActionPaymentIntentCount.Get()
 }
 
 // GetRequiresActionPaymentIntentCountOk returns a tuple with the RequiresActionPaymentIntentCount field value
 // and a boolean to check if the value has been set.
-func (o *GetMerchantCustomerPaymentState200ResponseData) GetRequiresActionPaymentIntentCountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetMerchantCustomerPaymentState200ResponseData) GetRequiresActionPaymentIntentCountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RequiresActionPaymentIntentCount, true
+	return o.RequiresActionPaymentIntentCount.Get(), o.RequiresActionPaymentIntentCount.IsSet()
 }
 
 // SetRequiresActionPaymentIntentCount sets field value
-func (o *GetMerchantCustomerPaymentState200ResponseData) SetRequiresActionPaymentIntentCount(v ListProducts200ResponseDataTotal) {
-	o.RequiresActionPaymentIntentCount = v
+func (o *GetMerchantCustomerPaymentState200ResponseData) SetRequiresActionPaymentIntentCount(v float32) {
+	o.RequiresActionPaymentIntentCount.Set(&v)
 }
 
 func (o GetMerchantCustomerPaymentState200ResponseData) MarshalJSON() ([]byte, error) {
@@ -467,7 +469,7 @@ func (o GetMerchantCustomerPaymentState200ResponseData) ToMap() (map[string]inte
 	if o.DefaultPaymentMethod.IsSet() {
 		toSerialize["defaultPaymentMethod"] = o.DefaultPaymentMethod.Get()
 	}
-	toSerialize["requiresActionPaymentIntentCount"] = o.RequiresActionPaymentIntentCount
+	toSerialize["requiresActionPaymentIntentCount"] = o.RequiresActionPaymentIntentCount.Get()
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

@@ -24,7 +24,7 @@ type ScheduleInvoiceCollectionRetry201ResponseData struct {
 	InvoiceId NullableString `json:"invoiceId"`
 	BillingAccountId NullableString `json:"billingAccountId"`
 	SourceAttemptId NullableString `json:"sourceAttemptId"`
-	RetrySequence ListProducts200ResponseDataTotal `json:"retrySequence"`
+	RetrySequence NullableFloat32 `json:"retrySequence"`
 	Status string `json:"status"`
 	RunAt NullableString `json:"runAt"`
 	CreatedAt NullableString `json:"createdAt"`
@@ -45,7 +45,7 @@ type _ScheduleInvoiceCollectionRetry201ResponseData ScheduleInvoiceCollectionRet
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewScheduleInvoiceCollectionRetry201ResponseData(retryId NullableString, invoiceId NullableString, billingAccountId NullableString, sourceAttemptId NullableString, retrySequence ListProducts200ResponseDataTotal, status string, runAt NullableString, createdAt NullableString, updatedAt NullableString) *ScheduleInvoiceCollectionRetry201ResponseData {
+func NewScheduleInvoiceCollectionRetry201ResponseData(retryId NullableString, invoiceId NullableString, billingAccountId NullableString, sourceAttemptId NullableString, retrySequence NullableFloat32, status string, runAt NullableString, createdAt NullableString, updatedAt NullableString) *ScheduleInvoiceCollectionRetry201ResponseData {
 	this := ScheduleInvoiceCollectionRetry201ResponseData{}
 	this.RetryId = retryId
 	this.InvoiceId = invoiceId
@@ -172,27 +172,29 @@ func (o *ScheduleInvoiceCollectionRetry201ResponseData) SetSourceAttemptId(v str
 }
 
 // GetRetrySequence returns the RetrySequence field value
-func (o *ScheduleInvoiceCollectionRetry201ResponseData) GetRetrySequence() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ScheduleInvoiceCollectionRetry201ResponseData) GetRetrySequence() float32 {
+	if o == nil || o.RetrySequence.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.RetrySequence
+	return *o.RetrySequence.Get()
 }
 
 // GetRetrySequenceOk returns a tuple with the RetrySequence field value
 // and a boolean to check if the value has been set.
-func (o *ScheduleInvoiceCollectionRetry201ResponseData) GetRetrySequenceOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ScheduleInvoiceCollectionRetry201ResponseData) GetRetrySequenceOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RetrySequence, true
+	return o.RetrySequence.Get(), o.RetrySequence.IsSet()
 }
 
 // SetRetrySequence sets field value
-func (o *ScheduleInvoiceCollectionRetry201ResponseData) SetRetrySequence(v ListProducts200ResponseDataTotal) {
-	o.RetrySequence = v
+func (o *ScheduleInvoiceCollectionRetry201ResponseData) SetRetrySequence(v float32) {
+	o.RetrySequence.Set(&v)
 }
 
 // GetStatus returns the Status field value
@@ -605,7 +607,7 @@ func (o ScheduleInvoiceCollectionRetry201ResponseData) ToMap() (map[string]inter
 	toSerialize["invoiceId"] = o.InvoiceId.Get()
 	toSerialize["billingAccountId"] = o.BillingAccountId.Get()
 	toSerialize["sourceAttemptId"] = o.SourceAttemptId.Get()
-	toSerialize["retrySequence"] = o.RetrySequence
+	toSerialize["retrySequence"] = o.RetrySequence.Get()
 	toSerialize["status"] = o.Status
 	toSerialize["runAt"] = o.RunAt.Get()
 	toSerialize["createdAt"] = o.CreatedAt.Get()

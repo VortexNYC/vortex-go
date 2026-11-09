@@ -129,6 +129,20 @@ func (a *TestClocksAPIService) AdvanceTestClockExecute(r TestClocksAPIAdvanceTes
 	}
 	// body params
 	localVarPostBody = r.advanceTestClockRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -265,6 +279,20 @@ func (a *TestClocksAPIService) CreateTestClockExecute(r TestClocksAPICreateTestC
 	}
 	// body params
 	localVarPostBody = r.createTestClockRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -397,6 +425,20 @@ func (a *TestClocksAPIService) DeleteTestClockExecute(r TestClocksAPIDeleteTestC
 	if r.idempotencyKey != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -519,6 +561,20 @@ func (a *TestClocksAPIService) GetTestClockExecute(r TestClocksAPIGetTestClockRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -561,8 +617,8 @@ type TestClocksAPIListTestClocksRequest struct {
 	ApiService *TestClocksAPIService
 	environment *string
 	merchantAccountId *string
-	limit *ListCustomersLimitParameter
-	offset *ListCustomersLimitParameter
+	limit *string
+	offset *string
 }
 
 func (r TestClocksAPIListTestClocksRequest) Environment(environment string) TestClocksAPIListTestClocksRequest {
@@ -575,12 +631,12 @@ func (r TestClocksAPIListTestClocksRequest) MerchantAccountId(merchantAccountId 
 	return r
 }
 
-func (r TestClocksAPIListTestClocksRequest) Limit(limit ListCustomersLimitParameter) TestClocksAPIListTestClocksRequest {
+func (r TestClocksAPIListTestClocksRequest) Limit(limit string) TestClocksAPIListTestClocksRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r TestClocksAPIListTestClocksRequest) Offset(offset ListCustomersLimitParameter) TestClocksAPIListTestClocksRequest {
+func (r TestClocksAPIListTestClocksRequest) Offset(offset string) TestClocksAPIListTestClocksRequest {
 	r.offset = &offset
 	return r
 }
@@ -651,6 +707,20 @@ func (a *TestClocksAPIService) ListTestClocksExecute(r TestClocksAPIListTestCloc
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {

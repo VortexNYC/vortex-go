@@ -34,8 +34,8 @@ type GetOrgLegalEntity200ResponseData struct {
 	Email NullableString `json:"email,omitempty"`
 	DateOfBirth NullableUpdateMerchantAccountRequestDateOfBirth `json:"dateOfBirth,omitempty"`
 	IncorporationDate NullableUpdateMerchantAccountRequestDateOfBirth `json:"incorporationDate,omitempty"`
-	AnnualCardVolume NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"annualCardVolume,omitempty"`
-	PrincipalPercentageOwnership NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"principalPercentageOwnership,omitempty"`
+	AnnualCardVolume NullableFloat32 `json:"annualCardVolume,omitempty"`
+	PrincipalPercentageOwnership NullableFloat32 `json:"principalPercentageOwnership,omitempty"`
 	HasAcceptedCreditCardsPreviously NullableBool `json:"hasAcceptedCreditCardsPreviously,omitempty"`
 	ProcessorIdentityStatus NullableString `json:"processorIdentityStatus,omitempty"`
 	CreatedAt NullableString `json:"createdAt"`
@@ -574,9 +574,9 @@ func (o *GetOrgLegalEntity200ResponseData) UnsetIncorporationDate() {
 }
 
 // GetAnnualCardVolume returns the AnnualCardVolume field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GetOrgLegalEntity200ResponseData) GetAnnualCardVolume() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *GetOrgLegalEntity200ResponseData) GetAnnualCardVolume() float32 {
 	if o == nil || IsNil(o.AnnualCardVolume.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.AnnualCardVolume.Get()
@@ -585,7 +585,7 @@ func (o *GetOrgLegalEntity200ResponseData) GetAnnualCardVolume() ListCustomerBil
 // GetAnnualCardVolumeOk returns a tuple with the AnnualCardVolume field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GetOrgLegalEntity200ResponseData) GetAnnualCardVolumeOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *GetOrgLegalEntity200ResponseData) GetAnnualCardVolumeOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -601,8 +601,8 @@ func (o *GetOrgLegalEntity200ResponseData) HasAnnualCardVolume() bool {
 	return false
 }
 
-// SetAnnualCardVolume gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the AnnualCardVolume field.
-func (o *GetOrgLegalEntity200ResponseData) SetAnnualCardVolume(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetAnnualCardVolume gets a reference to the given NullableFloat32 and assigns it to the AnnualCardVolume field.
+func (o *GetOrgLegalEntity200ResponseData) SetAnnualCardVolume(v float32) {
 	o.AnnualCardVolume.Set(&v)
 }
 // SetAnnualCardVolumeNil sets the value for AnnualCardVolume to be an explicit nil
@@ -616,9 +616,9 @@ func (o *GetOrgLegalEntity200ResponseData) UnsetAnnualCardVolume() {
 }
 
 // GetPrincipalPercentageOwnership returns the PrincipalPercentageOwnership field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GetOrgLegalEntity200ResponseData) GetPrincipalPercentageOwnership() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *GetOrgLegalEntity200ResponseData) GetPrincipalPercentageOwnership() float32 {
 	if o == nil || IsNil(o.PrincipalPercentageOwnership.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.PrincipalPercentageOwnership.Get()
@@ -627,7 +627,7 @@ func (o *GetOrgLegalEntity200ResponseData) GetPrincipalPercentageOwnership() Lis
 // GetPrincipalPercentageOwnershipOk returns a tuple with the PrincipalPercentageOwnership field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GetOrgLegalEntity200ResponseData) GetPrincipalPercentageOwnershipOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *GetOrgLegalEntity200ResponseData) GetPrincipalPercentageOwnershipOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -643,8 +643,8 @@ func (o *GetOrgLegalEntity200ResponseData) HasPrincipalPercentageOwnership() boo
 	return false
 }
 
-// SetPrincipalPercentageOwnership gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the PrincipalPercentageOwnership field.
-func (o *GetOrgLegalEntity200ResponseData) SetPrincipalPercentageOwnership(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetPrincipalPercentageOwnership gets a reference to the given NullableFloat32 and assigns it to the PrincipalPercentageOwnership field.
+func (o *GetOrgLegalEntity200ResponseData) SetPrincipalPercentageOwnership(v float32) {
 	o.PrincipalPercentageOwnership.Set(&v)
 }
 // SetPrincipalPercentageOwnershipNil sets the value for PrincipalPercentageOwnership to be an explicit nil

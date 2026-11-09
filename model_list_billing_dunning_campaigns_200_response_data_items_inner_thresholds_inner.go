@@ -21,7 +21,7 @@ var _ MappedNullable = &ListBillingDunningCampaigns200ResponseDataItemsInnerThre
 // ListBillingDunningCampaigns200ResponseDataItemsInnerThresholdsInner struct for ListBillingDunningCampaigns200ResponseDataItemsInnerThresholdsInner
 type ListBillingDunningCampaigns200ResponseDataItemsInnerThresholdsInner struct {
 	Currency NullableString `json:"currency"`
-	AmountCents ListProducts200ResponseDataTotal `json:"amountCents"`
+	AmountCents NullableFloat32 `json:"amountCents"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,7 +31,7 @@ type _ListBillingDunningCampaigns200ResponseDataItemsInnerThresholdsInner ListBi
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListBillingDunningCampaigns200ResponseDataItemsInnerThresholdsInner(currency NullableString, amountCents ListProducts200ResponseDataTotal) *ListBillingDunningCampaigns200ResponseDataItemsInnerThresholdsInner {
+func NewListBillingDunningCampaigns200ResponseDataItemsInnerThresholdsInner(currency NullableString, amountCents NullableFloat32) *ListBillingDunningCampaigns200ResponseDataItemsInnerThresholdsInner {
 	this := ListBillingDunningCampaigns200ResponseDataItemsInnerThresholdsInner{}
 	this.Currency = currency
 	this.AmountCents = amountCents
@@ -73,27 +73,29 @@ func (o *ListBillingDunningCampaigns200ResponseDataItemsInnerThresholdsInner) Se
 }
 
 // GetAmountCents returns the AmountCents field value
-func (o *ListBillingDunningCampaigns200ResponseDataItemsInnerThresholdsInner) GetAmountCents() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListBillingDunningCampaigns200ResponseDataItemsInnerThresholdsInner) GetAmountCents() float32 {
+	if o == nil || o.AmountCents.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.AmountCents
+	return *o.AmountCents.Get()
 }
 
 // GetAmountCentsOk returns a tuple with the AmountCents field value
 // and a boolean to check if the value has been set.
-func (o *ListBillingDunningCampaigns200ResponseDataItemsInnerThresholdsInner) GetAmountCentsOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListBillingDunningCampaigns200ResponseDataItemsInnerThresholdsInner) GetAmountCentsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AmountCents, true
+	return o.AmountCents.Get(), o.AmountCents.IsSet()
 }
 
 // SetAmountCents sets field value
-func (o *ListBillingDunningCampaigns200ResponseDataItemsInnerThresholdsInner) SetAmountCents(v ListProducts200ResponseDataTotal) {
-	o.AmountCents = v
+func (o *ListBillingDunningCampaigns200ResponseDataItemsInnerThresholdsInner) SetAmountCents(v float32) {
+	o.AmountCents.Set(&v)
 }
 
 func (o ListBillingDunningCampaigns200ResponseDataItemsInnerThresholdsInner) MarshalJSON() ([]byte, error) {
@@ -107,7 +109,7 @@ func (o ListBillingDunningCampaigns200ResponseDataItemsInnerThresholdsInner) Mar
 func (o ListBillingDunningCampaigns200ResponseDataItemsInnerThresholdsInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["currency"] = o.Currency.Get()
-	toSerialize["amountCents"] = o.AmountCents
+	toSerialize["amountCents"] = o.AmountCents.Get()
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

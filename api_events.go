@@ -31,7 +31,7 @@ type EventsAPIListCanonicalEventsRequest struct {
 	aggregateType *string
 	aggregateId *string
 	cursor *string
-	limit *ListCustomersLimitParameter
+	limit *string
 }
 
 func (r EventsAPIListCanonicalEventsRequest) Environment(environment string) EventsAPIListCanonicalEventsRequest {
@@ -64,7 +64,7 @@ func (r EventsAPIListCanonicalEventsRequest) Cursor(cursor string) EventsAPIList
 	return r
 }
 
-func (r EventsAPIListCanonicalEventsRequest) Limit(limit ListCustomersLimitParameter) EventsAPIListCanonicalEventsRequest {
+func (r EventsAPIListCanonicalEventsRequest) Limit(limit string) EventsAPIListCanonicalEventsRequest {
 	r.limit = &limit
 	return r
 }
@@ -144,6 +144,20 @@ func (a *EventsAPIService) ListCanonicalEventsExecute(r EventsAPIListCanonicalEv
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {

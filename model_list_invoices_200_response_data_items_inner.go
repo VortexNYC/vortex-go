@@ -26,16 +26,16 @@ type ListInvoices200ResponseDataItemsInner struct {
 	BillingAccountId string `json:"billingAccountId"`
 	Status string `json:"status"`
 	Currency string `json:"currency"`
-	Subtotal ListProducts200ResponseDataTotal `json:"subtotal"`
-	DiscountTotal ListProducts200ResponseDataTotal `json:"discountTotal"`
-	TaxTotal ListProducts200ResponseDataTotal `json:"taxTotal"`
-	Total ListProducts200ResponseDataTotal `json:"total"`
-	AmountPaid ListProducts200ResponseDataTotal `json:"amountPaid"`
-	AmountRemaining ListProducts200ResponseDataTotal `json:"amountRemaining"`
+	Subtotal float32 `json:"subtotal"`
+	DiscountTotal float32 `json:"discountTotal"`
+	TaxTotal float32 `json:"taxTotal"`
+	Total float32 `json:"total"`
+	AmountPaid float32 `json:"amountPaid"`
+	AmountRemaining float32 `json:"amountRemaining"`
 	Metadata map[string]string `json:"metadata"`
 	SubscriptionId NullableString `json:"subscriptionId,omitempty"`
-	CreditNoteTotal NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"creditNoteTotal,omitempty"`
-	CustomerBalanceAppliedTotal NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"customerBalanceAppliedTotal,omitempty"`
+	CreditNoteTotal NullableFloat32 `json:"creditNoteTotal,omitempty"`
+	CustomerBalanceAppliedTotal NullableFloat32 `json:"customerBalanceAppliedTotal,omitempty"`
 	PeriodStartAt NullableString `json:"periodStartAt,omitempty"`
 	PeriodEndAt NullableString `json:"periodEndAt,omitempty"`
 	IssuedAt NullableString `json:"issuedAt,omitempty"`
@@ -52,7 +52,7 @@ type _ListInvoices200ResponseDataItemsInner ListInvoices200ResponseDataItemsInne
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListInvoices200ResponseDataItemsInner(invoiceId string, customerId string, billingAccountId string, status string, currency string, subtotal ListProducts200ResponseDataTotal, discountTotal ListProducts200ResponseDataTotal, taxTotal ListProducts200ResponseDataTotal, total ListProducts200ResponseDataTotal, amountPaid ListProducts200ResponseDataTotal, amountRemaining ListProducts200ResponseDataTotal, metadata map[string]string) *ListInvoices200ResponseDataItemsInner {
+func NewListInvoices200ResponseDataItemsInner(invoiceId string, customerId string, billingAccountId string, status string, currency string, subtotal float32, discountTotal float32, taxTotal float32, total float32, amountPaid float32, amountRemaining float32, metadata map[string]string) *ListInvoices200ResponseDataItemsInner {
 	this := ListInvoices200ResponseDataItemsInner{}
 	this.InvoiceId = invoiceId
 	this.CustomerId = customerId
@@ -198,9 +198,9 @@ func (o *ListInvoices200ResponseDataItemsInner) SetCurrency(v string) {
 }
 
 // GetSubtotal returns the Subtotal field value
-func (o *ListInvoices200ResponseDataItemsInner) GetSubtotal() ListProducts200ResponseDataTotal {
+func (o *ListInvoices200ResponseDataItemsInner) GetSubtotal() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -209,7 +209,7 @@ func (o *ListInvoices200ResponseDataItemsInner) GetSubtotal() ListProducts200Res
 
 // GetSubtotalOk returns a tuple with the Subtotal field value
 // and a boolean to check if the value has been set.
-func (o *ListInvoices200ResponseDataItemsInner) GetSubtotalOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *ListInvoices200ResponseDataItemsInner) GetSubtotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -217,14 +217,14 @@ func (o *ListInvoices200ResponseDataItemsInner) GetSubtotalOk() (*ListProducts20
 }
 
 // SetSubtotal sets field value
-func (o *ListInvoices200ResponseDataItemsInner) SetSubtotal(v ListProducts200ResponseDataTotal) {
+func (o *ListInvoices200ResponseDataItemsInner) SetSubtotal(v float32) {
 	o.Subtotal = v
 }
 
 // GetDiscountTotal returns the DiscountTotal field value
-func (o *ListInvoices200ResponseDataItemsInner) GetDiscountTotal() ListProducts200ResponseDataTotal {
+func (o *ListInvoices200ResponseDataItemsInner) GetDiscountTotal() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -233,7 +233,7 @@ func (o *ListInvoices200ResponseDataItemsInner) GetDiscountTotal() ListProducts2
 
 // GetDiscountTotalOk returns a tuple with the DiscountTotal field value
 // and a boolean to check if the value has been set.
-func (o *ListInvoices200ResponseDataItemsInner) GetDiscountTotalOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *ListInvoices200ResponseDataItemsInner) GetDiscountTotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -241,14 +241,14 @@ func (o *ListInvoices200ResponseDataItemsInner) GetDiscountTotalOk() (*ListProdu
 }
 
 // SetDiscountTotal sets field value
-func (o *ListInvoices200ResponseDataItemsInner) SetDiscountTotal(v ListProducts200ResponseDataTotal) {
+func (o *ListInvoices200ResponseDataItemsInner) SetDiscountTotal(v float32) {
 	o.DiscountTotal = v
 }
 
 // GetTaxTotal returns the TaxTotal field value
-func (o *ListInvoices200ResponseDataItemsInner) GetTaxTotal() ListProducts200ResponseDataTotal {
+func (o *ListInvoices200ResponseDataItemsInner) GetTaxTotal() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -257,7 +257,7 @@ func (o *ListInvoices200ResponseDataItemsInner) GetTaxTotal() ListProducts200Res
 
 // GetTaxTotalOk returns a tuple with the TaxTotal field value
 // and a boolean to check if the value has been set.
-func (o *ListInvoices200ResponseDataItemsInner) GetTaxTotalOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *ListInvoices200ResponseDataItemsInner) GetTaxTotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -265,14 +265,14 @@ func (o *ListInvoices200ResponseDataItemsInner) GetTaxTotalOk() (*ListProducts20
 }
 
 // SetTaxTotal sets field value
-func (o *ListInvoices200ResponseDataItemsInner) SetTaxTotal(v ListProducts200ResponseDataTotal) {
+func (o *ListInvoices200ResponseDataItemsInner) SetTaxTotal(v float32) {
 	o.TaxTotal = v
 }
 
 // GetTotal returns the Total field value
-func (o *ListInvoices200ResponseDataItemsInner) GetTotal() ListProducts200ResponseDataTotal {
+func (o *ListInvoices200ResponseDataItemsInner) GetTotal() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -281,7 +281,7 @@ func (o *ListInvoices200ResponseDataItemsInner) GetTotal() ListProducts200Respon
 
 // GetTotalOk returns a tuple with the Total field value
 // and a boolean to check if the value has been set.
-func (o *ListInvoices200ResponseDataItemsInner) GetTotalOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *ListInvoices200ResponseDataItemsInner) GetTotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -289,14 +289,14 @@ func (o *ListInvoices200ResponseDataItemsInner) GetTotalOk() (*ListProducts200Re
 }
 
 // SetTotal sets field value
-func (o *ListInvoices200ResponseDataItemsInner) SetTotal(v ListProducts200ResponseDataTotal) {
+func (o *ListInvoices200ResponseDataItemsInner) SetTotal(v float32) {
 	o.Total = v
 }
 
 // GetAmountPaid returns the AmountPaid field value
-func (o *ListInvoices200ResponseDataItemsInner) GetAmountPaid() ListProducts200ResponseDataTotal {
+func (o *ListInvoices200ResponseDataItemsInner) GetAmountPaid() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -305,7 +305,7 @@ func (o *ListInvoices200ResponseDataItemsInner) GetAmountPaid() ListProducts200R
 
 // GetAmountPaidOk returns a tuple with the AmountPaid field value
 // and a boolean to check if the value has been set.
-func (o *ListInvoices200ResponseDataItemsInner) GetAmountPaidOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *ListInvoices200ResponseDataItemsInner) GetAmountPaidOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -313,14 +313,14 @@ func (o *ListInvoices200ResponseDataItemsInner) GetAmountPaidOk() (*ListProducts
 }
 
 // SetAmountPaid sets field value
-func (o *ListInvoices200ResponseDataItemsInner) SetAmountPaid(v ListProducts200ResponseDataTotal) {
+func (o *ListInvoices200ResponseDataItemsInner) SetAmountPaid(v float32) {
 	o.AmountPaid = v
 }
 
 // GetAmountRemaining returns the AmountRemaining field value
-func (o *ListInvoices200ResponseDataItemsInner) GetAmountRemaining() ListProducts200ResponseDataTotal {
+func (o *ListInvoices200ResponseDataItemsInner) GetAmountRemaining() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -329,7 +329,7 @@ func (o *ListInvoices200ResponseDataItemsInner) GetAmountRemaining() ListProduct
 
 // GetAmountRemainingOk returns a tuple with the AmountRemaining field value
 // and a boolean to check if the value has been set.
-func (o *ListInvoices200ResponseDataItemsInner) GetAmountRemainingOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *ListInvoices200ResponseDataItemsInner) GetAmountRemainingOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -337,7 +337,7 @@ func (o *ListInvoices200ResponseDataItemsInner) GetAmountRemainingOk() (*ListPro
 }
 
 // SetAmountRemaining sets field value
-func (o *ListInvoices200ResponseDataItemsInner) SetAmountRemaining(v ListProducts200ResponseDataTotal) {
+func (o *ListInvoices200ResponseDataItemsInner) SetAmountRemaining(v float32) {
 	o.AmountRemaining = v
 }
 
@@ -408,9 +408,9 @@ func (o *ListInvoices200ResponseDataItemsInner) UnsetSubscriptionId() {
 }
 
 // GetCreditNoteTotal returns the CreditNoteTotal field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ListInvoices200ResponseDataItemsInner) GetCreditNoteTotal() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ListInvoices200ResponseDataItemsInner) GetCreditNoteTotal() float32 {
 	if o == nil || IsNil(o.CreditNoteTotal.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.CreditNoteTotal.Get()
@@ -419,7 +419,7 @@ func (o *ListInvoices200ResponseDataItemsInner) GetCreditNoteTotal() ListCustome
 // GetCreditNoteTotalOk returns a tuple with the CreditNoteTotal field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ListInvoices200ResponseDataItemsInner) GetCreditNoteTotalOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ListInvoices200ResponseDataItemsInner) GetCreditNoteTotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -435,8 +435,8 @@ func (o *ListInvoices200ResponseDataItemsInner) HasCreditNoteTotal() bool {
 	return false
 }
 
-// SetCreditNoteTotal gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the CreditNoteTotal field.
-func (o *ListInvoices200ResponseDataItemsInner) SetCreditNoteTotal(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetCreditNoteTotal gets a reference to the given NullableFloat32 and assigns it to the CreditNoteTotal field.
+func (o *ListInvoices200ResponseDataItemsInner) SetCreditNoteTotal(v float32) {
 	o.CreditNoteTotal.Set(&v)
 }
 // SetCreditNoteTotalNil sets the value for CreditNoteTotal to be an explicit nil
@@ -450,9 +450,9 @@ func (o *ListInvoices200ResponseDataItemsInner) UnsetCreditNoteTotal() {
 }
 
 // GetCustomerBalanceAppliedTotal returns the CustomerBalanceAppliedTotal field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ListInvoices200ResponseDataItemsInner) GetCustomerBalanceAppliedTotal() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ListInvoices200ResponseDataItemsInner) GetCustomerBalanceAppliedTotal() float32 {
 	if o == nil || IsNil(o.CustomerBalanceAppliedTotal.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.CustomerBalanceAppliedTotal.Get()
@@ -461,7 +461,7 @@ func (o *ListInvoices200ResponseDataItemsInner) GetCustomerBalanceAppliedTotal()
 // GetCustomerBalanceAppliedTotalOk returns a tuple with the CustomerBalanceAppliedTotal field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ListInvoices200ResponseDataItemsInner) GetCustomerBalanceAppliedTotalOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ListInvoices200ResponseDataItemsInner) GetCustomerBalanceAppliedTotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -477,8 +477,8 @@ func (o *ListInvoices200ResponseDataItemsInner) HasCustomerBalanceAppliedTotal()
 	return false
 }
 
-// SetCustomerBalanceAppliedTotal gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the CustomerBalanceAppliedTotal field.
-func (o *ListInvoices200ResponseDataItemsInner) SetCustomerBalanceAppliedTotal(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetCustomerBalanceAppliedTotal gets a reference to the given NullableFloat32 and assigns it to the CustomerBalanceAppliedTotal field.
+func (o *ListInvoices200ResponseDataItemsInner) SetCustomerBalanceAppliedTotal(v float32) {
 	o.CustomerBalanceAppliedTotal.Set(&v)
 }
 // SetCustomerBalanceAppliedTotalNil sets the value for CustomerBalanceAppliedTotal to be an explicit nil

@@ -22,7 +22,7 @@ var _ MappedNullable = &RunBillingDunning200ResponseDataCreatedInner{}
 type RunBillingDunning200ResponseDataCreatedInner struct {
 	InvoiceId NullableString `json:"invoiceId"`
 	PaymentRequestId NullableString `json:"paymentRequestId"`
-	AmountRemaining ListProducts200ResponseDataTotal `json:"amountRemaining"`
+	AmountRemaining NullableFloat32 `json:"amountRemaining"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,7 +32,7 @@ type _RunBillingDunning200ResponseDataCreatedInner RunBillingDunning200ResponseD
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRunBillingDunning200ResponseDataCreatedInner(invoiceId NullableString, paymentRequestId NullableString, amountRemaining ListProducts200ResponseDataTotal) *RunBillingDunning200ResponseDataCreatedInner {
+func NewRunBillingDunning200ResponseDataCreatedInner(invoiceId NullableString, paymentRequestId NullableString, amountRemaining NullableFloat32) *RunBillingDunning200ResponseDataCreatedInner {
 	this := RunBillingDunning200ResponseDataCreatedInner{}
 	this.InvoiceId = invoiceId
 	this.PaymentRequestId = paymentRequestId
@@ -101,27 +101,29 @@ func (o *RunBillingDunning200ResponseDataCreatedInner) SetPaymentRequestId(v str
 }
 
 // GetAmountRemaining returns the AmountRemaining field value
-func (o *RunBillingDunning200ResponseDataCreatedInner) GetAmountRemaining() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *RunBillingDunning200ResponseDataCreatedInner) GetAmountRemaining() float32 {
+	if o == nil || o.AmountRemaining.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.AmountRemaining
+	return *o.AmountRemaining.Get()
 }
 
 // GetAmountRemainingOk returns a tuple with the AmountRemaining field value
 // and a boolean to check if the value has been set.
-func (o *RunBillingDunning200ResponseDataCreatedInner) GetAmountRemainingOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *RunBillingDunning200ResponseDataCreatedInner) GetAmountRemainingOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AmountRemaining, true
+	return o.AmountRemaining.Get(), o.AmountRemaining.IsSet()
 }
 
 // SetAmountRemaining sets field value
-func (o *RunBillingDunning200ResponseDataCreatedInner) SetAmountRemaining(v ListProducts200ResponseDataTotal) {
-	o.AmountRemaining = v
+func (o *RunBillingDunning200ResponseDataCreatedInner) SetAmountRemaining(v float32) {
+	o.AmountRemaining.Set(&v)
 }
 
 func (o RunBillingDunning200ResponseDataCreatedInner) MarshalJSON() ([]byte, error) {
@@ -136,7 +138,7 @@ func (o RunBillingDunning200ResponseDataCreatedInner) ToMap() (map[string]interf
 	toSerialize := map[string]interface{}{}
 	toSerialize["invoiceId"] = o.InvoiceId.Get()
 	toSerialize["paymentRequestId"] = o.PaymentRequestId.Get()
-	toSerialize["amountRemaining"] = o.AmountRemaining
+	toSerialize["amountRemaining"] = o.AmountRemaining.Get()
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

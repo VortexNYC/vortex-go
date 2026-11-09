@@ -22,7 +22,7 @@ var _ MappedNullable = &GetMeterAggregate200ResponseDataCustomers{}
 type GetMeterAggregate200ResponseDataCustomers struct {
 	Items []GetMeterAggregate200ResponseDataCustomersItemsInner `json:"items"`
 	HasMore NullableBool `json:"hasMore"`
-	Total ListProducts200ResponseDataTotal `json:"total"`
+	Total NullableFloat32 `json:"total"`
 	NextCursor NullableString `json:"nextCursor,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -33,7 +33,7 @@ type _GetMeterAggregate200ResponseDataCustomers GetMeterAggregate200ResponseData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetMeterAggregate200ResponseDataCustomers(items []GetMeterAggregate200ResponseDataCustomersItemsInner, hasMore NullableBool, total ListProducts200ResponseDataTotal) *GetMeterAggregate200ResponseDataCustomers {
+func NewGetMeterAggregate200ResponseDataCustomers(items []GetMeterAggregate200ResponseDataCustomersItemsInner, hasMore NullableBool, total NullableFloat32) *GetMeterAggregate200ResponseDataCustomers {
 	this := GetMeterAggregate200ResponseDataCustomers{}
 	this.Items = items
 	this.HasMore = hasMore
@@ -100,27 +100,29 @@ func (o *GetMeterAggregate200ResponseDataCustomers) SetHasMore(v bool) {
 }
 
 // GetTotal returns the Total field value
-func (o *GetMeterAggregate200ResponseDataCustomers) GetTotal() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetMeterAggregate200ResponseDataCustomers) GetTotal() float32 {
+	if o == nil || o.Total.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Total
+	return *o.Total.Get()
 }
 
 // GetTotalOk returns a tuple with the Total field value
 // and a boolean to check if the value has been set.
-func (o *GetMeterAggregate200ResponseDataCustomers) GetTotalOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetMeterAggregate200ResponseDataCustomers) GetTotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Total, true
+	return o.Total.Get(), o.Total.IsSet()
 }
 
 // SetTotal sets field value
-func (o *GetMeterAggregate200ResponseDataCustomers) SetTotal(v ListProducts200ResponseDataTotal) {
-	o.Total = v
+func (o *GetMeterAggregate200ResponseDataCustomers) SetTotal(v float32) {
+	o.Total.Set(&v)
 }
 
 // GetNextCursor returns the NextCursor field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -177,7 +179,7 @@ func (o GetMeterAggregate200ResponseDataCustomers) ToMap() (map[string]interface
 	toSerialize := map[string]interface{}{}
 	toSerialize["items"] = o.Items
 	toSerialize["hasMore"] = o.HasMore.Get()
-	toSerialize["total"] = o.Total
+	toSerialize["total"] = o.Total.Get()
 	if o.NextCursor.IsSet() {
 		toSerialize["nextCursor"] = o.NextCursor.Get()
 	}

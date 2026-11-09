@@ -20,10 +20,10 @@ var _ MappedNullable = &RunWalletMaintenance200ResponseData{}
 
 // RunWalletMaintenance200ResponseData struct for RunWalletMaintenance200ResponseData
 type RunWalletMaintenance200ResponseData struct {
-	ExpiredGrantCount ListProducts200ResponseDataTotal `json:"expiredGrantCount"`
-	TerminatedWalletCount ListProducts200ResponseDataTotal `json:"terminatedWalletCount"`
-	TriggeredRuleCount ListProducts200ResponseDataTotal `json:"triggeredRuleCount"`
-	TopUpInvoiceCount ListProducts200ResponseDataTotal `json:"topUpInvoiceCount"`
+	ExpiredGrantCount NullableFloat32 `json:"expiredGrantCount"`
+	TerminatedWalletCount NullableFloat32 `json:"terminatedWalletCount"`
+	TriggeredRuleCount NullableFloat32 `json:"triggeredRuleCount"`
+	TopUpInvoiceCount NullableFloat32 `json:"topUpInvoiceCount"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,7 +33,7 @@ type _RunWalletMaintenance200ResponseData RunWalletMaintenance200ResponseData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRunWalletMaintenance200ResponseData(expiredGrantCount ListProducts200ResponseDataTotal, terminatedWalletCount ListProducts200ResponseDataTotal, triggeredRuleCount ListProducts200ResponseDataTotal, topUpInvoiceCount ListProducts200ResponseDataTotal) *RunWalletMaintenance200ResponseData {
+func NewRunWalletMaintenance200ResponseData(expiredGrantCount NullableFloat32, terminatedWalletCount NullableFloat32, triggeredRuleCount NullableFloat32, topUpInvoiceCount NullableFloat32) *RunWalletMaintenance200ResponseData {
 	this := RunWalletMaintenance200ResponseData{}
 	this.ExpiredGrantCount = expiredGrantCount
 	this.TerminatedWalletCount = terminatedWalletCount
@@ -51,99 +51,107 @@ func NewRunWalletMaintenance200ResponseDataWithDefaults() *RunWalletMaintenance2
 }
 
 // GetExpiredGrantCount returns the ExpiredGrantCount field value
-func (o *RunWalletMaintenance200ResponseData) GetExpiredGrantCount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *RunWalletMaintenance200ResponseData) GetExpiredGrantCount() float32 {
+	if o == nil || o.ExpiredGrantCount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.ExpiredGrantCount
+	return *o.ExpiredGrantCount.Get()
 }
 
 // GetExpiredGrantCountOk returns a tuple with the ExpiredGrantCount field value
 // and a boolean to check if the value has been set.
-func (o *RunWalletMaintenance200ResponseData) GetExpiredGrantCountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *RunWalletMaintenance200ResponseData) GetExpiredGrantCountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ExpiredGrantCount, true
+	return o.ExpiredGrantCount.Get(), o.ExpiredGrantCount.IsSet()
 }
 
 // SetExpiredGrantCount sets field value
-func (o *RunWalletMaintenance200ResponseData) SetExpiredGrantCount(v ListProducts200ResponseDataTotal) {
-	o.ExpiredGrantCount = v
+func (o *RunWalletMaintenance200ResponseData) SetExpiredGrantCount(v float32) {
+	o.ExpiredGrantCount.Set(&v)
 }
 
 // GetTerminatedWalletCount returns the TerminatedWalletCount field value
-func (o *RunWalletMaintenance200ResponseData) GetTerminatedWalletCount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *RunWalletMaintenance200ResponseData) GetTerminatedWalletCount() float32 {
+	if o == nil || o.TerminatedWalletCount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.TerminatedWalletCount
+	return *o.TerminatedWalletCount.Get()
 }
 
 // GetTerminatedWalletCountOk returns a tuple with the TerminatedWalletCount field value
 // and a boolean to check if the value has been set.
-func (o *RunWalletMaintenance200ResponseData) GetTerminatedWalletCountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *RunWalletMaintenance200ResponseData) GetTerminatedWalletCountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.TerminatedWalletCount, true
+	return o.TerminatedWalletCount.Get(), o.TerminatedWalletCount.IsSet()
 }
 
 // SetTerminatedWalletCount sets field value
-func (o *RunWalletMaintenance200ResponseData) SetTerminatedWalletCount(v ListProducts200ResponseDataTotal) {
-	o.TerminatedWalletCount = v
+func (o *RunWalletMaintenance200ResponseData) SetTerminatedWalletCount(v float32) {
+	o.TerminatedWalletCount.Set(&v)
 }
 
 // GetTriggeredRuleCount returns the TriggeredRuleCount field value
-func (o *RunWalletMaintenance200ResponseData) GetTriggeredRuleCount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *RunWalletMaintenance200ResponseData) GetTriggeredRuleCount() float32 {
+	if o == nil || o.TriggeredRuleCount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.TriggeredRuleCount
+	return *o.TriggeredRuleCount.Get()
 }
 
 // GetTriggeredRuleCountOk returns a tuple with the TriggeredRuleCount field value
 // and a boolean to check if the value has been set.
-func (o *RunWalletMaintenance200ResponseData) GetTriggeredRuleCountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *RunWalletMaintenance200ResponseData) GetTriggeredRuleCountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.TriggeredRuleCount, true
+	return o.TriggeredRuleCount.Get(), o.TriggeredRuleCount.IsSet()
 }
 
 // SetTriggeredRuleCount sets field value
-func (o *RunWalletMaintenance200ResponseData) SetTriggeredRuleCount(v ListProducts200ResponseDataTotal) {
-	o.TriggeredRuleCount = v
+func (o *RunWalletMaintenance200ResponseData) SetTriggeredRuleCount(v float32) {
+	o.TriggeredRuleCount.Set(&v)
 }
 
 // GetTopUpInvoiceCount returns the TopUpInvoiceCount field value
-func (o *RunWalletMaintenance200ResponseData) GetTopUpInvoiceCount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *RunWalletMaintenance200ResponseData) GetTopUpInvoiceCount() float32 {
+	if o == nil || o.TopUpInvoiceCount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.TopUpInvoiceCount
+	return *o.TopUpInvoiceCount.Get()
 }
 
 // GetTopUpInvoiceCountOk returns a tuple with the TopUpInvoiceCount field value
 // and a boolean to check if the value has been set.
-func (o *RunWalletMaintenance200ResponseData) GetTopUpInvoiceCountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *RunWalletMaintenance200ResponseData) GetTopUpInvoiceCountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.TopUpInvoiceCount, true
+	return o.TopUpInvoiceCount.Get(), o.TopUpInvoiceCount.IsSet()
 }
 
 // SetTopUpInvoiceCount sets field value
-func (o *RunWalletMaintenance200ResponseData) SetTopUpInvoiceCount(v ListProducts200ResponseDataTotal) {
-	o.TopUpInvoiceCount = v
+func (o *RunWalletMaintenance200ResponseData) SetTopUpInvoiceCount(v float32) {
+	o.TopUpInvoiceCount.Set(&v)
 }
 
 func (o RunWalletMaintenance200ResponseData) MarshalJSON() ([]byte, error) {
@@ -156,10 +164,10 @@ func (o RunWalletMaintenance200ResponseData) MarshalJSON() ([]byte, error) {
 
 func (o RunWalletMaintenance200ResponseData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["expiredGrantCount"] = o.ExpiredGrantCount
-	toSerialize["terminatedWalletCount"] = o.TerminatedWalletCount
-	toSerialize["triggeredRuleCount"] = o.TriggeredRuleCount
-	toSerialize["topUpInvoiceCount"] = o.TopUpInvoiceCount
+	toSerialize["expiredGrantCount"] = o.ExpiredGrantCount.Get()
+	toSerialize["terminatedWalletCount"] = o.TerminatedWalletCount.Get()
+	toSerialize["triggeredRuleCount"] = o.TriggeredRuleCount.Get()
+	toSerialize["topUpInvoiceCount"] = o.TopUpInvoiceCount.Get()
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

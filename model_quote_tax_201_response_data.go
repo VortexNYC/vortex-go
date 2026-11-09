@@ -27,9 +27,9 @@ type QuoteTax201ResponseData struct {
 	SourceDocumentType string `json:"sourceDocumentType"`
 	Status string `json:"status"`
 	Currency NullableString `json:"currency"`
-	Subtotal ListProducts200ResponseDataTotal `json:"subtotal"`
-	TaxTotal ListProducts200ResponseDataTotal `json:"taxTotal"`
-	Total ListProducts200ResponseDataTotal `json:"total"`
+	Subtotal NullableFloat32 `json:"subtotal"`
+	TaxTotal NullableFloat32 `json:"taxTotal"`
+	Total NullableFloat32 `json:"total"`
 	TaxBehavior string `json:"taxBehavior"`
 	CustomerTaxAddress GetMerchantAccountTaxProfile200ResponseDataOriginAddress `json:"customerTaxAddress"`
 	LineEvidence []QuoteTax201ResponseDataLineEvidenceInner `json:"lineEvidence"`
@@ -58,7 +58,7 @@ type _QuoteTax201ResponseData QuoteTax201ResponseData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewQuoteTax201ResponseData(id NullableString, merchantAccountId NullableString, tenantId NullableString, sourceDocumentId NullableString, sourceDocumentType string, status string, currency NullableString, subtotal ListProducts200ResponseDataTotal, taxTotal ListProducts200ResponseDataTotal, total ListProducts200ResponseDataTotal, taxBehavior string, customerTaxAddress GetMerchantAccountTaxProfile200ResponseDataOriginAddress, lineEvidence []QuoteTax201ResponseDataLineEvidenceInner, jurisdictionEvidence []QuoteTax201ResponseDataJurisdictionEvidenceInner, createdAt NullableString, updatedAt NullableString) *QuoteTax201ResponseData {
+func NewQuoteTax201ResponseData(id NullableString, merchantAccountId NullableString, tenantId NullableString, sourceDocumentId NullableString, sourceDocumentType string, status string, currency NullableString, subtotal NullableFloat32, taxTotal NullableFloat32, total NullableFloat32, taxBehavior string, customerTaxAddress GetMerchantAccountTaxProfile200ResponseDataOriginAddress, lineEvidence []QuoteTax201ResponseDataLineEvidenceInner, jurisdictionEvidence []QuoteTax201ResponseDataJurisdictionEvidenceInner, createdAt NullableString, updatedAt NullableString) *QuoteTax201ResponseData {
 	this := QuoteTax201ResponseData{}
 	this.Id = id
 	this.MerchantAccountId = merchantAccountId
@@ -266,75 +266,81 @@ func (o *QuoteTax201ResponseData) SetCurrency(v string) {
 }
 
 // GetSubtotal returns the Subtotal field value
-func (o *QuoteTax201ResponseData) GetSubtotal() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *QuoteTax201ResponseData) GetSubtotal() float32 {
+	if o == nil || o.Subtotal.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Subtotal
+	return *o.Subtotal.Get()
 }
 
 // GetSubtotalOk returns a tuple with the Subtotal field value
 // and a boolean to check if the value has been set.
-func (o *QuoteTax201ResponseData) GetSubtotalOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *QuoteTax201ResponseData) GetSubtotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Subtotal, true
+	return o.Subtotal.Get(), o.Subtotal.IsSet()
 }
 
 // SetSubtotal sets field value
-func (o *QuoteTax201ResponseData) SetSubtotal(v ListProducts200ResponseDataTotal) {
-	o.Subtotal = v
+func (o *QuoteTax201ResponseData) SetSubtotal(v float32) {
+	o.Subtotal.Set(&v)
 }
 
 // GetTaxTotal returns the TaxTotal field value
-func (o *QuoteTax201ResponseData) GetTaxTotal() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *QuoteTax201ResponseData) GetTaxTotal() float32 {
+	if o == nil || o.TaxTotal.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.TaxTotal
+	return *o.TaxTotal.Get()
 }
 
 // GetTaxTotalOk returns a tuple with the TaxTotal field value
 // and a boolean to check if the value has been set.
-func (o *QuoteTax201ResponseData) GetTaxTotalOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *QuoteTax201ResponseData) GetTaxTotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.TaxTotal, true
+	return o.TaxTotal.Get(), o.TaxTotal.IsSet()
 }
 
 // SetTaxTotal sets field value
-func (o *QuoteTax201ResponseData) SetTaxTotal(v ListProducts200ResponseDataTotal) {
-	o.TaxTotal = v
+func (o *QuoteTax201ResponseData) SetTaxTotal(v float32) {
+	o.TaxTotal.Set(&v)
 }
 
 // GetTotal returns the Total field value
-func (o *QuoteTax201ResponseData) GetTotal() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *QuoteTax201ResponseData) GetTotal() float32 {
+	if o == nil || o.Total.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Total
+	return *o.Total.Get()
 }
 
 // GetTotalOk returns a tuple with the Total field value
 // and a boolean to check if the value has been set.
-func (o *QuoteTax201ResponseData) GetTotalOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *QuoteTax201ResponseData) GetTotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Total, true
+	return o.Total.Get(), o.Total.IsSet()
 }
 
 // SetTotal sets field value
-func (o *QuoteTax201ResponseData) SetTotal(v ListProducts200ResponseDataTotal) {
-	o.Total = v
+func (o *QuoteTax201ResponseData) SetTotal(v float32) {
+	o.Total.Set(&v)
 }
 
 // GetTaxBehavior returns the TaxBehavior field value
@@ -1039,9 +1045,9 @@ func (o QuoteTax201ResponseData) ToMap() (map[string]interface{}, error) {
 	toSerialize["sourceDocumentType"] = o.SourceDocumentType
 	toSerialize["status"] = o.Status
 	toSerialize["currency"] = o.Currency.Get()
-	toSerialize["subtotal"] = o.Subtotal
-	toSerialize["taxTotal"] = o.TaxTotal
-	toSerialize["total"] = o.Total
+	toSerialize["subtotal"] = o.Subtotal.Get()
+	toSerialize["taxTotal"] = o.TaxTotal.Get()
+	toSerialize["total"] = o.Total.Get()
 	toSerialize["taxBehavior"] = o.TaxBehavior
 	toSerialize["customerTaxAddress"] = o.CustomerTaxAddress
 	toSerialize["lineEvidence"] = o.LineEvidence

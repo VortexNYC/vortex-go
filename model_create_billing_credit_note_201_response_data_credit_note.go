@@ -28,14 +28,14 @@ type CreateBillingCreditNote201ResponseDataCreditNote struct {
 	Status string `json:"status"`
 	Reason string `json:"reason"`
 	Currency NullableString `json:"currency"`
-	Subtotal ListProducts200ResponseDataTotal `json:"subtotal"`
-	DiscountAdjustmentTotal ListProducts200ResponseDataTotal `json:"discountAdjustmentTotal"`
-	TaxTotal ListProducts200ResponseDataTotal `json:"taxTotal"`
-	Total ListProducts200ResponseDataTotal `json:"total"`
-	CreditAmount ListProducts200ResponseDataTotal `json:"creditAmount"`
-	RefundAmount ListProducts200ResponseDataTotal `json:"refundAmount"`
-	OffsetAmount ListProducts200ResponseDataTotal `json:"offsetAmount"`
-	BalanceAmount ListProducts200ResponseDataTotal `json:"balanceAmount"`
+	Subtotal NullableFloat32 `json:"subtotal"`
+	DiscountAdjustmentTotal NullableFloat32 `json:"discountAdjustmentTotal"`
+	TaxTotal NullableFloat32 `json:"taxTotal"`
+	Total NullableFloat32 `json:"total"`
+	CreditAmount NullableFloat32 `json:"creditAmount"`
+	RefundAmount NullableFloat32 `json:"refundAmount"`
+	OffsetAmount NullableFloat32 `json:"offsetAmount"`
+	BalanceAmount NullableFloat32 `json:"balanceAmount"`
 	IssuedAt NullableString `json:"issuedAt"`
 	Metadata map[string]string `json:"metadata"`
 	SubscriptionId NullableString `json:"subscriptionId,omitempty"`
@@ -56,7 +56,7 @@ type _CreateBillingCreditNote201ResponseDataCreditNote CreateBillingCreditNote20
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateBillingCreditNote201ResponseDataCreditNote(creditNoteId NullableString, creditNoteNumber NullableString, invoiceId NullableString, customerId NullableString, billingAccountId NullableString, status string, reason string, currency NullableString, subtotal ListProducts200ResponseDataTotal, discountAdjustmentTotal ListProducts200ResponseDataTotal, taxTotal ListProducts200ResponseDataTotal, total ListProducts200ResponseDataTotal, creditAmount ListProducts200ResponseDataTotal, refundAmount ListProducts200ResponseDataTotal, offsetAmount ListProducts200ResponseDataTotal, balanceAmount ListProducts200ResponseDataTotal, issuedAt NullableString, metadata map[string]string) *CreateBillingCreditNote201ResponseDataCreditNote {
+func NewCreateBillingCreditNote201ResponseDataCreditNote(creditNoteId NullableString, creditNoteNumber NullableString, invoiceId NullableString, customerId NullableString, billingAccountId NullableString, status string, reason string, currency NullableString, subtotal NullableFloat32, discountAdjustmentTotal NullableFloat32, taxTotal NullableFloat32, total NullableFloat32, creditAmount NullableFloat32, refundAmount NullableFloat32, offsetAmount NullableFloat32, balanceAmount NullableFloat32, issuedAt NullableString, metadata map[string]string) *CreateBillingCreditNote201ResponseDataCreditNote {
 	this := CreateBillingCreditNote201ResponseDataCreditNote{}
 	this.CreditNoteId = creditNoteId
 	this.CreditNoteNumber = creditNoteNumber
@@ -292,195 +292,211 @@ func (o *CreateBillingCreditNote201ResponseDataCreditNote) SetCurrency(v string)
 }
 
 // GetSubtotal returns the Subtotal field value
-func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetSubtotal() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetSubtotal() float32 {
+	if o == nil || o.Subtotal.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Subtotal
+	return *o.Subtotal.Get()
 }
 
 // GetSubtotalOk returns a tuple with the Subtotal field value
 // and a boolean to check if the value has been set.
-func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetSubtotalOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetSubtotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Subtotal, true
+	return o.Subtotal.Get(), o.Subtotal.IsSet()
 }
 
 // SetSubtotal sets field value
-func (o *CreateBillingCreditNote201ResponseDataCreditNote) SetSubtotal(v ListProducts200ResponseDataTotal) {
-	o.Subtotal = v
+func (o *CreateBillingCreditNote201ResponseDataCreditNote) SetSubtotal(v float32) {
+	o.Subtotal.Set(&v)
 }
 
 // GetDiscountAdjustmentTotal returns the DiscountAdjustmentTotal field value
-func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetDiscountAdjustmentTotal() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetDiscountAdjustmentTotal() float32 {
+	if o == nil || o.DiscountAdjustmentTotal.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.DiscountAdjustmentTotal
+	return *o.DiscountAdjustmentTotal.Get()
 }
 
 // GetDiscountAdjustmentTotalOk returns a tuple with the DiscountAdjustmentTotal field value
 // and a boolean to check if the value has been set.
-func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetDiscountAdjustmentTotalOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetDiscountAdjustmentTotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.DiscountAdjustmentTotal, true
+	return o.DiscountAdjustmentTotal.Get(), o.DiscountAdjustmentTotal.IsSet()
 }
 
 // SetDiscountAdjustmentTotal sets field value
-func (o *CreateBillingCreditNote201ResponseDataCreditNote) SetDiscountAdjustmentTotal(v ListProducts200ResponseDataTotal) {
-	o.DiscountAdjustmentTotal = v
+func (o *CreateBillingCreditNote201ResponseDataCreditNote) SetDiscountAdjustmentTotal(v float32) {
+	o.DiscountAdjustmentTotal.Set(&v)
 }
 
 // GetTaxTotal returns the TaxTotal field value
-func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetTaxTotal() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetTaxTotal() float32 {
+	if o == nil || o.TaxTotal.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.TaxTotal
+	return *o.TaxTotal.Get()
 }
 
 // GetTaxTotalOk returns a tuple with the TaxTotal field value
 // and a boolean to check if the value has been set.
-func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetTaxTotalOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetTaxTotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.TaxTotal, true
+	return o.TaxTotal.Get(), o.TaxTotal.IsSet()
 }
 
 // SetTaxTotal sets field value
-func (o *CreateBillingCreditNote201ResponseDataCreditNote) SetTaxTotal(v ListProducts200ResponseDataTotal) {
-	o.TaxTotal = v
+func (o *CreateBillingCreditNote201ResponseDataCreditNote) SetTaxTotal(v float32) {
+	o.TaxTotal.Set(&v)
 }
 
 // GetTotal returns the Total field value
-func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetTotal() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetTotal() float32 {
+	if o == nil || o.Total.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Total
+	return *o.Total.Get()
 }
 
 // GetTotalOk returns a tuple with the Total field value
 // and a boolean to check if the value has been set.
-func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetTotalOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetTotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Total, true
+	return o.Total.Get(), o.Total.IsSet()
 }
 
 // SetTotal sets field value
-func (o *CreateBillingCreditNote201ResponseDataCreditNote) SetTotal(v ListProducts200ResponseDataTotal) {
-	o.Total = v
+func (o *CreateBillingCreditNote201ResponseDataCreditNote) SetTotal(v float32) {
+	o.Total.Set(&v)
 }
 
 // GetCreditAmount returns the CreditAmount field value
-func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetCreditAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetCreditAmount() float32 {
+	if o == nil || o.CreditAmount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.CreditAmount
+	return *o.CreditAmount.Get()
 }
 
 // GetCreditAmountOk returns a tuple with the CreditAmount field value
 // and a boolean to check if the value has been set.
-func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetCreditAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetCreditAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CreditAmount, true
+	return o.CreditAmount.Get(), o.CreditAmount.IsSet()
 }
 
 // SetCreditAmount sets field value
-func (o *CreateBillingCreditNote201ResponseDataCreditNote) SetCreditAmount(v ListProducts200ResponseDataTotal) {
-	o.CreditAmount = v
+func (o *CreateBillingCreditNote201ResponseDataCreditNote) SetCreditAmount(v float32) {
+	o.CreditAmount.Set(&v)
 }
 
 // GetRefundAmount returns the RefundAmount field value
-func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetRefundAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetRefundAmount() float32 {
+	if o == nil || o.RefundAmount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.RefundAmount
+	return *o.RefundAmount.Get()
 }
 
 // GetRefundAmountOk returns a tuple with the RefundAmount field value
 // and a boolean to check if the value has been set.
-func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetRefundAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetRefundAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RefundAmount, true
+	return o.RefundAmount.Get(), o.RefundAmount.IsSet()
 }
 
 // SetRefundAmount sets field value
-func (o *CreateBillingCreditNote201ResponseDataCreditNote) SetRefundAmount(v ListProducts200ResponseDataTotal) {
-	o.RefundAmount = v
+func (o *CreateBillingCreditNote201ResponseDataCreditNote) SetRefundAmount(v float32) {
+	o.RefundAmount.Set(&v)
 }
 
 // GetOffsetAmount returns the OffsetAmount field value
-func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetOffsetAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetOffsetAmount() float32 {
+	if o == nil || o.OffsetAmount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.OffsetAmount
+	return *o.OffsetAmount.Get()
 }
 
 // GetOffsetAmountOk returns a tuple with the OffsetAmount field value
 // and a boolean to check if the value has been set.
-func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetOffsetAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetOffsetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.OffsetAmount, true
+	return o.OffsetAmount.Get(), o.OffsetAmount.IsSet()
 }
 
 // SetOffsetAmount sets field value
-func (o *CreateBillingCreditNote201ResponseDataCreditNote) SetOffsetAmount(v ListProducts200ResponseDataTotal) {
-	o.OffsetAmount = v
+func (o *CreateBillingCreditNote201ResponseDataCreditNote) SetOffsetAmount(v float32) {
+	o.OffsetAmount.Set(&v)
 }
 
 // GetBalanceAmount returns the BalanceAmount field value
-func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetBalanceAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetBalanceAmount() float32 {
+	if o == nil || o.BalanceAmount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.BalanceAmount
+	return *o.BalanceAmount.Get()
 }
 
 // GetBalanceAmountOk returns a tuple with the BalanceAmount field value
 // and a boolean to check if the value has been set.
-func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetBalanceAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateBillingCreditNote201ResponseDataCreditNote) GetBalanceAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.BalanceAmount, true
+	return o.BalanceAmount.Get(), o.BalanceAmount.IsSet()
 }
 
 // SetBalanceAmount sets field value
-func (o *CreateBillingCreditNote201ResponseDataCreditNote) SetBalanceAmount(v ListProducts200ResponseDataTotal) {
-	o.BalanceAmount = v
+func (o *CreateBillingCreditNote201ResponseDataCreditNote) SetBalanceAmount(v float32) {
+	o.BalanceAmount.Set(&v)
 }
 
 // GetIssuedAt returns the IssuedAt field value
@@ -931,14 +947,14 @@ func (o CreateBillingCreditNote201ResponseDataCreditNote) ToMap() (map[string]in
 	toSerialize["status"] = o.Status
 	toSerialize["reason"] = o.Reason
 	toSerialize["currency"] = o.Currency.Get()
-	toSerialize["subtotal"] = o.Subtotal
-	toSerialize["discountAdjustmentTotal"] = o.DiscountAdjustmentTotal
-	toSerialize["taxTotal"] = o.TaxTotal
-	toSerialize["total"] = o.Total
-	toSerialize["creditAmount"] = o.CreditAmount
-	toSerialize["refundAmount"] = o.RefundAmount
-	toSerialize["offsetAmount"] = o.OffsetAmount
-	toSerialize["balanceAmount"] = o.BalanceAmount
+	toSerialize["subtotal"] = o.Subtotal.Get()
+	toSerialize["discountAdjustmentTotal"] = o.DiscountAdjustmentTotal.Get()
+	toSerialize["taxTotal"] = o.TaxTotal.Get()
+	toSerialize["total"] = o.Total.Get()
+	toSerialize["creditAmount"] = o.CreditAmount.Get()
+	toSerialize["refundAmount"] = o.RefundAmount.Get()
+	toSerialize["offsetAmount"] = o.OffsetAmount.Get()
+	toSerialize["balanceAmount"] = o.BalanceAmount.Get()
 	toSerialize["issuedAt"] = o.IssuedAt.Get()
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata

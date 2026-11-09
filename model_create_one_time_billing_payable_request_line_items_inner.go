@@ -22,7 +22,7 @@ var _ MappedNullable = &CreateOneTimeBillingPayableRequestLineItemsInner{}
 type CreateOneTimeBillingPayableRequestLineItemsInner struct {
 	PriceId NullableString `json:"priceId"`
 	Taxable NullableBool `json:"taxable"`
-	Quantity NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"quantity,omitempty"`
+	Quantity NullableFloat32 `json:"quantity,omitempty"`
 	TaxClassificationKey NullableString `json:"taxClassificationKey,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -102,9 +102,9 @@ func (o *CreateOneTimeBillingPayableRequestLineItemsInner) SetTaxable(v bool) {
 }
 
 // GetQuantity returns the Quantity field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateOneTimeBillingPayableRequestLineItemsInner) GetQuantity() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateOneTimeBillingPayableRequestLineItemsInner) GetQuantity() float32 {
 	if o == nil || IsNil(o.Quantity.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.Quantity.Get()
@@ -113,7 +113,7 @@ func (o *CreateOneTimeBillingPayableRequestLineItemsInner) GetQuantity() ListCus
 // GetQuantityOk returns a tuple with the Quantity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateOneTimeBillingPayableRequestLineItemsInner) GetQuantityOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateOneTimeBillingPayableRequestLineItemsInner) GetQuantityOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -129,8 +129,8 @@ func (o *CreateOneTimeBillingPayableRequestLineItemsInner) HasQuantity() bool {
 	return false
 }
 
-// SetQuantity gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the Quantity field.
-func (o *CreateOneTimeBillingPayableRequestLineItemsInner) SetQuantity(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetQuantity gets a reference to the given NullableFloat32 and assigns it to the Quantity field.
+func (o *CreateOneTimeBillingPayableRequestLineItemsInner) SetQuantity(v float32) {
 	o.Quantity.Set(&v)
 }
 // SetQuantityNil sets the value for Quantity to be an explicit nil

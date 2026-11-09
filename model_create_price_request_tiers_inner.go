@@ -21,8 +21,8 @@ var _ MappedNullable = &CreatePriceRequestTiersInner{}
 
 // CreatePriceRequestTiersInner struct for CreatePriceRequestTiersInner
 type CreatePriceRequestTiersInner struct {
-	UnitAmount ListProducts200ResponseDataTotal `json:"unitAmount"`
-	UpTo NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"upTo,omitempty"`
+	UnitAmount float32 `json:"unitAmount"`
+	UpTo NullableFloat32 `json:"upTo,omitempty"`
 }
 
 type _CreatePriceRequestTiersInner CreatePriceRequestTiersInner
@@ -31,7 +31,7 @@ type _CreatePriceRequestTiersInner CreatePriceRequestTiersInner
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePriceRequestTiersInner(unitAmount ListProducts200ResponseDataTotal) *CreatePriceRequestTiersInner {
+func NewCreatePriceRequestTiersInner(unitAmount float32) *CreatePriceRequestTiersInner {
 	this := CreatePriceRequestTiersInner{}
 	this.UnitAmount = unitAmount
 	return &this
@@ -46,9 +46,9 @@ func NewCreatePriceRequestTiersInnerWithDefaults() *CreatePriceRequestTiersInner
 }
 
 // GetUnitAmount returns the UnitAmount field value
-func (o *CreatePriceRequestTiersInner) GetUnitAmount() ListProducts200ResponseDataTotal {
+func (o *CreatePriceRequestTiersInner) GetUnitAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -57,7 +57,7 @@ func (o *CreatePriceRequestTiersInner) GetUnitAmount() ListProducts200ResponseDa
 
 // GetUnitAmountOk returns a tuple with the UnitAmount field value
 // and a boolean to check if the value has been set.
-func (o *CreatePriceRequestTiersInner) GetUnitAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreatePriceRequestTiersInner) GetUnitAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -65,14 +65,14 @@ func (o *CreatePriceRequestTiersInner) GetUnitAmountOk() (*ListProducts200Respon
 }
 
 // SetUnitAmount sets field value
-func (o *CreatePriceRequestTiersInner) SetUnitAmount(v ListProducts200ResponseDataTotal) {
+func (o *CreatePriceRequestTiersInner) SetUnitAmount(v float32) {
 	o.UnitAmount = v
 }
 
 // GetUpTo returns the UpTo field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreatePriceRequestTiersInner) GetUpTo() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreatePriceRequestTiersInner) GetUpTo() float32 {
 	if o == nil || IsNil(o.UpTo.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.UpTo.Get()
@@ -81,7 +81,7 @@ func (o *CreatePriceRequestTiersInner) GetUpTo() ListCustomerBillingAccounts200R
 // GetUpToOk returns a tuple with the UpTo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreatePriceRequestTiersInner) GetUpToOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreatePriceRequestTiersInner) GetUpToOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -97,8 +97,8 @@ func (o *CreatePriceRequestTiersInner) HasUpTo() bool {
 	return false
 }
 
-// SetUpTo gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the UpTo field.
-func (o *CreatePriceRequestTiersInner) SetUpTo(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetUpTo gets a reference to the given NullableFloat32 and assigns it to the UpTo field.
+func (o *CreatePriceRequestTiersInner) SetUpTo(v float32) {
 	o.UpTo.Set(&v)
 }
 // SetUpToNil sets the value for UpTo to be an explicit nil

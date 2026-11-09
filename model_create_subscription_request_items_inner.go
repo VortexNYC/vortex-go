@@ -21,7 +21,7 @@ var _ MappedNullable = &CreateSubscriptionRequestItemsInner{}
 // CreateSubscriptionRequestItemsInner struct for CreateSubscriptionRequestItemsInner
 type CreateSubscriptionRequestItemsInner struct {
 	PriceId NullableString `json:"priceId"`
-	Quantity NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"quantity,omitempty"`
+	Quantity NullableFloat32 `json:"quantity,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -73,9 +73,9 @@ func (o *CreateSubscriptionRequestItemsInner) SetPriceId(v string) {
 }
 
 // GetQuantity returns the Quantity field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateSubscriptionRequestItemsInner) GetQuantity() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateSubscriptionRequestItemsInner) GetQuantity() float32 {
 	if o == nil || IsNil(o.Quantity.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.Quantity.Get()
@@ -84,7 +84,7 @@ func (o *CreateSubscriptionRequestItemsInner) GetQuantity() ListCustomerBillingA
 // GetQuantityOk returns a tuple with the Quantity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateSubscriptionRequestItemsInner) GetQuantityOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateSubscriptionRequestItemsInner) GetQuantityOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -100,8 +100,8 @@ func (o *CreateSubscriptionRequestItemsInner) HasQuantity() bool {
 	return false
 }
 
-// SetQuantity gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the Quantity field.
-func (o *CreateSubscriptionRequestItemsInner) SetQuantity(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetQuantity gets a reference to the given NullableFloat32 and assigns it to the Quantity field.
+func (o *CreateSubscriptionRequestItemsInner) SetQuantity(v float32) {
 	o.Quantity.Set(&v)
 }
 // SetQuantityNil sets the value for Quantity to be an explicit nil

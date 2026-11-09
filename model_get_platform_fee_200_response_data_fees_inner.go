@@ -23,10 +23,10 @@ type GetPlatformFee200ResponseDataFeesInner struct {
 	RatePlanId NullableString `json:"ratePlanId"`
 	Code NullableString `json:"code"`
 	DisplayName NullableString `json:"displayName"`
-	PlatformBasisPoints NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"platformBasisPoints,omitempty"`
-	PlatformFixedFee NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"platformFixedFee,omitempty"`
+	PlatformBasisPoints NullableFloat32 `json:"platformBasisPoints,omitempty"`
+	PlatformFixedFee NullableFloat32 `json:"platformFixedFee,omitempty"`
 	PlatformFeeBounds NullableGetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds `json:"platformFeeBounds,omitempty"`
-	AssignedMerchantCount ListProducts200ResponseDataTotal `json:"assignedMerchantCount"`
+	AssignedMerchantCount NullableFloat32 `json:"assignedMerchantCount"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -36,7 +36,7 @@ type _GetPlatformFee200ResponseDataFeesInner GetPlatformFee200ResponseDataFeesIn
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetPlatformFee200ResponseDataFeesInner(ratePlanId NullableString, code NullableString, displayName NullableString, assignedMerchantCount ListProducts200ResponseDataTotal) *GetPlatformFee200ResponseDataFeesInner {
+func NewGetPlatformFee200ResponseDataFeesInner(ratePlanId NullableString, code NullableString, displayName NullableString, assignedMerchantCount NullableFloat32) *GetPlatformFee200ResponseDataFeesInner {
 	this := GetPlatformFee200ResponseDataFeesInner{}
 	this.RatePlanId = ratePlanId
 	this.Code = code
@@ -132,9 +132,9 @@ func (o *GetPlatformFee200ResponseDataFeesInner) SetDisplayName(v string) {
 }
 
 // GetPlatformBasisPoints returns the PlatformBasisPoints field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GetPlatformFee200ResponseDataFeesInner) GetPlatformBasisPoints() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *GetPlatformFee200ResponseDataFeesInner) GetPlatformBasisPoints() float32 {
 	if o == nil || IsNil(o.PlatformBasisPoints.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.PlatformBasisPoints.Get()
@@ -143,7 +143,7 @@ func (o *GetPlatformFee200ResponseDataFeesInner) GetPlatformBasisPoints() ListCu
 // GetPlatformBasisPointsOk returns a tuple with the PlatformBasisPoints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GetPlatformFee200ResponseDataFeesInner) GetPlatformBasisPointsOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *GetPlatformFee200ResponseDataFeesInner) GetPlatformBasisPointsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -159,8 +159,8 @@ func (o *GetPlatformFee200ResponseDataFeesInner) HasPlatformBasisPoints() bool {
 	return false
 }
 
-// SetPlatformBasisPoints gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the PlatformBasisPoints field.
-func (o *GetPlatformFee200ResponseDataFeesInner) SetPlatformBasisPoints(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetPlatformBasisPoints gets a reference to the given NullableFloat32 and assigns it to the PlatformBasisPoints field.
+func (o *GetPlatformFee200ResponseDataFeesInner) SetPlatformBasisPoints(v float32) {
 	o.PlatformBasisPoints.Set(&v)
 }
 // SetPlatformBasisPointsNil sets the value for PlatformBasisPoints to be an explicit nil
@@ -174,9 +174,9 @@ func (o *GetPlatformFee200ResponseDataFeesInner) UnsetPlatformBasisPoints() {
 }
 
 // GetPlatformFixedFee returns the PlatformFixedFee field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GetPlatformFee200ResponseDataFeesInner) GetPlatformFixedFee() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *GetPlatformFee200ResponseDataFeesInner) GetPlatformFixedFee() float32 {
 	if o == nil || IsNil(o.PlatformFixedFee.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.PlatformFixedFee.Get()
@@ -185,7 +185,7 @@ func (o *GetPlatformFee200ResponseDataFeesInner) GetPlatformFixedFee() ListCusto
 // GetPlatformFixedFeeOk returns a tuple with the PlatformFixedFee field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GetPlatformFee200ResponseDataFeesInner) GetPlatformFixedFeeOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *GetPlatformFee200ResponseDataFeesInner) GetPlatformFixedFeeOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -201,8 +201,8 @@ func (o *GetPlatformFee200ResponseDataFeesInner) HasPlatformFixedFee() bool {
 	return false
 }
 
-// SetPlatformFixedFee gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the PlatformFixedFee field.
-func (o *GetPlatformFee200ResponseDataFeesInner) SetPlatformFixedFee(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetPlatformFixedFee gets a reference to the given NullableFloat32 and assigns it to the PlatformFixedFee field.
+func (o *GetPlatformFee200ResponseDataFeesInner) SetPlatformFixedFee(v float32) {
 	o.PlatformFixedFee.Set(&v)
 }
 // SetPlatformFixedFeeNil sets the value for PlatformFixedFee to be an explicit nil
@@ -258,27 +258,29 @@ func (o *GetPlatformFee200ResponseDataFeesInner) UnsetPlatformFeeBounds() {
 }
 
 // GetAssignedMerchantCount returns the AssignedMerchantCount field value
-func (o *GetPlatformFee200ResponseDataFeesInner) GetAssignedMerchantCount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetPlatformFee200ResponseDataFeesInner) GetAssignedMerchantCount() float32 {
+	if o == nil || o.AssignedMerchantCount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.AssignedMerchantCount
+	return *o.AssignedMerchantCount.Get()
 }
 
 // GetAssignedMerchantCountOk returns a tuple with the AssignedMerchantCount field value
 // and a boolean to check if the value has been set.
-func (o *GetPlatformFee200ResponseDataFeesInner) GetAssignedMerchantCountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetPlatformFee200ResponseDataFeesInner) GetAssignedMerchantCountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AssignedMerchantCount, true
+	return o.AssignedMerchantCount.Get(), o.AssignedMerchantCount.IsSet()
 }
 
 // SetAssignedMerchantCount sets field value
-func (o *GetPlatformFee200ResponseDataFeesInner) SetAssignedMerchantCount(v ListProducts200ResponseDataTotal) {
-	o.AssignedMerchantCount = v
+func (o *GetPlatformFee200ResponseDataFeesInner) SetAssignedMerchantCount(v float32) {
+	o.AssignedMerchantCount.Set(&v)
 }
 
 func (o GetPlatformFee200ResponseDataFeesInner) MarshalJSON() ([]byte, error) {
@@ -303,7 +305,7 @@ func (o GetPlatformFee200ResponseDataFeesInner) ToMap() (map[string]interface{},
 	if o.PlatformFeeBounds.IsSet() {
 		toSerialize["platformFeeBounds"] = o.PlatformFeeBounds.Get()
 	}
-	toSerialize["assignedMerchantCount"] = o.AssignedMerchantCount
+	toSerialize["assignedMerchantCount"] = o.AssignedMerchantCount.Get()
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

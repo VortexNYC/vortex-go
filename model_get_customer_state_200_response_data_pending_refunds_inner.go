@@ -24,7 +24,7 @@ type GetCustomerState200ResponseDataPendingRefundsInner struct {
 	InvoiceNumber NullableString `json:"invoiceNumber"`
 	PaymentId NullableString `json:"paymentId"`
 	PaymentsRefundId NullableString `json:"paymentsRefundId"`
-	Amount ListProducts200ResponseDataTotal `json:"amount"`
+	Amount NullableFloat32 `json:"amount"`
 	Status NullableString `json:"status"`
 	Reason NullableString `json:"reason"`
 	RequestedAt NullableString `json:"requestedAt"`
@@ -38,7 +38,7 @@ type _GetCustomerState200ResponseDataPendingRefundsInner GetCustomerState200Resp
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetCustomerState200ResponseDataPendingRefundsInner(billingRefundId NullableString, invoiceNumber NullableString, paymentId NullableString, paymentsRefundId NullableString, amount ListProducts200ResponseDataTotal, status NullableString, reason NullableString, requestedAt NullableString, resolvedAt NullableString) *GetCustomerState200ResponseDataPendingRefundsInner {
+func NewGetCustomerState200ResponseDataPendingRefundsInner(billingRefundId NullableString, invoiceNumber NullableString, paymentId NullableString, paymentsRefundId NullableString, amount NullableFloat32, status NullableString, reason NullableString, requestedAt NullableString, resolvedAt NullableString) *GetCustomerState200ResponseDataPendingRefundsInner {
 	this := GetCustomerState200ResponseDataPendingRefundsInner{}
 	this.BillingRefundId = billingRefundId
 	this.InvoiceNumber = invoiceNumber
@@ -165,27 +165,29 @@ func (o *GetCustomerState200ResponseDataPendingRefundsInner) SetPaymentsRefundId
 }
 
 // GetAmount returns the Amount field value
-func (o *GetCustomerState200ResponseDataPendingRefundsInner) GetAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetCustomerState200ResponseDataPendingRefundsInner) GetAmount() float32 {
+	if o == nil || o.Amount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Amount
+	return *o.Amount.Get()
 }
 
 // GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
-func (o *GetCustomerState200ResponseDataPendingRefundsInner) GetAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetCustomerState200ResponseDataPendingRefundsInner) GetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Amount, true
+	return o.Amount.Get(), o.Amount.IsSet()
 }
 
 // SetAmount sets field value
-func (o *GetCustomerState200ResponseDataPendingRefundsInner) SetAmount(v ListProducts200ResponseDataTotal) {
-	o.Amount = v
+func (o *GetCustomerState200ResponseDataPendingRefundsInner) SetAmount(v float32) {
+	o.Amount.Set(&v)
 }
 
 // GetStatus returns the Status field value
@@ -306,7 +308,7 @@ func (o GetCustomerState200ResponseDataPendingRefundsInner) ToMap() (map[string]
 	toSerialize["invoiceNumber"] = o.InvoiceNumber.Get()
 	toSerialize["paymentId"] = o.PaymentId.Get()
 	toSerialize["paymentsRefundId"] = o.PaymentsRefundId.Get()
-	toSerialize["amount"] = o.Amount
+	toSerialize["amount"] = o.Amount.Get()
 	toSerialize["status"] = o.Status.Get()
 	toSerialize["reason"] = o.Reason.Get()
 	toSerialize["requestedAt"] = o.RequestedAt.Get()

@@ -19,10 +19,10 @@ var _ MappedNullable = &GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds{
 
 // GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds struct for GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds
 type GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds struct {
-	MinBasisPoints NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"minBasisPoints,omitempty"`
-	MaxBasisPoints NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"maxBasisPoints,omitempty"`
-	MinFixedFee NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"minFixedFee,omitempty"`
-	MaxFixedFee NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"maxFixedFee,omitempty"`
+	MinBasisPoints NullableFloat32 `json:"minBasisPoints,omitempty"`
+	MaxBasisPoints NullableFloat32 `json:"maxBasisPoints,omitempty"`
+	MinFixedFee NullableFloat32 `json:"minFixedFee,omitempty"`
+	MaxFixedFee NullableFloat32 `json:"maxFixedFee,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -46,9 +46,9 @@ func NewGetPlatformFee200ResponseDataFeesInnerPlatformFeeBoundsWithDefaults() *G
 }
 
 // GetMinBasisPoints returns the MinBasisPoints field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) GetMinBasisPoints() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) GetMinBasisPoints() float32 {
 	if o == nil || IsNil(o.MinBasisPoints.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.MinBasisPoints.Get()
@@ -57,7 +57,7 @@ func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) GetMinBasisPoi
 // GetMinBasisPointsOk returns a tuple with the MinBasisPoints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) GetMinBasisPointsOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) GetMinBasisPointsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -73,8 +73,8 @@ func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) HasMinBasisPoi
 	return false
 }
 
-// SetMinBasisPoints gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the MinBasisPoints field.
-func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) SetMinBasisPoints(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetMinBasisPoints gets a reference to the given NullableFloat32 and assigns it to the MinBasisPoints field.
+func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) SetMinBasisPoints(v float32) {
 	o.MinBasisPoints.Set(&v)
 }
 // SetMinBasisPointsNil sets the value for MinBasisPoints to be an explicit nil
@@ -88,9 +88,9 @@ func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) UnsetMinBasisP
 }
 
 // GetMaxBasisPoints returns the MaxBasisPoints field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) GetMaxBasisPoints() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) GetMaxBasisPoints() float32 {
 	if o == nil || IsNil(o.MaxBasisPoints.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.MaxBasisPoints.Get()
@@ -99,7 +99,7 @@ func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) GetMaxBasisPoi
 // GetMaxBasisPointsOk returns a tuple with the MaxBasisPoints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) GetMaxBasisPointsOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) GetMaxBasisPointsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -115,8 +115,8 @@ func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) HasMaxBasisPoi
 	return false
 }
 
-// SetMaxBasisPoints gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the MaxBasisPoints field.
-func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) SetMaxBasisPoints(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetMaxBasisPoints gets a reference to the given NullableFloat32 and assigns it to the MaxBasisPoints field.
+func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) SetMaxBasisPoints(v float32) {
 	o.MaxBasisPoints.Set(&v)
 }
 // SetMaxBasisPointsNil sets the value for MaxBasisPoints to be an explicit nil
@@ -130,9 +130,9 @@ func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) UnsetMaxBasisP
 }
 
 // GetMinFixedFee returns the MinFixedFee field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) GetMinFixedFee() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) GetMinFixedFee() float32 {
 	if o == nil || IsNil(o.MinFixedFee.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.MinFixedFee.Get()
@@ -141,7 +141,7 @@ func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) GetMinFixedFee
 // GetMinFixedFeeOk returns a tuple with the MinFixedFee field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) GetMinFixedFeeOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) GetMinFixedFeeOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -157,8 +157,8 @@ func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) HasMinFixedFee
 	return false
 }
 
-// SetMinFixedFee gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the MinFixedFee field.
-func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) SetMinFixedFee(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetMinFixedFee gets a reference to the given NullableFloat32 and assigns it to the MinFixedFee field.
+func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) SetMinFixedFee(v float32) {
 	o.MinFixedFee.Set(&v)
 }
 // SetMinFixedFeeNil sets the value for MinFixedFee to be an explicit nil
@@ -172,9 +172,9 @@ func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) UnsetMinFixedF
 }
 
 // GetMaxFixedFee returns the MaxFixedFee field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) GetMaxFixedFee() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) GetMaxFixedFee() float32 {
 	if o == nil || IsNil(o.MaxFixedFee.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.MaxFixedFee.Get()
@@ -183,7 +183,7 @@ func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) GetMaxFixedFee
 // GetMaxFixedFeeOk returns a tuple with the MaxFixedFee field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) GetMaxFixedFeeOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) GetMaxFixedFeeOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -199,8 +199,8 @@ func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) HasMaxFixedFee
 	return false
 }
 
-// SetMaxFixedFee gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the MaxFixedFee field.
-func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) SetMaxFixedFee(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetMaxFixedFee gets a reference to the given NullableFloat32 and assigns it to the MaxFixedFee field.
+func (o *GetPlatformFee200ResponseDataFeesInnerPlatformFeeBounds) SetMaxFixedFee(v float32) {
 	o.MaxFixedFee.Set(&v)
 }
 // SetMaxFixedFeeNil sets the value for MaxFixedFee to be an explicit nil

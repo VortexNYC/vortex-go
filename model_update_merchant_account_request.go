@@ -35,13 +35,13 @@ type UpdateMerchantAccountRequest struct {
 	LastName NullableString `json:"lastName,omitempty"`
 	DateOfBirth NullableUpdateMerchantAccountRequestDateOfBirth `json:"dateOfBirth,omitempty"`
 	IncorporationDate NullableUpdateMerchantAccountRequestDateOfBirth `json:"incorporationDate,omitempty"`
-	MaxTransactionAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"maxTransactionAmount,omitempty"`
-	AchMaxTransactionAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"achMaxTransactionAmount,omitempty"`
+	MaxTransactionAmount NullableFloat32 `json:"maxTransactionAmount,omitempty"`
+	AchMaxTransactionAmount NullableFloat32 `json:"achMaxTransactionAmount,omitempty"`
 	AcceptsAch NullableBool `json:"acceptsAch,omitempty"`
-	AnnualCardVolume NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"annualCardVolume,omitempty"`
+	AnnualCardVolume NullableFloat32 `json:"annualCardVolume,omitempty"`
 	Mcc NullableString `json:"mcc,omitempty"`
 	Url NullableString `json:"url,omitempty"`
-	PrincipalPercentageOwnership NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"principalPercentageOwnership,omitempty"`
+	PrincipalPercentageOwnership NullableFloat32 `json:"principalPercentageOwnership,omitempty"`
 	HasAcceptedCreditCardsPreviously NullableBool `json:"hasAcceptedCreditCardsPreviously,omitempty"`
 	SettlementBankAccount NullableUpdateMerchantAccountRequestSettlementBankAccount `json:"settlementBankAccount,omitempty"`
 	AssociatedIdentities []UpdateMerchantAccountRequestAssociatedIdentitiesInner `json:"associatedIdentities,omitempty"`
@@ -742,9 +742,9 @@ func (o *UpdateMerchantAccountRequest) UnsetIncorporationDate() {
 }
 
 // GetMaxTransactionAmount returns the MaxTransactionAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UpdateMerchantAccountRequest) GetMaxTransactionAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *UpdateMerchantAccountRequest) GetMaxTransactionAmount() float32 {
 	if o == nil || IsNil(o.MaxTransactionAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.MaxTransactionAmount.Get()
@@ -753,7 +753,7 @@ func (o *UpdateMerchantAccountRequest) GetMaxTransactionAmount() ListCustomerBil
 // GetMaxTransactionAmountOk returns a tuple with the MaxTransactionAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UpdateMerchantAccountRequest) GetMaxTransactionAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *UpdateMerchantAccountRequest) GetMaxTransactionAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -769,8 +769,8 @@ func (o *UpdateMerchantAccountRequest) HasMaxTransactionAmount() bool {
 	return false
 }
 
-// SetMaxTransactionAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the MaxTransactionAmount field.
-func (o *UpdateMerchantAccountRequest) SetMaxTransactionAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetMaxTransactionAmount gets a reference to the given NullableFloat32 and assigns it to the MaxTransactionAmount field.
+func (o *UpdateMerchantAccountRequest) SetMaxTransactionAmount(v float32) {
 	o.MaxTransactionAmount.Set(&v)
 }
 // SetMaxTransactionAmountNil sets the value for MaxTransactionAmount to be an explicit nil
@@ -784,9 +784,9 @@ func (o *UpdateMerchantAccountRequest) UnsetMaxTransactionAmount() {
 }
 
 // GetAchMaxTransactionAmount returns the AchMaxTransactionAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UpdateMerchantAccountRequest) GetAchMaxTransactionAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *UpdateMerchantAccountRequest) GetAchMaxTransactionAmount() float32 {
 	if o == nil || IsNil(o.AchMaxTransactionAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.AchMaxTransactionAmount.Get()
@@ -795,7 +795,7 @@ func (o *UpdateMerchantAccountRequest) GetAchMaxTransactionAmount() ListCustomer
 // GetAchMaxTransactionAmountOk returns a tuple with the AchMaxTransactionAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UpdateMerchantAccountRequest) GetAchMaxTransactionAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *UpdateMerchantAccountRequest) GetAchMaxTransactionAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -811,8 +811,8 @@ func (o *UpdateMerchantAccountRequest) HasAchMaxTransactionAmount() bool {
 	return false
 }
 
-// SetAchMaxTransactionAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the AchMaxTransactionAmount field.
-func (o *UpdateMerchantAccountRequest) SetAchMaxTransactionAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetAchMaxTransactionAmount gets a reference to the given NullableFloat32 and assigns it to the AchMaxTransactionAmount field.
+func (o *UpdateMerchantAccountRequest) SetAchMaxTransactionAmount(v float32) {
 	o.AchMaxTransactionAmount.Set(&v)
 }
 // SetAchMaxTransactionAmountNil sets the value for AchMaxTransactionAmount to be an explicit nil
@@ -868,9 +868,9 @@ func (o *UpdateMerchantAccountRequest) UnsetAcceptsAch() {
 }
 
 // GetAnnualCardVolume returns the AnnualCardVolume field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UpdateMerchantAccountRequest) GetAnnualCardVolume() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *UpdateMerchantAccountRequest) GetAnnualCardVolume() float32 {
 	if o == nil || IsNil(o.AnnualCardVolume.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.AnnualCardVolume.Get()
@@ -879,7 +879,7 @@ func (o *UpdateMerchantAccountRequest) GetAnnualCardVolume() ListCustomerBilling
 // GetAnnualCardVolumeOk returns a tuple with the AnnualCardVolume field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UpdateMerchantAccountRequest) GetAnnualCardVolumeOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *UpdateMerchantAccountRequest) GetAnnualCardVolumeOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -895,8 +895,8 @@ func (o *UpdateMerchantAccountRequest) HasAnnualCardVolume() bool {
 	return false
 }
 
-// SetAnnualCardVolume gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the AnnualCardVolume field.
-func (o *UpdateMerchantAccountRequest) SetAnnualCardVolume(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetAnnualCardVolume gets a reference to the given NullableFloat32 and assigns it to the AnnualCardVolume field.
+func (o *UpdateMerchantAccountRequest) SetAnnualCardVolume(v float32) {
 	o.AnnualCardVolume.Set(&v)
 }
 // SetAnnualCardVolumeNil sets the value for AnnualCardVolume to be an explicit nil
@@ -994,9 +994,9 @@ func (o *UpdateMerchantAccountRequest) UnsetUrl() {
 }
 
 // GetPrincipalPercentageOwnership returns the PrincipalPercentageOwnership field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UpdateMerchantAccountRequest) GetPrincipalPercentageOwnership() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *UpdateMerchantAccountRequest) GetPrincipalPercentageOwnership() float32 {
 	if o == nil || IsNil(o.PrincipalPercentageOwnership.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.PrincipalPercentageOwnership.Get()
@@ -1005,7 +1005,7 @@ func (o *UpdateMerchantAccountRequest) GetPrincipalPercentageOwnership() ListCus
 // GetPrincipalPercentageOwnershipOk returns a tuple with the PrincipalPercentageOwnership field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UpdateMerchantAccountRequest) GetPrincipalPercentageOwnershipOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *UpdateMerchantAccountRequest) GetPrincipalPercentageOwnershipOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -1021,8 +1021,8 @@ func (o *UpdateMerchantAccountRequest) HasPrincipalPercentageOwnership() bool {
 	return false
 }
 
-// SetPrincipalPercentageOwnership gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the PrincipalPercentageOwnership field.
-func (o *UpdateMerchantAccountRequest) SetPrincipalPercentageOwnership(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetPrincipalPercentageOwnership gets a reference to the given NullableFloat32 and assigns it to the PrincipalPercentageOwnership field.
+func (o *UpdateMerchantAccountRequest) SetPrincipalPercentageOwnership(v float32) {
 	o.PrincipalPercentageOwnership.Set(&v)
 }
 // SetPrincipalPercentageOwnershipNil sets the value for PrincipalPercentageOwnership to be an explicit nil

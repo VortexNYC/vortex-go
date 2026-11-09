@@ -22,11 +22,11 @@ var _ MappedNullable = &CreateBillingQuote201ResponseDataCurrentVersionBillingIt
 // CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPayload struct for CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPayload
 type CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPayload struct {
 	PriceId string `json:"priceId"`
-	Quantity ListProducts200ResponseDataTotal `json:"quantity"`
+	Quantity float32 `json:"quantity"`
 	ProductId NullableString `json:"productId,omitempty"`
 	ProductName NullableString `json:"productName,omitempty"`
 	PriceType NullableString `json:"priceType,omitempty"`
-	UnitAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"unitAmount,omitempty"`
+	UnitAmount NullableFloat32 `json:"unitAmount,omitempty"`
 	Description NullableString `json:"description,omitempty"`
 }
 
@@ -36,7 +36,7 @@ type _CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPaylo
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPayload(priceId string, quantity ListProducts200ResponseDataTotal) *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPayload {
+func NewCreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPayload(priceId string, quantity float32) *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPayload {
 	this := CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPayload{}
 	this.PriceId = priceId
 	this.Quantity = quantity
@@ -76,9 +76,9 @@ func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPa
 }
 
 // GetQuantity returns the Quantity field value
-func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPayload) GetQuantity() ListProducts200ResponseDataTotal {
+func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPayload) GetQuantity() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -87,7 +87,7 @@ func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPa
 
 // GetQuantityOk returns a tuple with the Quantity field value
 // and a boolean to check if the value has been set.
-func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPayload) GetQuantityOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPayload) GetQuantityOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -95,7 +95,7 @@ func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPa
 }
 
 // SetQuantity sets field value
-func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPayload) SetQuantity(v ListProducts200ResponseDataTotal) {
+func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPayload) SetQuantity(v float32) {
 	o.Quantity = v
 }
 
@@ -226,9 +226,9 @@ func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPa
 }
 
 // GetUnitAmount returns the UnitAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPayload) GetUnitAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPayload) GetUnitAmount() float32 {
 	if o == nil || IsNil(o.UnitAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.UnitAmount.Get()
@@ -237,7 +237,7 @@ func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPa
 // GetUnitAmountOk returns a tuple with the UnitAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPayload) GetUnitAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPayload) GetUnitAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -253,8 +253,8 @@ func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPa
 	return false
 }
 
-// SetUnitAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the UnitAmount field.
-func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPayload) SetUnitAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetUnitAmount gets a reference to the given NullableFloat32 and assigns it to the UnitAmount field.
+func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerPayload) SetUnitAmount(v float32) {
 	o.UnitAmount.Set(&v)
 }
 // SetUnitAmountNil sets the value for UnitAmount to be an explicit nil

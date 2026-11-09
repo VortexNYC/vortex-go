@@ -111,6 +111,20 @@ func (a *MerchantOnboardingAPIService) CreateMerchantDeviceHostedLinkExecute(r M
 	}
 	// body params
 	localVarPostBody = r.createMerchantDeviceHostedLinkRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -243,6 +257,20 @@ func (a *MerchantOnboardingAPIService) CreateMerchantOnboardingHostedLinkExecute
 	}
 	// body params
 	localVarPostBody = r.createMerchantOnboardingHostedLinkRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -368,6 +396,20 @@ func (a *MerchantOnboardingAPIService) CreateMerchantOnboardingLinkExecute(r Mer
 	}
 	// body params
 	localVarPostBody = r.createMerchantOnboardingLinkRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -507,6 +549,20 @@ func (a *MerchantOnboardingAPIService) CreateMerchantRequirementUploadLinkExecut
 	}
 	// body params
 	localVarPostBody = r.createMerchantRequirementUploadLinkRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -627,6 +683,20 @@ func (a *MerchantOnboardingAPIService) GetMerchantOnboardingExecute(r MerchantOn
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -739,6 +809,20 @@ func (a *MerchantOnboardingAPIService) GetMerchantOnboardingReadinessExecute(r M
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -867,6 +951,20 @@ func (a *MerchantOnboardingAPIService) GetMerchantRequirementUploadStatusExecute
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -911,8 +1009,8 @@ type MerchantOnboardingAPIListMerchantOnboardingRequirementDocumentsRequest stru
 	onboardingId string
 	requirementId string
 	environment *string
-	limit *ListCustomersLimitParameter
-	offset *ListCustomersLimitParameter
+	limit *string
+	offset *string
 }
 
 func (r MerchantOnboardingAPIListMerchantOnboardingRequirementDocumentsRequest) Environment(environment string) MerchantOnboardingAPIListMerchantOnboardingRequirementDocumentsRequest {
@@ -920,12 +1018,12 @@ func (r MerchantOnboardingAPIListMerchantOnboardingRequirementDocumentsRequest) 
 	return r
 }
 
-func (r MerchantOnboardingAPIListMerchantOnboardingRequirementDocumentsRequest) Limit(limit ListCustomersLimitParameter) MerchantOnboardingAPIListMerchantOnboardingRequirementDocumentsRequest {
+func (r MerchantOnboardingAPIListMerchantOnboardingRequirementDocumentsRequest) Limit(limit string) MerchantOnboardingAPIListMerchantOnboardingRequirementDocumentsRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r MerchantOnboardingAPIListMerchantOnboardingRequirementDocumentsRequest) Offset(offset ListCustomersLimitParameter) MerchantOnboardingAPIListMerchantOnboardingRequirementDocumentsRequest {
+func (r MerchantOnboardingAPIListMerchantOnboardingRequirementDocumentsRequest) Offset(offset string) MerchantOnboardingAPIListMerchantOnboardingRequirementDocumentsRequest {
 	r.offset = &offset
 	return r
 }
@@ -1012,6 +1110,20 @@ func (a *MerchantOnboardingAPIService) ListMerchantOnboardingRequirementDocument
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1055,8 +1167,8 @@ type MerchantOnboardingAPIListMerchantOnboardingRequirementsRequest struct {
 	merchantAccountId string
 	onboardingId string
 	environment *string
-	limit *ListCustomersLimitParameter
-	offset *ListCustomersLimitParameter
+	limit *string
+	offset *string
 }
 
 func (r MerchantOnboardingAPIListMerchantOnboardingRequirementsRequest) Environment(environment string) MerchantOnboardingAPIListMerchantOnboardingRequirementsRequest {
@@ -1064,12 +1176,12 @@ func (r MerchantOnboardingAPIListMerchantOnboardingRequirementsRequest) Environm
 	return r
 }
 
-func (r MerchantOnboardingAPIListMerchantOnboardingRequirementsRequest) Limit(limit ListCustomersLimitParameter) MerchantOnboardingAPIListMerchantOnboardingRequirementsRequest {
+func (r MerchantOnboardingAPIListMerchantOnboardingRequirementsRequest) Limit(limit string) MerchantOnboardingAPIListMerchantOnboardingRequirementsRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r MerchantOnboardingAPIListMerchantOnboardingRequirementsRequest) Offset(offset ListCustomersLimitParameter) MerchantOnboardingAPIListMerchantOnboardingRequirementsRequest {
+func (r MerchantOnboardingAPIListMerchantOnboardingRequirementsRequest) Offset(offset string) MerchantOnboardingAPIListMerchantOnboardingRequirementsRequest {
 	r.offset = &offset
 	return r
 }
@@ -1149,6 +1261,20 @@ func (a *MerchantOnboardingAPIService) ListMerchantOnboardingRequirementsExecute
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -1289,6 +1415,20 @@ func (a *MerchantOnboardingAPIService) RefreshMerchantOnboardingRequirementExecu
 	}
 	// body params
 	localVarPostBody = r.refreshMerchantOnboardingRequirementRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1421,6 +1561,20 @@ func (a *MerchantOnboardingAPIService) RefreshMerchantOnboardingSessionExecute(r
 	}
 	// body params
 	localVarPostBody = r.refreshMerchantOnboardingRequirementRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1553,6 +1707,20 @@ func (a *MerchantOnboardingAPIService) RevokeMerchantDeviceHostedLinkExecute(r M
 	}
 	// body params
 	localVarPostBody = r.revokeMerchantDeviceHostedLinkRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1692,6 +1860,20 @@ func (a *MerchantOnboardingAPIService) RevokeMerchantOnboardingHostedLinkExecute
 	}
 	// body params
 	localVarPostBody = r.refreshMerchantOnboardingRequirementRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1824,6 +2006,20 @@ func (a *MerchantOnboardingAPIService) SatisfyMerchantOnboardingRequirementsExec
 	}
 	// body params
 	localVarPostBody = r.satisfyMerchantOnboardingRequirementsRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1963,6 +2159,20 @@ func (a *MerchantOnboardingAPIService) SignMerchantComplianceFormExecute(r Merch
 	}
 	// body params
 	localVarPostBody = r.signMerchantComplianceFormRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2088,6 +2298,20 @@ func (a *MerchantOnboardingAPIService) SubmitMerchantOnboardingExecute(r Merchan
 	}
 	// body params
 	localVarPostBody = r.submitMerchantOnboardingRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2244,6 +2468,20 @@ func (a *MerchantOnboardingAPIService) UploadMerchantRequirementDocumentExecute(
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
 	}
 	parameterAddToHeaderOrQuery(localVarFormParams, "file", r.file, "", "")
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

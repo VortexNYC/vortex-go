@@ -122,6 +122,20 @@ func (a *CouponsAPIService) CreateBillingCouponExecute(r CouponsAPICreateBilling
 	}
 	// body params
 	localVarPostBody = r.createBillingCouponRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -244,6 +258,20 @@ func (a *CouponsAPIService) GetBillingCouponExecute(r CouponsAPIGetBillingCoupon
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -286,8 +314,8 @@ type CouponsAPIListBillingCouponsRequest struct {
 	ApiService *CouponsAPIService
 	environment *string
 	merchantAccountId *string
-	limit *ListCustomersLimitParameter
-	offset *ListCustomersLimitParameter
+	limit *string
+	offset *string
 }
 
 func (r CouponsAPIListBillingCouponsRequest) Environment(environment string) CouponsAPIListBillingCouponsRequest {
@@ -300,12 +328,12 @@ func (r CouponsAPIListBillingCouponsRequest) MerchantAccountId(merchantAccountId
 	return r
 }
 
-func (r CouponsAPIListBillingCouponsRequest) Limit(limit ListCustomersLimitParameter) CouponsAPIListBillingCouponsRequest {
+func (r CouponsAPIListBillingCouponsRequest) Limit(limit string) CouponsAPIListBillingCouponsRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r CouponsAPIListBillingCouponsRequest) Offset(offset ListCustomersLimitParameter) CouponsAPIListBillingCouponsRequest {
+func (r CouponsAPIListBillingCouponsRequest) Offset(offset string) CouponsAPIListBillingCouponsRequest {
 	r.offset = &offset
 	return r
 }
@@ -376,6 +404,20 @@ func (a *CouponsAPIService) ListBillingCouponsExecute(r CouponsAPIListBillingCou
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {

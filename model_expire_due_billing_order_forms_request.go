@@ -22,7 +22,7 @@ type ExpireDueBillingOrderFormsRequest struct {
 	Environment NullableString `json:"environment,omitempty"`
 	MerchantAccountId NullableString `json:"merchantAccountId,omitempty"`
 	Now NullableString `json:"now,omitempty"`
-	Limit NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"limit,omitempty"`
+	Limit NullableFloat32 `json:"limit,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -172,9 +172,9 @@ func (o *ExpireDueBillingOrderFormsRequest) UnsetNow() {
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ExpireDueBillingOrderFormsRequest) GetLimit() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ExpireDueBillingOrderFormsRequest) GetLimit() float32 {
 	if o == nil || IsNil(o.Limit.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.Limit.Get()
@@ -183,7 +183,7 @@ func (o *ExpireDueBillingOrderFormsRequest) GetLimit() ListCustomerBillingAccoun
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ExpireDueBillingOrderFormsRequest) GetLimitOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ExpireDueBillingOrderFormsRequest) GetLimitOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -199,8 +199,8 @@ func (o *ExpireDueBillingOrderFormsRequest) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the Limit field.
-func (o *ExpireDueBillingOrderFormsRequest) SetLimit(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetLimit gets a reference to the given NullableFloat32 and assigns it to the Limit field.
+func (o *ExpireDueBillingOrderFormsRequest) SetLimit(v float32) {
 	o.Limit.Set(&v)
 }
 // SetLimitNil sets the value for Limit to be an explicit nil

@@ -23,8 +23,8 @@ type ListTaxTransactions200ResponseDataItemsInnerLineEvidenceInner struct {
 	SourceLineId NullableString `json:"sourceLineId"`
 	ClassificationKey NullableString `json:"classificationKey"`
 	ClassificationLabel NullableString `json:"classificationLabel"`
-	TaxableAmount ListProducts200ResponseDataTotal `json:"taxableAmount"`
-	TaxAmount ListProducts200ResponseDataTotal `json:"taxAmount"`
+	TaxableAmount NullableFloat32 `json:"taxableAmount"`
+	TaxAmount NullableFloat32 `json:"taxAmount"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -34,7 +34,7 @@ type _ListTaxTransactions200ResponseDataItemsInnerLineEvidenceInner ListTaxTrans
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListTaxTransactions200ResponseDataItemsInnerLineEvidenceInner(sourceLineId NullableString, classificationKey NullableString, classificationLabel NullableString, taxableAmount ListProducts200ResponseDataTotal, taxAmount ListProducts200ResponseDataTotal) *ListTaxTransactions200ResponseDataItemsInnerLineEvidenceInner {
+func NewListTaxTransactions200ResponseDataItemsInnerLineEvidenceInner(sourceLineId NullableString, classificationKey NullableString, classificationLabel NullableString, taxableAmount NullableFloat32, taxAmount NullableFloat32) *ListTaxTransactions200ResponseDataItemsInnerLineEvidenceInner {
 	this := ListTaxTransactions200ResponseDataItemsInnerLineEvidenceInner{}
 	this.SourceLineId = sourceLineId
 	this.ClassificationKey = classificationKey
@@ -131,51 +131,55 @@ func (o *ListTaxTransactions200ResponseDataItemsInnerLineEvidenceInner) SetClass
 }
 
 // GetTaxableAmount returns the TaxableAmount field value
-func (o *ListTaxTransactions200ResponseDataItemsInnerLineEvidenceInner) GetTaxableAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListTaxTransactions200ResponseDataItemsInnerLineEvidenceInner) GetTaxableAmount() float32 {
+	if o == nil || o.TaxableAmount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.TaxableAmount
+	return *o.TaxableAmount.Get()
 }
 
 // GetTaxableAmountOk returns a tuple with the TaxableAmount field value
 // and a boolean to check if the value has been set.
-func (o *ListTaxTransactions200ResponseDataItemsInnerLineEvidenceInner) GetTaxableAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListTaxTransactions200ResponseDataItemsInnerLineEvidenceInner) GetTaxableAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.TaxableAmount, true
+	return o.TaxableAmount.Get(), o.TaxableAmount.IsSet()
 }
 
 // SetTaxableAmount sets field value
-func (o *ListTaxTransactions200ResponseDataItemsInnerLineEvidenceInner) SetTaxableAmount(v ListProducts200ResponseDataTotal) {
-	o.TaxableAmount = v
+func (o *ListTaxTransactions200ResponseDataItemsInnerLineEvidenceInner) SetTaxableAmount(v float32) {
+	o.TaxableAmount.Set(&v)
 }
 
 // GetTaxAmount returns the TaxAmount field value
-func (o *ListTaxTransactions200ResponseDataItemsInnerLineEvidenceInner) GetTaxAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListTaxTransactions200ResponseDataItemsInnerLineEvidenceInner) GetTaxAmount() float32 {
+	if o == nil || o.TaxAmount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.TaxAmount
+	return *o.TaxAmount.Get()
 }
 
 // GetTaxAmountOk returns a tuple with the TaxAmount field value
 // and a boolean to check if the value has been set.
-func (o *ListTaxTransactions200ResponseDataItemsInnerLineEvidenceInner) GetTaxAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListTaxTransactions200ResponseDataItemsInnerLineEvidenceInner) GetTaxAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.TaxAmount, true
+	return o.TaxAmount.Get(), o.TaxAmount.IsSet()
 }
 
 // SetTaxAmount sets field value
-func (o *ListTaxTransactions200ResponseDataItemsInnerLineEvidenceInner) SetTaxAmount(v ListProducts200ResponseDataTotal) {
-	o.TaxAmount = v
+func (o *ListTaxTransactions200ResponseDataItemsInnerLineEvidenceInner) SetTaxAmount(v float32) {
+	o.TaxAmount.Set(&v)
 }
 
 func (o ListTaxTransactions200ResponseDataItemsInnerLineEvidenceInner) MarshalJSON() ([]byte, error) {
@@ -191,8 +195,8 @@ func (o ListTaxTransactions200ResponseDataItemsInnerLineEvidenceInner) ToMap() (
 	toSerialize["sourceLineId"] = o.SourceLineId.Get()
 	toSerialize["classificationKey"] = o.ClassificationKey.Get()
 	toSerialize["classificationLabel"] = o.ClassificationLabel.Get()
-	toSerialize["taxableAmount"] = o.TaxableAmount
-	toSerialize["taxAmount"] = o.TaxAmount
+	toSerialize["taxableAmount"] = o.TaxableAmount.Get()
+	toSerialize["taxAmount"] = o.TaxAmount.Get()
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

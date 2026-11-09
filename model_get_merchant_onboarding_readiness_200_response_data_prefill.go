@@ -25,9 +25,9 @@ type GetMerchantOnboardingReadiness200ResponseDataPrefill struct {
 	Currency NullableString `json:"currency"`
 	PeriodStart NullableString `json:"periodStart"`
 	PeriodEnd NullableString `json:"periodEnd"`
-	GrossVolumeMinor ListProducts200ResponseDataTotal `json:"grossVolumeMinor"`
-	TransactionCount ListProducts200ResponseDataTotal `json:"transactionCount"`
-	EffectiveRateBp NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"effectiveRateBp"`
+	GrossVolumeMinor NullableFloat32 `json:"grossVolumeMinor"`
+	TransactionCount NullableFloat32 `json:"transactionCount"`
+	EffectiveRateBp NullableFloat32 `json:"effectiveRateBp"`
 	Suggestions GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions `json:"suggestions"`
 	AdditionalProperties map[string]interface{}
 }
@@ -38,7 +38,7 @@ type _GetMerchantOnboardingReadiness200ResponseDataPrefill GetMerchantOnboarding
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetMerchantOnboardingReadiness200ResponseDataPrefill(statementId NullableString, provider NullableString, currency NullableString, periodStart NullableString, periodEnd NullableString, grossVolumeMinor ListProducts200ResponseDataTotal, transactionCount ListProducts200ResponseDataTotal, effectiveRateBp NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, suggestions GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions) *GetMerchantOnboardingReadiness200ResponseDataPrefill {
+func NewGetMerchantOnboardingReadiness200ResponseDataPrefill(statementId NullableString, provider NullableString, currency NullableString, periodStart NullableString, periodEnd NullableString, grossVolumeMinor NullableFloat32, transactionCount NullableFloat32, effectiveRateBp NullableFloat32, suggestions GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions) *GetMerchantOnboardingReadiness200ResponseDataPrefill {
 	this := GetMerchantOnboardingReadiness200ResponseDataPrefill{}
 	this.StatementId = statementId
 	this.Provider = provider
@@ -191,58 +191,62 @@ func (o *GetMerchantOnboardingReadiness200ResponseDataPrefill) SetPeriodEnd(v st
 }
 
 // GetGrossVolumeMinor returns the GrossVolumeMinor field value
-func (o *GetMerchantOnboardingReadiness200ResponseDataPrefill) GetGrossVolumeMinor() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetMerchantOnboardingReadiness200ResponseDataPrefill) GetGrossVolumeMinor() float32 {
+	if o == nil || o.GrossVolumeMinor.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.GrossVolumeMinor
+	return *o.GrossVolumeMinor.Get()
 }
 
 // GetGrossVolumeMinorOk returns a tuple with the GrossVolumeMinor field value
 // and a boolean to check if the value has been set.
-func (o *GetMerchantOnboardingReadiness200ResponseDataPrefill) GetGrossVolumeMinorOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetMerchantOnboardingReadiness200ResponseDataPrefill) GetGrossVolumeMinorOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.GrossVolumeMinor, true
+	return o.GrossVolumeMinor.Get(), o.GrossVolumeMinor.IsSet()
 }
 
 // SetGrossVolumeMinor sets field value
-func (o *GetMerchantOnboardingReadiness200ResponseDataPrefill) SetGrossVolumeMinor(v ListProducts200ResponseDataTotal) {
-	o.GrossVolumeMinor = v
+func (o *GetMerchantOnboardingReadiness200ResponseDataPrefill) SetGrossVolumeMinor(v float32) {
+	o.GrossVolumeMinor.Set(&v)
 }
 
 // GetTransactionCount returns the TransactionCount field value
-func (o *GetMerchantOnboardingReadiness200ResponseDataPrefill) GetTransactionCount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetMerchantOnboardingReadiness200ResponseDataPrefill) GetTransactionCount() float32 {
+	if o == nil || o.TransactionCount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.TransactionCount
+	return *o.TransactionCount.Get()
 }
 
 // GetTransactionCountOk returns a tuple with the TransactionCount field value
 // and a boolean to check if the value has been set.
-func (o *GetMerchantOnboardingReadiness200ResponseDataPrefill) GetTransactionCountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetMerchantOnboardingReadiness200ResponseDataPrefill) GetTransactionCountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.TransactionCount, true
+	return o.TransactionCount.Get(), o.TransactionCount.IsSet()
 }
 
 // SetTransactionCount sets field value
-func (o *GetMerchantOnboardingReadiness200ResponseDataPrefill) SetTransactionCount(v ListProducts200ResponseDataTotal) {
-	o.TransactionCount = v
+func (o *GetMerchantOnboardingReadiness200ResponseDataPrefill) SetTransactionCount(v float32) {
+	o.TransactionCount.Set(&v)
 }
 
 // GetEffectiveRateBp returns the EffectiveRateBp field value
-// If the value is explicit nil, the zero value for ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays will be returned
-func (o *GetMerchantOnboardingReadiness200ResponseDataPrefill) GetEffectiveRateBp() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetMerchantOnboardingReadiness200ResponseDataPrefill) GetEffectiveRateBp() float32 {
 	if o == nil || o.EffectiveRateBp.Get() == nil {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 
@@ -252,7 +256,7 @@ func (o *GetMerchantOnboardingReadiness200ResponseDataPrefill) GetEffectiveRateB
 // GetEffectiveRateBpOk returns a tuple with the EffectiveRateBp field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GetMerchantOnboardingReadiness200ResponseDataPrefill) GetEffectiveRateBpOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *GetMerchantOnboardingReadiness200ResponseDataPrefill) GetEffectiveRateBpOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -260,7 +264,7 @@ func (o *GetMerchantOnboardingReadiness200ResponseDataPrefill) GetEffectiveRateB
 }
 
 // SetEffectiveRateBp sets field value
-func (o *GetMerchantOnboardingReadiness200ResponseDataPrefill) SetEffectiveRateBp(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+func (o *GetMerchantOnboardingReadiness200ResponseDataPrefill) SetEffectiveRateBp(v float32) {
 	o.EffectiveRateBp.Set(&v)
 }
 
@@ -303,8 +307,8 @@ func (o GetMerchantOnboardingReadiness200ResponseDataPrefill) ToMap() (map[strin
 	toSerialize["currency"] = o.Currency.Get()
 	toSerialize["periodStart"] = o.PeriodStart.Get()
 	toSerialize["periodEnd"] = o.PeriodEnd.Get()
-	toSerialize["grossVolumeMinor"] = o.GrossVolumeMinor
-	toSerialize["transactionCount"] = o.TransactionCount
+	toSerialize["grossVolumeMinor"] = o.GrossVolumeMinor.Get()
+	toSerialize["transactionCount"] = o.TransactionCount.Get()
 	toSerialize["effectiveRateBp"] = o.EffectiveRateBp.Get()
 	toSerialize["suggestions"] = o.Suggestions
 

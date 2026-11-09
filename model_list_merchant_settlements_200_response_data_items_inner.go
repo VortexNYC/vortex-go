@@ -25,11 +25,11 @@ type ListMerchantSettlements200ResponseDataItemsInner struct {
 	MerchantAccountId NullableString `json:"merchantAccountId"`
 	Currency NullableString `json:"currency"`
 	Status string `json:"status"`
-	GrossAmount ListProducts200ResponseDataTotal `json:"grossAmount"`
-	FeeAmount ListProducts200ResponseDataTotal `json:"feeAmount"`
-	RefundAmount ListProducts200ResponseDataTotal `json:"refundAmount"`
-	AdjustmentAmount ListProducts200ResponseDataTotal `json:"adjustmentAmount"`
-	NetAmount ListProducts200ResponseDataTotal `json:"netAmount"`
+	GrossAmount NullableFloat32 `json:"grossAmount"`
+	FeeAmount NullableFloat32 `json:"feeAmount"`
+	RefundAmount NullableFloat32 `json:"refundAmount"`
+	AdjustmentAmount NullableFloat32 `json:"adjustmentAmount"`
+	NetAmount NullableFloat32 `json:"netAmount"`
 	Direction string `json:"direction"`
 	CreatedAt NullableString `json:"createdAt"`
 	UpdatedAt NullableString `json:"updatedAt"`
@@ -48,7 +48,7 @@ type _ListMerchantSettlements200ResponseDataItemsInner ListMerchantSettlements20
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListMerchantSettlements200ResponseDataItemsInner(id NullableString, environment NullableString, merchantAccountId NullableString, currency NullableString, status string, grossAmount ListProducts200ResponseDataTotal, feeAmount ListProducts200ResponseDataTotal, refundAmount ListProducts200ResponseDataTotal, adjustmentAmount ListProducts200ResponseDataTotal, netAmount ListProducts200ResponseDataTotal, direction string, createdAt NullableString, updatedAt NullableString) *ListMerchantSettlements200ResponseDataItemsInner {
+func NewListMerchantSettlements200ResponseDataItemsInner(id NullableString, environment NullableString, merchantAccountId NullableString, currency NullableString, status string, grossAmount NullableFloat32, feeAmount NullableFloat32, refundAmount NullableFloat32, adjustmentAmount NullableFloat32, netAmount NullableFloat32, direction string, createdAt NullableString, updatedAt NullableString) *ListMerchantSettlements200ResponseDataItemsInner {
 	this := ListMerchantSettlements200ResponseDataItemsInner{}
 	this.Id = id
 	this.Environment = environment
@@ -203,123 +203,133 @@ func (o *ListMerchantSettlements200ResponseDataItemsInner) SetStatus(v string) {
 }
 
 // GetGrossAmount returns the GrossAmount field value
-func (o *ListMerchantSettlements200ResponseDataItemsInner) GetGrossAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListMerchantSettlements200ResponseDataItemsInner) GetGrossAmount() float32 {
+	if o == nil || o.GrossAmount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.GrossAmount
+	return *o.GrossAmount.Get()
 }
 
 // GetGrossAmountOk returns a tuple with the GrossAmount field value
 // and a boolean to check if the value has been set.
-func (o *ListMerchantSettlements200ResponseDataItemsInner) GetGrossAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListMerchantSettlements200ResponseDataItemsInner) GetGrossAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.GrossAmount, true
+	return o.GrossAmount.Get(), o.GrossAmount.IsSet()
 }
 
 // SetGrossAmount sets field value
-func (o *ListMerchantSettlements200ResponseDataItemsInner) SetGrossAmount(v ListProducts200ResponseDataTotal) {
-	o.GrossAmount = v
+func (o *ListMerchantSettlements200ResponseDataItemsInner) SetGrossAmount(v float32) {
+	o.GrossAmount.Set(&v)
 }
 
 // GetFeeAmount returns the FeeAmount field value
-func (o *ListMerchantSettlements200ResponseDataItemsInner) GetFeeAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListMerchantSettlements200ResponseDataItemsInner) GetFeeAmount() float32 {
+	if o == nil || o.FeeAmount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.FeeAmount
+	return *o.FeeAmount.Get()
 }
 
 // GetFeeAmountOk returns a tuple with the FeeAmount field value
 // and a boolean to check if the value has been set.
-func (o *ListMerchantSettlements200ResponseDataItemsInner) GetFeeAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListMerchantSettlements200ResponseDataItemsInner) GetFeeAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.FeeAmount, true
+	return o.FeeAmount.Get(), o.FeeAmount.IsSet()
 }
 
 // SetFeeAmount sets field value
-func (o *ListMerchantSettlements200ResponseDataItemsInner) SetFeeAmount(v ListProducts200ResponseDataTotal) {
-	o.FeeAmount = v
+func (o *ListMerchantSettlements200ResponseDataItemsInner) SetFeeAmount(v float32) {
+	o.FeeAmount.Set(&v)
 }
 
 // GetRefundAmount returns the RefundAmount field value
-func (o *ListMerchantSettlements200ResponseDataItemsInner) GetRefundAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListMerchantSettlements200ResponseDataItemsInner) GetRefundAmount() float32 {
+	if o == nil || o.RefundAmount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.RefundAmount
+	return *o.RefundAmount.Get()
 }
 
 // GetRefundAmountOk returns a tuple with the RefundAmount field value
 // and a boolean to check if the value has been set.
-func (o *ListMerchantSettlements200ResponseDataItemsInner) GetRefundAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListMerchantSettlements200ResponseDataItemsInner) GetRefundAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RefundAmount, true
+	return o.RefundAmount.Get(), o.RefundAmount.IsSet()
 }
 
 // SetRefundAmount sets field value
-func (o *ListMerchantSettlements200ResponseDataItemsInner) SetRefundAmount(v ListProducts200ResponseDataTotal) {
-	o.RefundAmount = v
+func (o *ListMerchantSettlements200ResponseDataItemsInner) SetRefundAmount(v float32) {
+	o.RefundAmount.Set(&v)
 }
 
 // GetAdjustmentAmount returns the AdjustmentAmount field value
-func (o *ListMerchantSettlements200ResponseDataItemsInner) GetAdjustmentAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListMerchantSettlements200ResponseDataItemsInner) GetAdjustmentAmount() float32 {
+	if o == nil || o.AdjustmentAmount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.AdjustmentAmount
+	return *o.AdjustmentAmount.Get()
 }
 
 // GetAdjustmentAmountOk returns a tuple with the AdjustmentAmount field value
 // and a boolean to check if the value has been set.
-func (o *ListMerchantSettlements200ResponseDataItemsInner) GetAdjustmentAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListMerchantSettlements200ResponseDataItemsInner) GetAdjustmentAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AdjustmentAmount, true
+	return o.AdjustmentAmount.Get(), o.AdjustmentAmount.IsSet()
 }
 
 // SetAdjustmentAmount sets field value
-func (o *ListMerchantSettlements200ResponseDataItemsInner) SetAdjustmentAmount(v ListProducts200ResponseDataTotal) {
-	o.AdjustmentAmount = v
+func (o *ListMerchantSettlements200ResponseDataItemsInner) SetAdjustmentAmount(v float32) {
+	o.AdjustmentAmount.Set(&v)
 }
 
 // GetNetAmount returns the NetAmount field value
-func (o *ListMerchantSettlements200ResponseDataItemsInner) GetNetAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListMerchantSettlements200ResponseDataItemsInner) GetNetAmount() float32 {
+	if o == nil || o.NetAmount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.NetAmount
+	return *o.NetAmount.Get()
 }
 
 // GetNetAmountOk returns a tuple with the NetAmount field value
 // and a boolean to check if the value has been set.
-func (o *ListMerchantSettlements200ResponseDataItemsInner) GetNetAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListMerchantSettlements200ResponseDataItemsInner) GetNetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.NetAmount, true
+	return o.NetAmount.Get(), o.NetAmount.IsSet()
 }
 
 // SetNetAmount sets field value
-func (o *ListMerchantSettlements200ResponseDataItemsInner) SetNetAmount(v ListProducts200ResponseDataTotal) {
-	o.NetAmount = v
+func (o *ListMerchantSettlements200ResponseDataItemsInner) SetNetAmount(v float32) {
+	o.NetAmount.Set(&v)
 }
 
 // GetDirection returns the Direction field value
@@ -665,11 +675,11 @@ func (o ListMerchantSettlements200ResponseDataItemsInner) ToMap() (map[string]in
 	toSerialize["merchantAccountId"] = o.MerchantAccountId.Get()
 	toSerialize["currency"] = o.Currency.Get()
 	toSerialize["status"] = o.Status
-	toSerialize["grossAmount"] = o.GrossAmount
-	toSerialize["feeAmount"] = o.FeeAmount
-	toSerialize["refundAmount"] = o.RefundAmount
-	toSerialize["adjustmentAmount"] = o.AdjustmentAmount
-	toSerialize["netAmount"] = o.NetAmount
+	toSerialize["grossAmount"] = o.GrossAmount.Get()
+	toSerialize["feeAmount"] = o.FeeAmount.Get()
+	toSerialize["refundAmount"] = o.RefundAmount.Get()
+	toSerialize["adjustmentAmount"] = o.AdjustmentAmount.Get()
+	toSerialize["netAmount"] = o.NetAmount.Get()
 	toSerialize["direction"] = o.Direction
 	toSerialize["createdAt"] = o.CreatedAt.Get()
 	toSerialize["updatedAt"] = o.UpdatedAt.Get()

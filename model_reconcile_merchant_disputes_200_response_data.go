@@ -20,7 +20,7 @@ var _ MappedNullable = &ReconcileMerchantDisputes200ResponseData{}
 
 // ReconcileMerchantDisputes200ResponseData struct for ReconcileMerchantDisputes200ResponseData
 type ReconcileMerchantDisputes200ResponseData struct {
-	Scanned ListProducts200ResponseDataTotal `json:"scanned"`
+	Scanned NullableFloat32 `json:"scanned"`
 	Complete NullableBool `json:"complete"`
 	AdditionalProperties map[string]interface{}
 }
@@ -31,7 +31,7 @@ type _ReconcileMerchantDisputes200ResponseData ReconcileMerchantDisputes200Respo
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewReconcileMerchantDisputes200ResponseData(scanned ListProducts200ResponseDataTotal, complete NullableBool) *ReconcileMerchantDisputes200ResponseData {
+func NewReconcileMerchantDisputes200ResponseData(scanned NullableFloat32, complete NullableBool) *ReconcileMerchantDisputes200ResponseData {
 	this := ReconcileMerchantDisputes200ResponseData{}
 	this.Scanned = scanned
 	this.Complete = complete
@@ -47,27 +47,29 @@ func NewReconcileMerchantDisputes200ResponseDataWithDefaults() *ReconcileMerchan
 }
 
 // GetScanned returns the Scanned field value
-func (o *ReconcileMerchantDisputes200ResponseData) GetScanned() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ReconcileMerchantDisputes200ResponseData) GetScanned() float32 {
+	if o == nil || o.Scanned.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Scanned
+	return *o.Scanned.Get()
 }
 
 // GetScannedOk returns a tuple with the Scanned field value
 // and a boolean to check if the value has been set.
-func (o *ReconcileMerchantDisputes200ResponseData) GetScannedOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ReconcileMerchantDisputes200ResponseData) GetScannedOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Scanned, true
+	return o.Scanned.Get(), o.Scanned.IsSet()
 }
 
 // SetScanned sets field value
-func (o *ReconcileMerchantDisputes200ResponseData) SetScanned(v ListProducts200ResponseDataTotal) {
-	o.Scanned = v
+func (o *ReconcileMerchantDisputes200ResponseData) SetScanned(v float32) {
+	o.Scanned.Set(&v)
 }
 
 // GetComplete returns the Complete field value
@@ -106,7 +108,7 @@ func (o ReconcileMerchantDisputes200ResponseData) MarshalJSON() ([]byte, error) 
 
 func (o ReconcileMerchantDisputes200ResponseData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["scanned"] = o.Scanned
+	toSerialize["scanned"] = o.Scanned.Get()
 	toSerialize["complete"] = o.Complete.Get()
 
 	for key, value := range o.AdditionalProperties {

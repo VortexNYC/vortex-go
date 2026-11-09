@@ -24,8 +24,8 @@ type QuoteTax201ResponseDataLineEvidenceInner struct {
 	SourceLineId string `json:"sourceLineId"`
 	ClassificationKey string `json:"classificationKey"`
 	ClassificationLabel string `json:"classificationLabel"`
-	TaxableAmount ListProducts200ResponseDataTotal `json:"taxableAmount"`
-	TaxAmount ListProducts200ResponseDataTotal `json:"taxAmount"`
+	TaxableAmount float32 `json:"taxableAmount"`
+	TaxAmount float32 `json:"taxAmount"`
 }
 
 type _QuoteTax201ResponseDataLineEvidenceInner QuoteTax201ResponseDataLineEvidenceInner
@@ -34,7 +34,7 @@ type _QuoteTax201ResponseDataLineEvidenceInner QuoteTax201ResponseDataLineEviden
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewQuoteTax201ResponseDataLineEvidenceInner(sourceLineId string, classificationKey string, classificationLabel string, taxableAmount ListProducts200ResponseDataTotal, taxAmount ListProducts200ResponseDataTotal) *QuoteTax201ResponseDataLineEvidenceInner {
+func NewQuoteTax201ResponseDataLineEvidenceInner(sourceLineId string, classificationKey string, classificationLabel string, taxableAmount float32, taxAmount float32) *QuoteTax201ResponseDataLineEvidenceInner {
 	this := QuoteTax201ResponseDataLineEvidenceInner{}
 	this.SourceLineId = sourceLineId
 	this.ClassificationKey = classificationKey
@@ -125,9 +125,9 @@ func (o *QuoteTax201ResponseDataLineEvidenceInner) SetClassificationLabel(v stri
 }
 
 // GetTaxableAmount returns the TaxableAmount field value
-func (o *QuoteTax201ResponseDataLineEvidenceInner) GetTaxableAmount() ListProducts200ResponseDataTotal {
+func (o *QuoteTax201ResponseDataLineEvidenceInner) GetTaxableAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -136,7 +136,7 @@ func (o *QuoteTax201ResponseDataLineEvidenceInner) GetTaxableAmount() ListProduc
 
 // GetTaxableAmountOk returns a tuple with the TaxableAmount field value
 // and a boolean to check if the value has been set.
-func (o *QuoteTax201ResponseDataLineEvidenceInner) GetTaxableAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *QuoteTax201ResponseDataLineEvidenceInner) GetTaxableAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -144,14 +144,14 @@ func (o *QuoteTax201ResponseDataLineEvidenceInner) GetTaxableAmountOk() (*ListPr
 }
 
 // SetTaxableAmount sets field value
-func (o *QuoteTax201ResponseDataLineEvidenceInner) SetTaxableAmount(v ListProducts200ResponseDataTotal) {
+func (o *QuoteTax201ResponseDataLineEvidenceInner) SetTaxableAmount(v float32) {
 	o.TaxableAmount = v
 }
 
 // GetTaxAmount returns the TaxAmount field value
-func (o *QuoteTax201ResponseDataLineEvidenceInner) GetTaxAmount() ListProducts200ResponseDataTotal {
+func (o *QuoteTax201ResponseDataLineEvidenceInner) GetTaxAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -160,7 +160,7 @@ func (o *QuoteTax201ResponseDataLineEvidenceInner) GetTaxAmount() ListProducts20
 
 // GetTaxAmountOk returns a tuple with the TaxAmount field value
 // and a boolean to check if the value has been set.
-func (o *QuoteTax201ResponseDataLineEvidenceInner) GetTaxAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *QuoteTax201ResponseDataLineEvidenceInner) GetTaxAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -168,7 +168,7 @@ func (o *QuoteTax201ResponseDataLineEvidenceInner) GetTaxAmountOk() (*ListProduc
 }
 
 // SetTaxAmount sets field value
-func (o *QuoteTax201ResponseDataLineEvidenceInner) SetTaxAmount(v ListProducts200ResponseDataTotal) {
+func (o *QuoteTax201ResponseDataLineEvidenceInner) SetTaxAmount(v float32) {
 	o.TaxAmount = v
 }
 

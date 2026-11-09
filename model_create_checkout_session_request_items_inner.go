@@ -21,7 +21,7 @@ var _ MappedNullable = &CreateCheckoutSessionRequestItemsInner{}
 // CreateCheckoutSessionRequestItemsInner struct for CreateCheckoutSessionRequestItemsInner
 type CreateCheckoutSessionRequestItemsInner struct {
 	PriceId NullableString `json:"priceId"`
-	Quantity NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"quantity,omitempty"`
+	Quantity NullableFloat32 `json:"quantity,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -72,9 +72,9 @@ func (o *CreateCheckoutSessionRequestItemsInner) SetPriceId(v string) {
 }
 
 // GetQuantity returns the Quantity field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateCheckoutSessionRequestItemsInner) GetQuantity() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateCheckoutSessionRequestItemsInner) GetQuantity() float32 {
 	if o == nil || IsNil(o.Quantity.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.Quantity.Get()
@@ -83,7 +83,7 @@ func (o *CreateCheckoutSessionRequestItemsInner) GetQuantity() ListCustomerBilli
 // GetQuantityOk returns a tuple with the Quantity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateCheckoutSessionRequestItemsInner) GetQuantityOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateCheckoutSessionRequestItemsInner) GetQuantityOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -99,8 +99,8 @@ func (o *CreateCheckoutSessionRequestItemsInner) HasQuantity() bool {
 	return false
 }
 
-// SetQuantity gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the Quantity field.
-func (o *CreateCheckoutSessionRequestItemsInner) SetQuantity(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetQuantity gets a reference to the given NullableFloat32 and assigns it to the Quantity field.
+func (o *CreateCheckoutSessionRequestItemsInner) SetQuantity(v float32) {
 	o.Quantity.Set(&v)
 }
 // SetQuantityNil sets the value for Quantity to be an explicit nil

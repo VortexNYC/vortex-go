@@ -23,11 +23,11 @@ type GetMerchantStatementAnalysis200ResponseData struct {
 	ParsedBy NullableString `json:"parsedBy,omitempty"`
 	Provider string `json:"provider"`
 	Currency NullableString `json:"currency"`
-	GrossVolumeMinor ListProducts200ResponseDataTotal `json:"grossVolumeMinor"`
-	FeeTotalMinor ListProducts200ResponseDataTotal `json:"feeTotalMinor"`
-	NetVolumeMinor ListProducts200ResponseDataTotal `json:"netVolumeMinor"`
-	TransactionCount ListProducts200ResponseDataTotal `json:"transactionCount"`
-	EffectiveRateBp NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"effectiveRateBp"`
+	GrossVolumeMinor NullableFloat32 `json:"grossVolumeMinor"`
+	FeeTotalMinor NullableFloat32 `json:"feeTotalMinor"`
+	NetVolumeMinor NullableFloat32 `json:"netVolumeMinor"`
+	TransactionCount NullableFloat32 `json:"transactionCount"`
+	EffectiveRateBp NullableFloat32 `json:"effectiveRateBp"`
 	PeriodStart NullableString `json:"periodStart"`
 	PeriodEnd NullableString `json:"periodEnd"`
 	AdditionalProperties map[string]interface{}
@@ -39,7 +39,7 @@ type _GetMerchantStatementAnalysis200ResponseData GetMerchantStatementAnalysis20
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetMerchantStatementAnalysis200ResponseData(provider string, currency NullableString, grossVolumeMinor ListProducts200ResponseDataTotal, feeTotalMinor ListProducts200ResponseDataTotal, netVolumeMinor ListProducts200ResponseDataTotal, transactionCount ListProducts200ResponseDataTotal, effectiveRateBp NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, periodStart NullableString, periodEnd NullableString) *GetMerchantStatementAnalysis200ResponseData {
+func NewGetMerchantStatementAnalysis200ResponseData(provider string, currency NullableString, grossVolumeMinor NullableFloat32, feeTotalMinor NullableFloat32, netVolumeMinor NullableFloat32, transactionCount NullableFloat32, effectiveRateBp NullableFloat32, periodStart NullableString, periodEnd NullableString) *GetMerchantStatementAnalysis200ResponseData {
 	this := GetMerchantStatementAnalysis200ResponseData{}
 	this.Provider = provider
 	this.Currency = currency
@@ -154,106 +154,114 @@ func (o *GetMerchantStatementAnalysis200ResponseData) SetCurrency(v string) {
 }
 
 // GetGrossVolumeMinor returns the GrossVolumeMinor field value
-func (o *GetMerchantStatementAnalysis200ResponseData) GetGrossVolumeMinor() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetMerchantStatementAnalysis200ResponseData) GetGrossVolumeMinor() float32 {
+	if o == nil || o.GrossVolumeMinor.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.GrossVolumeMinor
+	return *o.GrossVolumeMinor.Get()
 }
 
 // GetGrossVolumeMinorOk returns a tuple with the GrossVolumeMinor field value
 // and a boolean to check if the value has been set.
-func (o *GetMerchantStatementAnalysis200ResponseData) GetGrossVolumeMinorOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetMerchantStatementAnalysis200ResponseData) GetGrossVolumeMinorOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.GrossVolumeMinor, true
+	return o.GrossVolumeMinor.Get(), o.GrossVolumeMinor.IsSet()
 }
 
 // SetGrossVolumeMinor sets field value
-func (o *GetMerchantStatementAnalysis200ResponseData) SetGrossVolumeMinor(v ListProducts200ResponseDataTotal) {
-	o.GrossVolumeMinor = v
+func (o *GetMerchantStatementAnalysis200ResponseData) SetGrossVolumeMinor(v float32) {
+	o.GrossVolumeMinor.Set(&v)
 }
 
 // GetFeeTotalMinor returns the FeeTotalMinor field value
-func (o *GetMerchantStatementAnalysis200ResponseData) GetFeeTotalMinor() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetMerchantStatementAnalysis200ResponseData) GetFeeTotalMinor() float32 {
+	if o == nil || o.FeeTotalMinor.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.FeeTotalMinor
+	return *o.FeeTotalMinor.Get()
 }
 
 // GetFeeTotalMinorOk returns a tuple with the FeeTotalMinor field value
 // and a boolean to check if the value has been set.
-func (o *GetMerchantStatementAnalysis200ResponseData) GetFeeTotalMinorOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetMerchantStatementAnalysis200ResponseData) GetFeeTotalMinorOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.FeeTotalMinor, true
+	return o.FeeTotalMinor.Get(), o.FeeTotalMinor.IsSet()
 }
 
 // SetFeeTotalMinor sets field value
-func (o *GetMerchantStatementAnalysis200ResponseData) SetFeeTotalMinor(v ListProducts200ResponseDataTotal) {
-	o.FeeTotalMinor = v
+func (o *GetMerchantStatementAnalysis200ResponseData) SetFeeTotalMinor(v float32) {
+	o.FeeTotalMinor.Set(&v)
 }
 
 // GetNetVolumeMinor returns the NetVolumeMinor field value
-func (o *GetMerchantStatementAnalysis200ResponseData) GetNetVolumeMinor() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetMerchantStatementAnalysis200ResponseData) GetNetVolumeMinor() float32 {
+	if o == nil || o.NetVolumeMinor.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.NetVolumeMinor
+	return *o.NetVolumeMinor.Get()
 }
 
 // GetNetVolumeMinorOk returns a tuple with the NetVolumeMinor field value
 // and a boolean to check if the value has been set.
-func (o *GetMerchantStatementAnalysis200ResponseData) GetNetVolumeMinorOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetMerchantStatementAnalysis200ResponseData) GetNetVolumeMinorOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.NetVolumeMinor, true
+	return o.NetVolumeMinor.Get(), o.NetVolumeMinor.IsSet()
 }
 
 // SetNetVolumeMinor sets field value
-func (o *GetMerchantStatementAnalysis200ResponseData) SetNetVolumeMinor(v ListProducts200ResponseDataTotal) {
-	o.NetVolumeMinor = v
+func (o *GetMerchantStatementAnalysis200ResponseData) SetNetVolumeMinor(v float32) {
+	o.NetVolumeMinor.Set(&v)
 }
 
 // GetTransactionCount returns the TransactionCount field value
-func (o *GetMerchantStatementAnalysis200ResponseData) GetTransactionCount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetMerchantStatementAnalysis200ResponseData) GetTransactionCount() float32 {
+	if o == nil || o.TransactionCount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.TransactionCount
+	return *o.TransactionCount.Get()
 }
 
 // GetTransactionCountOk returns a tuple with the TransactionCount field value
 // and a boolean to check if the value has been set.
-func (o *GetMerchantStatementAnalysis200ResponseData) GetTransactionCountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetMerchantStatementAnalysis200ResponseData) GetTransactionCountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.TransactionCount, true
+	return o.TransactionCount.Get(), o.TransactionCount.IsSet()
 }
 
 // SetTransactionCount sets field value
-func (o *GetMerchantStatementAnalysis200ResponseData) SetTransactionCount(v ListProducts200ResponseDataTotal) {
-	o.TransactionCount = v
+func (o *GetMerchantStatementAnalysis200ResponseData) SetTransactionCount(v float32) {
+	o.TransactionCount.Set(&v)
 }
 
 // GetEffectiveRateBp returns the EffectiveRateBp field value
-// If the value is explicit nil, the zero value for ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays will be returned
-func (o *GetMerchantStatementAnalysis200ResponseData) GetEffectiveRateBp() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetMerchantStatementAnalysis200ResponseData) GetEffectiveRateBp() float32 {
 	if o == nil || o.EffectiveRateBp.Get() == nil {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 
@@ -263,7 +271,7 @@ func (o *GetMerchantStatementAnalysis200ResponseData) GetEffectiveRateBp() ListC
 // GetEffectiveRateBpOk returns a tuple with the EffectiveRateBp field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GetMerchantStatementAnalysis200ResponseData) GetEffectiveRateBpOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *GetMerchantStatementAnalysis200ResponseData) GetEffectiveRateBpOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -271,7 +279,7 @@ func (o *GetMerchantStatementAnalysis200ResponseData) GetEffectiveRateBpOk() (*L
 }
 
 // SetEffectiveRateBp sets field value
-func (o *GetMerchantStatementAnalysis200ResponseData) SetEffectiveRateBp(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+func (o *GetMerchantStatementAnalysis200ResponseData) SetEffectiveRateBp(v float32) {
 	o.EffectiveRateBp.Set(&v)
 }
 
@@ -342,10 +350,10 @@ func (o GetMerchantStatementAnalysis200ResponseData) ToMap() (map[string]interfa
 	}
 	toSerialize["provider"] = o.Provider
 	toSerialize["currency"] = o.Currency.Get()
-	toSerialize["grossVolumeMinor"] = o.GrossVolumeMinor
-	toSerialize["feeTotalMinor"] = o.FeeTotalMinor
-	toSerialize["netVolumeMinor"] = o.NetVolumeMinor
-	toSerialize["transactionCount"] = o.TransactionCount
+	toSerialize["grossVolumeMinor"] = o.GrossVolumeMinor.Get()
+	toSerialize["feeTotalMinor"] = o.FeeTotalMinor.Get()
+	toSerialize["netVolumeMinor"] = o.NetVolumeMinor.Get()
+	toSerialize["transactionCount"] = o.TransactionCount.Get()
 	toSerialize["effectiveRateBp"] = o.EffectiveRateBp.Get()
 	toSerialize["periodStart"] = o.PeriodStart.Get()
 	toSerialize["periodEnd"] = o.PeriodEnd.Get()

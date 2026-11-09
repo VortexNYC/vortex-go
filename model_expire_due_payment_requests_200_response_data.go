@@ -21,7 +21,7 @@ var _ MappedNullable = &ExpireDuePaymentRequests200ResponseData{}
 // ExpireDuePaymentRequests200ResponseData struct for ExpireDuePaymentRequests200ResponseData
 type ExpireDuePaymentRequests200ResponseData struct {
 	Expired []CreatePaymentRequest201ResponseDataPaymentRequest `json:"expired"`
-	Skipped ListProducts200ResponseDataTotal `json:"skipped"`
+	Skipped NullableFloat32 `json:"skipped"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,7 +31,7 @@ type _ExpireDuePaymentRequests200ResponseData ExpireDuePaymentRequests200Respons
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExpireDuePaymentRequests200ResponseData(expired []CreatePaymentRequest201ResponseDataPaymentRequest, skipped ListProducts200ResponseDataTotal) *ExpireDuePaymentRequests200ResponseData {
+func NewExpireDuePaymentRequests200ResponseData(expired []CreatePaymentRequest201ResponseDataPaymentRequest, skipped NullableFloat32) *ExpireDuePaymentRequests200ResponseData {
 	this := ExpireDuePaymentRequests200ResponseData{}
 	this.Expired = expired
 	this.Skipped = skipped
@@ -71,27 +71,29 @@ func (o *ExpireDuePaymentRequests200ResponseData) SetExpired(v []CreatePaymentRe
 }
 
 // GetSkipped returns the Skipped field value
-func (o *ExpireDuePaymentRequests200ResponseData) GetSkipped() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ExpireDuePaymentRequests200ResponseData) GetSkipped() float32 {
+	if o == nil || o.Skipped.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Skipped
+	return *o.Skipped.Get()
 }
 
 // GetSkippedOk returns a tuple with the Skipped field value
 // and a boolean to check if the value has been set.
-func (o *ExpireDuePaymentRequests200ResponseData) GetSkippedOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ExpireDuePaymentRequests200ResponseData) GetSkippedOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Skipped, true
+	return o.Skipped.Get(), o.Skipped.IsSet()
 }
 
 // SetSkipped sets field value
-func (o *ExpireDuePaymentRequests200ResponseData) SetSkipped(v ListProducts200ResponseDataTotal) {
-	o.Skipped = v
+func (o *ExpireDuePaymentRequests200ResponseData) SetSkipped(v float32) {
+	o.Skipped.Set(&v)
 }
 
 func (o ExpireDuePaymentRequests200ResponseData) MarshalJSON() ([]byte, error) {
@@ -105,7 +107,7 @@ func (o ExpireDuePaymentRequests200ResponseData) MarshalJSON() ([]byte, error) {
 func (o ExpireDuePaymentRequests200ResponseData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["expired"] = o.Expired
-	toSerialize["skipped"] = o.Skipped
+	toSerialize["skipped"] = o.Skipped.Get()
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

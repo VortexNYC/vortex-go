@@ -23,9 +23,9 @@ var _ MappedNullable = &QuoteTax201ResponseDataJurisdictionEvidenceInner{}
 type QuoteTax201ResponseDataJurisdictionEvidenceInner struct {
 	JurisdictionType string `json:"jurisdictionType"`
 	JurisdictionName string `json:"jurisdictionName"`
-	TaxableAmount ListProducts200ResponseDataTotal `json:"taxableAmount"`
-	TaxAmount ListProducts200ResponseDataTotal `json:"taxAmount"`
-	Rate ListProducts200ResponseDataTotal `json:"rate"`
+	TaxableAmount float32 `json:"taxableAmount"`
+	TaxAmount float32 `json:"taxAmount"`
+	Rate float32 `json:"rate"`
 }
 
 type _QuoteTax201ResponseDataJurisdictionEvidenceInner QuoteTax201ResponseDataJurisdictionEvidenceInner
@@ -34,7 +34,7 @@ type _QuoteTax201ResponseDataJurisdictionEvidenceInner QuoteTax201ResponseDataJu
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewQuoteTax201ResponseDataJurisdictionEvidenceInner(jurisdictionType string, jurisdictionName string, taxableAmount ListProducts200ResponseDataTotal, taxAmount ListProducts200ResponseDataTotal, rate ListProducts200ResponseDataTotal) *QuoteTax201ResponseDataJurisdictionEvidenceInner {
+func NewQuoteTax201ResponseDataJurisdictionEvidenceInner(jurisdictionType string, jurisdictionName string, taxableAmount float32, taxAmount float32, rate float32) *QuoteTax201ResponseDataJurisdictionEvidenceInner {
 	this := QuoteTax201ResponseDataJurisdictionEvidenceInner{}
 	this.JurisdictionType = jurisdictionType
 	this.JurisdictionName = jurisdictionName
@@ -101,9 +101,9 @@ func (o *QuoteTax201ResponseDataJurisdictionEvidenceInner) SetJurisdictionName(v
 }
 
 // GetTaxableAmount returns the TaxableAmount field value
-func (o *QuoteTax201ResponseDataJurisdictionEvidenceInner) GetTaxableAmount() ListProducts200ResponseDataTotal {
+func (o *QuoteTax201ResponseDataJurisdictionEvidenceInner) GetTaxableAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -112,7 +112,7 @@ func (o *QuoteTax201ResponseDataJurisdictionEvidenceInner) GetTaxableAmount() Li
 
 // GetTaxableAmountOk returns a tuple with the TaxableAmount field value
 // and a boolean to check if the value has been set.
-func (o *QuoteTax201ResponseDataJurisdictionEvidenceInner) GetTaxableAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *QuoteTax201ResponseDataJurisdictionEvidenceInner) GetTaxableAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -120,14 +120,14 @@ func (o *QuoteTax201ResponseDataJurisdictionEvidenceInner) GetTaxableAmountOk() 
 }
 
 // SetTaxableAmount sets field value
-func (o *QuoteTax201ResponseDataJurisdictionEvidenceInner) SetTaxableAmount(v ListProducts200ResponseDataTotal) {
+func (o *QuoteTax201ResponseDataJurisdictionEvidenceInner) SetTaxableAmount(v float32) {
 	o.TaxableAmount = v
 }
 
 // GetTaxAmount returns the TaxAmount field value
-func (o *QuoteTax201ResponseDataJurisdictionEvidenceInner) GetTaxAmount() ListProducts200ResponseDataTotal {
+func (o *QuoteTax201ResponseDataJurisdictionEvidenceInner) GetTaxAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -136,7 +136,7 @@ func (o *QuoteTax201ResponseDataJurisdictionEvidenceInner) GetTaxAmount() ListPr
 
 // GetTaxAmountOk returns a tuple with the TaxAmount field value
 // and a boolean to check if the value has been set.
-func (o *QuoteTax201ResponseDataJurisdictionEvidenceInner) GetTaxAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *QuoteTax201ResponseDataJurisdictionEvidenceInner) GetTaxAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -144,14 +144,14 @@ func (o *QuoteTax201ResponseDataJurisdictionEvidenceInner) GetTaxAmountOk() (*Li
 }
 
 // SetTaxAmount sets field value
-func (o *QuoteTax201ResponseDataJurisdictionEvidenceInner) SetTaxAmount(v ListProducts200ResponseDataTotal) {
+func (o *QuoteTax201ResponseDataJurisdictionEvidenceInner) SetTaxAmount(v float32) {
 	o.TaxAmount = v
 }
 
 // GetRate returns the Rate field value
-func (o *QuoteTax201ResponseDataJurisdictionEvidenceInner) GetRate() ListProducts200ResponseDataTotal {
+func (o *QuoteTax201ResponseDataJurisdictionEvidenceInner) GetRate() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -160,7 +160,7 @@ func (o *QuoteTax201ResponseDataJurisdictionEvidenceInner) GetRate() ListProduct
 
 // GetRateOk returns a tuple with the Rate field value
 // and a boolean to check if the value has been set.
-func (o *QuoteTax201ResponseDataJurisdictionEvidenceInner) GetRateOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *QuoteTax201ResponseDataJurisdictionEvidenceInner) GetRateOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -168,7 +168,7 @@ func (o *QuoteTax201ResponseDataJurisdictionEvidenceInner) GetRateOk() (*ListPro
 }
 
 // SetRate sets field value
-func (o *QuoteTax201ResponseDataJurisdictionEvidenceInner) SetRate(v ListProducts200ResponseDataTotal) {
+func (o *QuoteTax201ResponseDataJurisdictionEvidenceInner) SetRate(v float32) {
 	o.Rate = v
 }
 

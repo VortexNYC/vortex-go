@@ -22,8 +22,8 @@ var _ MappedNullable = &CreatePaymentHardwareOrder201ResponseDataLinesInner{}
 // CreatePaymentHardwareOrder201ResponseDataLinesInner struct for CreatePaymentHardwareOrder201ResponseDataLinesInner
 type CreatePaymentHardwareOrder201ResponseDataLinesInner struct {
 	SkuId string `json:"skuId"`
-	Quantity ListProducts200ResponseDataTotal `json:"quantity"`
-	UnitAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"unitAmount,omitempty"`
+	Quantity float32 `json:"quantity"`
+	UnitAmount NullableFloat32 `json:"unitAmount,omitempty"`
 	Currency NullableString `json:"currency,omitempty"`
 }
 
@@ -33,7 +33,7 @@ type _CreatePaymentHardwareOrder201ResponseDataLinesInner CreatePaymentHardwareO
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePaymentHardwareOrder201ResponseDataLinesInner(skuId string, quantity ListProducts200ResponseDataTotal) *CreatePaymentHardwareOrder201ResponseDataLinesInner {
+func NewCreatePaymentHardwareOrder201ResponseDataLinesInner(skuId string, quantity float32) *CreatePaymentHardwareOrder201ResponseDataLinesInner {
 	this := CreatePaymentHardwareOrder201ResponseDataLinesInner{}
 	this.SkuId = skuId
 	this.Quantity = quantity
@@ -73,9 +73,9 @@ func (o *CreatePaymentHardwareOrder201ResponseDataLinesInner) SetSkuId(v string)
 }
 
 // GetQuantity returns the Quantity field value
-func (o *CreatePaymentHardwareOrder201ResponseDataLinesInner) GetQuantity() ListProducts200ResponseDataTotal {
+func (o *CreatePaymentHardwareOrder201ResponseDataLinesInner) GetQuantity() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -84,7 +84,7 @@ func (o *CreatePaymentHardwareOrder201ResponseDataLinesInner) GetQuantity() List
 
 // GetQuantityOk returns a tuple with the Quantity field value
 // and a boolean to check if the value has been set.
-func (o *CreatePaymentHardwareOrder201ResponseDataLinesInner) GetQuantityOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreatePaymentHardwareOrder201ResponseDataLinesInner) GetQuantityOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -92,14 +92,14 @@ func (o *CreatePaymentHardwareOrder201ResponseDataLinesInner) GetQuantityOk() (*
 }
 
 // SetQuantity sets field value
-func (o *CreatePaymentHardwareOrder201ResponseDataLinesInner) SetQuantity(v ListProducts200ResponseDataTotal) {
+func (o *CreatePaymentHardwareOrder201ResponseDataLinesInner) SetQuantity(v float32) {
 	o.Quantity = v
 }
 
 // GetUnitAmount returns the UnitAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreatePaymentHardwareOrder201ResponseDataLinesInner) GetUnitAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreatePaymentHardwareOrder201ResponseDataLinesInner) GetUnitAmount() float32 {
 	if o == nil || IsNil(o.UnitAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.UnitAmount.Get()
@@ -108,7 +108,7 @@ func (o *CreatePaymentHardwareOrder201ResponseDataLinesInner) GetUnitAmount() Li
 // GetUnitAmountOk returns a tuple with the UnitAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreatePaymentHardwareOrder201ResponseDataLinesInner) GetUnitAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreatePaymentHardwareOrder201ResponseDataLinesInner) GetUnitAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -124,8 +124,8 @@ func (o *CreatePaymentHardwareOrder201ResponseDataLinesInner) HasUnitAmount() bo
 	return false
 }
 
-// SetUnitAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the UnitAmount field.
-func (o *CreatePaymentHardwareOrder201ResponseDataLinesInner) SetUnitAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetUnitAmount gets a reference to the given NullableFloat32 and assigns it to the UnitAmount field.
+func (o *CreatePaymentHardwareOrder201ResponseDataLinesInner) SetUnitAmount(v float32) {
 	o.UnitAmount.Set(&v)
 }
 // SetUnitAmountNil sets the value for UnitAmount to be an explicit nil

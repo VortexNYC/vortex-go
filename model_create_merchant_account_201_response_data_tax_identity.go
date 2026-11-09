@@ -21,10 +21,10 @@ var _ MappedNullable = &CreateMerchantAccount201ResponseDataTaxIdentity{}
 
 // CreateMerchantAccount201ResponseDataTaxIdentity struct for CreateMerchantAccount201ResponseDataTaxIdentity
 type CreateMerchantAccount201ResponseDataTaxIdentity struct {
-	AssociatedIdentityCount ListProducts200ResponseDataTotal `json:"associatedIdentityCount"`
-	BeneficialOwnerCount ListProducts200ResponseDataTotal `json:"beneficialOwnerCount"`
-	ControlPersonCount ListProducts200ResponseDataTotal `json:"controlPersonCount"`
-	RepresentativeCount ListProducts200ResponseDataTotal `json:"representativeCount"`
+	AssociatedIdentityCount float32 `json:"associatedIdentityCount"`
+	BeneficialOwnerCount float32 `json:"beneficialOwnerCount"`
+	ControlPersonCount float32 `json:"controlPersonCount"`
+	RepresentativeCount float32 `json:"representativeCount"`
 }
 
 type _CreateMerchantAccount201ResponseDataTaxIdentity CreateMerchantAccount201ResponseDataTaxIdentity
@@ -33,7 +33,7 @@ type _CreateMerchantAccount201ResponseDataTaxIdentity CreateMerchantAccount201Re
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateMerchantAccount201ResponseDataTaxIdentity(associatedIdentityCount ListProducts200ResponseDataTotal, beneficialOwnerCount ListProducts200ResponseDataTotal, controlPersonCount ListProducts200ResponseDataTotal, representativeCount ListProducts200ResponseDataTotal) *CreateMerchantAccount201ResponseDataTaxIdentity {
+func NewCreateMerchantAccount201ResponseDataTaxIdentity(associatedIdentityCount float32, beneficialOwnerCount float32, controlPersonCount float32, representativeCount float32) *CreateMerchantAccount201ResponseDataTaxIdentity {
 	this := CreateMerchantAccount201ResponseDataTaxIdentity{}
 	this.AssociatedIdentityCount = associatedIdentityCount
 	this.BeneficialOwnerCount = beneficialOwnerCount
@@ -51,9 +51,9 @@ func NewCreateMerchantAccount201ResponseDataTaxIdentityWithDefaults() *CreateMer
 }
 
 // GetAssociatedIdentityCount returns the AssociatedIdentityCount field value
-func (o *CreateMerchantAccount201ResponseDataTaxIdentity) GetAssociatedIdentityCount() ListProducts200ResponseDataTotal {
+func (o *CreateMerchantAccount201ResponseDataTaxIdentity) GetAssociatedIdentityCount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -62,7 +62,7 @@ func (o *CreateMerchantAccount201ResponseDataTaxIdentity) GetAssociatedIdentityC
 
 // GetAssociatedIdentityCountOk returns a tuple with the AssociatedIdentityCount field value
 // and a boolean to check if the value has been set.
-func (o *CreateMerchantAccount201ResponseDataTaxIdentity) GetAssociatedIdentityCountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreateMerchantAccount201ResponseDataTaxIdentity) GetAssociatedIdentityCountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -70,14 +70,14 @@ func (o *CreateMerchantAccount201ResponseDataTaxIdentity) GetAssociatedIdentityC
 }
 
 // SetAssociatedIdentityCount sets field value
-func (o *CreateMerchantAccount201ResponseDataTaxIdentity) SetAssociatedIdentityCount(v ListProducts200ResponseDataTotal) {
+func (o *CreateMerchantAccount201ResponseDataTaxIdentity) SetAssociatedIdentityCount(v float32) {
 	o.AssociatedIdentityCount = v
 }
 
 // GetBeneficialOwnerCount returns the BeneficialOwnerCount field value
-func (o *CreateMerchantAccount201ResponseDataTaxIdentity) GetBeneficialOwnerCount() ListProducts200ResponseDataTotal {
+func (o *CreateMerchantAccount201ResponseDataTaxIdentity) GetBeneficialOwnerCount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -86,7 +86,7 @@ func (o *CreateMerchantAccount201ResponseDataTaxIdentity) GetBeneficialOwnerCoun
 
 // GetBeneficialOwnerCountOk returns a tuple with the BeneficialOwnerCount field value
 // and a boolean to check if the value has been set.
-func (o *CreateMerchantAccount201ResponseDataTaxIdentity) GetBeneficialOwnerCountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreateMerchantAccount201ResponseDataTaxIdentity) GetBeneficialOwnerCountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -94,14 +94,14 @@ func (o *CreateMerchantAccount201ResponseDataTaxIdentity) GetBeneficialOwnerCoun
 }
 
 // SetBeneficialOwnerCount sets field value
-func (o *CreateMerchantAccount201ResponseDataTaxIdentity) SetBeneficialOwnerCount(v ListProducts200ResponseDataTotal) {
+func (o *CreateMerchantAccount201ResponseDataTaxIdentity) SetBeneficialOwnerCount(v float32) {
 	o.BeneficialOwnerCount = v
 }
 
 // GetControlPersonCount returns the ControlPersonCount field value
-func (o *CreateMerchantAccount201ResponseDataTaxIdentity) GetControlPersonCount() ListProducts200ResponseDataTotal {
+func (o *CreateMerchantAccount201ResponseDataTaxIdentity) GetControlPersonCount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -110,7 +110,7 @@ func (o *CreateMerchantAccount201ResponseDataTaxIdentity) GetControlPersonCount(
 
 // GetControlPersonCountOk returns a tuple with the ControlPersonCount field value
 // and a boolean to check if the value has been set.
-func (o *CreateMerchantAccount201ResponseDataTaxIdentity) GetControlPersonCountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreateMerchantAccount201ResponseDataTaxIdentity) GetControlPersonCountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -118,14 +118,14 @@ func (o *CreateMerchantAccount201ResponseDataTaxIdentity) GetControlPersonCountO
 }
 
 // SetControlPersonCount sets field value
-func (o *CreateMerchantAccount201ResponseDataTaxIdentity) SetControlPersonCount(v ListProducts200ResponseDataTotal) {
+func (o *CreateMerchantAccount201ResponseDataTaxIdentity) SetControlPersonCount(v float32) {
 	o.ControlPersonCount = v
 }
 
 // GetRepresentativeCount returns the RepresentativeCount field value
-func (o *CreateMerchantAccount201ResponseDataTaxIdentity) GetRepresentativeCount() ListProducts200ResponseDataTotal {
+func (o *CreateMerchantAccount201ResponseDataTaxIdentity) GetRepresentativeCount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -134,7 +134,7 @@ func (o *CreateMerchantAccount201ResponseDataTaxIdentity) GetRepresentativeCount
 
 // GetRepresentativeCountOk returns a tuple with the RepresentativeCount field value
 // and a boolean to check if the value has been set.
-func (o *CreateMerchantAccount201ResponseDataTaxIdentity) GetRepresentativeCountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreateMerchantAccount201ResponseDataTaxIdentity) GetRepresentativeCountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -142,7 +142,7 @@ func (o *CreateMerchantAccount201ResponseDataTaxIdentity) GetRepresentativeCount
 }
 
 // SetRepresentativeCount sets field value
-func (o *CreateMerchantAccount201ResponseDataTaxIdentity) SetRepresentativeCount(v ListProducts200ResponseDataTotal) {
+func (o *CreateMerchantAccount201ResponseDataTaxIdentity) SetRepresentativeCount(v float32) {
 	o.RepresentativeCount = v
 }
 

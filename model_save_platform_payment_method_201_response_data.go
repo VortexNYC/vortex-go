@@ -26,8 +26,8 @@ type SavePlatformPaymentMethod201ResponseData struct {
 	MethodType string `json:"methodType"`
 	Last4 NullableString `json:"last4,omitempty"`
 	Brand NullableString `json:"brand,omitempty"`
-	ExpMonth NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"expMonth,omitempty"`
-	ExpYear NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"expYear,omitempty"`
+	ExpMonth NullableFloat32 `json:"expMonth,omitempty"`
+	ExpYear NullableFloat32 `json:"expYear,omitempty"`
 	Status string `json:"status"`
 }
 
@@ -211,9 +211,9 @@ func (o *SavePlatformPaymentMethod201ResponseData) UnsetBrand() {
 }
 
 // GetExpMonth returns the ExpMonth field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *SavePlatformPaymentMethod201ResponseData) GetExpMonth() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *SavePlatformPaymentMethod201ResponseData) GetExpMonth() float32 {
 	if o == nil || IsNil(o.ExpMonth.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.ExpMonth.Get()
@@ -222,7 +222,7 @@ func (o *SavePlatformPaymentMethod201ResponseData) GetExpMonth() ListCustomerBil
 // GetExpMonthOk returns a tuple with the ExpMonth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *SavePlatformPaymentMethod201ResponseData) GetExpMonthOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *SavePlatformPaymentMethod201ResponseData) GetExpMonthOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -238,8 +238,8 @@ func (o *SavePlatformPaymentMethod201ResponseData) HasExpMonth() bool {
 	return false
 }
 
-// SetExpMonth gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the ExpMonth field.
-func (o *SavePlatformPaymentMethod201ResponseData) SetExpMonth(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetExpMonth gets a reference to the given NullableFloat32 and assigns it to the ExpMonth field.
+func (o *SavePlatformPaymentMethod201ResponseData) SetExpMonth(v float32) {
 	o.ExpMonth.Set(&v)
 }
 // SetExpMonthNil sets the value for ExpMonth to be an explicit nil
@@ -253,9 +253,9 @@ func (o *SavePlatformPaymentMethod201ResponseData) UnsetExpMonth() {
 }
 
 // GetExpYear returns the ExpYear field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *SavePlatformPaymentMethod201ResponseData) GetExpYear() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *SavePlatformPaymentMethod201ResponseData) GetExpYear() float32 {
 	if o == nil || IsNil(o.ExpYear.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.ExpYear.Get()
@@ -264,7 +264,7 @@ func (o *SavePlatformPaymentMethod201ResponseData) GetExpYear() ListCustomerBill
 // GetExpYearOk returns a tuple with the ExpYear field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *SavePlatformPaymentMethod201ResponseData) GetExpYearOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *SavePlatformPaymentMethod201ResponseData) GetExpYearOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -280,8 +280,8 @@ func (o *SavePlatformPaymentMethod201ResponseData) HasExpYear() bool {
 	return false
 }
 
-// SetExpYear gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the ExpYear field.
-func (o *SavePlatformPaymentMethod201ResponseData) SetExpYear(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetExpYear gets a reference to the given NullableFloat32 and assigns it to the ExpYear field.
+func (o *SavePlatformPaymentMethod201ResponseData) SetExpYear(v float32) {
 	o.ExpYear.Set(&v)
 }
 // SetExpYearNil sets the value for ExpYear to be an explicit nil

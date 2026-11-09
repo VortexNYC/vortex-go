@@ -20,8 +20,8 @@ var _ MappedNullable = &ListBillingDunningCampaigns200ResponseDataItemsInnerAtte
 
 // ListBillingDunningCampaigns200ResponseDataItemsInnerAttemptSchedulesInner struct for ListBillingDunningCampaigns200ResponseDataItemsInnerAttemptSchedulesInner
 type ListBillingDunningCampaigns200ResponseDataItemsInnerAttemptSchedulesInner struct {
-	AttemptNumber ListProducts200ResponseDataTotal `json:"attemptNumber"`
-	DaysAfterPrevious ListProducts200ResponseDataTotal `json:"daysAfterPrevious"`
+	AttemptNumber NullableFloat32 `json:"attemptNumber"`
+	DaysAfterPrevious NullableFloat32 `json:"daysAfterPrevious"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,7 +31,7 @@ type _ListBillingDunningCampaigns200ResponseDataItemsInnerAttemptSchedulesInner 
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListBillingDunningCampaigns200ResponseDataItemsInnerAttemptSchedulesInner(attemptNumber ListProducts200ResponseDataTotal, daysAfterPrevious ListProducts200ResponseDataTotal) *ListBillingDunningCampaigns200ResponseDataItemsInnerAttemptSchedulesInner {
+func NewListBillingDunningCampaigns200ResponseDataItemsInnerAttemptSchedulesInner(attemptNumber NullableFloat32, daysAfterPrevious NullableFloat32) *ListBillingDunningCampaigns200ResponseDataItemsInnerAttemptSchedulesInner {
 	this := ListBillingDunningCampaigns200ResponseDataItemsInnerAttemptSchedulesInner{}
 	this.AttemptNumber = attemptNumber
 	this.DaysAfterPrevious = daysAfterPrevious
@@ -47,51 +47,55 @@ func NewListBillingDunningCampaigns200ResponseDataItemsInnerAttemptSchedulesInne
 }
 
 // GetAttemptNumber returns the AttemptNumber field value
-func (o *ListBillingDunningCampaigns200ResponseDataItemsInnerAttemptSchedulesInner) GetAttemptNumber() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListBillingDunningCampaigns200ResponseDataItemsInnerAttemptSchedulesInner) GetAttemptNumber() float32 {
+	if o == nil || o.AttemptNumber.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.AttemptNumber
+	return *o.AttemptNumber.Get()
 }
 
 // GetAttemptNumberOk returns a tuple with the AttemptNumber field value
 // and a boolean to check if the value has been set.
-func (o *ListBillingDunningCampaigns200ResponseDataItemsInnerAttemptSchedulesInner) GetAttemptNumberOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListBillingDunningCampaigns200ResponseDataItemsInnerAttemptSchedulesInner) GetAttemptNumberOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AttemptNumber, true
+	return o.AttemptNumber.Get(), o.AttemptNumber.IsSet()
 }
 
 // SetAttemptNumber sets field value
-func (o *ListBillingDunningCampaigns200ResponseDataItemsInnerAttemptSchedulesInner) SetAttemptNumber(v ListProducts200ResponseDataTotal) {
-	o.AttemptNumber = v
+func (o *ListBillingDunningCampaigns200ResponseDataItemsInnerAttemptSchedulesInner) SetAttemptNumber(v float32) {
+	o.AttemptNumber.Set(&v)
 }
 
 // GetDaysAfterPrevious returns the DaysAfterPrevious field value
-func (o *ListBillingDunningCampaigns200ResponseDataItemsInnerAttemptSchedulesInner) GetDaysAfterPrevious() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListBillingDunningCampaigns200ResponseDataItemsInnerAttemptSchedulesInner) GetDaysAfterPrevious() float32 {
+	if o == nil || o.DaysAfterPrevious.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.DaysAfterPrevious
+	return *o.DaysAfterPrevious.Get()
 }
 
 // GetDaysAfterPreviousOk returns a tuple with the DaysAfterPrevious field value
 // and a boolean to check if the value has been set.
-func (o *ListBillingDunningCampaigns200ResponseDataItemsInnerAttemptSchedulesInner) GetDaysAfterPreviousOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListBillingDunningCampaigns200ResponseDataItemsInnerAttemptSchedulesInner) GetDaysAfterPreviousOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.DaysAfterPrevious, true
+	return o.DaysAfterPrevious.Get(), o.DaysAfterPrevious.IsSet()
 }
 
 // SetDaysAfterPrevious sets field value
-func (o *ListBillingDunningCampaigns200ResponseDataItemsInnerAttemptSchedulesInner) SetDaysAfterPrevious(v ListProducts200ResponseDataTotal) {
-	o.DaysAfterPrevious = v
+func (o *ListBillingDunningCampaigns200ResponseDataItemsInnerAttemptSchedulesInner) SetDaysAfterPrevious(v float32) {
+	o.DaysAfterPrevious.Set(&v)
 }
 
 func (o ListBillingDunningCampaigns200ResponseDataItemsInnerAttemptSchedulesInner) MarshalJSON() ([]byte, error) {
@@ -104,8 +108,8 @@ func (o ListBillingDunningCampaigns200ResponseDataItemsInnerAttemptSchedulesInne
 
 func (o ListBillingDunningCampaigns200ResponseDataItemsInnerAttemptSchedulesInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["attemptNumber"] = o.AttemptNumber
-	toSerialize["daysAfterPrevious"] = o.DaysAfterPrevious
+	toSerialize["attemptNumber"] = o.AttemptNumber.Get()
+	toSerialize["daysAfterPrevious"] = o.DaysAfterPrevious.Get()
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

@@ -21,7 +21,7 @@ var _ MappedNullable = &ListProductCustomFields200ResponseDataItemsInner{}
 // ListProductCustomFields200ResponseDataItemsInner struct for ListProductCustomFields200ResponseDataItemsInner
 type ListProductCustomFields200ResponseDataItemsInner struct {
 	CustomFieldId NullableString `json:"customFieldId"`
-	Order ListProducts200ResponseDataTotal `json:"order"`
+	Order NullableFloat32 `json:"order"`
 	Required NullableBool `json:"required"`
 	Field ListProductCustomFields200ResponseDataItemsInnerField `json:"field"`
 	AdditionalProperties map[string]interface{}
@@ -33,7 +33,7 @@ type _ListProductCustomFields200ResponseDataItemsInner ListProductCustomFields20
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListProductCustomFields200ResponseDataItemsInner(customFieldId NullableString, order ListProducts200ResponseDataTotal, required NullableBool, field ListProductCustomFields200ResponseDataItemsInnerField) *ListProductCustomFields200ResponseDataItemsInner {
+func NewListProductCustomFields200ResponseDataItemsInner(customFieldId NullableString, order NullableFloat32, required NullableBool, field ListProductCustomFields200ResponseDataItemsInnerField) *ListProductCustomFields200ResponseDataItemsInner {
 	this := ListProductCustomFields200ResponseDataItemsInner{}
 	this.CustomFieldId = customFieldId
 	this.Order = order
@@ -77,27 +77,29 @@ func (o *ListProductCustomFields200ResponseDataItemsInner) SetCustomFieldId(v st
 }
 
 // GetOrder returns the Order field value
-func (o *ListProductCustomFields200ResponseDataItemsInner) GetOrder() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListProductCustomFields200ResponseDataItemsInner) GetOrder() float32 {
+	if o == nil || o.Order.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Order
+	return *o.Order.Get()
 }
 
 // GetOrderOk returns a tuple with the Order field value
 // and a boolean to check if the value has been set.
-func (o *ListProductCustomFields200ResponseDataItemsInner) GetOrderOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListProductCustomFields200ResponseDataItemsInner) GetOrderOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Order, true
+	return o.Order.Get(), o.Order.IsSet()
 }
 
 // SetOrder sets field value
-func (o *ListProductCustomFields200ResponseDataItemsInner) SetOrder(v ListProducts200ResponseDataTotal) {
-	o.Order = v
+func (o *ListProductCustomFields200ResponseDataItemsInner) SetOrder(v float32) {
+	o.Order.Set(&v)
 }
 
 // GetRequired returns the Required field value
@@ -161,7 +163,7 @@ func (o ListProductCustomFields200ResponseDataItemsInner) MarshalJSON() ([]byte,
 func (o ListProductCustomFields200ResponseDataItemsInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["customFieldId"] = o.CustomFieldId.Get()
-	toSerialize["order"] = o.Order
+	toSerialize["order"] = o.Order.Get()
 	toSerialize["required"] = o.Required.Get()
 	toSerialize["field"] = o.Field
 

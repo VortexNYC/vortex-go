@@ -19,8 +19,8 @@ var _ MappedNullable = &CreateBillingQuote201ResponseDataCurrentVersionBillingIt
 
 // CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerOverrides struct for CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerOverrides
 type CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerOverrides struct {
-	Quantity NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"quantity,omitempty"`
-	UnitAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"unitAmount,omitempty"`
+	Quantity NullableFloat32 `json:"quantity,omitempty"`
+	UnitAmount NullableFloat32 `json:"unitAmount,omitempty"`
 	Description NullableString `json:"description,omitempty"`
 	InvoiceDisplayName NullableString `json:"invoiceDisplayName,omitempty"`
 }
@@ -43,9 +43,9 @@ func NewCreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerOve
 }
 
 // GetQuantity returns the Quantity field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerOverrides) GetQuantity() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerOverrides) GetQuantity() float32 {
 	if o == nil || IsNil(o.Quantity.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.Quantity.Get()
@@ -54,7 +54,7 @@ func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerOv
 // GetQuantityOk returns a tuple with the Quantity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerOverrides) GetQuantityOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerOverrides) GetQuantityOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -70,8 +70,8 @@ func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerOv
 	return false
 }
 
-// SetQuantity gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the Quantity field.
-func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerOverrides) SetQuantity(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetQuantity gets a reference to the given NullableFloat32 and assigns it to the Quantity field.
+func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerOverrides) SetQuantity(v float32) {
 	o.Quantity.Set(&v)
 }
 // SetQuantityNil sets the value for Quantity to be an explicit nil
@@ -85,9 +85,9 @@ func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerOv
 }
 
 // GetUnitAmount returns the UnitAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerOverrides) GetUnitAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerOverrides) GetUnitAmount() float32 {
 	if o == nil || IsNil(o.UnitAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.UnitAmount.Get()
@@ -96,7 +96,7 @@ func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerOv
 // GetUnitAmountOk returns a tuple with the UnitAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerOverrides) GetUnitAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerOverrides) GetUnitAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -112,8 +112,8 @@ func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerOv
 	return false
 }
 
-// SetUnitAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the UnitAmount field.
-func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerOverrides) SetUnitAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetUnitAmount gets a reference to the given NullableFloat32 and assigns it to the UnitAmount field.
+func (o *CreateBillingQuote201ResponseDataCurrentVersionBillingItemsLinesInnerOverrides) SetUnitAmount(v float32) {
 	o.UnitAmount.Set(&v)
 }
 // SetUnitAmountNil sets the value for UnitAmount to be an explicit nil

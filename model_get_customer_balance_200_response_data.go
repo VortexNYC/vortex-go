@@ -22,7 +22,7 @@ var _ MappedNullable = &GetCustomerBalance200ResponseData{}
 type GetCustomerBalance200ResponseData struct {
 	CustomerId NullableString `json:"customerId"`
 	Currency NullableString `json:"currency"`
-	AvailableAmount ListProducts200ResponseDataTotal `json:"availableAmount"`
+	AvailableAmount NullableFloat32 `json:"availableAmount"`
 	Entries []GetCustomerBalance200ResponseDataEntriesInner `json:"entries"`
 	AdditionalProperties map[string]interface{}
 }
@@ -33,7 +33,7 @@ type _GetCustomerBalance200ResponseData GetCustomerBalance200ResponseData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetCustomerBalance200ResponseData(customerId NullableString, currency NullableString, availableAmount ListProducts200ResponseDataTotal, entries []GetCustomerBalance200ResponseDataEntriesInner) *GetCustomerBalance200ResponseData {
+func NewGetCustomerBalance200ResponseData(customerId NullableString, currency NullableString, availableAmount NullableFloat32, entries []GetCustomerBalance200ResponseDataEntriesInner) *GetCustomerBalance200ResponseData {
 	this := GetCustomerBalance200ResponseData{}
 	this.CustomerId = customerId
 	this.Currency = currency
@@ -103,27 +103,29 @@ func (o *GetCustomerBalance200ResponseData) SetCurrency(v string) {
 }
 
 // GetAvailableAmount returns the AvailableAmount field value
-func (o *GetCustomerBalance200ResponseData) GetAvailableAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetCustomerBalance200ResponseData) GetAvailableAmount() float32 {
+	if o == nil || o.AvailableAmount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.AvailableAmount
+	return *o.AvailableAmount.Get()
 }
 
 // GetAvailableAmountOk returns a tuple with the AvailableAmount field value
 // and a boolean to check if the value has been set.
-func (o *GetCustomerBalance200ResponseData) GetAvailableAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetCustomerBalance200ResponseData) GetAvailableAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AvailableAmount, true
+	return o.AvailableAmount.Get(), o.AvailableAmount.IsSet()
 }
 
 // SetAvailableAmount sets field value
-func (o *GetCustomerBalance200ResponseData) SetAvailableAmount(v ListProducts200ResponseDataTotal) {
-	o.AvailableAmount = v
+func (o *GetCustomerBalance200ResponseData) SetAvailableAmount(v float32) {
+	o.AvailableAmount.Set(&v)
 }
 
 // GetEntries returns the Entries field value
@@ -162,7 +164,7 @@ func (o GetCustomerBalance200ResponseData) ToMap() (map[string]interface{}, erro
 	toSerialize := map[string]interface{}{}
 	toSerialize["customerId"] = o.CustomerId.Get()
 	toSerialize["currency"] = o.Currency.Get()
-	toSerialize["availableAmount"] = o.AvailableAmount
+	toSerialize["availableAmount"] = o.AvailableAmount.Get()
 	toSerialize["entries"] = o.Entries
 
 	for key, value := range o.AdditionalProperties {

@@ -25,7 +25,7 @@ type UsageEventCreateRequest struct {
 	BillingAccountId NullableString `json:"billingAccountId"`
 	MeterId NullableString `json:"meterId"`
 	EventName NullableString `json:"eventName"`
-	Quantity float32 `json:"quantity"`
+	Quantity NullableFloat32 `json:"quantity"`
 	OccurredAt time.Time `json:"occurredAt"`
 	IdempotencyKey NullableString `json:"idempotencyKey"`
 	UsageEventId NullableString `json:"usageEventId,omitempty"`
@@ -41,7 +41,7 @@ type _UsageEventCreateRequest UsageEventCreateRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUsageEventCreateRequest(customerId NullableString, billingAccountId NullableString, meterId NullableString, eventName NullableString, quantity float32, occurredAt time.Time, idempotencyKey NullableString) *UsageEventCreateRequest {
+func NewUsageEventCreateRequest(customerId NullableString, billingAccountId NullableString, meterId NullableString, eventName NullableString, quantity NullableFloat32, occurredAt time.Time, idempotencyKey NullableString) *UsageEventCreateRequest {
 	this := UsageEventCreateRequest{}
 	this.CustomerId = customerId
 	this.BillingAccountId = billingAccountId
@@ -166,27 +166,29 @@ func (o *UsageEventCreateRequest) SetEventName(v string) {
 }
 
 // GetQuantity returns the Quantity field value
+// If the value is explicit nil, the zero value for float32 will be returned
 func (o *UsageEventCreateRequest) GetQuantity() float32 {
-	if o == nil {
+	if o == nil || o.Quantity.Get() == nil {
 		var ret float32
 		return ret
 	}
 
-	return o.Quantity
+	return *o.Quantity.Get()
 }
 
 // GetQuantityOk returns a tuple with the Quantity field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UsageEventCreateRequest) GetQuantityOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Quantity, true
+	return o.Quantity.Get(), o.Quantity.IsSet()
 }
 
 // SetQuantity sets field value
 func (o *UsageEventCreateRequest) SetQuantity(v float32) {
-	o.Quantity = v
+	o.Quantity.Set(&v)
 }
 
 // GetOccurredAt returns the OccurredAt field value
@@ -412,7 +414,7 @@ func (o UsageEventCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["billingAccountId"] = o.BillingAccountId.Get()
 	toSerialize["meterId"] = o.MeterId.Get()
 	toSerialize["eventName"] = o.EventName.Get()
-	toSerialize["quantity"] = o.Quantity
+	toSerialize["quantity"] = o.Quantity.Get()
 	toSerialize["occurredAt"] = o.OccurredAt
 	toSerialize["idempotencyKey"] = o.IdempotencyKey.Get()
 	if o.UsageEventId.IsSet() {

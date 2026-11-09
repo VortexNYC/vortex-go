@@ -129,6 +129,20 @@ func (a *UsageAPIService) ArchiveBillingUsageThresholdExecute(r UsageAPIArchiveB
 	}
 	// body params
 	localVarPostBody = r.archiveBillingUsageThresholdRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -265,6 +279,20 @@ func (a *UsageAPIService) CreateBillingUsageEventExecute(r UsageAPICreateBilling
 	}
 	// body params
 	localVarPostBody = r.createBillingUsageEventRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -401,6 +429,20 @@ func (a *UsageAPIService) CreateBillingUsageThresholdExecute(r UsageAPICreateBil
 	}
 	// body params
 	localVarPostBody = r.createBillingUsageThresholdRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -446,7 +488,7 @@ type UsageAPIListBillingUsageEventsRequest struct {
 	customerId *string
 	meterId *string
 	eventName *string
-	limit *ListCustomersLimitParameter
+	limit *string
 	cursor *string
 }
 
@@ -475,7 +517,7 @@ func (r UsageAPIListBillingUsageEventsRequest) EventName(eventName string) Usage
 	return r
 }
 
-func (r UsageAPIListBillingUsageEventsRequest) Limit(limit ListCustomersLimitParameter) UsageAPIListBillingUsageEventsRequest {
+func (r UsageAPIListBillingUsageEventsRequest) Limit(limit string) UsageAPIListBillingUsageEventsRequest {
 	r.limit = &limit
 	return r
 }
@@ -561,6 +603,20 @@ func (a *UsageAPIService) ListBillingUsageEventsExecute(r UsageAPIListBillingUsa
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -604,8 +660,8 @@ type UsageAPIListBillingUsageThresholdsRequest struct {
 	environment *string
 	merchantAccountId *string
 	includeArchived *string
-	limit *ListCustomersLimitParameter
-	offset *ListCustomersLimitParameter
+	limit *string
+	offset *string
 }
 
 func (r UsageAPIListBillingUsageThresholdsRequest) Environment(environment string) UsageAPIListBillingUsageThresholdsRequest {
@@ -623,12 +679,12 @@ func (r UsageAPIListBillingUsageThresholdsRequest) IncludeArchived(includeArchiv
 	return r
 }
 
-func (r UsageAPIListBillingUsageThresholdsRequest) Limit(limit ListCustomersLimitParameter) UsageAPIListBillingUsageThresholdsRequest {
+func (r UsageAPIListBillingUsageThresholdsRequest) Limit(limit string) UsageAPIListBillingUsageThresholdsRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r UsageAPIListBillingUsageThresholdsRequest) Offset(offset ListCustomersLimitParameter) UsageAPIListBillingUsageThresholdsRequest {
+func (r UsageAPIListBillingUsageThresholdsRequest) Offset(offset string) UsageAPIListBillingUsageThresholdsRequest {
 	r.offset = &offset
 	return r
 }
@@ -702,6 +758,20 @@ func (a *UsageAPIService) ListBillingUsageThresholdsExecute(r UsageAPIListBillin
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {

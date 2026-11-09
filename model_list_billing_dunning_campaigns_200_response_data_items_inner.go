@@ -23,8 +23,8 @@ type ListBillingDunningCampaigns200ResponseDataItemsInner struct {
 	CampaignId NullableString `json:"campaignId"`
 	Code NullableString `json:"code"`
 	Name NullableString `json:"name"`
-	DaysBetweenAttempts ListProducts200ResponseDataTotal `json:"daysBetweenAttempts"`
-	MaxAttempts ListProducts200ResponseDataTotal `json:"maxAttempts"`
+	DaysBetweenAttempts NullableFloat32 `json:"daysBetweenAttempts"`
+	MaxAttempts NullableFloat32 `json:"maxAttempts"`
 	TerminalAction string `json:"terminalAction"`
 	Status string `json:"status"`
 	IsDefault NullableBool `json:"isDefault"`
@@ -44,7 +44,7 @@ type _ListBillingDunningCampaigns200ResponseDataItemsInner ListBillingDunningCam
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListBillingDunningCampaigns200ResponseDataItemsInner(campaignId NullableString, code NullableString, name NullableString, daysBetweenAttempts ListProducts200ResponseDataTotal, maxAttempts ListProducts200ResponseDataTotal, terminalAction string, status string, isDefault NullableBool, createdAt NullableString, updatedAt NullableString, metadata map[string]string) *ListBillingDunningCampaigns200ResponseDataItemsInner {
+func NewListBillingDunningCampaigns200ResponseDataItemsInner(campaignId NullableString, code NullableString, name NullableString, daysBetweenAttempts NullableFloat32, maxAttempts NullableFloat32, terminalAction string, status string, isDefault NullableBool, createdAt NullableString, updatedAt NullableString, metadata map[string]string) *ListBillingDunningCampaigns200ResponseDataItemsInner {
 	this := ListBillingDunningCampaigns200ResponseDataItemsInner{}
 	this.CampaignId = campaignId
 	this.Code = code
@@ -147,51 +147,55 @@ func (o *ListBillingDunningCampaigns200ResponseDataItemsInner) SetName(v string)
 }
 
 // GetDaysBetweenAttempts returns the DaysBetweenAttempts field value
-func (o *ListBillingDunningCampaigns200ResponseDataItemsInner) GetDaysBetweenAttempts() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListBillingDunningCampaigns200ResponseDataItemsInner) GetDaysBetweenAttempts() float32 {
+	if o == nil || o.DaysBetweenAttempts.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.DaysBetweenAttempts
+	return *o.DaysBetweenAttempts.Get()
 }
 
 // GetDaysBetweenAttemptsOk returns a tuple with the DaysBetweenAttempts field value
 // and a boolean to check if the value has been set.
-func (o *ListBillingDunningCampaigns200ResponseDataItemsInner) GetDaysBetweenAttemptsOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListBillingDunningCampaigns200ResponseDataItemsInner) GetDaysBetweenAttemptsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.DaysBetweenAttempts, true
+	return o.DaysBetweenAttempts.Get(), o.DaysBetweenAttempts.IsSet()
 }
 
 // SetDaysBetweenAttempts sets field value
-func (o *ListBillingDunningCampaigns200ResponseDataItemsInner) SetDaysBetweenAttempts(v ListProducts200ResponseDataTotal) {
-	o.DaysBetweenAttempts = v
+func (o *ListBillingDunningCampaigns200ResponseDataItemsInner) SetDaysBetweenAttempts(v float32) {
+	o.DaysBetweenAttempts.Set(&v)
 }
 
 // GetMaxAttempts returns the MaxAttempts field value
-func (o *ListBillingDunningCampaigns200ResponseDataItemsInner) GetMaxAttempts() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListBillingDunningCampaigns200ResponseDataItemsInner) GetMaxAttempts() float32 {
+	if o == nil || o.MaxAttempts.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.MaxAttempts
+	return *o.MaxAttempts.Get()
 }
 
 // GetMaxAttemptsOk returns a tuple with the MaxAttempts field value
 // and a boolean to check if the value has been set.
-func (o *ListBillingDunningCampaigns200ResponseDataItemsInner) GetMaxAttemptsOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListBillingDunningCampaigns200ResponseDataItemsInner) GetMaxAttemptsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.MaxAttempts, true
+	return o.MaxAttempts.Get(), o.MaxAttempts.IsSet()
 }
 
 // SetMaxAttempts sets field value
-func (o *ListBillingDunningCampaigns200ResponseDataItemsInner) SetMaxAttempts(v ListProducts200ResponseDataTotal) {
-	o.MaxAttempts = v
+func (o *ListBillingDunningCampaigns200ResponseDataItemsInner) SetMaxAttempts(v float32) {
+	o.MaxAttempts.Set(&v)
 }
 
 // GetTerminalAction returns the TerminalAction field value
@@ -509,8 +513,8 @@ func (o ListBillingDunningCampaigns200ResponseDataItemsInner) ToMap() (map[strin
 	toSerialize["campaignId"] = o.CampaignId.Get()
 	toSerialize["code"] = o.Code.Get()
 	toSerialize["name"] = o.Name.Get()
-	toSerialize["daysBetweenAttempts"] = o.DaysBetweenAttempts
-	toSerialize["maxAttempts"] = o.MaxAttempts
+	toSerialize["daysBetweenAttempts"] = o.DaysBetweenAttempts.Get()
+	toSerialize["maxAttempts"] = o.MaxAttempts.Get()
 	toSerialize["terminalAction"] = o.TerminalAction
 	toSerialize["status"] = o.Status
 	toSerialize["isDefault"] = o.IsDefault.Get()

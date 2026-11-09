@@ -20,7 +20,7 @@ var _ MappedNullable = &RunInvoiceCollectionRetries200ResponseData{}
 
 // RunInvoiceCollectionRetries200ResponseData struct for RunInvoiceCollectionRetries200ResponseData
 type RunInvoiceCollectionRetries200ResponseData struct {
-	Considered ListProducts200ResponseDataTotal `json:"considered"`
+	Considered NullableFloat32 `json:"considered"`
 	Retried []RunInvoiceCollectionRetries200ResponseDataRetriedInner `json:"retried"`
 	AdditionalProperties map[string]interface{}
 }
@@ -31,7 +31,7 @@ type _RunInvoiceCollectionRetries200ResponseData RunInvoiceCollectionRetries200R
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRunInvoiceCollectionRetries200ResponseData(considered ListProducts200ResponseDataTotal, retried []RunInvoiceCollectionRetries200ResponseDataRetriedInner) *RunInvoiceCollectionRetries200ResponseData {
+func NewRunInvoiceCollectionRetries200ResponseData(considered NullableFloat32, retried []RunInvoiceCollectionRetries200ResponseDataRetriedInner) *RunInvoiceCollectionRetries200ResponseData {
 	this := RunInvoiceCollectionRetries200ResponseData{}
 	this.Considered = considered
 	this.Retried = retried
@@ -47,27 +47,29 @@ func NewRunInvoiceCollectionRetries200ResponseDataWithDefaults() *RunInvoiceColl
 }
 
 // GetConsidered returns the Considered field value
-func (o *RunInvoiceCollectionRetries200ResponseData) GetConsidered() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *RunInvoiceCollectionRetries200ResponseData) GetConsidered() float32 {
+	if o == nil || o.Considered.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Considered
+	return *o.Considered.Get()
 }
 
 // GetConsideredOk returns a tuple with the Considered field value
 // and a boolean to check if the value has been set.
-func (o *RunInvoiceCollectionRetries200ResponseData) GetConsideredOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *RunInvoiceCollectionRetries200ResponseData) GetConsideredOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Considered, true
+	return o.Considered.Get(), o.Considered.IsSet()
 }
 
 // SetConsidered sets field value
-func (o *RunInvoiceCollectionRetries200ResponseData) SetConsidered(v ListProducts200ResponseDataTotal) {
-	o.Considered = v
+func (o *RunInvoiceCollectionRetries200ResponseData) SetConsidered(v float32) {
+	o.Considered.Set(&v)
 }
 
 // GetRetried returns the Retried field value
@@ -104,7 +106,7 @@ func (o RunInvoiceCollectionRetries200ResponseData) MarshalJSON() ([]byte, error
 
 func (o RunInvoiceCollectionRetries200ResponseData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["considered"] = o.Considered
+	toSerialize["considered"] = o.Considered.Get()
 	toSerialize["retried"] = o.Retried
 
 	for key, value := range o.AdditionalProperties {

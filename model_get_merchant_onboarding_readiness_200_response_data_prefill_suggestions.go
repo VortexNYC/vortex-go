@@ -20,9 +20,9 @@ var _ MappedNullable = &GetMerchantOnboardingReadiness200ResponseDataPrefillSugg
 
 // GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions struct for GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions
 type GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions struct {
-	AnnualCardVolume ListProducts200ResponseDataTotal `json:"annualCardVolume"`
-	AverageCardTransferAmount ListProducts200ResponseDataTotal `json:"averageCardTransferAmount"`
-	MaxTransactionAmount ListProducts200ResponseDataTotal `json:"maxTransactionAmount"`
+	AnnualCardVolume NullableFloat32 `json:"annualCardVolume"`
+	AverageCardTransferAmount NullableFloat32 `json:"averageCardTransferAmount"`
+	MaxTransactionAmount NullableFloat32 `json:"maxTransactionAmount"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,7 +32,7 @@ type _GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions GetMerchan
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions(annualCardVolume ListProducts200ResponseDataTotal, averageCardTransferAmount ListProducts200ResponseDataTotal, maxTransactionAmount ListProducts200ResponseDataTotal) *GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions {
+func NewGetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions(annualCardVolume NullableFloat32, averageCardTransferAmount NullableFloat32, maxTransactionAmount NullableFloat32) *GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions {
 	this := GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions{}
 	this.AnnualCardVolume = annualCardVolume
 	this.AverageCardTransferAmount = averageCardTransferAmount
@@ -49,75 +49,81 @@ func NewGetMerchantOnboardingReadiness200ResponseDataPrefillSuggestionsWithDefau
 }
 
 // GetAnnualCardVolume returns the AnnualCardVolume field value
-func (o *GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions) GetAnnualCardVolume() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions) GetAnnualCardVolume() float32 {
+	if o == nil || o.AnnualCardVolume.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.AnnualCardVolume
+	return *o.AnnualCardVolume.Get()
 }
 
 // GetAnnualCardVolumeOk returns a tuple with the AnnualCardVolume field value
 // and a boolean to check if the value has been set.
-func (o *GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions) GetAnnualCardVolumeOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions) GetAnnualCardVolumeOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AnnualCardVolume, true
+	return o.AnnualCardVolume.Get(), o.AnnualCardVolume.IsSet()
 }
 
 // SetAnnualCardVolume sets field value
-func (o *GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions) SetAnnualCardVolume(v ListProducts200ResponseDataTotal) {
-	o.AnnualCardVolume = v
+func (o *GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions) SetAnnualCardVolume(v float32) {
+	o.AnnualCardVolume.Set(&v)
 }
 
 // GetAverageCardTransferAmount returns the AverageCardTransferAmount field value
-func (o *GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions) GetAverageCardTransferAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions) GetAverageCardTransferAmount() float32 {
+	if o == nil || o.AverageCardTransferAmount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.AverageCardTransferAmount
+	return *o.AverageCardTransferAmount.Get()
 }
 
 // GetAverageCardTransferAmountOk returns a tuple with the AverageCardTransferAmount field value
 // and a boolean to check if the value has been set.
-func (o *GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions) GetAverageCardTransferAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions) GetAverageCardTransferAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AverageCardTransferAmount, true
+	return o.AverageCardTransferAmount.Get(), o.AverageCardTransferAmount.IsSet()
 }
 
 // SetAverageCardTransferAmount sets field value
-func (o *GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions) SetAverageCardTransferAmount(v ListProducts200ResponseDataTotal) {
-	o.AverageCardTransferAmount = v
+func (o *GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions) SetAverageCardTransferAmount(v float32) {
+	o.AverageCardTransferAmount.Set(&v)
 }
 
 // GetMaxTransactionAmount returns the MaxTransactionAmount field value
-func (o *GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions) GetMaxTransactionAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions) GetMaxTransactionAmount() float32 {
+	if o == nil || o.MaxTransactionAmount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.MaxTransactionAmount
+	return *o.MaxTransactionAmount.Get()
 }
 
 // GetMaxTransactionAmountOk returns a tuple with the MaxTransactionAmount field value
 // and a boolean to check if the value has been set.
-func (o *GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions) GetMaxTransactionAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions) GetMaxTransactionAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.MaxTransactionAmount, true
+	return o.MaxTransactionAmount.Get(), o.MaxTransactionAmount.IsSet()
 }
 
 // SetMaxTransactionAmount sets field value
-func (o *GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions) SetMaxTransactionAmount(v ListProducts200ResponseDataTotal) {
-	o.MaxTransactionAmount = v
+func (o *GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions) SetMaxTransactionAmount(v float32) {
+	o.MaxTransactionAmount.Set(&v)
 }
 
 func (o GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions) MarshalJSON() ([]byte, error) {
@@ -130,9 +136,9 @@ func (o GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions) Marshal
 
 func (o GetMerchantOnboardingReadiness200ResponseDataPrefillSuggestions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["annualCardVolume"] = o.AnnualCardVolume
-	toSerialize["averageCardTransferAmount"] = o.AverageCardTransferAmount
-	toSerialize["maxTransactionAmount"] = o.MaxTransactionAmount
+	toSerialize["annualCardVolume"] = o.AnnualCardVolume.Get()
+	toSerialize["averageCardTransferAmount"] = o.AverageCardTransferAmount.Get()
+	toSerialize["maxTransactionAmount"] = o.MaxTransactionAmount.Get()
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

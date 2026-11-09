@@ -26,11 +26,11 @@ type CreatePaymentRequest201ResponseDataPaymentRequest struct {
 	BillingAccountId string `json:"billingAccountId"`
 	Status string `json:"status"`
 	Currency string `json:"currency"`
-	AmountRequested ListProducts200ResponseDataTotal `json:"amountRequested"`
-	AmountPaid ListProducts200ResponseDataTotal `json:"amountPaid"`
-	AmountRemaining ListProducts200ResponseDataTotal `json:"amountRemaining"`
-	InvoiceCount ListProducts200ResponseDataTotal `json:"invoiceCount"`
-	AttemptCount ListProducts200ResponseDataTotal `json:"attemptCount"`
+	AmountRequested float32 `json:"amountRequested"`
+	AmountPaid float32 `json:"amountPaid"`
+	AmountRemaining float32 `json:"amountRemaining"`
+	InvoiceCount float32 `json:"invoiceCount"`
+	AttemptCount float32 `json:"attemptCount"`
 	CreatedByType string `json:"createdByType"`
 	CreatedByRef string `json:"createdByRef"`
 	CreatedAt string `json:"createdAt"`
@@ -53,7 +53,7 @@ type _CreatePaymentRequest201ResponseDataPaymentRequest CreatePaymentRequest201R
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePaymentRequest201ResponseDataPaymentRequest(paymentRequestId string, customerId string, billingAccountId string, status string, currency string, amountRequested ListProducts200ResponseDataTotal, amountPaid ListProducts200ResponseDataTotal, amountRemaining ListProducts200ResponseDataTotal, invoiceCount ListProducts200ResponseDataTotal, attemptCount ListProducts200ResponseDataTotal, createdByType string, createdByRef string, createdAt string, updatedAt string, metadata map[string]string) *CreatePaymentRequest201ResponseDataPaymentRequest {
+func NewCreatePaymentRequest201ResponseDataPaymentRequest(paymentRequestId string, customerId string, billingAccountId string, status string, currency string, amountRequested float32, amountPaid float32, amountRemaining float32, invoiceCount float32, attemptCount float32, createdByType string, createdByRef string, createdAt string, updatedAt string, metadata map[string]string) *CreatePaymentRequest201ResponseDataPaymentRequest {
 	this := CreatePaymentRequest201ResponseDataPaymentRequest{}
 	this.PaymentRequestId = paymentRequestId
 	this.CustomerId = customerId
@@ -202,9 +202,9 @@ func (o *CreatePaymentRequest201ResponseDataPaymentRequest) SetCurrency(v string
 }
 
 // GetAmountRequested returns the AmountRequested field value
-func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetAmountRequested() ListProducts200ResponseDataTotal {
+func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetAmountRequested() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -213,7 +213,7 @@ func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetAmountRequested()
 
 // GetAmountRequestedOk returns a tuple with the AmountRequested field value
 // and a boolean to check if the value has been set.
-func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetAmountRequestedOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetAmountRequestedOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -221,14 +221,14 @@ func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetAmountRequestedOk
 }
 
 // SetAmountRequested sets field value
-func (o *CreatePaymentRequest201ResponseDataPaymentRequest) SetAmountRequested(v ListProducts200ResponseDataTotal) {
+func (o *CreatePaymentRequest201ResponseDataPaymentRequest) SetAmountRequested(v float32) {
 	o.AmountRequested = v
 }
 
 // GetAmountPaid returns the AmountPaid field value
-func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetAmountPaid() ListProducts200ResponseDataTotal {
+func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetAmountPaid() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -237,7 +237,7 @@ func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetAmountPaid() List
 
 // GetAmountPaidOk returns a tuple with the AmountPaid field value
 // and a boolean to check if the value has been set.
-func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetAmountPaidOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetAmountPaidOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -245,14 +245,14 @@ func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetAmountPaidOk() (*
 }
 
 // SetAmountPaid sets field value
-func (o *CreatePaymentRequest201ResponseDataPaymentRequest) SetAmountPaid(v ListProducts200ResponseDataTotal) {
+func (o *CreatePaymentRequest201ResponseDataPaymentRequest) SetAmountPaid(v float32) {
 	o.AmountPaid = v
 }
 
 // GetAmountRemaining returns the AmountRemaining field value
-func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetAmountRemaining() ListProducts200ResponseDataTotal {
+func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetAmountRemaining() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -261,7 +261,7 @@ func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetAmountRemaining()
 
 // GetAmountRemainingOk returns a tuple with the AmountRemaining field value
 // and a boolean to check if the value has been set.
-func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetAmountRemainingOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetAmountRemainingOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -269,14 +269,14 @@ func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetAmountRemainingOk
 }
 
 // SetAmountRemaining sets field value
-func (o *CreatePaymentRequest201ResponseDataPaymentRequest) SetAmountRemaining(v ListProducts200ResponseDataTotal) {
+func (o *CreatePaymentRequest201ResponseDataPaymentRequest) SetAmountRemaining(v float32) {
 	o.AmountRemaining = v
 }
 
 // GetInvoiceCount returns the InvoiceCount field value
-func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetInvoiceCount() ListProducts200ResponseDataTotal {
+func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetInvoiceCount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -285,7 +285,7 @@ func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetInvoiceCount() Li
 
 // GetInvoiceCountOk returns a tuple with the InvoiceCount field value
 // and a boolean to check if the value has been set.
-func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetInvoiceCountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetInvoiceCountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -293,14 +293,14 @@ func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetInvoiceCountOk() 
 }
 
 // SetInvoiceCount sets field value
-func (o *CreatePaymentRequest201ResponseDataPaymentRequest) SetInvoiceCount(v ListProducts200ResponseDataTotal) {
+func (o *CreatePaymentRequest201ResponseDataPaymentRequest) SetInvoiceCount(v float32) {
 	o.InvoiceCount = v
 }
 
 // GetAttemptCount returns the AttemptCount field value
-func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetAttemptCount() ListProducts200ResponseDataTotal {
+func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetAttemptCount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -309,7 +309,7 @@ func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetAttemptCount() Li
 
 // GetAttemptCountOk returns a tuple with the AttemptCount field value
 // and a boolean to check if the value has been set.
-func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetAttemptCountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetAttemptCountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -317,7 +317,7 @@ func (o *CreatePaymentRequest201ResponseDataPaymentRequest) GetAttemptCountOk() 
 }
 
 // SetAttemptCount sets field value
-func (o *CreatePaymentRequest201ResponseDataPaymentRequest) SetAttemptCount(v ListProducts200ResponseDataTotal) {
+func (o *CreatePaymentRequest201ResponseDataPaymentRequest) SetAttemptCount(v float32) {
 	o.AttemptCount = v
 }
 

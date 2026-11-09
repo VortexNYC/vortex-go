@@ -22,7 +22,7 @@ var _ MappedNullable = &MarkBillingOrderFormSigned200ResponseDataOrderExecutionR
 // MarkBillingOrderFormSigned200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner struct for MarkBillingOrderFormSigned200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner
 type MarkBillingOrderFormSigned200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner struct {
 	PriceId string `json:"priceId"`
-	Amount ListProducts200ResponseDataTotal `json:"amount"`
+	Amount float32 `json:"amount"`
 	Description string `json:"description"`
 	InvoiceLineId NullableString `json:"invoiceLineId,omitempty"`
 }
@@ -33,7 +33,7 @@ type _MarkBillingOrderFormSigned200ResponseDataOrderExecutionRecordAmendmentCred
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMarkBillingOrderFormSigned200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner(priceId string, amount ListProducts200ResponseDataTotal, description string) *MarkBillingOrderFormSigned200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner {
+func NewMarkBillingOrderFormSigned200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner(priceId string, amount float32, description string) *MarkBillingOrderFormSigned200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner {
 	this := MarkBillingOrderFormSigned200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner{}
 	this.PriceId = priceId
 	this.Amount = amount
@@ -74,9 +74,9 @@ func (o *MarkBillingOrderFormSigned200ResponseDataOrderExecutionRecordAmendmentC
 }
 
 // GetAmount returns the Amount field value
-func (o *MarkBillingOrderFormSigned200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner) GetAmount() ListProducts200ResponseDataTotal {
+func (o *MarkBillingOrderFormSigned200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner) GetAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -85,7 +85,7 @@ func (o *MarkBillingOrderFormSigned200ResponseDataOrderExecutionRecordAmendmentC
 
 // GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
-func (o *MarkBillingOrderFormSigned200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner) GetAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *MarkBillingOrderFormSigned200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner) GetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -93,7 +93,7 @@ func (o *MarkBillingOrderFormSigned200ResponseDataOrderExecutionRecordAmendmentC
 }
 
 // SetAmount sets field value
-func (o *MarkBillingOrderFormSigned200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner) SetAmount(v ListProducts200ResponseDataTotal) {
+func (o *MarkBillingOrderFormSigned200ResponseDataOrderExecutionRecordAmendmentCreditLinesInner) SetAmount(v float32) {
 	o.Amount = v
 }
 

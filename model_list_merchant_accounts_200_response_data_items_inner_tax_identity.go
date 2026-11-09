@@ -20,10 +20,10 @@ var _ MappedNullable = &ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity
 
 // ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity struct for ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity
 type ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity struct {
-	AssociatedIdentityCount ListProducts200ResponseDataTotal `json:"associatedIdentityCount"`
-	BeneficialOwnerCount ListProducts200ResponseDataTotal `json:"beneficialOwnerCount"`
-	ControlPersonCount ListProducts200ResponseDataTotal `json:"controlPersonCount"`
-	RepresentativeCount ListProducts200ResponseDataTotal `json:"representativeCount"`
+	AssociatedIdentityCount NullableFloat32 `json:"associatedIdentityCount"`
+	BeneficialOwnerCount NullableFloat32 `json:"beneficialOwnerCount"`
+	ControlPersonCount NullableFloat32 `json:"controlPersonCount"`
+	RepresentativeCount NullableFloat32 `json:"representativeCount"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,7 +33,7 @@ type _ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity ListMerchantAccou
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListMerchantAccounts200ResponseDataItemsInnerTaxIdentity(associatedIdentityCount ListProducts200ResponseDataTotal, beneficialOwnerCount ListProducts200ResponseDataTotal, controlPersonCount ListProducts200ResponseDataTotal, representativeCount ListProducts200ResponseDataTotal) *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity {
+func NewListMerchantAccounts200ResponseDataItemsInnerTaxIdentity(associatedIdentityCount NullableFloat32, beneficialOwnerCount NullableFloat32, controlPersonCount NullableFloat32, representativeCount NullableFloat32) *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity {
 	this := ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity{}
 	this.AssociatedIdentityCount = associatedIdentityCount
 	this.BeneficialOwnerCount = beneficialOwnerCount
@@ -51,99 +51,107 @@ func NewListMerchantAccounts200ResponseDataItemsInnerTaxIdentityWithDefaults() *
 }
 
 // GetAssociatedIdentityCount returns the AssociatedIdentityCount field value
-func (o *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) GetAssociatedIdentityCount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) GetAssociatedIdentityCount() float32 {
+	if o == nil || o.AssociatedIdentityCount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.AssociatedIdentityCount
+	return *o.AssociatedIdentityCount.Get()
 }
 
 // GetAssociatedIdentityCountOk returns a tuple with the AssociatedIdentityCount field value
 // and a boolean to check if the value has been set.
-func (o *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) GetAssociatedIdentityCountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) GetAssociatedIdentityCountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AssociatedIdentityCount, true
+	return o.AssociatedIdentityCount.Get(), o.AssociatedIdentityCount.IsSet()
 }
 
 // SetAssociatedIdentityCount sets field value
-func (o *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) SetAssociatedIdentityCount(v ListProducts200ResponseDataTotal) {
-	o.AssociatedIdentityCount = v
+func (o *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) SetAssociatedIdentityCount(v float32) {
+	o.AssociatedIdentityCount.Set(&v)
 }
 
 // GetBeneficialOwnerCount returns the BeneficialOwnerCount field value
-func (o *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) GetBeneficialOwnerCount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) GetBeneficialOwnerCount() float32 {
+	if o == nil || o.BeneficialOwnerCount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.BeneficialOwnerCount
+	return *o.BeneficialOwnerCount.Get()
 }
 
 // GetBeneficialOwnerCountOk returns a tuple with the BeneficialOwnerCount field value
 // and a boolean to check if the value has been set.
-func (o *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) GetBeneficialOwnerCountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) GetBeneficialOwnerCountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.BeneficialOwnerCount, true
+	return o.BeneficialOwnerCount.Get(), o.BeneficialOwnerCount.IsSet()
 }
 
 // SetBeneficialOwnerCount sets field value
-func (o *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) SetBeneficialOwnerCount(v ListProducts200ResponseDataTotal) {
-	o.BeneficialOwnerCount = v
+func (o *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) SetBeneficialOwnerCount(v float32) {
+	o.BeneficialOwnerCount.Set(&v)
 }
 
 // GetControlPersonCount returns the ControlPersonCount field value
-func (o *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) GetControlPersonCount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) GetControlPersonCount() float32 {
+	if o == nil || o.ControlPersonCount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.ControlPersonCount
+	return *o.ControlPersonCount.Get()
 }
 
 // GetControlPersonCountOk returns a tuple with the ControlPersonCount field value
 // and a boolean to check if the value has been set.
-func (o *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) GetControlPersonCountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) GetControlPersonCountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ControlPersonCount, true
+	return o.ControlPersonCount.Get(), o.ControlPersonCount.IsSet()
 }
 
 // SetControlPersonCount sets field value
-func (o *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) SetControlPersonCount(v ListProducts200ResponseDataTotal) {
-	o.ControlPersonCount = v
+func (o *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) SetControlPersonCount(v float32) {
+	o.ControlPersonCount.Set(&v)
 }
 
 // GetRepresentativeCount returns the RepresentativeCount field value
-func (o *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) GetRepresentativeCount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) GetRepresentativeCount() float32 {
+	if o == nil || o.RepresentativeCount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.RepresentativeCount
+	return *o.RepresentativeCount.Get()
 }
 
 // GetRepresentativeCountOk returns a tuple with the RepresentativeCount field value
 // and a boolean to check if the value has been set.
-func (o *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) GetRepresentativeCountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) GetRepresentativeCountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RepresentativeCount, true
+	return o.RepresentativeCount.Get(), o.RepresentativeCount.IsSet()
 }
 
 // SetRepresentativeCount sets field value
-func (o *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) SetRepresentativeCount(v ListProducts200ResponseDataTotal) {
-	o.RepresentativeCount = v
+func (o *ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) SetRepresentativeCount(v float32) {
+	o.RepresentativeCount.Set(&v)
 }
 
 func (o ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) MarshalJSON() ([]byte, error) {
@@ -156,10 +164,10 @@ func (o ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) MarshalJSON() 
 
 func (o ListMerchantAccounts200ResponseDataItemsInnerTaxIdentity) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["associatedIdentityCount"] = o.AssociatedIdentityCount
-	toSerialize["beneficialOwnerCount"] = o.BeneficialOwnerCount
-	toSerialize["controlPersonCount"] = o.ControlPersonCount
-	toSerialize["representativeCount"] = o.RepresentativeCount
+	toSerialize["associatedIdentityCount"] = o.AssociatedIdentityCount.Get()
+	toSerialize["beneficialOwnerCount"] = o.BeneficialOwnerCount.Get()
+	toSerialize["controlPersonCount"] = o.ControlPersonCount.Get()
+	toSerialize["representativeCount"] = o.RepresentativeCount.Get()
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

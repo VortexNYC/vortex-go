@@ -19,11 +19,11 @@ var _ MappedNullable = &ListMerchantAccounts200ResponseDataItemsInnerUnderwritin
 
 // ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType struct for ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType
 type ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType struct {
-	OtherVolumePercentage NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"otherVolumePercentage,omitempty"`
-	ConsumerToConsumerVolumePercentage NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"consumerToConsumerVolumePercentage,omitempty"`
-	BusinessToConsumerVolumePercentage NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"businessToConsumerVolumePercentage,omitempty"`
-	BusinessToBusinessVolumePercentage NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"businessToBusinessVolumePercentage,omitempty"`
-	PersonToPersonVolumePercentage NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"personToPersonVolumePercentage,omitempty"`
+	OtherVolumePercentage NullableFloat32 `json:"otherVolumePercentage,omitempty"`
+	ConsumerToConsumerVolumePercentage NullableFloat32 `json:"consumerToConsumerVolumePercentage,omitempty"`
+	BusinessToConsumerVolumePercentage NullableFloat32 `json:"businessToConsumerVolumePercentage,omitempty"`
+	BusinessToBusinessVolumePercentage NullableFloat32 `json:"businessToBusinessVolumePercentage,omitempty"`
+	PersonToPersonVolumePercentage NullableFloat32 `json:"personToPersonVolumePercentage,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -47,9 +47,9 @@ func NewListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistribut
 }
 
 // GetOtherVolumePercentage returns the OtherVolumePercentage field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) GetOtherVolumePercentage() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) GetOtherVolumePercentage() float32 {
 	if o == nil || IsNil(o.OtherVolumePercentage.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.OtherVolumePercentage.Get()
@@ -58,7 +58,7 @@ func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistribu
 // GetOtherVolumePercentageOk returns a tuple with the OtherVolumePercentage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) GetOtherVolumePercentageOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) GetOtherVolumePercentageOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -74,8 +74,8 @@ func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistribu
 	return false
 }
 
-// SetOtherVolumePercentage gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the OtherVolumePercentage field.
-func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) SetOtherVolumePercentage(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetOtherVolumePercentage gets a reference to the given NullableFloat32 and assigns it to the OtherVolumePercentage field.
+func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) SetOtherVolumePercentage(v float32) {
 	o.OtherVolumePercentage.Set(&v)
 }
 // SetOtherVolumePercentageNil sets the value for OtherVolumePercentage to be an explicit nil
@@ -89,9 +89,9 @@ func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistribu
 }
 
 // GetConsumerToConsumerVolumePercentage returns the ConsumerToConsumerVolumePercentage field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) GetConsumerToConsumerVolumePercentage() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) GetConsumerToConsumerVolumePercentage() float32 {
 	if o == nil || IsNil(o.ConsumerToConsumerVolumePercentage.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.ConsumerToConsumerVolumePercentage.Get()
@@ -100,7 +100,7 @@ func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistribu
 // GetConsumerToConsumerVolumePercentageOk returns a tuple with the ConsumerToConsumerVolumePercentage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) GetConsumerToConsumerVolumePercentageOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) GetConsumerToConsumerVolumePercentageOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -116,8 +116,8 @@ func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistribu
 	return false
 }
 
-// SetConsumerToConsumerVolumePercentage gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the ConsumerToConsumerVolumePercentage field.
-func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) SetConsumerToConsumerVolumePercentage(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetConsumerToConsumerVolumePercentage gets a reference to the given NullableFloat32 and assigns it to the ConsumerToConsumerVolumePercentage field.
+func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) SetConsumerToConsumerVolumePercentage(v float32) {
 	o.ConsumerToConsumerVolumePercentage.Set(&v)
 }
 // SetConsumerToConsumerVolumePercentageNil sets the value for ConsumerToConsumerVolumePercentage to be an explicit nil
@@ -131,9 +131,9 @@ func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistribu
 }
 
 // GetBusinessToConsumerVolumePercentage returns the BusinessToConsumerVolumePercentage field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) GetBusinessToConsumerVolumePercentage() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) GetBusinessToConsumerVolumePercentage() float32 {
 	if o == nil || IsNil(o.BusinessToConsumerVolumePercentage.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.BusinessToConsumerVolumePercentage.Get()
@@ -142,7 +142,7 @@ func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistribu
 // GetBusinessToConsumerVolumePercentageOk returns a tuple with the BusinessToConsumerVolumePercentage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) GetBusinessToConsumerVolumePercentageOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) GetBusinessToConsumerVolumePercentageOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -158,8 +158,8 @@ func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistribu
 	return false
 }
 
-// SetBusinessToConsumerVolumePercentage gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the BusinessToConsumerVolumePercentage field.
-func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) SetBusinessToConsumerVolumePercentage(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetBusinessToConsumerVolumePercentage gets a reference to the given NullableFloat32 and assigns it to the BusinessToConsumerVolumePercentage field.
+func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) SetBusinessToConsumerVolumePercentage(v float32) {
 	o.BusinessToConsumerVolumePercentage.Set(&v)
 }
 // SetBusinessToConsumerVolumePercentageNil sets the value for BusinessToConsumerVolumePercentage to be an explicit nil
@@ -173,9 +173,9 @@ func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistribu
 }
 
 // GetBusinessToBusinessVolumePercentage returns the BusinessToBusinessVolumePercentage field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) GetBusinessToBusinessVolumePercentage() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) GetBusinessToBusinessVolumePercentage() float32 {
 	if o == nil || IsNil(o.BusinessToBusinessVolumePercentage.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.BusinessToBusinessVolumePercentage.Get()
@@ -184,7 +184,7 @@ func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistribu
 // GetBusinessToBusinessVolumePercentageOk returns a tuple with the BusinessToBusinessVolumePercentage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) GetBusinessToBusinessVolumePercentageOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) GetBusinessToBusinessVolumePercentageOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -200,8 +200,8 @@ func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistribu
 	return false
 }
 
-// SetBusinessToBusinessVolumePercentage gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the BusinessToBusinessVolumePercentage field.
-func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) SetBusinessToBusinessVolumePercentage(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetBusinessToBusinessVolumePercentage gets a reference to the given NullableFloat32 and assigns it to the BusinessToBusinessVolumePercentage field.
+func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) SetBusinessToBusinessVolumePercentage(v float32) {
 	o.BusinessToBusinessVolumePercentage.Set(&v)
 }
 // SetBusinessToBusinessVolumePercentageNil sets the value for BusinessToBusinessVolumePercentage to be an explicit nil
@@ -215,9 +215,9 @@ func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistribu
 }
 
 // GetPersonToPersonVolumePercentage returns the PersonToPersonVolumePercentage field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) GetPersonToPersonVolumePercentage() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) GetPersonToPersonVolumePercentage() float32 {
 	if o == nil || IsNil(o.PersonToPersonVolumePercentage.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.PersonToPersonVolumePercentage.Get()
@@ -226,7 +226,7 @@ func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistribu
 // GetPersonToPersonVolumePercentageOk returns a tuple with the PersonToPersonVolumePercentage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) GetPersonToPersonVolumePercentageOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) GetPersonToPersonVolumePercentageOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -242,8 +242,8 @@ func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistribu
 	return false
 }
 
-// SetPersonToPersonVolumePercentage gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the PersonToPersonVolumePercentage field.
-func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) SetPersonToPersonVolumePercentage(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetPersonToPersonVolumePercentage gets a reference to the given NullableFloat32 and assigns it to the PersonToPersonVolumePercentage field.
+func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingVolumeDistributionByBusinessType) SetPersonToPersonVolumePercentage(v float32) {
 	o.PersonToPersonVolumePercentage.Set(&v)
 }
 // SetPersonToPersonVolumePercentageNil sets the value for PersonToPersonVolumePercentage to be an explicit nil

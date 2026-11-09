@@ -21,7 +21,7 @@ var _ MappedNullable = &CreatePaymentHardwareOrderRequestLinesInner{}
 // CreatePaymentHardwareOrderRequestLinesInner struct for CreatePaymentHardwareOrderRequestLinesInner
 type CreatePaymentHardwareOrderRequestLinesInner struct {
 	SkuId NullableString `json:"skuId"`
-	Quantity ListProducts200ResponseDataTotal `json:"quantity"`
+	Quantity NullableFloat32 `json:"quantity"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,7 +31,7 @@ type _CreatePaymentHardwareOrderRequestLinesInner CreatePaymentHardwareOrderRequ
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePaymentHardwareOrderRequestLinesInner(skuId NullableString, quantity ListProducts200ResponseDataTotal) *CreatePaymentHardwareOrderRequestLinesInner {
+func NewCreatePaymentHardwareOrderRequestLinesInner(skuId NullableString, quantity NullableFloat32) *CreatePaymentHardwareOrderRequestLinesInner {
 	this := CreatePaymentHardwareOrderRequestLinesInner{}
 	this.SkuId = skuId
 	this.Quantity = quantity
@@ -73,27 +73,29 @@ func (o *CreatePaymentHardwareOrderRequestLinesInner) SetSkuId(v string) {
 }
 
 // GetQuantity returns the Quantity field value
-func (o *CreatePaymentHardwareOrderRequestLinesInner) GetQuantity() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreatePaymentHardwareOrderRequestLinesInner) GetQuantity() float32 {
+	if o == nil || o.Quantity.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Quantity
+	return *o.Quantity.Get()
 }
 
 // GetQuantityOk returns a tuple with the Quantity field value
 // and a boolean to check if the value has been set.
-func (o *CreatePaymentHardwareOrderRequestLinesInner) GetQuantityOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreatePaymentHardwareOrderRequestLinesInner) GetQuantityOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Quantity, true
+	return o.Quantity.Get(), o.Quantity.IsSet()
 }
 
 // SetQuantity sets field value
-func (o *CreatePaymentHardwareOrderRequestLinesInner) SetQuantity(v ListProducts200ResponseDataTotal) {
-	o.Quantity = v
+func (o *CreatePaymentHardwareOrderRequestLinesInner) SetQuantity(v float32) {
+	o.Quantity.Set(&v)
 }
 
 func (o CreatePaymentHardwareOrderRequestLinesInner) MarshalJSON() ([]byte, error) {
@@ -107,7 +109,7 @@ func (o CreatePaymentHardwareOrderRequestLinesInner) MarshalJSON() ([]byte, erro
 func (o CreatePaymentHardwareOrderRequestLinesInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["skuId"] = o.SkuId.Get()
-	toSerialize["quantity"] = o.Quantity
+	toSerialize["quantity"] = o.Quantity.Get()
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

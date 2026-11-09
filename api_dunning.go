@@ -122,6 +122,20 @@ func (a *DunningAPIService) CreateBillingDunningCampaignExecute(r DunningAPICrea
 	}
 	// body params
 	localVarPostBody = r.createBillingDunningCampaignRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -244,6 +258,20 @@ func (a *DunningAPIService) GetBillingDunningCampaignExecute(r DunningAPIGetBill
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -286,8 +314,8 @@ type DunningAPIListBillingDunningCampaignsRequest struct {
 	ApiService *DunningAPIService
 	environment *string
 	merchantAccountId *string
-	limit *ListCustomersLimitParameter
-	offset *ListCustomersLimitParameter
+	limit *string
+	offset *string
 }
 
 func (r DunningAPIListBillingDunningCampaignsRequest) Environment(environment string) DunningAPIListBillingDunningCampaignsRequest {
@@ -300,12 +328,12 @@ func (r DunningAPIListBillingDunningCampaignsRequest) MerchantAccountId(merchant
 	return r
 }
 
-func (r DunningAPIListBillingDunningCampaignsRequest) Limit(limit ListCustomersLimitParameter) DunningAPIListBillingDunningCampaignsRequest {
+func (r DunningAPIListBillingDunningCampaignsRequest) Limit(limit string) DunningAPIListBillingDunningCampaignsRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r DunningAPIListBillingDunningCampaignsRequest) Offset(offset ListCustomersLimitParameter) DunningAPIListBillingDunningCampaignsRequest {
+func (r DunningAPIListBillingDunningCampaignsRequest) Offset(offset string) DunningAPIListBillingDunningCampaignsRequest {
 	r.offset = &offset
 	return r
 }
@@ -376,6 +404,20 @@ func (a *DunningAPIService) ListBillingDunningCampaignsExecute(r DunningAPIListB
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -513,6 +555,20 @@ func (a *DunningAPIService) RunBillingDunningExecute(r DunningAPIRunBillingDunni
 	}
 	// body params
 	localVarPostBody = r.runBillingDunningRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -649,6 +705,20 @@ func (a *DunningAPIService) RunInvoiceCollectionRetriesExecute(r DunningAPIRunIn
 	}
 	// body params
 	localVarPostBody = r.executeDueBillingOrdersRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

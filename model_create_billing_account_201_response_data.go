@@ -33,7 +33,7 @@ type CreateBillingAccount201ResponseData struct {
 	CustomerProfileId NullableString `json:"customerProfileId,omitempty"`
 	DefaultPaymentMethodId NullableString `json:"defaultPaymentMethodId,omitempty"`
 	RenewalTiming NullableString `json:"renewalTiming,omitempty"`
-	NetTermsDays NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"netTermsDays,omitempty"`
+	NetTermsDays NullableFloat32 `json:"netTermsDays,omitempty"`
 	DunningCampaignId NullableString `json:"dunningCampaignId,omitempty"`
 	ArchivedAt NullableString `json:"archivedAt,omitempty"`
 }
@@ -409,9 +409,9 @@ func (o *CreateBillingAccount201ResponseData) UnsetRenewalTiming() {
 }
 
 // GetNetTermsDays returns the NetTermsDays field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateBillingAccount201ResponseData) GetNetTermsDays() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateBillingAccount201ResponseData) GetNetTermsDays() float32 {
 	if o == nil || IsNil(o.NetTermsDays.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.NetTermsDays.Get()
@@ -420,7 +420,7 @@ func (o *CreateBillingAccount201ResponseData) GetNetTermsDays() ListCustomerBill
 // GetNetTermsDaysOk returns a tuple with the NetTermsDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateBillingAccount201ResponseData) GetNetTermsDaysOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateBillingAccount201ResponseData) GetNetTermsDaysOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -436,8 +436,8 @@ func (o *CreateBillingAccount201ResponseData) HasNetTermsDays() bool {
 	return false
 }
 
-// SetNetTermsDays gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the NetTermsDays field.
-func (o *CreateBillingAccount201ResponseData) SetNetTermsDays(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetNetTermsDays gets a reference to the given NullableFloat32 and assigns it to the NetTermsDays field.
+func (o *CreateBillingAccount201ResponseData) SetNetTermsDays(v float32) {
 	o.NetTermsDays.Set(&v)
 }
 // SetNetTermsDaysNil sets the value for NetTermsDays to be an explicit nil

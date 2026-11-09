@@ -23,7 +23,7 @@ var _ MappedNullable = &CreateBillingUsageThreshold201ResponseData{}
 type CreateBillingUsageThreshold201ResponseData struct {
 	ThresholdId string `json:"thresholdId"`
 	MeterId string `json:"meterId"`
-	ThresholdValue ListProducts200ResponseDataTotal `json:"thresholdValue"`
+	ThresholdValue float32 `json:"thresholdValue"`
 	CreatedAt string `json:"createdAt"`
 	CustomerId NullableString `json:"customerId,omitempty"`
 	ArchivedAt NullableString `json:"archivedAt,omitempty"`
@@ -35,7 +35,7 @@ type _CreateBillingUsageThreshold201ResponseData CreateBillingUsageThreshold201R
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateBillingUsageThreshold201ResponseData(thresholdId string, meterId string, thresholdValue ListProducts200ResponseDataTotal, createdAt string) *CreateBillingUsageThreshold201ResponseData {
+func NewCreateBillingUsageThreshold201ResponseData(thresholdId string, meterId string, thresholdValue float32, createdAt string) *CreateBillingUsageThreshold201ResponseData {
 	this := CreateBillingUsageThreshold201ResponseData{}
 	this.ThresholdId = thresholdId
 	this.MeterId = meterId
@@ -101,9 +101,9 @@ func (o *CreateBillingUsageThreshold201ResponseData) SetMeterId(v string) {
 }
 
 // GetThresholdValue returns the ThresholdValue field value
-func (o *CreateBillingUsageThreshold201ResponseData) GetThresholdValue() ListProducts200ResponseDataTotal {
+func (o *CreateBillingUsageThreshold201ResponseData) GetThresholdValue() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -112,7 +112,7 @@ func (o *CreateBillingUsageThreshold201ResponseData) GetThresholdValue() ListPro
 
 // GetThresholdValueOk returns a tuple with the ThresholdValue field value
 // and a boolean to check if the value has been set.
-func (o *CreateBillingUsageThreshold201ResponseData) GetThresholdValueOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreateBillingUsageThreshold201ResponseData) GetThresholdValueOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -120,7 +120,7 @@ func (o *CreateBillingUsageThreshold201ResponseData) GetThresholdValueOk() (*Lis
 }
 
 // SetThresholdValue sets field value
-func (o *CreateBillingUsageThreshold201ResponseData) SetThresholdValue(v ListProducts200ResponseDataTotal) {
+func (o *CreateBillingUsageThreshold201ResponseData) SetThresholdValue(v float32) {
 	o.ThresholdValue = v
 }
 

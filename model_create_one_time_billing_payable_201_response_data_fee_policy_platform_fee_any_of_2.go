@@ -21,7 +21,7 @@ var _ MappedNullable = &CreateOneTimeBillingPayable201ResponseDataFeePolicyPlatf
 // CreateOneTimeBillingPayable201ResponseDataFeePolicyPlatformFeeAnyOf2 struct for CreateOneTimeBillingPayable201ResponseDataFeePolicyPlatformFeeAnyOf2
 type CreateOneTimeBillingPayable201ResponseDataFeePolicyPlatformFeeAnyOf2 struct {
 	Mode string `json:"mode"`
-	BasisPoints ListProducts200ResponseDataTotal `json:"basisPoints"`
+	BasisPoints NullableFloat32 `json:"basisPoints"`
 	Rounding string `json:"rounding"`
 	AdditionalProperties map[string]interface{}
 }
@@ -32,7 +32,7 @@ type _CreateOneTimeBillingPayable201ResponseDataFeePolicyPlatformFeeAnyOf2 Creat
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateOneTimeBillingPayable201ResponseDataFeePolicyPlatformFeeAnyOf2(mode string, basisPoints ListProducts200ResponseDataTotal, rounding string) *CreateOneTimeBillingPayable201ResponseDataFeePolicyPlatformFeeAnyOf2 {
+func NewCreateOneTimeBillingPayable201ResponseDataFeePolicyPlatformFeeAnyOf2(mode string, basisPoints NullableFloat32, rounding string) *CreateOneTimeBillingPayable201ResponseDataFeePolicyPlatformFeeAnyOf2 {
 	this := CreateOneTimeBillingPayable201ResponseDataFeePolicyPlatformFeeAnyOf2{}
 	this.Mode = mode
 	this.BasisPoints = basisPoints
@@ -73,27 +73,29 @@ func (o *CreateOneTimeBillingPayable201ResponseDataFeePolicyPlatformFeeAnyOf2) S
 }
 
 // GetBasisPoints returns the BasisPoints field value
-func (o *CreateOneTimeBillingPayable201ResponseDataFeePolicyPlatformFeeAnyOf2) GetBasisPoints() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateOneTimeBillingPayable201ResponseDataFeePolicyPlatformFeeAnyOf2) GetBasisPoints() float32 {
+	if o == nil || o.BasisPoints.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.BasisPoints
+	return *o.BasisPoints.Get()
 }
 
 // GetBasisPointsOk returns a tuple with the BasisPoints field value
 // and a boolean to check if the value has been set.
-func (o *CreateOneTimeBillingPayable201ResponseDataFeePolicyPlatformFeeAnyOf2) GetBasisPointsOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateOneTimeBillingPayable201ResponseDataFeePolicyPlatformFeeAnyOf2) GetBasisPointsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.BasisPoints, true
+	return o.BasisPoints.Get(), o.BasisPoints.IsSet()
 }
 
 // SetBasisPoints sets field value
-func (o *CreateOneTimeBillingPayable201ResponseDataFeePolicyPlatformFeeAnyOf2) SetBasisPoints(v ListProducts200ResponseDataTotal) {
-	o.BasisPoints = v
+func (o *CreateOneTimeBillingPayable201ResponseDataFeePolicyPlatformFeeAnyOf2) SetBasisPoints(v float32) {
+	o.BasisPoints.Set(&v)
 }
 
 // GetRounding returns the Rounding field value
@@ -131,7 +133,7 @@ func (o CreateOneTimeBillingPayable201ResponseDataFeePolicyPlatformFeeAnyOf2) Ma
 func (o CreateOneTimeBillingPayable201ResponseDataFeePolicyPlatformFeeAnyOf2) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["mode"] = o.Mode
-	toSerialize["basisPoints"] = o.BasisPoints
+	toSerialize["basisPoints"] = o.BasisPoints.Get()
 	toSerialize["rounding"] = o.Rounding
 
 	for key, value := range o.AdditionalProperties {

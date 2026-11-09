@@ -23,10 +23,10 @@ type ListProductCustomFields200ResponseDataItemsInnerFieldProperties struct {
 	FormHelpText NullableString `json:"formHelpText,omitempty"`
 	FormPlaceholder NullableString `json:"formPlaceholder,omitempty"`
 	Textarea NullableBool `json:"textarea,omitempty"`
-	MinLength NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"minLength,omitempty"`
-	MaxLength NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"maxLength,omitempty"`
-	Ge NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"ge,omitempty"`
-	Le NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"le,omitempty"`
+	MinLength NullableFloat32 `json:"minLength,omitempty"`
+	MaxLength NullableFloat32 `json:"maxLength,omitempty"`
+	Ge NullableFloat32 `json:"ge,omitempty"`
+	Le NullableFloat32 `json:"le,omitempty"`
 	Options []ListProductCustomFields200ResponseDataItemsInnerFieldPropertiesOptionsInner `json:"options,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -219,9 +219,9 @@ func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) UnsetT
 }
 
 // GetMinLength returns the MinLength field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) GetMinLength() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) GetMinLength() float32 {
 	if o == nil || IsNil(o.MinLength.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.MinLength.Get()
@@ -230,7 +230,7 @@ func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) GetMin
 // GetMinLengthOk returns a tuple with the MinLength field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) GetMinLengthOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) GetMinLengthOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -246,8 +246,8 @@ func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) HasMin
 	return false
 }
 
-// SetMinLength gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the MinLength field.
-func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) SetMinLength(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetMinLength gets a reference to the given NullableFloat32 and assigns it to the MinLength field.
+func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) SetMinLength(v float32) {
 	o.MinLength.Set(&v)
 }
 // SetMinLengthNil sets the value for MinLength to be an explicit nil
@@ -261,9 +261,9 @@ func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) UnsetM
 }
 
 // GetMaxLength returns the MaxLength field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) GetMaxLength() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) GetMaxLength() float32 {
 	if o == nil || IsNil(o.MaxLength.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.MaxLength.Get()
@@ -272,7 +272,7 @@ func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) GetMax
 // GetMaxLengthOk returns a tuple with the MaxLength field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) GetMaxLengthOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) GetMaxLengthOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -288,8 +288,8 @@ func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) HasMax
 	return false
 }
 
-// SetMaxLength gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the MaxLength field.
-func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) SetMaxLength(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetMaxLength gets a reference to the given NullableFloat32 and assigns it to the MaxLength field.
+func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) SetMaxLength(v float32) {
 	o.MaxLength.Set(&v)
 }
 // SetMaxLengthNil sets the value for MaxLength to be an explicit nil
@@ -303,9 +303,9 @@ func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) UnsetM
 }
 
 // GetGe returns the Ge field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) GetGe() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) GetGe() float32 {
 	if o == nil || IsNil(o.Ge.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.Ge.Get()
@@ -314,7 +314,7 @@ func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) GetGe(
 // GetGeOk returns a tuple with the Ge field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) GetGeOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) GetGeOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -330,8 +330,8 @@ func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) HasGe(
 	return false
 }
 
-// SetGe gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the Ge field.
-func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) SetGe(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetGe gets a reference to the given NullableFloat32 and assigns it to the Ge field.
+func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) SetGe(v float32) {
 	o.Ge.Set(&v)
 }
 // SetGeNil sets the value for Ge to be an explicit nil
@@ -345,9 +345,9 @@ func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) UnsetG
 }
 
 // GetLe returns the Le field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) GetLe() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) GetLe() float32 {
 	if o == nil || IsNil(o.Le.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.Le.Get()
@@ -356,7 +356,7 @@ func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) GetLe(
 // GetLeOk returns a tuple with the Le field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) GetLeOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) GetLeOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -372,8 +372,8 @@ func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) HasLe(
 	return false
 }
 
-// SetLe gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the Le field.
-func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) SetLe(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetLe gets a reference to the given NullableFloat32 and assigns it to the Le field.
+func (o *ListProductCustomFields200ResponseDataItemsInnerFieldProperties) SetLe(v float32) {
 	o.Le.Set(&v)
 }
 // SetLeNil sets the value for Le to be an explicit nil

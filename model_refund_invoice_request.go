@@ -25,7 +25,7 @@ type RefundInvoiceRequest struct {
 	OrganizationId NullableString `json:"organizationId,omitempty"`
 	InvoiceId NullableString `json:"invoiceId,omitempty"`
 	PaymentId NullableString `json:"paymentId"`
-	Amount ListProducts200ResponseDataTotal `json:"amount"`
+	Amount NullableFloat32 `json:"amount"`
 	Reason NullableString `json:"reason"`
 	RequestedByType NullableString `json:"requestedByType"`
 	RequestedByRef NullableString `json:"requestedByRef"`
@@ -43,7 +43,7 @@ type _RefundInvoiceRequest RefundInvoiceRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRefundInvoiceRequest(paymentId NullableString, amount ListProducts200ResponseDataTotal, reason NullableString, requestedByType NullableString, requestedByRef NullableString) *RefundInvoiceRequest {
+func NewRefundInvoiceRequest(paymentId NullableString, amount NullableFloat32, reason NullableString, requestedByType NullableString, requestedByRef NullableString) *RefundInvoiceRequest {
 	this := RefundInvoiceRequest{}
 	this.PaymentId = paymentId
 	this.Amount = amount
@@ -256,27 +256,29 @@ func (o *RefundInvoiceRequest) SetPaymentId(v string) {
 }
 
 // GetAmount returns the Amount field value
-func (o *RefundInvoiceRequest) GetAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *RefundInvoiceRequest) GetAmount() float32 {
+	if o == nil || o.Amount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Amount
+	return *o.Amount.Get()
 }
 
 // GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
-func (o *RefundInvoiceRequest) GetAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *RefundInvoiceRequest) GetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Amount, true
+	return o.Amount.Get(), o.Amount.IsSet()
 }
 
 // SetAmount sets field value
-func (o *RefundInvoiceRequest) SetAmount(v ListProducts200ResponseDataTotal) {
-	o.Amount = v
+func (o *RefundInvoiceRequest) SetAmount(v float32) {
+	o.Amount.Set(&v)
 }
 
 // GetReason returns the Reason field value
@@ -590,7 +592,7 @@ func (o RefundInvoiceRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["invoiceId"] = o.InvoiceId.Get()
 	}
 	toSerialize["paymentId"] = o.PaymentId.Get()
-	toSerialize["amount"] = o.Amount
+	toSerialize["amount"] = o.Amount.Get()
 	toSerialize["reason"] = o.Reason.Get()
 	toSerialize["requestedByType"] = o.RequestedByType.Get()
 	toSerialize["requestedByRef"] = o.RequestedByRef.Get()

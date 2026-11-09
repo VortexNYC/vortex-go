@@ -26,7 +26,7 @@ type ListBillingUsageEvents200ResponseDataItemsInner struct {
 	BillingAccountId NullableString `json:"billingAccountId"`
 	MeterId NullableString `json:"meterId"`
 	EventName NullableString `json:"eventName"`
-	Quantity ListProducts200ResponseDataTotal `json:"quantity"`
+	Quantity NullableFloat32 `json:"quantity"`
 	OccurredAt NullableString `json:"occurredAt"`
 	IngestedAt NullableString `json:"ingestedAt"`
 	Metadata map[string]string `json:"metadata"`
@@ -41,7 +41,7 @@ type _ListBillingUsageEvents200ResponseDataItemsInner ListBillingUsageEvents200R
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListBillingUsageEvents200ResponseDataItemsInner(usageEventId NullableString, customerId NullableString, billingAccountId NullableString, meterId NullableString, eventName NullableString, quantity ListProducts200ResponseDataTotal, occurredAt NullableString, ingestedAt NullableString, metadata map[string]string) *ListBillingUsageEvents200ResponseDataItemsInner {
+func NewListBillingUsageEvents200ResponseDataItemsInner(usageEventId NullableString, customerId NullableString, billingAccountId NullableString, meterId NullableString, eventName NullableString, quantity NullableFloat32, occurredAt NullableString, ingestedAt NullableString, metadata map[string]string) *ListBillingUsageEvents200ResponseDataItemsInner {
 	this := ListBillingUsageEvents200ResponseDataItemsInner{}
 	this.UsageEventId = usageEventId
 	this.CustomerId = customerId
@@ -236,27 +236,29 @@ func (o *ListBillingUsageEvents200ResponseDataItemsInner) SetEventName(v string)
 }
 
 // GetQuantity returns the Quantity field value
-func (o *ListBillingUsageEvents200ResponseDataItemsInner) GetQuantity() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListBillingUsageEvents200ResponseDataItemsInner) GetQuantity() float32 {
+	if o == nil || o.Quantity.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Quantity
+	return *o.Quantity.Get()
 }
 
 // GetQuantityOk returns a tuple with the Quantity field value
 // and a boolean to check if the value has been set.
-func (o *ListBillingUsageEvents200ResponseDataItemsInner) GetQuantityOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListBillingUsageEvents200ResponseDataItemsInner) GetQuantityOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Quantity, true
+	return o.Quantity.Get(), o.Quantity.IsSet()
 }
 
 // SetQuantity sets field value
-func (o *ListBillingUsageEvents200ResponseDataItemsInner) SetQuantity(v ListProducts200ResponseDataTotal) {
-	o.Quantity = v
+func (o *ListBillingUsageEvents200ResponseDataItemsInner) SetQuantity(v float32) {
+	o.Quantity.Set(&v)
 }
 
 // GetOccurredAt returns the OccurredAt field value
@@ -439,7 +441,7 @@ func (o ListBillingUsageEvents200ResponseDataItemsInner) ToMap() (map[string]int
 	toSerialize["billingAccountId"] = o.BillingAccountId.Get()
 	toSerialize["meterId"] = o.MeterId.Get()
 	toSerialize["eventName"] = o.EventName.Get()
-	toSerialize["quantity"] = o.Quantity
+	toSerialize["quantity"] = o.Quantity.Get()
 	toSerialize["occurredAt"] = o.OccurredAt.Get()
 	toSerialize["ingestedAt"] = o.IngestedAt.Get()
 	if o.Metadata != nil {

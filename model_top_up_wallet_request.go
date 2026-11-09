@@ -23,7 +23,7 @@ type TopUpWalletRequest struct {
 	Environment NullableString `json:"environment,omitempty"`
 	MerchantAccountId NullableString `json:"merchantAccountId,omitempty"`
 	WalletId NullableString `json:"walletId,omitempty"`
-	CreditsAmount ListProducts200ResponseDataTotal `json:"creditsAmount"`
+	CreditsAmount NullableFloat32 `json:"creditsAmount"`
 	PaymentId NullableString `json:"paymentId,omitempty"`
 	Granted NullableBool `json:"granted,omitempty"`
 	Description NullableString `json:"description,omitempty"`
@@ -38,7 +38,7 @@ type _TopUpWalletRequest TopUpWalletRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTopUpWalletRequest(creditsAmount ListProducts200ResponseDataTotal) *TopUpWalletRequest {
+func NewTopUpWalletRequest(creditsAmount NullableFloat32) *TopUpWalletRequest {
 	this := TopUpWalletRequest{}
 	this.CreditsAmount = creditsAmount
 	return &this
@@ -179,27 +179,29 @@ func (o *TopUpWalletRequest) UnsetWalletId() {
 }
 
 // GetCreditsAmount returns the CreditsAmount field value
-func (o *TopUpWalletRequest) GetCreditsAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *TopUpWalletRequest) GetCreditsAmount() float32 {
+	if o == nil || o.CreditsAmount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.CreditsAmount
+	return *o.CreditsAmount.Get()
 }
 
 // GetCreditsAmountOk returns a tuple with the CreditsAmount field value
 // and a boolean to check if the value has been set.
-func (o *TopUpWalletRequest) GetCreditsAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TopUpWalletRequest) GetCreditsAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CreditsAmount, true
+	return o.CreditsAmount.Get(), o.CreditsAmount.IsSet()
 }
 
 // SetCreditsAmount sets field value
-func (o *TopUpWalletRequest) SetCreditsAmount(v ListProducts200ResponseDataTotal) {
-	o.CreditsAmount = v
+func (o *TopUpWalletRequest) SetCreditsAmount(v float32) {
+	o.CreditsAmount.Set(&v)
 }
 
 // GetPaymentId returns the PaymentId field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -422,7 +424,7 @@ func (o TopUpWalletRequest) ToMap() (map[string]interface{}, error) {
 	if o.WalletId.IsSet() {
 		toSerialize["walletId"] = o.WalletId.Get()
 	}
-	toSerialize["creditsAmount"] = o.CreditsAmount
+	toSerialize["creditsAmount"] = o.CreditsAmount.Get()
 	if o.PaymentId.IsSet() {
 		toSerialize["paymentId"] = o.PaymentId.Get()
 	}

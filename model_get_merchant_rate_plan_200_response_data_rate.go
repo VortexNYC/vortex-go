@@ -19,13 +19,13 @@ var _ MappedNullable = &GetMerchantRatePlan200ResponseDataRate{}
 
 // GetMerchantRatePlan200ResponseDataRate struct for GetMerchantRatePlan200ResponseDataRate
 type GetMerchantRatePlan200ResponseDataRate struct {
-	CardBasisPoints NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"cardBasisPoints,omitempty"`
-	CardFixedFee NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"cardFixedFee,omitempty"`
-	CardCrossBorderBasisPoints NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"cardCrossBorderBasisPoints,omitempty"`
-	AchBasisPoints NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"achBasisPoints,omitempty"`
-	AchFixedFee NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"achFixedFee,omitempty"`
-	DisputeFixedFee NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"disputeFixedFee,omitempty"`
-	MonthlyFeeCents NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"monthlyFeeCents,omitempty"`
+	CardBasisPoints NullableFloat32 `json:"cardBasisPoints,omitempty"`
+	CardFixedFee NullableFloat32 `json:"cardFixedFee,omitempty"`
+	CardCrossBorderBasisPoints NullableFloat32 `json:"cardCrossBorderBasisPoints,omitempty"`
+	AchBasisPoints NullableFloat32 `json:"achBasisPoints,omitempty"`
+	AchFixedFee NullableFloat32 `json:"achFixedFee,omitempty"`
+	DisputeFixedFee NullableFloat32 `json:"disputeFixedFee,omitempty"`
+	MonthlyFeeCents NullableFloat32 `json:"monthlyFeeCents,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -49,9 +49,9 @@ func NewGetMerchantRatePlan200ResponseDataRateWithDefaults() *GetMerchantRatePla
 }
 
 // GetCardBasisPoints returns the CardBasisPoints field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GetMerchantRatePlan200ResponseDataRate) GetCardBasisPoints() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *GetMerchantRatePlan200ResponseDataRate) GetCardBasisPoints() float32 {
 	if o == nil || IsNil(o.CardBasisPoints.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.CardBasisPoints.Get()
@@ -60,7 +60,7 @@ func (o *GetMerchantRatePlan200ResponseDataRate) GetCardBasisPoints() ListCustom
 // GetCardBasisPointsOk returns a tuple with the CardBasisPoints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GetMerchantRatePlan200ResponseDataRate) GetCardBasisPointsOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *GetMerchantRatePlan200ResponseDataRate) GetCardBasisPointsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -76,8 +76,8 @@ func (o *GetMerchantRatePlan200ResponseDataRate) HasCardBasisPoints() bool {
 	return false
 }
 
-// SetCardBasisPoints gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the CardBasisPoints field.
-func (o *GetMerchantRatePlan200ResponseDataRate) SetCardBasisPoints(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetCardBasisPoints gets a reference to the given NullableFloat32 and assigns it to the CardBasisPoints field.
+func (o *GetMerchantRatePlan200ResponseDataRate) SetCardBasisPoints(v float32) {
 	o.CardBasisPoints.Set(&v)
 }
 // SetCardBasisPointsNil sets the value for CardBasisPoints to be an explicit nil
@@ -91,9 +91,9 @@ func (o *GetMerchantRatePlan200ResponseDataRate) UnsetCardBasisPoints() {
 }
 
 // GetCardFixedFee returns the CardFixedFee field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GetMerchantRatePlan200ResponseDataRate) GetCardFixedFee() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *GetMerchantRatePlan200ResponseDataRate) GetCardFixedFee() float32 {
 	if o == nil || IsNil(o.CardFixedFee.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.CardFixedFee.Get()
@@ -102,7 +102,7 @@ func (o *GetMerchantRatePlan200ResponseDataRate) GetCardFixedFee() ListCustomerB
 // GetCardFixedFeeOk returns a tuple with the CardFixedFee field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GetMerchantRatePlan200ResponseDataRate) GetCardFixedFeeOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *GetMerchantRatePlan200ResponseDataRate) GetCardFixedFeeOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -118,8 +118,8 @@ func (o *GetMerchantRatePlan200ResponseDataRate) HasCardFixedFee() bool {
 	return false
 }
 
-// SetCardFixedFee gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the CardFixedFee field.
-func (o *GetMerchantRatePlan200ResponseDataRate) SetCardFixedFee(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetCardFixedFee gets a reference to the given NullableFloat32 and assigns it to the CardFixedFee field.
+func (o *GetMerchantRatePlan200ResponseDataRate) SetCardFixedFee(v float32) {
 	o.CardFixedFee.Set(&v)
 }
 // SetCardFixedFeeNil sets the value for CardFixedFee to be an explicit nil
@@ -133,9 +133,9 @@ func (o *GetMerchantRatePlan200ResponseDataRate) UnsetCardFixedFee() {
 }
 
 // GetCardCrossBorderBasisPoints returns the CardCrossBorderBasisPoints field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GetMerchantRatePlan200ResponseDataRate) GetCardCrossBorderBasisPoints() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *GetMerchantRatePlan200ResponseDataRate) GetCardCrossBorderBasisPoints() float32 {
 	if o == nil || IsNil(o.CardCrossBorderBasisPoints.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.CardCrossBorderBasisPoints.Get()
@@ -144,7 +144,7 @@ func (o *GetMerchantRatePlan200ResponseDataRate) GetCardCrossBorderBasisPoints()
 // GetCardCrossBorderBasisPointsOk returns a tuple with the CardCrossBorderBasisPoints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GetMerchantRatePlan200ResponseDataRate) GetCardCrossBorderBasisPointsOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *GetMerchantRatePlan200ResponseDataRate) GetCardCrossBorderBasisPointsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -160,8 +160,8 @@ func (o *GetMerchantRatePlan200ResponseDataRate) HasCardCrossBorderBasisPoints()
 	return false
 }
 
-// SetCardCrossBorderBasisPoints gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the CardCrossBorderBasisPoints field.
-func (o *GetMerchantRatePlan200ResponseDataRate) SetCardCrossBorderBasisPoints(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetCardCrossBorderBasisPoints gets a reference to the given NullableFloat32 and assigns it to the CardCrossBorderBasisPoints field.
+func (o *GetMerchantRatePlan200ResponseDataRate) SetCardCrossBorderBasisPoints(v float32) {
 	o.CardCrossBorderBasisPoints.Set(&v)
 }
 // SetCardCrossBorderBasisPointsNil sets the value for CardCrossBorderBasisPoints to be an explicit nil
@@ -175,9 +175,9 @@ func (o *GetMerchantRatePlan200ResponseDataRate) UnsetCardCrossBorderBasisPoints
 }
 
 // GetAchBasisPoints returns the AchBasisPoints field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GetMerchantRatePlan200ResponseDataRate) GetAchBasisPoints() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *GetMerchantRatePlan200ResponseDataRate) GetAchBasisPoints() float32 {
 	if o == nil || IsNil(o.AchBasisPoints.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.AchBasisPoints.Get()
@@ -186,7 +186,7 @@ func (o *GetMerchantRatePlan200ResponseDataRate) GetAchBasisPoints() ListCustome
 // GetAchBasisPointsOk returns a tuple with the AchBasisPoints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GetMerchantRatePlan200ResponseDataRate) GetAchBasisPointsOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *GetMerchantRatePlan200ResponseDataRate) GetAchBasisPointsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -202,8 +202,8 @@ func (o *GetMerchantRatePlan200ResponseDataRate) HasAchBasisPoints() bool {
 	return false
 }
 
-// SetAchBasisPoints gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the AchBasisPoints field.
-func (o *GetMerchantRatePlan200ResponseDataRate) SetAchBasisPoints(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetAchBasisPoints gets a reference to the given NullableFloat32 and assigns it to the AchBasisPoints field.
+func (o *GetMerchantRatePlan200ResponseDataRate) SetAchBasisPoints(v float32) {
 	o.AchBasisPoints.Set(&v)
 }
 // SetAchBasisPointsNil sets the value for AchBasisPoints to be an explicit nil
@@ -217,9 +217,9 @@ func (o *GetMerchantRatePlan200ResponseDataRate) UnsetAchBasisPoints() {
 }
 
 // GetAchFixedFee returns the AchFixedFee field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GetMerchantRatePlan200ResponseDataRate) GetAchFixedFee() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *GetMerchantRatePlan200ResponseDataRate) GetAchFixedFee() float32 {
 	if o == nil || IsNil(o.AchFixedFee.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.AchFixedFee.Get()
@@ -228,7 +228,7 @@ func (o *GetMerchantRatePlan200ResponseDataRate) GetAchFixedFee() ListCustomerBi
 // GetAchFixedFeeOk returns a tuple with the AchFixedFee field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GetMerchantRatePlan200ResponseDataRate) GetAchFixedFeeOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *GetMerchantRatePlan200ResponseDataRate) GetAchFixedFeeOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -244,8 +244,8 @@ func (o *GetMerchantRatePlan200ResponseDataRate) HasAchFixedFee() bool {
 	return false
 }
 
-// SetAchFixedFee gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the AchFixedFee field.
-func (o *GetMerchantRatePlan200ResponseDataRate) SetAchFixedFee(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetAchFixedFee gets a reference to the given NullableFloat32 and assigns it to the AchFixedFee field.
+func (o *GetMerchantRatePlan200ResponseDataRate) SetAchFixedFee(v float32) {
 	o.AchFixedFee.Set(&v)
 }
 // SetAchFixedFeeNil sets the value for AchFixedFee to be an explicit nil
@@ -259,9 +259,9 @@ func (o *GetMerchantRatePlan200ResponseDataRate) UnsetAchFixedFee() {
 }
 
 // GetDisputeFixedFee returns the DisputeFixedFee field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GetMerchantRatePlan200ResponseDataRate) GetDisputeFixedFee() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *GetMerchantRatePlan200ResponseDataRate) GetDisputeFixedFee() float32 {
 	if o == nil || IsNil(o.DisputeFixedFee.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.DisputeFixedFee.Get()
@@ -270,7 +270,7 @@ func (o *GetMerchantRatePlan200ResponseDataRate) GetDisputeFixedFee() ListCustom
 // GetDisputeFixedFeeOk returns a tuple with the DisputeFixedFee field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GetMerchantRatePlan200ResponseDataRate) GetDisputeFixedFeeOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *GetMerchantRatePlan200ResponseDataRate) GetDisputeFixedFeeOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -286,8 +286,8 @@ func (o *GetMerchantRatePlan200ResponseDataRate) HasDisputeFixedFee() bool {
 	return false
 }
 
-// SetDisputeFixedFee gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the DisputeFixedFee field.
-func (o *GetMerchantRatePlan200ResponseDataRate) SetDisputeFixedFee(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetDisputeFixedFee gets a reference to the given NullableFloat32 and assigns it to the DisputeFixedFee field.
+func (o *GetMerchantRatePlan200ResponseDataRate) SetDisputeFixedFee(v float32) {
 	o.DisputeFixedFee.Set(&v)
 }
 // SetDisputeFixedFeeNil sets the value for DisputeFixedFee to be an explicit nil
@@ -301,9 +301,9 @@ func (o *GetMerchantRatePlan200ResponseDataRate) UnsetDisputeFixedFee() {
 }
 
 // GetMonthlyFeeCents returns the MonthlyFeeCents field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GetMerchantRatePlan200ResponseDataRate) GetMonthlyFeeCents() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *GetMerchantRatePlan200ResponseDataRate) GetMonthlyFeeCents() float32 {
 	if o == nil || IsNil(o.MonthlyFeeCents.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.MonthlyFeeCents.Get()
@@ -312,7 +312,7 @@ func (o *GetMerchantRatePlan200ResponseDataRate) GetMonthlyFeeCents() ListCustom
 // GetMonthlyFeeCentsOk returns a tuple with the MonthlyFeeCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GetMerchantRatePlan200ResponseDataRate) GetMonthlyFeeCentsOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *GetMerchantRatePlan200ResponseDataRate) GetMonthlyFeeCentsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -328,8 +328,8 @@ func (o *GetMerchantRatePlan200ResponseDataRate) HasMonthlyFeeCents() bool {
 	return false
 }
 
-// SetMonthlyFeeCents gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the MonthlyFeeCents field.
-func (o *GetMerchantRatePlan200ResponseDataRate) SetMonthlyFeeCents(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetMonthlyFeeCents gets a reference to the given NullableFloat32 and assigns it to the MonthlyFeeCents field.
+func (o *GetMerchantRatePlan200ResponseDataRate) SetMonthlyFeeCents(v float32) {
 	o.MonthlyFeeCents.Set(&v)
 }
 // SetMonthlyFeeCentsNil sets the value for MonthlyFeeCents to be an explicit nil

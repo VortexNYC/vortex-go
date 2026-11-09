@@ -27,7 +27,7 @@ type CreateBillingUsageEvent201ResponseData struct {
 	BillingAccountId string `json:"billingAccountId"`
 	MeterId string `json:"meterId"`
 	EventName string `json:"eventName"`
-	Quantity ListProducts200ResponseDataTotal `json:"quantity"`
+	Quantity float32 `json:"quantity"`
 	OccurredAt string `json:"occurredAt"`
 	IngestedAt string `json:"ingestedAt"`
 	Metadata map[string]string `json:"metadata"`
@@ -41,7 +41,7 @@ type _CreateBillingUsageEvent201ResponseData CreateBillingUsageEvent201ResponseD
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateBillingUsageEvent201ResponseData(usageEventId string, customerId string, billingAccountId string, meterId string, eventName string, quantity ListProducts200ResponseDataTotal, occurredAt string, ingestedAt string, metadata map[string]string) *CreateBillingUsageEvent201ResponseData {
+func NewCreateBillingUsageEvent201ResponseData(usageEventId string, customerId string, billingAccountId string, meterId string, eventName string, quantity float32, occurredAt string, ingestedAt string, metadata map[string]string) *CreateBillingUsageEvent201ResponseData {
 	this := CreateBillingUsageEvent201ResponseData{}
 	this.UsageEventId = usageEventId
 	this.CustomerId = customerId
@@ -226,9 +226,9 @@ func (o *CreateBillingUsageEvent201ResponseData) SetEventName(v string) {
 }
 
 // GetQuantity returns the Quantity field value
-func (o *CreateBillingUsageEvent201ResponseData) GetQuantity() ListProducts200ResponseDataTotal {
+func (o *CreateBillingUsageEvent201ResponseData) GetQuantity() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -237,7 +237,7 @@ func (o *CreateBillingUsageEvent201ResponseData) GetQuantity() ListProducts200Re
 
 // GetQuantityOk returns a tuple with the Quantity field value
 // and a boolean to check if the value has been set.
-func (o *CreateBillingUsageEvent201ResponseData) GetQuantityOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreateBillingUsageEvent201ResponseData) GetQuantityOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -245,7 +245,7 @@ func (o *CreateBillingUsageEvent201ResponseData) GetQuantityOk() (*ListProducts2
 }
 
 // SetQuantity sets field value
-func (o *CreateBillingUsageEvent201ResponseData) SetQuantity(v ListProducts200ResponseDataTotal) {
+func (o *CreateBillingUsageEvent201ResponseData) SetQuantity(v float32) {
 	o.Quantity = v
 }
 

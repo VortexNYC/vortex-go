@@ -104,6 +104,20 @@ func (a *TerminalAPIService) CreateCardPresentPaymentIntentExecute(r TerminalAPI
 	}
 	// body params
 	localVarPostBody = r.createCardPresentPaymentIntentRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -222,6 +236,20 @@ func (a *TerminalAPIService) CreatePaymentHardwareOrderExecute(r TerminalAPICrea
 	}
 	// body params
 	localVarPostBody = r.createPaymentHardwareOrderRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -340,6 +368,20 @@ func (a *TerminalAPIService) CreateTerminalBootstrapExecute(r TerminalAPICreateT
 	}
 	// body params
 	localVarPostBody = r.createTerminalBootstrapRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -458,6 +500,20 @@ func (a *TerminalAPIService) CreateTerminalConnectionSessionExecute(r TerminalAP
 	}
 	// body params
 	localVarPostBody = r.createTerminalConnectionSessionRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -576,6 +632,20 @@ func (a *TerminalAPIService) CreateTerminalLocationExecute(r TerminalAPICreateTe
 	}
 	// body params
 	localVarPostBody = r.createTerminalLocationRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -701,6 +771,20 @@ func (a *TerminalAPIService) DecommissionTerminalReaderExecute(r TerminalAPIDeco
 	}
 	// body params
 	localVarPostBody = r.revokeCustomerPortalLinkRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -822,6 +906,20 @@ func (a *TerminalAPIService) GetCardPresentPaymentIntentExecute(r TerminalAPIGet
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -945,6 +1043,20 @@ func (a *TerminalAPIService) GetPaymentHardwareOrderExecute(r TerminalAPIGetPaym
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1067,6 +1179,20 @@ func (a *TerminalAPIService) GetTerminalReaderExecute(r TerminalAPIGetTerminalRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1111,7 +1237,7 @@ type TerminalAPIListCardPresentPaymentIntentsRequest struct {
 	merchantAccountId *string
 	status *string
 	scope *string
-	limit *ListCustomersLimitParameter
+	limit *string
 	cursor *string
 }
 
@@ -1135,7 +1261,7 @@ func (r TerminalAPIListCardPresentPaymentIntentsRequest) Scope(scope string) Ter
 	return r
 }
 
-func (r TerminalAPIListCardPresentPaymentIntentsRequest) Limit(limit ListCustomersLimitParameter) TerminalAPIListCardPresentPaymentIntentsRequest {
+func (r TerminalAPIListCardPresentPaymentIntentsRequest) Limit(limit string) TerminalAPIListCardPresentPaymentIntentsRequest {
 	r.limit = &limit
 	return r
 }
@@ -1218,6 +1344,20 @@ func (a *TerminalAPIService) ListCardPresentPaymentIntentsExecute(r TerminalAPIL
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1262,7 +1402,7 @@ type TerminalAPIListPaymentHardwareOrdersRequest struct {
 	merchantAccountId *string
 	status *string
 	scope *string
-	limit *ListCustomersLimitParameter
+	limit *string
 	cursor *string
 }
 
@@ -1286,7 +1426,7 @@ func (r TerminalAPIListPaymentHardwareOrdersRequest) Scope(scope string) Termina
 	return r
 }
 
-func (r TerminalAPIListPaymentHardwareOrdersRequest) Limit(limit ListCustomersLimitParameter) TerminalAPIListPaymentHardwareOrdersRequest {
+func (r TerminalAPIListPaymentHardwareOrdersRequest) Limit(limit string) TerminalAPIListPaymentHardwareOrdersRequest {
 	r.limit = &limit
 	return r
 }
@@ -1369,6 +1509,20 @@ func (a *TerminalAPIService) ListPaymentHardwareOrdersExecute(r TerminalAPIListP
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1413,7 +1567,7 @@ type TerminalAPIListPaymentHardwareSkusRequest struct {
 	merchantAccountId *string
 	status *string
 	scope *string
-	limit *ListCustomersLimitParameter
+	limit *string
 	cursor *string
 }
 
@@ -1437,7 +1591,7 @@ func (r TerminalAPIListPaymentHardwareSkusRequest) Scope(scope string) TerminalA
 	return r
 }
 
-func (r TerminalAPIListPaymentHardwareSkusRequest) Limit(limit ListCustomersLimitParameter) TerminalAPIListPaymentHardwareSkusRequest {
+func (r TerminalAPIListPaymentHardwareSkusRequest) Limit(limit string) TerminalAPIListPaymentHardwareSkusRequest {
 	r.limit = &limit
 	return r
 }
@@ -1520,6 +1674,20 @@ func (a *TerminalAPIService) ListPaymentHardwareSkusExecute(r TerminalAPIListPay
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1564,7 +1732,7 @@ type TerminalAPIListTerminalLocationsRequest struct {
 	merchantAccountId *string
 	status *string
 	scope *string
-	limit *ListCustomersLimitParameter
+	limit *string
 	cursor *string
 }
 
@@ -1588,7 +1756,7 @@ func (r TerminalAPIListTerminalLocationsRequest) Scope(scope string) TerminalAPI
 	return r
 }
 
-func (r TerminalAPIListTerminalLocationsRequest) Limit(limit ListCustomersLimitParameter) TerminalAPIListTerminalLocationsRequest {
+func (r TerminalAPIListTerminalLocationsRequest) Limit(limit string) TerminalAPIListTerminalLocationsRequest {
 	r.limit = &limit
 	return r
 }
@@ -1671,6 +1839,20 @@ func (a *TerminalAPIService) ListTerminalLocationsExecute(r TerminalAPIListTermi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1715,7 +1897,7 @@ type TerminalAPIListTerminalReadersRequest struct {
 	merchantAccountId *string
 	status *string
 	scope *string
-	limit *ListCustomersLimitParameter
+	limit *string
 	cursor *string
 }
 
@@ -1739,7 +1921,7 @@ func (r TerminalAPIListTerminalReadersRequest) Scope(scope string) TerminalAPILi
 	return r
 }
 
-func (r TerminalAPIListTerminalReadersRequest) Limit(limit ListCustomersLimitParameter) TerminalAPIListTerminalReadersRequest {
+func (r TerminalAPIListTerminalReadersRequest) Limit(limit string) TerminalAPIListTerminalReadersRequest {
 	r.limit = &limit
 	return r
 }
@@ -1821,6 +2003,20 @@ func (a *TerminalAPIService) ListTerminalReadersExecute(r TerminalAPIListTermina
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -1947,6 +2143,20 @@ func (a *TerminalAPIService) RecordCardPresentCollectionOutcomeExecute(r Termina
 	}
 	// body params
 	localVarPostBody = r.recordCardPresentCollectionOutcomeRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2072,6 +2282,20 @@ func (a *TerminalAPIService) RecordCardPresentRefundOutcomeExecute(r TerminalAPI
 	}
 	// body params
 	localVarPostBody = r.recordCardPresentRefundOutcomeRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2190,6 +2414,20 @@ func (a *TerminalAPIService) RegisterTerminalReaderExecute(r TerminalAPIRegister
 	}
 	// body params
 	localVarPostBody = r.registerTerminalReaderRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2315,6 +2553,20 @@ func (a *TerminalAPIService) SendCardPresentReceiptExecute(r TerminalAPISendCard
 	}
 	// body params
 	localVarPostBody = r.sendCardPresentReceiptRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2440,6 +2692,20 @@ func (a *TerminalAPIService) UpdatePaymentHardwareOrderExecute(r TerminalAPIUpda
 	}
 	// body params
 	localVarPostBody = r.updatePaymentHardwareOrderRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2565,6 +2831,20 @@ func (a *TerminalAPIService) UpdateTerminalReaderExecute(r TerminalAPIUpdateTerm
 	}
 	// body params
 	localVarPostBody = r.updateTerminalReaderRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2683,6 +2963,20 @@ func (a *TerminalAPIService) UpsertPaymentHardwareSkuExecute(r TerminalAPIUpsert
 	}
 	// body params
 	localVarPostBody = r.upsertPaymentHardwareSkuRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

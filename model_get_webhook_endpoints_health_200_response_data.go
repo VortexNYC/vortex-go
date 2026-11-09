@@ -22,9 +22,9 @@ var _ MappedNullable = &GetWebhookEndpointsHealth200ResponseData{}
 type GetWebhookEndpointsHealth200ResponseData struct {
 	Environment NullableString `json:"environment"`
 	MerchantAccountId NullableString `json:"merchantAccountId"`
-	Total ListProducts200ResponseDataTotal `json:"total"`
-	Healthy ListProducts200ResponseDataTotal `json:"healthy"`
-	Unhealthy ListProducts200ResponseDataTotal `json:"unhealthy"`
+	Total NullableFloat32 `json:"total"`
+	Healthy NullableFloat32 `json:"healthy"`
+	Unhealthy NullableFloat32 `json:"unhealthy"`
 	Endpoints []CreateWebhookEndpoint201ResponseData `json:"endpoints"`
 	AdditionalProperties map[string]interface{}
 }
@@ -35,7 +35,7 @@ type _GetWebhookEndpointsHealth200ResponseData GetWebhookEndpointsHealth200Respo
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetWebhookEndpointsHealth200ResponseData(environment NullableString, merchantAccountId NullableString, total ListProducts200ResponseDataTotal, healthy ListProducts200ResponseDataTotal, unhealthy ListProducts200ResponseDataTotal, endpoints []CreateWebhookEndpoint201ResponseData) *GetWebhookEndpointsHealth200ResponseData {
+func NewGetWebhookEndpointsHealth200ResponseData(environment NullableString, merchantAccountId NullableString, total NullableFloat32, healthy NullableFloat32, unhealthy NullableFloat32, endpoints []CreateWebhookEndpoint201ResponseData) *GetWebhookEndpointsHealth200ResponseData {
 	this := GetWebhookEndpointsHealth200ResponseData{}
 	this.Environment = environment
 	this.MerchantAccountId = merchantAccountId
@@ -107,75 +107,81 @@ func (o *GetWebhookEndpointsHealth200ResponseData) SetMerchantAccountId(v string
 }
 
 // GetTotal returns the Total field value
-func (o *GetWebhookEndpointsHealth200ResponseData) GetTotal() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetWebhookEndpointsHealth200ResponseData) GetTotal() float32 {
+	if o == nil || o.Total.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Total
+	return *o.Total.Get()
 }
 
 // GetTotalOk returns a tuple with the Total field value
 // and a boolean to check if the value has been set.
-func (o *GetWebhookEndpointsHealth200ResponseData) GetTotalOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetWebhookEndpointsHealth200ResponseData) GetTotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Total, true
+	return o.Total.Get(), o.Total.IsSet()
 }
 
 // SetTotal sets field value
-func (o *GetWebhookEndpointsHealth200ResponseData) SetTotal(v ListProducts200ResponseDataTotal) {
-	o.Total = v
+func (o *GetWebhookEndpointsHealth200ResponseData) SetTotal(v float32) {
+	o.Total.Set(&v)
 }
 
 // GetHealthy returns the Healthy field value
-func (o *GetWebhookEndpointsHealth200ResponseData) GetHealthy() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetWebhookEndpointsHealth200ResponseData) GetHealthy() float32 {
+	if o == nil || o.Healthy.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Healthy
+	return *o.Healthy.Get()
 }
 
 // GetHealthyOk returns a tuple with the Healthy field value
 // and a boolean to check if the value has been set.
-func (o *GetWebhookEndpointsHealth200ResponseData) GetHealthyOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetWebhookEndpointsHealth200ResponseData) GetHealthyOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Healthy, true
+	return o.Healthy.Get(), o.Healthy.IsSet()
 }
 
 // SetHealthy sets field value
-func (o *GetWebhookEndpointsHealth200ResponseData) SetHealthy(v ListProducts200ResponseDataTotal) {
-	o.Healthy = v
+func (o *GetWebhookEndpointsHealth200ResponseData) SetHealthy(v float32) {
+	o.Healthy.Set(&v)
 }
 
 // GetUnhealthy returns the Unhealthy field value
-func (o *GetWebhookEndpointsHealth200ResponseData) GetUnhealthy() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetWebhookEndpointsHealth200ResponseData) GetUnhealthy() float32 {
+	if o == nil || o.Unhealthy.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Unhealthy
+	return *o.Unhealthy.Get()
 }
 
 // GetUnhealthyOk returns a tuple with the Unhealthy field value
 // and a boolean to check if the value has been set.
-func (o *GetWebhookEndpointsHealth200ResponseData) GetUnhealthyOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetWebhookEndpointsHealth200ResponseData) GetUnhealthyOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Unhealthy, true
+	return o.Unhealthy.Get(), o.Unhealthy.IsSet()
 }
 
 // SetUnhealthy sets field value
-func (o *GetWebhookEndpointsHealth200ResponseData) SetUnhealthy(v ListProducts200ResponseDataTotal) {
-	o.Unhealthy = v
+func (o *GetWebhookEndpointsHealth200ResponseData) SetUnhealthy(v float32) {
+	o.Unhealthy.Set(&v)
 }
 
 // GetEndpoints returns the Endpoints field value
@@ -214,9 +220,9 @@ func (o GetWebhookEndpointsHealth200ResponseData) ToMap() (map[string]interface{
 	toSerialize := map[string]interface{}{}
 	toSerialize["environment"] = o.Environment.Get()
 	toSerialize["merchantAccountId"] = o.MerchantAccountId.Get()
-	toSerialize["total"] = o.Total
-	toSerialize["healthy"] = o.Healthy
-	toSerialize["unhealthy"] = o.Unhealthy
+	toSerialize["total"] = o.Total.Get()
+	toSerialize["healthy"] = o.Healthy.Get()
+	toSerialize["unhealthy"] = o.Unhealthy.Get()
 	toSerialize["endpoints"] = o.Endpoints
 
 	for key, value := range o.AdditionalProperties {

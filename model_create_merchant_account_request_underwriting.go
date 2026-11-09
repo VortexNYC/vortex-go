@@ -19,9 +19,9 @@ var _ MappedNullable = &CreateMerchantAccountRequestUnderwriting{}
 
 // CreateMerchantAccountRequestUnderwriting struct for CreateMerchantAccountRequestUnderwriting
 type CreateMerchantAccountRequestUnderwriting struct {
-	AnnualAchVolume NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"annualAchVolume,omitempty"`
-	AverageAchTransferAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"averageAchTransferAmount,omitempty"`
-	AverageCardTransferAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"averageCardTransferAmount,omitempty"`
+	AnnualAchVolume NullableFloat32 `json:"annualAchVolume,omitempty"`
+	AverageAchTransferAmount NullableFloat32 `json:"averageAchTransferAmount,omitempty"`
+	AverageCardTransferAmount NullableFloat32 `json:"averageCardTransferAmount,omitempty"`
 	BusinessDescription NullableString `json:"businessDescription,omitempty"`
 	CardVolumeDistribution NullableCreateMerchantAccountRequestUnderwritingCardVolumeDistribution `json:"cardVolumeDistribution,omitempty"`
 	CreditCheckAllowed NullableBool `json:"creditCheckAllowed,omitempty"`
@@ -50,9 +50,9 @@ func NewCreateMerchantAccountRequestUnderwritingWithDefaults() *CreateMerchantAc
 }
 
 // GetAnnualAchVolume returns the AnnualAchVolume field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateMerchantAccountRequestUnderwriting) GetAnnualAchVolume() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateMerchantAccountRequestUnderwriting) GetAnnualAchVolume() float32 {
 	if o == nil || IsNil(o.AnnualAchVolume.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.AnnualAchVolume.Get()
@@ -61,7 +61,7 @@ func (o *CreateMerchantAccountRequestUnderwriting) GetAnnualAchVolume() ListCust
 // GetAnnualAchVolumeOk returns a tuple with the AnnualAchVolume field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateMerchantAccountRequestUnderwriting) GetAnnualAchVolumeOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateMerchantAccountRequestUnderwriting) GetAnnualAchVolumeOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -77,8 +77,8 @@ func (o *CreateMerchantAccountRequestUnderwriting) HasAnnualAchVolume() bool {
 	return false
 }
 
-// SetAnnualAchVolume gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the AnnualAchVolume field.
-func (o *CreateMerchantAccountRequestUnderwriting) SetAnnualAchVolume(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetAnnualAchVolume gets a reference to the given NullableFloat32 and assigns it to the AnnualAchVolume field.
+func (o *CreateMerchantAccountRequestUnderwriting) SetAnnualAchVolume(v float32) {
 	o.AnnualAchVolume.Set(&v)
 }
 // SetAnnualAchVolumeNil sets the value for AnnualAchVolume to be an explicit nil
@@ -92,9 +92,9 @@ func (o *CreateMerchantAccountRequestUnderwriting) UnsetAnnualAchVolume() {
 }
 
 // GetAverageAchTransferAmount returns the AverageAchTransferAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateMerchantAccountRequestUnderwriting) GetAverageAchTransferAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateMerchantAccountRequestUnderwriting) GetAverageAchTransferAmount() float32 {
 	if o == nil || IsNil(o.AverageAchTransferAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.AverageAchTransferAmount.Get()
@@ -103,7 +103,7 @@ func (o *CreateMerchantAccountRequestUnderwriting) GetAverageAchTransferAmount()
 // GetAverageAchTransferAmountOk returns a tuple with the AverageAchTransferAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateMerchantAccountRequestUnderwriting) GetAverageAchTransferAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateMerchantAccountRequestUnderwriting) GetAverageAchTransferAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -119,8 +119,8 @@ func (o *CreateMerchantAccountRequestUnderwriting) HasAverageAchTransferAmount()
 	return false
 }
 
-// SetAverageAchTransferAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the AverageAchTransferAmount field.
-func (o *CreateMerchantAccountRequestUnderwriting) SetAverageAchTransferAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetAverageAchTransferAmount gets a reference to the given NullableFloat32 and assigns it to the AverageAchTransferAmount field.
+func (o *CreateMerchantAccountRequestUnderwriting) SetAverageAchTransferAmount(v float32) {
 	o.AverageAchTransferAmount.Set(&v)
 }
 // SetAverageAchTransferAmountNil sets the value for AverageAchTransferAmount to be an explicit nil
@@ -134,9 +134,9 @@ func (o *CreateMerchantAccountRequestUnderwriting) UnsetAverageAchTransferAmount
 }
 
 // GetAverageCardTransferAmount returns the AverageCardTransferAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateMerchantAccountRequestUnderwriting) GetAverageCardTransferAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateMerchantAccountRequestUnderwriting) GetAverageCardTransferAmount() float32 {
 	if o == nil || IsNil(o.AverageCardTransferAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.AverageCardTransferAmount.Get()
@@ -145,7 +145,7 @@ func (o *CreateMerchantAccountRequestUnderwriting) GetAverageCardTransferAmount(
 // GetAverageCardTransferAmountOk returns a tuple with the AverageCardTransferAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateMerchantAccountRequestUnderwriting) GetAverageCardTransferAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateMerchantAccountRequestUnderwriting) GetAverageCardTransferAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -161,8 +161,8 @@ func (o *CreateMerchantAccountRequestUnderwriting) HasAverageCardTransferAmount(
 	return false
 }
 
-// SetAverageCardTransferAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the AverageCardTransferAmount field.
-func (o *CreateMerchantAccountRequestUnderwriting) SetAverageCardTransferAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetAverageCardTransferAmount gets a reference to the given NullableFloat32 and assigns it to the AverageCardTransferAmount field.
+func (o *CreateMerchantAccountRequestUnderwriting) SetAverageCardTransferAmount(v float32) {
 	o.AverageCardTransferAmount.Set(&v)
 }
 // SetAverageCardTransferAmountNil sets the value for AverageCardTransferAmount to be an explicit nil

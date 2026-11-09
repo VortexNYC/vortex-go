@@ -33,8 +33,8 @@ type CreateMerchantAccountRequest struct {
 	RatePlanId NullableString `json:"ratePlanId,omitempty"`
 	ExternalMerchantRef NullableString `json:"externalMerchantRef,omitempty"`
 	BusinessPhone NullableString `json:"businessPhone,omitempty"`
-	MaxTransactionAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"maxTransactionAmount,omitempty"`
-	AchMaxTransactionAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"achMaxTransactionAmount,omitempty"`
+	MaxTransactionAmount NullableFloat32 `json:"maxTransactionAmount,omitempty"`
+	AchMaxTransactionAmount NullableFloat32 `json:"achMaxTransactionAmount,omitempty"`
 	AcceptsAch NullableBool `json:"acceptsAch,omitempty"`
 	Mcc NullableString `json:"mcc,omitempty"`
 	Url NullableString `json:"url,omitempty"`
@@ -520,9 +520,9 @@ func (o *CreateMerchantAccountRequest) UnsetBusinessPhone() {
 }
 
 // GetMaxTransactionAmount returns the MaxTransactionAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateMerchantAccountRequest) GetMaxTransactionAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateMerchantAccountRequest) GetMaxTransactionAmount() float32 {
 	if o == nil || IsNil(o.MaxTransactionAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.MaxTransactionAmount.Get()
@@ -531,7 +531,7 @@ func (o *CreateMerchantAccountRequest) GetMaxTransactionAmount() ListCustomerBil
 // GetMaxTransactionAmountOk returns a tuple with the MaxTransactionAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateMerchantAccountRequest) GetMaxTransactionAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateMerchantAccountRequest) GetMaxTransactionAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -547,8 +547,8 @@ func (o *CreateMerchantAccountRequest) HasMaxTransactionAmount() bool {
 	return false
 }
 
-// SetMaxTransactionAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the MaxTransactionAmount field.
-func (o *CreateMerchantAccountRequest) SetMaxTransactionAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetMaxTransactionAmount gets a reference to the given NullableFloat32 and assigns it to the MaxTransactionAmount field.
+func (o *CreateMerchantAccountRequest) SetMaxTransactionAmount(v float32) {
 	o.MaxTransactionAmount.Set(&v)
 }
 // SetMaxTransactionAmountNil sets the value for MaxTransactionAmount to be an explicit nil
@@ -562,9 +562,9 @@ func (o *CreateMerchantAccountRequest) UnsetMaxTransactionAmount() {
 }
 
 // GetAchMaxTransactionAmount returns the AchMaxTransactionAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateMerchantAccountRequest) GetAchMaxTransactionAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateMerchantAccountRequest) GetAchMaxTransactionAmount() float32 {
 	if o == nil || IsNil(o.AchMaxTransactionAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.AchMaxTransactionAmount.Get()
@@ -573,7 +573,7 @@ func (o *CreateMerchantAccountRequest) GetAchMaxTransactionAmount() ListCustomer
 // GetAchMaxTransactionAmountOk returns a tuple with the AchMaxTransactionAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateMerchantAccountRequest) GetAchMaxTransactionAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateMerchantAccountRequest) GetAchMaxTransactionAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -589,8 +589,8 @@ func (o *CreateMerchantAccountRequest) HasAchMaxTransactionAmount() bool {
 	return false
 }
 
-// SetAchMaxTransactionAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the AchMaxTransactionAmount field.
-func (o *CreateMerchantAccountRequest) SetAchMaxTransactionAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetAchMaxTransactionAmount gets a reference to the given NullableFloat32 and assigns it to the AchMaxTransactionAmount field.
+func (o *CreateMerchantAccountRequest) SetAchMaxTransactionAmount(v float32) {
 	o.AchMaxTransactionAmount.Set(&v)
 }
 // SetAchMaxTransactionAmountNil sets the value for AchMaxTransactionAmount to be an explicit nil

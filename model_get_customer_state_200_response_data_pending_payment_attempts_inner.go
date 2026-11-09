@@ -24,8 +24,8 @@ type GetCustomerState200ResponseDataPendingPaymentAttemptsInner struct {
 	AttemptId string `json:"attemptId"`
 	InvoiceNumber string `json:"invoiceNumber"`
 	Status string `json:"status"`
-	RequestedAmount ListProducts200ResponseDataTotal `json:"requestedAmount"`
-	CollectedAmount ListProducts200ResponseDataTotal `json:"collectedAmount"`
+	RequestedAmount float32 `json:"requestedAmount"`
+	CollectedAmount float32 `json:"collectedAmount"`
 	CreatedAt string `json:"createdAt"`
 	PaymentIntentId NullableString `json:"paymentIntentId"`
 	PaymentId NullableString `json:"paymentId"`
@@ -39,7 +39,7 @@ type _GetCustomerState200ResponseDataPendingPaymentAttemptsInner GetCustomerStat
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetCustomerState200ResponseDataPendingPaymentAttemptsInner(attemptId string, invoiceNumber string, status string, requestedAmount ListProducts200ResponseDataTotal, collectedAmount ListProducts200ResponseDataTotal, createdAt string, paymentIntentId NullableString, paymentId NullableString, failureReason NullableString, resolvedAt NullableString) *GetCustomerState200ResponseDataPendingPaymentAttemptsInner {
+func NewGetCustomerState200ResponseDataPendingPaymentAttemptsInner(attemptId string, invoiceNumber string, status string, requestedAmount float32, collectedAmount float32, createdAt string, paymentIntentId NullableString, paymentId NullableString, failureReason NullableString, resolvedAt NullableString) *GetCustomerState200ResponseDataPendingPaymentAttemptsInner {
 	this := GetCustomerState200ResponseDataPendingPaymentAttemptsInner{}
 	this.AttemptId = attemptId
 	this.InvoiceNumber = invoiceNumber
@@ -135,9 +135,9 @@ func (o *GetCustomerState200ResponseDataPendingPaymentAttemptsInner) SetStatus(v
 }
 
 // GetRequestedAmount returns the RequestedAmount field value
-func (o *GetCustomerState200ResponseDataPendingPaymentAttemptsInner) GetRequestedAmount() ListProducts200ResponseDataTotal {
+func (o *GetCustomerState200ResponseDataPendingPaymentAttemptsInner) GetRequestedAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -146,7 +146,7 @@ func (o *GetCustomerState200ResponseDataPendingPaymentAttemptsInner) GetRequeste
 
 // GetRequestedAmountOk returns a tuple with the RequestedAmount field value
 // and a boolean to check if the value has been set.
-func (o *GetCustomerState200ResponseDataPendingPaymentAttemptsInner) GetRequestedAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *GetCustomerState200ResponseDataPendingPaymentAttemptsInner) GetRequestedAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -154,14 +154,14 @@ func (o *GetCustomerState200ResponseDataPendingPaymentAttemptsInner) GetRequeste
 }
 
 // SetRequestedAmount sets field value
-func (o *GetCustomerState200ResponseDataPendingPaymentAttemptsInner) SetRequestedAmount(v ListProducts200ResponseDataTotal) {
+func (o *GetCustomerState200ResponseDataPendingPaymentAttemptsInner) SetRequestedAmount(v float32) {
 	o.RequestedAmount = v
 }
 
 // GetCollectedAmount returns the CollectedAmount field value
-func (o *GetCustomerState200ResponseDataPendingPaymentAttemptsInner) GetCollectedAmount() ListProducts200ResponseDataTotal {
+func (o *GetCustomerState200ResponseDataPendingPaymentAttemptsInner) GetCollectedAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -170,7 +170,7 @@ func (o *GetCustomerState200ResponseDataPendingPaymentAttemptsInner) GetCollecte
 
 // GetCollectedAmountOk returns a tuple with the CollectedAmount field value
 // and a boolean to check if the value has been set.
-func (o *GetCustomerState200ResponseDataPendingPaymentAttemptsInner) GetCollectedAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *GetCustomerState200ResponseDataPendingPaymentAttemptsInner) GetCollectedAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -178,7 +178,7 @@ func (o *GetCustomerState200ResponseDataPendingPaymentAttemptsInner) GetCollecte
 }
 
 // SetCollectedAmount sets field value
-func (o *GetCustomerState200ResponseDataPendingPaymentAttemptsInner) SetCollectedAmount(v ListProducts200ResponseDataTotal) {
+func (o *GetCustomerState200ResponseDataPendingPaymentAttemptsInner) SetCollectedAmount(v float32) {
 	o.CollectedAmount = v
 }
 

@@ -22,12 +22,12 @@ var _ MappedNullable = &GetPlatformEarnings200ResponseDataItemsInner{}
 type GetPlatformEarnings200ResponseDataItemsInner struct {
 	MerchantAccountId NullableString `json:"merchantAccountId"`
 	Currency NullableString `json:"currency"`
-	CapturedCount ListProducts200ResponseDataTotal `json:"capturedCount"`
-	CapturedVolume ListProducts200ResponseDataTotal `json:"capturedVolume"`
-	PlatformFeesCollected ListProducts200ResponseDataTotal `json:"platformFeesCollected"`
-	ApplicationFeeCredits ListProducts200ResponseDataTotal `json:"applicationFeeCredits"`
-	ApplicationFeeDebits ListProducts200ResponseDataTotal `json:"applicationFeeDebits"`
-	NetRevenue ListProducts200ResponseDataTotal `json:"netRevenue"`
+	CapturedCount NullableFloat32 `json:"capturedCount"`
+	CapturedVolume NullableFloat32 `json:"capturedVolume"`
+	PlatformFeesCollected NullableFloat32 `json:"platformFeesCollected"`
+	ApplicationFeeCredits NullableFloat32 `json:"applicationFeeCredits"`
+	ApplicationFeeDebits NullableFloat32 `json:"applicationFeeDebits"`
+	NetRevenue NullableFloat32 `json:"netRevenue"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -37,7 +37,7 @@ type _GetPlatformEarnings200ResponseDataItemsInner GetPlatformEarnings200Respons
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetPlatformEarnings200ResponseDataItemsInner(merchantAccountId NullableString, currency NullableString, capturedCount ListProducts200ResponseDataTotal, capturedVolume ListProducts200ResponseDataTotal, platformFeesCollected ListProducts200ResponseDataTotal, applicationFeeCredits ListProducts200ResponseDataTotal, applicationFeeDebits ListProducts200ResponseDataTotal, netRevenue ListProducts200ResponseDataTotal) *GetPlatformEarnings200ResponseDataItemsInner {
+func NewGetPlatformEarnings200ResponseDataItemsInner(merchantAccountId NullableString, currency NullableString, capturedCount NullableFloat32, capturedVolume NullableFloat32, platformFeesCollected NullableFloat32, applicationFeeCredits NullableFloat32, applicationFeeDebits NullableFloat32, netRevenue NullableFloat32) *GetPlatformEarnings200ResponseDataItemsInner {
 	this := GetPlatformEarnings200ResponseDataItemsInner{}
 	this.MerchantAccountId = merchantAccountId
 	this.Currency = currency
@@ -111,147 +111,159 @@ func (o *GetPlatformEarnings200ResponseDataItemsInner) SetCurrency(v string) {
 }
 
 // GetCapturedCount returns the CapturedCount field value
-func (o *GetPlatformEarnings200ResponseDataItemsInner) GetCapturedCount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetPlatformEarnings200ResponseDataItemsInner) GetCapturedCount() float32 {
+	if o == nil || o.CapturedCount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.CapturedCount
+	return *o.CapturedCount.Get()
 }
 
 // GetCapturedCountOk returns a tuple with the CapturedCount field value
 // and a boolean to check if the value has been set.
-func (o *GetPlatformEarnings200ResponseDataItemsInner) GetCapturedCountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetPlatformEarnings200ResponseDataItemsInner) GetCapturedCountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CapturedCount, true
+	return o.CapturedCount.Get(), o.CapturedCount.IsSet()
 }
 
 // SetCapturedCount sets field value
-func (o *GetPlatformEarnings200ResponseDataItemsInner) SetCapturedCount(v ListProducts200ResponseDataTotal) {
-	o.CapturedCount = v
+func (o *GetPlatformEarnings200ResponseDataItemsInner) SetCapturedCount(v float32) {
+	o.CapturedCount.Set(&v)
 }
 
 // GetCapturedVolume returns the CapturedVolume field value
-func (o *GetPlatformEarnings200ResponseDataItemsInner) GetCapturedVolume() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetPlatformEarnings200ResponseDataItemsInner) GetCapturedVolume() float32 {
+	if o == nil || o.CapturedVolume.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.CapturedVolume
+	return *o.CapturedVolume.Get()
 }
 
 // GetCapturedVolumeOk returns a tuple with the CapturedVolume field value
 // and a boolean to check if the value has been set.
-func (o *GetPlatformEarnings200ResponseDataItemsInner) GetCapturedVolumeOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetPlatformEarnings200ResponseDataItemsInner) GetCapturedVolumeOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CapturedVolume, true
+	return o.CapturedVolume.Get(), o.CapturedVolume.IsSet()
 }
 
 // SetCapturedVolume sets field value
-func (o *GetPlatformEarnings200ResponseDataItemsInner) SetCapturedVolume(v ListProducts200ResponseDataTotal) {
-	o.CapturedVolume = v
+func (o *GetPlatformEarnings200ResponseDataItemsInner) SetCapturedVolume(v float32) {
+	o.CapturedVolume.Set(&v)
 }
 
 // GetPlatformFeesCollected returns the PlatformFeesCollected field value
-func (o *GetPlatformEarnings200ResponseDataItemsInner) GetPlatformFeesCollected() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetPlatformEarnings200ResponseDataItemsInner) GetPlatformFeesCollected() float32 {
+	if o == nil || o.PlatformFeesCollected.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.PlatformFeesCollected
+	return *o.PlatformFeesCollected.Get()
 }
 
 // GetPlatformFeesCollectedOk returns a tuple with the PlatformFeesCollected field value
 // and a boolean to check if the value has been set.
-func (o *GetPlatformEarnings200ResponseDataItemsInner) GetPlatformFeesCollectedOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetPlatformEarnings200ResponseDataItemsInner) GetPlatformFeesCollectedOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PlatformFeesCollected, true
+	return o.PlatformFeesCollected.Get(), o.PlatformFeesCollected.IsSet()
 }
 
 // SetPlatformFeesCollected sets field value
-func (o *GetPlatformEarnings200ResponseDataItemsInner) SetPlatformFeesCollected(v ListProducts200ResponseDataTotal) {
-	o.PlatformFeesCollected = v
+func (o *GetPlatformEarnings200ResponseDataItemsInner) SetPlatformFeesCollected(v float32) {
+	o.PlatformFeesCollected.Set(&v)
 }
 
 // GetApplicationFeeCredits returns the ApplicationFeeCredits field value
-func (o *GetPlatformEarnings200ResponseDataItemsInner) GetApplicationFeeCredits() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetPlatformEarnings200ResponseDataItemsInner) GetApplicationFeeCredits() float32 {
+	if o == nil || o.ApplicationFeeCredits.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.ApplicationFeeCredits
+	return *o.ApplicationFeeCredits.Get()
 }
 
 // GetApplicationFeeCreditsOk returns a tuple with the ApplicationFeeCredits field value
 // and a boolean to check if the value has been set.
-func (o *GetPlatformEarnings200ResponseDataItemsInner) GetApplicationFeeCreditsOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetPlatformEarnings200ResponseDataItemsInner) GetApplicationFeeCreditsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ApplicationFeeCredits, true
+	return o.ApplicationFeeCredits.Get(), o.ApplicationFeeCredits.IsSet()
 }
 
 // SetApplicationFeeCredits sets field value
-func (o *GetPlatformEarnings200ResponseDataItemsInner) SetApplicationFeeCredits(v ListProducts200ResponseDataTotal) {
-	o.ApplicationFeeCredits = v
+func (o *GetPlatformEarnings200ResponseDataItemsInner) SetApplicationFeeCredits(v float32) {
+	o.ApplicationFeeCredits.Set(&v)
 }
 
 // GetApplicationFeeDebits returns the ApplicationFeeDebits field value
-func (o *GetPlatformEarnings200ResponseDataItemsInner) GetApplicationFeeDebits() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetPlatformEarnings200ResponseDataItemsInner) GetApplicationFeeDebits() float32 {
+	if o == nil || o.ApplicationFeeDebits.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.ApplicationFeeDebits
+	return *o.ApplicationFeeDebits.Get()
 }
 
 // GetApplicationFeeDebitsOk returns a tuple with the ApplicationFeeDebits field value
 // and a boolean to check if the value has been set.
-func (o *GetPlatformEarnings200ResponseDataItemsInner) GetApplicationFeeDebitsOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetPlatformEarnings200ResponseDataItemsInner) GetApplicationFeeDebitsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ApplicationFeeDebits, true
+	return o.ApplicationFeeDebits.Get(), o.ApplicationFeeDebits.IsSet()
 }
 
 // SetApplicationFeeDebits sets field value
-func (o *GetPlatformEarnings200ResponseDataItemsInner) SetApplicationFeeDebits(v ListProducts200ResponseDataTotal) {
-	o.ApplicationFeeDebits = v
+func (o *GetPlatformEarnings200ResponseDataItemsInner) SetApplicationFeeDebits(v float32) {
+	o.ApplicationFeeDebits.Set(&v)
 }
 
 // GetNetRevenue returns the NetRevenue field value
-func (o *GetPlatformEarnings200ResponseDataItemsInner) GetNetRevenue() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetPlatformEarnings200ResponseDataItemsInner) GetNetRevenue() float32 {
+	if o == nil || o.NetRevenue.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.NetRevenue
+	return *o.NetRevenue.Get()
 }
 
 // GetNetRevenueOk returns a tuple with the NetRevenue field value
 // and a boolean to check if the value has been set.
-func (o *GetPlatformEarnings200ResponseDataItemsInner) GetNetRevenueOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetPlatformEarnings200ResponseDataItemsInner) GetNetRevenueOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.NetRevenue, true
+	return o.NetRevenue.Get(), o.NetRevenue.IsSet()
 }
 
 // SetNetRevenue sets field value
-func (o *GetPlatformEarnings200ResponseDataItemsInner) SetNetRevenue(v ListProducts200ResponseDataTotal) {
-	o.NetRevenue = v
+func (o *GetPlatformEarnings200ResponseDataItemsInner) SetNetRevenue(v float32) {
+	o.NetRevenue.Set(&v)
 }
 
 func (o GetPlatformEarnings200ResponseDataItemsInner) MarshalJSON() ([]byte, error) {
@@ -266,12 +278,12 @@ func (o GetPlatformEarnings200ResponseDataItemsInner) ToMap() (map[string]interf
 	toSerialize := map[string]interface{}{}
 	toSerialize["merchantAccountId"] = o.MerchantAccountId.Get()
 	toSerialize["currency"] = o.Currency.Get()
-	toSerialize["capturedCount"] = o.CapturedCount
-	toSerialize["capturedVolume"] = o.CapturedVolume
-	toSerialize["platformFeesCollected"] = o.PlatformFeesCollected
-	toSerialize["applicationFeeCredits"] = o.ApplicationFeeCredits
-	toSerialize["applicationFeeDebits"] = o.ApplicationFeeDebits
-	toSerialize["netRevenue"] = o.NetRevenue
+	toSerialize["capturedCount"] = o.CapturedCount.Get()
+	toSerialize["capturedVolume"] = o.CapturedVolume.Get()
+	toSerialize["platformFeesCollected"] = o.PlatformFeesCollected.Get()
+	toSerialize["applicationFeeCredits"] = o.ApplicationFeeCredits.Get()
+	toSerialize["applicationFeeDebits"] = o.ApplicationFeeDebits.Get()
+	toSerialize["netRevenue"] = o.NetRevenue.Get()
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

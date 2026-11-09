@@ -31,10 +31,10 @@ type ListBillingCoupons200ResponseDataItemsInner struct {
 	Metadata map[string]string `json:"metadata"`
 	CreatedAt NullableString `json:"createdAt"`
 	Description NullableString `json:"description,omitempty"`
-	Amount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"amount,omitempty"`
+	Amount NullableFloat32 `json:"amount,omitempty"`
 	Currency NullableString `json:"currency,omitempty"`
-	Percentage NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"percentage,omitempty"`
-	DurationInBillingPeriods NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"durationInBillingPeriods,omitempty"`
+	Percentage NullableFloat32 `json:"percentage,omitempty"`
+	DurationInBillingPeriods NullableFloat32 `json:"durationInBillingPeriods,omitempty"`
 	ExpiresAt NullableString `json:"expiresAt,omitempty"`
 	TerminatedAt NullableString `json:"terminatedAt,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -364,9 +364,9 @@ func (o *ListBillingCoupons200ResponseDataItemsInner) UnsetDescription() {
 }
 
 // GetAmount returns the Amount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ListBillingCoupons200ResponseDataItemsInner) GetAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ListBillingCoupons200ResponseDataItemsInner) GetAmount() float32 {
 	if o == nil || IsNil(o.Amount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.Amount.Get()
@@ -375,7 +375,7 @@ func (o *ListBillingCoupons200ResponseDataItemsInner) GetAmount() ListCustomerBi
 // GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ListBillingCoupons200ResponseDataItemsInner) GetAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ListBillingCoupons200ResponseDataItemsInner) GetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -391,8 +391,8 @@ func (o *ListBillingCoupons200ResponseDataItemsInner) HasAmount() bool {
 	return false
 }
 
-// SetAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the Amount field.
-func (o *ListBillingCoupons200ResponseDataItemsInner) SetAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetAmount gets a reference to the given NullableFloat32 and assigns it to the Amount field.
+func (o *ListBillingCoupons200ResponseDataItemsInner) SetAmount(v float32) {
 	o.Amount.Set(&v)
 }
 // SetAmountNil sets the value for Amount to be an explicit nil
@@ -448,9 +448,9 @@ func (o *ListBillingCoupons200ResponseDataItemsInner) UnsetCurrency() {
 }
 
 // GetPercentage returns the Percentage field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ListBillingCoupons200ResponseDataItemsInner) GetPercentage() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ListBillingCoupons200ResponseDataItemsInner) GetPercentage() float32 {
 	if o == nil || IsNil(o.Percentage.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.Percentage.Get()
@@ -459,7 +459,7 @@ func (o *ListBillingCoupons200ResponseDataItemsInner) GetPercentage() ListCustom
 // GetPercentageOk returns a tuple with the Percentage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ListBillingCoupons200ResponseDataItemsInner) GetPercentageOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ListBillingCoupons200ResponseDataItemsInner) GetPercentageOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -475,8 +475,8 @@ func (o *ListBillingCoupons200ResponseDataItemsInner) HasPercentage() bool {
 	return false
 }
 
-// SetPercentage gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the Percentage field.
-func (o *ListBillingCoupons200ResponseDataItemsInner) SetPercentage(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetPercentage gets a reference to the given NullableFloat32 and assigns it to the Percentage field.
+func (o *ListBillingCoupons200ResponseDataItemsInner) SetPercentage(v float32) {
 	o.Percentage.Set(&v)
 }
 // SetPercentageNil sets the value for Percentage to be an explicit nil
@@ -490,9 +490,9 @@ func (o *ListBillingCoupons200ResponseDataItemsInner) UnsetPercentage() {
 }
 
 // GetDurationInBillingPeriods returns the DurationInBillingPeriods field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ListBillingCoupons200ResponseDataItemsInner) GetDurationInBillingPeriods() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ListBillingCoupons200ResponseDataItemsInner) GetDurationInBillingPeriods() float32 {
 	if o == nil || IsNil(o.DurationInBillingPeriods.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.DurationInBillingPeriods.Get()
@@ -501,7 +501,7 @@ func (o *ListBillingCoupons200ResponseDataItemsInner) GetDurationInBillingPeriod
 // GetDurationInBillingPeriodsOk returns a tuple with the DurationInBillingPeriods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ListBillingCoupons200ResponseDataItemsInner) GetDurationInBillingPeriodsOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ListBillingCoupons200ResponseDataItemsInner) GetDurationInBillingPeriodsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -517,8 +517,8 @@ func (o *ListBillingCoupons200ResponseDataItemsInner) HasDurationInBillingPeriod
 	return false
 }
 
-// SetDurationInBillingPeriods gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the DurationInBillingPeriods field.
-func (o *ListBillingCoupons200ResponseDataItemsInner) SetDurationInBillingPeriods(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetDurationInBillingPeriods gets a reference to the given NullableFloat32 and assigns it to the DurationInBillingPeriods field.
+func (o *ListBillingCoupons200ResponseDataItemsInner) SetDurationInBillingPeriods(v float32) {
 	o.DurationInBillingPeriods.Set(&v)
 }
 // SetDurationInBillingPeriodsNil sets the value for DurationInBillingPeriods to be an explicit nil

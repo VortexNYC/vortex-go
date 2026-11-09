@@ -23,7 +23,7 @@ type GetCustomerState200ResponseDataRetryQueueInner struct {
 	RetryId NullableString `json:"retryId"`
 	InvoiceNumber NullableString `json:"invoiceNumber"`
 	Status string `json:"status"`
-	RetrySequence ListProducts200ResponseDataTotal `json:"retrySequence"`
+	RetrySequence NullableFloat32 `json:"retrySequence"`
 	RunAt NullableString `json:"runAt"`
 	LastError NullableString `json:"lastError"`
 	AdditionalProperties map[string]interface{}
@@ -35,7 +35,7 @@ type _GetCustomerState200ResponseDataRetryQueueInner GetCustomerState200Response
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetCustomerState200ResponseDataRetryQueueInner(retryId NullableString, invoiceNumber NullableString, status string, retrySequence ListProducts200ResponseDataTotal, runAt NullableString, lastError NullableString) *GetCustomerState200ResponseDataRetryQueueInner {
+func NewGetCustomerState200ResponseDataRetryQueueInner(retryId NullableString, invoiceNumber NullableString, status string, retrySequence NullableFloat32, runAt NullableString, lastError NullableString) *GetCustomerState200ResponseDataRetryQueueInner {
 	this := GetCustomerState200ResponseDataRetryQueueInner{}
 	this.RetryId = retryId
 	this.InvoiceNumber = invoiceNumber
@@ -131,27 +131,29 @@ func (o *GetCustomerState200ResponseDataRetryQueueInner) SetStatus(v string) {
 }
 
 // GetRetrySequence returns the RetrySequence field value
-func (o *GetCustomerState200ResponseDataRetryQueueInner) GetRetrySequence() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetCustomerState200ResponseDataRetryQueueInner) GetRetrySequence() float32 {
+	if o == nil || o.RetrySequence.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.RetrySequence
+	return *o.RetrySequence.Get()
 }
 
 // GetRetrySequenceOk returns a tuple with the RetrySequence field value
 // and a boolean to check if the value has been set.
-func (o *GetCustomerState200ResponseDataRetryQueueInner) GetRetrySequenceOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetCustomerState200ResponseDataRetryQueueInner) GetRetrySequenceOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RetrySequence, true
+	return o.RetrySequence.Get(), o.RetrySequence.IsSet()
 }
 
 // SetRetrySequence sets field value
-func (o *GetCustomerState200ResponseDataRetryQueueInner) SetRetrySequence(v ListProducts200ResponseDataTotal) {
-	o.RetrySequence = v
+func (o *GetCustomerState200ResponseDataRetryQueueInner) SetRetrySequence(v float32) {
+	o.RetrySequence.Set(&v)
 }
 
 // GetRunAt returns the RunAt field value
@@ -219,7 +221,7 @@ func (o GetCustomerState200ResponseDataRetryQueueInner) ToMap() (map[string]inte
 	toSerialize["retryId"] = o.RetryId.Get()
 	toSerialize["invoiceNumber"] = o.InvoiceNumber.Get()
 	toSerialize["status"] = o.Status
-	toSerialize["retrySequence"] = o.RetrySequence
+	toSerialize["retrySequence"] = o.RetrySequence.Get()
 	toSerialize["runAt"] = o.RunAt.Get()
 	toSerialize["lastError"] = o.LastError.Get()
 

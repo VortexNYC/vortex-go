@@ -24,8 +24,8 @@ type GetInvoiceCollection200ResponseDataAttemptsInner struct {
 	InvoiceId NullableString `json:"invoiceId"`
 	BillingAccountId NullableString `json:"billingAccountId"`
 	Status string `json:"status"`
-	RequestedAmount ListProducts200ResponseDataTotal `json:"requestedAmount"`
-	CollectedAmount ListProducts200ResponseDataTotal `json:"collectedAmount"`
+	RequestedAmount NullableFloat32 `json:"requestedAmount"`
+	CollectedAmount NullableFloat32 `json:"collectedAmount"`
 	Metadata map[string]string `json:"metadata"`
 	CreatedAt NullableString `json:"createdAt"`
 	PaymentIntentId NullableString `json:"paymentIntentId,omitempty"`
@@ -41,7 +41,7 @@ type _GetInvoiceCollection200ResponseDataAttemptsInner GetInvoiceCollection200Re
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetInvoiceCollection200ResponseDataAttemptsInner(attemptId NullableString, invoiceId NullableString, billingAccountId NullableString, status string, requestedAmount ListProducts200ResponseDataTotal, collectedAmount ListProducts200ResponseDataTotal, metadata map[string]string, createdAt NullableString) *GetInvoiceCollection200ResponseDataAttemptsInner {
+func NewGetInvoiceCollection200ResponseDataAttemptsInner(attemptId NullableString, invoiceId NullableString, billingAccountId NullableString, status string, requestedAmount NullableFloat32, collectedAmount NullableFloat32, metadata map[string]string, createdAt NullableString) *GetInvoiceCollection200ResponseDataAttemptsInner {
 	this := GetInvoiceCollection200ResponseDataAttemptsInner{}
 	this.AttemptId = attemptId
 	this.InvoiceId = invoiceId
@@ -165,51 +165,55 @@ func (o *GetInvoiceCollection200ResponseDataAttemptsInner) SetStatus(v string) {
 }
 
 // GetRequestedAmount returns the RequestedAmount field value
-func (o *GetInvoiceCollection200ResponseDataAttemptsInner) GetRequestedAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetInvoiceCollection200ResponseDataAttemptsInner) GetRequestedAmount() float32 {
+	if o == nil || o.RequestedAmount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.RequestedAmount
+	return *o.RequestedAmount.Get()
 }
 
 // GetRequestedAmountOk returns a tuple with the RequestedAmount field value
 // and a boolean to check if the value has been set.
-func (o *GetInvoiceCollection200ResponseDataAttemptsInner) GetRequestedAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetInvoiceCollection200ResponseDataAttemptsInner) GetRequestedAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RequestedAmount, true
+	return o.RequestedAmount.Get(), o.RequestedAmount.IsSet()
 }
 
 // SetRequestedAmount sets field value
-func (o *GetInvoiceCollection200ResponseDataAttemptsInner) SetRequestedAmount(v ListProducts200ResponseDataTotal) {
-	o.RequestedAmount = v
+func (o *GetInvoiceCollection200ResponseDataAttemptsInner) SetRequestedAmount(v float32) {
+	o.RequestedAmount.Set(&v)
 }
 
 // GetCollectedAmount returns the CollectedAmount field value
-func (o *GetInvoiceCollection200ResponseDataAttemptsInner) GetCollectedAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetInvoiceCollection200ResponseDataAttemptsInner) GetCollectedAmount() float32 {
+	if o == nil || o.CollectedAmount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.CollectedAmount
+	return *o.CollectedAmount.Get()
 }
 
 // GetCollectedAmountOk returns a tuple with the CollectedAmount field value
 // and a boolean to check if the value has been set.
-func (o *GetInvoiceCollection200ResponseDataAttemptsInner) GetCollectedAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetInvoiceCollection200ResponseDataAttemptsInner) GetCollectedAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CollectedAmount, true
+	return o.CollectedAmount.Get(), o.CollectedAmount.IsSet()
 }
 
 // SetCollectedAmount sets field value
-func (o *GetInvoiceCollection200ResponseDataAttemptsInner) SetCollectedAmount(v ListProducts200ResponseDataTotal) {
-	o.CollectedAmount = v
+func (o *GetInvoiceCollection200ResponseDataAttemptsInner) SetCollectedAmount(v float32) {
+	o.CollectedAmount.Set(&v)
 }
 
 // GetMetadata returns the Metadata field value
@@ -446,8 +450,8 @@ func (o GetInvoiceCollection200ResponseDataAttemptsInner) ToMap() (map[string]in
 	toSerialize["invoiceId"] = o.InvoiceId.Get()
 	toSerialize["billingAccountId"] = o.BillingAccountId.Get()
 	toSerialize["status"] = o.Status
-	toSerialize["requestedAmount"] = o.RequestedAmount
-	toSerialize["collectedAmount"] = o.CollectedAmount
+	toSerialize["requestedAmount"] = o.RequestedAmount.Get()
+	toSerialize["collectedAmount"] = o.CollectedAmount.Get()
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}

@@ -21,8 +21,8 @@ var _ MappedNullable = &QuoteTaxRequestLinesInner{}
 // QuoteTaxRequestLinesInner struct for QuoteTaxRequestLinesInner
 type QuoteTaxRequestLinesInner struct {
 	SourceLineId NullableString `json:"sourceLineId"`
-	Amount ListProducts200ResponseDataTotal `json:"amount"`
-	Quantity ListProducts200ResponseDataTotal `json:"quantity"`
+	Amount NullableFloat32 `json:"amount"`
+	Quantity NullableFloat32 `json:"quantity"`
 	Description NullableString `json:"description,omitempty"`
 	ClassificationKey NullableString `json:"classificationKey,omitempty"`
 	ProductExternalId NullableString `json:"productExternalId,omitempty"`
@@ -36,7 +36,7 @@ type _QuoteTaxRequestLinesInner QuoteTaxRequestLinesInner
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewQuoteTaxRequestLinesInner(sourceLineId NullableString, amount ListProducts200ResponseDataTotal, quantity ListProducts200ResponseDataTotal) *QuoteTaxRequestLinesInner {
+func NewQuoteTaxRequestLinesInner(sourceLineId NullableString, amount NullableFloat32, quantity NullableFloat32) *QuoteTaxRequestLinesInner {
 	this := QuoteTaxRequestLinesInner{}
 	this.SourceLineId = sourceLineId
 	this.Amount = amount
@@ -79,51 +79,55 @@ func (o *QuoteTaxRequestLinesInner) SetSourceLineId(v string) {
 }
 
 // GetAmount returns the Amount field value
-func (o *QuoteTaxRequestLinesInner) GetAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *QuoteTaxRequestLinesInner) GetAmount() float32 {
+	if o == nil || o.Amount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Amount
+	return *o.Amount.Get()
 }
 
 // GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
-func (o *QuoteTaxRequestLinesInner) GetAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *QuoteTaxRequestLinesInner) GetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Amount, true
+	return o.Amount.Get(), o.Amount.IsSet()
 }
 
 // SetAmount sets field value
-func (o *QuoteTaxRequestLinesInner) SetAmount(v ListProducts200ResponseDataTotal) {
-	o.Amount = v
+func (o *QuoteTaxRequestLinesInner) SetAmount(v float32) {
+	o.Amount.Set(&v)
 }
 
 // GetQuantity returns the Quantity field value
-func (o *QuoteTaxRequestLinesInner) GetQuantity() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *QuoteTaxRequestLinesInner) GetQuantity() float32 {
+	if o == nil || o.Quantity.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Quantity
+	return *o.Quantity.Get()
 }
 
 // GetQuantityOk returns a tuple with the Quantity field value
 // and a boolean to check if the value has been set.
-func (o *QuoteTaxRequestLinesInner) GetQuantityOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *QuoteTaxRequestLinesInner) GetQuantityOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Quantity, true
+	return o.Quantity.Get(), o.Quantity.IsSet()
 }
 
 // SetQuantity sets field value
-func (o *QuoteTaxRequestLinesInner) SetQuantity(v ListProducts200ResponseDataTotal) {
-	o.Quantity = v
+func (o *QuoteTaxRequestLinesInner) SetQuantity(v float32) {
+	o.Quantity.Set(&v)
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -305,8 +309,8 @@ func (o QuoteTaxRequestLinesInner) MarshalJSON() ([]byte, error) {
 func (o QuoteTaxRequestLinesInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["sourceLineId"] = o.SourceLineId.Get()
-	toSerialize["amount"] = o.Amount
-	toSerialize["quantity"] = o.Quantity
+	toSerialize["amount"] = o.Amount.Get()
+	toSerialize["quantity"] = o.Quantity.Get()
 	if o.Description.IsSet() {
 		toSerialize["description"] = o.Description.Get()
 	}

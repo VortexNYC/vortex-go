@@ -27,7 +27,7 @@ type CreatePaymentIntent201ResponseData struct {
 	CustomerProfileId NullableString `json:"customerProfileId,omitempty"`
 	PaymentMethodId NullableString `json:"paymentMethodId,omitempty"`
 	Status string `json:"status"`
-	Amount ListProducts200ResponseDataTotal `json:"amount"`
+	Amount float32 `json:"amount"`
 	Currency string `json:"currency"`
 	RequiresAction bool `json:"requiresAction"`
 	CanCapture bool `json:"canCapture"`
@@ -36,7 +36,7 @@ type CreatePaymentIntent201ResponseData struct {
 	NextStep string `json:"nextStep"`
 	NextActionType NullableString `json:"nextActionType,omitempty"`
 	HostedActionUrl NullableString `json:"hostedActionUrl,omitempty"`
-	PlatformFeeAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"platformFeeAmount,omitempty"`
+	PlatformFeeAmount NullableFloat32 `json:"platformFeeAmount,omitempty"`
 	CreatedAt NullableString `json:"createdAt,omitempty"`
 }
 
@@ -46,7 +46,7 @@ type _CreatePaymentIntent201ResponseData CreatePaymentIntent201ResponseData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePaymentIntent201ResponseData(id string, merchantAccountId string, status string, amount ListProducts200ResponseDataTotal, currency string, requiresAction bool, canCapture bool, canCancel bool, canRetry bool, nextStep string) *CreatePaymentIntent201ResponseData {
+func NewCreatePaymentIntent201ResponseData(id string, merchantAccountId string, status string, amount float32, currency string, requiresAction bool, canCapture bool, canCancel bool, canRetry bool, nextStep string) *CreatePaymentIntent201ResponseData {
 	this := CreatePaymentIntent201ResponseData{}
 	this.Id = id
 	this.MerchantAccountId = merchantAccountId
@@ -268,9 +268,9 @@ func (o *CreatePaymentIntent201ResponseData) SetStatus(v string) {
 }
 
 // GetAmount returns the Amount field value
-func (o *CreatePaymentIntent201ResponseData) GetAmount() ListProducts200ResponseDataTotal {
+func (o *CreatePaymentIntent201ResponseData) GetAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -279,7 +279,7 @@ func (o *CreatePaymentIntent201ResponseData) GetAmount() ListProducts200Response
 
 // GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
-func (o *CreatePaymentIntent201ResponseData) GetAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreatePaymentIntent201ResponseData) GetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -287,7 +287,7 @@ func (o *CreatePaymentIntent201ResponseData) GetAmountOk() (*ListProducts200Resp
 }
 
 // SetAmount sets field value
-func (o *CreatePaymentIntent201ResponseData) SetAmount(v ListProducts200ResponseDataTotal) {
+func (o *CreatePaymentIntent201ResponseData) SetAmount(v float32) {
 	o.Amount = v
 }
 
@@ -520,9 +520,9 @@ func (o *CreatePaymentIntent201ResponseData) UnsetHostedActionUrl() {
 }
 
 // GetPlatformFeeAmount returns the PlatformFeeAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreatePaymentIntent201ResponseData) GetPlatformFeeAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreatePaymentIntent201ResponseData) GetPlatformFeeAmount() float32 {
 	if o == nil || IsNil(o.PlatformFeeAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.PlatformFeeAmount.Get()
@@ -531,7 +531,7 @@ func (o *CreatePaymentIntent201ResponseData) GetPlatformFeeAmount() ListCustomer
 // GetPlatformFeeAmountOk returns a tuple with the PlatformFeeAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreatePaymentIntent201ResponseData) GetPlatformFeeAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreatePaymentIntent201ResponseData) GetPlatformFeeAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -547,8 +547,8 @@ func (o *CreatePaymentIntent201ResponseData) HasPlatformFeeAmount() bool {
 	return false
 }
 
-// SetPlatformFeeAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the PlatformFeeAmount field.
-func (o *CreatePaymentIntent201ResponseData) SetPlatformFeeAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetPlatformFeeAmount gets a reference to the given NullableFloat32 and assigns it to the PlatformFeeAmount field.
+func (o *CreatePaymentIntent201ResponseData) SetPlatformFeeAmount(v float32) {
 	o.PlatformFeeAmount.Set(&v)
 }
 // SetPlatformFeeAmountNil sets the value for PlatformFeeAmount to be an explicit nil

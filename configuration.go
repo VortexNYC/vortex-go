@@ -100,8 +100,8 @@ func NewConfiguration() *Configuration {
 				Description: "Production",
 			},
 			{
-				URL: "http://localhost:3210",
-				Description: "Local development",
+				URL: "https://api.sandbox.vortex.nyc",
+				Description: "Sandbox",
 			},
 		},
 		OperationServers: map[string]ServerConfigurations{

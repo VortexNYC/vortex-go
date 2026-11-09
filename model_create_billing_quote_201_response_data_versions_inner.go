@@ -22,12 +22,12 @@ var _ MappedNullable = &CreateBillingQuote201ResponseDataVersionsInner{}
 type CreateBillingQuote201ResponseDataVersionsInner struct {
 	QuoteVersionId NullableString `json:"quoteVersionId"`
 	QuoteId NullableString `json:"quoteId"`
-	Version ListProducts200ResponseDataTotal `json:"version"`
+	Version NullableFloat32 `json:"version"`
 	Status string `json:"status"`
 	Currency NullableString `json:"currency"`
 	BillingItems CreateBillingQuote201ResponseDataVersionsInnerBillingItems `json:"billingItems"`
-	Subtotal ListProducts200ResponseDataTotal `json:"subtotal"`
-	Total ListProducts200ResponseDataTotal `json:"total"`
+	Subtotal NullableFloat32 `json:"subtotal"`
+	Total NullableFloat32 `json:"total"`
 	Metadata map[string]string `json:"metadata"`
 	CreatedAt NullableString `json:"createdAt"`
 	UpdatedAt NullableString `json:"updatedAt"`
@@ -44,7 +44,7 @@ type _CreateBillingQuote201ResponseDataVersionsInner CreateBillingQuote201Respon
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateBillingQuote201ResponseDataVersionsInner(quoteVersionId NullableString, quoteId NullableString, version ListProducts200ResponseDataTotal, status string, currency NullableString, billingItems CreateBillingQuote201ResponseDataVersionsInnerBillingItems, subtotal ListProducts200ResponseDataTotal, total ListProducts200ResponseDataTotal, metadata map[string]string, createdAt NullableString, updatedAt NullableString) *CreateBillingQuote201ResponseDataVersionsInner {
+func NewCreateBillingQuote201ResponseDataVersionsInner(quoteVersionId NullableString, quoteId NullableString, version NullableFloat32, status string, currency NullableString, billingItems CreateBillingQuote201ResponseDataVersionsInnerBillingItems, subtotal NullableFloat32, total NullableFloat32, metadata map[string]string, createdAt NullableString, updatedAt NullableString) *CreateBillingQuote201ResponseDataVersionsInner {
 	this := CreateBillingQuote201ResponseDataVersionsInner{}
 	this.QuoteVersionId = quoteVersionId
 	this.QuoteId = quoteId
@@ -121,27 +121,29 @@ func (o *CreateBillingQuote201ResponseDataVersionsInner) SetQuoteId(v string) {
 }
 
 // GetVersion returns the Version field value
-func (o *CreateBillingQuote201ResponseDataVersionsInner) GetVersion() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateBillingQuote201ResponseDataVersionsInner) GetVersion() float32 {
+	if o == nil || o.Version.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Version
+	return *o.Version.Get()
 }
 
 // GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
-func (o *CreateBillingQuote201ResponseDataVersionsInner) GetVersionOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateBillingQuote201ResponseDataVersionsInner) GetVersionOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Version, true
+	return o.Version.Get(), o.Version.IsSet()
 }
 
 // SetVersion sets field value
-func (o *CreateBillingQuote201ResponseDataVersionsInner) SetVersion(v ListProducts200ResponseDataTotal) {
-	o.Version = v
+func (o *CreateBillingQuote201ResponseDataVersionsInner) SetVersion(v float32) {
+	o.Version.Set(&v)
 }
 
 // GetStatus returns the Status field value
@@ -219,51 +221,55 @@ func (o *CreateBillingQuote201ResponseDataVersionsInner) SetBillingItems(v Creat
 }
 
 // GetSubtotal returns the Subtotal field value
-func (o *CreateBillingQuote201ResponseDataVersionsInner) GetSubtotal() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateBillingQuote201ResponseDataVersionsInner) GetSubtotal() float32 {
+	if o == nil || o.Subtotal.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Subtotal
+	return *o.Subtotal.Get()
 }
 
 // GetSubtotalOk returns a tuple with the Subtotal field value
 // and a boolean to check if the value has been set.
-func (o *CreateBillingQuote201ResponseDataVersionsInner) GetSubtotalOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateBillingQuote201ResponseDataVersionsInner) GetSubtotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Subtotal, true
+	return o.Subtotal.Get(), o.Subtotal.IsSet()
 }
 
 // SetSubtotal sets field value
-func (o *CreateBillingQuote201ResponseDataVersionsInner) SetSubtotal(v ListProducts200ResponseDataTotal) {
-	o.Subtotal = v
+func (o *CreateBillingQuote201ResponseDataVersionsInner) SetSubtotal(v float32) {
+	o.Subtotal.Set(&v)
 }
 
 // GetTotal returns the Total field value
-func (o *CreateBillingQuote201ResponseDataVersionsInner) GetTotal() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *CreateBillingQuote201ResponseDataVersionsInner) GetTotal() float32 {
+	if o == nil || o.Total.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Total
+	return *o.Total.Get()
 }
 
 // GetTotalOk returns a tuple with the Total field value
 // and a boolean to check if the value has been set.
-func (o *CreateBillingQuote201ResponseDataVersionsInner) GetTotalOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateBillingQuote201ResponseDataVersionsInner) GetTotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Total, true
+	return o.Total.Get(), o.Total.IsSet()
 }
 
 // SetTotal sets field value
-func (o *CreateBillingQuote201ResponseDataVersionsInner) SetTotal(v ListProducts200ResponseDataTotal) {
-	o.Total = v
+func (o *CreateBillingQuote201ResponseDataVersionsInner) SetTotal(v float32) {
+	o.Total.Set(&v)
 }
 
 // GetMetadata returns the Metadata field value
@@ -524,12 +530,12 @@ func (o CreateBillingQuote201ResponseDataVersionsInner) ToMap() (map[string]inte
 	toSerialize := map[string]interface{}{}
 	toSerialize["quoteVersionId"] = o.QuoteVersionId.Get()
 	toSerialize["quoteId"] = o.QuoteId.Get()
-	toSerialize["version"] = o.Version
+	toSerialize["version"] = o.Version.Get()
 	toSerialize["status"] = o.Status
 	toSerialize["currency"] = o.Currency.Get()
 	toSerialize["billingItems"] = o.BillingItems
-	toSerialize["subtotal"] = o.Subtotal
-	toSerialize["total"] = o.Total
+	toSerialize["subtotal"] = o.Subtotal.Get()
+	toSerialize["total"] = o.Total.Get()
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}

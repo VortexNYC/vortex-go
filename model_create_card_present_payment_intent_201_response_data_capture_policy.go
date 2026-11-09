@@ -22,10 +22,10 @@ var _ MappedNullable = &CreateCardPresentPaymentIntent201ResponseDataCapturePoli
 // CreateCardPresentPaymentIntent201ResponseDataCapturePolicy struct for CreateCardPresentPaymentIntent201ResponseDataCapturePolicy
 type CreateCardPresentPaymentIntent201ResponseDataCapturePolicy struct {
 	CaptureMode string `json:"captureMode"`
-	TipAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"tipAmount,omitempty"`
+	TipAmount NullableFloat32 `json:"tipAmount,omitempty"`
 	AllowTip bool `json:"allowTip"`
 	AllowOvercapture bool `json:"allowOvercapture"`
-	MaxOvercaptureAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"maxOvercaptureAmount,omitempty"`
+	MaxOvercaptureAmount NullableFloat32 `json:"maxOvercaptureAmount,omitempty"`
 }
 
 type _CreateCardPresentPaymentIntent201ResponseDataCapturePolicy CreateCardPresentPaymentIntent201ResponseDataCapturePolicy
@@ -75,9 +75,9 @@ func (o *CreateCardPresentPaymentIntent201ResponseDataCapturePolicy) SetCaptureM
 }
 
 // GetTipAmount returns the TipAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateCardPresentPaymentIntent201ResponseDataCapturePolicy) GetTipAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateCardPresentPaymentIntent201ResponseDataCapturePolicy) GetTipAmount() float32 {
 	if o == nil || IsNil(o.TipAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.TipAmount.Get()
@@ -86,7 +86,7 @@ func (o *CreateCardPresentPaymentIntent201ResponseDataCapturePolicy) GetTipAmoun
 // GetTipAmountOk returns a tuple with the TipAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateCardPresentPaymentIntent201ResponseDataCapturePolicy) GetTipAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateCardPresentPaymentIntent201ResponseDataCapturePolicy) GetTipAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -102,8 +102,8 @@ func (o *CreateCardPresentPaymentIntent201ResponseDataCapturePolicy) HasTipAmoun
 	return false
 }
 
-// SetTipAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the TipAmount field.
-func (o *CreateCardPresentPaymentIntent201ResponseDataCapturePolicy) SetTipAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetTipAmount gets a reference to the given NullableFloat32 and assigns it to the TipAmount field.
+func (o *CreateCardPresentPaymentIntent201ResponseDataCapturePolicy) SetTipAmount(v float32) {
 	o.TipAmount.Set(&v)
 }
 // SetTipAmountNil sets the value for TipAmount to be an explicit nil
@@ -165,9 +165,9 @@ func (o *CreateCardPresentPaymentIntent201ResponseDataCapturePolicy) SetAllowOve
 }
 
 // GetMaxOvercaptureAmount returns the MaxOvercaptureAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateCardPresentPaymentIntent201ResponseDataCapturePolicy) GetMaxOvercaptureAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateCardPresentPaymentIntent201ResponseDataCapturePolicy) GetMaxOvercaptureAmount() float32 {
 	if o == nil || IsNil(o.MaxOvercaptureAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.MaxOvercaptureAmount.Get()
@@ -176,7 +176,7 @@ func (o *CreateCardPresentPaymentIntent201ResponseDataCapturePolicy) GetMaxOverc
 // GetMaxOvercaptureAmountOk returns a tuple with the MaxOvercaptureAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateCardPresentPaymentIntent201ResponseDataCapturePolicy) GetMaxOvercaptureAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateCardPresentPaymentIntent201ResponseDataCapturePolicy) GetMaxOvercaptureAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -192,8 +192,8 @@ func (o *CreateCardPresentPaymentIntent201ResponseDataCapturePolicy) HasMaxOverc
 	return false
 }
 
-// SetMaxOvercaptureAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the MaxOvercaptureAmount field.
-func (o *CreateCardPresentPaymentIntent201ResponseDataCapturePolicy) SetMaxOvercaptureAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetMaxOvercaptureAmount gets a reference to the given NullableFloat32 and assigns it to the MaxOvercaptureAmount field.
+func (o *CreateCardPresentPaymentIntent201ResponseDataCapturePolicy) SetMaxOvercaptureAmount(v float32) {
 	o.MaxOvercaptureAmount.Set(&v)
 }
 // SetMaxOvercaptureAmountNil sets the value for MaxOvercaptureAmount to be an explicit nil

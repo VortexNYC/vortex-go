@@ -21,9 +21,9 @@ var _ MappedNullable = &UpdateMerchantAccountRequestDateOfBirth{}
 
 // UpdateMerchantAccountRequestDateOfBirth struct for UpdateMerchantAccountRequestDateOfBirth
 type UpdateMerchantAccountRequestDateOfBirth struct {
-	Day ListProducts200ResponseDataTotal `json:"day"`
-	Month ListProducts200ResponseDataTotal `json:"month"`
-	Year ListProducts200ResponseDataTotal `json:"year"`
+	Day float32 `json:"day"`
+	Month float32 `json:"month"`
+	Year float32 `json:"year"`
 }
 
 type _UpdateMerchantAccountRequestDateOfBirth UpdateMerchantAccountRequestDateOfBirth
@@ -32,7 +32,7 @@ type _UpdateMerchantAccountRequestDateOfBirth UpdateMerchantAccountRequestDateOf
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUpdateMerchantAccountRequestDateOfBirth(day ListProducts200ResponseDataTotal, month ListProducts200ResponseDataTotal, year ListProducts200ResponseDataTotal) *UpdateMerchantAccountRequestDateOfBirth {
+func NewUpdateMerchantAccountRequestDateOfBirth(day float32, month float32, year float32) *UpdateMerchantAccountRequestDateOfBirth {
 	this := UpdateMerchantAccountRequestDateOfBirth{}
 	this.Day = day
 	this.Month = month
@@ -49,9 +49,9 @@ func NewUpdateMerchantAccountRequestDateOfBirthWithDefaults() *UpdateMerchantAcc
 }
 
 // GetDay returns the Day field value
-func (o *UpdateMerchantAccountRequestDateOfBirth) GetDay() ListProducts200ResponseDataTotal {
+func (o *UpdateMerchantAccountRequestDateOfBirth) GetDay() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -60,7 +60,7 @@ func (o *UpdateMerchantAccountRequestDateOfBirth) GetDay() ListProducts200Respon
 
 // GetDayOk returns a tuple with the Day field value
 // and a boolean to check if the value has been set.
-func (o *UpdateMerchantAccountRequestDateOfBirth) GetDayOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *UpdateMerchantAccountRequestDateOfBirth) GetDayOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -68,14 +68,14 @@ func (o *UpdateMerchantAccountRequestDateOfBirth) GetDayOk() (*ListProducts200Re
 }
 
 // SetDay sets field value
-func (o *UpdateMerchantAccountRequestDateOfBirth) SetDay(v ListProducts200ResponseDataTotal) {
+func (o *UpdateMerchantAccountRequestDateOfBirth) SetDay(v float32) {
 	o.Day = v
 }
 
 // GetMonth returns the Month field value
-func (o *UpdateMerchantAccountRequestDateOfBirth) GetMonth() ListProducts200ResponseDataTotal {
+func (o *UpdateMerchantAccountRequestDateOfBirth) GetMonth() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -84,7 +84,7 @@ func (o *UpdateMerchantAccountRequestDateOfBirth) GetMonth() ListProducts200Resp
 
 // GetMonthOk returns a tuple with the Month field value
 // and a boolean to check if the value has been set.
-func (o *UpdateMerchantAccountRequestDateOfBirth) GetMonthOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *UpdateMerchantAccountRequestDateOfBirth) GetMonthOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -92,14 +92,14 @@ func (o *UpdateMerchantAccountRequestDateOfBirth) GetMonthOk() (*ListProducts200
 }
 
 // SetMonth sets field value
-func (o *UpdateMerchantAccountRequestDateOfBirth) SetMonth(v ListProducts200ResponseDataTotal) {
+func (o *UpdateMerchantAccountRequestDateOfBirth) SetMonth(v float32) {
 	o.Month = v
 }
 
 // GetYear returns the Year field value
-func (o *UpdateMerchantAccountRequestDateOfBirth) GetYear() ListProducts200ResponseDataTotal {
+func (o *UpdateMerchantAccountRequestDateOfBirth) GetYear() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -108,7 +108,7 @@ func (o *UpdateMerchantAccountRequestDateOfBirth) GetYear() ListProducts200Respo
 
 // GetYearOk returns a tuple with the Year field value
 // and a boolean to check if the value has been set.
-func (o *UpdateMerchantAccountRequestDateOfBirth) GetYearOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *UpdateMerchantAccountRequestDateOfBirth) GetYearOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -116,7 +116,7 @@ func (o *UpdateMerchantAccountRequestDateOfBirth) GetYearOk() (*ListProducts200R
 }
 
 // SetYear sets field value
-func (o *UpdateMerchantAccountRequestDateOfBirth) SetYear(v ListProducts200ResponseDataTotal) {
+func (o *UpdateMerchantAccountRequestDateOfBirth) SetYear(v float32) {
 	o.Year = v
 }
 

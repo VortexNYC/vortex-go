@@ -28,7 +28,7 @@ type MerchantAssociatedIdentity struct {
 	Email NullableString `json:"email,omitempty"`
 	Phone NullableString `json:"phone,omitempty"`
 	TaxId NullableString `json:"taxId,omitempty"`
-	PrincipalPercentageOwnership *float32 `json:"principalPercentageOwnership,omitempty"`
+	PrincipalPercentageOwnership NullableFloat32 `json:"principalPercentageOwnership,omitempty"`
 	DateOfBirth NullableMerchantProfileDate `json:"dateOfBirth,omitempty"`
 	PersonalAddress NullableMerchantAddress `json:"personalAddress,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -372,36 +372,46 @@ func (o *MerchantAssociatedIdentity) UnsetTaxId() {
 	o.TaxId.Unset()
 }
 
-// GetPrincipalPercentageOwnership returns the PrincipalPercentageOwnership field value if set, zero value otherwise.
+// GetPrincipalPercentageOwnership returns the PrincipalPercentageOwnership field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MerchantAssociatedIdentity) GetPrincipalPercentageOwnership() float32 {
-	if o == nil || IsNil(o.PrincipalPercentageOwnership) {
+	if o == nil || IsNil(o.PrincipalPercentageOwnership.Get()) {
 		var ret float32
 		return ret
 	}
-	return *o.PrincipalPercentageOwnership
+	return *o.PrincipalPercentageOwnership.Get()
 }
 
 // GetPrincipalPercentageOwnershipOk returns a tuple with the PrincipalPercentageOwnership field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantAssociatedIdentity) GetPrincipalPercentageOwnershipOk() (*float32, bool) {
-	if o == nil || IsNil(o.PrincipalPercentageOwnership) {
+	if o == nil {
 		return nil, false
 	}
-	return o.PrincipalPercentageOwnership, true
+	return o.PrincipalPercentageOwnership.Get(), o.PrincipalPercentageOwnership.IsSet()
 }
 
 // HasPrincipalPercentageOwnership returns a boolean if a field has been set.
 func (o *MerchantAssociatedIdentity) HasPrincipalPercentageOwnership() bool {
-	if o != nil && !IsNil(o.PrincipalPercentageOwnership) {
+	if o != nil && o.PrincipalPercentageOwnership.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetPrincipalPercentageOwnership gets a reference to the given float32 and assigns it to the PrincipalPercentageOwnership field.
+// SetPrincipalPercentageOwnership gets a reference to the given NullableFloat32 and assigns it to the PrincipalPercentageOwnership field.
 func (o *MerchantAssociatedIdentity) SetPrincipalPercentageOwnership(v float32) {
-	o.PrincipalPercentageOwnership = &v
+	o.PrincipalPercentageOwnership.Set(&v)
+}
+// SetPrincipalPercentageOwnershipNil sets the value for PrincipalPercentageOwnership to be an explicit nil
+func (o *MerchantAssociatedIdentity) SetPrincipalPercentageOwnershipNil() {
+	o.PrincipalPercentageOwnership.Set(nil)
+}
+
+// UnsetPrincipalPercentageOwnership ensures that no value is present for PrincipalPercentageOwnership, not even an explicit nil
+func (o *MerchantAssociatedIdentity) UnsetPrincipalPercentageOwnership() {
+	o.PrincipalPercentageOwnership.Unset()
 }
 
 // GetDateOfBirth returns the DateOfBirth field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -520,8 +530,8 @@ func (o MerchantAssociatedIdentity) ToMap() (map[string]interface{}, error) {
 	if o.TaxId.IsSet() {
 		toSerialize["taxId"] = o.TaxId.Get()
 	}
-	if !IsNil(o.PrincipalPercentageOwnership) {
-		toSerialize["principalPercentageOwnership"] = o.PrincipalPercentageOwnership
+	if o.PrincipalPercentageOwnership.IsSet() {
+		toSerialize["principalPercentageOwnership"] = o.PrincipalPercentageOwnership.Get()
 	}
 	if o.DateOfBirth.IsSet() {
 		toSerialize["dateOfBirth"] = o.DateOfBirth.Get()

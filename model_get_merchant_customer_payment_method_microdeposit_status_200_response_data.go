@@ -21,7 +21,7 @@ var _ MappedNullable = &GetMerchantCustomerPaymentMethodMicrodepositStatus200Res
 // GetMerchantCustomerPaymentMethodMicrodepositStatus200ResponseData struct for GetMerchantCustomerPaymentMethodMicrodepositStatus200ResponseData
 type GetMerchantCustomerPaymentMethodMicrodepositStatus200ResponseData struct {
 	State NullableString `json:"state"`
-	AttemptsRemaining NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"attemptsRemaining,omitempty"`
+	AttemptsRemaining NullableFloat32 `json:"attemptsRemaining,omitempty"`
 	ExpiresAt NullableString `json:"expiresAt,omitempty"`
 	FailureCode NullableString `json:"failureCode,omitempty"`
 	VerificationUrl NullableString `json:"verificationUrl,omitempty"`
@@ -77,9 +77,9 @@ func (o *GetMerchantCustomerPaymentMethodMicrodepositStatus200ResponseData) SetS
 }
 
 // GetAttemptsRemaining returns the AttemptsRemaining field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GetMerchantCustomerPaymentMethodMicrodepositStatus200ResponseData) GetAttemptsRemaining() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *GetMerchantCustomerPaymentMethodMicrodepositStatus200ResponseData) GetAttemptsRemaining() float32 {
 	if o == nil || IsNil(o.AttemptsRemaining.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.AttemptsRemaining.Get()
@@ -88,7 +88,7 @@ func (o *GetMerchantCustomerPaymentMethodMicrodepositStatus200ResponseData) GetA
 // GetAttemptsRemainingOk returns a tuple with the AttemptsRemaining field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GetMerchantCustomerPaymentMethodMicrodepositStatus200ResponseData) GetAttemptsRemainingOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *GetMerchantCustomerPaymentMethodMicrodepositStatus200ResponseData) GetAttemptsRemainingOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -104,8 +104,8 @@ func (o *GetMerchantCustomerPaymentMethodMicrodepositStatus200ResponseData) HasA
 	return false
 }
 
-// SetAttemptsRemaining gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the AttemptsRemaining field.
-func (o *GetMerchantCustomerPaymentMethodMicrodepositStatus200ResponseData) SetAttemptsRemaining(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetAttemptsRemaining gets a reference to the given NullableFloat32 and assigns it to the AttemptsRemaining field.
+func (o *GetMerchantCustomerPaymentMethodMicrodepositStatus200ResponseData) SetAttemptsRemaining(v float32) {
 	o.AttemptsRemaining.Set(&v)
 }
 // SetAttemptsRemainingNil sets the value for AttemptsRemaining to be an explicit nil

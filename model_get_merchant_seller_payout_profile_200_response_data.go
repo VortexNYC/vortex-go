@@ -26,8 +26,8 @@ type GetMerchantSellerPayoutProfile200ResponseData struct {
 	PayoutRail string `json:"payoutRail"`
 	PayoutSchedule string `json:"payoutSchedule"`
 	Currency NullableString `json:"currency,omitempty"`
-	SettlementDelayDays NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"settlementDelayDays,omitempty"`
-	SubmissionDelayDays NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"submissionDelayDays,omitempty"`
+	SettlementDelayDays NullableFloat32 `json:"settlementDelayDays,omitempty"`
+	SubmissionDelayDays NullableFloat32 `json:"submissionDelayDays,omitempty"`
 	FundingRequirement NullableString `json:"fundingRequirement,omitempty"`
 	SameDayAchEligible NullableBool `json:"sameDayAchEligible,omitempty"`
 	InstantPayoutEligible NullableBool `json:"instantPayoutEligible,omitempty"`
@@ -232,9 +232,9 @@ func (o *GetMerchantSellerPayoutProfile200ResponseData) UnsetCurrency() {
 }
 
 // GetSettlementDelayDays returns the SettlementDelayDays field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GetMerchantSellerPayoutProfile200ResponseData) GetSettlementDelayDays() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *GetMerchantSellerPayoutProfile200ResponseData) GetSettlementDelayDays() float32 {
 	if o == nil || IsNil(o.SettlementDelayDays.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.SettlementDelayDays.Get()
@@ -243,7 +243,7 @@ func (o *GetMerchantSellerPayoutProfile200ResponseData) GetSettlementDelayDays()
 // GetSettlementDelayDaysOk returns a tuple with the SettlementDelayDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GetMerchantSellerPayoutProfile200ResponseData) GetSettlementDelayDaysOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *GetMerchantSellerPayoutProfile200ResponseData) GetSettlementDelayDaysOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -259,8 +259,8 @@ func (o *GetMerchantSellerPayoutProfile200ResponseData) HasSettlementDelayDays()
 	return false
 }
 
-// SetSettlementDelayDays gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the SettlementDelayDays field.
-func (o *GetMerchantSellerPayoutProfile200ResponseData) SetSettlementDelayDays(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetSettlementDelayDays gets a reference to the given NullableFloat32 and assigns it to the SettlementDelayDays field.
+func (o *GetMerchantSellerPayoutProfile200ResponseData) SetSettlementDelayDays(v float32) {
 	o.SettlementDelayDays.Set(&v)
 }
 // SetSettlementDelayDaysNil sets the value for SettlementDelayDays to be an explicit nil
@@ -274,9 +274,9 @@ func (o *GetMerchantSellerPayoutProfile200ResponseData) UnsetSettlementDelayDays
 }
 
 // GetSubmissionDelayDays returns the SubmissionDelayDays field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GetMerchantSellerPayoutProfile200ResponseData) GetSubmissionDelayDays() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *GetMerchantSellerPayoutProfile200ResponseData) GetSubmissionDelayDays() float32 {
 	if o == nil || IsNil(o.SubmissionDelayDays.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.SubmissionDelayDays.Get()
@@ -285,7 +285,7 @@ func (o *GetMerchantSellerPayoutProfile200ResponseData) GetSubmissionDelayDays()
 // GetSubmissionDelayDaysOk returns a tuple with the SubmissionDelayDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GetMerchantSellerPayoutProfile200ResponseData) GetSubmissionDelayDaysOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *GetMerchantSellerPayoutProfile200ResponseData) GetSubmissionDelayDaysOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -301,8 +301,8 @@ func (o *GetMerchantSellerPayoutProfile200ResponseData) HasSubmissionDelayDays()
 	return false
 }
 
-// SetSubmissionDelayDays gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the SubmissionDelayDays field.
-func (o *GetMerchantSellerPayoutProfile200ResponseData) SetSubmissionDelayDays(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetSubmissionDelayDays gets a reference to the given NullableFloat32 and assigns it to the SubmissionDelayDays field.
+func (o *GetMerchantSellerPayoutProfile200ResponseData) SetSubmissionDelayDays(v float32) {
 	o.SubmissionDelayDays.Set(&v)
 }
 // SetSubmissionDelayDaysNil sets the value for SubmissionDelayDays to be an explicit nil

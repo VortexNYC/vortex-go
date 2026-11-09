@@ -24,10 +24,10 @@ type GetCustomerBalance200ResponseDataEntriesInner struct {
 	CustomerId NullableString `json:"customerId"`
 	Currency NullableString `json:"currency"`
 	EntryType string `json:"entryType"`
-	Amount ListProducts200ResponseDataTotal `json:"amount"`
+	Amount NullableFloat32 `json:"amount"`
 	EffectiveAt NullableString `json:"effectiveAt"`
 	Metadata map[string]string `json:"metadata"`
-	RemainingAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"remainingAmount,omitempty"`
+	RemainingAmount NullableFloat32 `json:"remainingAmount,omitempty"`
 	InvoiceId NullableString `json:"invoiceId,omitempty"`
 	PaymentId NullableString `json:"paymentId,omitempty"`
 	WalletId NullableString `json:"walletId,omitempty"`
@@ -41,7 +41,7 @@ type _GetCustomerBalance200ResponseDataEntriesInner GetCustomerBalance200Respons
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetCustomerBalance200ResponseDataEntriesInner(entryId NullableString, customerId NullableString, currency NullableString, entryType string, amount ListProducts200ResponseDataTotal, effectiveAt NullableString, metadata map[string]string) *GetCustomerBalance200ResponseDataEntriesInner {
+func NewGetCustomerBalance200ResponseDataEntriesInner(entryId NullableString, customerId NullableString, currency NullableString, entryType string, amount NullableFloat32, effectiveAt NullableString, metadata map[string]string) *GetCustomerBalance200ResponseDataEntriesInner {
 	this := GetCustomerBalance200ResponseDataEntriesInner{}
 	this.EntryId = entryId
 	this.CustomerId = customerId
@@ -164,27 +164,29 @@ func (o *GetCustomerBalance200ResponseDataEntriesInner) SetEntryType(v string) {
 }
 
 // GetAmount returns the Amount field value
-func (o *GetCustomerBalance200ResponseDataEntriesInner) GetAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetCustomerBalance200ResponseDataEntriesInner) GetAmount() float32 {
+	if o == nil || o.Amount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Amount
+	return *o.Amount.Get()
 }
 
 // GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
-func (o *GetCustomerBalance200ResponseDataEntriesInner) GetAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetCustomerBalance200ResponseDataEntriesInner) GetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Amount, true
+	return o.Amount.Get(), o.Amount.IsSet()
 }
 
 // SetAmount sets field value
-func (o *GetCustomerBalance200ResponseDataEntriesInner) SetAmount(v ListProducts200ResponseDataTotal) {
-	o.Amount = v
+func (o *GetCustomerBalance200ResponseDataEntriesInner) SetAmount(v float32) {
+	o.Amount.Set(&v)
 }
 
 // GetEffectiveAt returns the EffectiveAt field value
@@ -240,9 +242,9 @@ func (o *GetCustomerBalance200ResponseDataEntriesInner) SetMetadata(v map[string
 }
 
 // GetRemainingAmount returns the RemainingAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GetCustomerBalance200ResponseDataEntriesInner) GetRemainingAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *GetCustomerBalance200ResponseDataEntriesInner) GetRemainingAmount() float32 {
 	if o == nil || IsNil(o.RemainingAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.RemainingAmount.Get()
@@ -251,7 +253,7 @@ func (o *GetCustomerBalance200ResponseDataEntriesInner) GetRemainingAmount() Lis
 // GetRemainingAmountOk returns a tuple with the RemainingAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GetCustomerBalance200ResponseDataEntriesInner) GetRemainingAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *GetCustomerBalance200ResponseDataEntriesInner) GetRemainingAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -267,8 +269,8 @@ func (o *GetCustomerBalance200ResponseDataEntriesInner) HasRemainingAmount() boo
 	return false
 }
 
-// SetRemainingAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the RemainingAmount field.
-func (o *GetCustomerBalance200ResponseDataEntriesInner) SetRemainingAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetRemainingAmount gets a reference to the given NullableFloat32 and assigns it to the RemainingAmount field.
+func (o *GetCustomerBalance200ResponseDataEntriesInner) SetRemainingAmount(v float32) {
 	o.RemainingAmount.Set(&v)
 }
 // SetRemainingAmountNil sets the value for RemainingAmount to be an explicit nil
@@ -463,7 +465,7 @@ func (o GetCustomerBalance200ResponseDataEntriesInner) ToMap() (map[string]inter
 	toSerialize["customerId"] = o.CustomerId.Get()
 	toSerialize["currency"] = o.Currency.Get()
 	toSerialize["entryType"] = o.EntryType
-	toSerialize["amount"] = o.Amount
+	toSerialize["amount"] = o.Amount.Get()
 	toSerialize["effectiveAt"] = o.EffectiveAt.Get()
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata

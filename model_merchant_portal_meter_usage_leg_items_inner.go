@@ -25,7 +25,7 @@ type MerchantPortalMeterUsageLegItemsInner struct {
 	Name NullableString `json:"name"`
 	AggregationType NullableString `json:"aggregationType"`
 	WindowGrain NullableString `json:"windowGrain"`
-	AggregatedQuantity float32 `json:"aggregatedQuantity"`
+	AggregatedQuantity NullableFloat32 `json:"aggregatedQuantity"`
 }
 
 type _MerchantPortalMeterUsageLegItemsInner MerchantPortalMeterUsageLegItemsInner
@@ -34,7 +34,7 @@ type _MerchantPortalMeterUsageLegItemsInner MerchantPortalMeterUsageLegItemsInne
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMerchantPortalMeterUsageLegItemsInner(meterId NullableString, name NullableString, aggregationType NullableString, windowGrain NullableString, aggregatedQuantity float32) *MerchantPortalMeterUsageLegItemsInner {
+func NewMerchantPortalMeterUsageLegItemsInner(meterId NullableString, name NullableString, aggregationType NullableString, windowGrain NullableString, aggregatedQuantity NullableFloat32) *MerchantPortalMeterUsageLegItemsInner {
 	this := MerchantPortalMeterUsageLegItemsInner{}
 	this.MeterId = meterId
 	this.Name = name
@@ -157,27 +157,29 @@ func (o *MerchantPortalMeterUsageLegItemsInner) SetWindowGrain(v string) {
 }
 
 // GetAggregatedQuantity returns the AggregatedQuantity field value
+// If the value is explicit nil, the zero value for float32 will be returned
 func (o *MerchantPortalMeterUsageLegItemsInner) GetAggregatedQuantity() float32 {
-	if o == nil {
+	if o == nil || o.AggregatedQuantity.Get() == nil {
 		var ret float32
 		return ret
 	}
 
-	return o.AggregatedQuantity
+	return *o.AggregatedQuantity.Get()
 }
 
 // GetAggregatedQuantityOk returns a tuple with the AggregatedQuantity field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MerchantPortalMeterUsageLegItemsInner) GetAggregatedQuantityOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AggregatedQuantity, true
+	return o.AggregatedQuantity.Get(), o.AggregatedQuantity.IsSet()
 }
 
 // SetAggregatedQuantity sets field value
 func (o *MerchantPortalMeterUsageLegItemsInner) SetAggregatedQuantity(v float32) {
-	o.AggregatedQuantity = v
+	o.AggregatedQuantity.Set(&v)
 }
 
 func (o MerchantPortalMeterUsageLegItemsInner) MarshalJSON() ([]byte, error) {
@@ -194,7 +196,7 @@ func (o MerchantPortalMeterUsageLegItemsInner) ToMap() (map[string]interface{}, 
 	toSerialize["name"] = o.Name.Get()
 	toSerialize["aggregationType"] = o.AggregationType.Get()
 	toSerialize["windowGrain"] = o.WindowGrain.Get()
-	toSerialize["aggregatedQuantity"] = o.AggregatedQuantity
+	toSerialize["aggregatedQuantity"] = o.AggregatedQuantity.Get()
 	return toSerialize, nil
 }
 

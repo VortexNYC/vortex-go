@@ -25,7 +25,7 @@ type CreatePayout201ResponseData struct {
 	Environment string `json:"environment"`
 	MerchantAccountId string `json:"merchantAccountId"`
 	Status string `json:"status"`
-	Amount ListProducts200ResponseDataTotal `json:"amount"`
+	Amount float32 `json:"amount"`
 	Currency string `json:"currency"`
 	Direction string `json:"direction"`
 	CreatedAt string `json:"createdAt"`
@@ -44,7 +44,7 @@ type _CreatePayout201ResponseData CreatePayout201ResponseData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePayout201ResponseData(id string, environment string, merchantAccountId string, status string, amount ListProducts200ResponseDataTotal, currency string, direction string, createdAt string, updatedAt string) *CreatePayout201ResponseData {
+func NewCreatePayout201ResponseData(id string, environment string, merchantAccountId string, status string, amount float32, currency string, direction string, createdAt string, updatedAt string) *CreatePayout201ResponseData {
 	this := CreatePayout201ResponseData{}
 	this.Id = id
 	this.Environment = environment
@@ -163,9 +163,9 @@ func (o *CreatePayout201ResponseData) SetStatus(v string) {
 }
 
 // GetAmount returns the Amount field value
-func (o *CreatePayout201ResponseData) GetAmount() ListProducts200ResponseDataTotal {
+func (o *CreatePayout201ResponseData) GetAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -174,7 +174,7 @@ func (o *CreatePayout201ResponseData) GetAmount() ListProducts200ResponseDataTot
 
 // GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
-func (o *CreatePayout201ResponseData) GetAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreatePayout201ResponseData) GetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -182,7 +182,7 @@ func (o *CreatePayout201ResponseData) GetAmountOk() (*ListProducts200ResponseDat
 }
 
 // SetAmount sets field value
-func (o *CreatePayout201ResponseData) SetAmount(v ListProducts200ResponseDataTotal) {
+func (o *CreatePayout201ResponseData) SetAmount(v float32) {
 	o.Amount = v
 }
 

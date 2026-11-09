@@ -30,8 +30,8 @@ type ListCheckoutSessions200ResponseDataCheckoutSessionsInner struct {
 	CustomerExternalId NullableString `json:"customerExternalId"`
 	BillingAccountId NullableString `json:"billingAccountId"`
 	Currency NullableString `json:"currency"`
-	AmountTotal ListProducts200ResponseDataTotal `json:"amountTotal"`
-	AmountRemaining ListProducts200ResponseDataTotal `json:"amountRemaining"`
+	AmountTotal NullableFloat32 `json:"amountTotal"`
+	AmountRemaining NullableFloat32 `json:"amountRemaining"`
 	InvoiceNumbers []string `json:"invoiceNumbers"`
 	ExpiresAt NullableString `json:"expiresAt"`
 	CreatedAt NullableString `json:"createdAt"`
@@ -52,7 +52,7 @@ type _ListCheckoutSessions200ResponseDataCheckoutSessionsInner ListCheckoutSessi
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListCheckoutSessions200ResponseDataCheckoutSessionsInner(checkoutSessionId NullableString, paymentRequestId NullableString, checkoutUrl NullableString, token NullableString, mode string, status string, customerId NullableString, customerExternalId NullableString, billingAccountId NullableString, currency NullableString, amountTotal ListProducts200ResponseDataTotal, amountRemaining ListProducts200ResponseDataTotal, invoiceNumbers []string, expiresAt NullableString, createdAt NullableString) *ListCheckoutSessions200ResponseDataCheckoutSessionsInner {
+func NewListCheckoutSessions200ResponseDataCheckoutSessionsInner(checkoutSessionId NullableString, paymentRequestId NullableString, checkoutUrl NullableString, token NullableString, mode string, status string, customerId NullableString, customerExternalId NullableString, billingAccountId NullableString, currency NullableString, amountTotal NullableFloat32, amountRemaining NullableFloat32, invoiceNumbers []string, expiresAt NullableString, createdAt NullableString) *ListCheckoutSessions200ResponseDataCheckoutSessionsInner {
 	this := ListCheckoutSessions200ResponseDataCheckoutSessionsInner{}
 	this.CheckoutSessionId = checkoutSessionId
 	this.PaymentRequestId = paymentRequestId
@@ -337,51 +337,55 @@ func (o *ListCheckoutSessions200ResponseDataCheckoutSessionsInner) SetCurrency(v
 }
 
 // GetAmountTotal returns the AmountTotal field value
-func (o *ListCheckoutSessions200ResponseDataCheckoutSessionsInner) GetAmountTotal() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListCheckoutSessions200ResponseDataCheckoutSessionsInner) GetAmountTotal() float32 {
+	if o == nil || o.AmountTotal.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.AmountTotal
+	return *o.AmountTotal.Get()
 }
 
 // GetAmountTotalOk returns a tuple with the AmountTotal field value
 // and a boolean to check if the value has been set.
-func (o *ListCheckoutSessions200ResponseDataCheckoutSessionsInner) GetAmountTotalOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListCheckoutSessions200ResponseDataCheckoutSessionsInner) GetAmountTotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AmountTotal, true
+	return o.AmountTotal.Get(), o.AmountTotal.IsSet()
 }
 
 // SetAmountTotal sets field value
-func (o *ListCheckoutSessions200ResponseDataCheckoutSessionsInner) SetAmountTotal(v ListProducts200ResponseDataTotal) {
-	o.AmountTotal = v
+func (o *ListCheckoutSessions200ResponseDataCheckoutSessionsInner) SetAmountTotal(v float32) {
+	o.AmountTotal.Set(&v)
 }
 
 // GetAmountRemaining returns the AmountRemaining field value
-func (o *ListCheckoutSessions200ResponseDataCheckoutSessionsInner) GetAmountRemaining() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListCheckoutSessions200ResponseDataCheckoutSessionsInner) GetAmountRemaining() float32 {
+	if o == nil || o.AmountRemaining.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.AmountRemaining
+	return *o.AmountRemaining.Get()
 }
 
 // GetAmountRemainingOk returns a tuple with the AmountRemaining field value
 // and a boolean to check if the value has been set.
-func (o *ListCheckoutSessions200ResponseDataCheckoutSessionsInner) GetAmountRemainingOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListCheckoutSessions200ResponseDataCheckoutSessionsInner) GetAmountRemainingOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AmountRemaining, true
+	return o.AmountRemaining.Get(), o.AmountRemaining.IsSet()
 }
 
 // SetAmountRemaining sets field value
-func (o *ListCheckoutSessions200ResponseDataCheckoutSessionsInner) SetAmountRemaining(v ListProducts200ResponseDataTotal) {
-	o.AmountRemaining = v
+func (o *ListCheckoutSessions200ResponseDataCheckoutSessionsInner) SetAmountRemaining(v float32) {
+	o.AmountRemaining.Set(&v)
 }
 
 // GetInvoiceNumbers returns the InvoiceNumbers field value
@@ -816,8 +820,8 @@ func (o ListCheckoutSessions200ResponseDataCheckoutSessionsInner) ToMap() (map[s
 	toSerialize["customerExternalId"] = o.CustomerExternalId.Get()
 	toSerialize["billingAccountId"] = o.BillingAccountId.Get()
 	toSerialize["currency"] = o.Currency.Get()
-	toSerialize["amountTotal"] = o.AmountTotal
-	toSerialize["amountRemaining"] = o.AmountRemaining
+	toSerialize["amountTotal"] = o.AmountTotal.Get()
+	toSerialize["amountRemaining"] = o.AmountRemaining.Get()
 	toSerialize["invoiceNumbers"] = o.InvoiceNumbers
 	toSerialize["expiresAt"] = o.ExpiresAt.Get()
 	toSerialize["createdAt"] = o.CreatedAt.Get()

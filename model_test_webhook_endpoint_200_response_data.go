@@ -27,9 +27,9 @@ type TestWebhookEndpoint200ResponseData struct {
 	AggregateType NullableString `json:"aggregateType"`
 	AggregateId NullableString `json:"aggregateId"`
 	Status string `json:"status"`
-	AttemptCount ListProducts200ResponseDataTotal `json:"attemptCount"`
+	AttemptCount NullableFloat32 `json:"attemptCount"`
 	LastAttemptAt NullableString `json:"lastAttemptAt,omitempty"`
-	HttpStatusCode NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"httpStatusCode,omitempty"`
+	HttpStatusCode NullableFloat32 `json:"httpStatusCode,omitempty"`
 	FailureReason NullableString `json:"failureReason,omitempty"`
 	CanonicalEventId NullableString `json:"canonicalEventId,omitempty"`
 	ReplayedFromDeliveryId NullableString `json:"replayedFromDeliveryId,omitempty"`
@@ -44,7 +44,7 @@ type _TestWebhookEndpoint200ResponseData TestWebhookEndpoint200ResponseData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTestWebhookEndpoint200ResponseData(id NullableString, environment NullableString, endpointId NullableString, eventType NullableString, aggregateType NullableString, aggregateId NullableString, status string, attemptCount ListProducts200ResponseDataTotal, createdAt NullableString, updatedAt NullableString) *TestWebhookEndpoint200ResponseData {
+func NewTestWebhookEndpoint200ResponseData(id NullableString, environment NullableString, endpointId NullableString, eventType NullableString, aggregateType NullableString, aggregateId NullableString, status string, attemptCount NullableFloat32, createdAt NullableString, updatedAt NullableString) *TestWebhookEndpoint200ResponseData {
 	this := TestWebhookEndpoint200ResponseData{}
 	this.Id = id
 	this.Environment = environment
@@ -248,27 +248,29 @@ func (o *TestWebhookEndpoint200ResponseData) SetStatus(v string) {
 }
 
 // GetAttemptCount returns the AttemptCount field value
-func (o *TestWebhookEndpoint200ResponseData) GetAttemptCount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *TestWebhookEndpoint200ResponseData) GetAttemptCount() float32 {
+	if o == nil || o.AttemptCount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.AttemptCount
+	return *o.AttemptCount.Get()
 }
 
 // GetAttemptCountOk returns a tuple with the AttemptCount field value
 // and a boolean to check if the value has been set.
-func (o *TestWebhookEndpoint200ResponseData) GetAttemptCountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TestWebhookEndpoint200ResponseData) GetAttemptCountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AttemptCount, true
+	return o.AttemptCount.Get(), o.AttemptCount.IsSet()
 }
 
 // SetAttemptCount sets field value
-func (o *TestWebhookEndpoint200ResponseData) SetAttemptCount(v ListProducts200ResponseDataTotal) {
-	o.AttemptCount = v
+func (o *TestWebhookEndpoint200ResponseData) SetAttemptCount(v float32) {
+	o.AttemptCount.Set(&v)
 }
 
 // GetLastAttemptAt returns the LastAttemptAt field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -314,9 +316,9 @@ func (o *TestWebhookEndpoint200ResponseData) UnsetLastAttemptAt() {
 }
 
 // GetHttpStatusCode returns the HttpStatusCode field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *TestWebhookEndpoint200ResponseData) GetHttpStatusCode() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *TestWebhookEndpoint200ResponseData) GetHttpStatusCode() float32 {
 	if o == nil || IsNil(o.HttpStatusCode.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.HttpStatusCode.Get()
@@ -325,7 +327,7 @@ func (o *TestWebhookEndpoint200ResponseData) GetHttpStatusCode() ListCustomerBil
 // GetHttpStatusCodeOk returns a tuple with the HttpStatusCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TestWebhookEndpoint200ResponseData) GetHttpStatusCodeOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *TestWebhookEndpoint200ResponseData) GetHttpStatusCodeOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -341,8 +343,8 @@ func (o *TestWebhookEndpoint200ResponseData) HasHttpStatusCode() bool {
 	return false
 }
 
-// SetHttpStatusCode gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the HttpStatusCode field.
-func (o *TestWebhookEndpoint200ResponseData) SetHttpStatusCode(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetHttpStatusCode gets a reference to the given NullableFloat32 and assigns it to the HttpStatusCode field.
+func (o *TestWebhookEndpoint200ResponseData) SetHttpStatusCode(v float32) {
 	o.HttpStatusCode.Set(&v)
 }
 // SetHttpStatusCodeNil sets the value for HttpStatusCode to be an explicit nil
@@ -550,7 +552,7 @@ func (o TestWebhookEndpoint200ResponseData) ToMap() (map[string]interface{}, err
 	toSerialize["aggregateType"] = o.AggregateType.Get()
 	toSerialize["aggregateId"] = o.AggregateId.Get()
 	toSerialize["status"] = o.Status
-	toSerialize["attemptCount"] = o.AttemptCount
+	toSerialize["attemptCount"] = o.AttemptCount.Get()
 	if o.LastAttemptAt.IsSet() {
 		toSerialize["lastAttemptAt"] = o.LastAttemptAt.Get()
 	}

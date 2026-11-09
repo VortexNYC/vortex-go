@@ -26,7 +26,7 @@ type GetMeterAggregate200ResponseData struct {
 	WindowGrain string `json:"windowGrain"`
 	WindowStartAt NullableString `json:"windowStartAt"`
 	WindowEndAt NullableString `json:"windowEndAt"`
-	AggregatedQuantity ListProducts200ResponseDataTotal `json:"aggregatedQuantity"`
+	AggregatedQuantity NullableFloat32 `json:"aggregatedQuantity"`
 	Customers GetMeterAggregate200ResponseDataCustomers `json:"customers"`
 	AdditionalProperties map[string]interface{}
 }
@@ -37,7 +37,7 @@ type _GetMeterAggregate200ResponseData GetMeterAggregate200ResponseData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetMeterAggregate200ResponseData(meterId NullableString, eventName NullableString, aggregationType string, windowGrain string, windowStartAt NullableString, windowEndAt NullableString, aggregatedQuantity ListProducts200ResponseDataTotal, customers GetMeterAggregate200ResponseDataCustomers) *GetMeterAggregate200ResponseData {
+func NewGetMeterAggregate200ResponseData(meterId NullableString, eventName NullableString, aggregationType string, windowGrain string, windowStartAt NullableString, windowEndAt NullableString, aggregatedQuantity NullableFloat32, customers GetMeterAggregate200ResponseDataCustomers) *GetMeterAggregate200ResponseData {
 	this := GetMeterAggregate200ResponseData{}
 	this.MeterId = meterId
 	this.EventName = eventName
@@ -211,27 +211,29 @@ func (o *GetMeterAggregate200ResponseData) SetWindowEndAt(v string) {
 }
 
 // GetAggregatedQuantity returns the AggregatedQuantity field value
-func (o *GetMeterAggregate200ResponseData) GetAggregatedQuantity() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetMeterAggregate200ResponseData) GetAggregatedQuantity() float32 {
+	if o == nil || o.AggregatedQuantity.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.AggregatedQuantity
+	return *o.AggregatedQuantity.Get()
 }
 
 // GetAggregatedQuantityOk returns a tuple with the AggregatedQuantity field value
 // and a boolean to check if the value has been set.
-func (o *GetMeterAggregate200ResponseData) GetAggregatedQuantityOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetMeterAggregate200ResponseData) GetAggregatedQuantityOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AggregatedQuantity, true
+	return o.AggregatedQuantity.Get(), o.AggregatedQuantity.IsSet()
 }
 
 // SetAggregatedQuantity sets field value
-func (o *GetMeterAggregate200ResponseData) SetAggregatedQuantity(v ListProducts200ResponseDataTotal) {
-	o.AggregatedQuantity = v
+func (o *GetMeterAggregate200ResponseData) SetAggregatedQuantity(v float32) {
+	o.AggregatedQuantity.Set(&v)
 }
 
 // GetCustomers returns the Customers field value
@@ -274,7 +276,7 @@ func (o GetMeterAggregate200ResponseData) ToMap() (map[string]interface{}, error
 	toSerialize["windowGrain"] = o.WindowGrain
 	toSerialize["windowStartAt"] = o.WindowStartAt.Get()
 	toSerialize["windowEndAt"] = o.WindowEndAt.Get()
-	toSerialize["aggregatedQuantity"] = o.AggregatedQuantity
+	toSerialize["aggregatedQuantity"] = o.AggregatedQuantity.Get()
 	toSerialize["customers"] = o.Customers
 
 	for key, value := range o.AdditionalProperties {

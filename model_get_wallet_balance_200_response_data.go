@@ -21,7 +21,7 @@ var _ MappedNullable = &GetWalletBalance200ResponseData{}
 // GetWalletBalance200ResponseData struct for GetWalletBalance200ResponseData
 type GetWalletBalance200ResponseData struct {
 	WalletId NullableString `json:"walletId"`
-	AvailableAmount ListProducts200ResponseDataTotal `json:"availableAmount"`
+	AvailableAmount NullableFloat32 `json:"availableAmount"`
 	AvailableCredits NullableString `json:"availableCredits"`
 	AdditionalProperties map[string]interface{}
 }
@@ -32,7 +32,7 @@ type _GetWalletBalance200ResponseData GetWalletBalance200ResponseData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetWalletBalance200ResponseData(walletId NullableString, availableAmount ListProducts200ResponseDataTotal, availableCredits NullableString) *GetWalletBalance200ResponseData {
+func NewGetWalletBalance200ResponseData(walletId NullableString, availableAmount NullableFloat32, availableCredits NullableString) *GetWalletBalance200ResponseData {
 	this := GetWalletBalance200ResponseData{}
 	this.WalletId = walletId
 	this.AvailableAmount = availableAmount
@@ -75,27 +75,29 @@ func (o *GetWalletBalance200ResponseData) SetWalletId(v string) {
 }
 
 // GetAvailableAmount returns the AvailableAmount field value
-func (o *GetWalletBalance200ResponseData) GetAvailableAmount() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetWalletBalance200ResponseData) GetAvailableAmount() float32 {
+	if o == nil || o.AvailableAmount.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.AvailableAmount
+	return *o.AvailableAmount.Get()
 }
 
 // GetAvailableAmountOk returns a tuple with the AvailableAmount field value
 // and a boolean to check if the value has been set.
-func (o *GetWalletBalance200ResponseData) GetAvailableAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetWalletBalance200ResponseData) GetAvailableAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AvailableAmount, true
+	return o.AvailableAmount.Get(), o.AvailableAmount.IsSet()
 }
 
 // SetAvailableAmount sets field value
-func (o *GetWalletBalance200ResponseData) SetAvailableAmount(v ListProducts200ResponseDataTotal) {
-	o.AvailableAmount = v
+func (o *GetWalletBalance200ResponseData) SetAvailableAmount(v float32) {
+	o.AvailableAmount.Set(&v)
 }
 
 // GetAvailableCredits returns the AvailableCredits field value
@@ -135,7 +137,7 @@ func (o GetWalletBalance200ResponseData) MarshalJSON() ([]byte, error) {
 func (o GetWalletBalance200ResponseData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["walletId"] = o.WalletId.Get()
-	toSerialize["availableAmount"] = o.AvailableAmount
+	toSerialize["availableAmount"] = o.AvailableAmount.Get()
 	toSerialize["availableCredits"] = o.AvailableCredits.Get()
 
 	for key, value := range o.AdditionalProperties {

@@ -19,9 +19,9 @@ var _ MappedNullable = &ListMerchantAccounts200ResponseDataItemsInnerUnderwritin
 
 // ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDistribution struct for ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDistribution
 type ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDistribution struct {
-	CardPresentPercentage NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"cardPresentPercentage,omitempty"`
-	MailOrderTelephoneOrderPercentage NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"mailOrderTelephoneOrderPercentage,omitempty"`
-	EcommercePercentage NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"ecommercePercentage,omitempty"`
+	CardPresentPercentage NullableFloat32 `json:"cardPresentPercentage,omitempty"`
+	MailOrderTelephoneOrderPercentage NullableFloat32 `json:"mailOrderTelephoneOrderPercentage,omitempty"`
+	EcommercePercentage NullableFloat32 `json:"ecommercePercentage,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -45,9 +45,9 @@ func NewListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDistr
 }
 
 // GetCardPresentPercentage returns the CardPresentPercentage field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDistribution) GetCardPresentPercentage() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDistribution) GetCardPresentPercentage() float32 {
 	if o == nil || IsNil(o.CardPresentPercentage.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.CardPresentPercentage.Get()
@@ -56,7 +56,7 @@ func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDist
 // GetCardPresentPercentageOk returns a tuple with the CardPresentPercentage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDistribution) GetCardPresentPercentageOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDistribution) GetCardPresentPercentageOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -72,8 +72,8 @@ func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDist
 	return false
 }
 
-// SetCardPresentPercentage gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the CardPresentPercentage field.
-func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDistribution) SetCardPresentPercentage(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetCardPresentPercentage gets a reference to the given NullableFloat32 and assigns it to the CardPresentPercentage field.
+func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDistribution) SetCardPresentPercentage(v float32) {
 	o.CardPresentPercentage.Set(&v)
 }
 // SetCardPresentPercentageNil sets the value for CardPresentPercentage to be an explicit nil
@@ -87,9 +87,9 @@ func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDist
 }
 
 // GetMailOrderTelephoneOrderPercentage returns the MailOrderTelephoneOrderPercentage field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDistribution) GetMailOrderTelephoneOrderPercentage() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDistribution) GetMailOrderTelephoneOrderPercentage() float32 {
 	if o == nil || IsNil(o.MailOrderTelephoneOrderPercentage.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.MailOrderTelephoneOrderPercentage.Get()
@@ -98,7 +98,7 @@ func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDist
 // GetMailOrderTelephoneOrderPercentageOk returns a tuple with the MailOrderTelephoneOrderPercentage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDistribution) GetMailOrderTelephoneOrderPercentageOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDistribution) GetMailOrderTelephoneOrderPercentageOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -114,8 +114,8 @@ func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDist
 	return false
 }
 
-// SetMailOrderTelephoneOrderPercentage gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the MailOrderTelephoneOrderPercentage field.
-func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDistribution) SetMailOrderTelephoneOrderPercentage(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetMailOrderTelephoneOrderPercentage gets a reference to the given NullableFloat32 and assigns it to the MailOrderTelephoneOrderPercentage field.
+func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDistribution) SetMailOrderTelephoneOrderPercentage(v float32) {
 	o.MailOrderTelephoneOrderPercentage.Set(&v)
 }
 // SetMailOrderTelephoneOrderPercentageNil sets the value for MailOrderTelephoneOrderPercentage to be an explicit nil
@@ -129,9 +129,9 @@ func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDist
 }
 
 // GetEcommercePercentage returns the EcommercePercentage field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDistribution) GetEcommercePercentage() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDistribution) GetEcommercePercentage() float32 {
 	if o == nil || IsNil(o.EcommercePercentage.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.EcommercePercentage.Get()
@@ -140,7 +140,7 @@ func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDist
 // GetEcommercePercentageOk returns a tuple with the EcommercePercentage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDistribution) GetEcommercePercentageOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDistribution) GetEcommercePercentageOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -156,8 +156,8 @@ func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDist
 	return false
 }
 
-// SetEcommercePercentage gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the EcommercePercentage field.
-func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDistribution) SetEcommercePercentage(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetEcommercePercentage gets a reference to the given NullableFloat32 and assigns it to the EcommercePercentage field.
+func (o *ListMerchantAccounts200ResponseDataItemsInnerUnderwritingCardVolumeDistribution) SetEcommercePercentage(v float32) {
 	o.EcommercePercentage.Set(&v)
 }
 // SetEcommercePercentageNil sets the value for EcommercePercentage to be an explicit nil

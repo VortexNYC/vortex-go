@@ -21,10 +21,10 @@ var _ MappedNullable = &ReconcileMerchantDisputesRequest{}
 type ReconcileMerchantDisputesRequest struct {
 	Environment NullableString `json:"environment,omitempty"`
 	MerchantAccountId NullableString `json:"merchantAccountId,omitempty"`
-	Limit NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"limit,omitempty"`
-	MaxPages NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"maxPages,omitempty"`
-	AdjustmentLimit NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"adjustmentLimit,omitempty"`
-	MaxAdjustmentPages NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"maxAdjustmentPages,omitempty"`
+	Limit NullableFloat32 `json:"limit,omitempty"`
+	MaxPages NullableFloat32 `json:"maxPages,omitempty"`
+	AdjustmentLimit NullableFloat32 `json:"adjustmentLimit,omitempty"`
+	MaxAdjustmentPages NullableFloat32 `json:"maxAdjustmentPages,omitempty"`
 	IdempotencyKey NullableString `json:"idempotencyKey,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -133,9 +133,9 @@ func (o *ReconcileMerchantDisputesRequest) UnsetMerchantAccountId() {
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ReconcileMerchantDisputesRequest) GetLimit() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ReconcileMerchantDisputesRequest) GetLimit() float32 {
 	if o == nil || IsNil(o.Limit.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.Limit.Get()
@@ -144,7 +144,7 @@ func (o *ReconcileMerchantDisputesRequest) GetLimit() ListCustomerBillingAccount
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ReconcileMerchantDisputesRequest) GetLimitOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ReconcileMerchantDisputesRequest) GetLimitOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -160,8 +160,8 @@ func (o *ReconcileMerchantDisputesRequest) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the Limit field.
-func (o *ReconcileMerchantDisputesRequest) SetLimit(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetLimit gets a reference to the given NullableFloat32 and assigns it to the Limit field.
+func (o *ReconcileMerchantDisputesRequest) SetLimit(v float32) {
 	o.Limit.Set(&v)
 }
 // SetLimitNil sets the value for Limit to be an explicit nil
@@ -175,9 +175,9 @@ func (o *ReconcileMerchantDisputesRequest) UnsetLimit() {
 }
 
 // GetMaxPages returns the MaxPages field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ReconcileMerchantDisputesRequest) GetMaxPages() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ReconcileMerchantDisputesRequest) GetMaxPages() float32 {
 	if o == nil || IsNil(o.MaxPages.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.MaxPages.Get()
@@ -186,7 +186,7 @@ func (o *ReconcileMerchantDisputesRequest) GetMaxPages() ListCustomerBillingAcco
 // GetMaxPagesOk returns a tuple with the MaxPages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ReconcileMerchantDisputesRequest) GetMaxPagesOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ReconcileMerchantDisputesRequest) GetMaxPagesOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -202,8 +202,8 @@ func (o *ReconcileMerchantDisputesRequest) HasMaxPages() bool {
 	return false
 }
 
-// SetMaxPages gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the MaxPages field.
-func (o *ReconcileMerchantDisputesRequest) SetMaxPages(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetMaxPages gets a reference to the given NullableFloat32 and assigns it to the MaxPages field.
+func (o *ReconcileMerchantDisputesRequest) SetMaxPages(v float32) {
 	o.MaxPages.Set(&v)
 }
 // SetMaxPagesNil sets the value for MaxPages to be an explicit nil
@@ -217,9 +217,9 @@ func (o *ReconcileMerchantDisputesRequest) UnsetMaxPages() {
 }
 
 // GetAdjustmentLimit returns the AdjustmentLimit field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ReconcileMerchantDisputesRequest) GetAdjustmentLimit() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ReconcileMerchantDisputesRequest) GetAdjustmentLimit() float32 {
 	if o == nil || IsNil(o.AdjustmentLimit.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.AdjustmentLimit.Get()
@@ -228,7 +228,7 @@ func (o *ReconcileMerchantDisputesRequest) GetAdjustmentLimit() ListCustomerBill
 // GetAdjustmentLimitOk returns a tuple with the AdjustmentLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ReconcileMerchantDisputesRequest) GetAdjustmentLimitOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ReconcileMerchantDisputesRequest) GetAdjustmentLimitOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -244,8 +244,8 @@ func (o *ReconcileMerchantDisputesRequest) HasAdjustmentLimit() bool {
 	return false
 }
 
-// SetAdjustmentLimit gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the AdjustmentLimit field.
-func (o *ReconcileMerchantDisputesRequest) SetAdjustmentLimit(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetAdjustmentLimit gets a reference to the given NullableFloat32 and assigns it to the AdjustmentLimit field.
+func (o *ReconcileMerchantDisputesRequest) SetAdjustmentLimit(v float32) {
 	o.AdjustmentLimit.Set(&v)
 }
 // SetAdjustmentLimitNil sets the value for AdjustmentLimit to be an explicit nil
@@ -259,9 +259,9 @@ func (o *ReconcileMerchantDisputesRequest) UnsetAdjustmentLimit() {
 }
 
 // GetMaxAdjustmentPages returns the MaxAdjustmentPages field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ReconcileMerchantDisputesRequest) GetMaxAdjustmentPages() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ReconcileMerchantDisputesRequest) GetMaxAdjustmentPages() float32 {
 	if o == nil || IsNil(o.MaxAdjustmentPages.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.MaxAdjustmentPages.Get()
@@ -270,7 +270,7 @@ func (o *ReconcileMerchantDisputesRequest) GetMaxAdjustmentPages() ListCustomerB
 // GetMaxAdjustmentPagesOk returns a tuple with the MaxAdjustmentPages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ReconcileMerchantDisputesRequest) GetMaxAdjustmentPagesOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ReconcileMerchantDisputesRequest) GetMaxAdjustmentPagesOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -286,8 +286,8 @@ func (o *ReconcileMerchantDisputesRequest) HasMaxAdjustmentPages() bool {
 	return false
 }
 
-// SetMaxAdjustmentPages gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the MaxAdjustmentPages field.
-func (o *ReconcileMerchantDisputesRequest) SetMaxAdjustmentPages(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetMaxAdjustmentPages gets a reference to the given NullableFloat32 and assigns it to the MaxAdjustmentPages field.
+func (o *ReconcileMerchantDisputesRequest) SetMaxAdjustmentPages(v float32) {
 	o.MaxAdjustmentPages.Set(&v)
 }
 // SetMaxAdjustmentPagesNil sets the value for MaxAdjustmentPages to be an explicit nil

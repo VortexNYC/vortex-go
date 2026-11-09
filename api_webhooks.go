@@ -509,6 +509,20 @@ func (a *WebhooksAPIService) CreateWebhookEndpointExecute(r WebhooksAPICreateWeb
 	}
 	// body params
 	localVarPostBody = r.createWebhookEndpointRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -833,6 +847,20 @@ func (a *WebhooksAPIService) DispatchWebhookDeliveriesExecute(r WebhooksAPIDispa
 	}
 	// body params
 	localVarPostBody = r.dispatchWebhookDeliveriesRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -955,6 +983,20 @@ func (a *WebhooksAPIService) GetWebhookDeliveryExecute(r WebhooksAPIGetWebhookDe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1069,6 +1111,20 @@ func (a *WebhooksAPIService) GetWebhookEndpointsHealthExecute(r WebhooksAPIGetWe
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -1301,7 +1357,7 @@ type WebhooksAPIListWebhookDeliveriesRequest struct {
 	eventId *string
 	endpointId *string
 	failureKind *string
-	limit *ListCustomersLimitParameter
+	limit *string
 }
 
 func (r WebhooksAPIListWebhookDeliveriesRequest) Environment(environment string) WebhooksAPIListWebhookDeliveriesRequest {
@@ -1334,7 +1390,7 @@ func (r WebhooksAPIListWebhookDeliveriesRequest) FailureKind(failureKind string)
 	return r
 }
 
-func (r WebhooksAPIListWebhookDeliveriesRequest) Limit(limit ListCustomersLimitParameter) WebhooksAPIListWebhookDeliveriesRequest {
+func (r WebhooksAPIListWebhookDeliveriesRequest) Limit(limit string) WebhooksAPIListWebhookDeliveriesRequest {
 	r.limit = &limit
 	return r
 }
@@ -1415,6 +1471,20 @@ func (a *WebhooksAPIService) ListWebhookDeliveriesExecute(r WebhooksAPIListWebho
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1462,7 +1532,7 @@ type WebhooksAPIListWebhookEndpointsRequest struct {
 	eventId *string
 	failureKind *string
 	cursor *string
-	limit *ListCustomersLimitParameter
+	limit *string
 }
 
 func (r WebhooksAPIListWebhookEndpointsRequest) Environment(environment string) WebhooksAPIListWebhookEndpointsRequest {
@@ -1500,7 +1570,7 @@ func (r WebhooksAPIListWebhookEndpointsRequest) Cursor(cursor string) WebhooksAP
 	return r
 }
 
-func (r WebhooksAPIListWebhookEndpointsRequest) Limit(limit ListCustomersLimitParameter) WebhooksAPIListWebhookEndpointsRequest {
+func (r WebhooksAPIListWebhookEndpointsRequest) Limit(limit string) WebhooksAPIListWebhookEndpointsRequest {
 	r.limit = &limit
 	return r
 }
@@ -1583,6 +1653,20 @@ func (a *WebhooksAPIService) ListWebhookEndpointsExecute(r WebhooksAPIListWebhoo
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -2311,6 +2395,20 @@ func (a *WebhooksAPIService) ReplayWebhookDeliveryExecute(r WebhooksAPIReplayWeb
 	}
 	// body params
 	localVarPostBody = r.replayWebhookDeliveryRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2848,6 +2946,20 @@ func (a *WebhooksAPIService) TestWebhookEndpointExecute(r WebhooksAPITestWebhook
 	}
 	// body params
 	localVarPostBody = r.testWebhookEndpointRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

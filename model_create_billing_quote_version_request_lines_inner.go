@@ -22,8 +22,8 @@ var _ MappedNullable = &CreateBillingQuoteVersionRequestLinesInner{}
 // CreateBillingQuoteVersionRequestLinesInner struct for CreateBillingQuoteVersionRequestLinesInner
 type CreateBillingQuoteVersionRequestLinesInner struct {
 	PriceId string `json:"priceId"`
-	Quantity NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"quantity,omitempty"`
-	UnitAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"unitAmount,omitempty"`
+	Quantity NullableFloat32 `json:"quantity,omitempty"`
+	UnitAmount NullableFloat32 `json:"unitAmount,omitempty"`
 	Description NullableString `json:"description,omitempty"`
 }
 
@@ -72,9 +72,9 @@ func (o *CreateBillingQuoteVersionRequestLinesInner) SetPriceId(v string) {
 }
 
 // GetQuantity returns the Quantity field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateBillingQuoteVersionRequestLinesInner) GetQuantity() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateBillingQuoteVersionRequestLinesInner) GetQuantity() float32 {
 	if o == nil || IsNil(o.Quantity.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.Quantity.Get()
@@ -83,7 +83,7 @@ func (o *CreateBillingQuoteVersionRequestLinesInner) GetQuantity() ListCustomerB
 // GetQuantityOk returns a tuple with the Quantity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateBillingQuoteVersionRequestLinesInner) GetQuantityOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateBillingQuoteVersionRequestLinesInner) GetQuantityOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -99,8 +99,8 @@ func (o *CreateBillingQuoteVersionRequestLinesInner) HasQuantity() bool {
 	return false
 }
 
-// SetQuantity gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the Quantity field.
-func (o *CreateBillingQuoteVersionRequestLinesInner) SetQuantity(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetQuantity gets a reference to the given NullableFloat32 and assigns it to the Quantity field.
+func (o *CreateBillingQuoteVersionRequestLinesInner) SetQuantity(v float32) {
 	o.Quantity.Set(&v)
 }
 // SetQuantityNil sets the value for Quantity to be an explicit nil
@@ -114,9 +114,9 @@ func (o *CreateBillingQuoteVersionRequestLinesInner) UnsetQuantity() {
 }
 
 // GetUnitAmount returns the UnitAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateBillingQuoteVersionRequestLinesInner) GetUnitAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateBillingQuoteVersionRequestLinesInner) GetUnitAmount() float32 {
 	if o == nil || IsNil(o.UnitAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.UnitAmount.Get()
@@ -125,7 +125,7 @@ func (o *CreateBillingQuoteVersionRequestLinesInner) GetUnitAmount() ListCustome
 // GetUnitAmountOk returns a tuple with the UnitAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateBillingQuoteVersionRequestLinesInner) GetUnitAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateBillingQuoteVersionRequestLinesInner) GetUnitAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -141,8 +141,8 @@ func (o *CreateBillingQuoteVersionRequestLinesInner) HasUnitAmount() bool {
 	return false
 }
 
-// SetUnitAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the UnitAmount field.
-func (o *CreateBillingQuoteVersionRequestLinesInner) SetUnitAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetUnitAmount gets a reference to the given NullableFloat32 and assigns it to the UnitAmount field.
+func (o *CreateBillingQuoteVersionRequestLinesInner) SetUnitAmount(v float32) {
 	o.UnitAmount.Set(&v)
 }
 // SetUnitAmountNil sets the value for UnitAmount to be an explicit nil

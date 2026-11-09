@@ -24,13 +24,13 @@ type GetBillingCreditNote200ResponseDataLinesInner struct {
 	CreditNoteLineId string `json:"creditNoteLineId"`
 	CreditNoteId string `json:"creditNoteId"`
 	Description string `json:"description"`
-	Amount ListProducts200ResponseDataTotal `json:"amount"`
+	Amount float32 `json:"amount"`
 	Currency string `json:"currency"`
 	Metadata map[string]string `json:"metadata"`
 	InvoiceLineId NullableString `json:"invoiceLineId,omitempty"`
 	Bucket NullableString `json:"bucket,omitempty"`
-	WalletRecreditAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"walletRecreditAmount,omitempty"`
-	CashRefundAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"cashRefundAmount,omitempty"`
+	WalletRecreditAmount NullableFloat32 `json:"walletRecreditAmount,omitempty"`
+	CashRefundAmount NullableFloat32 `json:"cashRefundAmount,omitempty"`
 }
 
 type _GetBillingCreditNote200ResponseDataLinesInner GetBillingCreditNote200ResponseDataLinesInner
@@ -39,7 +39,7 @@ type _GetBillingCreditNote200ResponseDataLinesInner GetBillingCreditNote200Respo
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetBillingCreditNote200ResponseDataLinesInner(creditNoteLineId string, creditNoteId string, description string, amount ListProducts200ResponseDataTotal, currency string, metadata map[string]string) *GetBillingCreditNote200ResponseDataLinesInner {
+func NewGetBillingCreditNote200ResponseDataLinesInner(creditNoteLineId string, creditNoteId string, description string, amount float32, currency string, metadata map[string]string) *GetBillingCreditNote200ResponseDataLinesInner {
 	this := GetBillingCreditNote200ResponseDataLinesInner{}
 	this.CreditNoteLineId = creditNoteLineId
 	this.CreditNoteId = creditNoteId
@@ -131,9 +131,9 @@ func (o *GetBillingCreditNote200ResponseDataLinesInner) SetDescription(v string)
 }
 
 // GetAmount returns the Amount field value
-func (o *GetBillingCreditNote200ResponseDataLinesInner) GetAmount() ListProducts200ResponseDataTotal {
+func (o *GetBillingCreditNote200ResponseDataLinesInner) GetAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -142,7 +142,7 @@ func (o *GetBillingCreditNote200ResponseDataLinesInner) GetAmount() ListProducts
 
 // GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
-func (o *GetBillingCreditNote200ResponseDataLinesInner) GetAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *GetBillingCreditNote200ResponseDataLinesInner) GetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -150,7 +150,7 @@ func (o *GetBillingCreditNote200ResponseDataLinesInner) GetAmountOk() (*ListProd
 }
 
 // SetAmount sets field value
-func (o *GetBillingCreditNote200ResponseDataLinesInner) SetAmount(v ListProducts200ResponseDataTotal) {
+func (o *GetBillingCreditNote200ResponseDataLinesInner) SetAmount(v float32) {
 	o.Amount = v
 }
 
@@ -287,9 +287,9 @@ func (o *GetBillingCreditNote200ResponseDataLinesInner) UnsetBucket() {
 }
 
 // GetWalletRecreditAmount returns the WalletRecreditAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GetBillingCreditNote200ResponseDataLinesInner) GetWalletRecreditAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *GetBillingCreditNote200ResponseDataLinesInner) GetWalletRecreditAmount() float32 {
 	if o == nil || IsNil(o.WalletRecreditAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.WalletRecreditAmount.Get()
@@ -298,7 +298,7 @@ func (o *GetBillingCreditNote200ResponseDataLinesInner) GetWalletRecreditAmount(
 // GetWalletRecreditAmountOk returns a tuple with the WalletRecreditAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GetBillingCreditNote200ResponseDataLinesInner) GetWalletRecreditAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *GetBillingCreditNote200ResponseDataLinesInner) GetWalletRecreditAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -314,8 +314,8 @@ func (o *GetBillingCreditNote200ResponseDataLinesInner) HasWalletRecreditAmount(
 	return false
 }
 
-// SetWalletRecreditAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the WalletRecreditAmount field.
-func (o *GetBillingCreditNote200ResponseDataLinesInner) SetWalletRecreditAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetWalletRecreditAmount gets a reference to the given NullableFloat32 and assigns it to the WalletRecreditAmount field.
+func (o *GetBillingCreditNote200ResponseDataLinesInner) SetWalletRecreditAmount(v float32) {
 	o.WalletRecreditAmount.Set(&v)
 }
 // SetWalletRecreditAmountNil sets the value for WalletRecreditAmount to be an explicit nil
@@ -329,9 +329,9 @@ func (o *GetBillingCreditNote200ResponseDataLinesInner) UnsetWalletRecreditAmoun
 }
 
 // GetCashRefundAmount returns the CashRefundAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GetBillingCreditNote200ResponseDataLinesInner) GetCashRefundAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *GetBillingCreditNote200ResponseDataLinesInner) GetCashRefundAmount() float32 {
 	if o == nil || IsNil(o.CashRefundAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.CashRefundAmount.Get()
@@ -340,7 +340,7 @@ func (o *GetBillingCreditNote200ResponseDataLinesInner) GetCashRefundAmount() Li
 // GetCashRefundAmountOk returns a tuple with the CashRefundAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GetBillingCreditNote200ResponseDataLinesInner) GetCashRefundAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *GetBillingCreditNote200ResponseDataLinesInner) GetCashRefundAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -356,8 +356,8 @@ func (o *GetBillingCreditNote200ResponseDataLinesInner) HasCashRefundAmount() bo
 	return false
 }
 
-// SetCashRefundAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the CashRefundAmount field.
-func (o *GetBillingCreditNote200ResponseDataLinesInner) SetCashRefundAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetCashRefundAmount gets a reference to the given NullableFloat32 and assigns it to the CashRefundAmount field.
+func (o *GetBillingCreditNote200ResponseDataLinesInner) SetCashRefundAmount(v float32) {
 	o.CashRefundAmount.Set(&v)
 }
 // SetCashRefundAmountNil sets the value for CashRefundAmount to be an explicit nil

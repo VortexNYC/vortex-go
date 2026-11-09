@@ -22,7 +22,7 @@ var _ MappedNullable = &GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyO
 // GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf2 struct for GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf2
 type GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf2 struct {
 	Mode string `json:"mode"`
-	BasisPoints ListProducts200ResponseDataTotal `json:"basisPoints"`
+	BasisPoints float32 `json:"basisPoints"`
 	Rounding string `json:"rounding"`
 }
 
@@ -32,7 +32,7 @@ type _GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf2 GetBillingPayab
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf2(mode string, basisPoints ListProducts200ResponseDataTotal, rounding string) *GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf2 {
+func NewGetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf2(mode string, basisPoints float32, rounding string) *GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf2 {
 	this := GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf2{}
 	this.Mode = mode
 	this.BasisPoints = basisPoints
@@ -73,9 +73,9 @@ func (o *GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf2) SetMode(v s
 }
 
 // GetBasisPoints returns the BasisPoints field value
-func (o *GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf2) GetBasisPoints() ListProducts200ResponseDataTotal {
+func (o *GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf2) GetBasisPoints() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -84,7 +84,7 @@ func (o *GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf2) GetBasisPoi
 
 // GetBasisPointsOk returns a tuple with the BasisPoints field value
 // and a boolean to check if the value has been set.
-func (o *GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf2) GetBasisPointsOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf2) GetBasisPointsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -92,7 +92,7 @@ func (o *GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf2) GetBasisPoi
 }
 
 // SetBasisPoints sets field value
-func (o *GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf2) SetBasisPoints(v ListProducts200ResponseDataTotal) {
+func (o *GetBillingPayable200ResponseDataFeePolicyPlatformFeeAnyOf2) SetBasisPoints(v float32) {
 	o.BasisPoints = v
 }
 

@@ -22,7 +22,7 @@ var _ MappedNullable = &DispatchWebhookDeliveries200ResponseDataOutcomesInner{}
 type DispatchWebhookDeliveries200ResponseDataOutcomesInner struct {
 	DeliveryId NullableString `json:"deliveryId"`
 	Status string `json:"status"`
-	HttpStatusCode NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"httpStatusCode,omitempty"`
+	HttpStatusCode NullableFloat32 `json:"httpStatusCode,omitempty"`
 	FailureKind NullableString `json:"failureKind,omitempty"`
 	ResponseBody NullableString `json:"responseBody,omitempty"`
 	Error NullableString `json:"error,omitempty"`
@@ -101,9 +101,9 @@ func (o *DispatchWebhookDeliveries200ResponseDataOutcomesInner) SetStatus(v stri
 }
 
 // GetHttpStatusCode returns the HttpStatusCode field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *DispatchWebhookDeliveries200ResponseDataOutcomesInner) GetHttpStatusCode() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *DispatchWebhookDeliveries200ResponseDataOutcomesInner) GetHttpStatusCode() float32 {
 	if o == nil || IsNil(o.HttpStatusCode.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.HttpStatusCode.Get()
@@ -112,7 +112,7 @@ func (o *DispatchWebhookDeliveries200ResponseDataOutcomesInner) GetHttpStatusCod
 // GetHttpStatusCodeOk returns a tuple with the HttpStatusCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *DispatchWebhookDeliveries200ResponseDataOutcomesInner) GetHttpStatusCodeOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *DispatchWebhookDeliveries200ResponseDataOutcomesInner) GetHttpStatusCodeOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -128,8 +128,8 @@ func (o *DispatchWebhookDeliveries200ResponseDataOutcomesInner) HasHttpStatusCod
 	return false
 }
 
-// SetHttpStatusCode gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the HttpStatusCode field.
-func (o *DispatchWebhookDeliveries200ResponseDataOutcomesInner) SetHttpStatusCode(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetHttpStatusCode gets a reference to the given NullableFloat32 and assigns it to the HttpStatusCode field.
+func (o *DispatchWebhookDeliveries200ResponseDataOutcomesInner) SetHttpStatusCode(v float32) {
 	o.HttpStatusCode.Set(&v)
 }
 // SetHttpStatusCodeNil sets the value for HttpStatusCode to be an explicit nil

@@ -21,9 +21,9 @@ var _ MappedNullable = &ListBillingCoupons200ResponseData{}
 // ListBillingCoupons200ResponseData struct for ListBillingCoupons200ResponseData
 type ListBillingCoupons200ResponseData struct {
 	Items []ListBillingCoupons200ResponseDataItemsInner `json:"items"`
-	Total ListProducts200ResponseDataTotal `json:"total"`
+	Total NullableFloat32 `json:"total"`
 	HasMore NullableBool `json:"hasMore"`
-	NextOffset NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"nextOffset,omitempty"`
+	NextOffset NullableFloat32 `json:"nextOffset,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,7 +33,7 @@ type _ListBillingCoupons200ResponseData ListBillingCoupons200ResponseData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListBillingCoupons200ResponseData(items []ListBillingCoupons200ResponseDataItemsInner, total ListProducts200ResponseDataTotal, hasMore NullableBool) *ListBillingCoupons200ResponseData {
+func NewListBillingCoupons200ResponseData(items []ListBillingCoupons200ResponseDataItemsInner, total NullableFloat32, hasMore NullableBool) *ListBillingCoupons200ResponseData {
 	this := ListBillingCoupons200ResponseData{}
 	this.Items = items
 	this.Total = total
@@ -74,27 +74,29 @@ func (o *ListBillingCoupons200ResponseData) SetItems(v []ListBillingCoupons200Re
 }
 
 // GetTotal returns the Total field value
-func (o *ListBillingCoupons200ResponseData) GetTotal() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *ListBillingCoupons200ResponseData) GetTotal() float32 {
+	if o == nil || o.Total.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.Total
+	return *o.Total.Get()
 }
 
 // GetTotalOk returns a tuple with the Total field value
 // and a boolean to check if the value has been set.
-func (o *ListBillingCoupons200ResponseData) GetTotalOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListBillingCoupons200ResponseData) GetTotalOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Total, true
+	return o.Total.Get(), o.Total.IsSet()
 }
 
 // SetTotal sets field value
-func (o *ListBillingCoupons200ResponseData) SetTotal(v ListProducts200ResponseDataTotal) {
-	o.Total = v
+func (o *ListBillingCoupons200ResponseData) SetTotal(v float32) {
+	o.Total.Set(&v)
 }
 
 // GetHasMore returns the HasMore field value
@@ -124,9 +126,9 @@ func (o *ListBillingCoupons200ResponseData) SetHasMore(v bool) {
 }
 
 // GetNextOffset returns the NextOffset field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ListBillingCoupons200ResponseData) GetNextOffset() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *ListBillingCoupons200ResponseData) GetNextOffset() float32 {
 	if o == nil || IsNil(o.NextOffset.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.NextOffset.Get()
@@ -135,7 +137,7 @@ func (o *ListBillingCoupons200ResponseData) GetNextOffset() ListCustomerBillingA
 // GetNextOffsetOk returns a tuple with the NextOffset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ListBillingCoupons200ResponseData) GetNextOffsetOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *ListBillingCoupons200ResponseData) GetNextOffsetOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -151,8 +153,8 @@ func (o *ListBillingCoupons200ResponseData) HasNextOffset() bool {
 	return false
 }
 
-// SetNextOffset gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the NextOffset field.
-func (o *ListBillingCoupons200ResponseData) SetNextOffset(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetNextOffset gets a reference to the given NullableFloat32 and assigns it to the NextOffset field.
+func (o *ListBillingCoupons200ResponseData) SetNextOffset(v float32) {
 	o.NextOffset.Set(&v)
 }
 // SetNextOffsetNil sets the value for NextOffset to be an explicit nil
@@ -176,7 +178,7 @@ func (o ListBillingCoupons200ResponseData) MarshalJSON() ([]byte, error) {
 func (o ListBillingCoupons200ResponseData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["items"] = o.Items
-	toSerialize["total"] = o.Total
+	toSerialize["total"] = o.Total.Get()
 	toSerialize["hasMore"] = o.HasMore.Get()
 	if o.NextOffset.IsSet() {
 		toSerialize["nextOffset"] = o.NextOffset.Get()

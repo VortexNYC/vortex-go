@@ -21,13 +21,13 @@ var _ MappedNullable = &GetMerchantSellerPayoutProfile200ResponseDataInstantPayo
 // GetMerchantSellerPayoutProfile200ResponseDataInstantPayout struct for GetMerchantSellerPayoutProfile200ResponseDataInstantPayout
 type GetMerchantSellerPayoutProfile200ResponseDataInstantPayout struct {
 	Eligible NullableBool `json:"eligible"`
-	MarkupBasisPoints ListProducts200ResponseDataTotal `json:"markupBasisPoints"`
-	MaxAmountMinor ListProducts200ResponseDataTotal `json:"maxAmountMinor"`
-	MinCompletedPayouts ListProducts200ResponseDataTotal `json:"minCompletedPayouts"`
-	CompletedPayouts ListProducts200ResponseDataTotal `json:"completedPayouts"`
+	MarkupBasisPoints NullableFloat32 `json:"markupBasisPoints"`
+	MaxAmountMinor NullableFloat32 `json:"maxAmountMinor"`
+	MinCompletedPayouts NullableFloat32 `json:"minCompletedPayouts"`
+	CompletedPayouts NullableFloat32 `json:"completedPayouts"`
 	CardInstrumentAvailable NullableBool `json:"cardInstrumentAvailable"`
-	MinProcessingAgeDays ListProducts200ResponseDataTotal `json:"minProcessingAgeDays"`
-	ProcessingAgeDays NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"processingAgeDays,omitempty"`
+	MinProcessingAgeDays NullableFloat32 `json:"minProcessingAgeDays"`
+	ProcessingAgeDays NullableFloat32 `json:"processingAgeDays,omitempty"`
 	Blockers []string `json:"blockers,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -38,7 +38,7 @@ type _GetMerchantSellerPayoutProfile200ResponseDataInstantPayout GetMerchantSell
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetMerchantSellerPayoutProfile200ResponseDataInstantPayout(eligible NullableBool, markupBasisPoints ListProducts200ResponseDataTotal, maxAmountMinor ListProducts200ResponseDataTotal, minCompletedPayouts ListProducts200ResponseDataTotal, completedPayouts ListProducts200ResponseDataTotal, cardInstrumentAvailable NullableBool, minProcessingAgeDays ListProducts200ResponseDataTotal) *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout {
+func NewGetMerchantSellerPayoutProfile200ResponseDataInstantPayout(eligible NullableBool, markupBasisPoints NullableFloat32, maxAmountMinor NullableFloat32, minCompletedPayouts NullableFloat32, completedPayouts NullableFloat32, cardInstrumentAvailable NullableBool, minProcessingAgeDays NullableFloat32) *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout {
 	this := GetMerchantSellerPayoutProfile200ResponseDataInstantPayout{}
 	this.Eligible = eligible
 	this.MarkupBasisPoints = markupBasisPoints
@@ -85,99 +85,107 @@ func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) SetEligible
 }
 
 // GetMarkupBasisPoints returns the MarkupBasisPoints field value
-func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) GetMarkupBasisPoints() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) GetMarkupBasisPoints() float32 {
+	if o == nil || o.MarkupBasisPoints.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.MarkupBasisPoints
+	return *o.MarkupBasisPoints.Get()
 }
 
 // GetMarkupBasisPointsOk returns a tuple with the MarkupBasisPoints field value
 // and a boolean to check if the value has been set.
-func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) GetMarkupBasisPointsOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) GetMarkupBasisPointsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.MarkupBasisPoints, true
+	return o.MarkupBasisPoints.Get(), o.MarkupBasisPoints.IsSet()
 }
 
 // SetMarkupBasisPoints sets field value
-func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) SetMarkupBasisPoints(v ListProducts200ResponseDataTotal) {
-	o.MarkupBasisPoints = v
+func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) SetMarkupBasisPoints(v float32) {
+	o.MarkupBasisPoints.Set(&v)
 }
 
 // GetMaxAmountMinor returns the MaxAmountMinor field value
-func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) GetMaxAmountMinor() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) GetMaxAmountMinor() float32 {
+	if o == nil || o.MaxAmountMinor.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.MaxAmountMinor
+	return *o.MaxAmountMinor.Get()
 }
 
 // GetMaxAmountMinorOk returns a tuple with the MaxAmountMinor field value
 // and a boolean to check if the value has been set.
-func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) GetMaxAmountMinorOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) GetMaxAmountMinorOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.MaxAmountMinor, true
+	return o.MaxAmountMinor.Get(), o.MaxAmountMinor.IsSet()
 }
 
 // SetMaxAmountMinor sets field value
-func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) SetMaxAmountMinor(v ListProducts200ResponseDataTotal) {
-	o.MaxAmountMinor = v
+func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) SetMaxAmountMinor(v float32) {
+	o.MaxAmountMinor.Set(&v)
 }
 
 // GetMinCompletedPayouts returns the MinCompletedPayouts field value
-func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) GetMinCompletedPayouts() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) GetMinCompletedPayouts() float32 {
+	if o == nil || o.MinCompletedPayouts.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.MinCompletedPayouts
+	return *o.MinCompletedPayouts.Get()
 }
 
 // GetMinCompletedPayoutsOk returns a tuple with the MinCompletedPayouts field value
 // and a boolean to check if the value has been set.
-func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) GetMinCompletedPayoutsOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) GetMinCompletedPayoutsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.MinCompletedPayouts, true
+	return o.MinCompletedPayouts.Get(), o.MinCompletedPayouts.IsSet()
 }
 
 // SetMinCompletedPayouts sets field value
-func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) SetMinCompletedPayouts(v ListProducts200ResponseDataTotal) {
-	o.MinCompletedPayouts = v
+func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) SetMinCompletedPayouts(v float32) {
+	o.MinCompletedPayouts.Set(&v)
 }
 
 // GetCompletedPayouts returns the CompletedPayouts field value
-func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) GetCompletedPayouts() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) GetCompletedPayouts() float32 {
+	if o == nil || o.CompletedPayouts.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.CompletedPayouts
+	return *o.CompletedPayouts.Get()
 }
 
 // GetCompletedPayoutsOk returns a tuple with the CompletedPayouts field value
 // and a boolean to check if the value has been set.
-func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) GetCompletedPayoutsOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) GetCompletedPayoutsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CompletedPayouts, true
+	return o.CompletedPayouts.Get(), o.CompletedPayouts.IsSet()
 }
 
 // SetCompletedPayouts sets field value
-func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) SetCompletedPayouts(v ListProducts200ResponseDataTotal) {
-	o.CompletedPayouts = v
+func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) SetCompletedPayouts(v float32) {
+	o.CompletedPayouts.Set(&v)
 }
 
 // GetCardInstrumentAvailable returns the CardInstrumentAvailable field value
@@ -207,33 +215,35 @@ func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) SetCardInst
 }
 
 // GetMinProcessingAgeDays returns the MinProcessingAgeDays field value
-func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) GetMinProcessingAgeDays() ListProducts200ResponseDataTotal {
-	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) GetMinProcessingAgeDays() float32 {
+	if o == nil || o.MinProcessingAgeDays.Get() == nil {
+		var ret float32
 		return ret
 	}
 
-	return o.MinProcessingAgeDays
+	return *o.MinProcessingAgeDays.Get()
 }
 
 // GetMinProcessingAgeDaysOk returns a tuple with the MinProcessingAgeDays field value
 // and a boolean to check if the value has been set.
-func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) GetMinProcessingAgeDaysOk() (*ListProducts200ResponseDataTotal, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) GetMinProcessingAgeDaysOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.MinProcessingAgeDays, true
+	return o.MinProcessingAgeDays.Get(), o.MinProcessingAgeDays.IsSet()
 }
 
 // SetMinProcessingAgeDays sets field value
-func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) SetMinProcessingAgeDays(v ListProducts200ResponseDataTotal) {
-	o.MinProcessingAgeDays = v
+func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) SetMinProcessingAgeDays(v float32) {
+	o.MinProcessingAgeDays.Set(&v)
 }
 
 // GetProcessingAgeDays returns the ProcessingAgeDays field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) GetProcessingAgeDays() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) GetProcessingAgeDays() float32 {
 	if o == nil || IsNil(o.ProcessingAgeDays.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.ProcessingAgeDays.Get()
@@ -242,7 +252,7 @@ func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) GetProcessi
 // GetProcessingAgeDaysOk returns a tuple with the ProcessingAgeDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) GetProcessingAgeDaysOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) GetProcessingAgeDaysOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -258,8 +268,8 @@ func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) HasProcessi
 	return false
 }
 
-// SetProcessingAgeDays gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the ProcessingAgeDays field.
-func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) SetProcessingAgeDays(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetProcessingAgeDays gets a reference to the given NullableFloat32 and assigns it to the ProcessingAgeDays field.
+func (o *GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) SetProcessingAgeDays(v float32) {
 	o.ProcessingAgeDays.Set(&v)
 }
 // SetProcessingAgeDaysNil sets the value for ProcessingAgeDays to be an explicit nil
@@ -316,12 +326,12 @@ func (o GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) MarshalJSON(
 func (o GetMerchantSellerPayoutProfile200ResponseDataInstantPayout) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["eligible"] = o.Eligible.Get()
-	toSerialize["markupBasisPoints"] = o.MarkupBasisPoints
-	toSerialize["maxAmountMinor"] = o.MaxAmountMinor
-	toSerialize["minCompletedPayouts"] = o.MinCompletedPayouts
-	toSerialize["completedPayouts"] = o.CompletedPayouts
+	toSerialize["markupBasisPoints"] = o.MarkupBasisPoints.Get()
+	toSerialize["maxAmountMinor"] = o.MaxAmountMinor.Get()
+	toSerialize["minCompletedPayouts"] = o.MinCompletedPayouts.Get()
+	toSerialize["completedPayouts"] = o.CompletedPayouts.Get()
 	toSerialize["cardInstrumentAvailable"] = o.CardInstrumentAvailable.Get()
-	toSerialize["minProcessingAgeDays"] = o.MinProcessingAgeDays
+	toSerialize["minProcessingAgeDays"] = o.MinProcessingAgeDays.Get()
 	if o.ProcessingAgeDays.IsSet() {
 		toSerialize["processingAgeDays"] = o.ProcessingAgeDays.Get()
 	}

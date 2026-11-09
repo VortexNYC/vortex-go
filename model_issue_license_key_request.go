@@ -25,7 +25,7 @@ type IssueLicenseKeyRequest struct {
 	CustomerId NullableString `json:"customerId"`
 	BillingAccountId NullableString `json:"billingAccountId"`
 	ProductRef NullableString `json:"productRef,omitempty"`
-	SeatLimit NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"seatLimit,omitempty"`
+	SeatLimit NullableFloat32 `json:"seatLimit,omitempty"`
 	SourceRef NullableString `json:"sourceRef,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -231,9 +231,9 @@ func (o *IssueLicenseKeyRequest) UnsetProductRef() {
 }
 
 // GetSeatLimit returns the SeatLimit field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *IssueLicenseKeyRequest) GetSeatLimit() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *IssueLicenseKeyRequest) GetSeatLimit() float32 {
 	if o == nil || IsNil(o.SeatLimit.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.SeatLimit.Get()
@@ -242,7 +242,7 @@ func (o *IssueLicenseKeyRequest) GetSeatLimit() ListCustomerBillingAccounts200Re
 // GetSeatLimitOk returns a tuple with the SeatLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *IssueLicenseKeyRequest) GetSeatLimitOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *IssueLicenseKeyRequest) GetSeatLimitOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -258,8 +258,8 @@ func (o *IssueLicenseKeyRequest) HasSeatLimit() bool {
 	return false
 }
 
-// SetSeatLimit gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the SeatLimit field.
-func (o *IssueLicenseKeyRequest) SetSeatLimit(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetSeatLimit gets a reference to the given NullableFloat32 and assigns it to the SeatLimit field.
+func (o *IssueLicenseKeyRequest) SetSeatLimit(v float32) {
 	o.SeatLimit.Set(&v)
 }
 // SetSeatLimitNil sets the value for SeatLimit to be an explicit nil

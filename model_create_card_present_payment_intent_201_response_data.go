@@ -30,9 +30,9 @@ type CreateCardPresentPaymentIntent201ResponseData struct {
 	CustomerProfileId NullableString `json:"customerProfileId,omitempty"`
 	ExternalOrderRef NullableString `json:"externalOrderRef,omitempty"`
 	InvoiceId NullableString `json:"invoiceId,omitempty"`
-	Amount ListProducts200ResponseDataTotal `json:"amount"`
-	SubtotalAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"subtotalAmount,omitempty"`
-	TaxAmount NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays `json:"taxAmount,omitempty"`
+	Amount float32 `json:"amount"`
+	SubtotalAmount NullableFloat32 `json:"subtotalAmount,omitempty"`
+	TaxAmount NullableFloat32 `json:"taxAmount,omitempty"`
 	TaxTransactionId NullableString `json:"taxTransactionId,omitempty"`
 	TaxStatus NullableString `json:"taxStatus,omitempty"`
 	ReceiptEvidence NullableCreateCardPresentPaymentIntent201ResponseDataReceiptEvidence `json:"receiptEvidence,omitempty"`
@@ -57,7 +57,7 @@ type _CreateCardPresentPaymentIntent201ResponseData CreateCardPresentPaymentInte
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateCardPresentPaymentIntent201ResponseData(id string, merchantAccountId string, locationId string, readerId string, amount ListProducts200ResponseDataTotal, currency string, status string, capturePolicy CreateCardPresentPaymentIntent201ResponseDataCapturePolicy, nextAction string, canCapture bool, canCancel bool, createdAt string, updatedAt string) *CreateCardPresentPaymentIntent201ResponseData {
+func NewCreateCardPresentPaymentIntent201ResponseData(id string, merchantAccountId string, locationId string, readerId string, amount float32, currency string, status string, capturePolicy CreateCardPresentPaymentIntent201ResponseDataCapturePolicy, nextAction string, canCapture bool, canCancel bool, createdAt string, updatedAt string) *CreateCardPresentPaymentIntent201ResponseData {
 	this := CreateCardPresentPaymentIntent201ResponseData{}
 	this.Id = id
 	this.MerchantAccountId = merchantAccountId
@@ -390,9 +390,9 @@ func (o *CreateCardPresentPaymentIntent201ResponseData) UnsetInvoiceId() {
 }
 
 // GetAmount returns the Amount field value
-func (o *CreateCardPresentPaymentIntent201ResponseData) GetAmount() ListProducts200ResponseDataTotal {
+func (o *CreateCardPresentPaymentIntent201ResponseData) GetAmount() float32 {
 	if o == nil {
-		var ret ListProducts200ResponseDataTotal
+		var ret float32
 		return ret
 	}
 
@@ -401,7 +401,7 @@ func (o *CreateCardPresentPaymentIntent201ResponseData) GetAmount() ListProducts
 
 // GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
-func (o *CreateCardPresentPaymentIntent201ResponseData) GetAmountOk() (*ListProducts200ResponseDataTotal, bool) {
+func (o *CreateCardPresentPaymentIntent201ResponseData) GetAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -409,14 +409,14 @@ func (o *CreateCardPresentPaymentIntent201ResponseData) GetAmountOk() (*ListProd
 }
 
 // SetAmount sets field value
-func (o *CreateCardPresentPaymentIntent201ResponseData) SetAmount(v ListProducts200ResponseDataTotal) {
+func (o *CreateCardPresentPaymentIntent201ResponseData) SetAmount(v float32) {
 	o.Amount = v
 }
 
 // GetSubtotalAmount returns the SubtotalAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateCardPresentPaymentIntent201ResponseData) GetSubtotalAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateCardPresentPaymentIntent201ResponseData) GetSubtotalAmount() float32 {
 	if o == nil || IsNil(o.SubtotalAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.SubtotalAmount.Get()
@@ -425,7 +425,7 @@ func (o *CreateCardPresentPaymentIntent201ResponseData) GetSubtotalAmount() List
 // GetSubtotalAmountOk returns a tuple with the SubtotalAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateCardPresentPaymentIntent201ResponseData) GetSubtotalAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateCardPresentPaymentIntent201ResponseData) GetSubtotalAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -441,8 +441,8 @@ func (o *CreateCardPresentPaymentIntent201ResponseData) HasSubtotalAmount() bool
 	return false
 }
 
-// SetSubtotalAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the SubtotalAmount field.
-func (o *CreateCardPresentPaymentIntent201ResponseData) SetSubtotalAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetSubtotalAmount gets a reference to the given NullableFloat32 and assigns it to the SubtotalAmount field.
+func (o *CreateCardPresentPaymentIntent201ResponseData) SetSubtotalAmount(v float32) {
 	o.SubtotalAmount.Set(&v)
 }
 // SetSubtotalAmountNil sets the value for SubtotalAmount to be an explicit nil
@@ -456,9 +456,9 @@ func (o *CreateCardPresentPaymentIntent201ResponseData) UnsetSubtotalAmount() {
 }
 
 // GetTaxAmount returns the TaxAmount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateCardPresentPaymentIntent201ResponseData) GetTaxAmount() ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays {
+func (o *CreateCardPresentPaymentIntent201ResponseData) GetTaxAmount() float32 {
 	if o == nil || IsNil(o.TaxAmount.Get()) {
-		var ret ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays
+		var ret float32
 		return ret
 	}
 	return *o.TaxAmount.Get()
@@ -467,7 +467,7 @@ func (o *CreateCardPresentPaymentIntent201ResponseData) GetTaxAmount() ListCusto
 // GetTaxAmountOk returns a tuple with the TaxAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateCardPresentPaymentIntent201ResponseData) GetTaxAmountOk() (*ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays, bool) {
+func (o *CreateCardPresentPaymentIntent201ResponseData) GetTaxAmountOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -483,8 +483,8 @@ func (o *CreateCardPresentPaymentIntent201ResponseData) HasTaxAmount() bool {
 	return false
 }
 
-// SetTaxAmount gets a reference to the given NullableListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays and assigns it to the TaxAmount field.
-func (o *CreateCardPresentPaymentIntent201ResponseData) SetTaxAmount(v ListCustomerBillingAccounts200ResponseDataItemsInnerNetTermsDays) {
+// SetTaxAmount gets a reference to the given NullableFloat32 and assigns it to the TaxAmount field.
+func (o *CreateCardPresentPaymentIntent201ResponseData) SetTaxAmount(v float32) {
 	o.TaxAmount.Set(&v)
 }
 // SetTaxAmountNil sets the value for TaxAmount to be an explicit nil

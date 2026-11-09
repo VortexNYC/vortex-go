@@ -12,8 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
-	"fmt"
 )
 
 // checks if the SubmitDisputeEvidence200ResponseDataEvidence type satisfies the MappedNullable interface at compile time
@@ -21,22 +19,18 @@ var _ MappedNullable = &SubmitDisputeEvidence200ResponseDataEvidence{}
 
 // SubmitDisputeEvidence200ResponseDataEvidence struct for SubmitDisputeEvidence200ResponseDataEvidence
 type SubmitDisputeEvidence200ResponseDataEvidence struct {
-	State string `json:"state"`
-	Type string `json:"type"`
+	State NullableString `json:"state,omitempty"`
+	Type NullableString `json:"type,omitempty"`
 	EvidenceId NullableString `json:"evidenceId,omitempty"`
 	FileId NullableString `json:"fileId,omitempty"`
 }
-
-type _SubmitDisputeEvidence200ResponseDataEvidence SubmitDisputeEvidence200ResponseDataEvidence
 
 // NewSubmitDisputeEvidence200ResponseDataEvidence instantiates a new SubmitDisputeEvidence200ResponseDataEvidence object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSubmitDisputeEvidence200ResponseDataEvidence(state string, type_ string) *SubmitDisputeEvidence200ResponseDataEvidence {
+func NewSubmitDisputeEvidence200ResponseDataEvidence() *SubmitDisputeEvidence200ResponseDataEvidence {
 	this := SubmitDisputeEvidence200ResponseDataEvidence{}
-	this.State = state
-	this.Type = type_
 	return &this
 }
 
@@ -48,52 +42,88 @@ func NewSubmitDisputeEvidence200ResponseDataEvidenceWithDefaults() *SubmitDisput
 	return &this
 }
 
-// GetState returns the State field value
+// GetState returns the State field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SubmitDisputeEvidence200ResponseDataEvidence) GetState() string {
-	if o == nil {
+	if o == nil || IsNil(o.State.Get()) {
 		var ret string
 		return ret
 	}
-
-	return o.State
+	return *o.State.Get()
 }
 
-// GetStateOk returns a tuple with the State field value
+// GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SubmitDisputeEvidence200ResponseDataEvidence) GetStateOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.State, true
+	return o.State.Get(), o.State.IsSet()
 }
 
-// SetState sets field value
+// HasState returns a boolean if a field has been set.
+func (o *SubmitDisputeEvidence200ResponseDataEvidence) HasState() bool {
+	if o != nil && o.State.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetState gets a reference to the given NullableString and assigns it to the State field.
 func (o *SubmitDisputeEvidence200ResponseDataEvidence) SetState(v string) {
-	o.State = v
+	o.State.Set(&v)
+}
+// SetStateNil sets the value for State to be an explicit nil
+func (o *SubmitDisputeEvidence200ResponseDataEvidence) SetStateNil() {
+	o.State.Set(nil)
 }
 
-// GetType returns the Type field value
+// UnsetState ensures that no value is present for State, not even an explicit nil
+func (o *SubmitDisputeEvidence200ResponseDataEvidence) UnsetState() {
+	o.State.Unset()
+}
+
+// GetType returns the Type field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SubmitDisputeEvidence200ResponseDataEvidence) GetType() string {
-	if o == nil {
+	if o == nil || IsNil(o.Type.Get()) {
 		var ret string
 		return ret
 	}
-
-	return o.Type
+	return *o.Type.Get()
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SubmitDisputeEvidence200ResponseDataEvidence) GetTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Type, true
+	return o.Type.Get(), o.Type.IsSet()
 }
 
-// SetType sets field value
+// HasType returns a boolean if a field has been set.
+func (o *SubmitDisputeEvidence200ResponseDataEvidence) HasType() bool {
+	if o != nil && o.Type.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given NullableString and assigns it to the Type field.
 func (o *SubmitDisputeEvidence200ResponseDataEvidence) SetType(v string) {
-	o.Type = v
+	o.Type.Set(&v)
+}
+// SetTypeNil sets the value for Type to be an explicit nil
+func (o *SubmitDisputeEvidence200ResponseDataEvidence) SetTypeNil() {
+	o.Type.Set(nil)
+}
+
+// UnsetType ensures that no value is present for Type, not even an explicit nil
+func (o *SubmitDisputeEvidence200ResponseDataEvidence) UnsetType() {
+	o.Type.Unset()
 }
 
 // GetEvidenceId returns the EvidenceId field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -190,8 +220,12 @@ func (o SubmitDisputeEvidence200ResponseDataEvidence) MarshalJSON() ([]byte, err
 
 func (o SubmitDisputeEvidence200ResponseDataEvidence) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["state"] = o.State
-	toSerialize["type"] = o.Type
+	if o.State.IsSet() {
+		toSerialize["state"] = o.State.Get()
+	}
+	if o.Type.IsSet() {
+		toSerialize["type"] = o.Type.Get()
+	}
 	if o.EvidenceId.IsSet() {
 		toSerialize["evidenceId"] = o.EvidenceId.Get()
 	}
@@ -199,44 +233,6 @@ func (o SubmitDisputeEvidence200ResponseDataEvidence) ToMap() (map[string]interf
 		toSerialize["fileId"] = o.FileId.Get()
 	}
 	return toSerialize, nil
-}
-
-func (o *SubmitDisputeEvidence200ResponseDataEvidence) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"state",
-		"type",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err;
-	}
-
-	for _, requiredProperty := range(requiredProperties) {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varSubmitDisputeEvidence200ResponseDataEvidence := _SubmitDisputeEvidence200ResponseDataEvidence{}
-
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varSubmitDisputeEvidence200ResponseDataEvidence)
-
-	if err != nil {
-		return err
-	}
-
-	*o = SubmitDisputeEvidence200ResponseDataEvidence(varSubmitDisputeEvidence200ResponseDataEvidence)
-
-	return err
 }
 
 type NullableSubmitDisputeEvidence200ResponseDataEvidence struct {

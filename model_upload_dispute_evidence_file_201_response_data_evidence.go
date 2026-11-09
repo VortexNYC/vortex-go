@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the UploadDisputeEvidenceFile201ResponseDataEvidence type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &UploadDisputeEvidenceFile201ResponseDataEvidence{}
 
 // UploadDisputeEvidenceFile201ResponseDataEvidence struct for UploadDisputeEvidenceFile201ResponseDataEvidence
 type UploadDisputeEvidenceFile201ResponseDataEvidence struct {
-	State NullableString `json:"state"`
-	Type NullableString `json:"type"`
+	State NullableString `json:"state,omitempty"`
+	Type NullableString `json:"type,omitempty"`
 	EvidenceId NullableString `json:"evidenceId,omitempty"`
 	FileId NullableString `json:"fileId,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -33,10 +32,8 @@ type _UploadDisputeEvidenceFile201ResponseDataEvidence UploadDisputeEvidenceFile
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUploadDisputeEvidenceFile201ResponseDataEvidence(state NullableString, type_ NullableString) *UploadDisputeEvidenceFile201ResponseDataEvidence {
+func NewUploadDisputeEvidenceFile201ResponseDataEvidence() *UploadDisputeEvidenceFile201ResponseDataEvidence {
 	this := UploadDisputeEvidenceFile201ResponseDataEvidence{}
-	this.State = state
-	this.Type = type_
 	return &this
 }
 
@@ -48,18 +45,16 @@ func NewUploadDisputeEvidenceFile201ResponseDataEvidenceWithDefaults() *UploadDi
 	return &this
 }
 
-// GetState returns the State field value
-// If the value is explicit nil, the zero value for string will be returned
+// GetState returns the State field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UploadDisputeEvidenceFile201ResponseDataEvidence) GetState() string {
-	if o == nil || o.State.Get() == nil {
+	if o == nil || IsNil(o.State.Get()) {
 		var ret string
 		return ret
 	}
-
 	return *o.State.Get()
 }
 
-// GetStateOk returns a tuple with the State field value
+// GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UploadDisputeEvidenceFile201ResponseDataEvidence) GetStateOk() (*string, bool) {
@@ -69,23 +64,39 @@ func (o *UploadDisputeEvidenceFile201ResponseDataEvidence) GetStateOk() (*string
 	return o.State.Get(), o.State.IsSet()
 }
 
-// SetState sets field value
+// HasState returns a boolean if a field has been set.
+func (o *UploadDisputeEvidenceFile201ResponseDataEvidence) HasState() bool {
+	if o != nil && o.State.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetState gets a reference to the given NullableString and assigns it to the State field.
 func (o *UploadDisputeEvidenceFile201ResponseDataEvidence) SetState(v string) {
 	o.State.Set(&v)
 }
+// SetStateNil sets the value for State to be an explicit nil
+func (o *UploadDisputeEvidenceFile201ResponseDataEvidence) SetStateNil() {
+	o.State.Set(nil)
+}
 
-// GetType returns the Type field value
-// If the value is explicit nil, the zero value for string will be returned
+// UnsetState ensures that no value is present for State, not even an explicit nil
+func (o *UploadDisputeEvidenceFile201ResponseDataEvidence) UnsetState() {
+	o.State.Unset()
+}
+
+// GetType returns the Type field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UploadDisputeEvidenceFile201ResponseDataEvidence) GetType() string {
-	if o == nil || o.Type.Get() == nil {
+	if o == nil || IsNil(o.Type.Get()) {
 		var ret string
 		return ret
 	}
-
 	return *o.Type.Get()
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UploadDisputeEvidenceFile201ResponseDataEvidence) GetTypeOk() (*string, bool) {
@@ -95,9 +106,27 @@ func (o *UploadDisputeEvidenceFile201ResponseDataEvidence) GetTypeOk() (*string,
 	return o.Type.Get(), o.Type.IsSet()
 }
 
-// SetType sets field value
+// HasType returns a boolean if a field has been set.
+func (o *UploadDisputeEvidenceFile201ResponseDataEvidence) HasType() bool {
+	if o != nil && o.Type.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given NullableString and assigns it to the Type field.
 func (o *UploadDisputeEvidenceFile201ResponseDataEvidence) SetType(v string) {
 	o.Type.Set(&v)
+}
+// SetTypeNil sets the value for Type to be an explicit nil
+func (o *UploadDisputeEvidenceFile201ResponseDataEvidence) SetTypeNil() {
+	o.Type.Set(nil)
+}
+
+// UnsetType ensures that no value is present for Type, not even an explicit nil
+func (o *UploadDisputeEvidenceFile201ResponseDataEvidence) UnsetType() {
+	o.Type.Unset()
 }
 
 // GetEvidenceId returns the EvidenceId field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -194,8 +223,12 @@ func (o UploadDisputeEvidenceFile201ResponseDataEvidence) MarshalJSON() ([]byte,
 
 func (o UploadDisputeEvidenceFile201ResponseDataEvidence) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["state"] = o.State.Get()
-	toSerialize["type"] = o.Type.Get()
+	if o.State.IsSet() {
+		toSerialize["state"] = o.State.Get()
+	}
+	if o.Type.IsSet() {
+		toSerialize["type"] = o.Type.Get()
+	}
 	if o.EvidenceId.IsSet() {
 		toSerialize["evidenceId"] = o.EvidenceId.Get()
 	}
@@ -211,28 +244,6 @@ func (o UploadDisputeEvidenceFile201ResponseDataEvidence) ToMap() (map[string]in
 }
 
 func (o *UploadDisputeEvidenceFile201ResponseDataEvidence) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"state",
-		"type",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err;
-	}
-
-	for _, requiredProperty := range(requiredProperties) {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varUploadDisputeEvidenceFile201ResponseDataEvidence := _UploadDisputeEvidenceFile201ResponseDataEvidence{}
 
 	err = json.Unmarshal(data, &varUploadDisputeEvidenceFile201ResponseDataEvidence)

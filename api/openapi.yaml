@@ -36672,24 +36672,31 @@ components:
           type: string
         currentPeriodStartAt:
           minLength: 1
+          nullable: true
           type: string
         currentPeriodEndAt:
           minLength: 1
+          nullable: true
           type: string
         trialEndAt:
           minLength: 1
+          nullable: true
           type: string
         cancelAt:
           minLength: 1
+          nullable: true
           type: string
         canceledAt:
           minLength: 1
+          nullable: true
           type: string
         endedAt:
           minLength: 1
+          nullable: true
           type: string
         testClockId:
           minLength: 1
+          nullable: true
           type: string
       required:
         - billingAccountId
@@ -36730,6 +36737,7 @@ components:
             type: string
         endAt:
           minLength: 1
+          nullable: true
           type: string
       required:
         - metadata
@@ -38502,7 +38510,7 @@ components:
       additionalProperties: {}
       example:
         id: id
-        environment: environment
+        environment: sandbox
         merchantAccountId: merchantAccountId
         paymentId: paymentId
         stage: inquiry
@@ -38533,7 +38541,9 @@ components:
           nullable: true
           type: string
         environment:
-          minLength: 1
+          enum:
+            - sandbox
+            - production
           nullable: true
           type: string
         merchantAccountId:
@@ -38636,7 +38646,7 @@ components:
       example:
         items:
           - id: id
-            environment: environment
+            environment: sandbox
             merchantAccountId: merchantAccountId
             paymentId: paymentId
             stage: inquiry
@@ -38662,7 +38672,7 @@ components:
             terminalSessionId: terminalSessionId
             terminalReaderId: terminalReaderId
           - id: id
-            environment: environment
+            environment: sandbox
             merchantAccountId: merchantAccountId
             paymentId: paymentId
             stage: inquiry
@@ -38711,7 +38721,7 @@ components:
         data:
           items:
             - id: id
-              environment: environment
+              environment: sandbox
               merchantAccountId: merchantAccountId
               paymentId: paymentId
               stage: inquiry
@@ -38737,7 +38747,7 @@ components:
               terminalSessionId: terminalSessionId
               terminalReaderId: terminalReaderId
             - id: id
-              environment: environment
+              environment: sandbox
               merchantAccountId: merchantAccountId
               paymentId: paymentId
               stage: inquiry
@@ -38805,7 +38815,7 @@ components:
       additionalProperties: false
       example:
         id: id
-        environment: environment
+        environment: sandbox
         merchantAccountId: merchantAccountId
         paymentId: paymentId
         stage: inquiry
@@ -38835,7 +38845,9 @@ components:
           minLength: 1
           type: string
         environment:
-          minLength: 1
+          enum:
+            - sandbox
+            - production
           type: string
         merchantAccountId:
           minLength: 1
@@ -38932,7 +38944,7 @@ components:
       example:
         data:
           id: id
-          environment: environment
+          environment: sandbox
           merchantAccountId: merchantAccountId
           paymentId: paymentId
           stage: inquiry
@@ -39119,14 +39131,16 @@ components:
       additionalProperties: {}
       example:
         id: id
-        environment: environment
+        environment: sandbox
       properties:
         id:
           minLength: 1
           nullable: true
           type: string
         environment:
-          minLength: 1
+          enum:
+            - sandbox
+            - production
           nullable: true
           type: string
       required:
@@ -39137,7 +39151,7 @@ components:
       example:
         data:
           id: id
-          environment: environment
+          environment: sandbox
         requestId: requestId
       properties:
         data:
@@ -39153,7 +39167,7 @@ components:
       additionalProperties: {}
       example:
         id: id
-        environment: environment
+        environment: sandbox
         merchantAccountId: merchantAccountId
         status: pending
         amount: 0.8008281904610115
@@ -39173,7 +39187,9 @@ components:
           nullable: true
           type: string
         environment:
-          minLength: 1
+          enum:
+            - sandbox
+            - production
           nullable: true
           type: string
         merchantAccountId:
@@ -39251,7 +39267,7 @@ components:
       example:
         items:
           - id: id
-            environment: environment
+            environment: sandbox
             merchantAccountId: merchantAccountId
             status: pending
             amount: 0.8008281904610115
@@ -39266,7 +39282,7 @@ components:
             failureCode: failureCode
             failureMessage: failureMessage
           - id: id
-            environment: environment
+            environment: sandbox
             merchantAccountId: merchantAccountId
             status: pending
             amount: 0.8008281904610115
@@ -39304,7 +39320,7 @@ components:
         data:
           items:
             - id: id
-              environment: environment
+              environment: sandbox
               merchantAccountId: merchantAccountId
               status: pending
               amount: 0.8008281904610115
@@ -39319,7 +39335,7 @@ components:
               failureCode: failureCode
               failureMessage: failureMessage
             - id: id
-              environment: environment
+              environment: sandbox
               merchantAccountId: merchantAccountId
               status: pending
               amount: 0.8008281904610115
@@ -39390,7 +39406,7 @@ components:
       additionalProperties: false
       example:
         id: id
-        environment: environment
+        environment: sandbox
         merchantAccountId: merchantAccountId
         status: pending
         amount: 0.8008281904610115
@@ -39409,7 +39425,9 @@ components:
           minLength: 1
           type: string
         environment:
-          minLength: 1
+          enum:
+            - sandbox
+            - production
           type: string
         merchantAccountId:
           minLength: 1
@@ -39481,7 +39499,7 @@ components:
       example:
         data:
           id: id
-          environment: environment
+          environment: sandbox
           merchantAccountId: merchantAccountId
           status: pending
           amount: 0.8008281904610115
@@ -63235,7 +63253,7 @@ components:
       additionalProperties: {}
       example:
         id: id
-        environment: environment
+        environment: sandbox
         merchantAccountId: merchantAccountId
         currency: currency
         status: accruing
@@ -63259,7 +63277,9 @@ components:
           nullable: true
           type: string
         environment:
-          minLength: 1
+          enum:
+            - sandbox
+            - production
           nullable: true
           type: string
         merchantAccountId:
@@ -63351,7 +63371,7 @@ components:
       example:
         items:
           - id: id
-            environment: environment
+            environment: sandbox
             merchantAccountId: merchantAccountId
             currency: currency
             status: accruing
@@ -63370,7 +63390,7 @@ components:
             closedAt: closedAt
             approvedAt: approvedAt
           - id: id
-            environment: environment
+            environment: sandbox
             merchantAccountId: merchantAccountId
             currency: currency
             status: accruing
@@ -63416,7 +63436,7 @@ components:
         data:
           items:
             - id: id
-              environment: environment
+              environment: sandbox
               merchantAccountId: merchantAccountId
               currency: currency
               status: accruing
@@ -63435,7 +63455,7 @@ components:
               closedAt: closedAt
               approvedAt: approvedAt
             - id: id
-              environment: environment
+              environment: sandbox
               merchantAccountId: merchantAccountId
               currency: currency
               status: accruing
@@ -63471,7 +63491,7 @@ components:
       additionalProperties: false
       example:
         id: id
-        environment: environment
+        environment: sandbox
         merchantAccountId: merchantAccountId
         currency: currency
         status: accruing
@@ -63494,7 +63514,9 @@ components:
           minLength: 1
           type: string
         environment:
-          minLength: 1
+          enum:
+            - sandbox
+            - production
           type: string
         merchantAccountId:
           minLength: 1
@@ -63576,7 +63598,7 @@ components:
       example:
         items:
           - id: id
-            environment: environment
+            environment: sandbox
             merchantAccountId: merchantAccountId
             currency: currency
             status: accruing
@@ -63595,7 +63617,7 @@ components:
             closedAt: closedAt
             approvedAt: approvedAt
           - id: id
-            environment: environment
+            environment: sandbox
             merchantAccountId: merchantAccountId
             currency: currency
             status: accruing
@@ -63627,7 +63649,7 @@ components:
         data:
           items:
             - id: id
-              environment: environment
+              environment: sandbox
               merchantAccountId: merchantAccountId
               currency: currency
               status: accruing
@@ -63646,7 +63668,7 @@ components:
               closedAt: closedAt
               approvedAt: approvedAt
             - id: id
-              environment: environment
+              environment: sandbox
               merchantAccountId: merchantAccountId
               currency: currency
               status: accruing
@@ -63717,7 +63739,7 @@ components:
       additionalProperties: {}
       example:
         id: id
-        environment: environment
+        environment: sandbox
         merchantAccountId: merchantAccountId
         settlementId: settlementId
         decision: approved
@@ -63733,7 +63755,9 @@ components:
           nullable: true
           type: string
         environment:
-          minLength: 1
+          enum:
+            - sandbox
+            - production
           nullable: true
           type: string
         merchantAccountId:
@@ -63789,7 +63813,7 @@ components:
       example:
         data:
           id: id
-          environment: environment
+          environment: sandbox
           merchantAccountId: merchantAccountId
           settlementId: settlementId
           decision: approved
@@ -63815,7 +63839,7 @@ components:
       example:
         data:
           id: id
-          environment: environment
+          environment: sandbox
           merchantAccountId: merchantAccountId
           currency: currency
           status: accruing
@@ -63959,7 +63983,7 @@ components:
       example:
         dispute:
           id: id
-          environment: environment
+          environment: sandbox
           merchantAccountId: merchantAccountId
           paymentId: paymentId
           stage: inquiry
@@ -64005,7 +64029,7 @@ components:
         data:
           dispute:
             id: id
-            environment: environment
+            environment: sandbox
             merchantAccountId: merchantAccountId
             paymentId: paymentId
             stage: inquiry
@@ -64073,15 +64097,12 @@ components:
           minLength: 1
           nullable: true
           type: string
-      required:
-        - state
-        - type
     uploadDisputeEvidenceFile_201_response_data:
       additionalProperties: {}
       example:
         dispute:
           id: id
-          environment: environment
+          environment: sandbox
           merchantAccountId: merchantAccountId
           paymentId: paymentId
           stage: inquiry
@@ -64125,7 +64146,7 @@ components:
         data:
           dispute:
             id: id
-            environment: environment
+            environment: sandbox
             merchantAccountId: merchantAccountId
             paymentId: paymentId
             stage: inquiry
@@ -64240,8 +64261,10 @@ components:
         fileId: fileId
       properties:
         state:
+          nullable: true
           type: string
         type:
+          nullable: true
           type: string
         evidenceId:
           minLength: 1
@@ -64251,15 +64274,12 @@ components:
           minLength: 1
           nullable: true
           type: string
-      required:
-        - state
-        - type
     submitDisputeEvidence_200_response_data:
       additionalProperties: {}
       example:
         dispute:
           id: id
-          environment: environment
+          environment: sandbox
           merchantAccountId: merchantAccountId
           paymentId: paymentId
           stage: inquiry
@@ -64303,7 +64323,7 @@ components:
         data:
           dispute:
             id: id
-            environment: environment
+            environment: sandbox
             merchantAccountId: merchantAccountId
             paymentId: paymentId
             stage: inquiry

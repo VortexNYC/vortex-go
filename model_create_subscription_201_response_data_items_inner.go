@@ -27,7 +27,7 @@ type CreateSubscription201ResponseDataItemsInner struct {
 	Quantity float32 `json:"quantity"`
 	StartAt string `json:"startAt"`
 	Metadata map[string]string `json:"metadata"`
-	EndAt *string `json:"endAt,omitempty"`
+	EndAt NullableString `json:"endAt,omitempty"`
 }
 
 type _CreateSubscription201ResponseDataItemsInner CreateSubscription201ResponseDataItemsInner
@@ -199,36 +199,46 @@ func (o *CreateSubscription201ResponseDataItemsInner) SetMetadata(v map[string]s
 	o.Metadata = v
 }
 
-// GetEndAt returns the EndAt field value if set, zero value otherwise.
+// GetEndAt returns the EndAt field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateSubscription201ResponseDataItemsInner) GetEndAt() string {
-	if o == nil || IsNil(o.EndAt) {
+	if o == nil || IsNil(o.EndAt.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.EndAt
+	return *o.EndAt.Get()
 }
 
 // GetEndAtOk returns a tuple with the EndAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateSubscription201ResponseDataItemsInner) GetEndAtOk() (*string, bool) {
-	if o == nil || IsNil(o.EndAt) {
+	if o == nil {
 		return nil, false
 	}
-	return o.EndAt, true
+	return o.EndAt.Get(), o.EndAt.IsSet()
 }
 
 // HasEndAt returns a boolean if a field has been set.
 func (o *CreateSubscription201ResponseDataItemsInner) HasEndAt() bool {
-	if o != nil && !IsNil(o.EndAt) {
+	if o != nil && o.EndAt.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetEndAt gets a reference to the given string and assigns it to the EndAt field.
+// SetEndAt gets a reference to the given NullableString and assigns it to the EndAt field.
 func (o *CreateSubscription201ResponseDataItemsInner) SetEndAt(v string) {
-	o.EndAt = &v
+	o.EndAt.Set(&v)
+}
+// SetEndAtNil sets the value for EndAt to be an explicit nil
+func (o *CreateSubscription201ResponseDataItemsInner) SetEndAtNil() {
+	o.EndAt.Set(nil)
+}
+
+// UnsetEndAt ensures that no value is present for EndAt, not even an explicit nil
+func (o *CreateSubscription201ResponseDataItemsInner) UnsetEndAt() {
+	o.EndAt.Unset()
 }
 
 func (o CreateSubscription201ResponseDataItemsInner) MarshalJSON() ([]byte, error) {
@@ -247,8 +257,8 @@ func (o CreateSubscription201ResponseDataItemsInner) ToMap() (map[string]interfa
 	toSerialize["quantity"] = o.Quantity
 	toSerialize["startAt"] = o.StartAt
 	toSerialize["metadata"] = o.Metadata
-	if !IsNil(o.EndAt) {
-		toSerialize["endAt"] = o.EndAt
+	if o.EndAt.IsSet() {
+		toSerialize["endAt"] = o.EndAt.Get()
 	}
 	return toSerialize, nil
 }

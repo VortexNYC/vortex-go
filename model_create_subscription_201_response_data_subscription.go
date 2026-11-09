@@ -28,13 +28,13 @@ type CreateSubscription201ResponseDataSubscription struct {
 	CollectionMode string `json:"collectionMode"`
 	Metadata map[string]string `json:"metadata"`
 	CreatedAt string `json:"createdAt"`
-	CurrentPeriodStartAt *string `json:"currentPeriodStartAt,omitempty"`
-	CurrentPeriodEndAt *string `json:"currentPeriodEndAt,omitempty"`
-	TrialEndAt *string `json:"trialEndAt,omitempty"`
-	CancelAt *string `json:"cancelAt,omitempty"`
-	CanceledAt *string `json:"canceledAt,omitempty"`
-	EndedAt *string `json:"endedAt,omitempty"`
-	TestClockId *string `json:"testClockId,omitempty"`
+	CurrentPeriodStartAt NullableString `json:"currentPeriodStartAt,omitempty"`
+	CurrentPeriodEndAt NullableString `json:"currentPeriodEndAt,omitempty"`
+	TrialEndAt NullableString `json:"trialEndAt,omitempty"`
+	CancelAt NullableString `json:"cancelAt,omitempty"`
+	CanceledAt NullableString `json:"canceledAt,omitempty"`
+	EndedAt NullableString `json:"endedAt,omitempty"`
+	TestClockId NullableString `json:"testClockId,omitempty"`
 }
 
 type _CreateSubscription201ResponseDataSubscription CreateSubscription201ResponseDataSubscription
@@ -231,228 +231,298 @@ func (o *CreateSubscription201ResponseDataSubscription) SetCreatedAt(v string) {
 	o.CreatedAt = v
 }
 
-// GetCurrentPeriodStartAt returns the CurrentPeriodStartAt field value if set, zero value otherwise.
+// GetCurrentPeriodStartAt returns the CurrentPeriodStartAt field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateSubscription201ResponseDataSubscription) GetCurrentPeriodStartAt() string {
-	if o == nil || IsNil(o.CurrentPeriodStartAt) {
+	if o == nil || IsNil(o.CurrentPeriodStartAt.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CurrentPeriodStartAt
+	return *o.CurrentPeriodStartAt.Get()
 }
 
 // GetCurrentPeriodStartAtOk returns a tuple with the CurrentPeriodStartAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateSubscription201ResponseDataSubscription) GetCurrentPeriodStartAtOk() (*string, bool) {
-	if o == nil || IsNil(o.CurrentPeriodStartAt) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CurrentPeriodStartAt, true
+	return o.CurrentPeriodStartAt.Get(), o.CurrentPeriodStartAt.IsSet()
 }
 
 // HasCurrentPeriodStartAt returns a boolean if a field has been set.
 func (o *CreateSubscription201ResponseDataSubscription) HasCurrentPeriodStartAt() bool {
-	if o != nil && !IsNil(o.CurrentPeriodStartAt) {
+	if o != nil && o.CurrentPeriodStartAt.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCurrentPeriodStartAt gets a reference to the given string and assigns it to the CurrentPeriodStartAt field.
+// SetCurrentPeriodStartAt gets a reference to the given NullableString and assigns it to the CurrentPeriodStartAt field.
 func (o *CreateSubscription201ResponseDataSubscription) SetCurrentPeriodStartAt(v string) {
-	o.CurrentPeriodStartAt = &v
+	o.CurrentPeriodStartAt.Set(&v)
+}
+// SetCurrentPeriodStartAtNil sets the value for CurrentPeriodStartAt to be an explicit nil
+func (o *CreateSubscription201ResponseDataSubscription) SetCurrentPeriodStartAtNil() {
+	o.CurrentPeriodStartAt.Set(nil)
 }
 
-// GetCurrentPeriodEndAt returns the CurrentPeriodEndAt field value if set, zero value otherwise.
+// UnsetCurrentPeriodStartAt ensures that no value is present for CurrentPeriodStartAt, not even an explicit nil
+func (o *CreateSubscription201ResponseDataSubscription) UnsetCurrentPeriodStartAt() {
+	o.CurrentPeriodStartAt.Unset()
+}
+
+// GetCurrentPeriodEndAt returns the CurrentPeriodEndAt field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateSubscription201ResponseDataSubscription) GetCurrentPeriodEndAt() string {
-	if o == nil || IsNil(o.CurrentPeriodEndAt) {
+	if o == nil || IsNil(o.CurrentPeriodEndAt.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CurrentPeriodEndAt
+	return *o.CurrentPeriodEndAt.Get()
 }
 
 // GetCurrentPeriodEndAtOk returns a tuple with the CurrentPeriodEndAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateSubscription201ResponseDataSubscription) GetCurrentPeriodEndAtOk() (*string, bool) {
-	if o == nil || IsNil(o.CurrentPeriodEndAt) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CurrentPeriodEndAt, true
+	return o.CurrentPeriodEndAt.Get(), o.CurrentPeriodEndAt.IsSet()
 }
 
 // HasCurrentPeriodEndAt returns a boolean if a field has been set.
 func (o *CreateSubscription201ResponseDataSubscription) HasCurrentPeriodEndAt() bool {
-	if o != nil && !IsNil(o.CurrentPeriodEndAt) {
+	if o != nil && o.CurrentPeriodEndAt.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCurrentPeriodEndAt gets a reference to the given string and assigns it to the CurrentPeriodEndAt field.
+// SetCurrentPeriodEndAt gets a reference to the given NullableString and assigns it to the CurrentPeriodEndAt field.
 func (o *CreateSubscription201ResponseDataSubscription) SetCurrentPeriodEndAt(v string) {
-	o.CurrentPeriodEndAt = &v
+	o.CurrentPeriodEndAt.Set(&v)
+}
+// SetCurrentPeriodEndAtNil sets the value for CurrentPeriodEndAt to be an explicit nil
+func (o *CreateSubscription201ResponseDataSubscription) SetCurrentPeriodEndAtNil() {
+	o.CurrentPeriodEndAt.Set(nil)
 }
 
-// GetTrialEndAt returns the TrialEndAt field value if set, zero value otherwise.
+// UnsetCurrentPeriodEndAt ensures that no value is present for CurrentPeriodEndAt, not even an explicit nil
+func (o *CreateSubscription201ResponseDataSubscription) UnsetCurrentPeriodEndAt() {
+	o.CurrentPeriodEndAt.Unset()
+}
+
+// GetTrialEndAt returns the TrialEndAt field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateSubscription201ResponseDataSubscription) GetTrialEndAt() string {
-	if o == nil || IsNil(o.TrialEndAt) {
+	if o == nil || IsNil(o.TrialEndAt.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.TrialEndAt
+	return *o.TrialEndAt.Get()
 }
 
 // GetTrialEndAtOk returns a tuple with the TrialEndAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateSubscription201ResponseDataSubscription) GetTrialEndAtOk() (*string, bool) {
-	if o == nil || IsNil(o.TrialEndAt) {
+	if o == nil {
 		return nil, false
 	}
-	return o.TrialEndAt, true
+	return o.TrialEndAt.Get(), o.TrialEndAt.IsSet()
 }
 
 // HasTrialEndAt returns a boolean if a field has been set.
 func (o *CreateSubscription201ResponseDataSubscription) HasTrialEndAt() bool {
-	if o != nil && !IsNil(o.TrialEndAt) {
+	if o != nil && o.TrialEndAt.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetTrialEndAt gets a reference to the given string and assigns it to the TrialEndAt field.
+// SetTrialEndAt gets a reference to the given NullableString and assigns it to the TrialEndAt field.
 func (o *CreateSubscription201ResponseDataSubscription) SetTrialEndAt(v string) {
-	o.TrialEndAt = &v
+	o.TrialEndAt.Set(&v)
+}
+// SetTrialEndAtNil sets the value for TrialEndAt to be an explicit nil
+func (o *CreateSubscription201ResponseDataSubscription) SetTrialEndAtNil() {
+	o.TrialEndAt.Set(nil)
 }
 
-// GetCancelAt returns the CancelAt field value if set, zero value otherwise.
+// UnsetTrialEndAt ensures that no value is present for TrialEndAt, not even an explicit nil
+func (o *CreateSubscription201ResponseDataSubscription) UnsetTrialEndAt() {
+	o.TrialEndAt.Unset()
+}
+
+// GetCancelAt returns the CancelAt field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateSubscription201ResponseDataSubscription) GetCancelAt() string {
-	if o == nil || IsNil(o.CancelAt) {
+	if o == nil || IsNil(o.CancelAt.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CancelAt
+	return *o.CancelAt.Get()
 }
 
 // GetCancelAtOk returns a tuple with the CancelAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateSubscription201ResponseDataSubscription) GetCancelAtOk() (*string, bool) {
-	if o == nil || IsNil(o.CancelAt) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CancelAt, true
+	return o.CancelAt.Get(), o.CancelAt.IsSet()
 }
 
 // HasCancelAt returns a boolean if a field has been set.
 func (o *CreateSubscription201ResponseDataSubscription) HasCancelAt() bool {
-	if o != nil && !IsNil(o.CancelAt) {
+	if o != nil && o.CancelAt.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCancelAt gets a reference to the given string and assigns it to the CancelAt field.
+// SetCancelAt gets a reference to the given NullableString and assigns it to the CancelAt field.
 func (o *CreateSubscription201ResponseDataSubscription) SetCancelAt(v string) {
-	o.CancelAt = &v
+	o.CancelAt.Set(&v)
+}
+// SetCancelAtNil sets the value for CancelAt to be an explicit nil
+func (o *CreateSubscription201ResponseDataSubscription) SetCancelAtNil() {
+	o.CancelAt.Set(nil)
 }
 
-// GetCanceledAt returns the CanceledAt field value if set, zero value otherwise.
+// UnsetCancelAt ensures that no value is present for CancelAt, not even an explicit nil
+func (o *CreateSubscription201ResponseDataSubscription) UnsetCancelAt() {
+	o.CancelAt.Unset()
+}
+
+// GetCanceledAt returns the CanceledAt field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateSubscription201ResponseDataSubscription) GetCanceledAt() string {
-	if o == nil || IsNil(o.CanceledAt) {
+	if o == nil || IsNil(o.CanceledAt.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CanceledAt
+	return *o.CanceledAt.Get()
 }
 
 // GetCanceledAtOk returns a tuple with the CanceledAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateSubscription201ResponseDataSubscription) GetCanceledAtOk() (*string, bool) {
-	if o == nil || IsNil(o.CanceledAt) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CanceledAt, true
+	return o.CanceledAt.Get(), o.CanceledAt.IsSet()
 }
 
 // HasCanceledAt returns a boolean if a field has been set.
 func (o *CreateSubscription201ResponseDataSubscription) HasCanceledAt() bool {
-	if o != nil && !IsNil(o.CanceledAt) {
+	if o != nil && o.CanceledAt.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCanceledAt gets a reference to the given string and assigns it to the CanceledAt field.
+// SetCanceledAt gets a reference to the given NullableString and assigns it to the CanceledAt field.
 func (o *CreateSubscription201ResponseDataSubscription) SetCanceledAt(v string) {
-	o.CanceledAt = &v
+	o.CanceledAt.Set(&v)
+}
+// SetCanceledAtNil sets the value for CanceledAt to be an explicit nil
+func (o *CreateSubscription201ResponseDataSubscription) SetCanceledAtNil() {
+	o.CanceledAt.Set(nil)
 }
 
-// GetEndedAt returns the EndedAt field value if set, zero value otherwise.
+// UnsetCanceledAt ensures that no value is present for CanceledAt, not even an explicit nil
+func (o *CreateSubscription201ResponseDataSubscription) UnsetCanceledAt() {
+	o.CanceledAt.Unset()
+}
+
+// GetEndedAt returns the EndedAt field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateSubscription201ResponseDataSubscription) GetEndedAt() string {
-	if o == nil || IsNil(o.EndedAt) {
+	if o == nil || IsNil(o.EndedAt.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.EndedAt
+	return *o.EndedAt.Get()
 }
 
 // GetEndedAtOk returns a tuple with the EndedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateSubscription201ResponseDataSubscription) GetEndedAtOk() (*string, bool) {
-	if o == nil || IsNil(o.EndedAt) {
+	if o == nil {
 		return nil, false
 	}
-	return o.EndedAt, true
+	return o.EndedAt.Get(), o.EndedAt.IsSet()
 }
 
 // HasEndedAt returns a boolean if a field has been set.
 func (o *CreateSubscription201ResponseDataSubscription) HasEndedAt() bool {
-	if o != nil && !IsNil(o.EndedAt) {
+	if o != nil && o.EndedAt.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetEndedAt gets a reference to the given string and assigns it to the EndedAt field.
+// SetEndedAt gets a reference to the given NullableString and assigns it to the EndedAt field.
 func (o *CreateSubscription201ResponseDataSubscription) SetEndedAt(v string) {
-	o.EndedAt = &v
+	o.EndedAt.Set(&v)
+}
+// SetEndedAtNil sets the value for EndedAt to be an explicit nil
+func (o *CreateSubscription201ResponseDataSubscription) SetEndedAtNil() {
+	o.EndedAt.Set(nil)
 }
 
-// GetTestClockId returns the TestClockId field value if set, zero value otherwise.
+// UnsetEndedAt ensures that no value is present for EndedAt, not even an explicit nil
+func (o *CreateSubscription201ResponseDataSubscription) UnsetEndedAt() {
+	o.EndedAt.Unset()
+}
+
+// GetTestClockId returns the TestClockId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateSubscription201ResponseDataSubscription) GetTestClockId() string {
-	if o == nil || IsNil(o.TestClockId) {
+	if o == nil || IsNil(o.TestClockId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.TestClockId
+	return *o.TestClockId.Get()
 }
 
 // GetTestClockIdOk returns a tuple with the TestClockId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateSubscription201ResponseDataSubscription) GetTestClockIdOk() (*string, bool) {
-	if o == nil || IsNil(o.TestClockId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.TestClockId, true
+	return o.TestClockId.Get(), o.TestClockId.IsSet()
 }
 
 // HasTestClockId returns a boolean if a field has been set.
 func (o *CreateSubscription201ResponseDataSubscription) HasTestClockId() bool {
-	if o != nil && !IsNil(o.TestClockId) {
+	if o != nil && o.TestClockId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetTestClockId gets a reference to the given string and assigns it to the TestClockId field.
+// SetTestClockId gets a reference to the given NullableString and assigns it to the TestClockId field.
 func (o *CreateSubscription201ResponseDataSubscription) SetTestClockId(v string) {
-	o.TestClockId = &v
+	o.TestClockId.Set(&v)
+}
+// SetTestClockIdNil sets the value for TestClockId to be an explicit nil
+func (o *CreateSubscription201ResponseDataSubscription) SetTestClockIdNil() {
+	o.TestClockId.Set(nil)
+}
+
+// UnsetTestClockId ensures that no value is present for TestClockId, not even an explicit nil
+func (o *CreateSubscription201ResponseDataSubscription) UnsetTestClockId() {
+	o.TestClockId.Unset()
 }
 
 func (o CreateSubscription201ResponseDataSubscription) MarshalJSON() ([]byte, error) {
@@ -472,26 +542,26 @@ func (o CreateSubscription201ResponseDataSubscription) ToMap() (map[string]inter
 	toSerialize["collectionMode"] = o.CollectionMode
 	toSerialize["metadata"] = o.Metadata
 	toSerialize["createdAt"] = o.CreatedAt
-	if !IsNil(o.CurrentPeriodStartAt) {
-		toSerialize["currentPeriodStartAt"] = o.CurrentPeriodStartAt
+	if o.CurrentPeriodStartAt.IsSet() {
+		toSerialize["currentPeriodStartAt"] = o.CurrentPeriodStartAt.Get()
 	}
-	if !IsNil(o.CurrentPeriodEndAt) {
-		toSerialize["currentPeriodEndAt"] = o.CurrentPeriodEndAt
+	if o.CurrentPeriodEndAt.IsSet() {
+		toSerialize["currentPeriodEndAt"] = o.CurrentPeriodEndAt.Get()
 	}
-	if !IsNil(o.TrialEndAt) {
-		toSerialize["trialEndAt"] = o.TrialEndAt
+	if o.TrialEndAt.IsSet() {
+		toSerialize["trialEndAt"] = o.TrialEndAt.Get()
 	}
-	if !IsNil(o.CancelAt) {
-		toSerialize["cancelAt"] = o.CancelAt
+	if o.CancelAt.IsSet() {
+		toSerialize["cancelAt"] = o.CancelAt.Get()
 	}
-	if !IsNil(o.CanceledAt) {
-		toSerialize["canceledAt"] = o.CanceledAt
+	if o.CanceledAt.IsSet() {
+		toSerialize["canceledAt"] = o.CanceledAt.Get()
 	}
-	if !IsNil(o.EndedAt) {
-		toSerialize["endedAt"] = o.EndedAt
+	if o.EndedAt.IsSet() {
+		toSerialize["endedAt"] = o.EndedAt.Get()
 	}
-	if !IsNil(o.TestClockId) {
-		toSerialize["testClockId"] = o.TestClockId
+	if o.TestClockId.IsSet() {
+		toSerialize["testClockId"] = o.TestClockId.Get()
 	}
 	return toSerialize, nil
 }

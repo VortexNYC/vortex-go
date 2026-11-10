@@ -26,8 +26,6 @@ type SignupRequest struct {
 	ContactEmail *string `json:"contactEmail,omitempty"`
 	// Optional. Anonymous signup provisions sandbox only — `production` is rejected 403 (production orgs require an authenticated session).
 	Environment *string `json:"environment,omitempty"`
-	// Ops-issued invite code (vxi_…) — optional attribution
-	InviteCode *string `json:"inviteCode,omitempty"`
 }
 
 type _SignupRequest SignupRequest
@@ -138,38 +136,6 @@ func (o *SignupRequest) SetEnvironment(v string) {
 	o.Environment = &v
 }
 
-// GetInviteCode returns the InviteCode field value if set, zero value otherwise.
-func (o *SignupRequest) GetInviteCode() string {
-	if o == nil || IsNil(o.InviteCode) {
-		var ret string
-		return ret
-	}
-	return *o.InviteCode
-}
-
-// GetInviteCodeOk returns a tuple with the InviteCode field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SignupRequest) GetInviteCodeOk() (*string, bool) {
-	if o == nil || IsNil(o.InviteCode) {
-		return nil, false
-	}
-	return o.InviteCode, true
-}
-
-// HasInviteCode returns a boolean if a field has been set.
-func (o *SignupRequest) HasInviteCode() bool {
-	if o != nil && !IsNil(o.InviteCode) {
-		return true
-	}
-
-	return false
-}
-
-// SetInviteCode gets a reference to the given string and assigns it to the InviteCode field.
-func (o *SignupRequest) SetInviteCode(v string) {
-	o.InviteCode = &v
-}
-
 func (o SignupRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -186,9 +152,6 @@ func (o SignupRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Environment) {
 		toSerialize["environment"] = o.Environment
-	}
-	if !IsNil(o.InviteCode) {
-		toSerialize["inviteCode"] = o.InviteCode
 	}
 	return toSerialize, nil
 }

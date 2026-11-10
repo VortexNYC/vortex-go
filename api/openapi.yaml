@@ -27118,7 +27118,6 @@ components:
         name: name
         contactEmail: contactEmail
         environment: sandbox
-        inviteCode: inviteCode
       properties:
         name:
           description: Organization name
@@ -27133,9 +27132,6 @@ components:
           enum:
             - sandbox
             - production
-          type: string
-        inviteCode:
-          description: Ops-issued invite code (vxi_…) — optional attribution
           type: string
       required:
         - name

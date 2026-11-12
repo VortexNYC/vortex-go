@@ -15407,86 +15407,6 @@ paths:
               path: { orderFormId: "..." },
               query: { environment: "sandbox", merchantAccountId: "..." },
             });
-  /v1/order-forms/{orderFormId}/signature-request:
-    post:
-      operationId: registerBillingOrderFormSignatureRequest
-      parameters:
-        - explode: false
-          in: path
-          name: orderFormId
-          required: true
-          schema:
-            minLength: 1
-            type: string
-          style: simple
-        - explode: true
-          in: query
-          name: environment
-          required: false
-          schema:
-            enum:
-              - sandbox
-              - production
-            type: string
-          style: form
-        - explode: true
-          in: query
-          name: merchantAccountId
-          required: false
-          schema:
-            minLength: 1
-            type: string
-          style: form
-        - description:
-            Required for production-safe retries on mutating routes. Reusing
-            a key with a different request body returns 409.
-          explode: false
-          in: header
-          name: Idempotency-Key
-          required: false
-          schema:
-            minLength: 1
-            type: string
-          style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/registerBillingOrderFormSignatureRequest_request"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/registerBillingOrderFormSignatureRequest_200_response"
-          description: Success
-      security:
-        - vortexApiKey: []
-        - bearer: []
-      tags:
-        - orderForms
-      x-codeSamples:
-        - lang: Shell
-          label: curl
-          source: |-
-            curl "https://api.vortex.nyc/v1/order-forms/{orderFormId}/signature-request?environment=sandbox&merchantAccountId=..." \
-              -X POST \
-              -H "Authorization: Bearer $VORTEX_API_KEY" \
-              -H "Content-Type: application/json" \
-              -d '{"signatureRequestRef":"vortexsign://envelope/env_123"}'
-        - lang: TypeScript
-          label: TypeScript
-          source: |-
-            import { registerBillingOrderFormSignatureRequest, createVortex } from "@vortex-api/vortex/2026-09";
-
-            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
-            const { data } = await registerBillingOrderFormSignatureRequest({
-              client: vortex,
-              path: { orderFormId: "..." },
-              query: { environment: "sandbox", merchantAccountId: "..." },
-              body: {"signatureRequestRef":"vortexsign://envelope/env_123"},
-            });
   /v1/order-forms/{orderFormId}/sign:
     post:
       operationId: markBillingOrderFormSigned
@@ -15554,7 +15474,7 @@ paths:
               -X POST \
               -H "Authorization: Bearer $VORTEX_API_KEY" \
               -H "Content-Type: application/json" \
-              -d '{"signedDocumentRef":"vortexsign://envelope/env_123","executionMode":"execute_in_vortex"}'
+              -d '{"executionMode":"execute_in_vortex"}'
         - lang: TypeScript
           label: TypeScript
           source: |-
@@ -15565,7 +15485,7 @@ paths:
               client: vortex,
               path: { orderFormId: "..." },
               query: { environment: "sandbox", merchantAccountId: "..." },
-              body: {"signedDocumentRef":"vortexsign://envelope/env_123","executionMode":"execute_in_vortex"},
+              body: {"executionMode":"execute_in_vortex"},
             });
   /v1/order-forms/{orderFormId}/void:
     post:
@@ -15619,7 +15539,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/registerBillingOrderFormSignatureRequest_200_response"
+                $ref: "#/components/schemas/voidBillingOrderForm_200_response"
           description: Success
       security:
         - vortexApiKey: []
@@ -29192,30 +29112,25 @@ components:
             - manual
             - superseded
           type: string
-    BillingOrderFormSignatureRequestRequest:
-      additionalProperties: {}
-      properties:
-        signatureRequestRef:
-          description:
-            Opaque reference to the external signature request (e.g. a
-            Vortex Sign envelope/session id). The sign call must present the same
-            ref to complete.
-          type: string
-      required:
-        - signatureRequestRef
     BillingOrderFormSignRequest:
       additionalProperties: {}
       properties:
-        signatureRequestRef:
+        signedBy:
+          enum:
+            - system
+            - operator
+            - customer
+          nullable: true
+          type: string
+        signedByRef:
           description:
-            The external signature request ref previously registered on
-            the order form. A mismatched ref is rejected; a matching ref on an already-signed
-            form replays to the existing order.
+            "Reference identifying the signer (operator id, customer ref,\
+            \ or hosted-accept marker)."
           type: string
         signedDocumentRef:
           description:
-            Opaque reference to the signed document (e.g. an external e-signature
-            envelope id).
+            Opaque reference to the evidence of acceptance (e.g. the hosted
+            order-form link id).
           type: string
         executionMode:
           enum:
@@ -55485,7 +55400,6 @@ components:
         updatedAt: updatedAt
         voidReason: manual
         expiresAt: expiresAt
-        signatureRequestRef: signatureRequestRef
         signedAt: signedAt
         signedDocumentRef: signedDocumentRef
         voidedAt: voidedAt
@@ -55546,10 +55460,6 @@ components:
           nullable: true
           type: string
         expiresAt:
-          minLength: 1
-          nullable: true
-          type: string
-        signatureRequestRef:
           minLength: 1
           nullable: true
           type: string
@@ -55646,7 +55556,6 @@ components:
           updatedAt: updatedAt
           voidReason: manual
           expiresAt: expiresAt
-          signatureRequestRef: signatureRequestRef
           signedAt: signedAt
           signedDocumentRef: signedDocumentRef
           voidedAt: voidedAt
@@ -55728,7 +55637,6 @@ components:
             updatedAt: updatedAt
             voidReason: manual
             expiresAt: expiresAt
-            signatureRequestRef: signatureRequestRef
             signedAt: signedAt
             signedDocumentRef: signedDocumentRef
             voidedAt: voidedAt
@@ -55783,7 +55691,6 @@ components:
         updatedAt: updatedAt
         voidReason: manual
         expiresAt: expiresAt
-        signatureRequestRef: signatureRequestRef
         signedAt: signedAt
         signedDocumentRef: signedDocumentRef
         voidedAt: voidedAt
@@ -55836,10 +55743,6 @@ components:
           minLength: 1
           nullable: true
           type: string
-        signatureRequestRef:
-          minLength: 1
-          nullable: true
-          type: string
         signedAt:
           minLength: 1
           nullable: true
@@ -55882,7 +55785,6 @@ components:
             updatedAt: updatedAt
             voidReason: manual
             expiresAt: expiresAt
-            signatureRequestRef: signatureRequestRef
             signedAt: signedAt
             signedDocumentRef: signedDocumentRef
             voidedAt: voidedAt
@@ -55900,7 +55802,6 @@ components:
             updatedAt: updatedAt
             voidReason: manual
             expiresAt: expiresAt
-            signatureRequestRef: signatureRequestRef
             signedAt: signedAt
             signedDocumentRef: signedDocumentRef
             voidedAt: voidedAt
@@ -55931,7 +55832,6 @@ components:
               updatedAt: updatedAt
               voidReason: manual
               expiresAt: expiresAt
-              signatureRequestRef: signatureRequestRef
               signedAt: signedAt
               signedDocumentRef: signedDocumentRef
               voidedAt: voidedAt
@@ -55949,7 +55849,6 @@ components:
               updatedAt: updatedAt
               voidReason: manual
               expiresAt: expiresAt
-              signatureRequestRef: signatureRequestRef
               signedAt: signedAt
               signedDocumentRef: signedDocumentRef
               voidedAt: voidedAt
@@ -56285,7 +56184,6 @@ components:
           updatedAt: updatedAt
           voidReason: manual
           expiresAt: expiresAt
-          signatureRequestRef: signatureRequestRef
           signedAt: signedAt
           signedDocumentRef: signedDocumentRef
           voidedAt: voidedAt
@@ -56436,7 +56334,6 @@ components:
             updatedAt: updatedAt
             voidReason: manual
             expiresAt: expiresAt
-            signatureRequestRef: signatureRequestRef
             signedAt: signedAt
             signedDocumentRef: signedDocumentRef
             voidedAt: voidedAt
@@ -56565,62 +56462,6 @@ components:
       required:
         - data
         - requestId
-    registerBillingOrderFormSignatureRequest_request:
-      additionalProperties: {}
-      properties:
-        environment:
-          enum:
-            - sandbox
-            - production
-          nullable: true
-          type: string
-        merchantAccountId:
-          minLength: 1
-          nullable: true
-          type: string
-        orderFormId:
-          minLength: 1
-          nullable: true
-          type: string
-        signatureRequestRef:
-          minLength: 1
-          nullable: true
-          type: string
-      required:
-        - signatureRequestRef
-    registerBillingOrderFormSignatureRequest_200_response:
-      additionalProperties: {}
-      example:
-        data:
-          orderFormId: orderFormId
-          quoteVersionId: quoteVersionId
-          quoteId: quoteId
-          customerId: customerId
-          billingAccountId: billingAccountId
-          merchantAccountId: merchantAccountId
-          number: number
-          status: generated
-          metadata:
-            key: metadata
-          createdAt: createdAt
-          updatedAt: updatedAt
-          voidReason: manual
-          expiresAt: expiresAt
-          signatureRequestRef: signatureRequestRef
-          signedAt: signedAt
-          signedDocumentRef: signedDocumentRef
-          voidedAt: voidedAt
-        requestId: requestId
-      properties:
-        data:
-          $ref: "#/components/schemas/listBillingOrderForms_200_response_data_orderForms_inner"
-        requestId:
-          minLength: 1
-          nullable: true
-          type: string
-      required:
-        - data
-        - requestId
     markBillingOrderFormSigned_request_customFieldData_value:
       anyOf:
         - type: string
@@ -56651,10 +56492,6 @@ components:
           nullable: true
           type: string
         signedByRef:
-          minLength: 1
-          nullable: true
-          type: string
-        signatureRequestRef:
           minLength: 1
           nullable: true
           type: string
@@ -56951,7 +56788,6 @@ components:
           updatedAt: updatedAt
           voidReason: manual
           expiresAt: expiresAt
-          signatureRequestRef: signatureRequestRef
           signedAt: signedAt
           signedDocumentRef: signedDocumentRef
           voidedAt: voidedAt
@@ -57030,7 +56866,6 @@ components:
             updatedAt: updatedAt
             voidReason: manual
             expiresAt: expiresAt
-            signatureRequestRef: signatureRequestRef
             signedAt: signedAt
             signedDocumentRef: signedDocumentRef
             voidedAt: voidedAt
@@ -57114,6 +56949,38 @@ components:
           minLength: 1
           nullable: true
           type: string
+    voidBillingOrderForm_200_response:
+      additionalProperties: {}
+      example:
+        data:
+          orderFormId: orderFormId
+          quoteVersionId: quoteVersionId
+          quoteId: quoteId
+          customerId: customerId
+          billingAccountId: billingAccountId
+          merchantAccountId: merchantAccountId
+          number: number
+          status: generated
+          metadata:
+            key: metadata
+          createdAt: createdAt
+          updatedAt: updatedAt
+          voidReason: manual
+          expiresAt: expiresAt
+          signedAt: signedAt
+          signedDocumentRef: signedDocumentRef
+          voidedAt: voidedAt
+        requestId: requestId
+      properties:
+        data:
+          $ref: "#/components/schemas/listBillingOrderForms_200_response_data_orderForms_inner"
+        requestId:
+          minLength: 1
+          nullable: true
+          type: string
+      required:
+        - data
+        - requestId
     listBillingOrders_200_response_data:
       additionalProperties: {}
       example:
@@ -57828,7 +57695,6 @@ components:
           updatedAt: updatedAt
           voidReason: manual
           expiresAt: expiresAt
-          signatureRequestRef: signatureRequestRef
           signedAt: signedAt
           signedDocumentRef: signedDocumentRef
           voidedAt: voidedAt
@@ -57979,7 +57845,6 @@ components:
             updatedAt: updatedAt
             voidReason: manual
             expiresAt: expiresAt
-            signatureRequestRef: signatureRequestRef
             signedAt: signedAt
             signedDocumentRef: signedDocumentRef
             voidedAt: voidedAt

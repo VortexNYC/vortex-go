@@ -20,9 +20,10 @@ var _ MappedNullable = &BillingOrderFormSignRequest{}
 
 // BillingOrderFormSignRequest struct for BillingOrderFormSignRequest
 type BillingOrderFormSignRequest struct {
-	// The external signature request ref previously registered on the order form. A mismatched ref is rejected; a matching ref on an already-signed form replays to the existing order.
-	SignatureRequestRef *string `json:"signatureRequestRef,omitempty"`
-	// Opaque reference to the signed document (e.g. an external e-signature envelope id).
+	SignedBy NullableString `json:"signedBy,omitempty"`
+	// Reference identifying the signer (operator id, customer ref, or hosted-accept marker).
+	SignedByRef *string `json:"signedByRef,omitempty"`
+	// Opaque reference to the evidence of acceptance (e.g. the hosted order-form link id).
 	SignedDocumentRef *string `json:"signedDocumentRef,omitempty"`
 	ExecutionMode *string `json:"executionMode,omitempty"`
 	ExecuteAt *time.Time `json:"executeAt,omitempty"`
@@ -48,36 +49,78 @@ func NewBillingOrderFormSignRequestWithDefaults() *BillingOrderFormSignRequest {
 	return &this
 }
 
-// GetSignatureRequestRef returns the SignatureRequestRef field value if set, zero value otherwise.
-func (o *BillingOrderFormSignRequest) GetSignatureRequestRef() string {
-	if o == nil || IsNil(o.SignatureRequestRef) {
+// GetSignedBy returns the SignedBy field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *BillingOrderFormSignRequest) GetSignedBy() string {
+	if o == nil || IsNil(o.SignedBy.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.SignatureRequestRef
+	return *o.SignedBy.Get()
 }
 
-// GetSignatureRequestRefOk returns a tuple with the SignatureRequestRef field value if set, nil otherwise
+// GetSignedByOk returns a tuple with the SignedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingOrderFormSignRequest) GetSignatureRequestRefOk() (*string, bool) {
-	if o == nil || IsNil(o.SignatureRequestRef) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *BillingOrderFormSignRequest) GetSignedByOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.SignatureRequestRef, true
+	return o.SignedBy.Get(), o.SignedBy.IsSet()
 }
 
-// HasSignatureRequestRef returns a boolean if a field has been set.
-func (o *BillingOrderFormSignRequest) HasSignatureRequestRef() bool {
-	if o != nil && !IsNil(o.SignatureRequestRef) {
+// HasSignedBy returns a boolean if a field has been set.
+func (o *BillingOrderFormSignRequest) HasSignedBy() bool {
+	if o != nil && o.SignedBy.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetSignatureRequestRef gets a reference to the given string and assigns it to the SignatureRequestRef field.
-func (o *BillingOrderFormSignRequest) SetSignatureRequestRef(v string) {
-	o.SignatureRequestRef = &v
+// SetSignedBy gets a reference to the given NullableString and assigns it to the SignedBy field.
+func (o *BillingOrderFormSignRequest) SetSignedBy(v string) {
+	o.SignedBy.Set(&v)
+}
+// SetSignedByNil sets the value for SignedBy to be an explicit nil
+func (o *BillingOrderFormSignRequest) SetSignedByNil() {
+	o.SignedBy.Set(nil)
+}
+
+// UnsetSignedBy ensures that no value is present for SignedBy, not even an explicit nil
+func (o *BillingOrderFormSignRequest) UnsetSignedBy() {
+	o.SignedBy.Unset()
+}
+
+// GetSignedByRef returns the SignedByRef field value if set, zero value otherwise.
+func (o *BillingOrderFormSignRequest) GetSignedByRef() string {
+	if o == nil || IsNil(o.SignedByRef) {
+		var ret string
+		return ret
+	}
+	return *o.SignedByRef
+}
+
+// GetSignedByRefOk returns a tuple with the SignedByRef field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingOrderFormSignRequest) GetSignedByRefOk() (*string, bool) {
+	if o == nil || IsNil(o.SignedByRef) {
+		return nil, false
+	}
+	return o.SignedByRef, true
+}
+
+// HasSignedByRef returns a boolean if a field has been set.
+func (o *BillingOrderFormSignRequest) HasSignedByRef() bool {
+	if o != nil && !IsNil(o.SignedByRef) {
+		return true
+	}
+
+	return false
+}
+
+// SetSignedByRef gets a reference to the given string and assigns it to the SignedByRef field.
+func (o *BillingOrderFormSignRequest) SetSignedByRef(v string) {
+	o.SignedByRef = &v
 }
 
 // GetSignedDocumentRef returns the SignedDocumentRef field value if set, zero value otherwise.
@@ -186,8 +229,11 @@ func (o BillingOrderFormSignRequest) MarshalJSON() ([]byte, error) {
 
 func (o BillingOrderFormSignRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.SignatureRequestRef) {
-		toSerialize["signatureRequestRef"] = o.SignatureRequestRef
+	if o.SignedBy.IsSet() {
+		toSerialize["signedBy"] = o.SignedBy.Get()
+	}
+	if !IsNil(o.SignedByRef) {
+		toSerialize["signedByRef"] = o.SignedByRef
 	}
 	if !IsNil(o.SignedDocumentRef) {
 		toSerialize["signedDocumentRef"] = o.SignedDocumentRef
@@ -220,7 +266,8 @@ func (o *BillingOrderFormSignRequest) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "signatureRequestRef")
+		delete(additionalProperties, "signedBy")
+		delete(additionalProperties, "signedByRef")
 		delete(additionalProperties, "signedDocumentRef")
 		delete(additionalProperties, "executionMode")
 		delete(additionalProperties, "executeAt")

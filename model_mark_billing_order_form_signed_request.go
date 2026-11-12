@@ -24,7 +24,6 @@ type MarkBillingOrderFormSignedRequest struct {
 	OrderFormId NullableString `json:"orderFormId,omitempty"`
 	SignedBy NullableString `json:"signedBy,omitempty"`
 	SignedByRef NullableString `json:"signedByRef,omitempty"`
-	SignatureRequestRef NullableString `json:"signatureRequestRef,omitempty"`
 	SignedDocumentRef NullableString `json:"signedDocumentRef,omitempty"`
 	ExecutionMode NullableString `json:"executionMode,omitempty"`
 	ExecuteAt NullableString `json:"executeAt,omitempty"`
@@ -261,48 +260,6 @@ func (o *MarkBillingOrderFormSignedRequest) UnsetSignedByRef() {
 	o.SignedByRef.Unset()
 }
 
-// GetSignatureRequestRef returns the SignatureRequestRef field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *MarkBillingOrderFormSignedRequest) GetSignatureRequestRef() string {
-	if o == nil || IsNil(o.SignatureRequestRef.Get()) {
-		var ret string
-		return ret
-	}
-	return *o.SignatureRequestRef.Get()
-}
-
-// GetSignatureRequestRefOk returns a tuple with the SignatureRequestRef field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *MarkBillingOrderFormSignedRequest) GetSignatureRequestRefOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.SignatureRequestRef.Get(), o.SignatureRequestRef.IsSet()
-}
-
-// HasSignatureRequestRef returns a boolean if a field has been set.
-func (o *MarkBillingOrderFormSignedRequest) HasSignatureRequestRef() bool {
-	if o != nil && o.SignatureRequestRef.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetSignatureRequestRef gets a reference to the given NullableString and assigns it to the SignatureRequestRef field.
-func (o *MarkBillingOrderFormSignedRequest) SetSignatureRequestRef(v string) {
-	o.SignatureRequestRef.Set(&v)
-}
-// SetSignatureRequestRefNil sets the value for SignatureRequestRef to be an explicit nil
-func (o *MarkBillingOrderFormSignedRequest) SetSignatureRequestRefNil() {
-	o.SignatureRequestRef.Set(nil)
-}
-
-// UnsetSignatureRequestRef ensures that no value is present for SignatureRequestRef, not even an explicit nil
-func (o *MarkBillingOrderFormSignedRequest) UnsetSignatureRequestRef() {
-	o.SignatureRequestRef.Unset()
-}
-
 // GetSignedDocumentRef returns the SignedDocumentRef field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MarkBillingOrderFormSignedRequest) GetSignedDocumentRef() string {
 	if o == nil || IsNil(o.SignedDocumentRef.Get()) {
@@ -487,9 +444,6 @@ func (o MarkBillingOrderFormSignedRequest) ToMap() (map[string]interface{}, erro
 	if o.SignedByRef.IsSet() {
 		toSerialize["signedByRef"] = o.SignedByRef.Get()
 	}
-	if o.SignatureRequestRef.IsSet() {
-		toSerialize["signatureRequestRef"] = o.SignatureRequestRef.Get()
-	}
 	if o.SignedDocumentRef.IsSet() {
 		toSerialize["signedDocumentRef"] = o.SignedDocumentRef.Get()
 	}
@@ -529,7 +483,6 @@ func (o *MarkBillingOrderFormSignedRequest) UnmarshalJSON(data []byte) (err erro
 		delete(additionalProperties, "orderFormId")
 		delete(additionalProperties, "signedBy")
 		delete(additionalProperties, "signedByRef")
-		delete(additionalProperties, "signatureRequestRef")
 		delete(additionalProperties, "signedDocumentRef")
 		delete(additionalProperties, "executionMode")
 		delete(additionalProperties, "executeAt")

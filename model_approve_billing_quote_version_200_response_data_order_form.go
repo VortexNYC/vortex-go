@@ -33,7 +33,6 @@ type ApproveBillingQuoteVersion200ResponseDataOrderForm struct {
 	UpdatedAt NullableString `json:"updatedAt"`
 	VoidReason NullableString `json:"voidReason,omitempty"`
 	ExpiresAt NullableString `json:"expiresAt,omitempty"`
-	SignatureRequestRef NullableString `json:"signatureRequestRef,omitempty"`
 	SignedAt NullableString `json:"signedAt,omitempty"`
 	SignedDocumentRef NullableString `json:"signedDocumentRef,omitempty"`
 	VoidedAt NullableString `json:"voidedAt,omitempty"`
@@ -438,48 +437,6 @@ func (o *ApproveBillingQuoteVersion200ResponseDataOrderForm) UnsetExpiresAt() {
 	o.ExpiresAt.Unset()
 }
 
-// GetSignatureRequestRef returns the SignatureRequestRef field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ApproveBillingQuoteVersion200ResponseDataOrderForm) GetSignatureRequestRef() string {
-	if o == nil || IsNil(o.SignatureRequestRef.Get()) {
-		var ret string
-		return ret
-	}
-	return *o.SignatureRequestRef.Get()
-}
-
-// GetSignatureRequestRefOk returns a tuple with the SignatureRequestRef field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ApproveBillingQuoteVersion200ResponseDataOrderForm) GetSignatureRequestRefOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.SignatureRequestRef.Get(), o.SignatureRequestRef.IsSet()
-}
-
-// HasSignatureRequestRef returns a boolean if a field has been set.
-func (o *ApproveBillingQuoteVersion200ResponseDataOrderForm) HasSignatureRequestRef() bool {
-	if o != nil && o.SignatureRequestRef.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetSignatureRequestRef gets a reference to the given NullableString and assigns it to the SignatureRequestRef field.
-func (o *ApproveBillingQuoteVersion200ResponseDataOrderForm) SetSignatureRequestRef(v string) {
-	o.SignatureRequestRef.Set(&v)
-}
-// SetSignatureRequestRefNil sets the value for SignatureRequestRef to be an explicit nil
-func (o *ApproveBillingQuoteVersion200ResponseDataOrderForm) SetSignatureRequestRefNil() {
-	o.SignatureRequestRef.Set(nil)
-}
-
-// UnsetSignatureRequestRef ensures that no value is present for SignatureRequestRef, not even an explicit nil
-func (o *ApproveBillingQuoteVersion200ResponseDataOrderForm) UnsetSignatureRequestRef() {
-	o.SignatureRequestRef.Unset()
-}
-
 // GetSignedAt returns the SignedAt field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ApproveBillingQuoteVersion200ResponseDataOrderForm) GetSignedAt() string {
 	if o == nil || IsNil(o.SignedAt.Get()) {
@@ -635,9 +592,6 @@ func (o ApproveBillingQuoteVersion200ResponseDataOrderForm) ToMap() (map[string]
 	if o.ExpiresAt.IsSet() {
 		toSerialize["expiresAt"] = o.ExpiresAt.Get()
 	}
-	if o.SignatureRequestRef.IsSet() {
-		toSerialize["signatureRequestRef"] = o.SignatureRequestRef.Get()
-	}
 	if o.SignedAt.IsSet() {
 		toSerialize["signedAt"] = o.SignedAt.Get()
 	}
@@ -713,7 +667,6 @@ func (o *ApproveBillingQuoteVersion200ResponseDataOrderForm) UnmarshalJSON(data 
 		delete(additionalProperties, "updatedAt")
 		delete(additionalProperties, "voidReason")
 		delete(additionalProperties, "expiresAt")
-		delete(additionalProperties, "signatureRequestRef")
 		delete(additionalProperties, "signedAt")
 		delete(additionalProperties, "signedDocumentRef")
 		delete(additionalProperties, "voidedAt")

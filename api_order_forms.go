@@ -788,163 +788,6 @@ func (a *OrderFormsAPIService) MarkBillingOrderFormSignedExecute(r OrderFormsAPI
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type OrderFormsAPIRegisterBillingOrderFormSignatureRequestRequest struct {
-	ctx context.Context
-	ApiService *OrderFormsAPIService
-	orderFormId string
-	registerBillingOrderFormSignatureRequestRequest *RegisterBillingOrderFormSignatureRequestRequest
-	environment *string
-	merchantAccountId *string
-	idempotencyKey *string
-}
-
-func (r OrderFormsAPIRegisterBillingOrderFormSignatureRequestRequest) RegisterBillingOrderFormSignatureRequestRequest(registerBillingOrderFormSignatureRequestRequest RegisterBillingOrderFormSignatureRequestRequest) OrderFormsAPIRegisterBillingOrderFormSignatureRequestRequest {
-	r.registerBillingOrderFormSignatureRequestRequest = &registerBillingOrderFormSignatureRequestRequest
-	return r
-}
-
-func (r OrderFormsAPIRegisterBillingOrderFormSignatureRequestRequest) Environment(environment string) OrderFormsAPIRegisterBillingOrderFormSignatureRequestRequest {
-	r.environment = &environment
-	return r
-}
-
-func (r OrderFormsAPIRegisterBillingOrderFormSignatureRequestRequest) MerchantAccountId(merchantAccountId string) OrderFormsAPIRegisterBillingOrderFormSignatureRequestRequest {
-	r.merchantAccountId = &merchantAccountId
-	return r
-}
-
-// Required for production-safe retries on mutating routes. Reusing a key with a different request body returns 409.
-func (r OrderFormsAPIRegisterBillingOrderFormSignatureRequestRequest) IdempotencyKey(idempotencyKey string) OrderFormsAPIRegisterBillingOrderFormSignatureRequestRequest {
-	r.idempotencyKey = &idempotencyKey
-	return r
-}
-
-func (r OrderFormsAPIRegisterBillingOrderFormSignatureRequestRequest) Execute() (*RegisterBillingOrderFormSignatureRequest200Response, *http.Response, error) {
-	return r.ApiService.RegisterBillingOrderFormSignatureRequestExecute(r)
-}
-
-/*
-RegisterBillingOrderFormSignatureRequest Method for RegisterBillingOrderFormSignatureRequest
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param orderFormId
- @return OrderFormsAPIRegisterBillingOrderFormSignatureRequestRequest
-*/
-func (a *OrderFormsAPIService) RegisterBillingOrderFormSignatureRequest(ctx context.Context, orderFormId string) OrderFormsAPIRegisterBillingOrderFormSignatureRequestRequest {
-	return OrderFormsAPIRegisterBillingOrderFormSignatureRequestRequest{
-		ApiService: a,
-		ctx: ctx,
-		orderFormId: orderFormId,
-	}
-}
-
-// Execute executes the request
-//  @return RegisterBillingOrderFormSignatureRequest200Response
-func (a *OrderFormsAPIService) RegisterBillingOrderFormSignatureRequestExecute(r OrderFormsAPIRegisterBillingOrderFormSignatureRequestRequest) (*RegisterBillingOrderFormSignatureRequest200Response, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *RegisterBillingOrderFormSignatureRequest200Response
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrderFormsAPIService.RegisterBillingOrderFormSignatureRequest")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/order-forms/{orderFormId}/signature-request"
-	localVarPath = strings.Replace(localVarPath, "{"+"orderFormId"+"}", url.PathEscape(parameterValueToString(r.orderFormId, "orderFormId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if strlen(r.orderFormId) < 1 {
-		return localVarReturnValue, nil, reportError("orderFormId must have at least 1 elements")
-	}
-	if r.registerBillingOrderFormSignatureRequestRequest == nil {
-		return localVarReturnValue, nil, reportError("registerBillingOrderFormSignatureRequestRequest is required and must be specified")
-	}
-
-	if r.environment != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
-	}
-	if r.merchantAccountId != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId, "form", "")
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.idempotencyKey != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
-	}
-	// body params
-	localVarPostBody = r.registerBillingOrderFormSignatureRequestRequest
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["vortexApiKey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["x-api-key"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type OrderFormsAPIRevokeOrderFormHostedLinkRequest struct {
 	ctx context.Context
 	ApiService *OrderFormsAPIService
@@ -1140,7 +983,7 @@ func (r OrderFormsAPIVoidBillingOrderFormRequest) IdempotencyKey(idempotencyKey 
 	return r
 }
 
-func (r OrderFormsAPIVoidBillingOrderFormRequest) Execute() (*RegisterBillingOrderFormSignatureRequest200Response, *http.Response, error) {
+func (r OrderFormsAPIVoidBillingOrderFormRequest) Execute() (*VoidBillingOrderForm200Response, *http.Response, error) {
 	return r.ApiService.VoidBillingOrderFormExecute(r)
 }
 
@@ -1160,13 +1003,13 @@ func (a *OrderFormsAPIService) VoidBillingOrderForm(ctx context.Context, orderFo
 }
 
 // Execute executes the request
-//  @return RegisterBillingOrderFormSignatureRequest200Response
-func (a *OrderFormsAPIService) VoidBillingOrderFormExecute(r OrderFormsAPIVoidBillingOrderFormRequest) (*RegisterBillingOrderFormSignatureRequest200Response, *http.Response, error) {
+//  @return VoidBillingOrderForm200Response
+func (a *OrderFormsAPIService) VoidBillingOrderFormExecute(r OrderFormsAPIVoidBillingOrderFormRequest) (*VoidBillingOrderForm200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *RegisterBillingOrderFormSignatureRequest200Response
+		localVarReturnValue  *VoidBillingOrderForm200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrderFormsAPIService.VoidBillingOrderForm")

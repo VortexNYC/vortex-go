@@ -109,8 +109,8 @@ tags:
   - description: Settlements and approval decisions.
     name: settlements
   - description:
-      "Merchant accounts — directory, onboarding state, capabilities, and\
-      \ money profiles."
+      "Merchant accounts — directory, onboarding state, capabilities, money\
+      \ profiles, and reporting exports."
     name: merchantAccounts
   - description:
       "Merchant onboarding — hosted drafts, session state, requirements,\
@@ -22549,6 +22549,281 @@ paths:
               path: { merchantAccountId: "...", statementId: "..." },
               query: { environment: "...", merchantAccountId: "..." },
             });
+  /v1/merchant-accounts/{merchantAccountId}/reports/{report}:
+    get:
+      operationId: getMerchantReport
+      parameters:
+        - explode: false
+          in: path
+          name: merchantAccountId
+          required: true
+          schema:
+            minLength: 1
+            type: string
+          style: simple
+        - explode: false
+          in: path
+          name: report
+          required: true
+          schema:
+            enum:
+              - payments
+              - invoices
+              - customers
+              - subscriptions
+              - usage_events
+            type: string
+          style: simple
+        - explode: true
+          in: query
+          name: environment
+          required: false
+          schema:
+            enum:
+              - sandbox
+              - production
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: from
+          required: false
+          schema:
+            minLength: 1
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: to
+          required: false
+          schema:
+            minLength: 1
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: currency
+          required: false
+          schema:
+            minLength: 1
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: status
+          required: false
+          schema:
+            minLength: 1
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: customerId
+          required: false
+          schema:
+            minLength: 1
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: meterId
+          required: false
+          schema:
+            minLength: 1
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: eventName
+          required: false
+          schema:
+            minLength: 1
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: limit
+          required: false
+          schema:
+            pattern: "^[+-]?(?:\\d+(?:\\.\\d+)?|\\.\\d+)(?:[Ee][+-]?\\d+)?$"
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: cursor
+          required: false
+          schema:
+            minLength: 1
+            type: string
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/getMerchantReport_200_response"
+          description: Success
+      security:
+        - vortexApiKey: []
+        - bearer: []
+      tags:
+        - merchantAccounts
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/merchant-accounts/:merchantAccountId/reports/:report?environment=...&from=...&to=...&currency=...&status=...&customerId=...&meterId=...&eventName=...&limit=...&cursor=..." \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { getMerchantReport, createVortex } from "@vortex-api/vortex/2026-09";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await getMerchantReport({
+              client: vortex,
+              path: { merchantAccountId: "...", report: "..." },
+              query: { environment: "...", from: "...", to: "...", currency: "...", status: "...", customerId: "...", meterId: "...", eventName: "...", limit: "...", cursor: "..." },
+            });
+  /v1/merchant-accounts/{merchantAccountId}/reports/{report}/exports:
+    get:
+      operationId: exportMerchantReport
+      parameters:
+        - explode: false
+          in: path
+          name: merchantAccountId
+          required: true
+          schema:
+            minLength: 1
+            type: string
+          style: simple
+        - explode: false
+          in: path
+          name: report
+          required: true
+          schema:
+            enum:
+              - payments
+              - invoices
+              - customers
+              - subscriptions
+              - usage_events
+            type: string
+          style: simple
+        - explode: true
+          in: query
+          name: environment
+          required: false
+          schema:
+            enum:
+              - sandbox
+              - production
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: from
+          required: false
+          schema:
+            minLength: 1
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: to
+          required: false
+          schema:
+            minLength: 1
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: currency
+          required: false
+          schema:
+            minLength: 1
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: status
+          required: false
+          schema:
+            minLength: 1
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: customerId
+          required: false
+          schema:
+            minLength: 1
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: meterId
+          required: false
+          schema:
+            minLength: 1
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: eventName
+          required: false
+          schema:
+            minLength: 1
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: limit
+          required: false
+          schema:
+            pattern: "^[+-]?(?:\\d+(?:\\.\\d+)?|\\.\\d+)(?:[Ee][+-]?\\d+)?$"
+            type: string
+          style: form
+        - explode: true
+          in: query
+          name: cursor
+          required: false
+          schema:
+            minLength: 1
+            type: string
+          style: form
+      responses:
+        "200":
+          content:
+            text/csv; charset=utf-8:
+              schema:
+                nullable: true
+                type: string
+          description: Success
+      security:
+        - vortexApiKey: []
+        - bearer: []
+      tags:
+        - merchantAccounts
+      x-codeSamples:
+        - lang: Shell
+          label: curl
+          source: |-
+            curl "https://api.vortex.nyc/v1/merchant-accounts/:merchantAccountId/reports/:report/exports?environment=...&from=...&to=...&currency=...&status=...&customerId=...&meterId=...&eventName=...&limit=...&cursor=..." \
+              -X GET \
+              -H "Authorization: Bearer $VORTEX_API_KEY" \
+        - lang: TypeScript
+          label: TypeScript
+          source: |-
+            import { exportMerchantReport, createVortex } from "@vortex-api/vortex/2026-09";
+
+            const vortex = createVortex({ apiKey: process.env.VORTEX_API_KEY });
+            const { data } = await exportMerchantReport({
+              client: vortex,
+              path: { merchantAccountId: "...", report: "..." },
+              query: { environment: "...", from: "...", to: "...", currency: "...", status: "...", customerId: "...", meterId: "...", eventName: "...", limit: "...", cursor: "..." },
+            });
   /v1/merchant-accounts/{merchantAccountId}/onboarding/readiness:
     get:
       operationId: getMerchantOnboardingReadiness
@@ -29325,9 +29600,8 @@ components:
         \ for an ad-hoc payable — invoiceNumbers and amount are mutually exclusive.\
         \ mode=subscription: items plus customerId or a customer ensure-block are\
         \ required; billingAccountId or a billingAccount block is optional (omitted\
-        \ resolves the customer's first account or auto-provisions a default). trialEndAt\
-        \ is not supported for mode=subscription — trial checkout collects a payment\
-        \ method, not a first-period invoice."
+        \ resolves the customer's first account or auto-provisions a default). Trial\
+        \ checkout is not supported yet."
       example:
         mode: payment
         invoiceNumbers:
@@ -29363,7 +29637,6 @@ components:
             quantity: 1
           - priceId: priceId
             quantity: 1
-        trialEndAt: 2000-01-23T04:56:07.000+00:00
         testClockId: testClockId
         collectionMode: manual
         successUrl: https://openapi-generator.tech
@@ -29422,9 +29695,6 @@ components:
           minItems: 1
           type: array
           default: null
-        trialEndAt:
-          format: date-time
-          type: string
         testClockId:
           nullable: true
           type: string
@@ -32688,6 +32958,144 @@ components:
         - merchantMode
         - settlementAccount
         - status
+    MerchantPortalBillingEntityProfileDate:
+      additionalProperties: false
+      example:
+        day: 1.4658129805029452
+        month: 5.962133916683182
+        year: 5.637376656633329
+      properties:
+        day:
+          type: number
+        month:
+          type: number
+        year:
+          type: number
+      required:
+        - day
+        - month
+        - year
+    MerchantPortalBillingEntityAddress:
+      additionalProperties: false
+      example:
+        line1: line1
+        line2: line2
+        city: city
+        region: region
+        postalCode: postalCode
+        country: country
+      properties:
+        line1:
+          type: string
+        line2:
+          type: string
+        city:
+          type: string
+        region:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+      required:
+        - city
+        - country
+        - line1
+        - postalCode
+    MerchantPortalBillingEntity:
+      additionalProperties: {}
+      description:
+        The org legal entity that bills for this merchant account — masked
+        tax IDs and settlement destination only.
+      example:
+        id: id
+        legalName: legalName
+        doingBusinessAs: doingBusinessAs
+        legalEntityType: legalEntityType
+        country: country
+        defaultCurrency: defaultCurrency
+        taxIdentity:
+          businessTaxIdMasked: businessTaxIdMasked
+          personalTaxIdMasked: personalTaxIdMasked
+        settlementAccount:
+          present: true
+          accountType: accountType
+          bankCode: bankCode
+          accountNumberMasked: accountNumberMasked
+          name: name
+        businessAddress:
+          line1: line1
+          line2: line2
+          city: city
+          region: region
+          postalCode: postalCode
+          country: country
+        incorporationDate:
+          day: 1.4658129805029452
+          month: 5.962133916683182
+          year: 5.637376656633329
+        principalPercentageOwnership: 2.3021358869347655
+        hasAcceptedCreditCardsPreviously: true
+        annualCardVolume: 0
+        identityVerificationStatus: identityVerificationStatus
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        id:
+          nullable: true
+          type: string
+        legalName:
+          nullable: true
+          type: string
+        doingBusinessAs:
+          nullable: true
+          type: string
+        legalEntityType:
+          nullable: true
+          type: string
+        country:
+          nullable: true
+          type: string
+        defaultCurrency:
+          nullable: true
+          type: string
+        taxIdentity:
+          $ref: "#/components/schemas/upsertOrgLegalEntity_200_response_data_taxIdentity"
+        settlementAccount:
+          $ref: "#/components/schemas/MerchantPortalSettlementDestination"
+        businessAddress:
+          $ref: "#/components/schemas/MerchantPortalBillingEntityAddress"
+        incorporationDate:
+          $ref: "#/components/schemas/MerchantPortalBillingEntityProfileDate"
+        principalPercentageOwnership:
+          nullable: true
+          type: number
+        hasAcceptedCreditCardsPreviously:
+          nullable: true
+          type: boolean
+        annualCardVolume:
+          format: int64
+          minimum: 0
+          type: integer
+        identityVerificationStatus:
+          nullable: true
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+      required:
+        - country
+        - createdAt
+        - defaultCurrency
+        - id
+        - legalEntityType
+        - legalName
+        - settlementAccount
+        - taxIdentity
+        - updatedAt
     MerchantPortalPageLeg:
       additionalProperties: false
       description:
@@ -32744,6 +33152,39 @@ components:
             bankCode: bankCode
             accountNumberMasked: accountNumberMasked
             name: name
+        billingEntity:
+          id: id
+          legalName: legalName
+          doingBusinessAs: doingBusinessAs
+          legalEntityType: legalEntityType
+          country: country
+          defaultCurrency: defaultCurrency
+          taxIdentity:
+            businessTaxIdMasked: businessTaxIdMasked
+            personalTaxIdMasked: personalTaxIdMasked
+          settlementAccount:
+            present: true
+            accountType: accountType
+            bankCode: bankCode
+            accountNumberMasked: accountNumberMasked
+            name: name
+          businessAddress:
+            line1: line1
+            line2: line2
+            city: city
+            region: region
+            postalCode: postalCode
+            country: country
+          incorporationDate:
+            day: 1.4658129805029452
+            month: 5.962133916683182
+            year: 5.637376656633329
+          principalPercentageOwnership: 2.3021358869347655
+          hasAcceptedCreditCardsPreviously: true
+          annualCardVolume: 0
+          identityVerificationStatus: identityVerificationStatus
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          updatedAt: 2000-01-23T04:56:07.000+00:00
         pageInfo:
           key: pageInfo
       properties:
@@ -32756,6 +33197,8 @@ components:
           type: string
         account:
           $ref: "#/components/schemas/MerchantPortalAccount"
+        billingEntity:
+          $ref: "#/components/schemas/MerchantPortalBillingEntity"
         pageInfo:
           additionalProperties:
             type: string
@@ -32808,6 +33251,39 @@ components:
               bankCode: bankCode
               accountNumberMasked: accountNumberMasked
               name: name
+          billingEntity:
+            id: id
+            legalName: legalName
+            doingBusinessAs: doingBusinessAs
+            legalEntityType: legalEntityType
+            country: country
+            defaultCurrency: defaultCurrency
+            taxIdentity:
+              businessTaxIdMasked: businessTaxIdMasked
+              personalTaxIdMasked: personalTaxIdMasked
+            settlementAccount:
+              present: true
+              accountType: accountType
+              bankCode: bankCode
+              accountNumberMasked: accountNumberMasked
+              name: name
+            businessAddress:
+              line1: line1
+              line2: line2
+              city: city
+              region: region
+              postalCode: postalCode
+              country: country
+            incorporationDate:
+              day: 1.4658129805029452
+              month: 5.962133916683182
+              year: 5.637376656633329
+            principalPercentageOwnership: 2.3021358869347655
+            hasAcceptedCreditCardsPreviously: true
+            annualCardVolume: 0
+            identityVerificationStatus: identityVerificationStatus
+            createdAt: 2000-01-23T04:56:07.000+00:00
+            updatedAt: 2000-01-23T04:56:07.000+00:00
           pageInfo:
             key: pageInfo
       properties:
@@ -32876,6 +33352,39 @@ components:
               bankCode: bankCode
               accountNumberMasked: accountNumberMasked
               name: name
+          billingEntity:
+            id: id
+            legalName: legalName
+            doingBusinessAs: doingBusinessAs
+            legalEntityType: legalEntityType
+            country: country
+            defaultCurrency: defaultCurrency
+            taxIdentity:
+              businessTaxIdMasked: businessTaxIdMasked
+              personalTaxIdMasked: personalTaxIdMasked
+            settlementAccount:
+              present: true
+              accountType: accountType
+              bankCode: bankCode
+              accountNumberMasked: accountNumberMasked
+              name: name
+            businessAddress:
+              line1: line1
+              line2: line2
+              city: city
+              region: region
+              postalCode: postalCode
+              country: country
+            incorporationDate:
+              day: 1.4658129805029452
+              month: 5.962133916683182
+              year: 5.637376656633329
+            principalPercentageOwnership: 2.3021358869347655
+            hasAcceptedCreditCardsPreviously: true
+            annualCardVolume: 0
+            identityVerificationStatus: identityVerificationStatus
+            createdAt: 2000-01-23T04:56:07.000+00:00
+            updatedAt: 2000-01-23T04:56:07.000+00:00
           pageInfo:
             key: pageInfo
       properties:
@@ -42444,17 +42953,18 @@ components:
         - data
         - requestId
     createMerchantAccount_request_associatedIdentities_inner_dateOfBirth:
-      additionalProperties: {}
+      additionalProperties: false
+      example:
+        day: 0.8008281904610115
+        month: 6.027456183070403
+        year: 1.4658129805029452
       nullable: true
       properties:
         day:
-          nullable: true
           type: number
         month:
-          nullable: true
           type: number
         year:
-          nullable: true
           type: number
       required:
         - day
@@ -43148,24 +43658,6 @@ components:
         - country
         - line1
         - postalCode
-    updateMerchantAccount_request_dateOfBirth:
-      additionalProperties: false
-      example:
-        day: 0.8008281904610115
-        month: 6.027456183070403
-        year: 1.4658129805029452
-      nullable: true
-      properties:
-        day:
-          type: number
-        month:
-          type: number
-        year:
-          type: number
-      required:
-        - day
-        - month
-        - year
     updateMerchantAccount_request_settlementBankAccount:
       additionalProperties: {}
       nullable: true
@@ -43195,7 +43687,7 @@ components:
         - bankCode
         - name
     updateMerchantAccount_request_associatedIdentities_inner:
-      additionalProperties: false
+      additionalProperties: {}
       properties:
         identityRoles:
           items:
@@ -43235,7 +43727,7 @@ components:
           nullable: true
           type: string
         dateOfBirth:
-          $ref: "#/components/schemas/updateMerchantAccount_request_dateOfBirth"
+          $ref: "#/components/schemas/createMerchantAccount_request_associatedIdentities_inner_dateOfBirth"
         personalAddress:
           $ref: "#/components/schemas/updateMerchantAccount_request_businessAddress"
         principalPercentageOwnership:
@@ -43304,9 +43796,9 @@ components:
           nullable: true
           type: string
         dateOfBirth:
-          $ref: "#/components/schemas/updateMerchantAccount_request_dateOfBirth"
+          $ref: "#/components/schemas/createMerchantAccount_request_associatedIdentities_inner_dateOfBirth"
         incorporationDate:
-          $ref: "#/components/schemas/updateMerchantAccount_request_dateOfBirth"
+          $ref: "#/components/schemas/createMerchantAccount_request_associatedIdentities_inner_dateOfBirth"
         maxTransactionAmount:
           nullable: true
           type: number
@@ -43473,9 +43965,9 @@ components:
           nullable: true
           type: string
         dateOfBirth:
-          $ref: "#/components/schemas/updateMerchantAccount_request_dateOfBirth"
+          $ref: "#/components/schemas/createMerchantAccount_request_associatedIdentities_inner_dateOfBirth"
         incorporationDate:
-          $ref: "#/components/schemas/updateMerchantAccount_request_dateOfBirth"
+          $ref: "#/components/schemas/createMerchantAccount_request_associatedIdentities_inner_dateOfBirth"
         annualCardVolume:
           nullable: true
           type: number
@@ -43591,7 +44083,7 @@ components:
           anyOf: []
           nullable: true
         incorporationDate:
-          $ref: "#/components/schemas/updateMerchantAccount_request_dateOfBirth"
+          $ref: "#/components/schemas/createMerchantAccount_request_associatedIdentities_inner_dateOfBirth"
         principalPercentageOwnership:
           nullable: true
           type: number
@@ -43608,7 +44100,7 @@ components:
           nullable: true
           type: string
         dateOfBirth:
-          $ref: "#/components/schemas/updateMerchantAccount_request_dateOfBirth"
+          $ref: "#/components/schemas/createMerchantAccount_request_associatedIdentities_inner_dateOfBirth"
         email:
           nullable: true
           type: string
@@ -43748,9 +44240,9 @@ components:
           nullable: true
           type: string
         dateOfBirth:
-          $ref: "#/components/schemas/updateMerchantAccount_request_dateOfBirth"
+          $ref: "#/components/schemas/createMerchantAccount_request_associatedIdentities_inner_dateOfBirth"
         incorporationDate:
-          $ref: "#/components/schemas/updateMerchantAccount_request_dateOfBirth"
+          $ref: "#/components/schemas/createMerchantAccount_request_associatedIdentities_inner_dateOfBirth"
         annualCardVolume:
           nullable: true
           type: number
@@ -66236,6 +66728,98 @@ components:
       properties:
         data:
           $ref: "#/components/schemas/getMerchantStatementAnalysis_200_response_data"
+        requestId:
+          minLength: 1
+          nullable: true
+          type: string
+      required:
+        - data
+        - requestId
+    getMerchantReport_200_response_data:
+      additionalProperties: {}
+      example:
+        report: payments
+        environment: sandbox
+        merchantAccountId: merchantAccountId
+        generatedAt: generatedAt
+        columns:
+          - columns
+          - columns
+        rows:
+          - "{}"
+          - "{}"
+        hasMore: true
+        nextCursor: nextCursor
+      properties:
+        report:
+          enum:
+            - payments
+            - invoices
+            - customers
+            - subscriptions
+            - usage_events
+          type: string
+        environment:
+          enum:
+            - sandbox
+            - production
+          nullable: true
+          type: string
+        merchantAccountId:
+          minLength: 1
+          nullable: true
+          type: string
+        generatedAt:
+          minLength: 1
+          nullable: true
+          type: string
+        columns:
+          items:
+            minLength: 1
+            type: string
+          type: array
+          default: null
+        rows:
+          items:
+            nullable: true
+            type: object
+          type: array
+          default: null
+        hasMore:
+          nullable: true
+          type: boolean
+        nextCursor:
+          minLength: 1
+          nullable: true
+          type: string
+      required:
+        - columns
+        - environment
+        - generatedAt
+        - hasMore
+        - merchantAccountId
+        - report
+        - rows
+    getMerchantReport_200_response:
+      additionalProperties: {}
+      example:
+        data:
+          report: payments
+          environment: sandbox
+          merchantAccountId: merchantAccountId
+          generatedAt: generatedAt
+          columns:
+            - columns
+            - columns
+          rows:
+            - "{}"
+            - "{}"
+          hasMore: true
+          nextCursor: nextCursor
+        requestId: requestId
+      properties:
+        data:
+          $ref: "#/components/schemas/getMerchantReport_200_response_data"
         requestId:
           minLength: 1
           nullable: true

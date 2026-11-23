@@ -25,6 +25,7 @@ type MerchantPortalView struct {
 	MerchantAccountId string `json:"merchantAccountId"`
 	LinkExpiresAt *time.Time `json:"linkExpiresAt,omitempty"`
 	Account *MerchantPortalAccount `json:"account,omitempty"`
+	BillingEntity *MerchantPortalBillingEntity `json:"billingEntity,omitempty"`
 	// Continuation token per paginated leg — present only when that leg has another page; feed it back via ?more=<leg>:<token>.
 	PageInfo map[string]string `json:"pageInfo,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -163,6 +164,38 @@ func (o *MerchantPortalView) SetAccount(v MerchantPortalAccount) {
 	o.Account = &v
 }
 
+// GetBillingEntity returns the BillingEntity field value if set, zero value otherwise.
+func (o *MerchantPortalView) GetBillingEntity() MerchantPortalBillingEntity {
+	if o == nil || IsNil(o.BillingEntity) {
+		var ret MerchantPortalBillingEntity
+		return ret
+	}
+	return *o.BillingEntity
+}
+
+// GetBillingEntityOk returns a tuple with the BillingEntity field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MerchantPortalView) GetBillingEntityOk() (*MerchantPortalBillingEntity, bool) {
+	if o == nil || IsNil(o.BillingEntity) {
+		return nil, false
+	}
+	return o.BillingEntity, true
+}
+
+// HasBillingEntity returns a boolean if a field has been set.
+func (o *MerchantPortalView) HasBillingEntity() bool {
+	if o != nil && !IsNil(o.BillingEntity) {
+		return true
+	}
+
+	return false
+}
+
+// SetBillingEntity gets a reference to the given MerchantPortalBillingEntity and assigns it to the BillingEntity field.
+func (o *MerchantPortalView) SetBillingEntity(v MerchantPortalBillingEntity) {
+	o.BillingEntity = &v
+}
+
 // GetPageInfo returns the PageInfo field value if set, zero value otherwise.
 func (o *MerchantPortalView) GetPageInfo() map[string]string {
 	if o == nil || IsNil(o.PageInfo) {
@@ -212,6 +245,9 @@ func (o MerchantPortalView) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Account) {
 		toSerialize["account"] = o.Account
+	}
+	if !IsNil(o.BillingEntity) {
+		toSerialize["billingEntity"] = o.BillingEntity
 	}
 	if !IsNil(o.PageInfo) {
 		toSerialize["pageInfo"] = o.PageInfo
@@ -264,6 +300,7 @@ func (o *MerchantPortalView) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "merchantAccountId")
 		delete(additionalProperties, "linkExpiresAt")
 		delete(additionalProperties, "account")
+		delete(additionalProperties, "billingEntity")
 		delete(additionalProperties, "pageInfo")
 		o.AdditionalProperties = additionalProperties
 	}

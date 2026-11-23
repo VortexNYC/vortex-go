@@ -16,40 +16,40 @@ import (
 	"fmt"
 )
 
-// checks if the UpdateMerchantAccountRequestDateOfBirth type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &UpdateMerchantAccountRequestDateOfBirth{}
+// checks if the MerchantPortalBillingEntityProfileDate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MerchantPortalBillingEntityProfileDate{}
 
-// UpdateMerchantAccountRequestDateOfBirth struct for UpdateMerchantAccountRequestDateOfBirth
-type UpdateMerchantAccountRequestDateOfBirth struct {
+// MerchantPortalBillingEntityProfileDate struct for MerchantPortalBillingEntityProfileDate
+type MerchantPortalBillingEntityProfileDate struct {
 	Day float32 `json:"day"`
 	Month float32 `json:"month"`
 	Year float32 `json:"year"`
 }
 
-type _UpdateMerchantAccountRequestDateOfBirth UpdateMerchantAccountRequestDateOfBirth
+type _MerchantPortalBillingEntityProfileDate MerchantPortalBillingEntityProfileDate
 
-// NewUpdateMerchantAccountRequestDateOfBirth instantiates a new UpdateMerchantAccountRequestDateOfBirth object
+// NewMerchantPortalBillingEntityProfileDate instantiates a new MerchantPortalBillingEntityProfileDate object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUpdateMerchantAccountRequestDateOfBirth(day float32, month float32, year float32) *UpdateMerchantAccountRequestDateOfBirth {
-	this := UpdateMerchantAccountRequestDateOfBirth{}
+func NewMerchantPortalBillingEntityProfileDate(day float32, month float32, year float32) *MerchantPortalBillingEntityProfileDate {
+	this := MerchantPortalBillingEntityProfileDate{}
 	this.Day = day
 	this.Month = month
 	this.Year = year
 	return &this
 }
 
-// NewUpdateMerchantAccountRequestDateOfBirthWithDefaults instantiates a new UpdateMerchantAccountRequestDateOfBirth object
+// NewMerchantPortalBillingEntityProfileDateWithDefaults instantiates a new MerchantPortalBillingEntityProfileDate object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewUpdateMerchantAccountRequestDateOfBirthWithDefaults() *UpdateMerchantAccountRequestDateOfBirth {
-	this := UpdateMerchantAccountRequestDateOfBirth{}
+func NewMerchantPortalBillingEntityProfileDateWithDefaults() *MerchantPortalBillingEntityProfileDate {
+	this := MerchantPortalBillingEntityProfileDate{}
 	return &this
 }
 
 // GetDay returns the Day field value
-func (o *UpdateMerchantAccountRequestDateOfBirth) GetDay() float32 {
+func (o *MerchantPortalBillingEntityProfileDate) GetDay() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -60,7 +60,7 @@ func (o *UpdateMerchantAccountRequestDateOfBirth) GetDay() float32 {
 
 // GetDayOk returns a tuple with the Day field value
 // and a boolean to check if the value has been set.
-func (o *UpdateMerchantAccountRequestDateOfBirth) GetDayOk() (*float32, bool) {
+func (o *MerchantPortalBillingEntityProfileDate) GetDayOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -68,12 +68,12 @@ func (o *UpdateMerchantAccountRequestDateOfBirth) GetDayOk() (*float32, bool) {
 }
 
 // SetDay sets field value
-func (o *UpdateMerchantAccountRequestDateOfBirth) SetDay(v float32) {
+func (o *MerchantPortalBillingEntityProfileDate) SetDay(v float32) {
 	o.Day = v
 }
 
 // GetMonth returns the Month field value
-func (o *UpdateMerchantAccountRequestDateOfBirth) GetMonth() float32 {
+func (o *MerchantPortalBillingEntityProfileDate) GetMonth() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -84,7 +84,7 @@ func (o *UpdateMerchantAccountRequestDateOfBirth) GetMonth() float32 {
 
 // GetMonthOk returns a tuple with the Month field value
 // and a boolean to check if the value has been set.
-func (o *UpdateMerchantAccountRequestDateOfBirth) GetMonthOk() (*float32, bool) {
+func (o *MerchantPortalBillingEntityProfileDate) GetMonthOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -92,12 +92,12 @@ func (o *UpdateMerchantAccountRequestDateOfBirth) GetMonthOk() (*float32, bool) 
 }
 
 // SetMonth sets field value
-func (o *UpdateMerchantAccountRequestDateOfBirth) SetMonth(v float32) {
+func (o *MerchantPortalBillingEntityProfileDate) SetMonth(v float32) {
 	o.Month = v
 }
 
 // GetYear returns the Year field value
-func (o *UpdateMerchantAccountRequestDateOfBirth) GetYear() float32 {
+func (o *MerchantPortalBillingEntityProfileDate) GetYear() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -108,7 +108,7 @@ func (o *UpdateMerchantAccountRequestDateOfBirth) GetYear() float32 {
 
 // GetYearOk returns a tuple with the Year field value
 // and a boolean to check if the value has been set.
-func (o *UpdateMerchantAccountRequestDateOfBirth) GetYearOk() (*float32, bool) {
+func (o *MerchantPortalBillingEntityProfileDate) GetYearOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -116,11 +116,11 @@ func (o *UpdateMerchantAccountRequestDateOfBirth) GetYearOk() (*float32, bool) {
 }
 
 // SetYear sets field value
-func (o *UpdateMerchantAccountRequestDateOfBirth) SetYear(v float32) {
+func (o *MerchantPortalBillingEntityProfileDate) SetYear(v float32) {
 	o.Year = v
 }
 
-func (o UpdateMerchantAccountRequestDateOfBirth) MarshalJSON() ([]byte, error) {
+func (o MerchantPortalBillingEntityProfileDate) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -128,7 +128,7 @@ func (o UpdateMerchantAccountRequestDateOfBirth) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o UpdateMerchantAccountRequestDateOfBirth) ToMap() (map[string]interface{}, error) {
+func (o MerchantPortalBillingEntityProfileDate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["day"] = o.Day
 	toSerialize["month"] = o.Month
@@ -136,7 +136,7 @@ func (o UpdateMerchantAccountRequestDateOfBirth) ToMap() (map[string]interface{}
 	return toSerialize, nil
 }
 
-func (o *UpdateMerchantAccountRequestDateOfBirth) UnmarshalJSON(data []byte) (err error) {
+func (o *MerchantPortalBillingEntityProfileDate) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -160,53 +160,53 @@ func (o *UpdateMerchantAccountRequestDateOfBirth) UnmarshalJSON(data []byte) (er
 		}
 	}
 
-	varUpdateMerchantAccountRequestDateOfBirth := _UpdateMerchantAccountRequestDateOfBirth{}
+	varMerchantPortalBillingEntityProfileDate := _MerchantPortalBillingEntityProfileDate{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varUpdateMerchantAccountRequestDateOfBirth)
+	err = decoder.Decode(&varMerchantPortalBillingEntityProfileDate)
 
 	if err != nil {
 		return err
 	}
 
-	*o = UpdateMerchantAccountRequestDateOfBirth(varUpdateMerchantAccountRequestDateOfBirth)
+	*o = MerchantPortalBillingEntityProfileDate(varMerchantPortalBillingEntityProfileDate)
 
 	return err
 }
 
-type NullableUpdateMerchantAccountRequestDateOfBirth struct {
-	value *UpdateMerchantAccountRequestDateOfBirth
+type NullableMerchantPortalBillingEntityProfileDate struct {
+	value *MerchantPortalBillingEntityProfileDate
 	isSet bool
 }
 
-func (v NullableUpdateMerchantAccountRequestDateOfBirth) Get() *UpdateMerchantAccountRequestDateOfBirth {
+func (v NullableMerchantPortalBillingEntityProfileDate) Get() *MerchantPortalBillingEntityProfileDate {
 	return v.value
 }
 
-func (v *NullableUpdateMerchantAccountRequestDateOfBirth) Set(val *UpdateMerchantAccountRequestDateOfBirth) {
+func (v *NullableMerchantPortalBillingEntityProfileDate) Set(val *MerchantPortalBillingEntityProfileDate) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableUpdateMerchantAccountRequestDateOfBirth) IsSet() bool {
+func (v NullableMerchantPortalBillingEntityProfileDate) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableUpdateMerchantAccountRequestDateOfBirth) Unset() {
+func (v *NullableMerchantPortalBillingEntityProfileDate) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableUpdateMerchantAccountRequestDateOfBirth(val *UpdateMerchantAccountRequestDateOfBirth) *NullableUpdateMerchantAccountRequestDateOfBirth {
-	return &NullableUpdateMerchantAccountRequestDateOfBirth{value: val, isSet: true}
+func NewNullableMerchantPortalBillingEntityProfileDate(val *MerchantPortalBillingEntityProfileDate) *NullableMerchantPortalBillingEntityProfileDate {
+	return &NullableMerchantPortalBillingEntityProfileDate{value: val, isSet: true}
 }
 
-func (v NullableUpdateMerchantAccountRequestDateOfBirth) MarshalJSON() ([]byte, error) {
+func (v NullableMerchantPortalBillingEntityProfileDate) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableUpdateMerchantAccountRequestDateOfBirth) UnmarshalJSON(src []byte) error {
+func (v *NullableMerchantPortalBillingEntityProfileDate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

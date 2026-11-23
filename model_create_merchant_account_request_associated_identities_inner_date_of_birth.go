@@ -12,6 +12,7 @@ package vortex
 
 import (
 	"encoding/json"
+	"bytes"
 	"fmt"
 )
 
@@ -20,10 +21,9 @@ var _ MappedNullable = &CreateMerchantAccountRequestAssociatedIdentitiesInnerDat
 
 // CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth struct for CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth
 type CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth struct {
-	Day NullableFloat32 `json:"day"`
-	Month NullableFloat32 `json:"month"`
-	Year NullableFloat32 `json:"year"`
-	AdditionalProperties map[string]interface{}
+	Day float32 `json:"day"`
+	Month float32 `json:"month"`
+	Year float32 `json:"year"`
 }
 
 type _CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth
@@ -32,7 +32,7 @@ type _CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth CreateMer
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth(day NullableFloat32, month NullableFloat32, year NullableFloat32) *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth {
+func NewCreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth(day float32, month float32, year float32) *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth {
 	this := CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth{}
 	this.Day = day
 	this.Month = month
@@ -49,81 +49,75 @@ func NewCreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirthWithDefa
 }
 
 // GetDay returns the Day field value
-// If the value is explicit nil, the zero value for float32 will be returned
 func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) GetDay() float32 {
-	if o == nil || o.Day.Get() == nil {
+	if o == nil {
 		var ret float32
 		return ret
 	}
 
-	return *o.Day.Get()
+	return o.Day
 }
 
 // GetDayOk returns a tuple with the Day field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) GetDayOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Day.Get(), o.Day.IsSet()
+	return &o.Day, true
 }
 
 // SetDay sets field value
 func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) SetDay(v float32) {
-	o.Day.Set(&v)
+	o.Day = v
 }
 
 // GetMonth returns the Month field value
-// If the value is explicit nil, the zero value for float32 will be returned
 func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) GetMonth() float32 {
-	if o == nil || o.Month.Get() == nil {
+	if o == nil {
 		var ret float32
 		return ret
 	}
 
-	return *o.Month.Get()
+	return o.Month
 }
 
 // GetMonthOk returns a tuple with the Month field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) GetMonthOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Month.Get(), o.Month.IsSet()
+	return &o.Month, true
 }
 
 // SetMonth sets field value
 func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) SetMonth(v float32) {
-	o.Month.Set(&v)
+	o.Month = v
 }
 
 // GetYear returns the Year field value
-// If the value is explicit nil, the zero value for float32 will be returned
 func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) GetYear() float32 {
-	if o == nil || o.Year.Get() == nil {
+	if o == nil {
 		var ret float32
 		return ret
 	}
 
-	return *o.Year.Get()
+	return o.Year
 }
 
 // GetYearOk returns a tuple with the Year field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) GetYearOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Year.Get(), o.Year.IsSet()
+	return &o.Year, true
 }
 
 // SetYear sets field value
 func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) SetYear(v float32) {
-	o.Year.Set(&v)
+	o.Year = v
 }
 
 func (o CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) MarshalJSON() ([]byte, error) {
@@ -136,14 +130,9 @@ func (o CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) Marsha
 
 func (o CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["day"] = o.Day.Get()
-	toSerialize["month"] = o.Month.Get()
-	toSerialize["year"] = o.Year.Get()
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
-	}
-
+	toSerialize["day"] = o.Day
+	toSerialize["month"] = o.Month
+	toSerialize["year"] = o.Year
 	return toSerialize, nil
 }
 
@@ -173,22 +162,15 @@ func (o *CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) Unmar
 
 	varCreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth := _CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth{}
 
-	err = json.Unmarshal(data, &varCreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth)
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth(varCreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth)
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "day")
-		delete(additionalProperties, "month")
-		delete(additionalProperties, "year")
-		o.AdditionalProperties = additionalProperties
-	}
 
 	return err
 }

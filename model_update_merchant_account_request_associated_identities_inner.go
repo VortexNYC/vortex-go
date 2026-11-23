@@ -12,7 +12,6 @@ package vortex
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -29,9 +28,10 @@ type UpdateMerchantAccountRequestAssociatedIdentitiesInner struct {
 	Phone NullableString `json:"phone,omitempty"`
 	Title NullableString `json:"title,omitempty"`
 	TaxId NullableString `json:"taxId,omitempty"`
-	DateOfBirth NullableUpdateMerchantAccountRequestDateOfBirth `json:"dateOfBirth,omitempty"`
+	DateOfBirth NullableCreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth `json:"dateOfBirth,omitempty"`
 	PersonalAddress NullableUpdateMerchantAccountRequestBusinessAddress `json:"personalAddress,omitempty"`
 	PrincipalPercentageOwnership NullableFloat32 `json:"principalPercentageOwnership,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _UpdateMerchantAccountRequestAssociatedIdentitiesInner UpdateMerchantAccountRequestAssociatedIdentitiesInner
@@ -373,9 +373,9 @@ func (o *UpdateMerchantAccountRequestAssociatedIdentitiesInner) UnsetTaxId() {
 }
 
 // GetDateOfBirth returns the DateOfBirth field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UpdateMerchantAccountRequestAssociatedIdentitiesInner) GetDateOfBirth() UpdateMerchantAccountRequestDateOfBirth {
+func (o *UpdateMerchantAccountRequestAssociatedIdentitiesInner) GetDateOfBirth() CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth {
 	if o == nil || IsNil(o.DateOfBirth.Get()) {
-		var ret UpdateMerchantAccountRequestDateOfBirth
+		var ret CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth
 		return ret
 	}
 	return *o.DateOfBirth.Get()
@@ -384,7 +384,7 @@ func (o *UpdateMerchantAccountRequestAssociatedIdentitiesInner) GetDateOfBirth()
 // GetDateOfBirthOk returns a tuple with the DateOfBirth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UpdateMerchantAccountRequestAssociatedIdentitiesInner) GetDateOfBirthOk() (*UpdateMerchantAccountRequestDateOfBirth, bool) {
+func (o *UpdateMerchantAccountRequestAssociatedIdentitiesInner) GetDateOfBirthOk() (*CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -400,8 +400,8 @@ func (o *UpdateMerchantAccountRequestAssociatedIdentitiesInner) HasDateOfBirth()
 	return false
 }
 
-// SetDateOfBirth gets a reference to the given NullableUpdateMerchantAccountRequestDateOfBirth and assigns it to the DateOfBirth field.
-func (o *UpdateMerchantAccountRequestAssociatedIdentitiesInner) SetDateOfBirth(v UpdateMerchantAccountRequestDateOfBirth) {
+// SetDateOfBirth gets a reference to the given NullableCreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth and assigns it to the DateOfBirth field.
+func (o *UpdateMerchantAccountRequestAssociatedIdentitiesInner) SetDateOfBirth(v CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) {
 	o.DateOfBirth.Set(&v)
 }
 // SetDateOfBirthNil sets the value for DateOfBirth to be an explicit nil
@@ -539,6 +539,11 @@ func (o UpdateMerchantAccountRequestAssociatedIdentitiesInner) ToMap() (map[stri
 	if o.PrincipalPercentageOwnership.IsSet() {
 		toSerialize["principalPercentageOwnership"] = o.PrincipalPercentageOwnership.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -566,15 +571,30 @@ func (o *UpdateMerchantAccountRequestAssociatedIdentitiesInner) UnmarshalJSON(da
 
 	varUpdateMerchantAccountRequestAssociatedIdentitiesInner := _UpdateMerchantAccountRequestAssociatedIdentitiesInner{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varUpdateMerchantAccountRequestAssociatedIdentitiesInner)
+	err = json.Unmarshal(data, &varUpdateMerchantAccountRequestAssociatedIdentitiesInner)
 
 	if err != nil {
 		return err
 	}
 
 	*o = UpdateMerchantAccountRequestAssociatedIdentitiesInner(varUpdateMerchantAccountRequestAssociatedIdentitiesInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "identityRoles")
+		delete(additionalProperties, "relationType")
+		delete(additionalProperties, "firstName")
+		delete(additionalProperties, "lastName")
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "phone")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "taxId")
+		delete(additionalProperties, "dateOfBirth")
+		delete(additionalProperties, "personalAddress")
+		delete(additionalProperties, "principalPercentageOwnership")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

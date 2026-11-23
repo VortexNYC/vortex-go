@@ -25,13 +25,13 @@ type UpsertOrgLegalEntityRequest struct {
 	TaxId NullableString `json:"taxId,omitempty"`
 	BusinessTaxId NullableString `json:"businessTaxId,omitempty"`
 	SettlementBankAccount NullableAnyOf `json:"settlementBankAccount,omitempty"`
-	IncorporationDate NullableUpdateMerchantAccountRequestDateOfBirth `json:"incorporationDate,omitempty"`
+	IncorporationDate NullableCreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth `json:"incorporationDate,omitempty"`
 	PrincipalPercentageOwnership NullableFloat32 `json:"principalPercentageOwnership,omitempty"`
 	PersonalAddress NullableAnyOf `json:"personalAddress,omitempty"`
 	BusinessAddress NullableAnyOf `json:"businessAddress,omitempty"`
 	FirstName NullableString `json:"firstName,omitempty"`
 	LastName NullableString `json:"lastName,omitempty"`
-	DateOfBirth NullableUpdateMerchantAccountRequestDateOfBirth `json:"dateOfBirth,omitempty"`
+	DateOfBirth NullableCreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth `json:"dateOfBirth,omitempty"`
 	Email NullableString `json:"email,omitempty"`
 	Phone NullableString `json:"phone,omitempty"`
 	DoingBusinessAs NullableString `json:"doingBusinessAs,omitempty"`
@@ -312,9 +312,9 @@ func (o *UpsertOrgLegalEntityRequest) UnsetSettlementBankAccount() {
 }
 
 // GetIncorporationDate returns the IncorporationDate field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UpsertOrgLegalEntityRequest) GetIncorporationDate() UpdateMerchantAccountRequestDateOfBirth {
+func (o *UpsertOrgLegalEntityRequest) GetIncorporationDate() CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth {
 	if o == nil || IsNil(o.IncorporationDate.Get()) {
-		var ret UpdateMerchantAccountRequestDateOfBirth
+		var ret CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth
 		return ret
 	}
 	return *o.IncorporationDate.Get()
@@ -323,7 +323,7 @@ func (o *UpsertOrgLegalEntityRequest) GetIncorporationDate() UpdateMerchantAccou
 // GetIncorporationDateOk returns a tuple with the IncorporationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UpsertOrgLegalEntityRequest) GetIncorporationDateOk() (*UpdateMerchantAccountRequestDateOfBirth, bool) {
+func (o *UpsertOrgLegalEntityRequest) GetIncorporationDateOk() (*CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -339,8 +339,8 @@ func (o *UpsertOrgLegalEntityRequest) HasIncorporationDate() bool {
 	return false
 }
 
-// SetIncorporationDate gets a reference to the given NullableUpdateMerchantAccountRequestDateOfBirth and assigns it to the IncorporationDate field.
-func (o *UpsertOrgLegalEntityRequest) SetIncorporationDate(v UpdateMerchantAccountRequestDateOfBirth) {
+// SetIncorporationDate gets a reference to the given NullableCreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth and assigns it to the IncorporationDate field.
+func (o *UpsertOrgLegalEntityRequest) SetIncorporationDate(v CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) {
 	o.IncorporationDate.Set(&v)
 }
 // SetIncorporationDateNil sets the value for IncorporationDate to be an explicit nil
@@ -564,9 +564,9 @@ func (o *UpsertOrgLegalEntityRequest) UnsetLastName() {
 }
 
 // GetDateOfBirth returns the DateOfBirth field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UpsertOrgLegalEntityRequest) GetDateOfBirth() UpdateMerchantAccountRequestDateOfBirth {
+func (o *UpsertOrgLegalEntityRequest) GetDateOfBirth() CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth {
 	if o == nil || IsNil(o.DateOfBirth.Get()) {
-		var ret UpdateMerchantAccountRequestDateOfBirth
+		var ret CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth
 		return ret
 	}
 	return *o.DateOfBirth.Get()
@@ -575,7 +575,7 @@ func (o *UpsertOrgLegalEntityRequest) GetDateOfBirth() UpdateMerchantAccountRequ
 // GetDateOfBirthOk returns a tuple with the DateOfBirth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UpsertOrgLegalEntityRequest) GetDateOfBirthOk() (*UpdateMerchantAccountRequestDateOfBirth, bool) {
+func (o *UpsertOrgLegalEntityRequest) GetDateOfBirthOk() (*CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -591,8 +591,8 @@ func (o *UpsertOrgLegalEntityRequest) HasDateOfBirth() bool {
 	return false
 }
 
-// SetDateOfBirth gets a reference to the given NullableUpdateMerchantAccountRequestDateOfBirth and assigns it to the DateOfBirth field.
-func (o *UpsertOrgLegalEntityRequest) SetDateOfBirth(v UpdateMerchantAccountRequestDateOfBirth) {
+// SetDateOfBirth gets a reference to the given NullableCreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth and assigns it to the DateOfBirth field.
+func (o *UpsertOrgLegalEntityRequest) SetDateOfBirth(v CreateMerchantAccountRequestAssociatedIdentitiesInnerDateOfBirth) {
 	o.DateOfBirth.Set(&v)
 }
 // SetDateOfBirthNil sets the value for DateOfBirth to be an explicit nil

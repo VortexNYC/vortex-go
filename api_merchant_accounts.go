@@ -442,6 +442,218 @@ func (a *MerchantAccountsAPIService) CreateMerchantAccountExecute(r MerchantAcco
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type MerchantAccountsAPIExportMerchantReportRequest struct {
+	ctx context.Context
+	ApiService *MerchantAccountsAPIService
+	merchantAccountId string
+	report string
+	environment *string
+	from *string
+	to *string
+	currency *string
+	status *string
+	customerId *string
+	meterId *string
+	eventName *string
+	limit *string
+	cursor *string
+}
+
+func (r MerchantAccountsAPIExportMerchantReportRequest) Environment(environment string) MerchantAccountsAPIExportMerchantReportRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r MerchantAccountsAPIExportMerchantReportRequest) From(from string) MerchantAccountsAPIExportMerchantReportRequest {
+	r.from = &from
+	return r
+}
+
+func (r MerchantAccountsAPIExportMerchantReportRequest) To(to string) MerchantAccountsAPIExportMerchantReportRequest {
+	r.to = &to
+	return r
+}
+
+func (r MerchantAccountsAPIExportMerchantReportRequest) Currency(currency string) MerchantAccountsAPIExportMerchantReportRequest {
+	r.currency = &currency
+	return r
+}
+
+func (r MerchantAccountsAPIExportMerchantReportRequest) Status(status string) MerchantAccountsAPIExportMerchantReportRequest {
+	r.status = &status
+	return r
+}
+
+func (r MerchantAccountsAPIExportMerchantReportRequest) CustomerId(customerId string) MerchantAccountsAPIExportMerchantReportRequest {
+	r.customerId = &customerId
+	return r
+}
+
+func (r MerchantAccountsAPIExportMerchantReportRequest) MeterId(meterId string) MerchantAccountsAPIExportMerchantReportRequest {
+	r.meterId = &meterId
+	return r
+}
+
+func (r MerchantAccountsAPIExportMerchantReportRequest) EventName(eventName string) MerchantAccountsAPIExportMerchantReportRequest {
+	r.eventName = &eventName
+	return r
+}
+
+func (r MerchantAccountsAPIExportMerchantReportRequest) Limit(limit string) MerchantAccountsAPIExportMerchantReportRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r MerchantAccountsAPIExportMerchantReportRequest) Cursor(cursor string) MerchantAccountsAPIExportMerchantReportRequest {
+	r.cursor = &cursor
+	return r
+}
+
+func (r MerchantAccountsAPIExportMerchantReportRequest) Execute() (string, *http.Response, error) {
+	return r.ApiService.ExportMerchantReportExecute(r)
+}
+
+/*
+ExportMerchantReport Method for ExportMerchantReport
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param merchantAccountId
+ @param report
+ @return MerchantAccountsAPIExportMerchantReportRequest
+*/
+func (a *MerchantAccountsAPIService) ExportMerchantReport(ctx context.Context, merchantAccountId string, report string) MerchantAccountsAPIExportMerchantReportRequest {
+	return MerchantAccountsAPIExportMerchantReportRequest{
+		ApiService: a,
+		ctx: ctx,
+		merchantAccountId: merchantAccountId,
+		report: report,
+	}
+}
+
+// Execute executes the request
+//  @return string
+func (a *MerchantAccountsAPIService) ExportMerchantReportExecute(r MerchantAccountsAPIExportMerchantReportRequest) (string, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  string
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MerchantAccountsAPIService.ExportMerchantReport")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/merchant-accounts/{merchantAccountId}/reports/{report}/exports"
+	localVarPath = strings.Replace(localVarPath, "{"+"merchantAccountId"+"}", url.PathEscape(parameterValueToString(r.merchantAccountId, "merchantAccountId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"report"+"}", url.PathEscape(parameterValueToString(r.report, "report")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.merchantAccountId) < 1 {
+		return localVarReturnValue, nil, reportError("merchantAccountId must have at least 1 elements")
+	}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.from != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
+	}
+	if r.to != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
+	}
+	if r.currency != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "currency", r.currency, "form", "")
+	}
+	if r.status != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")
+	}
+	if r.customerId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "customerId", r.customerId, "form", "")
+	}
+	if r.meterId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "meterId", r.meterId, "form", "")
+	}
+	if r.eventName != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "eventName", r.eventName, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"text/csv; charset=utf-8"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type MerchantAccountsAPIGetMerchantAccountRequest struct {
 	ctx context.Context
 	ApiService *MerchantAccountsAPIService
@@ -1017,6 +1229,218 @@ func (a *MerchantAccountsAPIService) GetMerchantRatePlanExecute(r MerchantAccoun
 	}
 	if r.merchantAccountId2 != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "merchantAccountId", r.merchantAccountId2, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["vortexApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-api-key"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MerchantAccountsAPIGetMerchantReportRequest struct {
+	ctx context.Context
+	ApiService *MerchantAccountsAPIService
+	merchantAccountId string
+	report string
+	environment *string
+	from *string
+	to *string
+	currency *string
+	status *string
+	customerId *string
+	meterId *string
+	eventName *string
+	limit *string
+	cursor *string
+}
+
+func (r MerchantAccountsAPIGetMerchantReportRequest) Environment(environment string) MerchantAccountsAPIGetMerchantReportRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r MerchantAccountsAPIGetMerchantReportRequest) From(from string) MerchantAccountsAPIGetMerchantReportRequest {
+	r.from = &from
+	return r
+}
+
+func (r MerchantAccountsAPIGetMerchantReportRequest) To(to string) MerchantAccountsAPIGetMerchantReportRequest {
+	r.to = &to
+	return r
+}
+
+func (r MerchantAccountsAPIGetMerchantReportRequest) Currency(currency string) MerchantAccountsAPIGetMerchantReportRequest {
+	r.currency = &currency
+	return r
+}
+
+func (r MerchantAccountsAPIGetMerchantReportRequest) Status(status string) MerchantAccountsAPIGetMerchantReportRequest {
+	r.status = &status
+	return r
+}
+
+func (r MerchantAccountsAPIGetMerchantReportRequest) CustomerId(customerId string) MerchantAccountsAPIGetMerchantReportRequest {
+	r.customerId = &customerId
+	return r
+}
+
+func (r MerchantAccountsAPIGetMerchantReportRequest) MeterId(meterId string) MerchantAccountsAPIGetMerchantReportRequest {
+	r.meterId = &meterId
+	return r
+}
+
+func (r MerchantAccountsAPIGetMerchantReportRequest) EventName(eventName string) MerchantAccountsAPIGetMerchantReportRequest {
+	r.eventName = &eventName
+	return r
+}
+
+func (r MerchantAccountsAPIGetMerchantReportRequest) Limit(limit string) MerchantAccountsAPIGetMerchantReportRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r MerchantAccountsAPIGetMerchantReportRequest) Cursor(cursor string) MerchantAccountsAPIGetMerchantReportRequest {
+	r.cursor = &cursor
+	return r
+}
+
+func (r MerchantAccountsAPIGetMerchantReportRequest) Execute() (*GetMerchantReport200Response, *http.Response, error) {
+	return r.ApiService.GetMerchantReportExecute(r)
+}
+
+/*
+GetMerchantReport Method for GetMerchantReport
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param merchantAccountId
+ @param report
+ @return MerchantAccountsAPIGetMerchantReportRequest
+*/
+func (a *MerchantAccountsAPIService) GetMerchantReport(ctx context.Context, merchantAccountId string, report string) MerchantAccountsAPIGetMerchantReportRequest {
+	return MerchantAccountsAPIGetMerchantReportRequest{
+		ApiService: a,
+		ctx: ctx,
+		merchantAccountId: merchantAccountId,
+		report: report,
+	}
+}
+
+// Execute executes the request
+//  @return GetMerchantReport200Response
+func (a *MerchantAccountsAPIService) GetMerchantReportExecute(r MerchantAccountsAPIGetMerchantReportRequest) (*GetMerchantReport200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *GetMerchantReport200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MerchantAccountsAPIService.GetMerchantReport")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/merchant-accounts/{merchantAccountId}/reports/{report}"
+	localVarPath = strings.Replace(localVarPath, "{"+"merchantAccountId"+"}", url.PathEscape(parameterValueToString(r.merchantAccountId, "merchantAccountId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"report"+"}", url.PathEscape(parameterValueToString(r.report, "report")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.merchantAccountId) < 1 {
+		return localVarReturnValue, nil, reportError("merchantAccountId must have at least 1 elements")
+	}
+
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.from != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
+	}
+	if r.to != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
+	}
+	if r.currency != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "currency", r.currency, "form", "")
+	}
+	if r.status != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")
+	}
+	if r.customerId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "customerId", r.customerId, "form", "")
+	}
+	if r.meterId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "meterId", r.meterId, "form", "")
+	}
+	if r.eventName != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "eventName", r.eventName, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
